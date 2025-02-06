@@ -1,0 +1,9 @@
+{
+  "name": "siprec_connector_name",
+  "description": "Uniquely identifies a SIPREC connector",
+  "in": "query",
+  "required": true,
+  "schema": {
+    "type": "string"
+  }
+}

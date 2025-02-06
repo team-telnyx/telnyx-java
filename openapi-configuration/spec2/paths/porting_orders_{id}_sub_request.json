@@ -1,0 +1,27 @@
+{
+  "get": {
+    "summary": "Retrieve the associated V1 sub_request_id and port_request_id",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Retrieve the associated V1 sub_request_id and port_request_id",
+    "operationId": "GetPortingOrderSubRequest",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PathPortingOrderID.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SubRequestByPortingOrder.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Porting Order not found"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

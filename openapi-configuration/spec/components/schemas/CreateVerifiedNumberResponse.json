@@ -1,0 +1,14 @@
+{
+  "title": "CreateVerifiedNumberResponse",
+  "type": "object",
+  "properties": {
+    "phone_number": {
+      "example": "+15551234567",
+      "type": "string"
+    },
+    "verification_method": {
+      "example": "sms",
+      "type": "string"
+    }
+  }
+}

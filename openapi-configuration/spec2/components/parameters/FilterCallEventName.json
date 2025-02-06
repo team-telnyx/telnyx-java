@@ -1,0 +1,10 @@
+{
+  "name": "filter[name]",
+  "in": "query",
+  "description": "Event name",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "example": "webhook"
+  }
+}

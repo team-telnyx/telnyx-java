@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true,
+      "example": "portability_check_result"
+    },
+    "fast_portable": {
+      "type": "boolean",
+      "description": "Indicates whether this phone number is FastPort eligible",
+      "example": true,
+      "readOnly": true
+    },
+    "not_portable_reason": {
+      "type": "string",
+      "description": "If this phone number is not portable, explains why. Empty string if the number is portable.",
+      "example": "No coverage",
+      "readOnly": true
+    },
+    "phone_number": {
+      "type": "string",
+      "description": "The +E.164 formatted phone number this result is about",
+      "example": "+13125550123",
+      "readOnly": true
+    },
+    "portable": {
+      "type": "boolean",
+      "description": "Indicates whether this phone number is portable",
+      "example": true,
+      "readOnly": true
+    }
+  }
+}

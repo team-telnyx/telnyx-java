@@ -1,0 +1,59 @@
+{
+  "get": {
+    "summary": "List all Interfaces for a Network.",
+    "description": "List all Interfaces for a Network.",
+    "operationId": "ListNetworkInterfaces",
+    "tags": [
+      "Networks"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[name]",
+        "description": "The interface name to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "test interface"
+        }
+      },
+      {
+        "name": "filter[type]",
+        "description": "The interface type to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "wireguard_interface"
+        }
+      },
+      {
+        "name": "filter[status]",
+        "description": "The interface status to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "$ref": "../components/schemas/InterfaceStatus.json"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NetworkInterfaceListResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

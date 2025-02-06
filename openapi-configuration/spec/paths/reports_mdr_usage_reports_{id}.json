@@ -1,0 +1,84 @@
+{
+  "delete": {
+    "tags": [
+      "MDR Usage Reports"
+    ],
+    "description": "Delete messaging usage report by id",
+    "summary": "Delete MDR Usage Report",
+    "operationId": "DeleteUsageReport",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "content": {
+          "*/*": {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/MdrDeleteUsageReportsResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "x-latency-category": "interactive"
+  },
+  "get": {
+    "tags": [
+      "MDR Usage Reports"
+    ],
+    "description": "Fetch a single messaging usage report by id",
+    "summary": "Retrieve messaging report",
+    "operationId": "GetUsageReport",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "content": {
+          "*/*": {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/MdrGetUsageReportsByIdResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "x-latency-category": "interactive"
+  }
+}

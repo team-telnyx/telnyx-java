@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Call Playback Ended Event",
+  "properties": {
+    "data": {
+      "$ref": "./CallPlaybackEnded.json"
+    }
+  }
+}

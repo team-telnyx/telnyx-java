@@ -1,0 +1,36 @@
+{
+  "get": {
+    "description": "Returns the civic addresses and locations from Microsoft Teams.",
+    "summary": "List all civic addresses and locations",
+    "operationId": "ListCivicAddresses",
+    "tags": [
+      "External Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterCountry.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetAllCivicAddressesResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "500": {
+        "description": "Unexpected Error"
+      },
+      "502": {
+        "description": "Bad Gateway"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

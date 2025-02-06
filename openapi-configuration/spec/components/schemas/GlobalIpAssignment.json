@@ -1,0 +1,48 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "type": "object",
+      "title": "Global IP",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "global_ip_assignment"
+        },
+        "global_ip_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Global IP ID.",
+          "example": "a836125b-20b6-452e-9c03-2653f09c7ed7"
+        },
+        "wireguard_peer_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Wireguard peer ID.",
+          "example": "e66c496d-4a85-423b-8b2a-8e63fac20320"
+        },
+        "status": {
+          "$ref": "./InterfaceStatus.json"
+        },
+        "is_connected": {
+          "type": "boolean",
+          "readOnly": true,
+          "description": "Wireguard peer is connected."
+        },
+        "is_in_maintenance": {
+          "type": "boolean",
+          "description": "Enable/disable BGP announcement."
+        },
+        "is_announced": {
+          "type": "boolean",
+          "readOnly": true,
+          "description": "Status of BGP announcement."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Bucket Storage Usage",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/BucketUsage.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMetaSimple.json"
+          }
+        }
+      }
+    }
+  }
+}

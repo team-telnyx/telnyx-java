@@ -1,0 +1,18 @@
+{
+  "allOf": [
+    {
+      "$ref": "./PublicInternetGateway.json"
+    },
+    {
+      "$ref": "./RegionIn.json"
+    },
+    {
+      "type": "object",
+      "title": "PublicInternetGatewayCreate",
+      "required": [
+        "network_id",
+        "region"
+      ]
+    }
+  ]
+}

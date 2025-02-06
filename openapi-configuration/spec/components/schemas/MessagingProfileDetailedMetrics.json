@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "properties": {
+    "overview": {
+      "$ref": "./MessagingProfileHighLevelMetrics.json"
+    },
+    "detailed": {
+      "type": "array",
+      "items": {
+        "$ref": "./MessagingProfileDetailedMetric.json"
+      }
+    }
+  },
+  "example": {
+    "detailed": [
+      {
+        "metrics": [
+          {
+            "label": "longcode",
+            "sent": 1000,
+            "delivered": 990,
+            "errors": 0.01,
+            "received": 750
+          }
+        ],
+        "timestamp": "2019-01-23T18:10:02.574Z"
+      }
+    ],
+    "overview": {
+      "record_type": "messaging_profile_metrics",
+      "messaging_profile_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "phone_numbers": 250,
+      "outbound": {
+        "sent": 1000,
+        "delivered": 990,
+        "errors": 0.01
+      },
+      "inbound": {
+        "received": 850
+      }
+    }
+  }
+}

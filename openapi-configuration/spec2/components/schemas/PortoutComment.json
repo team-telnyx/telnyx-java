@@ -1,0 +1,49 @@
+{
+  "required": [
+    "id",
+    "body",
+    "user_id",
+    "created_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true,
+      "example": "portout"
+    },
+    "body": {
+      "type": "string",
+      "description": "Comment body",
+      "example": "This is a comment"
+    },
+    "portout_id": {
+      "type": "string",
+      "description": "Identifies the associated port request",
+      "default": null,
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Identifies the user who created the comment. Will be null if created by Telnyx Admin",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Comment creation timestamp in ISO 8601 format",
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  },
+  "example": {
+    "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+    "record_type": "portout",
+    "body": "This is a comment",
+    "portout_id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+    "user_id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+    "created_at": "2018-02-02T22:25:27.521Z"
+  }
+}

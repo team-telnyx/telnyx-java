@@ -1,0 +1,49 @@
+{
+  "get": {
+    "tags": [
+      "Wireless Regions"
+    ],
+    "parameters": [
+      {
+        "name": "product",
+        "description": "The product for which to list regions (e.g., 'public_ips', 'private_wireless_gateways').",
+        "schema": {
+          "type": "string",
+          "example": "public_ips"
+        },
+        "in": "query",
+        "required": true
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "A list of wireless regions",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../components/schemas/Region.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "$ref": "../components/responses/ResourceNotFound.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "operationId": "WirelessRegionsGetAll",
+    "summary": "Get all wireless regions",
+    "description": "Retrieve all wireless regions for the given product.",
+    "x-latency-category": "responsive"
+  }
+}

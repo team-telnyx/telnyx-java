@@ -1,0 +1,102 @@
+{
+  "get": {
+    "summary": "List all document links",
+    "deprecated": false,
+    "description": "List all documents links ordered by created_at descending.",
+    "operationId": "ListDocumentLinks",
+    "tags": [
+      "Documents"
+    ],
+    "parameters": [
+      {
+        "name": "page[number]",
+        "in": "query",
+        "description": "The page number to load",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      {
+        "name": "page[size]",
+        "in": "query",
+        "description": "The size of the page",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 250,
+          "default": 20
+        }
+      },
+      {
+        "name": "filter[document_id]",
+        "in": "query",
+        "description": "Identifies the associated document to filter on.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      },
+      {
+        "name": "filter[linked_record_type]",
+        "in": "query",
+        "description": "The `linked_record_type` of the document to filter on.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "porting_order"
+        }
+      },
+      {
+        "name": "filter[linked_resource_id]",
+        "in": "query",
+        "description": "The `linked_resource_id` of the document to filter on.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "../components/schemas/DocServiceDocumentLink.json"
+                  }
+                },
+                "meta": {
+                  "$ref": "../components/schemas/PaginationMeta.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

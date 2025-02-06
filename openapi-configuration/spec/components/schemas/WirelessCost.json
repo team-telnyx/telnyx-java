@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "amount": {
+      "type": "string",
+      "description": "Final cost. Cost is calculated as rate * unit",
+      "example": 0.1
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency of the rate and cost",
+      "example": "USD",
+      "enum": [
+        "AUD",
+        "CAD",
+        "EUR",
+        "GBP",
+        "USD"
+      ]
+    }
+  }
+}

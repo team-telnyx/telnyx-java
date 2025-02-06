@@ -1,0 +1,9 @@
+{
+  "name": "call_sid",
+  "in": "path",
+  "required": true,
+  "description": "The CallSid that identifies the call to update.",
+  "schema": {
+    "type": "string"
+  }
+}

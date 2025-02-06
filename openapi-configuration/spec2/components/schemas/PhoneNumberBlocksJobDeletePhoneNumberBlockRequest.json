@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": [
+    "phone_number_block_id"
+  ],
+  "properties": {
+    "phone_number_block_id": {
+      "type": "string"
+    }
+  },
+  "example": {
+    "phone_number_block_id": "f3946371-7199-4261-9c3d-81a0d7935146"
+  }
+}

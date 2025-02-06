@@ -1,0 +1,16 @@
+{
+  "description": "Action response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Validate address action response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/ValidateAddressResult.json"
+          }
+        }
+      }
+    }
+  }
+}

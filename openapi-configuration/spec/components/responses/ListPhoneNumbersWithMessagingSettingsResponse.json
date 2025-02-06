@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of phone numbers with messaging settings.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Messaging Settings Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/PhoneNumberWithMessagingSettings.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

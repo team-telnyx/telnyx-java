@@ -1,0 +1,16 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Fax Application Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/FaxApplication.json"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Successful call streaming update response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/TexmlUpdateCallStreamingResponseBody.json"
+      }
+    }
+  }
+}

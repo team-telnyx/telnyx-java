@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "title": "Update Call Result",
+  "example": {
+    "sid": "c46e06d7-b78f-4b13-96b6-c576af9640ff",
+    "status": "accepted"
+  },
+  "properties": {
+    "sid": {
+      "type": "string",
+      "example": "c46e06d7-b78f-4b13-96b6-c576af9640ff"
+    },
+    "status": {
+      "type": "string",
+      "example": "accepted"
+    }
+  }
+}

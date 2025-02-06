@@ -1,0 +1,45 @@
+{
+  "post": {
+    "tags": [
+      "Bulk Phone Number Campaigns"
+    ],
+    "summary": "Assign Messaging Profile To Campaign",
+    "operationId": "PostAssignMessagingProfileToCampaign",
+    "parameters": [],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/AssignProfileToCampaignRequest.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "Response Assign Messaging Profile To Campaign Public Phonenumberassignmentbyprofile Post",
+              "anyOf": [
+                {
+                  "$ref": "../components/schemas/AssignProfileToCampaignResponse.json"
+                },
+                {
+                  "$ref": "../components/schemas/SettingsDataErrorMessage.json"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "description": "This endpoint allows you to link all phone numbers associated with a Messaging Profile to a campaign. **Please note:** if you want to assign phone numbers to a campaign that you did not create with Telnyx 10DLC services, this endpoint allows that provided that you've shared the campaign with Telnyx. In this case, only provide the parameter, `tcrCampaignId`, and not `campaignId`. In all other cases (where the campaign you're assigning was created with Telnyx 10DLC services), only provide `campaignId`, not `tcrCampaignId`.",
+    "x-latency-category": "responsive"
+  }
+}

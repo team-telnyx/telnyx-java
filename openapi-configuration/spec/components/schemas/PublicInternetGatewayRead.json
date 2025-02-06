@@ -1,0 +1,10 @@
+{
+  "allOf": [
+    {
+      "$ref": "./PublicInternetGateway.json"
+    },
+    {
+      "$ref": "./RegionOut.json"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "description": "The direction of the fax.",
+  "type": "string",
+  "example": "outbound",
+  "enum": [
+    "inbound",
+    "outbound"
+  ]
+}

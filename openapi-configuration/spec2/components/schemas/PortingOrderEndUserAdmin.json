@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "entity_name": {
+      "type": "string",
+      "description": "Person Name or Company name requesting the port",
+      "example": "Porter McPortersen"
+    },
+    "auth_person_name": {
+      "type": "string",
+      "description": "Name of person authorizing the porting order",
+      "example": "Porter McPortersen II"
+    },
+    "billing_phone_number": {
+      "type": "string",
+      "description": "Billing phone number associated with these phone numbers",
+      "example": 13035551234
+    },
+    "account_number": {
+      "type": "string",
+      "description": "The authorized person's account number with the current service provider",
+      "example": "123abc"
+    },
+    "tax_identifier": {
+      "type": "string",
+      "description": "European tax identification number. Applicable only in the European Union",
+      "example": "1234abcd"
+    },
+    "pin_passcode": {
+      "type": "string",
+      "description": "PIN/passcode possibly required by the old service provider for extra verification",
+      "example": 1234
+    },
+    "business_identifier": {
+      "type": "string",
+      "description": "European business identification number. Applicable only in the European Union",
+      "example": "abc123"
+    }
+  }
+}

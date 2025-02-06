@@ -1,0 +1,34 @@
+{
+  "post": {
+    "summary": "Republish a porting event",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Republish a specific porting event.",
+    "operationId": "republishPortingEvent",
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Identifies the porting event.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "No content"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

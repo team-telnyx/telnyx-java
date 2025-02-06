@@ -1,0 +1,34 @@
+{
+  "required": [
+    "card_orientation",
+    "thumbnail_image_alignment",
+    "card_content"
+  ],
+  "type": "object",
+  "description": "Standalone card",
+  "properties": {
+    "card_orientation": {
+      "type": "string",
+      "example": "HORIZONTAL",
+      "description": "Orientation of the card.",
+      "enum": [
+        "CARD_ORIENTATION_UNSPECIFIED",
+        "HORIZONTAL",
+        "VERTICAL"
+      ]
+    },
+    "thumbnail_image_alignment": {
+      "type": "string",
+      "example": "LEFT",
+      "description": "Image preview alignment for standalone cards with horizontal layout.",
+      "enum": [
+        "THUMBNAIL_IMAGE_ALIGNMENT_UNSPECIFIED",
+        "LEFT",
+        "RIGHT"
+      ]
+    },
+    "card_content": {
+      "$ref": "./RCSCardContent.json"
+    }
+  }
+}

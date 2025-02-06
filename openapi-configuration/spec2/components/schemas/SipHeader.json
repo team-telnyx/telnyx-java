@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "title": "SIP Header",
+  "required": [
+    "name",
+    "value"
+  ],
+  "properties": {
+    "name": {
+      "description": "The name of the header to add.",
+      "type": "string",
+      "enum": [
+        "User-to-User"
+      ],
+      "example": "User-to-User"
+    },
+    "value": {
+      "description": "The value of the header.",
+      "type": "string",
+      "example": "value"
+    }
+  },
+  "example": {
+    "name": "User-to-User",
+    "value": "value"
+  }
+}

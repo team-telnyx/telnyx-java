@@ -1,0 +1,95 @@
+{
+  "get": {
+    "summary": "List number reservations",
+    "description": "Gets a paginated list of phone number reservations.",
+    "operationId": "ListNumberReservations",
+    "tags": [
+      "Phone Number Reservations"
+    ],
+    "x-group-parameters": "true",
+    "parameters": [
+      {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter number reservations by status.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[created_at][gt]",
+        "in": "query",
+        "description": "Filter number reservations later than this value.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[created_at][lt]",
+        "in": "query",
+        "description": "Filter number reservations earlier than this value.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[phone_numbers.phone_number]",
+        "in": "query",
+        "description": "Filter number reservations having these phone numbers.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[customer_reference]",
+        "in": "query",
+        "description": "Filter number reservations via the customer reference set.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListNumberReservationsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a number reservation",
+    "description": "Creates a Phone Number Reservation for multiple numbers.",
+    "operationId": "CreateNumberReservation",
+    "tags": [
+      "Phone Number Reservations"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateNumberReservationRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NumberReservationResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

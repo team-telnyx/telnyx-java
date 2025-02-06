@@ -1,0 +1,42 @@
+{
+  "post": {
+    "summary": "Unmute participants in room session.",
+    "description": "",
+    "operationId": "UnmuteParticipantInSession",
+    "x-endpoint-cost": "medium",
+    "tags": [
+      "Room Sessions"
+    ],
+    "security": [],
+    "parameters": [
+      {
+        "name": "room_session_id",
+        "in": "path",
+        "description": "The unique identifier of a room session.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that can be defined during Unmute action.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/ActionsParticipantsRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ActionSuccessResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

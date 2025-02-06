@@ -1,0 +1,10 @@
+{
+  "name": "filter[from]",
+  "in": "query",
+  "description": "Filter by From number.",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "example": "+12025550142"
+  }
+}

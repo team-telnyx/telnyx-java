@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "source": {
+      "type": "string",
+      "title": "Source"
+    },
+    "checksum": {
+      "type": "string",
+      "title": "Checksum"
+    },
+    "embedding": {
+      "type": "string",
+      "title": "Embedding"
+    },
+    "filename": {
+      "type": "string",
+      "title": "Filename"
+    },
+    "certainty": {
+      "type": "number",
+      "title": "Certainty"
+    },
+    "loader_metadata": {
+      "type": "object",
+      "title": "Loader Metadata"
+    }
+  },
+  "type": "object",
+  "required": [
+    "source",
+    "checksum",
+    "embedding",
+    "filename"
+  ],
+  "title": "EmbeddingMetadata"
+}

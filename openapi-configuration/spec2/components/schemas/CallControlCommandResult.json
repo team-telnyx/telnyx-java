@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "title": "Call Control Command Result",
+  "example": {
+    "result": "ok"
+  },
+  "properties": {
+    "result": {
+      "type": "string",
+      "example": "ok"
+    }
+  }
+}

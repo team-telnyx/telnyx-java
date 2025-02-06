@@ -1,0 +1,9 @@
+{
+  "name": "filter[address.administrative_area]",
+  "description": "Filter by state or province where the address is located.",
+  "schema": {
+    "type": "string",
+    "example": "TX"
+  },
+  "in": "query"
+}

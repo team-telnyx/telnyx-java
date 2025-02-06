@@ -1,0 +1,158 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true,
+      "example": "portout"
+    },
+    "phone_numbers": {
+      "description": "Phone numbers associated with this portout",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "E164 formatted phone number"
+      },
+      "example": [
+        "+35312345678"
+      ]
+    },
+    "authorized_name": {
+      "type": "string",
+      "description": "Name of person authorizing the porting order",
+      "example": "McPortersen"
+    },
+    "carrier_name": {
+      "type": "string",
+      "description": "Carrier the number will be ported out to",
+      "example": "test"
+    },
+    "current_carrier": {
+      "type": "string",
+      "description": "The current carrier",
+      "example": "telnyx"
+    },
+    "end_user_name": {
+      "type": "string",
+      "description": "Person name or company name requesting the port",
+      "example": "McPortersen"
+    },
+    "city": {
+      "type": "string",
+      "description": "City or municipality of billing address",
+      "example": "Chicago"
+    },
+    "state": {
+      "type": "string",
+      "description": "State, province, or similar of billing address",
+      "example": "IL"
+    },
+    "zip": {
+      "type": "string",
+      "description": "Postal Code of billing address",
+      "example": "00000"
+    },
+    "lsr": {
+      "type": "array",
+      "description": "The Local Service Request",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "description": "A link to the Local Service Request"
+      },
+      "example": [
+        "https://example.com/files/lsr.pdf"
+      ]
+    },
+    "pon": {
+      "type": "string",
+      "description": "Port order number assigned by the carrier the number will be ported out to",
+      "example": "00000000"
+    },
+    "reason": {
+      "type": "string",
+      "description": "The reason why the order is being rejected by the user. If the order is authorized, this field can be left null",
+      "example": null
+    },
+    "rejection_code": {
+      "type": "integer",
+      "description": "The rejection code for one of the valid rejections to reject a port out order",
+      "example": 1002
+    },
+    "service_address": {
+      "type": "string",
+      "description": "First line of billing address (street address)",
+      "example": "000 Example Street"
+    },
+    "foc_date": {
+      "type": "string",
+      "description": "ISO 8601 formatted Date/Time of the FOC date",
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "requested_foc_date": {
+      "type": "string",
+      "description": "ISO 8601 formatted Date/Time of the user requested FOC date",
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "spid": {
+      "type": "string",
+      "description": "New service provider spid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "support_key": {
+      "type": "string",
+      "description": "A key to reference this port out request when contacting Telnyx customer support",
+      "example": "PO_764725"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of portout request",
+      "enum": [
+        "pending",
+        "authorized",
+        "ported",
+        "rejected",
+        "rejected-pending",
+        "canceled"
+      ],
+      "example": "rejected"
+    },
+    "already_ported": {
+      "type": "boolean",
+      "description": "Is true when the number is already ported",
+      "example": false
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the user (or organization) who requested the port out",
+      "example": "7865816a-ee85-4e50-b19e-52983dcc6d4a"
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Telnyx partner providing network coverage",
+      "format": "uuid",
+      "example": "0e66ed3b-37e6-4fed-93d6-a30ce2493661"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the portout was created",
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "inserted_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the portout was created",
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the portout was last updated",
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "title": "Create Siprec Session Response",
+  "properties": {
+    "account_sid": {
+      "type": "string",
+      "description": "The id of the account the resource belongs to.",
+      "example": "61bf923e-5e4d-4595-a110-56190ea18a1b"
+    },
+    "call_sid": {
+      "type": "string",
+      "description": "The id of the call the resource belongs to.",
+      "example": "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+    },
+    "sid": {
+      "description": "The SID of the siprec session.",
+      "example": "61bf923e-5e4d-4595-a110-56190ea18123",
+      "type": "string"
+    },
+    "date_created": {
+      "description": "The date and time the siprec session was created.",
+      "example": "Fri, 11 Aug 2023 19:12:11 +0000",
+      "type": "string"
+    },
+    "date_updated": {
+      "description": "The date and time the siprec session was last updated.",
+      "example": "Fri, 11 Aug 2023 19:12:11 +0000",
+      "type": "string"
+    },
+    "start_time": {
+      "description": "The date and time the siprec session was started.",
+      "example": "Fri, 11 Aug 2023 19:12:11 +0000",
+      "type": "string"
+    },
+    "status": {
+      "description": "The status of the siprec session.",
+      "example": "in-progress",
+      "type": "string",
+      "enum": [
+        "in-progress",
+        "stopped"
+      ]
+    },
+    "track": {
+      "description": "The track used for the siprec session.",
+      "example": "both_tracks",
+      "type": "string",
+      "enum": [
+        "both_tracks",
+        "inbound_track",
+        "outbound_track"
+      ]
+    },
+    "uri": {
+      "description": "The URI of the siprec session.",
+      "example": "https://api.telnyx.com/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18123/Calls/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-ai/Siprec/61bf923e-5e4d-4595-a110-56190ea18123",
+      "type": "string"
+    },
+    "error_code": {
+      "description": "The error code of the siprec session.",
+      "example": null,
+      "type": "string"
+    }
+  }
+}

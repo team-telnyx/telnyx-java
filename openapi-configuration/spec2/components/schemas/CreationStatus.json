@@ -1,0 +1,10 @@
+{
+  "description": "An enumeration.",
+  "enum": [
+    "pending",
+    "created",
+    "failed"
+  ],
+  "title": "CreationStatus",
+  "type": "string"
+}

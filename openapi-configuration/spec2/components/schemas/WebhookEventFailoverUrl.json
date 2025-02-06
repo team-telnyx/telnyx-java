@@ -1,0 +1,9 @@
+{
+  "title": "Webhook Event Failover URL",
+  "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+  "type": "string",
+  "format": "url",
+  "default": "",
+  "nullable": true,
+  "example": "https://failover.example.com"
+}

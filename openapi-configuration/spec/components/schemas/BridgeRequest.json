@@ -1,0 +1,173 @@
+{
+  "type": "object",
+  "title": "Bridge Request",
+  "required": [
+    "call_control_id"
+  ],
+  "properties": {
+    "call_control_id": {
+      "description": "The Call Control ID of the call you want to bridge with, can't be used together with queue parameter or video_room_id parameter.",
+      "type": "string",
+      "example": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    },
+    "queue": {
+      "description": "The name of the queue you want to bridge with, can't be used together with call_control_id parameter or video_room_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.",
+      "type": "string",
+      "example": "support"
+    },
+    "video_room_id": {
+      "description": "The ID of the video room you want to bridge with, can't be used together with call_control_id parameter or queue parameter.",
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "video_room_context": {
+      "description": "The additional parameter that will be passed to the video conference. It is a text field and the user can decide how to use it. For example, you can set the participant name or pass JSON text. It can be used only with video_room_id parameter.",
+      "type": "string",
+      "example": "Alice"
+    },
+    "park_after_unbridge": {
+      "description": "Specifies behavior after the bridge ends (i.e. the opposite leg either hangs up or is transferred). If supplied with the value `self`, the current leg will be parked after unbridge. If not set, the default behavior is to hang up the leg.",
+      "type": "string",
+      "example": "self"
+    },
+    "play_ringtone": {
+      "description": "Specifies whether to play a ringtone if the call you want to bridge with has not yet been answered.",
+      "type": "boolean",
+      "default": false,
+      "example": true
+    },
+    "ringtone": {
+      "description": "Specifies which country ringtone to play when `play_ringtone` is set to `true`. If not set, the US ringtone will be played.",
+      "type": "string",
+      "default": "us",
+      "example": "pl",
+      "enum": [
+        "at",
+        "au",
+        "be",
+        "bg",
+        "br",
+        "ch",
+        "cl",
+        "cn",
+        "cz",
+        "de",
+        "dk",
+        "ee",
+        "es",
+        "fi",
+        "fr",
+        "gr",
+        "hu",
+        "il",
+        "in",
+        "it",
+        "jp",
+        "lt",
+        "mx",
+        "my",
+        "nl",
+        "no",
+        "nz",
+        "ph",
+        "pl",
+        "pt",
+        "ru",
+        "se",
+        "sg",
+        "th",
+        "tw",
+        "uk",
+        "us-old",
+        "us",
+        "ve",
+        "za"
+      ]
+    },
+    "record": {
+      "description": "Start recording automatically after an event. Disabled by default.",
+      "type": "string",
+      "enum": [
+        "record-from-answer"
+      ],
+      "example": "record-from-answer"
+    },
+    "record_channels": {
+      "description": "Defines which channel should be recorded ('single' or 'dual') when `record` is specified.",
+      "type": "string",
+      "enum": [
+        "single",
+        "dual"
+      ],
+      "default": "dual",
+      "example": "single"
+    },
+    "record_format": {
+      "description": "Defines the format of the recording ('wav' or 'mp3') when `record` is specified.",
+      "type": "string",
+      "enum": [
+        "wav",
+        "mp3"
+      ],
+      "default": "mp3",
+      "example": "wav"
+    },
+    "record_max_length": {
+      "description": "Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).",
+      "type": "integer",
+      "format": "int32",
+      "default": 0,
+      "example": 1000
+    },
+    "record_timeout_secs": {
+      "description": "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).",
+      "type": "integer",
+      "format": "int32",
+      "default": 0,
+      "example": 100
+    },
+    "record_track": {
+      "description": "The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).",
+      "type": "string",
+      "example": "outbound",
+      "default": "both",
+      "enum": [
+        "both",
+        "inbound",
+        "outbound"
+      ]
+    },
+    "record_trim": {
+      "description": "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.",
+      "enum": [
+        "trim-silence"
+      ],
+      "type": "string",
+      "example": "trim-silence"
+    },
+    "record_custom_file_name": {
+      "description": "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "example": "my_recording_file_name"
+    }
+  },
+  "example": {
+    "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+    "park_after_unbridge": "self"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "description": "The quality of the fax. The `ultra` settings provides the highest quality available, but also present longer fax processing times. `ultra_light` is best suited for images, wihle `ultra_dark` is best suited for text.",
+  "type": "string",
+  "example": "high",
+  "default": "high",
+  "enum": [
+    "normal",
+    "high",
+    "very_high",
+    "ultra_light",
+    "ultra_dark"
+  ]
+}

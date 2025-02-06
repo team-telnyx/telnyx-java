@@ -1,0 +1,98 @@
+{
+  "type": "object",
+  "title": "Participant resource",
+  "example": {
+    "account_sid": "4e71926f-8f13-450e-b91c-23c2ef786aa6",
+    "api_version": "v2/texml",
+    "call_sid": "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ",
+    "call_sid_legacy": "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ",
+    "coaching": false,
+    "coaching_call_sid": null,
+    "coaching_call_sid_legacy": null,
+    "conference_sid": "cd5a70f4-759b-4d5e-9c06-88c00f16f3c1",
+    "date_created": "Fri, 27 Oct 2023 07:41:58 +0000",
+    "date_updated": "Fri, 27 Oct 2023 07:41:58 +0000",
+    "end_conference_on_exit": false,
+    "hold": false,
+    "muted": false,
+    "status": "completed",
+    "uri": "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json"
+  },
+  "properties": {
+    "account_sid": {
+      "type": "string",
+      "description": "The id of the account the resource belongs to.",
+      "example": "61bf923e-5e4d-4595-a110-56190ea18a1b"
+    },
+    "api_version": {
+      "type": "string",
+      "description": "The version of the API that was used to make the request.",
+      "example": "v2/texml"
+    },
+    "call_sid": {
+      "type": "string",
+      "description": "The identifier of this participant's call.",
+      "example": "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+    },
+    "call_sid_legacy": {
+      "type": "string",
+      "description": "The identifier of this participant's call.",
+      "example": "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+    },
+    "coaching": {
+      "type": "boolean",
+      "description": "Whether the participant is coaching another call.",
+      "example": false
+    },
+    "coaching_call_sid": {
+      "type": "string",
+      "description": "The identifier of the coached participant's call.",
+      "example": "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+    },
+    "coaching_call_sid_legacy": {
+      "type": "string",
+      "description": "The identifier of the coached participant's call.",
+      "example": "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+    },
+    "date_created": {
+      "type": "string",
+      "description": "The timestamp of when the resource was created.",
+      "example": "Thu, 15 Jun 2023 09:56:45 +0000"
+    },
+    "date_updated": {
+      "type": "string",
+      "description": "The timestamp of when the resource was last updated.",
+      "example": "Thu, 15 Jun 2023 09:56:45 +0000"
+    },
+    "end_conference_on_exit": {
+      "type": "boolean",
+      "description": "Whether the conference ends when the participant leaves.",
+      "example": false
+    },
+    "hold": {
+      "type": "boolean",
+      "description": "Whether the participant is on hold.",
+      "example": false
+    },
+    "muted": {
+      "type": "boolean",
+      "description": "Whether the participant is muted.",
+      "example": false
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the participant's call in the conference.",
+      "enum": [
+        "connecting",
+        "connected",
+        "completed"
+      ],
+      "example": "in-progress"
+    },
+    "uri": {
+      "type": "string",
+      "description": "The relative URI for this participant.",
+      "example": "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json"
+    }
+  }
+}

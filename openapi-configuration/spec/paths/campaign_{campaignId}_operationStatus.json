@@ -1,0 +1,45 @@
+{
+  "get": {
+    "tags": [
+      "Campaign"
+    ],
+    "summary": "Get My Campaign Operation Status",
+    "operationId": "GetCampaignOperationStatus",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Campaignid",
+          "type": "string"
+        },
+        "name": "campaignId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "Response Get My Campaign Operation Status Public Campaign  Campaignid  Operationstatus Get",
+              "type": "object"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "description": "Retrieve campaign's operation status at MNO level.",
+    "x-latency-category": "responsive"
+  }
+}

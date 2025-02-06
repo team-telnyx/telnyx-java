@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "title": "Cursor Pagination Meta",
+  "properties": {
+    "cursors": {
+      "$ref": "./Cursor.json"
+    },
+    "total_items": {
+      "type": "integer",
+      "example": 50
+    },
+    "next": {
+      "type": "string",
+      "description": "Path to next page.",
+      "example": "/v2/connections/1234567890/active_calls?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI="
+    },
+    "previous": {
+      "type": "string",
+      "description": "Path to previous page.",
+      "example": "/v2/connections/1234567890/active_calls?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI="
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "post": {
+    "tags": [
+      "Fine Tuning"
+    ],
+    "summary": "Cancel a fine tuning job",
+    "description": "Cancel a fine tuning job.",
+    "operationId": "cancel_new_finetuningjob_public_finetuning_post",
+    "parameters": [
+      {
+        "name": "job_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "title": "Job Id"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/FineTuningJob.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

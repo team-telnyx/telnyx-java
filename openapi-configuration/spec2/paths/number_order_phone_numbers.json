@@ -1,0 +1,30 @@
+{
+  "get": {
+    "summary": "Retrieve a list of phone numbers associated to orders",
+    "description": "Get a list of phone numbers associated to orders.",
+    "operationId": "RetrieveOrderPhoneNumbers",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "parameters": [
+      {
+        "name": "filter[country_code]",
+        "in": "query",
+        "description": "Country code of the order phone number.",
+        "schema": {
+          "type": "string",
+          "example": "US"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListNumberOrderPhoneNumbersResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

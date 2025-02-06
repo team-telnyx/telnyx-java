@@ -1,0 +1,26 @@
+{
+  "title": "VettingClass",
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "enabled": {
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "displayName": {
+      "title": "Displayname",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "validityMonths": {
+      "title": "Validitymonths",
+      "type": "integer"
+    }
+  }
+}

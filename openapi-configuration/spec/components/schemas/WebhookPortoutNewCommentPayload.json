@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "description": "The webhook payload for the portout.new_comment event",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c",
+      "description": "Identifies the comment that was added to the port-out order."
+    },
+    "portout_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "d26109e5-0605-4671-a235-d3c649cc8406",
+      "description": "Identifies the port-out order that the comment was added to."
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "1c45c968-c2e0-4559-b1dd-db073962fc61",
+      "description": "Identifies the user that added the comment."
+    },
+    "comment": {
+      "type": "string",
+      "description": "The body of the comment.",
+      "example": "This is a comment."
+    }
+  }
+}

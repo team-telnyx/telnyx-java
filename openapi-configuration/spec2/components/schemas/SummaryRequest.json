@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "bucket": {
+      "type": "string"
+    },
+    "filename": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "bucket",
+    "filename"
+  ],
+  "title": "SummaryRequest"
+}

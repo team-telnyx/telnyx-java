@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "RecordingResponse",
+  "properties": {
+    "data": {
+      "$ref": "./RecordingResponseData.json"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "filter[status][eq]",
+  "in": "query",
+  "description": "The status of the upload to filter by",
+  "required": false,
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "enum": [
+        "pending_upload",
+        "pending",
+        "in_progress",
+        "success",
+        "error"
+      ]
+    },
+    "example": [
+      "pending_upload",
+      "pending"
+    ]
+  }
+}

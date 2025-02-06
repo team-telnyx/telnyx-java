@@ -1,0 +1,190 @@
+{
+  "type": "object",
+  "title": "Call Initiated",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "event",
+      "enum": [
+        "event"
+      ],
+      "description": "Identifies the type of the resource."
+    },
+    "event_type": {
+      "type": "string",
+      "example": "call.initiated",
+      "enum": [
+        "call.initiated"
+      ],
+      "description": "The type of event being delivered."
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+      "description": "Identifies the type of resource."
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2018-02-02T22:25:27.521992Z",
+      "description": "ISO 8601 datetime of when the event occurred."
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "call_control_id": {
+          "type": "string",
+          "example": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+          "description": "Call ID used to issue commands via Call Control API."
+        },
+        "connection_id": {
+          "type": "string",
+          "example": "7267xxxxxxxxxxxxxx",
+          "description": "Call Control App ID (formerly Telnyx connection ID) used in the call."
+        },
+        "connection_codecs": {
+          "type": "string",
+          "example": "G722,PCMU,PCMA",
+          "description": "The list of comma-separated codecs enabled for the connection."
+        },
+        "offered_codecs": {
+          "type": "string",
+          "example": "G722,PCMU,PCMA",
+          "description": "The list of comma-separated codecs offered by caller."
+        },
+        "call_leg_id": {
+          "type": "string",
+          "example": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+          "description": "ID that is unique to the call and can be used to correlate webhook events."
+        },
+        "custom_headers": {
+          "description": "Custom headers from sip invite",
+          "type": "array",
+          "example": [
+            {
+              "name": "head_1",
+              "value": "val_1"
+            },
+            {
+              "name": "head_2",
+              "value": "val_2"
+            }
+          ],
+          "items": {
+            "$ref": "./CustomSipHeader.json"
+          }
+        },
+        "sip_headers": {
+          "description": "User-to-User and Diversion headers from sip invite.",
+          "type": "array",
+          "example": [
+            {
+              "name": "User-to-User",
+              "value": "1234"
+            },
+            {
+              "name": "Diversion",
+              "value": "<sip:111@192.168.1.1>"
+            }
+          ],
+          "items": {
+            "$ref": "./SipHeader.json"
+          }
+        },
+        "shaken_stir_attestation": {
+          "type": "string",
+          "example": "A",
+          "description": "SHAKEN/STIR attestation level."
+        },
+        "shaken_stir_validated": {
+          "type": "boolean",
+          "example": true,
+          "description": "Whether attestation was successfully validated or not."
+        },
+        "call_session_id": {
+          "type": "string",
+          "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+          "description": "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call."
+        },
+        "client_state": {
+          "type": "string",
+          "example": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+          "description": "State received from a command."
+        },
+        "caller_id_name": {
+          "type": "string",
+          "example": "+35319605860",
+          "description": "Caller id."
+        },
+        "call_screening_result": {
+          "type": "string",
+          "example": "spam_likely",
+          "description": "Call screening result."
+        },
+        "from": {
+          "type": "string",
+          "example": "+35319605860",
+          "description": "Number or SIP URI placing the call."
+        },
+        "to": {
+          "type": "string",
+          "example": "+13129457420",
+          "description": "Destination number or SIP URI of the call."
+        },
+        "direction": {
+          "type": "string",
+          "example": "incoming",
+          "enum": [
+            "incoming",
+            "outgoing"
+          ],
+          "description": "Whether the call is `incoming` or `outgoing`."
+        },
+        "state": {
+          "type": "string",
+          "example": "parked",
+          "enum": [
+            "parked",
+            "bridging"
+          ],
+          "description": "State received from a command."
+        },
+        "start_time": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-02-02T22:25:27.521992Z",
+          "description": "ISO 8601 datetime of when the call started."
+        },
+        "tags": {
+          "description": "Array of tags associated to number.",
+          "example": [
+            "tag-01",
+            "tag-02"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "example": {
+    "record_type": "event",
+    "event_type": "call.initiated",
+    "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+    "occurred_at": "2018-02-02T22:25:27.521992Z",
+    "payload": {
+      "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+      "connection_id": "7267xxxxxxxxxxxxxx",
+      "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+      "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+      "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+      "from": "+35319605860",
+      "to": "+35319605860",
+      "direction": "incoming",
+      "state": "parked"
+    }
+  }
+}

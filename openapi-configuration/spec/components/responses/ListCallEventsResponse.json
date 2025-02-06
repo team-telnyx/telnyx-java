@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of call events.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Call Events Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/CallEvent.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

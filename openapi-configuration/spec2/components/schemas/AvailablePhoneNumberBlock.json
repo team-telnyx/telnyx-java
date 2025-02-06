@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "available_phone_number_block",
+      "enum": [
+        "available_phone_number_block"
+      ]
+    },
+    "starting_number": {
+      "type": "string",
+      "example": "+19705555000"
+    },
+    "range": {
+      "type": "integer",
+      "example": 10
+    },
+    "region_information": {
+      "type": "array",
+      "items": {
+        "$ref": "./RegionInformation.json"
+      }
+    },
+    "cost_information": {
+      "$ref": "./CostInformation.json"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "$ref": "./Feature.json"
+      }
+    }
+  },
+  "example": {
+    "record_type": "available_phone_number_block",
+    "phone_number": "+19705555000",
+    "range": 10,
+    "region_information": [
+      {
+        "region_type": "country_code",
+        "region_name": "US"
+      }
+    ],
+    "cost_information": {
+      "upfront_cost": "3.21",
+      "monthly_cost": "6.54",
+      "currency": "USD"
+    },
+    "features": [
+      {
+        "name": "sms"
+      },
+      {
+        "name": "voice"
+      }
+    ]
+  }
+}

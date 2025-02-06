@@ -1,0 +1,54 @@
+{
+  "delete": {
+    "summary": "Delete recording resource",
+    "description": "Deletes recording resource identified by recording id.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "DeleteTeXMLCallRecording",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/RecordingSid.json"
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "The resource was deleted successfully."
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  },
+  "get": {
+    "summary": "Fetch recording resource",
+    "description": "Returns recording resource identified by recording id.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "GetTeXMLCallRecording",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/RecordingSid.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/TexmlGetCallRecordingResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  }
+}

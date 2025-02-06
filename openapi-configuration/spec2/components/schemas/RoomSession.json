@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "A unique identifier for the room session.",
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "room_id": {
+      "description": "Identify the room hosting that room session.",
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777b0"
+    },
+    "active": {
+      "description": "Shows if the room session is active or not.",
+      "type": "boolean",
+      "example": false
+    },
+    "created_at": {
+      "description": "ISO 8601 timestamp when the room session was created.",
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-03-26T17:51:59.588408Z"
+    },
+    "updated_at": {
+      "description": "ISO 8601 timestamp when the room session was updated.",
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-03-26T17:51:59.588408Z"
+    },
+    "ended_at": {
+      "description": "ISO 8601 timestamp when the room session has ended.",
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-03-26T17:51:59.588408Z"
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "$ref": "./RoomParticipant.json"
+      }
+    },
+    "record_type": {
+      "type": "string",
+      "example": "room_session",
+      "readOnly": true
+    }
+  },
+  "example": {
+    "id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+    "room_id": "7b61621f-5fe4-4aad-ab11-9fd19e272e73",
+    "active": false,
+    "created_at": "2021-04-16T09:46:20.954863Z",
+    "updated_at": "2021-04-16T10:24:55.962200Z",
+    "ended_at": "2021-04-16T10:24:55.962200Z",
+    "participants": [],
+    "record_type": "room_session"
+  }
+}

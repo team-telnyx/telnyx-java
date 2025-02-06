@@ -1,0 +1,44 @@
+{
+  "get": {
+    "tags": [
+      "Fine Tuning"
+    ],
+    "summary": "Get a fine tuning job",
+    "description": "Retrieve a fine tuning job by `job_id`.",
+    "operationId": "get_finetuningjob_public_finetuning__job_id__get",
+    "parameters": [
+      {
+        "name": "job_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "title": "Job Id"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/FineTuningJob.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

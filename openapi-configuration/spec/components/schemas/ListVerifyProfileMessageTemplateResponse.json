@@ -1,0 +1,16 @@
+{
+  "title": "ListVerifyProfileMessageTemplateResponse",
+  "description": "A list of Verify profile message templates",
+  "required": [
+    "data"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "./VerifyProfileMessageTemplateResponse.json"
+      }
+    }
+  }
+}

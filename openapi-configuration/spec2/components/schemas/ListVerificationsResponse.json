@@ -1,0 +1,19 @@
+{
+  "title": "ListVerificationsResponse",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "./Verification.json"
+      }
+    },
+    "meta": {
+      "$ref": "./Meta.json"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "filter[leg_id]",
+  "in": "query",
+  "description": "The unique identifier of an individual call leg.",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

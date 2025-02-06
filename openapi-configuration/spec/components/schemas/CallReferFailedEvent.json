@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Call Refer Failed Event",
+  "properties": {
+    "data": {
+      "$ref": "./CallReferFailed.json"
+    }
+  }
+}

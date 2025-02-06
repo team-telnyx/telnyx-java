@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "detail": {
+      "items": {
+        "$ref": "./NotFoundError.json"
+      },
+      "type": "array",
+      "title": "Detail"
+    }
+  },
+  "type": "object",
+  "title": "HTTPValidationError"
+}

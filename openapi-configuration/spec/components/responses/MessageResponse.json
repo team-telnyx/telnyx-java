@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a message.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Message Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/OutboundMessagePayload.json"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of messaging hosted number orders.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Messaging Hosted Number Order Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/MessagingHostedNumberOrder.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

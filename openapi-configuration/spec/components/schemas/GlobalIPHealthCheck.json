@@ -1,0 +1,38 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "type": "object",
+      "title": "Global IP health check",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "global_ip_health_check"
+        },
+        "health_check_type": {
+          "type": "string",
+          "description": "The Global IP health check type.",
+          "example": "http_status_2xx"
+        },
+        "health_check_params": {
+          "type": "object",
+          "description": "A Global IP health check params.",
+          "example": {
+            "path": "/",
+            "port": 8080
+          }
+        },
+        "global_ip_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Global IP ID.",
+          "example": "a836125b-20b6-452e-9c03-2653f09c7ed7"
+        }
+      }
+    }
+  ]
+}

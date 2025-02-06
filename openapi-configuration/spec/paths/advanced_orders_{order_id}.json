@@ -1,0 +1,34 @@
+{
+  "get": {
+    "summary": "Get Advanced Order",
+    "operationId": "get_advanced_order_v2",
+    "parameters": [
+      {
+        "name": "order_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Order Id"
+        }
+      }
+    ],
+    "tags": [
+      "Advanced Number Orders"
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/responses/AdvancedOrderResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

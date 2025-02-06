@@ -1,0 +1,83 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "0add777f-1549-46f7-84e9-ad7350f6aa97",
+      "description": "Unique ID of the verification"
+    },
+    "verify_profile_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "49000176-1ab2-8bc1-352e-4009f6c37f82"
+    },
+    "delivery_status": {
+      "type": "string",
+      "example": "pending"
+    },
+    "verification_status": {
+      "type": "string",
+      "example": "pending"
+    },
+    "destination_phone_number": {
+      "type": "string",
+      "description": "E.164 formatted phone number",
+      "example": "+13124515883"
+    },
+    "verify_channel_type": {
+      "description": "Depending on the type of verification, the `verify_channel_id`\npoints to one of the following channel ids;\n---\nverify_channel_type | verify_channel_id\n------------------- | -----------------\nsms, psd2           | messaging_id\ncall, flashcall     | call_control_id\nwhatsapp            | messaging_whatsapp_id\n---\n",
+      "type": "string",
+      "enum": [
+        "sms",
+        "psd2",
+        "call",
+        "flashcall",
+        "whatsapp"
+      ]
+    },
+    "verify_channel_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "5b7a8365-91f3-420a-befc-498d1efd6c20"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-07-08T00:00:41.000000+00:00"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "datetime",
+      "example": "2021-07-08T00:00:41.000000+00:00"
+    },
+    "rate": {
+      "type": "string",
+      "example": "0.002",
+      "description": "Currency amount per billing unit used to calculate the Telnyx billing costs"
+    },
+    "rate_measured_in": {
+      "type": "string",
+      "example": "number of occurrences",
+      "description": "Billing unit used to calculate the Telnyx billing costs"
+    },
+    "verify_usage_fee": {
+      "type": "string",
+      "example": "0.002",
+      "description": "Currency amount for Verify Usage Fee"
+    },
+    "currency": {
+      "type": "string",
+      "example": "USD",
+      "description": "Telnyx account currency used to describe monetary values, including billing costs"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "verification_detail_record",
+      "default": "verification_detail_record"
+    }
+  },
+  "required": [
+    "record_type"
+  ]
+}

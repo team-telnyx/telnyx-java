@@ -1,0 +1,36 @@
+{
+  "get": {
+    "summary": "List Audit Logs",
+    "description": "Retrieve a list of audit log entries. Audit logs are a best-effort, eventually consistent record of significant account-related changes.",
+    "operationId": "ListAuditLogs",
+    "tags": [
+      "Audit Logs"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterCreatedBefore.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterCreatedAfter.json"
+      },
+      {
+        "$ref": "../components/parameters/Sort.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/AuditLogListResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

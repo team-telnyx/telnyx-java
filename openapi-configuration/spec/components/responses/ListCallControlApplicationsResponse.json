@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of call control applications.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Call Control Applications Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/CallControlApplication.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

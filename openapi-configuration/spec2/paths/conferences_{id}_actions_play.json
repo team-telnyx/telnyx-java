@@ -1,0 +1,136 @@
+{
+  "post": {
+    "summary": "Play audio to conference participants",
+    "description": "Play audio to all or some participants on a conference call.",
+    "operationId": "PlayConferenceAudio",
+    "tags": [
+      "Conference Commands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Uniquely identifies the conference by id or name",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/ConferencePlayRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ConferenceCommandResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "callbacks": {
+      "conferencePlaybackStarted": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference play conference playback started",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferencePlaybackStartedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "conferencePlaybackEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference play conference playback ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferencePlaybackEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "conferenceParticipantPlaybackStarted": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference play conference participant playback started",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferenceParticipantPlaybackStartedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "conferenceParticipantPlaybackEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference play conference participant playback ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferenceParticipantPlaybackEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

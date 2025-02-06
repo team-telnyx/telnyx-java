@@ -1,0 +1,11 @@
+{
+  "name": "page[limit]",
+  "in": "query",
+  "description": "Limit of records per single page",
+  "schema": {
+    "type": "integer",
+    "minimum": 1,
+    "maximum": 250,
+    "default": 20
+  }
+}

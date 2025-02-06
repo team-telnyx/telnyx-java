@@ -1,0 +1,10 @@
+{
+  "title": "External SIP Connection",
+  "type": "string",
+  "description": "The service that will be consuming this connection.",
+  "enum": [
+    "zoom"
+  ],
+  "default": "zoom",
+  "example": "zoom"
+}

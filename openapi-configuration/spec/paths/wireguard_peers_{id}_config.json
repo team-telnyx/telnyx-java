@@ -1,0 +1,32 @@
+{
+  "get": {
+    "summary": "Retrieve Wireguard config template for Peer",
+    "description": "Retrieve Wireguard config template for Peer",
+    "operationId": "GetWireguardPeerConfig",
+    "tags": [
+      "WireGuard Interfaces"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "text/plain; charset=utf-8": {
+            "schema": {
+              "type": "string",
+              "example": "[Interface]\nPrivateKey = <! INSERT PEER PRIVATE KEY HERE !>\nAddress = 198.51.100.1/32\n\n[Peer]\nPublicKey = qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=\nAllowedIPs = 198.51.100.0/29\nEndpoint = 203.0.113.0:51871\nPersistentKeepalive = 25\n"
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

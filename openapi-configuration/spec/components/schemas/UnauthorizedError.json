@@ -1,0 +1,29 @@
+{
+  "allOf": [
+    {
+      "$ref": "./GenericError.json"
+    },
+    {
+      "properties": {
+        "code": {
+          "example": "10009"
+        },
+        "title": {
+          "example": "Authentication failed"
+        },
+        "detail": {
+          "example": "The required authentication headers were either invalid or not included in the request."
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "example": "https://developers.telnyx.com/docs/overview/errors/10009"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

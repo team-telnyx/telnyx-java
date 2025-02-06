@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "title": "Siprec Connector Response",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "title": "Siprec Connector",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "example": "siprec_connector"
+        },
+        "name": {
+          "type": "string",
+          "example": "siprec-connector",
+          "description": "Name for the siprec connector resource."
+        },
+        "host": {
+          "type": "string",
+          "description": "Hostname/IPv4 address of SIPREC SRS to be used",
+          "example": "siprec.telnyx.com"
+        },
+        "port": {
+          "type": "integer",
+          "description": "Port for SIPREC SRS to be used",
+          "example": 5060
+        },
+        "app_subdomain": {
+          "description": "Sip subdomain to route the call when using Telnyx SRS Not required if non-Telnyx SRS is used.",
+          "type": "string",
+          "example": "my-app-domain"
+        },
+        "created_at": {
+          "type": "string",
+          "description": "ISO 8601 formatted date of when the resource was created",
+          "example": "2024-01-23T18:10:02.574Z"
+        },
+        "updated_at": {
+          "type": "string",
+          "description": "ISO 8601 formatted date of when the resource was last updated",
+          "example": "2024-01-23T18:10:02.574Z"
+        }
+      }
+    }
+  }
+}

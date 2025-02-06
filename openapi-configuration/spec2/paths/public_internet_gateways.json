@@ -1,0 +1,67 @@
+{
+  "get": {
+    "summary": "List all Public Internet Gateways",
+    "description": "List all Public Internet Gateways.",
+    "operationId": "ListPublicInternetGateways",
+    "tags": [
+      "Public Internet Gateways"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[network_id]",
+        "description": "The associated network id to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PublicInternetGatewayListResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a Public Internet Gateway",
+    "description": "Create a new Public Internet Gateway.",
+    "operationId": "CreatePublicInternetGateway",
+    "tags": [
+      "Public Internet Gateways"
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/PublicInternetGatewayCreate.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "202": {
+        "$ref": "../components/responses/PublicInternetGatewayResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntity.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

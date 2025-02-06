@@ -1,0 +1,15 @@
+{
+  "description": "Create Migration Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/MigrationParams.json"
+          }
+        }
+      }
+    }
+  }
+}

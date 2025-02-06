@@ -1,0 +1,9 @@
+{
+  "title": "VerificationProfileRecordType",
+  "enum": [
+    "verification_profile"
+  ],
+  "type": "string",
+  "example": "verification_profile",
+  "description": "The possible verification profile record types."
+}

@@ -1,0 +1,40 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "$ref": "./WireguardPeerPatch.json"
+    },
+    {
+      "type": "object",
+      "title": "WireguardPeer",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "wireguard_peer"
+        },
+        "last_seen": {
+          "type": "string",
+          "description": "ISO 8601 formatted date-time indicating when peer sent traffic last time.",
+          "readOnly": true,
+          "example": "2018-02-02T22:25:27.521Z"
+        },
+        "wireguard_interface_id": {
+          "description": "The id of the wireguard interface associated with the peer.",
+          "type": "string",
+          "format": "uuid",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        },
+        "private_key": {
+          "type": "string",
+          "description": "Your WireGuard `Interface.PrivateKey`.<br /><br />This attribute is only ever utlised if, on POST, you do NOT provide your own `public_key`. In which case, a new Public and Private key pair will be generated for you. When your `private_key` is returned, you must save this immediately as we do not save it within Telnyx. If you lose your Private Key, it can not be recovered.",
+          "example": "qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=",
+          "readOnly": true
+        }
+      }
+    }
+  ]
+}

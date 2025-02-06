@@ -1,0 +1,9 @@
+{
+  "name": "customer_service_record_id",
+  "in": "path",
+  "description": "The ID of the customer service record",
+  "required": true,
+  "schema": {
+    "type": "string"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "required": [
+    "from",
+    "to"
+  ],
+  "properties": {
+    "from": {
+      "type": "string",
+      "format": "address",
+      "description": "Phone number, in +E.164 format, used to send the message."
+    },
+    "to": {
+      "description": "A list of destinations. No more than 8 destinations are allowed.",
+      "type": "array",
+      "items": {
+        "$ref": "./ToNumber.json"
+      }
+    },
+    "text": {
+      "type": "string",
+      "description": "Message body (i.e., content) as a non-empty string."
+    },
+    "subject": {
+      "type": "string",
+      "description": "Subject of multimedia message"
+    },
+    "media_urls": {
+      "description": "A list of media URLs. The total media size must be less than 1 MB.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "url"
+      }
+    },
+    "webhook_url": {
+      "description": "The URL where webhooks related to this message will be sent.",
+      "type": "string",
+      "format": "url"
+    },
+    "webhook_failover_url": {
+      "description": "The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.",
+      "type": "string",
+      "format": "url"
+    },
+    "use_profile_webhooks": {
+      "type": "boolean",
+      "description": "If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.",
+      "default": true
+    }
+  },
+  "example": {
+    "from": "+13125551234",
+    "to": [
+      "+18655551234",
+      "+14155551234"
+    ],
+    "text": "Hello, World!",
+    "subject": "From Telnyx!",
+    "media_urls": [
+      "http://example.com"
+    ],
+    "webhook_url": "http://example.com/webhooks",
+    "webhook_failover_url": "https://backup.example.com/hooks",
+    "use_profile_webhooks": true
+  }
+}

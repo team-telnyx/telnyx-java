@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": [
+        "aws"
+      ],
+      "description": "Cloud provider from which to migrate data."
+    },
+    "source_region": {
+      "type": "string",
+      "description": "Provider region from which to migrate data."
+    }
+  }
+}

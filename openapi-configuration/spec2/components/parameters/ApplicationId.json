@@ -1,0 +1,9 @@
+{
+  "name": "application_id",
+  "in": "path",
+  "required": true,
+  "description": "The ID of the TeXML application used for the call.",
+  "schema": {
+    "type": "string"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "filter[phone_number][in][]",
+  "in": "query",
+  "description": "Filter results by a list of phone numbers",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "example": "+12003151212"
+    }
+  }
+}

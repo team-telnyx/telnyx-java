@@ -1,0 +1,5 @@
+{
+  "description": "The ID of the connection used to send the fax.",
+  "type": "string",
+  "example": "234423"
+}

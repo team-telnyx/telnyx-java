@@ -1,0 +1,171 @@
+{
+  "delete": {
+    "summary": "Delete a billing group",
+    "deprecated": false,
+    "description": "",
+    "operationId": "DeleteBillingGroup",
+    "tags": [
+      "Billing Groups"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The id of the billing group",
+        "required": true,
+        "example": "f5586561-8ff0-4291-a0ac-84fe544797bd",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Expected billing group response to a valid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/BillingGroup.json"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Get a billing group",
+    "deprecated": false,
+    "description": "",
+    "operationId": "GetBillingGroup",
+    "tags": [
+      "Billing Groups"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The id of the billing group",
+        "required": true,
+        "example": "f5586561-8ff0-4291-a0ac-84fe544797bd",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Expected billing group response to a valid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/BillingGroup.json"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update a billing group",
+    "deprecated": false,
+    "description": "",
+    "operationId": "UpdateBillingGroup",
+    "tags": [
+      "Billing Groups"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "The id of the billing group",
+        "required": true,
+        "example": "f5586561-8ff0-4291-a0ac-84fe544797bd",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateBillingGroup.json"
+          },
+          "example": {
+            "name": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Expected billing group response to a valid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/BillingGroup.json"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

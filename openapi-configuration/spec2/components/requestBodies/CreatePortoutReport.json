@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "description": "The parameters for generating a new port-out related report.",
+        "required": [
+          "report_type",
+          "params"
+        ],
+        "properties": {
+          "report_type": {
+            "type": "string",
+            "description": "Identifies the type of report",
+            "enum": [
+              "export_portouts_csv"
+            ],
+            "example": "export_portouts_csv"
+          },
+          "params": {
+            "oneOf": [
+              {
+                "$ref": "../schemas/ExportPortoutsCSVReport.json"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "required": [
+    "messaging_profile_id"
+  ],
+  "example": {
+    "record_type": "short_code",
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "short_code": "12345",
+    "country_code": "US",
+    "messaging_profile_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "created_at": "2019-01-23T18:10:02.574Z",
+    "updated_at": "2019-01-23T18:10:02.574Z"
+  },
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "short_code",
+      "enum": [
+        "short_code"
+      ],
+      "description": "Identifies the type of the resource.",
+      "readOnly": true
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the type of resource.",
+      "readOnly": true
+    },
+    "short_code": {
+      "type": "string",
+      "description": "Short digit sequence used to address messages.",
+      "readOnly": true
+    },
+    "country_code": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code.",
+      "pattern": "^[A-Z]{2}$",
+      "example": "US",
+      "readOnly": true
+    },
+    "messaging_profile_id": {
+      "type": "string",
+      "nullable": true,
+      "description": "Unique identifier for a messaging profile."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "readOnly": true
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "readOnly": true
+    }
+  }
+}

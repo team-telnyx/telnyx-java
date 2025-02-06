@@ -1,0 +1,116 @@
+{
+  "type": "object",
+  "properties": {
+    "acceptance_criteria": {
+      "description": "Specifies objective criteria for acceptance",
+      "type": "object",
+      "properties": {
+        "time_limit": {
+          "description": "Specifies time-based acceptance criteria",
+          "type": "string",
+          "readOnly": false,
+          "example": "Current and not expired"
+        },
+        "locality_limit": {
+          "description": "Specifies geography-based acceptance criteria",
+          "type": "string",
+          "readOnly": false,
+          "example": "Issued by the same country that the phone number belongs to"
+        },
+        "acceptable_values": {
+          "description": "Specifies the list of strictly possible values for the requirement. Ignored when empty",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "US"
+          },
+          "readOnly": false
+        },
+        "max_length": {
+          "description": "Maximum length allowed for the value",
+          "type": "integer",
+          "example": 20,
+          "readOnly": false
+        },
+        "min_length": {
+          "description": "Minimum length allowed for the value",
+          "type": "integer",
+          "example": 16,
+          "readOnly": false
+        },
+        "acceptable_characters": {
+          "description": "Specifies the allowed characters as a string",
+          "type": "string",
+          "example": "abcdef0123456789",
+          "readOnly": false
+        },
+        "case_sensitive": {
+          "description": "Specifies whether string matching should be case sensitive",
+          "type": "boolean",
+          "example": true,
+          "readOnly": false
+        },
+        "regex": {
+          "description": "A regular expression pattern that the value must match",
+          "type": "string",
+          "example": "^[A-Z0-9]+$",
+          "readOnly": false
+        }
+      }
+    },
+    "description": {
+      "description": "Describes the requirement type",
+      "type": "string",
+      "readOnly": false,
+      "example": "Proves the customer has a physical address in the same locality as the phone number"
+    },
+    "example": {
+      "description": "Provides one or more example of acceptable documents",
+      "type": "string",
+      "readOnly": false,
+      "example": "Utility bill, internet bill, phone bill, or lease"
+    },
+    "type": {
+      "description": "Defines the type of this requirement type",
+      "type": "string",
+      "enum": [
+        "document",
+        "address",
+        "textual"
+      ],
+      "readOnly": false,
+      "example": "document"
+    },
+    "name": {
+      "description": "A short descriptive name for this requirement_type",
+      "type": "string",
+      "readOnly": true,
+      "example": "Proof of Address"
+    },
+    "record_type": {
+      "description": "Identifies the type of the resource",
+      "type": "string",
+      "readOnly": true,
+      "example": "requirement_type"
+    },
+    "id": {
+      "description": "Identifies the associated document",
+      "type": "string",
+      "format": "uuid",
+      "readOnly": true,
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was created.",
+      "readOnly": true,
+      "example": "2021-04-09T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was last updated.",
+      "readOnly": true,
+      "example": "2021-04-12T20:20:20.020Z"
+    }
+  }
+}

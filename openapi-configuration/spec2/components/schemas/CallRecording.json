@@ -1,0 +1,34 @@
+{
+  "description": "The call recording settings for a phone number.",
+  "type": "object",
+  "properties": {
+    "inbound_call_recording_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "When enabled, any inbound call to this number will be recorded."
+    },
+    "inbound_call_recording_format": {
+      "type": "string",
+      "enum": [
+        "wav",
+        "mp3"
+      ],
+      "default": "wav",
+      "description": "The audio file format for calls being recorded."
+    },
+    "inbound_call_recording_channels": {
+      "type": "string",
+      "enum": [
+        "single",
+        "dual"
+      ],
+      "default": "single",
+      "description": "When using 'dual' channels, final audio file will be stereo recorded with the first leg on channel A, and the rest on channel B."
+    }
+  },
+  "example": {
+    "inbound_call_recording_enabled": true,
+    "inbound_call_recording_format": "wav",
+    "inbound_call_recording_channels": "single"
+  }
+}

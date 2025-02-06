@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "admin": {
+      "$ref": "./PortingOrderEndUserAdmin.json"
+    },
+    "location": {
+      "$ref": "./PortingOrderEndUserLocation.json"
+    }
+  }
+}

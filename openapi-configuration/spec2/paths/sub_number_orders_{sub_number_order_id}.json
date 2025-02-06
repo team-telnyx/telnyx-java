@@ -1,0 +1,78 @@
+{
+  "get": {
+    "summary": "Retrieve a sub number order",
+    "description": "Get an existing sub number order.",
+    "operationId": "GetSubNumberOrder",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "parameters": [
+      {
+        "name": "sub_number_order_id",
+        "in": "path",
+        "description": "The sub number order ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[include_phone_numbers]",
+        "in": "query",
+        "description": "Include the first 50 phone number objects in the results",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SubNumberOrderResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update a sub number order's requirements",
+    "description": "Updates a sub number order.",
+    "operationId": "UpdateSubNumberOrder",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "parameters": [
+      {
+        "name": "sub_number_order_id",
+        "in": "path",
+        "description": "The sub number order ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateSubNumberOrderRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SubNumberOrderResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

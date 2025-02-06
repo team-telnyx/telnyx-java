@@ -1,0 +1,10 @@
+{
+  "description": "Successfuly patched channel zone",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/GcbChannelZone.json"
+      }
+    }
+  }
+}

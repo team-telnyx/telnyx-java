@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "description": "The timestamp of the aggregated data.",
+      "example": "2019-01-23T18:10:02.574Z",
+      "readOnly": true
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "./MessagingProfileMessageTypeMetrics.json"
+      }
+    }
+  }
+}

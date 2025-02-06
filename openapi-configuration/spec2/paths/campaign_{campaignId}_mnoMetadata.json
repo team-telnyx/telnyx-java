@@ -1,0 +1,46 @@
+{
+  "get": {
+    "tags": [
+      "Campaign"
+    ],
+    "summary": "Get Campaign Mno Metadata",
+    "description": "Get the campaign metadata for each MNO it was submitted to.",
+    "operationId": "GetCampaignMnoMetadata",
+    "parameters": [
+      {
+        "description": "ID of the campaign in question",
+        "required": true,
+        "schema": {
+          "title": "Campaignid",
+          "type": "string",
+          "description": "ID of the campaign in question"
+        },
+        "name": "campaignId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response. It constains a map of usecase metadata for each MNO. The key is the network ID of the MNO (e.g. 10017), the value is the mno metadata for the usecase. The metadata may also include some MNO specific fields.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/MnoMetadata.json"
+            }
+          }
+        }
+      },
+      "default": {
+        "description": "Unexpected Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

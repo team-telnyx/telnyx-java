@@ -1,0 +1,46 @@
+{
+  "delete": {
+    "summary": "Delete a Public Internet Gateway",
+    "description": "Delete a Public Internet Gateway.",
+    "operationId": "DeletePublicInternetGateway",
+    "tags": [
+      "Public Internet Gateways"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PublicInternetGatewayResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Retrieve a Public Internet Gateway",
+    "description": "Retrieve a Public Internet Gateway.",
+    "operationId": "GetPublicInternetGateway",
+    "tags": [
+      "Public Internet Gateways"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PublicInternetGatewayResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

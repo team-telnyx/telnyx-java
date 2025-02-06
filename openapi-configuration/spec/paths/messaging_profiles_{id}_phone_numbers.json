@@ -1,0 +1,30 @@
+{
+  "get": {
+    "summary": "List phone numbers associated with a messaging profile",
+    "operationId": "ListProfilePhoneNumbers",
+    "tags": [
+      "Messaging Profiles"
+    ],
+    "x-group-parameters": "true",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/MessagingProfileId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListMessagingProfilePhoneNumbersResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "post": {
+    "description": "Validates an address for emergency services.",
+    "summary": "Validate an address",
+    "operationId": "ValidateAddress",
+    "tags": [
+      "Addresses"
+    ],
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters that can be defined during address validation",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/ValidateAddressRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ValidateAddressResponse.json"
+      },
+      "422": {
+        "description": "Bad request"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

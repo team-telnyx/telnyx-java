@@ -1,0 +1,15 @@
+{
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/SIMCardGroupAction.json"
+          }
+        }
+      }
+    }
+  },
+  "description": "Successful Response"
+}

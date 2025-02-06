@@ -1,0 +1,10 @@
+{
+  "name": "From",
+  "in": "query",
+  "required": false,
+  "description": "Filters calls by the from number.",
+  "schema": {
+    "type": "string"
+  },
+  "example": "+1312345678"
+}

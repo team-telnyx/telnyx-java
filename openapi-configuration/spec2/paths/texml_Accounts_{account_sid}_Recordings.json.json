@@ -1,0 +1,34 @@
+{
+  "get": {
+    "summary": "Fetch multiple recording resources",
+    "description": "Returns multiple recording resources for an account.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "GetTeXMLCallRecordings",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/Page.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSizeTexml.json"
+      },
+      {
+        "$ref": "../components/parameters/TexmlDateCreated.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/TexmlGetCallRecordingsResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  }
+}

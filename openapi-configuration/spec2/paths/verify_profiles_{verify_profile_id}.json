@@ -1,0 +1,152 @@
+{
+  "delete": {
+    "tags": [
+      "Verify"
+    ],
+    "summary": "Delete Verify profile",
+    "operationId": "DeleteProfile",
+    "parameters": [
+      {
+        "required": true,
+        "description": "The identifier of the Verify profile to delete.",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "12ade33a-21c0-473b-b055-b3c836e1c292"
+        },
+        "name": "verify_profile_id",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Expected Verify profile response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/VerifyProfileResponseDataWrapper.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "tags": [
+      "Verify"
+    ],
+    "summary": "Retrieve Verify profile",
+    "description": "Gets a single Verify profile.",
+    "operationId": "GetVerifyProfile",
+    "parameters": [
+      {
+        "required": true,
+        "description": "The identifier of the Verify profile to retrieve.",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "12ade33a-21c0-473b-b055-b3c836e1c292"
+        },
+        "name": "verify_profile_id",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Expected Verify profile response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/VerifyProfileResponseDataWrapper.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "tags": [
+      "Verify"
+    ],
+    "summary": "Update Verify profile",
+    "operationId": "UpdateVerifyProfile",
+    "parameters": [
+      {
+        "required": true,
+        "description": "The identifier of the Verify profile to update.",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "12ade33a-21c0-473b-b055-b3c836e1c292"
+        },
+        "name": "verify_profile_id",
+        "in": "path"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "title": "Update Verify Profile Request",
+            "type": "object",
+            "properties": {
+              "name": {
+                "example": "Test Profile",
+                "type": "string"
+              },
+              "webhook_url": {
+                "type": "string",
+                "example": "http://example.com/webhook"
+              },
+              "webhook_failover_url": {
+                "type": "string",
+                "example": "http://example.com/webhook/failover"
+              },
+              "sms": {
+                "type": "object",
+                "$ref": "../components/schemas/UpdateVerifyProfileSMSRequest.json"
+              },
+              "call": {
+                "type": "object",
+                "$ref": "../components/schemas/UpdateVerifyProfileCallRequest.json"
+              },
+              "flashcall": {
+                "type": "object",
+                "$ref": "../components/schemas/UpdateVerifyProfileFlashcallRequest.json"
+              },
+              "language": {
+                "type": "string",
+                "example": "en-US"
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Expected Verify profile response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/VerifyProfileResponseDataWrapper.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

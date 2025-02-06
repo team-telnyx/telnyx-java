@@ -1,0 +1,10 @@
+{
+  "description": "Successful call streaming create response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "../schemas/TexmlCreateCallStreamingResponseBody.json"
+      }
+    }
+  }
+}

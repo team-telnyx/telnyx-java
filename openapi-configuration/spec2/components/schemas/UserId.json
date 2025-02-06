@@ -1,0 +1,6 @@
+{
+  "description": "Identifier of the user to whom the fax belongs",
+  "type": "string",
+  "format": "uuid",
+  "example": "yfff7c54-4df3-4bca-a65a-3da1ecc777f0"
+}

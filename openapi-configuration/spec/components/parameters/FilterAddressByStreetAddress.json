@@ -1,0 +1,9 @@
+{
+  "name": "filter[address.street_address]",
+  "description": "Returns entries with matching name of the street where the address is located.",
+  "schema": {
+    "type": "string",
+    "example": "600 Congress Avenue"
+  },
+  "in": "query"
+}

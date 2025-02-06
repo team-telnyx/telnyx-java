@@ -1,0 +1,27 @@
+{
+  "required": [
+    "card_width",
+    "card_contents"
+  ],
+  "type": "object",
+  "description": "Carousel of cards.",
+  "properties": {
+    "card_width": {
+      "type": "string",
+      "example": "SMALL",
+      "description": "The width of the cards in the carousel.",
+      "enum": [
+        "CARD_WIDTH_UNSPECIFIED",
+        "SMALL",
+        "MEDIUM"
+      ]
+    },
+    "card_contents": {
+      "description": "The list of contents for each card in the carousel. A carousel can have a minimum of 2 cards and a maximum 10 cards.",
+      "type": "array",
+      "items": {
+        "$ref": "./RCSCardContent.json"
+      }
+    }
+  }
+}

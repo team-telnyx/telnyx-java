@@ -1,0 +1,15 @@
+{
+  "description": "Successful response with information about allocatable global outbound channels.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/ManagedAccountsGlobalOutboundChannels.json"
+          }
+        }
+      }
+    }
+  }
+}

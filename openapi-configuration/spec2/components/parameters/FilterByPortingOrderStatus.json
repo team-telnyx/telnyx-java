@@ -1,0 +1,19 @@
+{
+  "name": "filter[status]",
+  "in": "query",
+  "description": "Filter results by status",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "draft",
+      "in-process",
+      "submitted",
+      "exception",
+      "foc-date-confirmed",
+      "cancel-pending",
+      "ported",
+      "cancelled"
+    ],
+    "example": "in-process"
+  }
+}

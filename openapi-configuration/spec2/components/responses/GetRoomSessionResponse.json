@@ -1,0 +1,15 @@
+{
+  "description": "Get room session response.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/RoomSession.json"
+          }
+        }
+      }
+    }
+  }
+}

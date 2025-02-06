@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "field_type": {
+      "type": "string",
+      "description": "Type of value expected on field_value field",
+      "enum": [
+        "document"
+      ],
+      "example": "document"
+    },
+    "field_value": {
+      "type": "string",
+      "description": "identifies the document that satisfies this requirement",
+      "example": "9787fb5f-cbe5-4de4-b765-3303774ee9fe"
+    },
+    "requirement_type_id": {
+      "type": "string",
+      "description": "Identifies the requirement type that meets this requirement",
+      "example": "59b0762a-b274-4f76-ac32-4d5cf0272e66"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "porting_requirement"
+    }
+  }
+}

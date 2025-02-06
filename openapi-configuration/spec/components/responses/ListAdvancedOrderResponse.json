@@ -1,0 +1,17 @@
+{
+  "description": "An array of Advanced Order Responses",
+  "content": {
+    "application/json": {
+      "schema": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "./AdvancedOrderResponse.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

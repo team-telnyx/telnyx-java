@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "required": [
+    "code",
+    "title"
+  ],
+  "properties": {
+    "code": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "title": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "pointer": {
+          "description": "JSON pointer (RFC6901) to the offending entity.",
+          "type": "string",
+          "format": "json-pointer"
+        },
+        "parameter": {
+          "description": "Indicates which query parameter caused the error.",
+          "type": "string"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "function"
+      ]
+    },
+    "function": {
+      "$ref": "./FunctionDefinition.json"
+    }
+  },
+  "type": "object",
+  "required": [
+    "function",
+    "type"
+  ],
+  "title": "Function"
+}

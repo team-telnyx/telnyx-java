@@ -1,0 +1,5 @@
+{
+  "description": "The flag to disable the T.38 protocol.",
+  "type": "boolean",
+  "default": true
+}

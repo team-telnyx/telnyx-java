@@ -1,0 +1,13 @@
+{
+  "name": "filter[external_sip_connection]",
+  "in": "query",
+  "description": "If present, connections with <code>external_sip_connection</code> matching the given value will be returned.",
+  "schema": {
+    "enum": [
+      "zoom",
+      "operator_connect"
+    ],
+    "type": "string",
+    "example": "zoom"
+  }
+}

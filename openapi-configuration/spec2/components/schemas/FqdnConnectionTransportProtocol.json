@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "description": "One of UDP, TLS, or TCP. Applies only to connections with IP authentication or FQDN authentication.",
+  "default": "UDP",
+  "enum": [
+    "UDP",
+    "TCP",
+    "TLS"
+  ]
+}

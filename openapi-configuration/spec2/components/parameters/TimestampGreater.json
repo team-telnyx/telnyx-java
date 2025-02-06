@@ -1,0 +1,11 @@
+{
+  "name": "filter[timestamp][gt]",
+  "description": "Filter by timestamp greater than",
+  "in": "query",
+  "required": false,
+  "schema": {
+    "format": "date-time",
+    "type": "string",
+    "example": "2019-01-01T00:00:00.000Z"
+  }
+}

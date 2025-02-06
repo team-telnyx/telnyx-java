@@ -1,0 +1,26 @@
+{
+  "post": {
+    "operationId": "StopMigration",
+    "summary": "Stop a Migration",
+    "tags": [
+      "Data Migration"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Unique identifier for the data migration."
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/MigrationResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

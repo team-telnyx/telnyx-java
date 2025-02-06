@@ -1,0 +1,124 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "WhatsApp Message Id",
+      "example": "gBOGyfgaqtrewgpRTGqKuHKaTRhP"
+    },
+    "version": {
+      "type": "string",
+      "description": "WhatsApp API Version",
+      "example": "v0.1.0"
+    },
+    "sender_id": {
+      "type": "string",
+      "description": "WhatsApp Sender Id",
+      "example": "18336512500"
+    },
+    "recipient_id": {
+      "type": "string",
+      "description": "WhatsApp Recipient Id",
+      "example": "18336512500"
+    },
+    "message_type": {
+      "type": "string",
+      "description": "WhatsApp Message Type. Consult WhatsApp API documentation to see all available types",
+      "example": "session",
+      "enum": [
+        "session",
+        "template"
+      ]
+    },
+    "message_status": {
+      "type": "string",
+      "description": "WhatsApp Message Status. Consult WhatsApp API documentation to see all available status",
+      "example": "delivered",
+      "enum": [
+        "sent",
+        "delivered",
+        "read",
+        "failed",
+        "deleted"
+      ]
+    },
+    "direction": {
+      "type": "string",
+      "description": "Logical direction of the message from the Telnyx customer's perspective. It's inbound when the Telnyx customer receives the message, or outbound otherwise",
+      "example": "inbound",
+      "enum": [
+        "inbound",
+        "outbound"
+      ]
+    },
+    "recipient_region_code": {
+      "type": "string",
+      "description": "CLDR two-letter region-code of recipient",
+      "example": "US"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Telnyx account currency used to describe monetary values, including billing cost",
+      "example": "USD"
+    },
+    "whatsapp_error_code": {
+      "type": "string",
+      "description": "A string representing Whatsapp error code. Consult WhatsApp API documentation to see all available error codes",
+      "example": "490"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "UTC time when the message was created",
+      "format": "date-time",
+      "example": "2021-08-06T03:32:01.125Z"
+    },
+    "webhook_received_at": {
+      "type": "string",
+      "description": "UTC time when the webhook was received",
+      "format": "date-time",
+      "example": "2021-08-06T03:32:01.125Z"
+    },
+    "webhook_id": {
+      "type": "string",
+      "description": "UUID representation of the webhook unique identifier",
+      "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+    },
+    "telnyx_fee": {
+      "type": "string",
+      "description": "Currency amount for Telnyx billing cost",
+      "example": 0.003
+    },
+    "whatsapp_fee": {
+      "type": "string",
+      "description": "Currency amount for WhatsApp cost",
+      "example": 0.003
+    },
+    "conversation_id": {
+      "type": "string",
+      "description": "Whatsapp Conversation ID",
+      "example": "f44ae083-c800-4433-baac-b439e5270aa4"
+    },
+    "conversation_origin": {
+      "type": "string",
+      "description": "Whatsapp Conversation Origin",
+      "enum": [
+        "business_initiated",
+        "user_initiated",
+        "referral_conversion"
+      ]
+    },
+    "whatsapp_business_account_id": {
+      "type": "string",
+      "description": "Whatsapp Business Account ID",
+      "example": "421452453"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "whatsapp_detail_record",
+      "default": "whatsapp_detail_record"
+    }
+  },
+  "required": [
+    "record_type"
+  ]
+}

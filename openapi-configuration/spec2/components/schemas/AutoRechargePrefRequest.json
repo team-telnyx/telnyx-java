@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "threshold_amount": {
+      "type": "string",
+      "example": "104.00",
+      "format": "decimal",
+      "description": "The threshold amount at which the account will be recharged."
+    },
+    "recharge_amount": {
+      "type": "string",
+      "example": "104.00",
+      "format": "decimal",
+      "description": "The amount to recharge the account, the actual recharge amount will be the amount necessary to reach the threshold amount plus the recharge amount."
+    },
+    "enabled": {
+      "type": "boolean",
+      "example": true,
+      "description": "Whether auto recharge is enabled."
+    },
+    "invoice_enabled": {
+      "type": "boolean",
+      "example": true
+    },
+    "preference": {
+      "type": "string",
+      "enum": [
+        "credit_paypal",
+        "ach"
+      ],
+      "example": "credit_paypal",
+      "description": "The payment preference for auto recharge."
+    }
+  }
+}

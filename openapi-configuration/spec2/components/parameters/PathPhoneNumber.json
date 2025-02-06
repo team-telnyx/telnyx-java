@@ -1,0 +1,9 @@
+{
+  "name": "phone_number",
+  "in": "path",
+  "description": "Phone number",
+  "required": true,
+  "schema": {
+    "type": "string"
+  }
+}

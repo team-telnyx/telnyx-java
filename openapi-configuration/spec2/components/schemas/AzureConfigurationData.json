@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "title": "Azure Blob Storage Configuration Data",
+  "properties": {
+    "bucket": {
+      "$ref": "./Bucket.json"
+    },
+    "account_name": {
+      "$ref": "./AzureAccountName.json"
+    },
+    "account_key": {
+      "$ref": "./AzureAccountKey.json"
+    }
+  }
+}

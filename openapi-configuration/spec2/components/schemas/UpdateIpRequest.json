@@ -1,0 +1,29 @@
+{
+  "title": "Update Ip Request",
+  "type": "object",
+  "required": [
+    "ip_address"
+  ],
+  "properties": {
+    "connection_id": {
+      "type": "string",
+      "description": "ID of the IP Connection to which this IP should be attached."
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP adddress represented by this resource.",
+      "example": "192.168.0.0"
+    },
+    "port": {
+      "type": "integer",
+      "description": "Port to use when connecting to this IP.",
+      "default": 5060,
+      "example": 5060
+    }
+  },
+  "example": {
+    "connection_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+    "ip_address": "192.168.0.0",
+    "port": 5060
+  }
+}

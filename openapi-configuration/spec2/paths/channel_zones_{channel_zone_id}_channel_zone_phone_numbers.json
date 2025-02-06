@@ -1,0 +1,68 @@
+{
+  "get": {
+    "summary": "Get the list of phone numbers assigned to a channel zone",
+    "description": "Retrieve the assigned phone numbers in a channel zone. Phone numbers assigned to a channel zone can receive concurrent calls up to the quantity reserved in that channel zone. Additional concurrent calls are rejected with a busy signal.",
+    "operationId": "GetPhoneNumbers",
+    "tags": [
+      "ChannelZones"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetGcbPhoneNumbersRequestResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "parameters": [
+    {
+      "$ref": "../components/parameters/GcbChannelZoneId.json"
+    }
+  ],
+  "post": {
+    "summary": "Assign a phone number to a channel zone",
+    "description": "You should own the phone number being assigned to the channel zone. Remember that you should reserve channels in this channel zone, otherwise you won't be able to receive incoming calls.",
+    "operationId": "AssignPhoneNumber",
+    "tags": [
+      "ChannelZones"
+    ],
+    "requestBody": {
+      "description": "Phone number to assign to the channel zone. The phone number should be in E.164 format.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "required": [
+              "phone_number"
+            ],
+            "type": "object",
+            "properties": {
+              "phone_number": {
+                "type": "string",
+                "format": "+E.164",
+                "example": "+15554441234"
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PostGcbPhoneNumberRequestResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-codegen-request-body-name": "body",
+    "x-latency-category": "interactive"
+  }
+}

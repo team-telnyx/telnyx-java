@@ -1,0 +1,91 @@
+{
+  "get": {
+    "summary": "Fetch multiple call resources",
+    "description": "Returns multiple call resouces for an account. This endpoint is eventually consistent.",
+    "x-latency-category": "responsive",
+    "operationId": "GetTexmlCalls",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/Page.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/PageToken.json"
+      },
+      {
+        "$ref": "../components/parameters/To.json"
+      },
+      {
+        "$ref": "../components/parameters/From.json"
+      },
+      {
+        "$ref": "../components/parameters/Status.json"
+      },
+      {
+        "$ref": "../components/parameters/StartTime.json"
+      },
+      {
+        "$ref": "../components/parameters/StartTime>.json"
+      },
+      {
+        "$ref": "../components/parameters/StartTime<.json"
+      },
+      {
+        "$ref": "../components/parameters/EndTime.json"
+      },
+      {
+        "$ref": "../components/parameters/EndTime>.json"
+      },
+      {
+        "$ref": "../components/parameters/EndTime<.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetCallsResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  },
+  "post": {
+    "summary": "Initiate an outbound call",
+    "description": "Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL configured for the connection in the Mission Control Portal.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "InitiateTexmlCall",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Iniatiate Call request object",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/InitiateCallRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/InitiateCallResponse.json"
+      }
+    }
+  }
+}

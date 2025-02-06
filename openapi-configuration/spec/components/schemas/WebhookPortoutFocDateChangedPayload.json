@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "description": "The webhook payload for the portout.foc_date_changed event",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c",
+      "description": "Identifies the port-out order that have the FOC date changed."
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Identifies the organization that port-out order belongs to.",
+      "example": "0e19c89e-f0ce-458a-a36c-3c60bc2014b1"
+    },
+    "foc_date": {
+      "type": "string",
+      "description": "ISO 8601 formatted date indicating the new FOC date.",
+      "example": "2021-03-19T10:07:15.527Z",
+      "format": "date-time"
+    }
+  }
+}

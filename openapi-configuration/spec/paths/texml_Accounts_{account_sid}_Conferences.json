@@ -1,0 +1,45 @@
+{
+  "get": {
+    "summary": "List conference resources",
+    "description": "Lists conference resources.",
+    "x-latency-category": "responsive",
+    "operationId": "GetTexmlConferences",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/Page.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/PageToken.json"
+      },
+      {
+        "$ref": "../components/parameters/FriendlyName.json"
+      },
+      {
+        "$ref": "../components/parameters/ConferenceStatus.json"
+      },
+      {
+        "$ref": "../components/parameters/DateCreated.json"
+      },
+      {
+        "$ref": "../components/parameters/DateUpdated.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetConferencesResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  }
+}

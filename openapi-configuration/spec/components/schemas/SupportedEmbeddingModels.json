@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "enum": [
+    "thenlper/gte-large",
+    "intfloat/multilingual-e5-large",
+    "sentence-transformers/all-mpnet-base-v2"
+  ],
+  "title": "SupportedEmbeddingModels",
+  "description": "Supported models to vectorize and embed documents."
+}

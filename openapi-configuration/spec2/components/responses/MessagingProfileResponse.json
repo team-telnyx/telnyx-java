@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a messaging profile.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Messaging Profile Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/MessagingProfile.json"
+          }
+        }
+      }
+    }
+  }
+}

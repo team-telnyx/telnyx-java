@@ -1,0 +1,45 @@
+{
+  "post": {
+    "summary": "Refresh Client Token to join a room.",
+    "description": "Synchronously refresh an Client Token to join a Room. Client Token is necessary to join a Telnyx Room. Client Token will expire after `token_ttl_secs`.",
+    "operationId": "RefreshRoomClientToken",
+    "tags": [
+      "Rooms Client Tokens"
+    ],
+    "x-endpoint-cost": "light",
+    "security": [],
+    "parameters": [
+      {
+        "name": "room_id",
+        "in": "path",
+        "description": "The unique identifier of a room.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that can be defined during Room Client Token refresh.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/RefreshRoomClientTokenRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/RefreshRoomClientTokenResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/Forbidden.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

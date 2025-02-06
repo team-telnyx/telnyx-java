@@ -1,0 +1,10 @@
+{
+  "name": "Page",
+  "in": "query",
+  "required": false,
+  "description": "The number of the page to be displayed, zero-indexed, should be used in conjuction with PageToken.",
+  "schema": {
+    "type": "integer"
+  },
+  "example": 1
+}

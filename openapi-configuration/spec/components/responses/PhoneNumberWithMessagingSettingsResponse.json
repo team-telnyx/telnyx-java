@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a phone number including messaging settings.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Retrieve Messaging Settings Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/PhoneNumberWithMessagingSettings.json"
+          }
+        }
+      }
+    }
+  }
+}

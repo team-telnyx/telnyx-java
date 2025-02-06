@@ -1,0 +1,27 @@
+{
+  "get": {
+    "summary": "Get SIM card device details",
+    "description": "It returns the device details where a SIM card is currently being used.\n",
+    "operationId": "GetSimCardDeviceDetails",
+    "tags": [
+      "SIM Cards"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/SIMCardId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SIMCardDeviceDetailsResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

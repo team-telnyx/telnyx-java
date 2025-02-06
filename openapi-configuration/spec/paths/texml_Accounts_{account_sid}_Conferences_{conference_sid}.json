@@ -1,0 +1,63 @@
+{
+  "get": {
+    "summary": "Fetch a conference resource",
+    "description": "Returns a conference resource.",
+    "x-latency-category": "responsive",
+    "operationId": "GetTexmlConference",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/ConferenceSid.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetConferenceResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  },
+  "post": {
+    "summary": "Update a conference resource",
+    "description": "Updates a conference resource.",
+    "x-latency-category": "responsive",
+    "operationId": "UpdateTexmlConference",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/ConferenceSid.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Update Conference request object",
+      "required": true,
+      "content": {
+        "application/x-www-form-urlencoded": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateConferenceRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetConferenceResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  }
+}

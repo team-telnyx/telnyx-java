@@ -1,0 +1,10 @@
+{
+  "name": "filter[email][contains]",
+  "in": "query",
+  "required": false,
+  "description": "If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.",
+  "schema": {
+    "type": "string",
+    "default": "null"
+  }
+}

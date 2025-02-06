@@ -1,0 +1,9 @@
+{
+  "name": "PageToken",
+  "in": "query",
+  "required": false,
+  "description": "Used to request the next page of results.",
+  "schema": {
+    "type": "string"
+  }
+}

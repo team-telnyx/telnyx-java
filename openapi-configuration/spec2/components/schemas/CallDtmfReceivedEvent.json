@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Call DTMF Received Event",
+  "properties": {
+    "data": {
+      "$ref": "./CallDtmfReceived.json"
+    }
+  }
+}

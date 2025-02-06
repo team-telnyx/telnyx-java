@@ -1,0 +1,10 @@
+{
+  "name": "filter[outbound_voice_profile_id]",
+  "in": "query",
+  "description": "Identifies the associated outbound voice profile.",
+  "schema": {
+    "type": "string",
+    "format": "int64",
+    "example": "1293384261075731499"
+  }
+}

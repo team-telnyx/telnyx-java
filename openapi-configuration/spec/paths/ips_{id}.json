@@ -1,0 +1,104 @@
+{
+  "delete": {
+    "description": "Delete an IP.",
+    "summary": "Delete an Ip",
+    "operationId": "DeleteIp",
+    "tags": [
+      "IPs"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/IpId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/IpResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "description": "Return the details regarding a specific IP.",
+    "summary": "Retrieve an Ip",
+    "operationId": "RetrieveIp",
+    "tags": [
+      "IPs"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/IpId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/IpResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "description": "Update the details of a specific IP.",
+    "summary": "Update an Ip",
+    "operationId": "UpdateIp",
+    "tags": [
+      "IPs"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/IpId.json"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateIpRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/IpResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

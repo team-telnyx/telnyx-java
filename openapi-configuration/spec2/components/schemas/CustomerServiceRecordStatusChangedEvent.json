@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Uniquely identifies the callback event.",
+      "type": "string",
+      "format": "uuid",
+      "example": "d3c462b5-8afa-4d48-9af1-4f9b1f00e7bd"
+    },
+    "event_type": {
+      "description": "The type of the callback event.",
+      "type": "string",
+      "enum": [
+        "customer_service_record.status_changed"
+      ],
+      "example": "customer_service_record.status_changed"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Uniquely identifies the customer service record.",
+          "type": "string",
+          "format": "uuid",
+          "example": "f1486bae-f067-460c-ad43-73a92848f902"
+        },
+        "phone_number": {
+          "description": "The phone number of the customer service record.",
+          "type": "string",
+          "example": "+12065551212"
+        },
+        "status": {
+          "description": "The status of the customer service record",
+          "type": "string",
+          "enum": [
+            "pending",
+            "completed",
+            "failed"
+          ],
+          "example": "completed"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 formatted date indicating the last time where the resource was updated.",
+          "example": "2021-03-19T10:07:15.527Z"
+        }
+      }
+    },
+    "occurred_at": {
+      "description": "ISO 8601 formatted date indicating when the callback event occurred.",
+      "type": "string",
+      "format": "date-time",
+      "example": "2021-03-19T10:07:15.527Z"
+    },
+    "record_type": {
+      "description": "Identifies the type of the resource.",
+      "type": "string",
+      "enum": [
+        "event"
+      ],
+      "example": "event"
+    }
+  }
+}

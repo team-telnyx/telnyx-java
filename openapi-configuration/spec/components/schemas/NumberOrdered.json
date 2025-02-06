@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "title": "Number Order Event Data",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "event",
+      "enum": [
+        "event"
+      ],
+      "description": "Identifies the type of the resource."
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the type of resource."
+    },
+    "event_type": {
+      "type": "string",
+      "example": "number_order.complete",
+      "description": "The type of event being delivered."
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created."
+    },
+    "payload": {
+      "$ref": "./NumberOrder.json"
+    }
+  }
+}

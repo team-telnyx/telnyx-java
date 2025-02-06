@@ -1,0 +1,172 @@
+{
+  "delete": {
+    "tags": [
+      "Advanced OptIn/OptOut"
+    ],
+    "summary": "Delete Auto-Response Setting",
+    "operationId": "DeleteAutorespConfig",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Profile Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": "profile_id",
+        "in": "path"
+      },
+      {
+        "required": true,
+        "schema": {
+          "title": "Autoresp Cfg Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": "autoresp_cfg_id",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "tags": [
+      "Advanced OptIn/OptOut"
+    ],
+    "summary": "Get Auto-Response Setting",
+    "operationId": "GetAutorespConfig",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Profile Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": "profile_id",
+        "in": "path"
+      },
+      {
+        "required": true,
+        "schema": {
+          "title": "Autoresp Cfg Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": "autoresp_cfg_id",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/AutorespConfigResponseSchema.json"
+            },
+            "example": {
+              "data": {
+                "op": "start",
+                "keywords": [
+                  "UNSTOP"
+                ],
+                "resp_text": "Hello there!",
+                "country_code": "US",
+                "id": "adc37adf-d110-4355-9e9a-262847e68e89",
+                "created_at": "2023-03-13T17:51:03.826453+00:00",
+                "updated_at": "2023-03-13T17:51:03.826453+00:00"
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "put": {
+    "tags": [
+      "Advanced OptIn/OptOut"
+    ],
+    "summary": "Update Auto-Response Setting",
+    "operationId": "UpdateAutoRespConfig",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Profile Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": "profile_id",
+        "in": "path"
+      },
+      {
+        "required": true,
+        "schema": {
+          "title": "Autoresp Cfg Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": "autoresp_cfg_id",
+        "in": "path"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/AutoRespConfigCreateSchema.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/AutorespConfigResponseSchema.json"
+            },
+            "example": {
+              "data": {
+                "op": "start",
+                "keywords": [
+                  "START",
+                  "BEGIN"
+                ],
+                "resp_text": "Hello there!",
+                "country_code": "*",
+                "id": "54b7e19f-98a8-416f-81d1-a2782eade48b",
+                "created_at": "2023-03-10T21:54:46.293380+00:00",
+                "updated_at": "2023-03-10T21:54:46.293380+00:00"
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

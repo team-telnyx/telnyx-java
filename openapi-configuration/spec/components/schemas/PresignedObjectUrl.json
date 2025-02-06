@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The token for the object"
+        },
+        "presigned_url": {
+          "type": "string",
+          "description": "The presigned URL for the object"
+        },
+        "expires_at": {
+          "type": "string",
+          "description": "The expiration time of the token",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

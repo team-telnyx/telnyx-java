@@ -1,0 +1,32 @@
+{
+  "title": "VerifyVerificationCodeResponse",
+  "required": [
+    "data"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "required": [
+        "phone_number",
+        "response_code"
+      ],
+      "type": "object",
+      "properties": {
+        "phone_number": {
+          "example": "+13035551234",
+          "type": "string",
+          "description": "+E164 formatted phone number."
+        },
+        "response_code": {
+          "enum": [
+            "accepted",
+            "rejected"
+          ],
+          "type": "string",
+          "example": "accepted",
+          "description": "Identifies if the verification code has been accepted or rejected."
+        }
+      }
+    }
+  }
+}

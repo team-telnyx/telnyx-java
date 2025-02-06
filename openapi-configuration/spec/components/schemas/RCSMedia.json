@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "description": "A media file within a rich card.",
+  "properties": {
+    "height": {
+      "type": "string",
+      "example": "MEDIUM",
+      "description": "The height of the media within a rich card with a vertical layout. For a standalone card with horizontal layout, height is not customizable, and this field is ignored.",
+      "enum": [
+        "HEIGHT_UNSPECIFIED",
+        "SHORT",
+        "MEDIUM",
+        "TALL"
+      ]
+    },
+    "content_info": {
+      "$ref": "./RCSContentInfo.json"
+    }
+  }
+}

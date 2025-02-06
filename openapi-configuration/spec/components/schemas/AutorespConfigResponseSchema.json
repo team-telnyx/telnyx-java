@@ -1,0 +1,12 @@
+{
+  "title": "AutorespConfigResponseSchema",
+  "required": [
+    "data"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "./AutorespConfigSchema.json"
+    }
+  }
+}

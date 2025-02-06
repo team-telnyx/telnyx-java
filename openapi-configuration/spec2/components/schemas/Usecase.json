@@ -1,0 +1,30 @@
+{
+  "title": "Usecase",
+  "enum": [
+    "2FA",
+    "ACCOUNT_NOTIFICATION",
+    "AGENTS_FRANCHISES",
+    "CARRIER_EXEMPT",
+    "CHARITY",
+    "CONVERSATIONAL",
+    "CUSTOMER_CARE",
+    "DELIVERY_NOTIFICATION",
+    "EMERGENCY",
+    "FRAUD_ALERT",
+    "HIGHER_EDUCATION",
+    "LOW_VOLUME",
+    "MARKETING",
+    "MANUFACTURING",
+    "MIXED",
+    "POLITICAL",
+    "POLLING_VOTING",
+    "PUBLIC_SERVICE_ANNOUNCEMENT",
+    "SECURITY_ALERT",
+    "SOCIAL",
+    "SWEEPSTAKE",
+    "SOLE_PROPRIETOR",
+    "TRIAL"
+  ],
+  "description": "Campaign usecase. Must be of defined valid types. For more details, send a GET request to https://api.telnyx.com/10dlc/enum/usecase",
+  "example": "MARKETING"
+}

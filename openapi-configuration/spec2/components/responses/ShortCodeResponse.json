@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a short code.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Short Code Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/ShortCode.json"
+          }
+        }
+      }
+    }
+  }
+}

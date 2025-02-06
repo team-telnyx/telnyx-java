@@ -1,0 +1,146 @@
+{
+  "title": "Brand",
+  "required": [
+    "entityType",
+    "displayName",
+    "country",
+    "email",
+    "vertical"
+  ],
+  "type": "object",
+  "properties": {
+    "entityType": {
+      "$ref": "./EntityType.json"
+    },
+    "cspId": {
+      "title": "Cspid",
+      "type": "string",
+      "description": "Unique identifier assigned to the csp by the registry."
+    },
+    "brandId": {
+      "title": "Brandid",
+      "type": "string",
+      "description": "Unique identifier assigned to the brand.",
+      "example": "4b206179-f731-8ab7-f19c-34e19d22ide9"
+    },
+    "displayName": {
+      "title": "Displayname",
+      "maxLength": 100,
+      "type": "string",
+      "description": "Display or marketing name of the brand.",
+      "example": "Example Company"
+    },
+    "companyName": {
+      "title": "Companyname",
+      "maxLength": 100,
+      "type": "string",
+      "description": "(Required for Non-profit/private/public) Legal company name.",
+      "example": "Example Company Inc."
+    },
+    "ein": {
+      "title": "Ein",
+      "maxLength": 20,
+      "type": "string",
+      "description": "(Required for Non-profit/private/public) Government assigned corporate tax ID. EIN is 9-digits in U.S. The only entity type which does not require an EIN is a Sole Proprietor.",
+      "example": "142536893"
+    },
+    "phone": {
+      "title": "Phone",
+      "maxLength": 20,
+      "type": "string",
+      "description": "Valid phone number in e.164 international format.",
+      "example": "+13259390512"
+    },
+    "street": {
+      "title": "Street",
+      "maxLength": 100,
+      "type": "string",
+      "description": "Street number and name.",
+      "example": "123 Example St."
+    },
+    "city": {
+      "title": "City",
+      "maxLength": 100,
+      "type": "string",
+      "description": "City name",
+      "example": "Chicago"
+    },
+    "state": {
+      "title": "State",
+      "maxLength": 20,
+      "type": "string",
+      "description": "State. Must be 2 letters code for United States.",
+      "example": "IL"
+    },
+    "postalCode": {
+      "title": "Postalcode",
+      "maxLength": 10,
+      "type": "string",
+      "description": "Postal codes. Use 5 digit zipcode for United States",
+      "example": "60654"
+    },
+    "country": {
+      "title": "Country",
+      "maxLength": 2,
+      "type": "string",
+      "description": "ISO2 2 characters country code. Example: US - United States",
+      "example": "US"
+    },
+    "email": {
+      "title": "Email",
+      "maxLength": 100,
+      "type": "string",
+      "description": "Valid email address of brand support contact.",
+      "example": "examplename@examplecompany.com"
+    },
+    "stockSymbol": {
+      "title": "Stocksymbol",
+      "maxLength": 10,
+      "type": "string",
+      "description": "(Required for public company) stock symbol.",
+      "example": "ABC"
+    },
+    "stockExchange": {
+      "$ref": "./StockExchange.json"
+    },
+    "ipAddress": {
+      "title": "Ipaddress",
+      "maxLength": 50,
+      "type": "string",
+      "description": "IP address of the browser requesting to create brand identity."
+    },
+    "website": {
+      "title": "Website",
+      "maxLength": 100,
+      "type": "string",
+      "description": "Brand website URL.",
+      "example": "www.examplecompany.com"
+    },
+    "brandRelationship": {
+      "$ref": "./BrandRelationship.json"
+    },
+    "vertical": {
+      "$ref": "./Vertical.json"
+    },
+    "altBusinessId": {
+      "title": "Altbusinessid",
+      "maxLength": 50,
+      "type": "string",
+      "description": "Alternate business identifier such as DUNS, LEI, or GIIN"
+    },
+    "altBusinessIdType": {
+      "$ref": "./AltBusinessIdType.json"
+    },
+    "universalEin": {
+      "title": "Universalein",
+      "type": "string",
+      "description": "Universal EIN of Brand, Read Only."
+    },
+    "identityStatus": {
+      "title": "identityStatus",
+      "description": "TCR assessment of the brand identification status.",
+      "type": "string",
+      "example": "VERIFIED"
+    }
+  }
+}

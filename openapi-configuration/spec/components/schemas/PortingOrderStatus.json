@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "description": "Porting order status",
+  "properties": {
+    "details": {
+      "type": "array",
+      "items": {
+        "$ref": "./PortingOrdersExceptionType.json"
+      },
+      "description": "A list of 0 or more details about this porting order's status"
+    },
+    "value": {
+      "type": "string",
+      "description": "The current status of the porting order",
+      "example": "ported",
+      "enum": [
+        "draft",
+        "in-process",
+        "submitted",
+        "exception",
+        "foc-date-confirmed",
+        "ported",
+        "cancelled",
+        "cancel-pending"
+      ]
+    }
+  }
+}

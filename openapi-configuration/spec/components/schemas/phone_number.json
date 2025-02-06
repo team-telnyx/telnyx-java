@@ -1,0 +1,5 @@
+{
+  "type": "string",
+  "description": "The phone number associated with the address.",
+  "example": "+12125559000"
+}

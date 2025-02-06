@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "title": "OTAUpdate",
+  "description": "This object represents an Over the Air (OTA) update request. It allows tracking the current status of a operation that apply settings in a particular SIM card. <br/><br/>",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the resource.",
+      "readOnly": true,
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "ota_update",
+      "readOnly": true
+    },
+    "sim_card_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The identification UUID of the related SIM card resource.",
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "type": {
+      "type": "string",
+      "description": "Represents the type of the operation requested. This will relate directly to the source of the request.",
+      "enum": [
+        "sim_card_network_preferences"
+      ],
+      "example": "sim_card_network_preferences"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "in-progress",
+        "completed",
+        "failed"
+      ],
+      "example": "in-progress"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was created.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time indicating when the resource was updated.",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  }
+}

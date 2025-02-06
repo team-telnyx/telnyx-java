@@ -1,0 +1,28 @@
+{
+  "get": {
+    "summary": "Fetch recordings for a conference",
+    "description": "Returns recordings for a conference identified by conference_sid.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "FetchTeXMLConferenceRecordings",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/ConferenceSid.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/TexmlGetCallRecordingsResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  }
+}

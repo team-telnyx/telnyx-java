@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "data": {
+      "items": {
+        "$ref": "./FineTuningJob.json"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "title": "FineTuningJobListData"
+}

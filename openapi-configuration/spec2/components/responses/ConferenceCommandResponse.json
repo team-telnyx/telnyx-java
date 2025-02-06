@@ -1,0 +1,16 @@
+{
+  "description": "Successful response upon making a conference command.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Conference Command Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/ConferenceCommandResult.json"
+          }
+        }
+      }
+    }
+  }
+}

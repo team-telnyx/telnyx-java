@@ -1,0 +1,45 @@
+{
+  "get": {
+    "summary": "List CSV downloads",
+    "operationId": "ListCsvDownloads",
+    "tags": [
+      "CSV Downloads"
+    ],
+    "x-group-parameters": "true",
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListCsvDownloadsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "x-latency-category": "background",
+    "summary": "Create a CSV download",
+    "operationId": "CreateCsvDownload",
+    "tags": [
+      "CSV Downloads"
+    ],
+    "x-endpoint-cost": "medium",
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CsvDownloadResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    }
+  }
+}

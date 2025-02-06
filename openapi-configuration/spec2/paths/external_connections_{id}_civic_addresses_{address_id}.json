@@ -1,0 +1,36 @@
+{
+  "get": {
+    "description": "Return the details of an existing Civic Address with its Locations inside the 'data' attribute of the response.",
+    "summary": "Retrieve a Civic Address",
+    "operationId": "GetExternalConnectionCivicAddress",
+    "tags": [
+      "External Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      },
+      {
+        "$ref": "../components/parameters/address_id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetCivicAddressResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "500": {
+        "description": "Unexpected Error"
+      },
+      "502": {
+        "description": "Bad Gateway"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

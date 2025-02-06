@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "in-progress",
+        "completed",
+        "failed",
+        "interrupted"
+      ],
+      "example": "in-progress"
+    },
+    "count": {
+      "type": "integer"
+    }
+  }
+}

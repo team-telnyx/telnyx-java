@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "title": "Validate address action result",
+  "properties": {
+    "result": {
+      "type": "string",
+      "description": "Indicates whether an address is valid or invalid.",
+      "enum": [
+        "valid",
+        "invalid"
+      ],
+      "example": "valid"
+    },
+    "suggested": {
+      "type": "object",
+      "description": "Provides normalized address when available.",
+      "$ref": "./ValidateAddress.json"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "address_validation"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "./Error.json"
+      }
+    }
+  },
+  "required": [
+    "result",
+    "suggested"
+  ]
+}

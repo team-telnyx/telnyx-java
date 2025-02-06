@@ -1,0 +1,5 @@
+{
+  "type": "string",
+  "format": "datetime-rfc2822",
+  "example": "Fri, 11 Aug 2023 19:12:11 +0000"
+}

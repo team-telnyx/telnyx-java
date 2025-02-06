@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "title": "CreatePortingOrder",
+  "required": [
+    "phone_numbers"
+  ],
+  "properties": {
+    "phone_numbers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The list of +E.164 formatted phone numbers",
+      "example": [
+        "+13035550000",
+        "+13035550001",
+        "+13035550002"
+      ]
+    },
+    "customer_reference": {
+      "type": "string",
+      "description": "A customer-specified reference number for customer bookkeeping purposes",
+      "example": "Acct 123abc"
+    }
+  }
+}

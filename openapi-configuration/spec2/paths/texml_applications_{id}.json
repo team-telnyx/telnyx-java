@@ -1,0 +1,109 @@
+{
+  "delete": {
+    "description": "Deletes a TeXML Application.",
+    "summary": "Deletes a TeXML Application",
+    "operationId": "DeleteTexmlApplication",
+    "tags": [
+      "TeXML Applications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/TexmlApplicationResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "get": {
+    "description": "Retrieves the details of an existing TeXML Application.",
+    "summary": "Retrieve a TeXML Application",
+    "operationId": "GetTexmlApplication",
+    "tags": [
+      "TeXML Applications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/TexmlApplicationResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "patch": {
+    "description": "Updates settings of an existing TeXML Application.",
+    "summary": "Update a TeXML Application",
+    "operationId": "UpdateTexmlApplication",
+    "tags": [
+      "TeXML Applications"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that can be updated in a TeXML Application",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateTexmlApplicationRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/TexmlApplicationResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

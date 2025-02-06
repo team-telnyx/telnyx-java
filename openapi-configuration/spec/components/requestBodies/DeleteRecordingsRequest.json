@@ -1,0 +1,15 @@
+{
+  "description": "Deletes recordings for given ids.",
+  "required": true,
+  "content": {
+    "application/json": {
+      "schema": {
+        "description": "List of Call Recordings IDs to delete.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

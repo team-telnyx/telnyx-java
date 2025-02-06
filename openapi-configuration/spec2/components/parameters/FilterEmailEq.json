@@ -1,0 +1,10 @@
+{
+  "name": "filter[email][eq]",
+  "in": "query",
+  "required": false,
+  "description": "If present, only returns results with the <code>email</code> matching exactly the value given.",
+  "schema": {
+    "type": "string",
+    "default": "null"
+  }
+}

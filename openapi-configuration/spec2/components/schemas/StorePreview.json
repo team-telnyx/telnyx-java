@@ -1,0 +1,5 @@
+{
+  "description": "Should fax preview be stored on temporary URL.",
+  "type": "boolean",
+  "default": false
+}

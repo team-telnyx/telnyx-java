@@ -1,0 +1,127 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Uniquely identifies this porting order",
+      "type": "string",
+      "format": "uuid",
+      "example": "f1486bae-f067-460c-ad43-73a92848f902",
+      "readOnly": true
+    },
+    "customer_reference": {
+      "type": "string",
+      "description": "A customer-specified reference number for customer bookkeeping purposes",
+      "example": "Acct 123abc"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2021-03-19T10:07:15.527Z",
+      "readOnly": true
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2021-03-19T10:07:15.527Z",
+      "readOnly": true
+    },
+    "status": {
+      "$ref": "./PortingOrderStatus.json"
+    },
+    "support_key": {
+      "type": "string",
+      "description": "A key to reference this porting order when contacting Telnyx customer support. This information is not available in draft porting orders.",
+      "example": "sr_123abc",
+      "readOnly": true
+    },
+    "parent_support_key": {
+      "type": "string",
+      "description": "A key to reference for the porting order group when contacting Telnyx customer support. This information is not available for porting orders in `draft` state",
+      "example": "pr_123abc",
+      "readOnly": true
+    },
+    "porting_phone_numbers_count": {
+      "type": "integer",
+      "description": "Count of phone numbers associated with this porting order",
+      "example": 1,
+      "readOnly": true
+    },
+    "old_service_provider_ocn": {
+      "type": "string",
+      "description": "Identifies the old service provider",
+      "example": "Unreal Communications",
+      "readOnly": true
+    },
+    "documents": {
+      "$ref": "./PortingOrderDocuments.json"
+    },
+    "misc": {
+      "$ref": "./PortingOrderMisc.json"
+    },
+    "end_user": {
+      "$ref": "./PortingOrderEndUser.json"
+    },
+    "activation_settings": {
+      "$ref": "./PortingOrderActivationSettings.json"
+    },
+    "phone_number_configuration": {
+      "$ref": "./PortingOrderPhoneNumberConfiguration.json"
+    },
+    "phone_number_type": {
+      "type": "string",
+      "description": "The type of the phone number",
+      "example": "local",
+      "enum": [
+        "landline",
+        "local",
+        "mobile",
+        "national",
+        "shared_cost",
+        "toll_free"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the porting order",
+      "example": "FP Telnyx",
+      "readOnly": true
+    },
+    "requirements": {
+      "type": "array",
+      "description": "List of documentation requirements for porting numbers. Can be set directly or via the `requirement_group_id` parameter.",
+      "items": {
+        "$ref": "./PortingOrderRequirement.json"
+      }
+    },
+    "requirements_met": {
+      "type": "boolean",
+      "description": "Is true when the required documentation is met",
+      "example": false
+    },
+    "user_feedback": {
+      "$ref": "./PortingOrderUserFeedback.json"
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the user (or organization) who requested the porting order",
+      "example": "40d68ba2-0847-4df2-be9c-b0e0cb673e75"
+    },
+    "webhook_url": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://example.com/porting_webhooks"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "porting_order",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true
+    },
+    "messaging": {
+      "$ref": "./PortingOrderMessaging.json"
+    }
+  }
+}

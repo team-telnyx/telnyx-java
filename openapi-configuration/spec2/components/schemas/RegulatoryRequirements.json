@@ -1,0 +1,90 @@
+{
+  "properties": {
+    "country_code": {
+      "type": "string",
+      "example": "DE",
+      "readOnly": true
+    },
+    "phone_number_type": {
+      "type": "string",
+      "example": "local",
+      "readOnly": true
+    },
+    "action": {
+      "type": "string",
+      "example": "ordering",
+      "readOnly": true
+    },
+    "regulatory_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "Address matching the DID area code (street, building number, postal code, city and country)",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12ade33a-21c0-473b-b055-b3c836e1c292",
+            "readOnly": true
+          },
+          "example": {
+            "type": "string",
+            "example": "600 Congress Avenue, 14th Floor, Austin, TX 78701",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "example": "Address matching the DID area code"
+          },
+          "field_type": {
+            "type": "string",
+            "example": "address_id"
+          },
+          "acceptance_criteria": {
+            "type": "object",
+            "properties": {
+              "locality_limit": {
+                "type": "string",
+                "example": "Identical locality as the numbers desired"
+              },
+              "time_limit": {
+                "type": "string",
+                "example": "Less than 5 months old"
+              },
+              "regex": {
+                "type": "string",
+                "example": "regex field value must match"
+              },
+              "case_sensitive": {
+                "type": "string",
+                "example": "Whether field value is case sensitive"
+              },
+              "acceptable_characters": {
+                "type": "string",
+                "example": "Characters that can be included in field value"
+              },
+              "acceptable_values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "max_length": {
+                "type": "string",
+                "example": "10"
+              },
+              "min_length": {
+                "type": "string",
+                "example": "5"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

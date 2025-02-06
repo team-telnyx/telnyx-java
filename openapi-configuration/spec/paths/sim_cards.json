@@ -1,0 +1,95 @@
+{
+  "get": {
+    "summary": "Get all SIM cards",
+    "description": "Get all SIM cards belonging to the user that match the given filters.",
+    "operationId": "GetSimCards",
+    "tags": [
+      "SIM Cards"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/IncludeSIMCardGroup.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterSIMCardGroupId.json"
+      },
+      {
+        "name": "filter[tags]",
+        "description": "A list of SIM card tags to filter on.<br/><br/>\n If the SIM card contains <b><i>all</i></b> of the given <code>tags</code> they will be found.<br/><br/>\nFor example, if the SIM cards have the following tags: <ul>\n  <li><code>['customers', 'staff', 'test']</code>\n  <li><code>['test']</code></li>\n  <li><code>['customers']</code></li>\n</ul>\nSearching for <code>['customers', 'test']</code> returns only the first because it's the only one with both tags.<br/> Searching for <code>test</code> returns the first two SIMs, because both of them have such tag.<br/> Searching for <code>customers</code> returns the first and last SIMs.<br/>\n",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "personal",
+            "customers",
+            "active-customers"
+          ]
+        }
+      },
+      {
+        "name": "filter[iccid]",
+        "description": "A search string to partially match for the SIM card's ICCID.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "89310410106543789301"
+        }
+      },
+      {
+        "name": "filter[status]",
+        "description": "Filter by a SIM card's status.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled",
+              "standby",
+              "data_limit_exceeded",
+              "unauthorized_imei"
+            ]
+          }
+        }
+      },
+      {
+        "name": "sort",
+        "description": "Sorts SIM cards by the given field. Defaults to ascending order unless field is prefixed with a minus sign.",
+        "in": "query",
+        "required": false,
+        "example": "-current_billing_period_consumed_data.amount",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "current_billing_period_consumed_data.amount"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SearchSimCardsResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

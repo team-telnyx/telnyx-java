@@ -1,0 +1,20 @@
+{
+  "title": "AccessIPRangeListResponseSchema",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "title": "Data",
+      "type": "array",
+      "items": {
+        "$ref": "./AccessIPRangeResponseSchema.json"
+      }
+    },
+    "meta": {
+      "$ref": "./PaginationMeta.json"
+    }
+  }
+}

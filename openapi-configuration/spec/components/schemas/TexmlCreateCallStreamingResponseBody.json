@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "title": "Texml Create Call Streaming Response Body",
+  "properties": {
+    "account_sid": {
+      "$ref": "./AccountSid.json"
+    },
+    "call_sid": {
+      "$ref": "./CallControlId.json"
+    },
+    "sid": {
+      "$ref": "./TexmlSid.json"
+    },
+    "name": {
+      "type": "string",
+      "description": "The user specified name of Stream.",
+      "example": "My stream"
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the streaming.",
+      "enum": [
+        "in-progress"
+      ],
+      "example": "in-progress"
+    },
+    "date_updated": {
+      "$ref": "./DateTimeRFC2822.json"
+    },
+    "uri": {
+      "type": "string",
+      "description": "The relative URI for this streaming resource.",
+      "example": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls/v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA/Streams/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "function"
+      ]
+    },
+    "function": {
+      "$ref": "./ExternalFunctionDefinition.json"
+    }
+  },
+  "type": "object",
+  "required": [
+    "function",
+    "type"
+  ],
+  "title": "ExternalToolParam"
+}

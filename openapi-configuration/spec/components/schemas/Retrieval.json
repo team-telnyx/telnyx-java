@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "retrieval"
+      ]
+    },
+    "retrieval": {
+      "$ref": "./BucketIds.json"
+    }
+  },
+  "type": "object",
+  "required": [
+    "type",
+    "retrieval"
+  ],
+  "title": "Retrieval"
+}

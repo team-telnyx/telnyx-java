@@ -1,0 +1,9 @@
+{
+  "name": "filter[telephone_number][eq]",
+  "in": "query",
+  "description": "The phone number to filter log messages for or \"null\" to filter for logs without a phone number",
+  "schema": {
+    "type": "string",
+    "example": "+1234567890"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "get": {
+    "summary": "Lists the phone numbers jobs",
+    "operationId": "ListPhoneNumbersJobs",
+    "tags": [
+      "Bulk Phone Number Operations"
+    ],
+    "x-group-parameters": "true",
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "name": "filter[type]",
+        "in": "query",
+        "description": "Filter the phone number jobs by type.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "update_emergency_settings",
+            "delete_phone_numbers",
+            "update_phone_numbers"
+          ],
+          "example": "update_emergency_settings",
+          "description": "Identifies the type of the background job."
+        }
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "description": "Specifies the sort order for results. If not given, results are sorted by created_at in descending order.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "created_at"
+          ],
+          "example": "created_at"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPhoneNumbersJobsResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "422": {
+        "description": "Unprocessable Entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            },
+            "examples": {
+              "Invalid sorting value": {
+                "value": {
+                  "errors": [
+                    {
+                      "code": "10015",
+                      "title": "Invalid sorting value",
+                      "detail": "The value provided for sorting is not valid. Check the value used and try again.",
+                      "source": {
+                        "pointer": "/sort"
+                      },
+                      "meta": {
+                        "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+                      }
+                    }
+                  ]
+                }
+              },
+              "Invalid page size": {
+                "value": {
+                  "errors": [
+                    {
+                      "code": "10015",
+                      "title": "Invalid pagination",
+                      "detail": "The provided 'page' parameter is invalid. It must be an object with 'size' and/or 'number' with numeric values.",
+                      "source": {
+                        "pointer": "page/size"
+                      },
+                      "meta": {
+                        "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+                      }
+                    }
+                  ]
+                }
+              },
+              "Invalid page number": {
+                "value": {
+                  "errors": [
+                    {
+                      "code": "10015",
+                      "title": "Invalid pagination",
+                      "detail": "The provided 'page' parameter is invalid. It must be an object with 'size' and/or 'number' with numeric values.",
+                      "source": {
+                        "pointer": "page/number"
+                      },
+                      "meta": {
+                        "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

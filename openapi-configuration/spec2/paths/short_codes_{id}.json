@@ -1,0 +1,56 @@
+{
+  "get": {
+    "summary": "Retrieve a short code",
+    "operationId": "RetrieveShortCode",
+    "tags": [
+      "Short Codes"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ShortCodeId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ShortCodeResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update short code",
+    "operationId": "UpdateShortCode",
+    "description": "Update the settings for a specific short code. To unbind a short code from a profile, set the `messaging_profile_id` to `null` or an empty string.",
+    "tags": [
+      "Short Codes"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ShortCodeId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Short code update",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateShortCodeRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ShortCodeResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

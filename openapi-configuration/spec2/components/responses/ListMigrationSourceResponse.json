@@ -1,0 +1,21 @@
+{
+  "description": "List Migration Sources Response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/MigrationSourceParams.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMetaSimple.json"
+          }
+        }
+      }
+    }
+  }
+}

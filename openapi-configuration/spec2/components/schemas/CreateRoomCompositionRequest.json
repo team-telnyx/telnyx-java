@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "properties": {
+    "format": {
+      "description": "The desired format of the room composition.",
+      "type": "string",
+      "example": "mp4",
+      "nullable": true,
+      "default": "mp4"
+    },
+    "resolution": {
+      "description": "The desired resolution (width/height in pixels) of the resulting video of the room composition. Both width and height are required to be between 16 and 1280; and width * height should not exceed 1280 * 720",
+      "type": "string",
+      "example": "800x600",
+      "nullable": true,
+      "default": "1280x720"
+    },
+    "session_id": {
+      "description": "id of the room session associated with the room composition.",
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777b0",
+      "nullable": true
+    },
+    "video_layout": {
+      "description": "Describes the video layout of the room composition in terms of regions.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "./VideoRegion.json"
+      }
+    },
+    "webhook_event_url": {
+      "type": "string",
+      "format": "url",
+      "description": "The URL where webhooks related to this room composition will be sent. Must include a scheme, such as 'https'.",
+      "example": "https://example.com"
+    },
+    "webhook_event_failover_url": {
+      "type": "string",
+      "format": "url",
+      "description": "The failover URL where webhooks related to this room composition will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+      "example": "https://failover.example.com",
+      "nullable": true,
+      "default": ""
+    },
+    "webhook_timeout_secs": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 30,
+      "description": "Specifies how many seconds to wait before timing out a webhook.",
+      "example": 25,
+      "default": null,
+      "nullable": true
+    }
+  }
+}

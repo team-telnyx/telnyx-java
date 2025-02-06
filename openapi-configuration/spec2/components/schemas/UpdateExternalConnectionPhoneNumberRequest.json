@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "title": "Update External Connection Phone Number Request",
+  "properties": {
+    "location_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the location to assign the phone number to."
+    }
+  }
+}

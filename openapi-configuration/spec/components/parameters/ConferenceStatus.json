@@ -1,0 +1,15 @@
+{
+  "name": "Status",
+  "in": "query",
+  "required": false,
+  "description": "Filters conferences by status.",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "init",
+      "in-progress",
+      "completed"
+    ]
+  },
+  "example": "in-progress"
+}

@@ -1,0 +1,67 @@
+{
+  "get": {
+    "summary": "List all Virtual Cross Connects",
+    "description": "List all Virtual Cross Connects.",
+    "operationId": "ListVirtualCrossConnects",
+    "tags": [
+      "Virtual Cross Connects"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[network_id]",
+        "description": "The associated network id to filter on.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/VirtualCrossConnectListResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a Virtual Cross Connect",
+    "description": "Create a new Virtual Cross Connect.<br /><br />For AWS and GCE, you have the option of creating the primary connection first and the secondary connection later. You also have the option of disabling the primary and/or secondary connections at any time and later re-enabling them. With Azure, you do not have this option. Azure requires both the primary and secondary connections to be created at the same time and they can not be independantly disabled.",
+    "operationId": "CreateVirtualCrossConnect",
+    "tags": [
+      "Virtual Cross Connects"
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/VirtualCrossConnectCreate.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/VirtualCrossConnectResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntity.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

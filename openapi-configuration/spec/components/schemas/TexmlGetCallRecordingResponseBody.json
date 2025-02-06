@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "title": "Texml Get Call Recording Response Body",
+  "properties": {
+    "account_sid": {
+      "$ref": "./AccountSid.json"
+    },
+    "call_sid": {
+      "$ref": "./CallControlId.json"
+    },
+    "conference_sid": {
+      "$ref": "./ConferenceSid.json"
+    },
+    "channels": {
+      "$ref": "./TwimlRecordingChannels.json"
+    },
+    "date_created": {
+      "$ref": "./DateTimeRFC2822.json"
+    },
+    "date_updated": {
+      "$ref": "./DateTimeRFC2822.json"
+    },
+    "start_time": {
+      "$ref": "./DateTimeRFC2822.json"
+    },
+    "duration": {
+      "$ref": "./TexmlRecordingDuration.json"
+    },
+    "sid": {
+      "$ref": "./TexmlSid.json"
+    },
+    "source": {
+      "$ref": "./RecordingSource.json"
+    },
+    "status": {
+      "$ref": "./TexmlRecordingStatus.json"
+    },
+    "error_code": {
+      "$ref": "./TexmlErrorCode.json"
+    },
+    "subresources_uris": {
+      "$ref": "./TexmlRecordingSubresourcesUris.json"
+    },
+    "uri": {
+      "type": "string",
+      "description": "The relative URI for this recording resource.",
+      "example": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json"
+    },
+    "media_url": {
+      "$ref": "./TexmlRecordingMediaUrl.json"
+    }
+  }
+}

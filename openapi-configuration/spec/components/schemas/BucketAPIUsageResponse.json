@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "./BucketOps.json"
+      }
+    },
+    "total": {
+      "$ref": "./BucketOpsTotal.json"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2020-01-01T00:00:00Z",
+      "description": "The time the usage was recorded"
+    }
+  }
+}

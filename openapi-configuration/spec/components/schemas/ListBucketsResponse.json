@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "xml": {
+    "name": "ListAllMyBucketsResult"
+  },
+  "properties": {
+    "Buckets": {
+      "type": "array",
+      "xml": {
+        "wrapped": true
+      },
+      "items": {
+        "type": "object",
+        "xml": {
+          "name": "Bucket"
+        },
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "title": "VerifyProfileResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "example": "0abb5b4f-459f-445a-bfcd-488998b7572d",
+      "format": "uuid",
+      "type": "string"
+    },
+    "text": {
+      "example": "Your {{app_name}} verification code is: {{code}}.",
+      "type": "string"
+    }
+  }
+}

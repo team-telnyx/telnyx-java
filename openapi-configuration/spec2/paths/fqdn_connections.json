@@ -1,0 +1,89 @@
+{
+  "get": {
+    "description": "Returns a list of your FQDN connections.",
+    "summary": "List FQDN connections",
+    "operationId": "ListFqdnConnections",
+    "tags": [
+      "FQDN Connections"
+    ],
+    "x-group-parameters": "true",
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterConnectionName.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterFqdn.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterOutboundVoiceProfileId.json"
+      },
+      {
+        "$ref": "../components/parameters/SortConnection.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListFqdnConnectionsResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "description": "Creates a FQDN connection.",
+    "summary": "Create an FQDN connection",
+    "operationId": "CreateFqdnConnection",
+    "tags": [
+      "FQDN Connections"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters that can be defined during FQDN connection creation",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateFqdnConnectionRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/FqdnConnectionResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

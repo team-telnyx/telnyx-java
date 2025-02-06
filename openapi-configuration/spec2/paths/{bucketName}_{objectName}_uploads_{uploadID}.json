@@ -1,0 +1,30 @@
+{
+  "parameters": [
+    {
+      "name": "bucketName",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "objectName",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "uploadID",
+      "in": "path",
+      "required": true,
+      "schema": {
+        "type": "string",
+        "minLength": 36,
+        "maxLength": 36
+      }
+    }
+  ]
+}

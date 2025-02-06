@@ -1,0 +1,13 @@
+{
+  "title": "SettingsDataErrorMessage",
+  "required": [
+    "message"
+  ],
+  "type": "object",
+  "properties": {
+    "message": {
+      "title": "Message",
+      "type": "string"
+    }
+  }
+}

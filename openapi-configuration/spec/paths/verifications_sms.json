@@ -1,0 +1,35 @@
+{
+  "post": {
+    "tags": [
+      "Verify"
+    ],
+    "summary": "Trigger SMS verification",
+    "operationId": "CreateVerificationSms",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateVerificationRequestSMS.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Expected verifications response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/CreateVerificationResponse.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

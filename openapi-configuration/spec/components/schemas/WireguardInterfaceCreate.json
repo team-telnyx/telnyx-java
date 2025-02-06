@@ -1,0 +1,18 @@
+{
+  "allOf": [
+    {
+      "$ref": "./WireguardInterface.json"
+    },
+    {
+      "$ref": "./RegionIn.json"
+    },
+    {
+      "type": "object",
+      "title": "WireguardInterfaceCreate",
+      "required": [
+        "network_id",
+        "region_code"
+      ]
+    }
+  ]
+}

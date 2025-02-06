@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "title": "TnReleaseEntry",
+  "properties": {
+    "phone_number": {
+      "type": "string",
+      "description": "Phone number in E164 format."
+    },
+    "number_id": {
+      "type": "string",
+      "description": "Phone number ID from the Telnyx API."
+    }
+  }
+}

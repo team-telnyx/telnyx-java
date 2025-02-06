@@ -1,0 +1,132 @@
+{
+  "type": "object",
+  "title": "Gather Using AI Request",
+  "required": [
+    "parameters"
+  ],
+  "properties": {
+    "parameters": {
+      "description": "The parameters described as a JSON Schema object that needs to be gathered by the voice assistant. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format",
+      "type": "object",
+      "example": {
+        "properties": {
+          "age": {
+            "description": "The age of the customer.",
+            "type": "integer"
+          },
+          "location": {
+            "description": "The location of the customer.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "age",
+          "location"
+        ],
+        "type": "object"
+      }
+    },
+    "assistant": {
+      "$ref": "./Assistant.json"
+    },
+    "transcription": {
+      "$ref": "./TranscriptionConfig.json"
+    },
+    "voice": {
+      "$ref": "./VoiceConfig.json"
+    },
+    "voice_settings": {
+      "description": "The settings associated with the voice selected",
+      "oneOf": [
+        {
+          "$ref": "./ElevenLabsVoiceSettings.json"
+        },
+        {
+          "$ref": "./TelnyxVoiceSettings.json"
+        },
+        {
+          "$ref": "./AWSVoiceSettings.json"
+        }
+      ]
+    },
+    "greeting": {
+      "description": "Text that will be played when the gathering starts, if none then nothing will be played when the gathering starts. The greeting can be text for any voice or SSML for `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.",
+      "type": "string",
+      "example": "Hello, can you tell me your age and where you live?"
+    },
+    "send_partial_results": {
+      "description": "Default is `false`. If set to `true`, the voice assistant will send partial results via the `call.ai_gather.partial_results` [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) in real time as individual fields are gathered. If set to `false`, the voice assistant will only send the final result via the `call.ai_gather.ended` callback.",
+      "type": "boolean",
+      "example": false
+    },
+    "message_history": {
+      "description": "The message history you want the voice assistant to be aware of, this can be useful to keep the context of the conversation, or to pass additional information to the voice assistant.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "example": "Hello, I'm 29 and I live in Paris.",
+            "description": "The content of the message"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "assistant",
+              "user"
+            ],
+            "example": "user",
+            "description": "The role of the message sender"
+          }
+        }
+      }
+    },
+    "client_state": {
+      "description": "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.",
+      "type": "string",
+      "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+    },
+    "command_id": {
+      "description": "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.",
+      "type": "string",
+      "example": "891510ac-f3e4-11e8-af5b-de00688a4901"
+    },
+    "interruption_settings": {
+      "$ref": "./InterruptionSettings.json"
+    }
+  },
+  "example": {
+    "parameters": {
+      "properties": {
+        "age": {
+          "description": "The age of the customer.",
+          "type": "integer"
+        },
+        "location": {
+          "description": "The location of the customer.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "age",
+        "location"
+      ],
+      "type": "object"
+    },
+    "voice": "Telnyx.KokoroTTS.af",
+    "greeting": "Hello, can you tell me your age and where you live?",
+    "message_history": [
+      {
+        "content": "Hello, what's your name?",
+        "role": "assistant"
+      },
+      {
+        "content": "Hello, I'm John.",
+        "role": "user"
+      }
+    ],
+    "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+    "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+  }
+}

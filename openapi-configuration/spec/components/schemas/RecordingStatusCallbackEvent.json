@@ -1,0 +1,5 @@
+{
+  "description": "The changes to the recording's state that should generate a call to `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`. Separate multiple values with a space. Defaults to `completed`.",
+  "example": "in-progress completed absent",
+  "type": "string"
+}

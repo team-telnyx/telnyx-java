@@ -1,0 +1,110 @@
+{
+  "get": {
+    "summary": "List mobile network operators",
+    "description": "Telnyx has a set of GSM mobile operators partners that are available through our mobile network roaming. This resource is entirely managed by Telnyx and may change over time. That means that this resource won't allow any write operations for it. Still, it's available so it can be used as a support resource that can be related to other resources or become a configuration option.",
+    "operationId": "GetMobileNetworkOperators",
+    "tags": [
+      "Mobile Network Operators"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[name][starts_with]",
+        "description": "Filter by name starting with.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "AT"
+        }
+      },
+      {
+        "name": "filter[name][contains]",
+        "description": "Filter by name containing match.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "T&T"
+        }
+      },
+      {
+        "name": "filter[name][ends_with]",
+        "description": "Filter by name ending with.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "T"
+        }
+      },
+      {
+        "name": "filter[country_code]",
+        "description": "Filter by exact country_code.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "US"
+        }
+      },
+      {
+        "name": "filter[mcc]",
+        "description": "Filter by exact MCC.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "310"
+        }
+      },
+      {
+        "name": "filter[mnc]",
+        "description": "Filter by exact MNC.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "410"
+        }
+      },
+      {
+        "name": "filter[tadig]",
+        "description": "Filter by exact TADIG.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "USACG"
+        }
+      },
+      {
+        "name": "filter[network_preferences_enabled]",
+        "description": "Filter by network_preferences_enabled.",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SearchMobileNetworkOperatorsResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

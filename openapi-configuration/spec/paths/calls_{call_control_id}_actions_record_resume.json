@@ -1,0 +1,35 @@
+{
+  "post": {
+    "summary": "Record resume",
+    "description": "Resume recording the call.\n\n**Expected Webhooks:**\n\nThere are no webhooks associated with this command.\n",
+    "operationId": "ResumeCallRecording",
+    "tags": [
+      "Call Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/CallControlId.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Resume recording call request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/ResumeRecordingRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CallControlCommandResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

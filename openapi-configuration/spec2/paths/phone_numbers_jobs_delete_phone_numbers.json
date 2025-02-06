@@ -1,0 +1,79 @@
+{
+  "post": {
+    "x-latency-category": "background",
+    "summary": "Delete a batch of numbers",
+    "description": "Creates a new background job to delete a batch of numbers. At most one thousand numbers can be updated per API call.",
+    "operationId": "CreateDeletePhoneNumbersJob",
+    "tags": [
+      "Bulk Phone Number Operations"
+    ],
+    "x-group-parameters": "true",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/PhoneNumbersJobDeletePhoneNumbersRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Phone numbers job delete phone numbers requested.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Phone Numbers Job Delete Phone Numbers",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/PhoneNumbersJob.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/ForbiddenResponse.json"
+      },
+      "422": {
+        "description": "Unprocessable Entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            },
+            "examples": {
+              "Phone numbers must be present": {
+                "$ref": "../components/examples/PhoneNumbersMustBePresent.json"
+              },
+              "Maximum allowed phone numbers": {
+                "$ref": "../components/examples/MaximumAllowedPhoneNumbers.json"
+              },
+              "Minimum allowed phone numbers": {
+                "$ref": "../components/examples/MinimumAllowedPhoneNumbers.json"
+              },
+              "Mixed IDs and E164 values": {
+                "$ref": "../components/examples/MixedIdsAndE164Values.json"
+              },
+              "Phone number ownership": {
+                "$ref": "../components/examples/PhoneNumberOwnership.json"
+              },
+              "Maximum jobs allowed": {
+                "$ref": "../components/examples/Maximum20JobsAllowed.json"
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    }
+  }
+}

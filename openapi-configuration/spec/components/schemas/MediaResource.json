@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "title": "Media Resource",
+  "properties": {
+    "media_name": {
+      "description": "Uniquely identifies a media resource.",
+      "type": "string"
+    },
+    "expires_at": {
+      "description": "ISO 8601 formatted date of when the media resource will expire and be deleted.",
+      "type": "string",
+      "example": "2020-01-23T18:10:02.574Z"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the media resource was created",
+      "example": "2019-01-23T18:10:02.574Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the media resource was last updated",
+      "example": "2019-01-23T18:10:02.574Z"
+    },
+    "content_type": {
+      "type": "string",
+      "description": "Content type of the file",
+      "example": "application/xml"
+    }
+  },
+  "example": {
+    "media_name": "f5586561-8ff0-4291-a0ac-84fe544797bd",
+    "expires_at": "2020-01-23T18:10:02.574Z",
+    "created_at": "2019-01-23T18:10:02.574Z",
+    "updated_at": "2019-01-23T18:10:02.574Z",
+    "content_type": "application/xml"
+  }
+}

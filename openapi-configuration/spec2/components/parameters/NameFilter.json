@@ -1,0 +1,9 @@
+{
+  "name": "filter[name][contains]",
+  "in": "query",
+  "description": "Optional filter on outbound voice profile name.",
+  "schema": {
+    "type": "string",
+    "example": "office-profile"
+  }
+}

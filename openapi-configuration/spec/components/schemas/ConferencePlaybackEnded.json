@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "title": "Conference Playback Ended",
+  "example": {
+    "record_type": "event",
+    "event_type": "conference.playback.ended",
+    "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+    "occurred_at": "2018-02-02T22:25:27.521992Z",
+    "payload": {
+      "connection_id": "7267xxxxxxxxxxxxxx",
+      "creator_call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+      "conference_id": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+      "media_url": "https://www.example.com/audio.mp3",
+      "occured_at": "2018-02-02T22:25:27.521Z"
+    }
+  },
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "example": "event",
+      "enum": [
+        "event"
+      ],
+      "description": "Identifies the type of the resource."
+    },
+    "event_type": {
+      "type": "string",
+      "example": "conference.playback.ended",
+      "enum": [
+        "conference.playback.ended"
+      ],
+      "description": "The type of event being delivered."
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+      "description": "Identifies the type of resource."
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "type": "string",
+          "example": "7267xxxxxxxxxxxxxx",
+          "description": "Call Control App ID (formerly Telnyx connection ID) used in the call."
+        },
+        "creator_call_session_id": {
+          "type": "string",
+          "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+          "description": "ID that is unique to the call session that started the conference."
+        },
+        "conference_id": {
+          "type": "string",
+          "example": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+          "description": "ID of the conference the text was spoken in."
+        },
+        "media_url": {
+          "type": "string",
+          "example": "http://example.com/audio.wav",
+          "description": "The audio URL being played back, if audio_url has been used to start."
+        },
+        "media_name": {
+          "type": "string",
+          "example": "my_media_uploaded_to_media_storage_api",
+          "description": "The name of the audio media file being played back, if media_name has been used to start."
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-02-02T22:25:27.521Z",
+          "description": "ISO 8601 datetime of when the event occurred."
+        }
+      }
+    }
+  }
+}

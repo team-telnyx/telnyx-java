@@ -1,0 +1,27 @@
+{
+  "get": {
+    "summary": "Retrieve messaging profile metrics",
+    "operationId": "GetMessagingProfileMetrics",
+    "tags": [
+      "Messaging Profiles"
+    ],
+    "x-group-parameters": "true",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/MessagingProfileId.json"
+      },
+      {
+        "$ref": "../components/parameters/MessagingProfileMetricTimeFrame.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/RetrieveMessagingProfileMetrics.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

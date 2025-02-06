@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "document_chunk": {
+      "type": "string",
+      "title": "Document Chunk"
+    },
+    "distance": {
+      "type": "number",
+      "title": "Distance"
+    },
+    "metadata": {
+      "$ref": "./EmbeddingMetadata.json"
+    }
+  },
+  "type": "object",
+  "required": [
+    "document_chunk",
+    "distance",
+    "metadata"
+  ],
+  "title": "EmbeddingSimilaritySearchDocument",
+  "description": "Example document response from embedding service\n{\n  \"document_chunk\": \"your status? This is Vanessa Bloome...\",\n  \"distance\": 0.18607724,\n  \"metadata\": {\n    \"source\": \"https://us-central-1.telnyxstorage.com/scripts/bee_movie_script.txt\",\n    \"checksum\": \"343054dd19bab39bbf6761a3d20f1daa\",\n    \"embedding\": \"openai/text-embedding-ada-002\",\n    \"filename\": \"bee_movie_script.txt\",\n    \"certainty\": 0.9069613814353943,\n    \"loader_metadata\": {}\n  }\n}"
+}

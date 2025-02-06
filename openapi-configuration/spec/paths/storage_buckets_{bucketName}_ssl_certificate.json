@@ -1,0 +1,98 @@
+{
+  "delete": {
+    "operationId": "RemoveStorageSSLCertificate",
+    "summary": "Remove SSL Certificate",
+    "description": "Deletes an SSL certificate and its matching secret.",
+    "tags": [
+      "Bucket SSL Certificate"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "bucketName",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Bucket Name"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SSLCertificateResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "operationId": "GetStorageSSLCertificates",
+    "summary": "Get Bucket SSL Certificate",
+    "description": "Returns the stored certificate detail of a bucket, if applicable.",
+    "tags": [
+      "Bucket SSL Certificate"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "bucketName",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "The name of the bucket"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SSLCertificateResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "put": {
+    "operationId": "AddStorageSSLCertificate",
+    "tags": [
+      "Bucket SSL Certificate"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "bucketName",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "The name of the bucket"
+      }
+    ],
+    "summary": "Add SSL Certificate",
+    "description": "Uploads an SSL certificate and its matching secret so that you can use Telnyx’s storage as your CDN.",
+    "requestBody": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "certificate": {
+                "type": "string",
+                "format": "binary",
+                "description": "The SSL certificate file"
+              },
+              "private_key": {
+                "type": "string",
+                "format": "binary",
+                "description": "The private key file"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/SSLCertificateResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

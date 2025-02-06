@@ -1,0 +1,92 @@
+{
+  "post": {
+    "x-latency-category": "background",
+    "summary": "Update the emergency settings from a batch of numbers",
+    "description": "Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.",
+    "operationId": "CreatePhoneNumbersJobUpdateEmergencySettings",
+    "tags": [
+      "Bulk Phone Number Operations"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/PhoneNumbersJobUpdateEmergencySettingsRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Phone numbers enable emergency requested.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Phone Numbers Enable Emergency",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/PhoneNumbersJob.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/ForbiddenResponse.json"
+      },
+      "422": {
+        "description": "Unprocessable Entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            },
+            "examples": {
+              "Phone numbers must be present": {
+                "$ref": "../components/examples/PhoneNumbersMustBePresent.json"
+              },
+              "Maximum allowed phone numbers": {
+                "$ref": "../components/examples/MaximumAllowedPhoneNumbers.json"
+              },
+              "Minimum allowed phone numbers": {
+                "$ref": "../components/examples/MinimumAllowedPhoneNumbers.json"
+              },
+              "Mixed IDs and E164 values": {
+                "$ref": "../components/examples/MixedIdsAndE164Values.json"
+              },
+              "Phone number ownership": {
+                "$ref": "../components/examples/PhoneNumberOwnership.json"
+              },
+              "Maximum jobs allowed": {
+                "value": {
+                  "errors": [
+                    {
+                      "code": "10015",
+                      "title": "Bad Request",
+                      "detail": "You can have at most 500 pending or in progress jobs",
+                      "source": {
+                        "pointer": "/base"
+                      },
+                      "meta": {
+                        "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    }
+  }
+}

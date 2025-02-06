@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "example": "message"
+        },
+        "direction": {
+          "type": "string",
+          "example": "outbound"
+        },
+        "id": {
+          "type": "string",
+          "description": "message ID",
+          "example": "4031938e-60e4-4235-a8dd-0b1c55a23e7a"
+        },
+        "type": {
+          "type": "string",
+          "example": "RCS"
+        },
+        "organization_id": {
+          "type": "string",
+          "example": "9f61d8e1-7687-4d6d-9cae-9ff682985983"
+        },
+        "messaging_profile_id": {
+          "type": "string",
+          "example": "4001781e-626f-4a41-a914-b1b682150f94"
+        },
+        "from": {
+          "$ref": "./RCSFrom.json"
+        },
+        "to": {
+          "$ref": "./RCSTo.json"
+        },
+        "body": {
+          "$ref": "./RCSAgentMessage.json"
+        },
+        "encoding": {
+          "type": "string",
+          "example": "utf-8"
+        },
+        "received_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

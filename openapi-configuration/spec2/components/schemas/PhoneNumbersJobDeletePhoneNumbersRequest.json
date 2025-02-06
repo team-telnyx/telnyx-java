@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "required": [
+    "phone_numbers"
+  ],
+  "properties": {
+    "phone_numbers": {
+      "type": "array",
+      "items": {
+        "description": "Array of phone number ids and/or phone numbers in E164 format to update",
+        "type": "string"
+      }
+    }
+  },
+  "example": {
+    "phone_numbers": [
+      "+19705555098",
+      "+19715555098",
+      "32873127836"
+    ]
+  }
+}

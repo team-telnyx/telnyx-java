@@ -1,0 +1,22 @@
+{
+  "description": "Successful response upon accepting cancel fax command",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Successful response upon accepting cancel fax command",
+        "example": {
+          "data": {
+            "result": "ok"
+          }
+        },
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "ok"
+          }
+        }
+      }
+    }
+  }
+}

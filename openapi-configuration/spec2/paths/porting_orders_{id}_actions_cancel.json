@@ -1,0 +1,27 @@
+{
+  "post": {
+    "summary": "Cancel a porting order",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Cancel a porting order",
+    "operationId": "CancelPortingOrder",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PathPortingOrderID.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CancelPortingOrderResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

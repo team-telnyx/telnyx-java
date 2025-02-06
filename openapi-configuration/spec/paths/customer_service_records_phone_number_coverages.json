@@ -1,0 +1,31 @@
+{
+  "post": {
+    "tags": [
+      "Customer Service Record"
+    ],
+    "summary": "Verify CSR phone number coverage",
+    "description": "Verify the coverage for a list of phone numbers.",
+    "operationId": "VerifyPhoneNumberCoverage",
+    "requestBody": {
+      "$ref": "../components/requestBodies/VerifyCustomerServiceRecordPhoneNumberCoverage.json"
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/ListCustomerServiceRecordPhoneNumberCoverage.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedErrorResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/ForbiddenErrorResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityErrorResponse.json"
+      },
+      "500": {
+        "$ref": "../components/responses/UnexpectedErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

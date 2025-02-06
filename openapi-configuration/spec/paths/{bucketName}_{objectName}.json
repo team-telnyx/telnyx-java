@@ -1,0 +1,235 @@
+{
+  "delete": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "DeleteObject",
+    "summary": "DeleteObject",
+    "description": "Delete an object from a given bucket.",
+    "externalDocs": {
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html"
+    },
+    "responses": {
+      "204": {
+        "description": "Success"
+      },
+      "401": {
+        "description": "Unauthorized"
+      }
+    },
+    "parameters": [
+      {
+        "name": "bucketName",
+        "in": "path",
+        "required": true,
+        "description": "The bucket name.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "objectName",
+        "in": "path",
+        "required": true,
+        "description": "The object name.",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    ],
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "GetObject",
+    "summary": "GetObject",
+    "description": "Retrieves an object from a given bucket.",
+    "externalDocs": {
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html"
+    },
+    "responses": {
+      "200": {
+        "description": "Success",
+        "content": {
+          "*/*": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "ObjectNotFound"
+      }
+    },
+    "parameters": [
+      {
+        "name": "bucketName",
+        "in": "path",
+        "required": true,
+        "description": "The bucket name.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "objectName",
+        "in": "path",
+        "required": true,
+        "description": "The object name.",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      {
+        "name": "uploadId",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "x-latency-category": "responsive"
+  },
+  "head": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "HeadObject",
+    "summary": "HeadObject",
+    "description": "Retrieves metadata from an object without returning the object itself.",
+    "externalDocs": {
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html"
+    },
+    "responses": {
+      "200": {
+        "description": "Success",
+        "headers": {
+          "Date": {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "Last-Modified": {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "Content-Length": {
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "ObjectNotFound"
+      }
+    },
+    "parameters": [
+      {
+        "name": "bucketName",
+        "in": "path",
+        "required": true,
+        "description": "The bucket name.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "objectName",
+        "in": "path",
+        "required": true,
+        "description": "The object name.",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    ],
+    "x-latency-category": "responsive"
+  },
+  "put": {
+    "tags": [
+      "Object"
+    ],
+    "operationId": "PutObject",
+    "summary": "PutObject",
+    "description": "Add an object to a bucket.",
+    "externalDocs": {
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html"
+    },
+    "responses": {
+      "200": {
+        "description": "Success"
+      },
+      "401": {
+        "description": "Unauthorized"
+      }
+    },
+    "parameters": [
+      {
+        "name": "bucketName",
+        "in": "path",
+        "required": true,
+        "description": "The bucket name.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "objectName",
+        "in": "path",
+        "required": true,
+        "description": "The object name.",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      {
+        "name": "Content-type",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "partNumber",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "uploadId",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "*/*": {
+          "schema": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

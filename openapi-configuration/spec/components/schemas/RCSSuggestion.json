@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "reply": {
+      "$ref": "./RCSReply.json"
+    },
+    "action": {
+      "$ref": "./RCSAction.json"
+    }
+  }
+}

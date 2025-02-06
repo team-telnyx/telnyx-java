@@ -1,0 +1,23 @@
+{
+  "description": "A list of your tags",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "outbound_profile_tags": {
+                "$ref": "../schemas/UserTagList.json"
+              },
+              "number_tags": {
+                "$ref": "../schemas/UserTagList.json"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

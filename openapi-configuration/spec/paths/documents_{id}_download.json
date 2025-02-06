@@ -1,0 +1,49 @@
+{
+  "get": {
+    "summary": "Download a document",
+    "deprecated": false,
+    "description": "Download a document.",
+    "operationId": "DownloadDocument",
+    "tags": [
+      "Documents"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Identifies the resource.",
+        "required": true,
+        "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+        "schema": {
+          "format": "uuid",
+          "type": "string",
+          "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "*/*": {
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

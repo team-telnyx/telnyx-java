@@ -1,0 +1,17 @@
+{
+  "description": "Resource not found",
+  "content": {
+    "application/json": {
+      "schema": {
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/ResourceNotFoundError.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

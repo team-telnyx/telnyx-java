@@ -1,0 +1,179 @@
+{
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of the metric.",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "global_ip": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Global IP ID.",
+          "example": "a836125b-20b6-452e-9c03-2653f09c7ed7"
+        },
+        "ip_address": {
+          "type": "string",
+          "description": "The Global IP address.",
+          "readOnly": true,
+          "example": null
+        }
+      }
+    },
+    "prober_location": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Location ID.",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "description": "Location name.",
+          "example": "Amsterdam"
+        },
+        "lat": {
+          "type": "number",
+          "description": "Latitude.",
+          "example": 52.370216
+        },
+        "lon": {
+          "type": "number",
+          "description": "Longitude.",
+          "example": 4.895168
+        }
+      }
+    },
+    "mean_latency": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The average latency.",
+          "example": 100
+        },
+        "unit": {
+          "type": "string",
+          "description": "The unit of the average latency.",
+          "example": "ms"
+        }
+      }
+    },
+    "percentile_latency": {
+      "type": "object",
+      "properties": {
+        "0": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The minimum latency.",
+              "example": 100
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of the minimum latency.",
+              "example": "ms"
+            }
+          }
+        },
+        "25": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The 25th percentile latency.",
+              "example": 100
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of the 25th percentile latency.",
+              "example": "ms"
+            }
+          }
+        },
+        "50": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The 50th percentile latency.",
+              "example": 100
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of the 50th percentile latency.",
+              "example": "ms"
+            }
+          }
+        },
+        "75": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The 75th percentile latency.",
+              "example": 100
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of the 75th percentile latency.",
+              "example": "ms"
+            }
+          }
+        },
+        "90": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The 90th percentile latency.",
+              "example": 100
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of the 90th percentile latency.",
+              "example": "ms"
+            }
+          }
+        },
+        "99": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The 99th percentile latency.",
+              "example": 100
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of the 99th percentile latency.",
+              "example": "ms"
+            }
+          }
+        },
+        "100": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The maximum latency.",
+              "example": 100
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of the maximum latency.",
+              "example": "ms"
+            }
+          }
+        }
+      }
+    }
+  }
+}

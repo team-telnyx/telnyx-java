@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "properties": {
+    "pending": {
+      "type": "string",
+      "format": "decimal",
+      "description": "The account’s pending amount.",
+      "example": "10.00"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "balance",
+      "enum": [
+        "balance"
+      ],
+      "description": "Identifies the type of the resource."
+    },
+    "balance": {
+      "type": "string",
+      "format": "decimal",
+      "description": "The account's current balance.",
+      "example": "300.00"
+    },
+    "credit_limit": {
+      "type": "string",
+      "format": "decimal",
+      "description": "The account's credit limit.",
+      "example": "100.00"
+    },
+    "available_credit": {
+      "type": "string",
+      "format": "decimal",
+      "description": "Available amount to spend (balance + credit limit)",
+      "example": "400.00"
+    },
+    "currency": {
+      "type": "string",
+      "format": "iso4217",
+      "description": "The ISO 4217 currency identifier.",
+      "example": "USD"
+    }
+  },
+  "example": {
+    "record_type": "balance",
+    "pending": "10.00",
+    "balance": "300.00",
+    "credit_limit": "100.00",
+    "available_credit": "400.00",
+    "currency": "USD"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a number order phone number.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Number Order Phone Number Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/NumberOrderPhoneNumber.json"
+          }
+        }
+      }
+    }
+  }
+}

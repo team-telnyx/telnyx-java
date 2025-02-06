@@ -1,0 +1,27 @@
+{
+  "get": {
+    "summary": "List phone numbers with messaging settings",
+    "operationId": "ListPhoneNumbersWithMessagingSettings",
+    "tags": [
+      "Number Configurations"
+    ],
+    "x-group-parameters": "true",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPhoneNumbersWithMessagingSettingsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

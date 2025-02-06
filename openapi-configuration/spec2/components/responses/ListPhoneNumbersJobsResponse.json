@@ -1,0 +1,22 @@
+{
+  "description": "Successful response with a list of phone numbers background jobs.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "List Phone Numbers Background Jobs Response",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/PhoneNumbersJob.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/PaginationMeta.json"
+          }
+        }
+      }
+    }
+  }
+}

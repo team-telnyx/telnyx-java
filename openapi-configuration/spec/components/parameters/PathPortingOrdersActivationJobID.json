@@ -1,0 +1,10 @@
+{
+  "name": "activationJobId",
+  "description": "Activation Job Identifier",
+  "in": "path",
+  "required": true,
+  "schema": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

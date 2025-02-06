@@ -1,0 +1,29 @@
+{
+  "allOf": [
+    {
+      "$ref": "./GenericError.json"
+    },
+    {
+      "properties": {
+        "code": {
+          "example": "10005"
+        },
+        "title": {
+          "example": "Resource not found"
+        },
+        "detail": {
+          "example": "The requested resource or URL could not be found."
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "example": "https://developers.telnyx.com/docs/overview/errors/10005"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Get Uploads Status Response",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "pending_numbers_count": {
+                "type": "integer",
+                "description": "The count of phone numbers that are pending assignment to the external connection."
+              },
+              "pending_orders_count": {
+                "type": "integer",
+                "description": "The count of number uploads that have not yet been uploaded to Microsoft."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

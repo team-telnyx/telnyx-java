@@ -1,0 +1,23 @@
+{
+  "required": [
+    "file_url"
+  ],
+  "type": "object",
+  "properties": {
+    "file_url": {
+      "type": "string",
+      "format": "url",
+      "description": "Publicly reachable URL of the file.",
+      "example": "https://example.com/elephant.jpg"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "format": "url",
+      "description": "Publicly reachable URL of the thumbnail. Maximum size of 100 kB."
+    },
+    "force_refresh": {
+      "type": "boolean",
+      "description": "If set the URL content will not be cached."
+    }
+  }
+}

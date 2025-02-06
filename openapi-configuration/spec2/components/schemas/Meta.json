@@ -1,0 +1,24 @@
+{
+  "properties": {
+    "total_pages": {
+      "type": "integer"
+    },
+    "total_results": {
+      "type": "integer"
+    },
+    "page_number": {
+      "type": "integer"
+    },
+    "page_size": {
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "required": [
+    "total_pages",
+    "total_results",
+    "page_number",
+    "page_size"
+  ],
+  "title": "Meta"
+}

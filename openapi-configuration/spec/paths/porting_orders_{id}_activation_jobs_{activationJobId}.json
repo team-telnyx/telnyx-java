@@ -1,0 +1,61 @@
+{
+  "get": {
+    "summary": "Retrieve a porting activation job",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Returns a porting activation job.",
+    "operationId": "GetPortingOrdersActivationJob",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PathPortingOrderID.json"
+      },
+      {
+        "$ref": "../components/parameters/PathPortingOrdersActivationJobID.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ShowPortingOrdersActivationJob.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update a porting activation job",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Updates the activation time of a porting activation job.",
+    "operationId": "UpdatePortingOrdersActivationJob",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PathPortingOrderID.json"
+      },
+      {
+        "$ref": "../components/parameters/PathPortingOrdersActivationJobID.json"
+      }
+    ],
+    "requestBody": {
+      "$ref": "../components/requestBodies/UpdatePortingOrdersActivationJob.json"
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ShowPortingOrdersActivationJob.json"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

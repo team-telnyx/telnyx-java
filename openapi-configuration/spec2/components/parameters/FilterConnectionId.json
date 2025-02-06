@@ -1,0 +1,9 @@
+{
+  "name": "filter[connection_id]",
+  "in": "query",
+  "description": "The unique identifier of the conection.",
+  "required": false,
+  "schema": {
+    "type": "string"
+  }
+}

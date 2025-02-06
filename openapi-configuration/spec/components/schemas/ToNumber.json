@@ -1,0 +1,6 @@
+{
+  "type": "string",
+  "format": "address",
+  "description": "Receiving address (+E.164 formatted phone number or short code).",
+  "example": "+E.164"
+}

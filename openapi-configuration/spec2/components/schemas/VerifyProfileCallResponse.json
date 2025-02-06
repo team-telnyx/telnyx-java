@@ -1,0 +1,43 @@
+{
+  "title": "VerifyProfileCallResponse",
+  "type": "object",
+  "properties": {
+    "messaging_template_id": {
+      "example": "0abb5b4f-459f-445a-bfcd-488998b7572d",
+      "format": "uuid",
+      "type": "string",
+      "description": "The message template identifier selected from /verify_profiles/templates"
+    },
+    "app_name": {
+      "example": "Example Secure App",
+      "description": "The name that identifies the application requesting 2fa in the verification message.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9 -]{1,30}$"
+    },
+    "code_length": {
+      "example": 6,
+      "type": "integer",
+      "description": "The length of the verify code to generate.",
+      "default": 5
+    },
+    "whitelisted_destinations": {
+      "description": "Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.",
+      "example": [
+        "US",
+        "CA"
+      ],
+      "type": "array",
+      "items": {
+        "description": "ISO 3166-1 alpha-2 country code",
+        "type": "string",
+        "pattern": "^[A-Z]{2}$"
+      }
+    },
+    "default_verification_timeout_secs": {
+      "example": 300,
+      "description": "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.",
+      "type": "integer",
+      "default": 300
+    }
+  }
+}

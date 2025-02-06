@@ -1,0 +1,9 @@
+{
+  "title": "VerificationRecordType",
+  "enum": [
+    "verification"
+  ],
+  "type": "string",
+  "example": "verification",
+  "description": "The possible verification record types."
+}

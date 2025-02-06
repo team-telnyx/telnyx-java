@@ -1,0 +1,29 @@
+{
+  "title": "SIMCardGroupCreate",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "A user friendly name for the SIM card group.",
+      "type": "string",
+      "example": "My Test Group"
+    },
+    "data_limit": {
+      "type": "object",
+      "description": "Upper limit on the amount of data the SIM cards, within the group, can use.",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "format": "decimal",
+          "example": "2048.1"
+        },
+        "unit": {
+          "type": "string",
+          "example": "MB"
+        }
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

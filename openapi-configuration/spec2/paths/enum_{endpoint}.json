@@ -1,0 +1,71 @@
+{
+  "get": {
+    "tags": [
+      "Enum"
+    ],
+    "summary": "Get Enum",
+    "operationId": "GetEnumEndpoint",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Endpoint",
+          "type": "string",
+          "enum": [
+            "mno",
+            "optionalAttributes",
+            "usecase",
+            "vertical",
+            "altBusinessIdType",
+            "brandIdentityStatus",
+            "brandRelationship",
+            "campaignStatus",
+            "entityType",
+            "extVettingProvider",
+            "vettingStatus",
+            "brandStatus",
+            "operationStatus",
+            "approvedPublicCompany",
+            "stockExchange",
+            "vettingClass"
+          ]
+        },
+        "name": "endpoint",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "../components/schemas/EnumListResponse.json"
+                },
+                {
+                  "$ref": "../components/schemas/EnumObjectResponse.json"
+                },
+                {
+                  "$ref": "../components/schemas/EnumPaginatedResponse.json"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "get": {
+    "summary": "List all Access IP Ranges",
+    "operationId": "ListAccessIpRanges",
+    "tags": [
+      "IP Ranges"
+    ],
+    "parameters": [
+      {
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "name": "filter[cidr_block]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "name": "filter[cidr_block][startswith]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "name": "filter[cidr_block][endswith]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "name": "filter[cidr_block][contains]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": "filter[created_at][gt]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": "filter[created_at][lt]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 1
+        },
+        "name": "page[number]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "maximum": 250,
+          "type": "integer",
+          "default": 20
+        },
+        "name": "page[size]",
+        "in": "query"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/AccessIPRangeListResponseSchema.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create new Access IP Range",
+    "operationId": "CreateAccessIPRange",
+    "tags": [
+      "IP Ranges"
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/AccessIPRangePOST.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/AccessIPRangeResponseSchema.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

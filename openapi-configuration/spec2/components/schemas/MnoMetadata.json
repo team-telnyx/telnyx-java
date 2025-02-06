@@ -1,0 +1,9 @@
+{
+  "title": "MnoMetadata",
+  "type": "object",
+  "properties": {
+    "10999": {
+      "$ref": "./MnoMetadataItem.json"
+    }
+  }
+}

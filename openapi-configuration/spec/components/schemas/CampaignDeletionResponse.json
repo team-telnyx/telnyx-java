@@ -1,0 +1,21 @@
+{
+  "title": "CampaignDeletionResponse",
+  "required": [
+    "time"
+  ],
+  "type": "object",
+  "properties": {
+    "time": {
+      "title": "Time",
+      "type": "number"
+    },
+    "record_type": {
+      "title": "Record Type",
+      "type": "string"
+    },
+    "message": {
+      "title": "Message",
+      "type": "string"
+    }
+  }
+}

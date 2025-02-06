@@ -1,0 +1,120 @@
+{
+  "delete": {
+    "summary": "Delete a room.",
+    "description": "Synchronously delete a Room. Participants from that room will be kicked out, they won't be able to join that room anymore, and you won't be charged anymore for that room.",
+    "operationId": "DeleteRoom",
+    "tags": [
+      "Rooms"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "name": "room_id",
+        "in": "path",
+        "description": "The unique identifier of a room.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+        }
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "The resource was deleted successfully."
+      },
+      "404": {
+        "$ref": "../components/responses/ResourceNotFound.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "View a room.",
+    "operationId": "ViewRoom",
+    "tags": [
+      "Rooms"
+    ],
+    "x-endpoint-cost": "light",
+    "parameters": [
+      {
+        "name": "room_id",
+        "in": "path",
+        "description": "The unique identifier of a room.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+        }
+      },
+      {
+        "name": "include_sessions",
+        "in": "query",
+        "description": "To decide if room sessions should be included in the response.",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetRoomResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/ResourceNotFound.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "summary": "Update a room.",
+    "description": "Synchronously update a Room.",
+    "operationId": "UpdateRoom",
+    "tags": [
+      "Rooms"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "name": "room_id",
+        "in": "path",
+        "description": "The unique identifier of a room.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Parameters that can be defined during room update.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/PatchRoomRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/PatchRoomResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/ResourceNotFound.json"
+      },
+      "422": {
+        "description": "Bad request"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

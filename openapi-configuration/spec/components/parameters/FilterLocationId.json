@@ -1,0 +1,10 @@
+{
+  "name": "filter[location_id][eq]",
+  "in": "query",
+  "description": "The location ID to filter by",
+  "schema": {
+    "type": "string",
+    "format": "uuid",
+    "example": "52545f6f-9cd5-4a68-8c76-abb3aa5bf5d2"
+  }
+}

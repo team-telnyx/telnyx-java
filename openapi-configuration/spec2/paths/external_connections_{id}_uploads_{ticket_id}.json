@@ -1,0 +1,30 @@
+{
+  "get": {
+    "description": "Return the details of an Upload request and its phone numbers.",
+    "summary": "Retrieve an Upload request",
+    "operationId": "GetExternalConnectionUpload",
+    "tags": [
+      "External Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      },
+      {
+        "$ref": "../components/parameters/ticket_id.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetUploadResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Not found"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

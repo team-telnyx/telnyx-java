@@ -1,0 +1,50 @@
+{
+  "delete": {
+    "operationId": "DeleteMigrationSource",
+    "summary": "Delete a Migration Source",
+    "tags": [
+      "Data Migration"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Unique identifier for the data migration source."
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/MigrationSourceResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "operationId": "GetMigrationSource",
+    "summary": "Get a Migration Source",
+    "tags": [
+      "Data Migration"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Unique identifier for the data migration source."
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/MigrationSourceResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

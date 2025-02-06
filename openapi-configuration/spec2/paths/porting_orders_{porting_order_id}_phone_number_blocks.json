@@ -1,0 +1,97 @@
+{
+  "get": {
+    "summary": "List all phone number blocks",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Returns a list of all phone number blocks of a porting order.",
+    "operationId": "listPortingPhoneNumberBlocks",
+    "parameters": [
+      {
+        "name": "porting_order_id",
+        "in": "path",
+        "description": "Identifies the Porting Order associated with the phone number blocks",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      {
+        "$ref": "../components/parameters/FilterByPhoneNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterByPhoneNumberIn.json"
+      },
+      {
+        "name": "sort[]",
+        "in": "query",
+        "description": "Specifies the sort order for results. If not given, results are sorted by created_at in descending order",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "-created_at",
+            "created_at"
+          ],
+          "example": false
+        }
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPortingPhoneNumberBlocks.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a phone number block",
+    "tags": [
+      "Porting Orders"
+    ],
+    "description": "Creates a new phone number block.",
+    "operationId": "createPortingPhoneNumberBlock",
+    "parameters": [
+      {
+        "name": "porting_order_id",
+        "in": "path",
+        "description": "Identifies the Porting Order associated with the phone number block",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "requestBody": {
+      "$ref": "../components/requestBodies/CreatePortingPhoneNumberBlock.json"
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/ShowPortingPhoneNumberBlock.json"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

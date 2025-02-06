@@ -1,0 +1,115 @@
+{
+  "get": {
+    "tags": [
+      "Verified Numbers"
+    ],
+    "x-group-parameters": "true",
+    "summary": "List all Verified Numbers",
+    "description": "Gets a paginated list of Verified Numbers.",
+    "operationId": "ListVerifiedNumbers",
+    "parameters": [
+      {
+        "required": false,
+        "schema": {
+          "title": "page[size]",
+          "type": "integer",
+          "default": 25
+        },
+        "name": "page[size]",
+        "in": "query"
+      },
+      {
+        "required": false,
+        "schema": {
+          "title": "page[number]",
+          "type": "integer",
+          "default": 1
+        },
+        "name": "page[number]",
+        "in": "query"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Expected response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/ListVerifiedNumbersResponse.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedRequestErrorResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "tags": [
+      "Verified Numbers"
+    ],
+    "summary": "Request phone number verification",
+    "description": "Initiates phone number verification procedure.",
+    "operationId": "CreateVerifiedNumber",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "title": "Create Verified Number Request",
+            "type": "object",
+            "required": [
+              "phone_number",
+              "verification_method"
+            ],
+            "properties": {
+              "phone_number": {
+                "example": "+15551234567",
+                "type": "string"
+              },
+              "verification_method": {
+                "description": "Verification method.",
+                "type": "string",
+                "enum": [
+                  "sms",
+                  "call"
+                ],
+                "example": "sms"
+              }
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Expected response to a valid request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/CreateVerifiedNumberResponse.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedRequestErrorResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

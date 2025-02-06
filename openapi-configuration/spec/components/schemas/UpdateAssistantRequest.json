@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "model": {
+      "type": "string",
+      "title": "Model"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "instructions": {
+      "type": "string",
+      "title": "Instructions"
+    },
+    "tools": {
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "./ChatCompletionToolParam.json"
+          },
+          {
+            "$ref": "./Retrieval.json"
+          }
+        ]
+      },
+      "type": "array",
+      "description": "The `function` tool type follows the same schema as the [OpenAI Assistants API](https://platform.openai.com/docs/api-reference/assistants/modifyAssistant). The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation."
+    }
+  },
+  "type": "object",
+  "title": "UpdateAssistantRequest"
+}

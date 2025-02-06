@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Task ID"
+        },
+        "task_name": {
+          "type": "string",
+          "title": "Task Name"
+        },
+        "status": {
+          "$ref": "./BackgroundTaskStatus.json"
+        },
+        "created_at": {
+          "type": "string",
+          "title": "Created At"
+        },
+        "finished_at": {
+          "type": "string",
+          "title": "Finished At"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "title": "TaskStatusResponse"
+}

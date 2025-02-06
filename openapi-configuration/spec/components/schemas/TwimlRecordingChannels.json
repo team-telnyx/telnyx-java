@@ -1,0 +1,9 @@
+{
+  "type": "integer",
+  "enum": [
+    1,
+    2
+  ],
+  "default": 2,
+  "example": 1
+}

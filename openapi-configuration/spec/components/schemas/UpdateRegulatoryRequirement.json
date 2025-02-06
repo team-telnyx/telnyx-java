@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "requirement_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique id for a requirement.",
+      "example": "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576"
+    },
+    "field_value": {
+      "type": "string",
+      "description": "The value of the requirement. For address and document requirements, this should be the ID of the resource. For textual, this should be the value of the requirement.",
+      "example": "45f45a04-b4be-4592-95b1-9306b9db2b21"
+    }
+  }
+}

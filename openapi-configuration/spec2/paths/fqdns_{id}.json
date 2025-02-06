@@ -1,0 +1,104 @@
+{
+  "delete": {
+    "description": "Delete an FQDN.",
+    "summary": "Delete an FQDN",
+    "operationId": "DeleteFqdn",
+    "tags": [
+      "FQDNs"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/FqdnId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/FqdnResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "description": "Return the details regarding a specific FQDN.",
+    "summary": "Retrieve an FQDN",
+    "operationId": "RetrieveFqdn",
+    "tags": [
+      "FQDNs"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/FqdnId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/FqdnResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "patch": {
+    "description": "Update the details of a specific FQDN.",
+    "summary": "Update an FQDN",
+    "operationId": "UpdateFqdn",
+    "tags": [
+      "FQDNs"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/FqdnId.json"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateFqdnRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/FqdnResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

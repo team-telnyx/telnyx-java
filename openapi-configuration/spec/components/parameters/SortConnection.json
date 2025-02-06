@@ -1,0 +1,16 @@
+{
+  "name": "sort",
+  "in": "query",
+  "required": false,
+  "description": "Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>\nThat is: <ul>\n  <li>\n    <code>connection_name</code>: sorts the result by the\n    <code>connection_name</code> field in ascending order.\n  </li>\n\n  <li>\n    <code>-connection_name</code>: sorts the result by the\n    <code>connection_name</code> field in descending order.\n  </li>\n</ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "created_at",
+      "connection_name",
+      "active"
+    ],
+    "example": "connection_name",
+    "default": "created_at"
+  }
+}

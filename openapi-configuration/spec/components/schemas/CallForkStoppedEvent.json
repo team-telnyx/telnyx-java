@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Call Fork Stopped Event",
+  "properties": {
+    "data": {
+      "$ref": "./CallForkStopped.json"
+    }
+  }
+}

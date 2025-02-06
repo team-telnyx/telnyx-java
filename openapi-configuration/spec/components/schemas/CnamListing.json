@@ -1,0 +1,19 @@
+{
+  "description": "The CNAM listing settings for a phone number.",
+  "type": "object",
+  "properties": {
+    "cnam_listing_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enables CNAM listings for this number. Requires cnam_listing_details to also be set."
+    },
+    "cnam_listing_details": {
+      "type": "string",
+      "description": "The CNAM listing details for this number. Must be alphanumeric characters or spaces with a maximum length of 15. Requires cnam_listing_enabled to also be set to true."
+    }
+  },
+  "example": {
+    "cnam_listing_enabled": true,
+    "cnam_listing_details": "example"
+  }
+}

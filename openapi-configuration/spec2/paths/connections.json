@@ -1,0 +1,44 @@
+{
+  "get": {
+    "description": "Returns a list of your connections irrespective of type.",
+    "summary": "List connections",
+    "operationId": "ListConnections",
+    "tags": [
+      "Connections"
+    ],
+    "x-group-parameters": "true",
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterConnectionName.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterOutboundVoiceProfileId.json"
+      },
+      {
+        "$ref": "../components/parameters/SortConnection.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListConnectionsResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

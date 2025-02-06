@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "enum": [
+    "created",
+    "provisioning",
+    "provisioned",
+    "deleting"
+  ],
+  "description": "The current status of the interface deployment.",
+  "readOnly": true,
+  "example": "provisioned"
+}

@@ -1,0 +1,28 @@
+{
+  "post": {
+    "summary": "Update the messaging profile of multiple phone numbers",
+    "operationId": "BulkUpdateMessagingSettingsOnPhoneNumbers",
+    "tags": [
+      "Number Configurations"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/BulkMessagingSettingsUpdatePhoneNumbersRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/BulkMessagingSettingsUpdatePhoneNumbersResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

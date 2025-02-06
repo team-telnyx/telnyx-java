@@ -1,0 +1,10 @@
+{
+  "title": "VerifiedNumberResponseDataWrapper",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "$ref": "./VerifiedNumberResponse.json"
+    }
+  }
+}

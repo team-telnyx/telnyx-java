@@ -1,0 +1,239 @@
+{
+  "post": {
+    "x-latency-category": "background",
+    "summary": "Update a batch of numbers",
+    "description": "Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted.",
+    "operationId": "CreateUpdatePhoneNumbersJob",
+    "tags": [
+      "Bulk Phone Number Operations"
+    ],
+    "x-group-parameters": "true",
+    "parameters": [
+      {
+        "name": "filter[has_bundle]",
+        "in": "query",
+        "description": "Filter by phone number that have bundles.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[tag]",
+        "in": "query",
+        "description": "Filter by phone number tags.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[connection_id]",
+        "in": "query",
+        "description": "Filter by connection_id.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "int64",
+          "example": "1521916448077776306"
+        }
+      },
+      {
+        "name": "filter[phone_number]",
+        "in": "query",
+        "description": "Filter by phone number. Requires at least three digits.\n             Non-numerical characters will result in no values being returned.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter by phone number status.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "purchase_pending",
+            "purchase_failed",
+            "port_pending",
+            "active",
+            "deleted",
+            "port_failed",
+            "emergency_only",
+            "ported_out",
+            "port_out_pending"
+          ],
+          "example": "active"
+        }
+      },
+      {
+        "name": "filter[voice.connection_name][contains]",
+        "in": "query",
+        "description": "Filter contains connection name. Requires at least three characters.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "test"
+        }
+      },
+      {
+        "name": "filter[voice.usage_payment_method]",
+        "in": "query",
+        "description": "Filter by usage_payment_method.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "pay-per-minute",
+            "channel"
+          ],
+          "example": "channel"
+        }
+      },
+      {
+        "name": "filter[billing_group_id]",
+        "in": "query",
+        "description": "Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "62e4bf2e-c278-4282-b524-488d9c9c43b2"
+        }
+      },
+      {
+        "name": "filter[emergency_address_id]",
+        "in": "query",
+        "description": "Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "int64",
+          "example": "9102160989215728032"
+        }
+      },
+      {
+        "name": "filter[customer_reference]",
+        "in": "query",
+        "description": "Filter numbers via the customer_reference set.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/PhoneNumbersJobUpdatePhoneNumbersRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "202": {
+        "description": "Phone numbers job update phone numbers requested.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "title": "Phone Numbers Job Update Phone Numbers",
+              "properties": {
+                "data": {
+                  "$ref": "../components/schemas/PhoneNumbersJob.json"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            },
+            "examples": {
+              "Not authorized": {
+                "$ref": "../components/examples/NotAuthorized.json"
+              },
+              "Billing group not authorized": {
+                "value": {
+                  "errors": [
+                    {
+                      "code": "10010",
+                      "title": "Authorization Failed",
+                      "detail": "The specified billing group either does not exist or is not part of your account",
+                      "source": {
+                        "pointer": "/billing_group_id"
+                      },
+                      "meta": {
+                        "url": "https://developers.telnyx.com/docs/overview/errors/10010"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Unprocessable Entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Errors.json"
+            },
+            "examples": {
+              "Phone numbers must be present": {
+                "$ref": "../components/examples/PhoneNumbersMustBePresent.json"
+              },
+              "Maximum allowed phone numbers": {
+                "$ref": "../components/examples/MaximumAllowedPhoneNumbers.json"
+              },
+              "Minimum allowed phone numbers": {
+                "$ref": "../components/examples/MinimumAllowedPhoneNumbers.json"
+              },
+              "Mixed IDs and E164 values": {
+                "$ref": "../components/examples/MixedIdsAndE164Values.json"
+              },
+              "Phone number ownership": {
+                "$ref": "../components/examples/PhoneNumberOwnership.json"
+              },
+              "Minimum updateable field": {
+                "value": {
+                  "errors": [
+                    {
+                      "code": "10015",
+                      "title": "Bad Request",
+                      "detail": "You must provide at least 1 updateable field.",
+                      "source": {
+                        "pointer": "/updateable_fields"
+                      },
+                      "meta": {
+                        "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+                      }
+                    }
+                  ]
+                }
+              },
+              "Maximum jobs allowed": {
+                "$ref": "../components/examples/Maximum20JobsAllowed.json"
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    }
+  }
+}

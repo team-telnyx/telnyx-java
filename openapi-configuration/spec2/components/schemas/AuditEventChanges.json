@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "title": "Audit Event Changes",
+  "description": "Details of the changes made to a resource.",
+  "properties": {
+    "field": {
+      "type": "string",
+      "description": "The name of the field that was changed. May use the dot notation to indicate nested fields.",
+      "example": "nested.field.name"
+    },
+    "to": {
+      "anyOf": [
+        {
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "nullable": true,
+          "type": "object"
+        },
+        {
+          "nullable": true,
+          "type": "array"
+        }
+      ],
+      "description": "The new value of the field. Can be any JSON type.",
+      "example": 12345
+    },
+    "from": {
+      "anyOf": [
+        {
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "nullable": true,
+          "type": "object"
+        },
+        {
+          "nullable": true,
+          "type": "array"
+        }
+      ],
+      "description": "The previous value of the field. Can be any JSON type.",
+      "example": 54321
+    }
+  }
+}

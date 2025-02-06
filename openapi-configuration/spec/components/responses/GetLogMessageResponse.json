@@ -1,0 +1,21 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Get Log Message Response",
+        "properties": {
+          "log_messages": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/LogMessage.json"
+            },
+            "minItems": 1,
+            "maxItems": 1
+          }
+        }
+      }
+    }
+  }
+}

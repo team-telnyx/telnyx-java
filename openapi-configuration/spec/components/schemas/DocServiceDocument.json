@@ -1,0 +1,70 @@
+{
+  "allOf": [
+    {
+      "$ref": "./DocServiceRecord.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "description": "Identifies the type of the resource.",
+          "type": "string",
+          "readOnly": true,
+          "example": "document"
+        },
+        "content_type": {
+          "description": "The document's content_type.",
+          "type": "string",
+          "readOnly": true,
+          "example": "application/pdf"
+        },
+        "size": {
+          "description": "Indicates the document's filesize",
+          "type": "object",
+          "readOnly": true,
+          "properties": {
+            "unit": {
+              "description": "Identifies the unit",
+              "type": "string",
+              "readOnly": true,
+              "example": "bytes"
+            },
+            "amount": {
+              "description": "The number of bytes",
+              "type": "integer",
+              "readOnly": true,
+              "example": 123456
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "Indicates the current document reviewing status",
+          "readOnly": true,
+          "enum": [
+            "pending",
+            "verified",
+            "denied"
+          ],
+          "example": "pending"
+        },
+        "sha256": {
+          "description": "The document's SHA256 hash provided for optional verification purposes.",
+          "type": "string",
+          "readOnly": true,
+          "example": "08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c"
+        },
+        "filename": {
+          "description": "The filename of the document.",
+          "type": "string",
+          "example": "test-document.pdf"
+        },
+        "customer_reference": {
+          "type": "string",
+          "description": "Optional reference string for customer tracking.",
+          "example": "MY REF 001"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "enum": [
+    "queued",
+    "processing",
+    "success",
+    "failure",
+    "partial_success"
+  ],
+  "title": "BackgroundTaskStatus",
+  "description": "Status of an embeddings task."
+}

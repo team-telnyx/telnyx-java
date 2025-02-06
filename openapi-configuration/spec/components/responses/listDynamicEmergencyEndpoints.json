@@ -1,0 +1,21 @@
+{
+  "description": "Dynamic Emergency Endpoints Responses",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/DynamicEmergencyEndpoint.json"
+            }
+          },
+          "meta": {
+            "$ref": "../schemas/Metadata.json"
+          }
+        }
+      }
+    }
+  }
+}

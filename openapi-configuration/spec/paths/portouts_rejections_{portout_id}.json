@@ -1,0 +1,61 @@
+{
+  "get": {
+    "tags": [
+      "Number Portout"
+    ],
+    "summary": "List eligible port-out rejection codes for a specific order",
+    "description": "Given a port-out ID, list rejection codes that are eligible for that port-out",
+    "operationId": "ListPortoutRejections",
+    "parameters": [
+      {
+        "name": "portout_id",
+        "description": "Identifies a port out order.",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "329d6658-8f93-405d-862f-648776e8afd7"
+        }
+      },
+      {
+        "name": "filter[code]",
+        "in": "query",
+        "description": "Filter rejections of a specific code",
+        "schema": {
+          "type": "integer",
+          "example": 1002
+        }
+      },
+      {
+        "name": "filter[code][in]",
+        "in": "query",
+        "description": "Filter rejections in a list of codes",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "example": [
+            1002,
+            1003
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPortoutRejections.json"
+      },
+      "404": {
+        "description": "Resource not found"
+      },
+      "422": {
+        "description": "Unprocessable entity. Check message field in response for details."
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "description": "Successful response with details about a conference.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Conference Response",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/Conference.json"
+          }
+        }
+      }
+    }
+  }
+}

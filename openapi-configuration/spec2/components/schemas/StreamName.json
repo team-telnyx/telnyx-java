@@ -1,0 +1,5 @@
+{
+  "description": "The user specified name of Stream.",
+  "example": "My stream",
+  "type": "string"
+}

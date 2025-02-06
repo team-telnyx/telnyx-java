@@ -1,0 +1,9 @@
+{
+  "name": "filter[telephone_number][contains]",
+  "in": "query",
+  "description": "The partial phone number to filter log messages for. Requires 3-15 digits.",
+  "schema": {
+    "type": "string",
+    "example": "+123"
+  }
+}

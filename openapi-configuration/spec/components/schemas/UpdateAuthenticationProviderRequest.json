@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "title": "Update Authentication Provider Request",
+  "properties": {
+    "name": {
+      "$ref": "./name.json"
+    },
+    "short_name": {
+      "$ref": "./short_name.json"
+    },
+    "active": {
+      "$ref": "./active.json"
+    },
+    "settings": {
+      "$ref": "./settings.json"
+    },
+    "settings_url": {
+      "$ref": "./settings_url.json"
+    }
+  },
+  "example": {
+    "name": "Okta",
+    "short_name": "myorg",
+    "active": true,
+    "settings": {
+      "idp_entity_id": "https://myorg.myidp.com/saml/metadata",
+      "idp_sso_target_url": "https://myorg.myidp.com/trust/saml2/http-post/sso",
+      "idp_cert_fingerprint": "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7",
+      "idp_cert_fingerprint_algorithm": "sha1"
+    }
+  }
+}

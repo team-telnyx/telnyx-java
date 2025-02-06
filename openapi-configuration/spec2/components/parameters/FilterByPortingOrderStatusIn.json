@@ -1,0 +1,19 @@
+{
+  "name": "filter[status][in][]",
+  "in": "query",
+  "description": "Filter porting orders by multiple statuses",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "draft",
+      "in-process",
+      "submitted",
+      "exception",
+      "foc-date-confirmed",
+      "cancel-pending",
+      "ported",
+      "cancelled"
+    ],
+    "example": "in-process"
+  }
+}

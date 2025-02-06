@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "The transcribed text for the audio file."
+    },
+    "duration": {
+      "type": "number",
+      "description": "The duration of the audio file in seconds. This is only included if `response_format` is set to `verbose_json`."
+    },
+    "segments": {
+      "type": "array",
+      "description": "Segments of the transcribed text and their corresponding details. This is only included if `response_format` is set to `verbose_json`.",
+      "items": {
+        "$ref": "./AudioTranscriptionResponseSegments.json"
+      }
+    }
+  },
+  "required": [
+    "text"
+  ]
+}

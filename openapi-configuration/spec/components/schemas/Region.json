@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "title": "Region",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "The unique code of the region.",
+      "example": "dc2"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the region.",
+      "example": "Washington DC, US"
+    },
+    "inserted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the region was inserted."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the region was last updated."
+    }
+  },
+  "required": [
+    "code",
+    "name"
+  ]
+}

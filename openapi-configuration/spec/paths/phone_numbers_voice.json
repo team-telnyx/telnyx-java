@@ -1,0 +1,85 @@
+{
+  "get": {
+    "summary": "List phone numbers with voice settings",
+    "operationId": "ListPhoneNumbersWithVoiceSettings",
+    "tags": [
+      "Phone Number Configurations"
+    ],
+    "x-group-parameters": "true",
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "name": "filter[phone_number]",
+        "in": "query",
+        "description": "Filter by phone number. Requires at least three digits.\n             Non-numerical characters will result in no values being returned.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[connection_name][contains]",
+        "in": "query",
+        "description": "Filter contains connection name. Requires at least three characters.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "test"
+        }
+      },
+      {
+        "name": "filter[customer_reference]",
+        "in": "query",
+        "description": "Filter numbers via the customer_reference set.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[voice.usage_payment_method]",
+        "in": "query",
+        "description": "Filter by usage_payment_method.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "pay-per-minute",
+            "channel"
+          ],
+          "example": "channel"
+        }
+      },
+      {
+        "name": "sort",
+        "in": "query",
+        "description": "Specifies the sort order for results. If not given, results are sorted by created_at in descending order.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "purchased_at",
+            "phone_number",
+            "connection_name",
+            "usage_payment_method"
+          ],
+          "example": "connection_name"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListPhoneNumbersWithVoiceSettingsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

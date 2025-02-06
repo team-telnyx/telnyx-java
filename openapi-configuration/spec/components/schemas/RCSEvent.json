@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "description": "RCS Event to send to the recipient",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "example": "IS_TYPING",
+      "enum": [
+        "TYPE_UNSPECIFIED",
+        "IS_TYPING",
+        "READ"
+      ]
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "example": {
+    "data": {
+      "event_type": "fax.media.processed",
+      "id": "95479a2e-b947-470a-a88f-2da6dd07ae0f",
+      "occurred_at": "2020-05-05T13:08:22.039204Z",
+      "payload": {
+        "connection_id": "234423",
+        "direction": "outbound",
+        "fax_id": "f8338808-3dc6-4f2b-942a-5d1f39255784",
+        "from": "+17733372107",
+        "original_media_url": "http://www.example.com/fax.pdf",
+        "status": "media.processed",
+        "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+        "to": "+15107882622",
+        "user_id": "19a75cea-02c6-4b9a-84fa-c9bc8341feb8"
+      },
+      "record_type": "event"
+    }
+  },
+  "properties": {
+    "record_type": {
+      "$ref": "./RecordType.json"
+    },
+    "id": {
+      "$ref": "./Id.json"
+    },
+    "event_type": {
+      "type": "string",
+      "example": "fax.media.processed",
+      "enum": [
+        "fax.media.processed"
+      ],
+      "description": "The type of event being delivered."
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "$ref": "./ConnectionId.json"
+        },
+        "direction": {
+          "$ref": "./Direction.json"
+        },
+        "fax_id": {
+          "$ref": "./FaxId.json"
+        },
+        "original_media_url": {
+          "$ref": "./OriginalMediaUrl.json"
+        },
+        "media_name": {
+          "$ref": "./MediaName.json"
+        },
+        "to": {
+          "$ref": "./To.json"
+        },
+        "from": {
+          "$ref": "./From.json"
+        },
+        "user_id": {
+          "$ref": "./UserId.json"
+        },
+        "status": {
+          "type": "string",
+          "example": "media.processed",
+          "enum": [
+            "media.processed"
+          ],
+          "description": "The status of the fax."
+        },
+        "client_state": {
+          "description": "State received from a command.",
+          "type": "string",
+          "example": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+        }
+      }
+    }
+  }
+}

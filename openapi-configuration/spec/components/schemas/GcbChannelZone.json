@@ -1,0 +1,79 @@
+{
+  "title": "Channel zone object",
+  "required": [
+    "record_type",
+    "countries",
+    "id",
+    "name",
+    "channels"
+  ],
+  "type": "object",
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "channel_zone"
+      ],
+      "example": "channel_zone"
+    },
+    "countries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of countries (in ISO 3166-2, capitalized) members of the billing channel zone",
+      "example": [
+        "BE",
+        "EL",
+        "LT",
+        "PT",
+        "BG",
+        "ES",
+        "LU",
+        "RO",
+        "CZ",
+        "FR",
+        "HU",
+        "SI",
+        "DK",
+        "HR",
+        "MT",
+        "SK",
+        "DE",
+        "IT",
+        "NL",
+        "FI",
+        "EE",
+        "CY",
+        "AT",
+        "SE",
+        "IE",
+        "LV",
+        "PL"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "example": "1653e6a1-4bfd-4857-97c6-6a51e1c34477"
+    },
+    "name": {
+      "type": "string",
+      "example": "Euro channel zone"
+    },
+    "channels": {
+      "type": "integer",
+      "format": "int64",
+      "example": 7
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the channel zone was created",
+      "example": "2019-01-23T18:10:02.574Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the channel zone was updated",
+      "example": "2019-01-23T18:10:02.574Z"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "title": "Audit Log List",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "./AuditLog.json"
+      }
+    },
+    "meta": {
+      "$ref": "./PaginationMeta.json"
+    }
+  }
+}

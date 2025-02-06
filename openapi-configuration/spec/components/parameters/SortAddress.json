@@ -1,0 +1,18 @@
+{
+  "name": "sort",
+  "in": "query",
+  "required": false,
+  "description": "Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>\nThat is: <ul>\n  <li>\n    <code>street_address</code>: sorts the result by the\n    <code>street_address</code> field in ascending order.\n  </li>\n\n  <li>\n    <code>-street_address</code>: sorts the result by the\n    <code>street_address</code> field in descending order.\n  </li>\n</ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "created_at",
+      "first_name",
+      "last_name",
+      "business_name",
+      "street_address"
+    ],
+    "example": "street_address",
+    "default": "created_at"
+  }
+}

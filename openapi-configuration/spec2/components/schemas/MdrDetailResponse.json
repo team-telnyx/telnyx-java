@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "properties": {
+    "created_at": {
+      "type": "string",
+      "description": "Message sent time",
+      "format": "date-time",
+      "example": "2020-07-01T00:00:00-06:00"
+    },
+    "profile_name": {
+      "type": "string",
+      "description": "Configured profile name. New profiles can be created and configured on Telnyx portal",
+      "example": "configured-profile-name"
+    },
+    "direction": {
+      "type": "string",
+      "description": "Direction of message - inbound or outbound.",
+      "example": "outbound"
+    },
+    "parts": {
+      "type": "number",
+      "description": "Number of parts this message has. Max number of character is 160. If message contains more characters then that it will be broken down in multiple parts",
+      "example": 2
+    },
+    "status": {
+      "type": "string",
+      "description": "Message status",
+      "example": "DELIVERED",
+      "enum": [
+        "GW_TIMEOUT",
+        "DELIVERED",
+        "DLR_UNCONFIRMED",
+        "DLR_TIMEOUT",
+        "RECEIVED",
+        "GW_REJECT",
+        "FAILED"
+      ]
+    },
+    "cld": {
+      "type": "string",
+      "description": "The destination number for a call, or the callee",
+      "example": "+1555123456"
+    },
+    "cli": {
+      "type": "string",
+      "description": "The number associated with the person initiating the call, or the caller",
+      "example": "+1555123456"
+    },
+    "rate": {
+      "type": "string",
+      "description": "Rate applied to the message",
+      "example": "0.05"
+    },
+    "cost": {
+      "type": "string",
+      "description": "Final cost. Cost is calculated as rate * parts",
+      "example": "0.1"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency of the rate and cost",
+      "example": "USD",
+      "enum": [
+        "AUD",
+        "CAD",
+        "EUR",
+        "GBP",
+        "USD"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "description": "Id of message detail record",
+      "example": "99b637f3-07fd-45ac-b9ca-b87208c24650"
+    },
+    "message_type": {
+      "type": "string",
+      "description": "Type of message",
+      "example": "SMS",
+      "enum": [
+        "SMS",
+        "MMS"
+      ]
+    },
+    "record_type": {
+      "type": "string",
+      "example": "mdr_report"
+    }
+  }
+}

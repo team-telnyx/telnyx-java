@@ -1,0 +1,19 @@
+{
+  "get": {
+    "summary": "List all Global IP Health check types",
+    "description": "List all Global IP Health check types.",
+    "operationId": "ListGlobalIpHealthCheckTypes",
+    "tags": [
+      "Global IPs"
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GlobalIpHealthCheckTypesResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

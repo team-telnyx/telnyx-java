@@ -1,0 +1,5 @@
+{
+  "description": "Azure Blob Storage account name",
+  "type": "string",
+  "example": "my-account"
+}

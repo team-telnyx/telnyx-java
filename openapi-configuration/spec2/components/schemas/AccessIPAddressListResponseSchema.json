@@ -1,0 +1,20 @@
+{
+  "title": "AccessIPAddressListResponseSchema",
+  "required": [
+    "data",
+    "meta"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "title": "Data",
+      "type": "array",
+      "items": {
+        "$ref": "./AccessIPAddressResponseSchema.json"
+      }
+    },
+    "meta": {
+      "$ref": "./PaginationMeta.json"
+    }
+  }
+}

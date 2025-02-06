@@ -1,0 +1,10 @@
+{
+  "name": "filter[occurred_at][lt]",
+  "in": "query",
+  "description": "Event occurred_at: lower than",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "example": "2019-03-29T11:10:00Z"
+  }
+}

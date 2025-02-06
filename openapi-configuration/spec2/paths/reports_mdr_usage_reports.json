@@ -1,0 +1,87 @@
+{
+  "get": {
+    "tags": [
+      "MDR Usage Reports"
+    ],
+    "description": "Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown",
+    "summary": "Fetch all Messaging usage reports",
+    "operationId": "GetUsageReports",
+    "parameters": [
+      {
+        "name": "page[number]",
+        "in": "query",
+        "description": "Page number",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 1
+        }
+      },
+      {
+        "name": "page[size]",
+        "in": "query",
+        "description": "Size of the page",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 20
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/MdrGetUsageReportsResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "x-latency-category": "interactive"
+  },
+  "post": {
+    "tags": [
+      "MDR Usage Reports"
+    ],
+    "description": "Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period. ",
+    "summary": "Create MDR Usage Report",
+    "operationId": "SubmitUsageReport",
+    "requestBody": {
+      "description": "Mdr usage report data",
+      "content": {
+        "*/*": {
+          "schema": {
+            "$ref": "../components/schemas/MdrPostUsageReportRequest.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/MdrPostUsageReportsResponse.json"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "x-latency-category": "background"
+  }
+}

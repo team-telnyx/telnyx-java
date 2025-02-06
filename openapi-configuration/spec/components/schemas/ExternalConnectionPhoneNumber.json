@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "title": "Phone number details with relation to an external connection",
+  "properties": {
+    "ticket_id": {
+      "$ref": "./UUID.json"
+    },
+    "telephone_number": {
+      "type": "string",
+      "description": "Phone number in E164 format."
+    },
+    "number_id": {
+      "type": "string",
+      "description": "Phone number ID from the Telnyx API."
+    },
+    "civic_address_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the civic address assigned to the phone number."
+    },
+    "location_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifies the location assigned to the phone number."
+    },
+    "displayed_country_code": {
+      "type": "string",
+      "description": "The iso country code that will be displayed to the user when they receive a call from this phone number."
+    },
+    "acquired_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "FirstPartyAppAssignment",
+          "InboundCalling",
+          "Office365",
+          "OutboundCalling",
+          "UserAssignment"
+        ],
+        "description": "The capabilities that are available for this phone number on Microsoft Teams."
+      }
+    }
+  }
+}

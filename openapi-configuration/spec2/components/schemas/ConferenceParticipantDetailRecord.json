@@ -1,0 +1,95 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Participant id",
+      "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "User id",
+      "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+    },
+    "conference_id": {
+      "type": "string",
+      "description": "Conference id",
+      "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+    },
+    "joined_at": {
+      "type": "string",
+      "description": "Participant join time",
+      "format": "date-time",
+      "example": "2020-07-01T00:00:00-06:00"
+    },
+    "left_at": {
+      "type": "string",
+      "description": "Participant leave time",
+      "format": "date-time",
+      "example": "2020-07-01T00:00:00-06:00"
+    },
+    "destination_number": {
+      "type": "string",
+      "description": "Number called by the participant to join the conference",
+      "example": "+18005550199"
+    },
+    "originating_number": {
+      "type": "string",
+      "description": "Participant origin number used in the conference call",
+      "example": "+18005550199"
+    },
+    "call_leg_id": {
+      "type": "string",
+      "description": "Telnyx UUID that identifies the conference call leg",
+      "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+    },
+    "call_session_id": {
+      "type": "string",
+      "description": "Telnyx UUID that identifies with conference call session",
+      "example": "3ca7bd3d-7d82-4e07-9df4-009123068320"
+    },
+    "call_sec": {
+      "type": "integer",
+      "description": "Duration of the conference call in seconds",
+      "example": 100
+    },
+    "billed_sec": {
+      "type": "integer",
+      "description": "Duration of the conference call for billing purposes",
+      "example": 120
+    },
+    "is_telnyx_billable": {
+      "type": "boolean",
+      "description": "Indicates whether Telnyx billing charges might be applicable",
+      "example": true
+    },
+    "rate": {
+      "type": "string",
+      "description": "Currency amount per billing unit used to calculate the Telnyx billing cost",
+      "example": "0.002"
+    },
+    "rate_measured_in": {
+      "type": "string",
+      "description": "Billing unit used to calculate the Telnyx billing cost",
+      "example": "minutes"
+    },
+    "cost": {
+      "type": "string",
+      "description": "Currency amount for Telnyx billing cost",
+      "example": "0.004"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Telnyx account currency used to describe monetary values, including billing cost",
+      "example": "USD"
+    },
+    "record_type": {
+      "type": "string",
+      "example": "conference_participant_detail_record",
+      "default": "conference_participant_detail_record"
+    }
+  },
+  "required": [
+    "record_type"
+  ]
+}

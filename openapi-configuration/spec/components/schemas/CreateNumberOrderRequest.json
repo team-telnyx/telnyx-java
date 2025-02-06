@@ -1,0 +1,67 @@
+{
+  "properties": {
+    "phone_numbers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "e164_phone_number",
+            "example": "+19705555098"
+          },
+          "requirement_group_id": {
+            "type": "string",
+            "description": "ID of requirement group to use to satisfy number requirements",
+            "example": "dbbd94ee-9079-488f-80ba-f566b247fd7"
+          },
+          "bundle_id": {
+            "type": "string",
+            "description": "ID of bundle to associate the number to",
+            "example": "bc8e4d67-33a0-4cbb-af74-7b58f05bd494"
+          }
+        },
+        "required": [
+          "phone_number"
+        ]
+      },
+      "writeOnly": true
+    },
+    "connection_id": {
+      "type": "string",
+      "example": "346789098765567",
+      "description": "Identifies the connection associated with this phone number."
+    },
+    "messaging_profile_id": {
+      "type": "string",
+      "example": "abc85f64-5717-4562-b3fc-2c9600",
+      "description": "Identifies the messaging profile associated with the phone number."
+    },
+    "billing_group_id": {
+      "type": "string",
+      "example": "abc85f64-5717-4562-b3fc-2c9600",
+      "description": "Identifies the billing group associated with the phone number."
+    },
+    "customer_reference": {
+      "type": "string",
+      "description": "A customer reference string for customer look ups.",
+      "example": "MY REF 001"
+    }
+  },
+  "example": {
+    "phone_numbers": [
+      {
+        "phone_number": "+19705555098",
+        "bundle_id": "bc8e4d67-33a0-4cbb-af74-7b58f05bd494"
+      },
+      {
+        "phone_number": "+492111609539",
+        "requirement_group_id": "dbbd94ee-9079-488f-80ba-f566b247fd79"
+      }
+    ],
+    "connection_id": "346789098765567",
+    "messaging_profile_id": "abc85f64-5717-4562-b3fc-2c9600",
+    "billing_group_id": "abc85f64-5717-4562-b3fc-2c9600",
+    "customer_reference": "MY REF 001"
+  }
+}

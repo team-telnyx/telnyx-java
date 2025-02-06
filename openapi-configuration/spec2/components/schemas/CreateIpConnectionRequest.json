@@ -1,0 +1,156 @@
+{
+  "title": "Create IP Connection Request",
+  "properties": {
+    "active": {
+      "type": "boolean",
+      "description": "Defaults to true",
+      "example": true
+    },
+    "anchorsite_override": {
+      "$ref": "./AnchorsiteOverride.json"
+    },
+    "connection_name": {
+      "type": "string",
+      "example": "string"
+    },
+    "transport_protocol": {
+      "type": "string",
+      "description": "One of UDP, TLS, or TCP. Applies only to connections with IP authentication or FQDN authentication.",
+      "default": "UDP",
+      "enum": [
+        "UDP",
+        "TCP",
+        "TLS"
+      ],
+      "example": "UDP"
+    },
+    "default_on_hold_comfort_noise_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.",
+      "example": true
+    },
+    "dtmf_type": {
+      "$ref": "./DtmfType.json"
+    },
+    "encode_contact_header_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios.",
+      "example": true
+    },
+    "encrypted_media": {
+      "$ref": "./EncryptedMedia.json"
+    },
+    "onnet_t38_passthrough_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings.",
+      "example": false
+    },
+    "ios_push_credential_id": {
+      "$ref": "./ConnectionIosPushCredentialId.json"
+    },
+    "android_push_credential_id": {
+      "$ref": "./ConnectionAndroidPushCredentialId.json"
+    },
+    "webhook_event_url": {
+      "type": "string",
+      "format": "url",
+      "description": "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.",
+      "example": "https://example.com"
+    },
+    "webhook_event_failover_url": {
+      "type": "string",
+      "format": "url",
+      "description": "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.",
+      "example": "https://failover.example.com",
+      "nullable": true,
+      "default": ""
+    },
+    "webhook_api_version": {
+      "type": "string",
+      "description": "Determines which webhook format will be used, Telnyx API v1 or v2.",
+      "enum": [
+        "1",
+        "2"
+      ],
+      "example": "1",
+      "default": "1"
+    },
+    "webhook_timeout_secs": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 30,
+      "description": "Specifies how many seconds to wait before timing out a webhook.",
+      "example": 25,
+      "default": null,
+      "nullable": true
+    },
+    "rtcp_settings": {
+      "$ref": "./ConnectionRtcpSettings.json"
+    },
+    "inbound": {
+      "$ref": "./CreateInboundIpRequest.json"
+    },
+    "outbound": {
+      "$ref": "./OutboundIp.json"
+    }
+  },
+  "example": {
+    "active": true,
+    "anchorsite_override": "Latency",
+    "connection_name": "string",
+    "transport_protocol": "UDP",
+    "default_on_hold_comfort_noise_enabled": true,
+    "dtmf_type": "RFC 2833",
+    "encode_contact_header_enabled": true,
+    "encrypted_media": "SRTP",
+    "onnet_t38_passthrough_enabled": false,
+    "ios_push_credential_id": "ec0c8e5d-439e-4620-a0c1-9d9c8d02a836",
+    "android_push_credential_id": "06b09dfd-7154-4980-8b75-cebf7a9d4f8e",
+    "webhook_event_url": "https://example.com",
+    "webhook_event_failover_url": "https://failover.example.com",
+    "webhook_api_version": "1",
+    "webhook_timeout_secs": 25,
+    "rtcp_settings": {
+      "port": "rtcp-mux",
+      "capture_enabled": true,
+      "report_frequency_secs": 10
+    },
+    "inbound:": {
+      "ani_number_format": "+E.164",
+      "dns_number_format": "+e164",
+      "codecs": "G722",
+      "default_primary_ip_id": "192.168.0.0",
+      "default_tertiary_ip_id": "192.168.0.0",
+      "default_secondary_ip_id": "192.168.0.0",
+      "default_routing_method": "sequential",
+      "channel_limit": 10,
+      "generate_ringback_tone": true,
+      "isup_headers_enabled": true,
+      "prack_enabled": true,
+      "sip_compact_headers_enabled": true,
+      "sip_region": "US",
+      "sip_subdomain": "test",
+      "sip_subdomain_receive_settings": "only_my_connections",
+      "timeout_1xx_secs": 10,
+      "timeout_2xx_secs": 20,
+      "shaken_stir_enabled": true
+    },
+    "outbound": {
+      "call_parking_enabled": true,
+      "ani_override": "string",
+      "ani_override_type": "always",
+      "channel_limit": 10,
+      "instant_ringback_enabled": true,
+      "generate_ringback_tone": true,
+      "localization": "string",
+      "t38_reinvite_source": "customer",
+      "tech_prefix": "string",
+      "ip_authentication_method": "token",
+      "ip_authentication_token": "string",
+      "outbound_voice_profile_id": "1293384261075731499"
+    }
+  }
+}

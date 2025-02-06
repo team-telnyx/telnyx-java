@@ -1,0 +1,44 @@
+{
+  "post": {
+    "summary": "Update conference participant",
+    "description": "Update conference participant supervisor_role",
+    "operationId": "UpdateConference",
+    "tags": [
+      "Conference Commands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Uniquely identifies the conference by id or name",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "description": "Update Conference request object",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateConferenceRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ConferenceCommandResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

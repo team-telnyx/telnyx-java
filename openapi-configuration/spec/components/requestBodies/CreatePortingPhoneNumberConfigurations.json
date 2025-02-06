@@ -1,0 +1,38 @@
+{
+  "description": "A list of phone number configuration parameters",
+  "required": true,
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "phone_number_configurations": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "required": [
+                "porting_phone_number_id",
+                "user_bundle_id"
+              ],
+              "properties": {
+                "porting_phone_number_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "Identifies the porting phone number to be configured.",
+                  "example": "927f4687-318c-44bc-9f2f-22a5898143a4"
+                },
+                "user_bundle_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "Identifies the user bundle to be associated with the porting phone number.",
+                  "example": "ff901545-3e27-462a-ba9d-2b34654cab82"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

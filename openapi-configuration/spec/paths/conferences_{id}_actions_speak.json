@@ -1,0 +1,136 @@
+{
+  "post": {
+    "summary": "Speak text to conference participants",
+    "description": "Convert text to speech and play it to all or some participants.",
+    "operationId": "SpeakTextToConference",
+    "tags": [
+      "Conference Commands"
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "description": "Specifies the conference by id or name",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/ConferenceSpeakRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ConferenceCommandResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "callbacks": {
+      "conferenceSpeakStarted": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference speak conference speak started",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferenceSpeakStartedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "conferenceSpeakEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference speak conference speak ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferenceSpeakEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "conferenceParticipantSpeakStarted": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference speak conference participant speak started",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferenceParticipantSpeakStartedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      },
+      "conferenceParticipantSpeakEnded": {
+        "{$request.body#/webhook_url}": {
+          "post": {
+            "summary": "Conference speak conference participant speak ended",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../components/schemas/ConferenceParticipantSpeakEndedEvent.json"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL."
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

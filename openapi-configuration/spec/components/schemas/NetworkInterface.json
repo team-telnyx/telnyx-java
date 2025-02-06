@@ -1,0 +1,31 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Record.json"
+    },
+    {
+      "$ref": "./Interface.json"
+    },
+    {
+      "$ref": "./RegionOut.json"
+    },
+    {
+      "type": "object",
+      "title": "NetworkInterface",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "network_interface"
+        },
+        "type": {
+          "type": "string",
+          "description": "Identifies the type of the interface.",
+          "readOnly": true,
+          "example": "wireguard_interface"
+        }
+      }
+    }
+  ]
+}

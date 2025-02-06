@@ -1,0 +1,84 @@
+{
+  "delete": {
+    "summary": "Deletes stored media",
+    "description": "Deletes a stored media file.",
+    "operationId": "DeleteMediaStorage",
+    "tags": [
+      "Media Storage API"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/MediaName.json"
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "The media was deleted successfully."
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "get": {
+    "summary": "Retrieve stored media",
+    "description": "Returns the information about a stored media file.",
+    "operationId": "GetMediaStorage",
+    "tags": [
+      "Media Storage API"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/MediaName.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/MediaResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  },
+  "put": {
+    "summary": "Update stored media",
+    "description": "Updates a stored media file.",
+    "operationId": "UpdateMediaStorage",
+    "tags": [
+      "Media Storage API"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/MediaName.json"
+      }
+    ],
+    "requestBody": {
+      "description": "Update media request",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateMediaRequest.json"
+          }
+        },
+        "multipart/form-data": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateMediaMultipartRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/MediaResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

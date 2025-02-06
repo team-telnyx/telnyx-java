@@ -1,0 +1,62 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "12ade33a-21c0-473b-b055-b3c836e1c292",
+      "readOnly": true
+    },
+    "body": {
+      "type": "string",
+      "example": "Hi there, ...."
+    },
+    "commenter": {
+      "type": "string",
+      "example": "user@company.com",
+      "readOnly": true
+    },
+    "commenter_type": {
+      "type": "string",
+      "example": "user",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "readOnly": true
+    },
+    "comment_record_type": {
+      "type": "string",
+      "example": "sub_number_order",
+      "enum": [
+        "sub_number_order",
+        "requirement_group"
+      ]
+    },
+    "comment_record_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576"
+    },
+    "read_at": {
+      "type": "string",
+      "format": "datetime",
+      "description": "An ISO 8901 datetime string for when the comment was read.",
+      "example": "2018-01-01T00:00:00.000000Z",
+      "readOnly": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "datetime",
+      "description": "An ISO 8901 datetime string denoting when the comment was created.",
+      "example": "2018-01-01T00:00:00.000000Z",
+      "readOnly": true
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "datetime",
+      "description": "An ISO 8901 datetime string for when the comment was updated.",
+      "example": "2018-01-01T00:00:00.000000Z",
+      "readOnly": true
+    }
+  }
+}

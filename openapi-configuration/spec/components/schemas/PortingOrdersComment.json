@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "f1486bae-f067-460c-ad43-73a92848f902"
+    },
+    "body": {
+      "type": "string",
+      "description": "Body of comment",
+      "example": "Great experience so far"
+    },
+    "porting_order_id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "f1486bae-f067-460c-ad43-73a92848f902"
+    },
+    "user_type": {
+      "type": "string",
+      "description": "Indicates whether this comment was created by a Telnyx Admin, user, or system",
+      "enum": [
+        "admin",
+        "user",
+        "system"
+      ],
+      "example": "user"
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the user who created this comment",
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "user_email": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address of the user who created this comment",
+      "example": "user@example.com"
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "example": "porting_comment"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2021-03-19T10:07:15.527Z"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "example": {
+    "total_results": 100,
+    "best_effort_results": 50
+  },
+  "properties": {
+    "total_results": {
+      "type": "integer",
+      "example": 1
+    },
+    "best_effort_results": {
+      "type": "integer",
+      "example": 0
+    }
+  }
+}

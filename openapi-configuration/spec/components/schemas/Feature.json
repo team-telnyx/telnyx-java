@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "sms"
+    }
+  },
+  "example": {
+    "name": "sms"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "description": "Specifies a value for a requirement on the Porting Order.",
+  "required": [
+    "field_value",
+    "requirement_type_id"
+  ],
+  "properties": {
+    "field_value": {
+      "type": "string",
+      "description": "identifies the document or provides the text value that satisfies this requirement",
+      "example": "9787fb5f-cbe5-4de4-b765-3303774ee9fe"
+    },
+    "requirement_type_id": {
+      "type": "string",
+      "description": "Identifies the requirement type that the `field_value` fulfills",
+      "example": "59b0762a-b274-4f76-ac32-4d5cf0272e66"
+    }
+  }
+}

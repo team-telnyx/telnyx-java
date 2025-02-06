@@ -1,0 +1,27 @@
+{
+  "get": {
+    "summary": "List messaging URL domains",
+    "operationId": "ListMessagingUrlDomains",
+    "tags": [
+      "Messaging URL Domains"
+    ],
+    "x-group-parameters": "true",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListMessagingUrlDomains.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

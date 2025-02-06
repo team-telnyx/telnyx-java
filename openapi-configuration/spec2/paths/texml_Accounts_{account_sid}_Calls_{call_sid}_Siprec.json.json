@@ -1,0 +1,31 @@
+{
+  "post": {
+    "summary": "Request siprec session for a call",
+    "description": "Starts siprec session with specified parameters for call idientified by call_sid.",
+    "x-latency-category": "responsive",
+    "x-group-parameters": "true",
+    "operationId": "StartTeXMLSiprecSession",
+    "tags": [
+      "TeXML REST Commands"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/AccountSid.json"
+      },
+      {
+        "$ref": "../components/parameters/CallSid.json"
+      }
+    ],
+    "requestBody": {
+      "$ref": "../components/requestBodies/TexmlCreateSiprecSessionRequest.json"
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/TexmlCreateSiprecSessionResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      }
+    }
+  }
+}

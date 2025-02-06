@@ -1,0 +1,30 @@
+{
+  "get": {
+    "summary": "Retrieve a number reservation",
+    "description": "Gets a single phone number reservation.",
+    "operationId": "RetrieveNumberReservation",
+    "tags": [
+      "Phone Number Reservations"
+    ],
+    "parameters": [
+      {
+        "name": "number_reservation_id",
+        "in": "path",
+        "description": "The number reservation ID.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NumberReservationResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

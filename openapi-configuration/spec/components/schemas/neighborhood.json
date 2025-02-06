@@ -1,0 +1,5 @@
+{
+  "type": "string",
+  "description": "The neighborhood of the address. This field is not used for addresses in the US but is used for some international addresses.",
+  "example": "Ciudad de los deportes"
+}

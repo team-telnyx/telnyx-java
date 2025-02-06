@@ -1,0 +1,37 @@
+{
+  "get": {
+    "tags": [
+      "Bulk Phone Number Campaigns"
+    ],
+    "summary": "Get Assignment Task Status",
+    "operationId": "GetAssignmentTaskStatus",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Taskid",
+          "type": "string"
+        },
+        "name": "taskId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/AssignmentTaskStatusResponse.json"
+            }
+          }
+        }
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "description": "Check the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.",
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "get": {
+    "description": "This endpoint returns a list of your Fax Applications inside the 'data' attribute of the response. You can adjust which applications are listed by using filters. Fax Applications are used to configure how you send and receive faxes using the Programmable Fax API with Telnyx.",
+    "summary": "List all Fax Applications",
+    "operationId": "ListFaxApplications",
+    "tags": [
+      "Programmable Fax Applications"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterApplicationName.json"
+      },
+      {
+        "$ref": "../components/parameters/FilterOutboundVoiceProfileId.json"
+      },
+      {
+        "$ref": "../components/parameters/SortApplication.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GetAllFaxApplicationsResponse.json"
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequestResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "description": "Creates a new Fax Application based on the parameters sent in the request. The application name and webhook URL are required. Once created, you can assign phone numbers to your application using the `/phone_numbers` endpoint.",
+    "summary": "Creates a Fax Application",
+    "operationId": "CreateFaxApplication",
+    "tags": [
+      "Programmable Fax Applications"
+    ],
+    "x-endpoint-cost": "medium",
+    "parameters": [],
+    "requestBody": {
+      "description": "Parameters that can be set when creating a Fax Application",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/CreateFaxApplicationRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "$ref": "../components/responses/FaxApplicationResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthenticatedResponse.json"
+      },
+      "403": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

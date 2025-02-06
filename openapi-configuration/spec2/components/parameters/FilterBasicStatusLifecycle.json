@@ -1,0 +1,15 @@
+{
+  "name": "filter[status]",
+  "description": "Filter by a specific status of the resource's lifecycle.",
+  "in": "query",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "enum": [
+      "in-progress",
+      "completed",
+      "failed"
+    ],
+    "example": "in-progress"
+  }
+}

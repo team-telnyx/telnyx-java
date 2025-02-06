@@ -1,0 +1,136 @@
+{
+  "delete": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "Delete Brand",
+    "description": "Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be deleted if it contains one or more active campaigns, the campaigns need to be inactive and at least 3 months old due to billing purposes.",
+    "operationId": "DeleteBrand",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "Get Brand",
+    "operationId": "GetBrand",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/TelnyxBrandWithCampaignsCount.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "description": "Retrieve a brand by `brandId`.",
+    "x-latency-category": "responsive"
+  },
+  "put": {
+    "tags": [
+      "Brands"
+    ],
+    "summary": "Update Brand",
+    "operationId": "UpdateBrand",
+    "parameters": [
+      {
+        "required": true,
+        "schema": {
+          "title": "Brandid",
+          "type": "string"
+        },
+        "name": "brandId",
+        "in": "path"
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/UpdateBrand.json"
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/TelnyxBrand.json"
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Validation Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/HTTPValidationError.json"
+            }
+          }
+        }
+      }
+    },
+    "description": "Update a brand's attributes by `brandId`.",
+    "x-latency-category": "responsive"
+  }
+}

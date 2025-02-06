@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "./OutboundMessage.json"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "example": 1,
+          "description": "Number of attempts to deliver the webhook event."
+        },
+        "delivered_to": {
+          "type": "string",
+          "format": "url",
+          "example": "https://www.example.com/hooks",
+          "description": "The webhook URL the event was delivered to."
+        }
+      }
+    }
+  }
+}

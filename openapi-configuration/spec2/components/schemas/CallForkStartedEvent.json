@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Call Fork Started Event",
+  "properties": {
+    "data": {
+      "$ref": "./CallForkStarted.json"
+    }
+  }
+}

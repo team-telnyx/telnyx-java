@@ -1,0 +1,14 @@
+{
+  "title": "PhoneNumberCampaignUpdate",
+  "required": [
+    "campaignId"
+  ],
+  "type": "object",
+  "properties": {
+    "campaignId": {
+      "title": "Campaignid",
+      "type": "string",
+      "example": "4b300178-131c-d902-d54e-72d90ba1620j"
+    }
+  }
+}

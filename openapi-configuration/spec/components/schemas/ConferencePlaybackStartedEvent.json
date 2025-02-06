@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "Conference Playback Started Event",
+  "properties": {
+    "data": {
+      "$ref": "./ConferencePlaybackStarted.json"
+    }
+  }
+}

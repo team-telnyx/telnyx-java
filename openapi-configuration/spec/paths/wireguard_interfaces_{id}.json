@@ -1,0 +1,46 @@
+{
+  "delete": {
+    "summary": "Delete a WireGuard Interface",
+    "description": "Delete a WireGuard Interface.",
+    "operationId": "DeleteWireguardInterface",
+    "tags": [
+      "WireGuard Interfaces"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/WireguardInterfaceResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "get": {
+    "summary": "Retrieve a WireGuard Interfaces",
+    "description": "Retrieve a WireGuard Interfaces.",
+    "operationId": "GetWireguardInterface",
+    "tags": [
+      "WireGuard Interfaces"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/ResourceId.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/WireguardInterfaceResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

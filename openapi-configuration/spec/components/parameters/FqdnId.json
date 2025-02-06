@@ -1,0 +1,11 @@
+{
+  "name": "id",
+  "description": "Identifies the resource.",
+  "in": "path",
+  "required": true,
+  "schema": {
+    "format": "int64",
+    "type": "string",
+    "example": "1517907029795014409"
+  }
+}

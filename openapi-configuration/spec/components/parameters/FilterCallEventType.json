@@ -1,0 +1,14 @@
+{
+  "name": "filter[type]",
+  "in": "query",
+  "description": "Event type",
+  "required": false,
+  "schema": {
+    "type": "string",
+    "enum": [
+      "command",
+      "webhook"
+    ],
+    "example": "webhook"
+  }
+}

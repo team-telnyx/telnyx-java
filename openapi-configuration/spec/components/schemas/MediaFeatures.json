@@ -1,0 +1,26 @@
+{
+  "description": "The media features settings for a phone number.",
+  "type": "object",
+  "properties": {
+    "rtp_auto_adjust_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "When RTP Auto-Adjust is enabled, the destination RTP address port will be automatically changed to match the source of the incoming RTP packets."
+    },
+    "accept_any_rtp_packets_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "When enabled, Telnyx will accept RTP packets from any customer-side IP address and port, not just those to which Telnyx is sending RTP."
+    },
+    "t38_fax_gateway_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Controls whether Telnyx will accept a T.38 re-INVITE for this phone number. Note that Telnyx will not send a T.38 re-INVITE; this option only controls whether one will be accepted."
+    }
+  },
+  "example": {
+    "rtp_auto_adjust_enabled": true,
+    "accept_any_rtp_packets_enabled": true,
+    "t38_fax_gateway_enabled": true
+  }
+}

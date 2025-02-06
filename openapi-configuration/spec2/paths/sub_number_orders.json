@@ -1,0 +1,67 @@
+{
+  "get": {
+    "summary": "List sub number orders",
+    "description": "Get a paginated list of sub number orders.",
+    "operationId": "ListSubNumberOrders",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "x-group-parameters": "true",
+    "parameters": [
+      {
+        "name": "filter[status]",
+        "in": "query",
+        "description": "Filter sub number orders by status.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[order_request_id]",
+        "in": "query",
+        "description": "ID of the number order the sub number order belongs to",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "12ade33a-21c0-473b-b055-b3c836e1c293"
+        }
+      },
+      {
+        "name": "filter[country_code]",
+        "in": "query",
+        "description": "ISO alpha-2 country code.",
+        "schema": {
+          "type": "string",
+          "example": "US"
+        }
+      },
+      {
+        "name": "filter[phone_number_type]",
+        "in": "query",
+        "description": "Phone Number Type",
+        "schema": {
+          "type": "string",
+          "example": "local"
+        }
+      },
+      {
+        "name": "filter[phone_numbers_count]",
+        "in": "query",
+        "description": "Amount of numbers in the sub number order",
+        "schema": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListSubNumberOrdersResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

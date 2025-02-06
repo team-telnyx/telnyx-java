@@ -1,0 +1,47 @@
+{
+  "allOf": [
+    {
+      "type": "object",
+      "title": "VirtualCrossConnectCoverage",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": "Identifies the type of the resource.",
+          "readOnly": true,
+          "example": "virtual_cross_connects_coverage"
+        },
+        "location": {
+          "$ref": "./Location.json"
+        },
+        "cloud_provider": {
+          "type": "string",
+          "enum": [
+            "aws",
+            "azure",
+            "gce"
+          ],
+          "description": "The Virtual Private Cloud with which you would like to establish a cross connect.",
+          "example": "aws"
+        },
+        "cloud_provider_region": {
+          "type": "string",
+          "description": "The region where your Virtual Private Cloud hosts are located. Should be identical to how the cloud provider names region, i.e. us-east-1 for AWS but Frankfurt for Azure",
+          "example": "us-east-1"
+        },
+        "available_bandwidth": {
+          "type": "array",
+          "description": "The available throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.",
+          "items": {
+            "type": "number"
+          },
+          "example": [
+            50,
+            100,
+            200,
+            500
+          ]
+        }
+      }
+    }
+  ]
+}

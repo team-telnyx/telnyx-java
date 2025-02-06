@@ -1,0 +1,14 @@
+{
+  "required": [
+    "phone_number"
+  ],
+  "type": "object",
+  "description": "Opens the user's default dialer app with the agent-specified phone number filled in.",
+  "properties": {
+    "phone_number": {
+      "type": "string",
+      "description": "Phone number in +E.164 format",
+      "example": "+13125551234"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "get": {
+    "summary": "List all Global IP Protocols",
+    "description": "List all Global IP Protocols",
+    "operationId": "ListGlobalIpProtocols",
+    "tags": [
+      "Global IPs"
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/GlobalIpProtocolListResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "get": {
+    "summary": "Retrieve all comments",
+    "operationId": "ListComments",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "parameters": [
+      {
+        "name": "filter[comment_record_type]",
+        "in": "query",
+        "description": "Record type that the comment relates to",
+        "schema": {
+          "type": "string",
+          "example": "sub_number_order",
+          "enum": [
+            "sub_number_order",
+            "requirement_group"
+          ]
+        },
+        "required": true
+      },
+      {
+        "name": "filter[comment_record_id]",
+        "in": "query",
+        "description": "ID of the record the comments relate to",
+        "schema": {
+          "type": "string",
+          "example": "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576"
+        },
+        "required": true
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/listCommentsResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  },
+  "post": {
+    "summary": "Create a comment",
+    "operationId": "CreateComment",
+    "tags": [
+      "Phone Number Orders"
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../components/schemas/Comment.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/CommentResponse.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

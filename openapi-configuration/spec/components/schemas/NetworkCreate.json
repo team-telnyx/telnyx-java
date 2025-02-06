@@ -1,0 +1,14 @@
+{
+  "allOf": [
+    {
+      "$ref": "./Network.json"
+    },
+    {
+      "type": "object",
+      "title": "NetworkCreate",
+      "required": [
+        "name"
+      ]
+    }
+  ]
+}

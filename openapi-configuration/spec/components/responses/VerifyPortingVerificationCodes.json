@@ -1,0 +1,38 @@
+{
+  "description": "Successful response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "../schemas/PortingVerificationCode.json"
+            }
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "id": "52090326-6533-4421-bcf4-bd0117cf3954",
+              "phone_number": "+61424000001",
+              "verified": true,
+              "porting_order_id": "f28e6ecc-29a8-430b-bd0b-d93055f70604",
+              "created_at": "2020-10-22T15:00:00.000Z",
+              "updated_at": "2020-10-22T15:00:00.000Z"
+            },
+            {
+              "id": "cf076b8e-645b-4040-8209-543c5909775f",
+              "phone_number": "+61424000002",
+              "verified": false,
+              "porting_order_id": "f28e6ecc-29a8-430b-bd0b-d93055f70604",
+              "created_at": "2020-10-22T15:00:00.000Z",
+              "updated_at": "2020-10-22T15:00:00.000Z"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

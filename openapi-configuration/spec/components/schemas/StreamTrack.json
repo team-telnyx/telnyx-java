@@ -1,0 +1,11 @@
+{
+  "description": "Tracks to be included in the stream",
+  "default": "inbound_track",
+  "example": "both_tracks",
+  "type": "string",
+  "enum": [
+    "inbound_track",
+    "outbound_track",
+    "both_tracks"
+  ]
+}

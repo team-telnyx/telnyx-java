@@ -1,0 +1,36 @@
+{
+  "description": "An object representing the available notifications.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A UUID.",
+      "readOnly": true,
+      "example": "d5c395cd-9864-4609-b5e2-3f9fd4ce201a"
+    },
+    "name": {
+      "type": "string",
+      "description": "A human readable name.",
+      "example": "Emergency Number Dialed"
+    },
+    "notification_category": {
+      "type": "string",
+      "example": "Calls"
+    },
+    "enabled": {
+      "type": "boolean",
+      "example": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was created.",
+      "example": "2019-10-15T10:07:15.527Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 formatted date indicating when the resource was updated.",
+      "example": "2019-10-15T10:07:15.527Z"
+    }
+  }
+}

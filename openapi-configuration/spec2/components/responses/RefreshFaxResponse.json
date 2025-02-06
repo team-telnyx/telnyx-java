@@ -1,0 +1,22 @@
+{
+  "description": "Refresh fax response",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "title": "Refresh Fax Response",
+        "example": {
+          "data": {
+            "result": "ok"
+          }
+        },
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "ok"
+          }
+        }
+      }
+    }
+  }
+}

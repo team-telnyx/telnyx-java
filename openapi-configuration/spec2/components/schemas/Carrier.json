@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "mobile_country_code": {
+      "type": "string",
+      "description": "Region code that matches the specific country calling code if the requested phone number type is mobile",
+      "example": "US"
+    },
+    "mobile_network_code": {
+      "type": "string",
+      "description": "National destination code (NDC), with a 0 prefix, if an NDC is found and the requested phone number type is mobile",
+      "example": "0866"
+    },
+    "name": {
+      "type": "string",
+      "description": "SPID (Service Provider ID) name, if the requested phone number has been ported; otherwise, the name of carrier who owns the phone number block",
+      "example": "Telnyx/4"
+    },
+    "type": {
+      "type": "string",
+      "description": "A phone number type that identifies the type of service associated with the requested phone number",
+      "enum": [
+        "fixed line",
+        "mobile",
+        "voip",
+        "fixed line or mobile",
+        "toll free",
+        "premium rate",
+        "shared cost",
+        "personal number",
+        "pager",
+        "uan",
+        "voicemail",
+        "unknown"
+      ],
+      "example": "voip"
+    },
+    "error_code": {
+      "type": "string",
+      "description": "Unused",
+      "example": null
+    },
+    "normalized_carrier": {
+      "type": "string",
+      "description": "If known to Telnyx and applicable, the primary network carrier.",
+      "example": "AT&T"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+      "readOnly": true
+    },
+    "record_type": {
+      "type": "string",
+      "description": "Identifies the type of the resource.",
+      "readOnly": true,
+      "example": "dynamic_emergency_endpoint"
+    },
+    "dynamic_emergency_address_id": {
+      "type": "string",
+      "description": "An id of a currently active dynamic emergency location.",
+      "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of dynamic emergency address",
+      "readOnly": true,
+      "enum": [
+        "pending",
+        "activated",
+        "rejected"
+      ],
+      "example": "pending"
+    },
+    "sip_from_id": {
+      "type": "string",
+      "example": "FXDFWEDF",
+      "readOnly": true
+    },
+    "callback_number": {
+      "type": "string",
+      "example": "+13125550000"
+    },
+    "caller_name": {
+      "type": "string",
+      "example": "Jane Doe Desk Phone"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the resource was created",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 formatted date of when the resource was last updated",
+      "readOnly": true,
+      "example": "2018-02-02T22:25:27.521Z"
+    }
+  },
+  "required": [
+    "dynamic_emergency_address_id",
+    "callback_number",
+    "caller_name"
+  ]
+}

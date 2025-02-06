@@ -1,0 +1,29 @@
+{
+  "allOf": [
+    {
+      "$ref": "./GenericError.json"
+    },
+    {
+      "properties": {
+        "code": {
+          "example": "10007"
+        },
+        "title": {
+          "example": "Unexpected error"
+        },
+        "detail": {
+          "example": "An unexpected error occurred."
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "example": "https://developers.telnyx.com/docs/overview/errors/10007"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

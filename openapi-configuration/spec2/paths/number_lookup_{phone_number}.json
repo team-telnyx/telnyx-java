@@ -1,0 +1,30 @@
+{
+  "get": {
+    "summary": "Lookup phone number data",
+    "description": "Returns information about the provided phone number.",
+    "operationId": "LookupNumber",
+    "tags": [
+      "Number Lookup"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/PhoneNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/NumberLookupType.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/NumberLookupResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntity.json"
+      },
+      "default": {
+        "$ref": "../components/responses/GenericErrorResponse.json"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "string",
+  "title": "Bidirectional Stream Codec",
+  "description": "Indicates codec for bidirectional streaming RTP payloads. Used only with stream_bidirectional_mode=rtp. Case sensitive.",
+  "enum": [
+    "PCMU",
+    "PCMA",
+    "G722",
+    "OPUS",
+    "AMR-WB"
+  ],
+  "default": "PCMU",
+  "example": "G722"
+}

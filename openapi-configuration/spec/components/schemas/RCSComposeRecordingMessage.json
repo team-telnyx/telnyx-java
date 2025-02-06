@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": [
+    "phone_number",
+    "type"
+  ],
+  "description": "Initiate the recording and sending of an audio or video message.",
+  "properties": {
+    "phone_number": {
+      "type": "string",
+      "description": "phone number in +E.164 format",
+      "example": "+13125551234"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the recording action.",
+      "enum": [
+        "COMPOSE_RECORDING_ACTION_TYPE_UNSPECIFIED",
+        "ACTION_TYPE_AUDIO",
+        "ACTION_TYPE_VIDEO"
+      ]
+    }
+  }
+}

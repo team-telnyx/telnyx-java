@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "user_rating": {
+      "type": "integer",
+      "description": "Once an order is ported, cancellation is requested or the request is cancelled, the user may rate their experience",
+      "example": 5
+    },
+    "user_comment": {
+      "type": "string",
+      "description": "A comment related to the customer rating.",
+      "example": "I loved my experience porting numbers with Telnyx"
+    }
+  }
+}

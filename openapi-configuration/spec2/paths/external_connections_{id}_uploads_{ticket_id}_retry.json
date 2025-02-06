@@ -1,0 +1,36 @@
+{
+  "post": {
+    "description": "If there were any errors during the upload process, this endpoint will retry the upload request. In some cases this will reattempt the existing upload request, in other cases it may create a new upload request. Please check the ticket_id in the response to determine if a new upload request was created.",
+    "summary": "Retry an Upload request",
+    "operationId": "RetryUpload",
+    "tags": [
+      "External Connections"
+    ],
+    "parameters": [
+      {
+        "$ref": "../components/parameters/id.json"
+      },
+      {
+        "$ref": "../components/parameters/ticket_id.json"
+      }
+    ],
+    "responses": {
+      "202": {
+        "$ref": "../components/responses/GetUploadResponse.json"
+      },
+      "401": {
+        "description": "Unauthorized"
+      },
+      "404": {
+        "description": "Not found"
+      },
+      "409": {
+        "description": "Order is still in progress, please wait before retrying"
+      },
+      "422": {
+        "description": "Unprocessable Entity"
+      }
+    },
+    "x-latency-category": "responsive"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "title": "Multiple conference resources",
+  "example": {
+    "conferences": [],
+    "end": 0,
+    "first_page_uri": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences.json?Page=0&PageSize=1",
+    "next_page_uri": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences.json?Page=1&PageSize=1&PageToken=MTY4AjgyNDkwNzIxMQ",
+    "page": 0,
+    "page_size": 1,
+    "start": 0,
+    "uri": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences.json?Page=0&PageSize=1"
+  },
+  "properties": {
+    "conferences": {
+      "type": "array",
+      "items": {
+        "$ref": "./ConferenceResource.json"
+      }
+    },
+    "end": {
+      "type": "integer",
+      "description": "The number of the last element on the page, zero-indexed.",
+      "example": 19
+    },
+    "first_page_uri": {
+      "type": "string",
+      "description": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences.json?Page=0&PageSize=1",
+      "example": "accepted"
+    },
+    "next_page_uri": {
+      "type": "string",
+      "description": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences.json?Page=1&PageSize=1&PageToken=MTY4AjgyNDkwNzIxMQ",
+      "example": "accepted"
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number, zero-indexed.",
+      "example": 0
+    },
+    "page_size": {
+      "type": "integer",
+      "description": "The number of items on the page",
+      "example": 20
+    },
+    "start": {
+      "type": "integer",
+      "description": "The number of the first element on the page, zero-indexed.",
+      "example": 0
+    },
+    "uri": {
+      "type": "string",
+      "description": "The URI of the current page.",
+      "example": "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences.json?Page=0&PageSize=1"
+    }
+  }
+}

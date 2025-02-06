@@ -1,0 +1,66 @@
+{
+  "get": {
+    "description": "Lists conference participants",
+    "summary": "List conference participants",
+    "operationId": "ListConferenceParticipants",
+    "tags": [
+      "Conference Commands"
+    ],
+    "parameters": [
+      {
+        "name": "conference_id",
+        "description": "Uniquely identifies the conference by id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "filter[muted]",
+        "in": "query",
+        "description": "If present, participants will be filtered to those who are/are not muted",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "filter[on_hold]",
+        "in": "query",
+        "description": "If present, participants will be filtered to those who are/are not put on hold",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "filter[whispering]",
+        "in": "query",
+        "description": "If present, participants will be filtered to those who are whispering or are not",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "$ref": "../components/parameters/PageNumber.json"
+      },
+      {
+        "$ref": "../components/parameters/PageSize.json"
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "../components/responses/ListParticipantsResponse.json"
+      },
+      "401": {
+        "$ref": "../components/responses/UnauthorizedResponse.json"
+      },
+      "404": {
+        "$ref": "../components/responses/NotFoundResponse.json"
+      },
+      "422": {
+        "$ref": "../components/responses/UnprocessableEntityResponse.json"
+      }
+    },
+    "x-latency-category": "interactive"
+  }
+}

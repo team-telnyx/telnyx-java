@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "type": "object",
+  "properties": {
+    "mobile_network_operator_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The mobile network operator resource identification UUID.",
+      "example": "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+    },
+    "mobile_network_operator_name": {
+      "type": "string",
+      "description": "The mobile network operator resource name.",
+      "example": "AT&T Mobility (USACG)"
+    },
+    "priority": {
+      "type": "integer",
+      "description": "It determines what is the priority of a specific network operator that should be assumed by a SIM card when connecting to a network. The highest priority is 0, the second highest is 1 and so on.",
+      "example": 0
+    }
+  }
+}

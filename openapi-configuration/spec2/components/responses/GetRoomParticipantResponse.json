@@ -1,0 +1,15 @@
+{
+  "description": "Get room participant response.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "../schemas/RoomParticipant.json"
+          }
+        }
+      }
+    }
+  }
+}

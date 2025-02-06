@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of the metric.",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "global_ip": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Global IP ID.",
+          "example": "a836125b-20b6-452e-9c03-2653f09c7ed7"
+        },
+        "ip_address": {
+          "type": "string",
+          "description": "The Global IP address.",
+          "readOnly": true,
+          "example": null
+        }
+      }
+    },
+    "global_ip_assignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Global IP assignment ID.",
+          "example": "a836125b-20b6-452e-9c03-2653f09c7ed7"
+        },
+        "wireguard_peer_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Wireguard peer ID.",
+          "example": "e66c496d-4a85-423b-8b2a-8e63fac20320"
+        },
+        "wireguard_peer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "A user specified name for the interface.",
+              "example": "Wireguard Peer 1"
+            },
+            "ip_address": {
+              "type": "string",
+              "description": "The IP address of the interface.",
+              "example": "73.47.1.23"
+            }
+          }
+        }
+      }
+    },
+    "health": {
+      "type": "object",
+      "properties": {
+        "pass": {
+          "type": "number",
+          "description": "The number of successful health checks.",
+          "example": 100
+        },
+        "fail": {
+          "type": "number",
+          "description": "The number of failed health checks.",
+          "example": 0
+        }
+      }
+    }
+  }
+}
