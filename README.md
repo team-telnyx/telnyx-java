@@ -4,7 +4,7 @@ Telnyx API
 
 - API version: 2.0.0
 
-- Generator version: 7.4.0
+- Generator version: 7.11.0
 
 SIP trunking, SMS, MMS, Call Control and Telephony Data Services.
 
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>3.0.0</version>
+  <version>4.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -58,7 +58,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.telnyx.sdk:telnyx:3.0.0"
+     implementation "com.telnyx.sdk:telnyx:4.0.0"
   }
 ```
 
@@ -72,7 +72,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-3.0.0.jar`
+- `target/telnyx-4.0.0.jar`
 - `target/lib/*.jar`
 
 ## Usage
@@ -151,6 +151,9 @@ Class | Method | HTTP request | Description
 *AddressesApi* | [**findAddresses**](docs/AddressesApi.md#findAddresses) | **GET** /addresses | List all addresses
 *AddressesApi* | [**getAddress**](docs/AddressesApi.md#getAddress) | **GET** /addresses/{id} | Retrieve an address
 *AddressesApi* | [**validateAddress**](docs/AddressesApi.md#validateAddress) | **POST** /addresses/actions/validate | Validate an address
+*AdvancedNumberOrdersApi* | [**createAdvancedOrderV2**](docs/AdvancedNumberOrdersApi.md#createAdvancedOrderV2) | **POST** /advanced_orders | Create Advanced Order
+*AdvancedNumberOrdersApi* | [**getAdvancedOrderV2**](docs/AdvancedNumberOrdersApi.md#getAdvancedOrderV2) | **GET** /advanced_orders/{order_id} | Get Advanced Order
+*AdvancedNumberOrdersApi* | [**listAdvancedOrdersV2**](docs/AdvancedNumberOrdersApi.md#listAdvancedOrdersV2) | **GET** /advanced_orders | List Advanced Orders
 *AdvancedOptInOptOutApi* | [**createAutorespConfig**](docs/AdvancedOptInOptOutApi.md#createAutorespConfig) | **POST** /messaging_profiles/{profile_id}/autoresp_configs | Create Auto-Reponse Setting
 *AdvancedOptInOptOutApi* | [**deleteAutorespConfig**](docs/AdvancedOptInOptOutApi.md#deleteAutorespConfig) | **DELETE** /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id} | Delete Auto-Response Setting
 *AdvancedOptInOptOutApi* | [**getAutorespConfig**](docs/AdvancedOptInOptOutApi.md#getAutorespConfig) | **GET** /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id} | Get Auto-Response Setting
@@ -161,12 +164,13 @@ Class | Method | HTTP request | Description
 *AssistantsApi* | [**getAssistantPublicAssistantsAssistantIdGet**](docs/AssistantsApi.md#getAssistantPublicAssistantsAssistantIdGet) | **GET** /ai/assistants/{assistant_id} | Get an assistant
 *AssistantsApi* | [**getAssistantsPublicAssistantsGet**](docs/AssistantsApi.md#getAssistantsPublicAssistantsGet) | **GET** /ai/assistants | List assistants
 *AssistantsApi* | [**updateAssistantPublicAssistantsAssistantIdPost**](docs/AssistantsApi.md#updateAssistantPublicAssistantsAssistantIdPost) | **POST** /ai/assistants/{assistant_id} | Update an assistant
-*AudioApi* | [**audioPublicAudioTranscriptionsPost**](docs/AudioApi.md#audioPublicAudioTranscriptionsPost) | **POST** /ai/audio/transcriptions | Transcribe speech to text (BETA)
+*AudioApi* | [**audioPublicAudioTranscriptionsPost**](docs/AudioApi.md#audioPublicAudioTranscriptionsPost) | **POST** /ai/audio/transcriptions | Transcribe speech to text
+*AuditLogsApi* | [**listAuditLogs**](docs/AuditLogsApi.md#listAuditLogs) | **GET** /audit_events | List Audit Logs
 *AuthenticationProvidersApi* | [**createAuthenticationProvider**](docs/AuthenticationProvidersApi.md#createAuthenticationProvider) | **POST** /authentication_providers | Creates an authentication provider
 *AuthenticationProvidersApi* | [**deleteAuthenticationProvider**](docs/AuthenticationProvidersApi.md#deleteAuthenticationProvider) | **DELETE** /authentication_providers/{id} | Deletes an authentication provider
 *AuthenticationProvidersApi* | [**findAuthenticationProviders**](docs/AuthenticationProvidersApi.md#findAuthenticationProviders) | **GET** /authentication_providers | List all SSO authentication providers
 *AuthenticationProvidersApi* | [**getAuthenticationProvider**](docs/AuthenticationProvidersApi.md#getAuthenticationProvider) | **GET** /authentication_providers/{id} | Retrieve an authentication provider
-*AuthenticationProvidersApi* | [**updateAuthenticationProvider**](docs/AuthenticationProvidersApi.md#updateAuthenticationProvider) | **PATCH** /authentication_providers/{id} | Update a authentication provider
+*AuthenticationProvidersApi* | [**updateAuthenticationProvider**](docs/AuthenticationProvidersApi.md#updateAuthenticationProvider) | **PATCH** /authentication_providers/{id} | Update an authentication provider
 *AutoRechargePreferencesApi* | [**getAutoRechargePrefs**](docs/AutoRechargePreferencesApi.md#getAutoRechargePrefs) | **GET** /payment/auto_recharge_prefs | List auto recharge preferences
 *AutoRechargePreferencesApi* | [**updateAutoRechargePrefs**](docs/AutoRechargePreferencesApi.md#updateAutoRechargePrefs) | **PATCH** /payment/auto_recharge_prefs | Update auto recharge preferences
 *BillingApi* | [**getUserBalance**](docs/BillingApi.md#getUserBalance) | **GET** /balance | Get user balance details
@@ -183,18 +187,18 @@ Class | Method | HTTP request | Description
 *BrandsApi* | [**listExternalVettings**](docs/BrandsApi.md#listExternalVettings) | **GET** /brand/{brandId}/externalVetting | List External Vettings
 *BrandsApi* | [**postOrderExternalVetting**](docs/BrandsApi.md#postOrderExternalVetting) | **POST** /brand/{brandId}/externalVetting | Order Brand External Vetting
 *BrandsApi* | [**putExternalVettingRecord**](docs/BrandsApi.md#putExternalVettingRecord) | **PUT** /brand/{brandId}/externalVetting | Import External Vetting Record
+*BrandsApi* | [**resendBrand2faEmail**](docs/BrandsApi.md#resendBrand2faEmail) | **POST** /brand/{brandId}/2faEmail | Resend brand 2FA email
 *BrandsApi* | [**revetBrand**](docs/BrandsApi.md#revetBrand) | **PUT** /brand/{brandId}/revet | Revet Brand
 *BrandsApi* | [**updateBrand**](docs/BrandsApi.md#updateBrand) | **PUT** /brand/{brandId} | Update Brand
 *BucketApi* | [**createBucket**](docs/BucketApi.md#createBucket) | **PUT** /{bucketName} | CreateBucket
 *BucketApi* | [**deleteBucket**](docs/BucketApi.md#deleteBucket) | **DELETE** /{bucketName} | DeleteBucket
 *BucketApi* | [**headBucket**](docs/BucketApi.md#headBucket) | **HEAD** /{bucketName} | HeadBucket
 *BucketApi* | [**listBuckets**](docs/BucketApi.md#listBuckets) | **GET** / | ListBuckets
+*BucketSslCertificateApi* | [**addStorageSSLCertificate**](docs/BucketSslCertificateApi.md#addStorageSSLCertificate) | **PUT** /storage/buckets/{bucketName}/ssl_certificate | Add SSL Certificate
+*BucketSslCertificateApi* | [**getStorageSSLCertificates**](docs/BucketSslCertificateApi.md#getStorageSSLCertificates) | **GET** /storage/buckets/{bucketName}/ssl_certificate | Get Bucket SSL Certificate
+*BucketSslCertificateApi* | [**removeStorageSSLCertificate**](docs/BucketSslCertificateApi.md#removeStorageSSLCertificate) | **DELETE** /storage/buckets/{bucketName}/ssl_certificate | Remove SSL Certificate
 *BucketUsageApi* | [**getBucketUsage**](docs/BucketUsageApi.md#getBucketUsage) | **GET** /storage/buckets/{bucketName}/usage/storage | Get Bucket Usage
 *BucketUsageApi* | [**getStorageAPIUsage**](docs/BucketUsageApi.md#getStorageAPIUsage) | **GET** /storage/buckets/{bucketName}/usage/api | Get API Usage
-*BulkCredentialsApi* | [**bulkCredentialAction**](docs/BulkCredentialsApi.md#bulkCredentialAction) | **POST** /actions/{action}/telephony_credentials | Perform activate or deactivate action on all credentials filtered by the provided tag.
-*BulkCredentialsApi* | [**createBulkTelephonyCredentials**](docs/BulkCredentialsApi.md#createBulkTelephonyCredentials) | **POST** /actions/bulk/telephony_credentials | Creates several credentials
-*BulkCredentialsApi* | [**deleteTelephonyCredentials**](docs/BulkCredentialsApi.md#deleteTelephonyCredentials) | **DELETE** /actions/bulk/telephony_credentials | Delete several credentials
-*BulkCredentialsApi* | [**updateBulkTelephonyCredential**](docs/BulkCredentialsApi.md#updateBulkTelephonyCredential) | **PATCH** /actions/bulk/telephony_credentials | Update several credentials
 *BulkPhoneNumberCampaignsApi* | [**getAssignmentTaskStatus**](docs/BulkPhoneNumberCampaignsApi.md#getAssignmentTaskStatus) | **GET** /phoneNumberAssignmentByProfile/{taskId} | Get Assignment Task Status
 *BulkPhoneNumberCampaignsApi* | [**getPhoneNumberStatus**](docs/BulkPhoneNumberCampaignsApi.md#getPhoneNumberStatus) | **GET** /phoneNumberAssignmentByProfile/{taskId}/phoneNumbers | Get Phone Number Status
 *BulkPhoneNumberCampaignsApi* | [**postAssignMessagingProfileToCampaign**](docs/BulkPhoneNumberCampaignsApi.md#postAssignMessagingProfileToCampaign) | **POST** /phoneNumberAssignmentByProfile | Assign Messaging Profile To Campaign
@@ -203,17 +207,11 @@ Class | Method | HTTP request | Description
 *BulkPhoneNumberOperationsApi* | [**createUpdatePhoneNumbersJob**](docs/BulkPhoneNumberOperationsApi.md#createUpdatePhoneNumbersJob) | **POST** /phone_numbers/jobs/update_phone_numbers | Update a batch of numbers
 *BulkPhoneNumberOperationsApi* | [**listPhoneNumbersJobs**](docs/BulkPhoneNumberOperationsApi.md#listPhoneNumbersJobs) | **GET** /phone_numbers/jobs | Lists the phone numbers jobs
 *BulkPhoneNumberOperationsApi* | [**retrievePhoneNumbersJob**](docs/BulkPhoneNumberOperationsApi.md#retrievePhoneNumbersJob) | **GET** /phone_numbers/jobs/{id} | Retrieve a phone numbers job
-*BulkSoleProprietorCreationApi* | [**getAllTasks**](docs/BulkSoleProprietorCreationApi.md#getAllTasks) | **GET** /bulkCreation | Get All Tasks
-*BulkSoleProprietorCreationApi* | [**getBulkCreationTaskStatus**](docs/BulkSoleProprietorCreationApi.md#getBulkCreationTaskStatus) | **GET** /bulkCreation/{taskId} | Get Task Status
-*BulkSoleProprietorCreationApi* | [**getTaskDetailedStatus**](docs/BulkSoleProprietorCreationApi.md#getTaskDetailedStatus) | **GET** /bulkCreation/{taskId}/detailedStatus | Get Detailed Task Status
-*BulkSoleProprietorCreationApi* | [**postBulkCreation**](docs/BulkSoleProprietorCreationApi.md#postBulkCreation) | **POST** /bulkCreation | Bulk Creation
-*BusinessIdentityApi* | [**createBusinessIdentity**](docs/BusinessIdentityApi.md#createBusinessIdentity) | **POST** /business_identities | Creates a Business Identity
-*BusinessIdentityApi* | [**deleteBusinessIdentity**](docs/BusinessIdentityApi.md#deleteBusinessIdentity) | **DELETE** /business_identities/{id} | Delete a Business Identity
-*BusinessIdentityApi* | [**displayBusinessIdentity**](docs/BusinessIdentityApi.md#displayBusinessIdentity) | **GET** /business_identities/{id} | Display the Business Identity
-*BusinessIdentityApi* | [**listBusinessIdentities**](docs/BusinessIdentityApi.md#listBusinessIdentities) | **GET** /business_identities | Lists the Business Identities owned by the current user/organization
-*BusinessIdentityApi* | [**updateBusinessIdentity**](docs/BusinessIdentityApi.md#updateBusinessIdentity) | **PATCH** /business_identities/{id} | Update a Business Identity
 *CallCommandsApi* | [**answerCall**](docs/CallCommandsApi.md#answerCall) | **POST** /calls/{call_control_id}/actions/answer | Answer call
 *CallCommandsApi* | [**bridgeCall**](docs/CallCommandsApi.md#bridgeCall) | **POST** /calls/{call_control_id}/actions/bridge | Bridge calls
+*CallCommandsApi* | [**callGatherUsingAI**](docs/CallCommandsApi.md#callGatherUsingAI) | **POST** /calls/{call_control_id}/actions/gather_using_ai | Gather using AI
+*CallCommandsApi* | [**callStartAIAssistant**](docs/CallCommandsApi.md#callStartAIAssistant) | **POST** /calls/{call_control_id}/actions/ai_assistant_start | Start AI Assistant (BETA)
+*CallCommandsApi* | [**callStopAIAssistant**](docs/CallCommandsApi.md#callStopAIAssistant) | **POST** /calls/{call_control_id}/actions/ai_assistant_stop | Stop AI Assistant (BETA)
 *CallCommandsApi* | [**dialCall**](docs/CallCommandsApi.md#dialCall) | **POST** /calls | Dial
 *CallCommandsApi* | [**enqueueCall**](docs/CallCommandsApi.md#enqueueCall) | **POST** /calls/{call_control_id}/actions/enqueue | Enqueue call
 *CallCommandsApi* | [**gatherCall**](docs/CallCommandsApi.md#gatherCall) | **POST** /calls/{call_control_id}/actions/gather | Gather
@@ -228,18 +226,21 @@ Class | Method | HTTP request | Description
 *CallCommandsApi* | [**rejectCall**](docs/CallCommandsApi.md#rejectCall) | **POST** /calls/{call_control_id}/actions/reject | Reject a call
 *CallCommandsApi* | [**resumeCallRecording**](docs/CallCommandsApi.md#resumeCallRecording) | **POST** /calls/{call_control_id}/actions/record_resume | Record resume
 *CallCommandsApi* | [**sendDTMF**](docs/CallCommandsApi.md#sendDTMF) | **POST** /calls/{call_control_id}/actions/send_dtmf | Send DTMF
+*CallCommandsApi* | [**sendSIPInfo**](docs/CallCommandsApi.md#sendSIPInfo) | **POST** /calls/{call_control_id}/actions/send_sip_info | Send SIP info
 *CallCommandsApi* | [**speakCall**](docs/CallCommandsApi.md#speakCall) | **POST** /calls/{call_control_id}/actions/speak | Speak text
 *CallCommandsApi* | [**startCallFork**](docs/CallCommandsApi.md#startCallFork) | **POST** /calls/{call_control_id}/actions/fork_start | Forking start
 *CallCommandsApi* | [**startCallPlayback**](docs/CallCommandsApi.md#startCallPlayback) | **POST** /calls/{call_control_id}/actions/playback_start | Play audio URL
 *CallCommandsApi* | [**startCallRecord**](docs/CallCommandsApi.md#startCallRecord) | **POST** /calls/{call_control_id}/actions/record_start | Recording start
 *CallCommandsApi* | [**startCallStreaming**](docs/CallCommandsApi.md#startCallStreaming) | **POST** /calls/{call_control_id}/actions/streaming_start | Streaming start
 *CallCommandsApi* | [**startCallTranscription**](docs/CallCommandsApi.md#startCallTranscription) | **POST** /calls/{call_control_id}/actions/transcription_start | Transcription start
+*CallCommandsApi* | [**startSiprecSession**](docs/CallCommandsApi.md#startSiprecSession) | **POST** /calls/{call_control_id}/actions/siprec_start | SIPREC start
 *CallCommandsApi* | [**stopCallFork**](docs/CallCommandsApi.md#stopCallFork) | **POST** /calls/{call_control_id}/actions/fork_stop | Forking stop
 *CallCommandsApi* | [**stopCallGather**](docs/CallCommandsApi.md#stopCallGather) | **POST** /calls/{call_control_id}/actions/gather_stop | Gather stop
 *CallCommandsApi* | [**stopCallPlayback**](docs/CallCommandsApi.md#stopCallPlayback) | **POST** /calls/{call_control_id}/actions/playback_stop | Stop audio playback
 *CallCommandsApi* | [**stopCallRecording**](docs/CallCommandsApi.md#stopCallRecording) | **POST** /calls/{call_control_id}/actions/record_stop | Recording stop
 *CallCommandsApi* | [**stopCallStreaming**](docs/CallCommandsApi.md#stopCallStreaming) | **POST** /calls/{call_control_id}/actions/streaming_stop | Streaming stop
 *CallCommandsApi* | [**stopCallTranscription**](docs/CallCommandsApi.md#stopCallTranscription) | **POST** /calls/{call_control_id}/actions/transcription_stop | Transcription stop
+*CallCommandsApi* | [**stopSiprecSession**](docs/CallCommandsApi.md#stopSiprecSession) | **POST** /calls/{call_control_id}/actions/siprec_stop | SIPREC stop
 *CallCommandsApi* | [**transferCall**](docs/CallCommandsApi.md#transferCall) | **POST** /calls/{call_control_id}/actions/transfer | Transfer call
 *CallCommandsApi* | [**updateClientState**](docs/CallCommandsApi.md#updateClientState) | **PUT** /calls/{call_control_id}/actions/client_state_update | Update client state
 *CallControlApplicationsApi* | [**createCallControlApplication**](docs/CallControlApplicationsApi.md#createCallControlApplication) | **POST** /call_control_applications | Create a call control application
@@ -272,7 +273,7 @@ Class | Method | HTTP request | Description
 *CampaignApi* | [**getUsecaseQualification**](docs/CampaignApi.md#getUsecaseQualification) | **GET** /campaignBuilder/brand/{brandId}/usecase/{usecase} | Qualify By Usecase
 *CampaignApi* | [**postCampaign**](docs/CampaignApi.md#postCampaign) | **POST** /campaignBuilder | Submit Campaign
 *CampaignApi* | [**updateCampaign**](docs/CampaignApi.md#updateCampaign) | **PUT** /campaign/{campaignId} | Update My Campaign
-*CdrUsageReportsApi* | [**getUsageReportSync**](docs/CdrUsageReportsApi.md#getUsageReportSync) | **GET** /reports/cdr_usage_reports/sync | 
+*CdrUsageReportsApi* | [**getCDRUsageReportSync**](docs/CdrUsageReportsApi.md#getCDRUsageReportSync) | **GET** /reports/cdr_usage_reports/sync | Generates and fetches CDR Usage Reports
 *ChannelZonesApi* | [**assignPhoneNumber**](docs/ChannelZonesApi.md#assignPhoneNumber) | **POST** /channel_zones/{channel_zone_id}/channel_zone_phone_numbers | Assign a phone number to a channel zone
 *ChannelZonesApi* | [**getChannelZone**](docs/ChannelZonesApi.md#getChannelZone) | **GET** /channel_zones/{channel_zone_id} | Get a specific channel zone
 *ChannelZonesApi* | [**getChannelZones**](docs/ChannelZonesApi.md#getChannelZones) | **GET** /channel_zones | Get list of channel zones
@@ -282,6 +283,11 @@ Class | Method | HTTP request | Description
 *ChatApi* | [**chatPublicChatCompletionsPost**](docs/ChatApi.md#chatPublicChatCompletionsPost) | **POST** /ai/chat/completions | Create a chat completion
 *ChatApi* | [**getModelsPublicModelsGet**](docs/ChatApi.md#getModelsPublicModelsGet) | **GET** /ai/models | Get available models
 *ChatApi* | [**postSummary**](docs/ChatApi.md#postSummary) | **POST** /ai/summarize | Summarize file content
+*ClustersApi* | [**computeNewClusterPublicTextClustersPost**](docs/ClustersApi.md#computeNewClusterPublicTextClustersPost) | **POST** /ai/clusters | Compute new clusters
+*ClustersApi* | [**deleteClusterByTaskIdPublicTextClustersTaskIdDelete**](docs/ClustersApi.md#deleteClusterByTaskIdPublicTextClustersTaskIdDelete) | **DELETE** /ai/clusters/{task_id} | Delete a cluster
+*ClustersApi* | [**fetchClusterByTaskIdPublicTextClustersTaskIdGet**](docs/ClustersApi.md#fetchClusterByTaskIdPublicTextClustersTaskIdGet) | **GET** /ai/clusters/{task_id} | Fetch a cluster
+*ClustersApi* | [**fetchClusterImageByTaskIdPublicTextClustersTaskIdImageGet**](docs/ClustersApi.md#fetchClusterImageByTaskIdPublicTextClustersTaskIdImageGet) | **GET** /ai/clusters/{task_id}/graph | Fetch a cluster visualization
+*ClustersApi* | [**listAllRequestedClustersPublicTextClustersGet**](docs/ClustersApi.md#listAllRequestedClustersPublicTextClustersGet) | **GET** /ai/clusters | List all clusters
 *ConferenceCommandsApi* | [**createConference**](docs/ConferenceCommandsApi.md#createConference) | **POST** /conferences | Create conference
 *ConferenceCommandsApi* | [**holdConferenceParticipants**](docs/ConferenceCommandsApi.md#holdConferenceParticipants) | **POST** /conferences/{id}/actions/hold | Hold conference participants
 *ConferenceCommandsApi* | [**joinConference**](docs/ConferenceCommandsApi.md#joinConference) | **POST** /conferences/{id}/actions/join | Join a conference
@@ -302,6 +308,9 @@ Class | Method | HTTP request | Description
 *ConferenceCommandsApi* | [**updateConference**](docs/ConferenceCommandsApi.md#updateConference) | **POST** /conferences/{id}/actions/update | Update conference participant
 *ConnectionsApi* | [**listConnections**](docs/ConnectionsApi.md#listConnections) | **GET** /connections | List connections
 *ConnectionsApi* | [**retrieveConnection**](docs/ConnectionsApi.md#retrieveConnection) | **GET** /connections/{id} | Retrieve a connection
+*CountryCoverageApi* | [**retreiveCountryCoverage**](docs/CountryCoverageApi.md#retreiveCountryCoverage) | **GET** /country_coverage | Get country coverage
+*CountryCoverageApi* | [**retreiveSpecificCountryCoverage**](docs/CountryCoverageApi.md#retreiveSpecificCountryCoverage) | **GET** /country_coverage/countries/{country_code} | Get coverage for a specific country
+*CoverageApi* | [**listNetworkCoverage**](docs/CoverageApi.md#listNetworkCoverage) | **GET** /network_coverage | List network coverage locations
 *CredentialConnectionsApi* | [**checkRegistrationStatus**](docs/CredentialConnectionsApi.md#checkRegistrationStatus) | **POST** /credential_connections/{id}/actions/check_registration_status | Update a credential connection registration status
 *CredentialConnectionsApi* | [**createCredentialConnection**](docs/CredentialConnectionsApi.md#createCredentialConnection) | **POST** /credential_connections | Create a credential connection
 *CredentialConnectionsApi* | [**deleteCredentialConnection**](docs/CredentialConnectionsApi.md#deleteCredentialConnection) | **DELETE** /credential_connections/{id} | Delete a credential connection
@@ -312,8 +321,6 @@ Class | Method | HTTP request | Description
 *CredentialsApi* | [**deleteTelephonyCredential**](docs/CredentialsApi.md#deleteTelephonyCredential) | **DELETE** /telephony_credentials/{id} | Delete a credential
 *CredentialsApi* | [**findTelephonyCredentials**](docs/CredentialsApi.md#findTelephonyCredentials) | **GET** /telephony_credentials | List all credentials
 *CredentialsApi* | [**getTelephonyCredential**](docs/CredentialsApi.md#getTelephonyCredential) | **GET** /telephony_credentials/{id} | Get a credential
-*CredentialsApi* | [**listTags**](docs/CredentialsApi.md#listTags) | **GET** /telephony_credentials/tags | List all tags
-*CredentialsApi* | [**performCredentialAction**](docs/CredentialsApi.md#performCredentialAction) | **POST** /telephony_credentials/{id}/actions/{action} | Perform activate or deactivate action on provided Credential
 *CredentialsApi* | [**updateTelephonyCredential**](docs/CredentialsApi.md#updateTelephonyCredential) | **PATCH** /telephony_credentials/{id} | Update a credential
 *CsvDownloadsApi* | [**createCsvDownload**](docs/CsvDownloadsApi.md#createCsvDownload) | **POST** /phone_numbers/csv_downloads | Create a CSV download
 *CsvDownloadsApi* | [**getCsvDownload**](docs/CsvDownloadsApi.md#getCsvDownload) | **GET** /phone_numbers/csv_downloads/{id} | Retrieve a CSV download
@@ -322,6 +329,15 @@ Class | Method | HTTP request | Description
 *CustomerServiceRecordApi* | [**getCustomerServiceRecord**](docs/CustomerServiceRecordApi.md#getCustomerServiceRecord) | **GET** /customer_service_records/{customer_service_record_id} | Get a customer service record
 *CustomerServiceRecordApi* | [**listCustomerServiceRecords**](docs/CustomerServiceRecordApi.md#listCustomerServiceRecords) | **GET** /customer_service_records | List customer service records
 *CustomerServiceRecordApi* | [**verifyPhoneNumberCoverage**](docs/CustomerServiceRecordApi.md#verifyPhoneNumberCoverage) | **POST** /customer_service_records/phone_number_coverages | Verify CSR phone number coverage
+*DataMigrationApi* | [**createMigration**](docs/DataMigrationApi.md#createMigration) | **POST** /storage/migrations | Create a Migration
+*DataMigrationApi* | [**createMigrationSource**](docs/DataMigrationApi.md#createMigrationSource) | **POST** /storage/migration_sources | Create a Migration Source
+*DataMigrationApi* | [**deleteMigrationSource**](docs/DataMigrationApi.md#deleteMigrationSource) | **DELETE** /storage/migration_sources/{id} | Delete a Migration Source
+*DataMigrationApi* | [**getMigration**](docs/DataMigrationApi.md#getMigration) | **GET** /storage/migrations/{id} | Get a Migration
+*DataMigrationApi* | [**getMigrationSource**](docs/DataMigrationApi.md#getMigrationSource) | **GET** /storage/migration_sources/{id} | Get a Migration Source
+*DataMigrationApi* | [**listMigrationSourceCoverage**](docs/DataMigrationApi.md#listMigrationSourceCoverage) | **GET** /storage/migration_source_coverage | List Migration Source coverage
+*DataMigrationApi* | [**listMigrationSources**](docs/DataMigrationApi.md#listMigrationSources) | **GET** /storage/migration_sources | List all Migration Sources
+*DataMigrationApi* | [**listMigrations**](docs/DataMigrationApi.md#listMigrations) | **GET** /storage/migrations | List all Migrations
+*DataMigrationApi* | [**stopMigration**](docs/DataMigrationApi.md#stopMigration) | **POST** /storage/migrations/{id}/actions/stop | Stop a Migration
 *DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
 *DetailRecordsApi* | [**searchDetailRecords**](docs/DetailRecordsApi.md#searchDetailRecords) | **GET** /detail_records | Search detail records
 *DialogflowIntegrationApi* | [**createDialogflowConnection**](docs/DialogflowIntegrationApi.md#createDialogflowConnection) | **POST** /dialogflow_connections/{connection_id} | Create a Dialogflow Connection
@@ -347,10 +363,10 @@ Class | Method | HTTP request | Description
 *EmbeddingsApi* | [**getBucketName**](docs/EmbeddingsApi.md#getBucketName) | **GET** /ai/embeddings/buckets/{bucket_name} | Get file-level embedding statuses for a bucket
 *EmbeddingsApi* | [**getEmbeddingBuckets**](docs/EmbeddingsApi.md#getEmbeddingBuckets) | **GET** /ai/embeddings/buckets | List embedded buckets
 *EmbeddingsApi* | [**getEmbeddingTask**](docs/EmbeddingsApi.md#getEmbeddingTask) | **GET** /ai/embeddings/{task_id} | Get an embedding task&#39;s status
+*EmbeddingsApi* | [**getTasksByStatus**](docs/EmbeddingsApi.md#getTasksByStatus) | **GET** /ai/embeddings | Get Tasks by Status
 *EmbeddingsApi* | [**postEmbedding**](docs/EmbeddingsApi.md#postEmbedding) | **POST** /ai/embeddings | Embed documents
 *EmbeddingsApi* | [**postEmbeddingSimilaritySearch**](docs/EmbeddingsApi.md#postEmbeddingSimilaritySearch) | **POST** /ai/embeddings/similarity-search | Search for documents
 *EnumApi* | [**getEnumEndpoint**](docs/EnumApi.md#getEnumEndpoint) | **GET** /enum/{endpoint} | Get Enum
-*ErrorApi* | [**listErrorCodes**](docs/ErrorApi.md#listErrorCodes) | **GET** /error | List Error Codes
 *ExternalConnectionsApi* | [**createExternalConnection**](docs/ExternalConnectionsApi.md#createExternalConnection) | **POST** /external_connections | Creates an External Connection
 *ExternalConnectionsApi* | [**createExternalConnectionUpload**](docs/ExternalConnectionsApi.md#createExternalConnectionUpload) | **POST** /external_connections/{id}/uploads | Creates an Upload request
 *ExternalConnectionsApi* | [**deleteExternalConnection**](docs/ExternalConnectionsApi.md#deleteExternalConnection) | **DELETE** /external_connections/{id} | Deletes an External Connection
@@ -368,11 +384,16 @@ Class | Method | HTTP request | Description
 *ExternalConnectionsApi* | [**listExternalConnectionReleases**](docs/ExternalConnectionsApi.md#listExternalConnectionReleases) | **GET** /external_connections/{id}/releases | List all Releases
 *ExternalConnectionsApi* | [**listExternalConnectionUploads**](docs/ExternalConnectionsApi.md#listExternalConnectionUploads) | **GET** /external_connections/{id}/uploads | List all Upload requests
 *ExternalConnectionsApi* | [**listExternalConnections**](docs/ExternalConnectionsApi.md#listExternalConnections) | **GET** /external_connections | List all External Connections
+*ExternalConnectionsApi* | [**operatorConnectRefresh**](docs/ExternalConnectionsApi.md#operatorConnectRefresh) | **POST** /operator_connect/actions/refresh | Refresh Operator Connect integration
 *ExternalConnectionsApi* | [**refreshExternalConnectionUploads**](docs/ExternalConnectionsApi.md#refreshExternalConnectionUploads) | **POST** /external_connections/{id}/uploads/refresh | Refresh the status of all Upload requests
 *ExternalConnectionsApi* | [**retryUpload**](docs/ExternalConnectionsApi.md#retryUpload) | **POST** /external_connections/{id}/uploads/{ticket_id}/retry | Retry an Upload request
 *ExternalConnectionsApi* | [**updateExternalConnection**](docs/ExternalConnectionsApi.md#updateExternalConnection) | **PATCH** /external_connections/{id} | Update an External Connection
 *ExternalConnectionsApi* | [**updateExternalConnectionPhoneNumber**](docs/ExternalConnectionsApi.md#updateExternalConnectionPhoneNumber) | **PATCH** /external_connections/{id}/phone_numbers/{phone_number_id} | Update a phone number
-*ExternalConnectionsApi* | [**updateLocation**](docs/ExternalConnectionsApi.md#updateLocation) | **PATCH** /v2/external_connections/{id}/locations/{location_id} | Update a location&#39;s static emergency address
+*ExternalConnectionsApi* | [**updateLocation**](docs/ExternalConnectionsApi.md#updateLocation) | **PATCH** /external_connections/{id}/locations/{location_id} | Update a location&#39;s static emergency address
+*FineTuningApi* | [**cancelNewFinetuningjobPublicFinetuningPost**](docs/FineTuningApi.md#cancelNewFinetuningjobPublicFinetuningPost) | **POST** /ai/fine_tuning/jobs/{job_id}/cancel | Cancel a fine tuning job
+*FineTuningApi* | [**createNewFinetuningjobPublicFinetuningPost**](docs/FineTuningApi.md#createNewFinetuningjobPublicFinetuningPost) | **POST** /ai/fine_tuning/jobs | Create a fine tuning job
+*FineTuningApi* | [**getFinetuningjobPublicFinetuningGet**](docs/FineTuningApi.md#getFinetuningjobPublicFinetuningGet) | **GET** /ai/fine_tuning/jobs | List fine tuning jobs
+*FineTuningApi* | [**getFinetuningjobPublicFinetuningJobIdGet**](docs/FineTuningApi.md#getFinetuningjobPublicFinetuningJobIdGet) | **GET** /ai/fine_tuning/jobs/{job_id} | Get a fine tuning job
 *FqdnConnectionsApi* | [**createFqdnConnection**](docs/FqdnConnectionsApi.md#createFqdnConnection) | **POST** /fqdn_connections | Create an FQDN connection
 *FqdnConnectionsApi* | [**deleteFqdnConnection**](docs/FqdnConnectionsApi.md#deleteFqdnConnection) | **DELETE** /fqdn_connections/{id} | Delete an FQDN connection
 *FqdnConnectionsApi* | [**listFqdnConnections**](docs/FqdnConnectionsApi.md#listFqdnConnections) | **GET** /fqdn_connections | List FQDN connections
@@ -391,11 +412,11 @@ Class | Method | HTTP request | Description
 *GlobalIpsApi* | [**deleteGlobalIpHealthCheck**](docs/GlobalIpsApi.md#deleteGlobalIpHealthCheck) | **DELETE** /global_ip_health_checks/{id} | Delete a Global IP health check
 *GlobalIpsApi* | [**getGlobalIp**](docs/GlobalIpsApi.md#getGlobalIp) | **GET** /global_ips/{id} | Retrieve a Global IP
 *GlobalIpsApi* | [**getGlobalIpAssignment**](docs/GlobalIpsApi.md#getGlobalIpAssignment) | **GET** /global_ip_assignments/{id} | Retrieve a Global IP
-*GlobalIpsApi* | [**getGlobalIpAssignmentHealth**](docs/GlobalIpsApi.md#getGlobalIpAssignmentHealth) | **GET** /global_ip_assignment_health | 
-*GlobalIpsApi* | [**getGlobalIpAssignmentUsage**](docs/GlobalIpsApi.md#getGlobalIpAssignmentUsage) | **GET** /global_ip_assignments_usage | 
+*GlobalIpsApi* | [**getGlobalIpAssignmentHealth**](docs/GlobalIpsApi.md#getGlobalIpAssignmentHealth) | **GET** /global_ip_assignment_health | Global IP Assignment Health Check Metrics
+*GlobalIpsApi* | [**getGlobalIpAssignmentUsage**](docs/GlobalIpsApi.md#getGlobalIpAssignmentUsage) | **GET** /global_ip_assignments_usage | Global IP Assignment Usage Metrics
 *GlobalIpsApi* | [**getGlobalIpHealthCheck**](docs/GlobalIpsApi.md#getGlobalIpHealthCheck) | **GET** /global_ip_health_checks/{id} | Retrieve a Global IP health check
-*GlobalIpsApi* | [**getGlobalIpLatency**](docs/GlobalIpsApi.md#getGlobalIpLatency) | **GET** /global_ip_latency | 
-*GlobalIpsApi* | [**getGlobalIpUsage**](docs/GlobalIpsApi.md#getGlobalIpUsage) | **GET** /global_ip_usage | 
+*GlobalIpsApi* | [**getGlobalIpLatency**](docs/GlobalIpsApi.md#getGlobalIpLatency) | **GET** /global_ip_latency | Global IP Latency Metrics
+*GlobalIpsApi* | [**getGlobalIpUsage**](docs/GlobalIpsApi.md#getGlobalIpUsage) | **GET** /global_ip_usage | Global IP Usage Metrics
 *GlobalIpsApi* | [**listGlobalIpAllowedPorts**](docs/GlobalIpsApi.md#listGlobalIpAllowedPorts) | **GET** /global_ip_allowed_ports | List all Global IP Allowed Ports
 *GlobalIpsApi* | [**listGlobalIpAssignments**](docs/GlobalIpsApi.md#listGlobalIpAssignments) | **GET** /global_ip_assignments | List all Global IP assignments
 *GlobalIpsApi* | [**listGlobalIpHealthCheckTypes**](docs/GlobalIpsApi.md#listGlobalIpHealthCheckTypes) | **GET** /global_ip_health_check_types | List all Global IP Health check types
@@ -405,6 +426,9 @@ Class | Method | HTTP request | Description
 *GlobalIpsApi* | [**updateGlobalIpAssignment**](docs/GlobalIpsApi.md#updateGlobalIpAssignment) | **PATCH** /global_ip_assignments/{id} | Update a Global IP assignment
 *InboundChannelsApi* | [**listInboundChannels**](docs/InboundChannelsApi.md#listInboundChannels) | **GET** /phone_numbers/inbound_channels | List your inbound channels
 *InboundChannelsApi* | [**updateOutboundChannels**](docs/InboundChannelsApi.md#updateOutboundChannels) | **PATCH** /phone_numbers/inbound_channels | Update inbound channels
+*IntegrationSecretsApi* | [**createIntegrationSecret**](docs/IntegrationSecretsApi.md#createIntegrationSecret) | **POST** /integration_secrets | Create a secret
+*IntegrationSecretsApi* | [**deleteIntegrationSecret**](docs/IntegrationSecretsApi.md#deleteIntegrationSecret) | **DELETE** /integration_secrets/{id} | Delete an integration secret
+*IntegrationSecretsApi* | [**listIntegrationSecrets**](docs/IntegrationSecretsApi.md#listIntegrationSecrets) | **GET** /integration_secrets | List integration secrets
 *InventoryLevelApi* | [**createInventoryCoverage**](docs/InventoryLevelApi.md#createInventoryCoverage) | **GET** /inventory_coverage | Create an inventory coverage request
 *IpAddressesApi* | [**createAccessIpAddress**](docs/IpAddressesApi.md#createAccessIpAddress) | **POST** /access_ip_address | Create new Access IP Address
 *IpAddressesApi* | [**deleteAccessIpAddress**](docs/IpAddressesApi.md#deleteAccessIpAddress) | **DELETE** /access_ip_address/{access_ip_address_id} | Delete access IP address
@@ -431,16 +455,12 @@ Class | Method | HTTP request | Description
 *ManagedAccountsApi* | [**retrieveManagedAccount**](docs/ManagedAccountsApi.md#retrieveManagedAccount) | **GET** /managed_accounts/{id} | Retrieve a managed account
 *ManagedAccountsApi* | [**updateManagedAccount**](docs/ManagedAccountsApi.md#updateManagedAccount) | **PATCH** /managed_accounts/{id} | Update a managed account
 *ManagedAccountsApi* | [**updateManagedAccountGlobalChannelLimit**](docs/ManagedAccountsApi.md#updateManagedAccountGlobalChannelLimit) | **PATCH** /managed_accounts/{id}/update_global_channel_limit | Update the amount of allocatable global outbound channels allocated to a specific managed account.
-*MdrDetailReportsApi* | [**deleteMdrRequest**](docs/MdrDetailReportsApi.md#deleteMdrRequest) | **DELETE** /reports/batch_mdr_reports/{id} | 
-*MdrDetailReportsApi* | [**getCdrRequests**](docs/MdrDetailReportsApi.md#getCdrRequests) | **GET** /reports/batch_mdr_reports | 
-*MdrDetailReportsApi* | [**getMdrRequest**](docs/MdrDetailReportsApi.md#getMdrRequest) | **GET** /reports/batch_mdr_reports/{id} | 
-*MdrDetailReportsApi* | [**getPaginatedMdrs**](docs/MdrDetailReportsApi.md#getPaginatedMdrs) | **GET** /reports/mdrs | 
-*MdrDetailReportsApi* | [**submitMdrRequest**](docs/MdrDetailReportsApi.md#submitMdrRequest) | **POST** /reports/batch_mdr_reports | 
-*MdrUsageReportsApi* | [**deleteUsageReport**](docs/MdrUsageReportsApi.md#deleteUsageReport) | **DELETE** /reports/mdr_usage_reports/{id} | 
-*MdrUsageReportsApi* | [**getUsageReport**](docs/MdrUsageReportsApi.md#getUsageReport) | **GET** /reports/mdr_usage_reports/{id} | 
-*MdrUsageReportsApi* | [**getUsageReportSync**](docs/MdrUsageReportsApi.md#getUsageReportSync) | **GET** /reports/mdr_usage_reports/sync | 
-*MdrUsageReportsApi* | [**getUsageReports**](docs/MdrUsageReportsApi.md#getUsageReports) | **GET** /reports/mdr_usage_reports | 
-*MdrUsageReportsApi* | [**submitUsageReport**](docs/MdrUsageReportsApi.md#submitUsageReport) | **POST** /reports/mdr_usage_reports | 
+*MdrDetailReportsApi* | [**getPaginatedMdrs**](docs/MdrDetailReportsApi.md#getPaginatedMdrs) | **GET** /reports/mdrs | Fetch all Mdr records
+*MdrUsageReportsApi* | [**deleteUsageReport**](docs/MdrUsageReportsApi.md#deleteUsageReport) | **DELETE** /reports/mdr_usage_reports/{id} | Delete MDR Usage Report
+*MdrUsageReportsApi* | [**getMDRUsageReport**](docs/MdrUsageReportsApi.md#getMDRUsageReport) | **GET** /reports/mdr_usage_reports/{id} | Retrieve messaging report
+*MdrUsageReportsApi* | [**getMDRUsageReportSync**](docs/MdrUsageReportsApi.md#getMDRUsageReportSync) | **GET** /reports/mdr_usage_reports/sync | Generate and fetch MDR Usage Report
+*MdrUsageReportsApi* | [**getUsageReports**](docs/MdrUsageReportsApi.md#getUsageReports) | **GET** /reports/mdr_usage_reports | Fetch all Messaging usage reports
+*MdrUsageReportsApi* | [**submitUsageReport**](docs/MdrUsageReportsApi.md#submitUsageReport) | **POST** /reports/mdr_usage_reports | Create MDR Usage Report
 *MediaStorageApiApi* | [**createMediaStorage**](docs/MediaStorageApiApi.md#createMediaStorage) | **POST** /media | Upload media
 *MediaStorageApiApi* | [**deleteMediaStorage**](docs/MediaStorageApiApi.md#deleteMediaStorage) | **DELETE** /media/{media_name} | Deletes stored media
 *MediaStorageApiApi* | [**downloadMedia**](docs/MediaStorageApiApi.md#downloadMedia) | **GET** /media/{media_name}/download | Download stored media
@@ -499,16 +519,25 @@ Class | Method | HTTP request | Description
 *NotificationsApi* | [**listNotificationSettings**](docs/NotificationsApi.md#listNotificationSettings) | **GET** /notification_settings | List notification settings
 *NotificationsApi* | [**updateNotificationChannel**](docs/NotificationsApi.md#updateNotificationChannel) | **PATCH** /notification_channels/{id} | Update a notification channel
 *NotificationsApi* | [**updateNotificationProfile**](docs/NotificationsApi.md#updateNotificationProfile) | **PATCH** /notification_profiles/{id} | Update a notification profile
+*NumberConfigurationsApi* | [**bulkUpdateMessagingSettingsOnPhoneNumbers**](docs/NumberConfigurationsApi.md#bulkUpdateMessagingSettingsOnPhoneNumbers) | **POST** /messaging_numbers_bulk_updates | Update the messaging profile of multiple phone numbers
+*NumberConfigurationsApi* | [**getBulkUpdateMessagingSettingsOnPhoneNumbersStatus**](docs/NumberConfigurationsApi.md#getBulkUpdateMessagingSettingsOnPhoneNumbersStatus) | **GET** /messaging_numbers_bulk_updates/{order_id} | Retrieve bulk update status
 *NumberConfigurationsApi* | [**getPhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#getPhoneNumberMessagingSettings) | **GET** /phone_numbers/{id}/messaging | Retrieve a phone number with messaging settings
 *NumberConfigurationsApi* | [**listPhoneNumbersWithMessagingSettings**](docs/NumberConfigurationsApi.md#listPhoneNumbersWithMessagingSettings) | **GET** /phone_numbers/messaging | List phone numbers with messaging settings
-*NumberConfigurationsApi* | [**updatePhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#updatePhoneNumberMessagingSettings) | **PATCH** /phone_numbers/{id}/messaging | Update a phone number with messaging settings
+*NumberConfigurationsApi* | [**updatePhoneNumberMessagingSettings**](docs/NumberConfigurationsApi.md#updatePhoneNumberMessagingSettings) | **PATCH** /phone_numbers/{id}/messaging | Update the messaging profile and/or messaging product of a phone number
 *NumberLookupApi* | [**lookupNumber**](docs/NumberLookupApi.md#lookupNumber) | **GET** /number_lookup/{phone_number} | Lookup phone number data
+*NumberPortoutApi* | [**createPortoutReport**](docs/NumberPortoutApi.md#createPortoutReport) | **POST** /portouts/reports | Create a port-out related report
 *NumberPortoutApi* | [**findPortoutComments**](docs/NumberPortoutApi.md#findPortoutComments) | **GET** /portouts/{id}/comments | List all comments for a portout request
 *NumberPortoutApi* | [**findPortoutRequest**](docs/NumberPortoutApi.md#findPortoutRequest) | **GET** /portouts/{id} | Get a portout request
 *NumberPortoutApi* | [**getPortRequestSupportingDocuments**](docs/NumberPortoutApi.md#getPortRequestSupportingDocuments) | **GET** /portouts/{id}/supporting_documents | List supporting documents on a portout request
+*NumberPortoutApi* | [**getPortoutReport**](docs/NumberPortoutApi.md#getPortoutReport) | **GET** /portouts/reports/{id} | Retrieve a report
+*NumberPortoutApi* | [**listPortoutEvents**](docs/NumberPortoutApi.md#listPortoutEvents) | **GET** /portouts/events | List all port-out events
+*NumberPortoutApi* | [**listPortoutRejections**](docs/NumberPortoutApi.md#listPortoutRejections) | **GET** /portouts/rejections/{portout_id} | List eligible port-out rejection codes for a specific order
+*NumberPortoutApi* | [**listPortoutReports**](docs/NumberPortoutApi.md#listPortoutReports) | **GET** /portouts/reports | List port-out related reports
 *NumberPortoutApi* | [**listPortoutRequest**](docs/NumberPortoutApi.md#listPortoutRequest) | **GET** /portouts | List portout requests
 *NumberPortoutApi* | [**postPortRequestComment**](docs/NumberPortoutApi.md#postPortRequestComment) | **POST** /portouts/{id}/comments | Create a comment on a portout request
 *NumberPortoutApi* | [**postPortRequestSupportingDocuments**](docs/NumberPortoutApi.md#postPortRequestSupportingDocuments) | **POST** /portouts/{id}/supporting_documents | Create a list of supporting documents on a portout request
+*NumberPortoutApi* | [**republishPortoutEvent**](docs/NumberPortoutApi.md#republishPortoutEvent) | **POST** /portouts/events/{id}/republish | Republish a port-out event
+*NumberPortoutApi* | [**showPortoutEvent**](docs/NumberPortoutApi.md#showPortoutEvent) | **GET** /portouts/events/{id} | Show a port-out event
 *NumberPortoutApi* | [**updatePortoutStatus**](docs/NumberPortoutApi.md#updatePortoutStatus) | **PATCH** /portouts/{id}/{status} | Update Status
 *NumbersFeaturesApi* | [**postNumbersFeatures**](docs/NumbersFeaturesApi.md#postNumbersFeatures) | **POST** /numbers_features | Retrieve the features for a list of numbers
 *ObjectApi* | [**deleteObject**](docs/ObjectApi.md#deleteObject) | **DELETE** /{bucketName}/{objectName} | DeleteObject
@@ -530,14 +559,9 @@ Class | Method | HTTP request | Description
 *PhoneNumberBlocksBackgroundJobsApi* | [**createPhoneNumberBlockDeletionJob**](docs/PhoneNumberBlocksBackgroundJobsApi.md#createPhoneNumberBlockDeletionJob) | **POST** /phone_number_blocks/jobs/delete_phone_number_block | Deletes all numbers associated with a phone number block
 *PhoneNumberBlocksBackgroundJobsApi* | [**getPhoneNumberBlocksJob**](docs/PhoneNumberBlocksBackgroundJobsApi.md#getPhoneNumberBlocksJob) | **GET** /phone_number_blocks/jobs/{id} | Retrieves a phone number blocks job
 *PhoneNumberBlocksBackgroundJobsApi* | [**listPhoneNumberBlocksJobs**](docs/PhoneNumberBlocksBackgroundJobsApi.md#listPhoneNumberBlocksJobs) | **GET** /phone_number_blocks/jobs | Lists the phone number blocks jobs
-*PhoneNumberCampaignsApi* | [**createPhoneNumberCampaign**](docs/PhoneNumberCampaignsApi.md#createPhoneNumberCampaign) | **POST** /phoneNumberCampaign | Create New Phone Number Campaign
-*PhoneNumberCampaignsApi* | [**createPhoneNumberCampaign_0**](docs/PhoneNumberCampaignsApi.md#createPhoneNumberCampaign_0) | **PUT** /phoneNumberCampaign/{phoneNumber} | Create New Phone Number Campaign
-*PhoneNumberCampaignsApi* | [**createPhoneNumberCampaign_1**](docs/PhoneNumberCampaignsApi.md#createPhoneNumberCampaign_1) | **POST** /phone_number_campaigns | Create New Phone Number Campaign
-*PhoneNumberCampaignsApi* | [**deletePhoneNumberCampaign**](docs/PhoneNumberCampaignsApi.md#deletePhoneNumberCampaign) | **DELETE** /phoneNumberCampaign/{phoneNumber} | Delete Phone Number Campaign
-*PhoneNumberCampaignsApi* | [**deletePhoneNumberCampaign_0**](docs/PhoneNumberCampaignsApi.md#deletePhoneNumberCampaign_0) | **DELETE** /phone_number_campaigns/{phoneNumber} | Delete Phone Number Campaign
-*PhoneNumberCampaignsApi* | [**getAllPhoneNumberCampaigns**](docs/PhoneNumberCampaignsApi.md#getAllPhoneNumberCampaigns) | **GET** /phoneNumberCampaign | Retrieve All Phone Number Campaigns
-*PhoneNumberCampaignsApi* | [**getAllPhoneNumberCampaigns_0**](docs/PhoneNumberCampaignsApi.md#getAllPhoneNumberCampaigns_0) | **GET** /phone_number_campaigns | Retrieve All Phone Number Campaigns
-*PhoneNumberCampaignsApi* | [**getPhoneNumberCampaign**](docs/PhoneNumberCampaignsApi.md#getPhoneNumberCampaign) | **GET** /phoneNumberCampaign/{phoneNumber} | Get Single Phone Number Campaign
+*PhoneNumberCampaignsApi* | [**createPhoneNumberCampaign**](docs/PhoneNumberCampaignsApi.md#createPhoneNumberCampaign) | **POST** /phone_number_campaigns | Create New Phone Number Campaign
+*PhoneNumberCampaignsApi* | [**deletePhoneNumberCampaign**](docs/PhoneNumberCampaignsApi.md#deletePhoneNumberCampaign) | **DELETE** /phone_number_campaigns/{phoneNumber} | Delete Phone Number Campaign
+*PhoneNumberCampaignsApi* | [**getAllPhoneNumberCampaigns**](docs/PhoneNumberCampaignsApi.md#getAllPhoneNumberCampaigns) | **GET** /phone_number_campaigns | Retrieve All Phone Number Campaigns
 *PhoneNumberCampaignsApi* | [**getSinglePhoneNumberCampaign**](docs/PhoneNumberCampaignsApi.md#getSinglePhoneNumberCampaign) | **GET** /phone_number_campaigns/{phoneNumber} | Get Single Phone Number Campaign
 *PhoneNumberCampaignsApi* | [**putPhoneNumberCampaign**](docs/PhoneNumberCampaignsApi.md#putPhoneNumberCampaign) | **PUT** /phone_number_campaigns/{phoneNumber} | Create New Phone Number Campaign
 *PhoneNumberConfigurationsApi* | [**deletePhoneNumber**](docs/PhoneNumberConfigurationsApi.md#deletePhoneNumber) | **DELETE** /phone_numbers/{id} | Delete a phone number
@@ -545,29 +569,26 @@ Class | Method | HTTP request | Description
 *PhoneNumberConfigurationsApi* | [**getPhoneNumberVoiceSettings**](docs/PhoneNumberConfigurationsApi.md#getPhoneNumberVoiceSettings) | **GET** /phone_numbers/{id}/voice | Retrieve a phone number with voice settings
 *PhoneNumberConfigurationsApi* | [**listPhoneNumbers**](docs/PhoneNumberConfigurationsApi.md#listPhoneNumbers) | **GET** /phone_numbers | List phone numbers
 *PhoneNumberConfigurationsApi* | [**listPhoneNumbersWithVoiceSettings**](docs/PhoneNumberConfigurationsApi.md#listPhoneNumbersWithVoiceSettings) | **GET** /phone_numbers/voice | List phone numbers with voice settings
+*PhoneNumberConfigurationsApi* | [**phoneNumberBundleStatusChange**](docs/PhoneNumberConfigurationsApi.md#phoneNumberBundleStatusChange) | **PATCH** /phone_numbers/{id}/actions/bundle_status_change | Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
 *PhoneNumberConfigurationsApi* | [**retrievePhoneNumber**](docs/PhoneNumberConfigurationsApi.md#retrievePhoneNumber) | **GET** /phone_numbers/{id} | Retrieve a phone number
 *PhoneNumberConfigurationsApi* | [**slimListPhoneNumbers**](docs/PhoneNumberConfigurationsApi.md#slimListPhoneNumbers) | **GET** /phone_numbers/slim | Slim List phone numbers
 *PhoneNumberConfigurationsApi* | [**updatePhoneNumber**](docs/PhoneNumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update a phone number
 *PhoneNumberConfigurationsApi* | [**updatePhoneNumberVoiceSettings**](docs/PhoneNumberConfigurationsApi.md#updatePhoneNumberVoiceSettings) | **PATCH** /phone_numbers/{id}/voice | Update a phone number with voice settings
-*PhoneNumberOrderDocumentsApi* | [**createNumberOrderDocument**](docs/PhoneNumberOrderDocumentsApi.md#createNumberOrderDocument) | **POST** /number_order_documents | Create a number order document
-*PhoneNumberOrderDocumentsApi* | [**listNumberOrderDocuments**](docs/PhoneNumberOrderDocumentsApi.md#listNumberOrderDocuments) | **GET** /number_order_documents | List number order documents
-*PhoneNumberOrderDocumentsApi* | [**retrieveNumberOrderDocument**](docs/PhoneNumberOrderDocumentsApi.md#retrieveNumberOrderDocument) | **GET** /number_order_documents/{number_order_document_id} | Retrieve a number order document
-*PhoneNumberOrderDocumentsApi* | [**updateNumberOrderDocument**](docs/PhoneNumberOrderDocumentsApi.md#updateNumberOrderDocument) | **PATCH** /number_order_documents/{number_order_document_id} | Update a number order document
+*PhoneNumberOrdersApi* | [**cancelSubNumberOrder**](docs/PhoneNumberOrdersApi.md#cancelSubNumberOrder) | **PATCH** /sub_number_orders/{sub_number_order_id}/cancel | Cancel a sub number order
 *PhoneNumberOrdersApi* | [**createComment**](docs/PhoneNumberOrdersApi.md#createComment) | **POST** /comments | Create a comment
 *PhoneNumberOrdersApi* | [**createNumberOrder**](docs/PhoneNumberOrdersApi.md#createNumberOrder) | **POST** /number_orders | Create a number order
-*PhoneNumberOrdersApi* | [**getNumberOrderPhoneNumber**](docs/PhoneNumberOrdersApi.md#getNumberOrderPhoneNumber) | **GET** /number_order_phone_numbers/{number_order_phone_number_id} | Retrieve a number order phone number.
+*PhoneNumberOrdersApi* | [**getNumberOrderPhoneNumber**](docs/PhoneNumberOrdersApi.md#getNumberOrderPhoneNumber) | **GET** /number_order_phone_numbers/{number_order_phone_number_id} | Retrieve a single phone number within a number order.
 *PhoneNumberOrdersApi* | [**getSubNumberOrder**](docs/PhoneNumberOrdersApi.md#getSubNumberOrder) | **GET** /sub_number_orders/{sub_number_order_id} | Retrieve a sub number order
 *PhoneNumberOrdersApi* | [**listComments**](docs/PhoneNumberOrdersApi.md#listComments) | **GET** /comments | Retrieve all comments
 *PhoneNumberOrdersApi* | [**listNumberOrders**](docs/PhoneNumberOrdersApi.md#listNumberOrders) | **GET** /number_orders | List number orders
-*PhoneNumberOrdersApi* | [**listRegulatoryRequirements**](docs/PhoneNumberOrdersApi.md#listRegulatoryRequirements) | **GET** /phone_numbers_regulatory_requirements | Retrieve regulartory requirements
 *PhoneNumberOrdersApi* | [**listSubNumberOrders**](docs/PhoneNumberOrdersApi.md#listSubNumberOrders) | **GET** /sub_number_orders | List sub number orders
 *PhoneNumberOrdersApi* | [**markCommentRead**](docs/PhoneNumberOrdersApi.md#markCommentRead) | **PATCH** /comments/{id}/read | Mark a comment as read
 *PhoneNumberOrdersApi* | [**retrieveComment**](docs/PhoneNumberOrdersApi.md#retrieveComment) | **GET** /comments/{id} | Retrieve a comment
 *PhoneNumberOrdersApi* | [**retrieveNumberOrder**](docs/PhoneNumberOrdersApi.md#retrieveNumberOrder) | **GET** /number_orders/{number_order_id} | Retrieve a number order
 *PhoneNumberOrdersApi* | [**retrieveOrderPhoneNumbers**](docs/PhoneNumberOrdersApi.md#retrieveOrderPhoneNumbers) | **GET** /number_order_phone_numbers | Retrieve a list of phone numbers associated to orders
 *PhoneNumberOrdersApi* | [**updateNumberOrder**](docs/PhoneNumberOrdersApi.md#updateNumberOrder) | **PATCH** /number_orders/{number_order_id} | Update a number order
-*PhoneNumberOrdersApi* | [**updateNumberOrderPhoneNumber**](docs/PhoneNumberOrdersApi.md#updateNumberOrderPhoneNumber) | **PATCH** /number_order_phone_numbers/{number_order_phone_number_id} | Update a number order phone number.
-*PhoneNumberOrdersApi* | [**updateSubNumberOrder**](docs/PhoneNumberOrdersApi.md#updateSubNumberOrder) | **PATCH** /sub_number_orders/{sub_number_order_id} | Update a sub number order
+*PhoneNumberOrdersApi* | [**updateNumberOrderPhoneNumber**](docs/PhoneNumberOrdersApi.md#updateNumberOrderPhoneNumber) | **PATCH** /number_order_phone_numbers/{number_order_phone_number_id} | Update requirements for a single phone number within a number order.
+*PhoneNumberOrdersApi* | [**updateSubNumberOrder**](docs/PhoneNumberOrdersApi.md#updateSubNumberOrder) | **PATCH** /sub_number_orders/{sub_number_order_id} | Update a sub number order&#39;s requirements
 *PhoneNumberPortingApi* | [**postPortabilityCheck**](docs/PhoneNumberPortingApi.md#postPortabilityCheck) | **POST** /portability_checks | Run a portability check
 *PhoneNumberReservationsApi* | [**createNumberReservation**](docs/PhoneNumberReservationsApi.md#createNumberReservation) | **POST** /number_reservations | Create a number reservation
 *PhoneNumberReservationsApi* | [**extendNumberReservationExpiryTime**](docs/PhoneNumberReservationsApi.md#extendNumberReservationExpiryTime) | **POST** /number_reservations/{number_reservation_id}/actions/extend | Extend a number reservation
@@ -575,44 +596,53 @@ Class | Method | HTTP request | Description
 *PhoneNumberReservationsApi* | [**retrieveNumberReservation**](docs/PhoneNumberReservationsApi.md#retrieveNumberReservation) | **GET** /number_reservations/{number_reservation_id} | Retrieve a number reservation
 *PhoneNumberSearchApi* | [**listAvailablePhoneNumberBlocks**](docs/PhoneNumberSearchApi.md#listAvailablePhoneNumberBlocks) | **GET** /available_phone_number_blocks | List available phone number blocks
 *PhoneNumberSearchApi* | [**listAvailablePhoneNumbers**](docs/PhoneNumberSearchApi.md#listAvailablePhoneNumbers) | **GET** /available_phone_numbers | List available phone numbers
-*PortingOrderApi* | [**activatePortingOrder**](docs/PortingOrderApi.md#activatePortingOrder) | **POST** /porting_orders/{id}/actions/activate | Activate every number in a porting order asynchronously.
-*PortingOrderApi* | [**cancelPortingOrder**](docs/PortingOrderApi.md#cancelPortingOrder) | **POST** /porting_orders/{id}/actions/cancel | Cancel a porting order
-*PortingOrderApi* | [**confirmPortingOrder**](docs/PortingOrderApi.md#confirmPortingOrder) | **POST** /porting_orders/{id}/actions/confirm | Submit a porting order.
-*PortingOrderApi* | [**createAdditionalDocuments**](docs/PortingOrderApi.md#createAdditionalDocuments) | **POST** /porting_orders/{id}/additional_documents | Create a list of additional documents
-*PortingOrderApi* | [**createComment**](docs/PortingOrderApi.md#createComment) | **POST** /porting_orders/{id}/comments | Create a comment for a porting order
-*PortingOrderApi* | [**createLoaConfiguration**](docs/PortingOrderApi.md#createLoaConfiguration) | **POST** /porting/loa_configurations | Create a LOA configuration
-*PortingOrderApi* | [**createPhoneNumberConfigurations**](docs/PortingOrderApi.md#createPhoneNumberConfigurations) | **POST** /porting_orders/phone_number_configurations | Create a list of phone number configurations
-*PortingOrderApi* | [**createPortingOrder**](docs/PortingOrderApi.md#createPortingOrder) | **POST** /porting_orders | Create a porting order
-*PortingOrderApi* | [**createPortingReport**](docs/PortingOrderApi.md#createPortingReport) | **POST** /porting/reports | Create a porting related report
-*PortingOrderApi* | [**deleteAdditionalDocument**](docs/PortingOrderApi.md#deleteAdditionalDocument) | **DELETE** /porting_orders/{id}/additional_documents/{additional_document_id} | Delete an additional document
-*PortingOrderApi* | [**deleteLoaConfiguration**](docs/PortingOrderApi.md#deleteLoaConfiguration) | **DELETE** /porting/loa_configurations/{id} | Delete a LOA configuration
-*PortingOrderApi* | [**deletePortingOrder**](docs/PortingOrderApi.md#deletePortingOrder) | **DELETE** /porting_orders/{id} | Delete a porting order
-*PortingOrderApi* | [**getLoaConfiguration**](docs/PortingOrderApi.md#getLoaConfiguration) | **GET** /porting/loa_configurations/{id} | Retrieve a LOA configuration
-*PortingOrderApi* | [**getPortingOrder**](docs/PortingOrderApi.md#getPortingOrder) | **GET** /porting_orders/{id} | Retrieve a porting order
-*PortingOrderApi* | [**getPortingOrderLoaTemplate**](docs/PortingOrderApi.md#getPortingOrderLoaTemplate) | **GET** /porting_orders/{id}/loa_template | Download a porting order loa template
-*PortingOrderApi* | [**getPortingOrderSubRequest**](docs/PortingOrderApi.md#getPortingOrderSubRequest) | **GET** /porting_orders/{id}/sub_request | Retrieve the associated V1 sub_request_id and port_request_id
-*PortingOrderApi* | [**getPortingOrdersActivationJob**](docs/PortingOrderApi.md#getPortingOrdersActivationJob) | **GET** /porting_orders/{id}/activation_jobs/{activationJobId} | Retrieve a porting activation job
-*PortingOrderApi* | [**getPortingReport**](docs/PortingOrderApi.md#getPortingReport) | **GET** /porting/reports/{id} | Retrieve a report
-*PortingOrderApi* | [**listAdditionalDocuments**](docs/PortingOrderApi.md#listAdditionalDocuments) | **GET** /porting_orders/{id}/additional_documents | List additional documents
-*PortingOrderApi* | [**listAllowedFocWindows**](docs/PortingOrderApi.md#listAllowedFocWindows) | **GET** /porting_orders/{id}/allowed_foc_windows | List allowed FOC dates
-*PortingOrderApi* | [**listExceptionTypes**](docs/PortingOrderApi.md#listExceptionTypes) | **GET** /porting_orders/exception_types | List all exception types
-*PortingOrderApi* | [**listLoaConfigurations**](docs/PortingOrderApi.md#listLoaConfigurations) | **GET** /porting/loa_configurations | List LOA configurations
-*PortingOrderApi* | [**listPhoneNumberConfigurations**](docs/PortingOrderApi.md#listPhoneNumberConfigurations) | **GET** /porting_orders/phone_number_configurations | List all phone number configurations
-*PortingOrderApi* | [**listPortingOrderActivationJobs**](docs/PortingOrderApi.md#listPortingOrderActivationJobs) | **GET** /porting_orders/{id}/activation_jobs | List all porting activation jobs
-*PortingOrderApi* | [**listPortingOrderComments**](docs/PortingOrderApi.md#listPortingOrderComments) | **GET** /porting_orders/{id}/comments | List all comments of a porting order
-*PortingOrderApi* | [**listPortingOrderRequirements**](docs/PortingOrderApi.md#listPortingOrderRequirements) | **GET** /porting_orders/{id}/requirements | List porting order requirements
-*PortingOrderApi* | [**listPortingOrders**](docs/PortingOrderApi.md#listPortingOrders) | **GET** /porting_orders | List all porting orders
-*PortingOrderApi* | [**listPortingPhoneNumbers**](docs/PortingOrderApi.md#listPortingPhoneNumbers) | **GET** /porting_phone_numbers | List all porting phone numbers
-*PortingOrderApi* | [**listPortingReports**](docs/PortingOrderApi.md#listPortingReports) | **GET** /porting/reports | List porting related reports
-*PortingOrderApi* | [**listVerificationCodes**](docs/PortingOrderApi.md#listVerificationCodes) | **GET** /porting_orders/{id}/verification_codes | List verification codes
-*PortingOrderApi* | [**previewLoaConfiguration**](docs/PortingOrderApi.md#previewLoaConfiguration) | **GET** /porting/loa_configurations/{id}/preview | Preview a LOA configuration
-*PortingOrderApi* | [**previewLoaConfigurationParams**](docs/PortingOrderApi.md#previewLoaConfigurationParams) | **POST** /porting/loa_configuration/preview | Preview the LOA configuration parameters
-*PortingOrderApi* | [**sendPortingVerificationCodes**](docs/PortingOrderApi.md#sendPortingVerificationCodes) | **POST** /porting_orders/{id}/verification_codes/send | Send the verification codes
-*PortingOrderApi* | [**sharePortingOrder**](docs/PortingOrderApi.md#sharePortingOrder) | **POST** /porting_orders/{id}/actions/share | Share a porting order
-*PortingOrderApi* | [**updateLoaConfiguration**](docs/PortingOrderApi.md#updateLoaConfiguration) | **PATCH** /porting/loa_configurations/{id} | Update a LOA configuration
-*PortingOrderApi* | [**updatePortingOrder**](docs/PortingOrderApi.md#updatePortingOrder) | **PATCH** /porting_orders/{id} | Edit a porting order
-*PortingOrderApi* | [**updatePortingOrdersActivationJob**](docs/PortingOrderApi.md#updatePortingOrdersActivationJob) | **PATCH** /porting_orders/{id}/activation_jobs/{activationJobId} | Update a porting activation job
-*PortingOrderApi* | [**verifyPortingVerificationCodes**](docs/PortingOrderApi.md#verifyPortingVerificationCodes) | **POST** /porting_orders/{id}/verification_codes/verify | Verify the verification code for a list of phone numbers
+*PortingOrdersApi* | [**activatePortingOrder**](docs/PortingOrdersApi.md#activatePortingOrder) | **POST** /porting_orders/{id}/actions/activate | Activate every number in a porting order asynchronously.
+*PortingOrdersApi* | [**cancelPortingOrder**](docs/PortingOrdersApi.md#cancelPortingOrder) | **POST** /porting_orders/{id}/actions/cancel | Cancel a porting order
+*PortingOrdersApi* | [**confirmPortingOrder**](docs/PortingOrdersApi.md#confirmPortingOrder) | **POST** /porting_orders/{id}/actions/confirm | Submit a porting order.
+*PortingOrdersApi* | [**createAdditionalDocuments**](docs/PortingOrdersApi.md#createAdditionalDocuments) | **POST** /porting_orders/{id}/additional_documents | Create a list of additional documents
+*PortingOrdersApi* | [**createLoaConfiguration**](docs/PortingOrdersApi.md#createLoaConfiguration) | **POST** /porting/loa_configurations | Create a LOA configuration
+*PortingOrdersApi* | [**createPhoneNumberConfigurations**](docs/PortingOrdersApi.md#createPhoneNumberConfigurations) | **POST** /porting_orders/phone_number_configurations | Create a list of phone number configurations
+*PortingOrdersApi* | [**createPortingComment**](docs/PortingOrdersApi.md#createPortingComment) | **POST** /porting_orders/{id}/comments | Create a comment for a porting order
+*PortingOrdersApi* | [**createPortingOrder**](docs/PortingOrdersApi.md#createPortingOrder) | **POST** /porting_orders | Create a porting order
+*PortingOrdersApi* | [**createPortingPhoneNumberBlock**](docs/PortingOrdersApi.md#createPortingPhoneNumberBlock) | **POST** /porting_orders/{porting_order_id}/phone_number_blocks | Create a phone number block
+*PortingOrdersApi* | [**createPortingPhoneNumberExtension**](docs/PortingOrdersApi.md#createPortingPhoneNumberExtension) | **POST** /porting_orders/{porting_order_id}/phone_number_extensions | Create a phone number extension
+*PortingOrdersApi* | [**createPortingReport**](docs/PortingOrdersApi.md#createPortingReport) | **POST** /porting/reports | Create a porting related report
+*PortingOrdersApi* | [**deleteAdditionalDocument**](docs/PortingOrdersApi.md#deleteAdditionalDocument) | **DELETE** /porting_orders/{id}/additional_documents/{additional_document_id} | Delete an additional document
+*PortingOrdersApi* | [**deleteLoaConfiguration**](docs/PortingOrdersApi.md#deleteLoaConfiguration) | **DELETE** /porting/loa_configurations/{id} | Delete a LOA configuration
+*PortingOrdersApi* | [**deletePortingOrder**](docs/PortingOrdersApi.md#deletePortingOrder) | **DELETE** /porting_orders/{id} | Delete a porting order
+*PortingOrdersApi* | [**deletePortingPhoneNumberBlock**](docs/PortingOrdersApi.md#deletePortingPhoneNumberBlock) | **DELETE** /porting_orders/{porting_order_id}/phone_number_blocks/{id} | Delete a phone number block
+*PortingOrdersApi* | [**deletePortingPhoneNumberExtension**](docs/PortingOrdersApi.md#deletePortingPhoneNumberExtension) | **DELETE** /porting_orders/{porting_order_id}/phone_number_extensions/{id} | Delete a phone number extension
+*PortingOrdersApi* | [**getLoaConfiguration**](docs/PortingOrdersApi.md#getLoaConfiguration) | **GET** /porting/loa_configurations/{id} | Retrieve a LOA configuration
+*PortingOrdersApi* | [**getPortingOrder**](docs/PortingOrdersApi.md#getPortingOrder) | **GET** /porting_orders/{id} | Retrieve a porting order
+*PortingOrdersApi* | [**getPortingOrderLoaTemplate**](docs/PortingOrdersApi.md#getPortingOrderLoaTemplate) | **GET** /porting_orders/{id}/loa_template | Download a porting order loa template
+*PortingOrdersApi* | [**getPortingOrderSubRequest**](docs/PortingOrdersApi.md#getPortingOrderSubRequest) | **GET** /porting_orders/{id}/sub_request | Retrieve the associated V1 sub_request_id and port_request_id
+*PortingOrdersApi* | [**getPortingOrdersActivationJob**](docs/PortingOrdersApi.md#getPortingOrdersActivationJob) | **GET** /porting_orders/{id}/activation_jobs/{activationJobId} | Retrieve a porting activation job
+*PortingOrdersApi* | [**getPortingReport**](docs/PortingOrdersApi.md#getPortingReport) | **GET** /porting/reports/{id} | Retrieve a report
+*PortingOrdersApi* | [**listAdditionalDocuments**](docs/PortingOrdersApi.md#listAdditionalDocuments) | **GET** /porting_orders/{id}/additional_documents | List additional documents
+*PortingOrdersApi* | [**listAllowedFocWindows**](docs/PortingOrdersApi.md#listAllowedFocWindows) | **GET** /porting_orders/{id}/allowed_foc_windows | List allowed FOC dates
+*PortingOrdersApi* | [**listExceptionTypes**](docs/PortingOrdersApi.md#listExceptionTypes) | **GET** /porting_orders/exception_types | List all exception types
+*PortingOrdersApi* | [**listLoaConfigurations**](docs/PortingOrdersApi.md#listLoaConfigurations) | **GET** /porting/loa_configurations | List LOA configurations
+*PortingOrdersApi* | [**listPhoneNumberConfigurations**](docs/PortingOrdersApi.md#listPhoneNumberConfigurations) | **GET** /porting_orders/phone_number_configurations | List all phone number configurations
+*PortingOrdersApi* | [**listPortingEvents**](docs/PortingOrdersApi.md#listPortingEvents) | **GET** /porting/events | List all porting events
+*PortingOrdersApi* | [**listPortingOrderActivationJobs**](docs/PortingOrdersApi.md#listPortingOrderActivationJobs) | **GET** /porting_orders/{id}/activation_jobs | List all porting activation jobs
+*PortingOrdersApi* | [**listPortingOrderComments**](docs/PortingOrdersApi.md#listPortingOrderComments) | **GET** /porting_orders/{id}/comments | List all comments of a porting order
+*PortingOrdersApi* | [**listPortingOrderRequirements**](docs/PortingOrdersApi.md#listPortingOrderRequirements) | **GET** /porting_orders/{id}/requirements | List porting order requirements
+*PortingOrdersApi* | [**listPortingOrders**](docs/PortingOrdersApi.md#listPortingOrders) | **GET** /porting_orders | List all porting orders
+*PortingOrdersApi* | [**listPortingPhoneNumberBlocks**](docs/PortingOrdersApi.md#listPortingPhoneNumberBlocks) | **GET** /porting_orders/{porting_order_id}/phone_number_blocks | List all phone number blocks
+*PortingOrdersApi* | [**listPortingPhoneNumberExtensions**](docs/PortingOrdersApi.md#listPortingPhoneNumberExtensions) | **GET** /porting_orders/{porting_order_id}/phone_number_extensions | List all phone number extensions
+*PortingOrdersApi* | [**listPortingPhoneNumbers**](docs/PortingOrdersApi.md#listPortingPhoneNumbers) | **GET** /porting_phone_numbers | List all porting phone numbers
+*PortingOrdersApi* | [**listPortingReports**](docs/PortingOrdersApi.md#listPortingReports) | **GET** /porting/reports | List porting related reports
+*PortingOrdersApi* | [**listVerificationCodes**](docs/PortingOrdersApi.md#listVerificationCodes) | **GET** /porting_orders/{id}/verification_codes | List verification codes
+*PortingOrdersApi* | [**previewLoaConfiguration**](docs/PortingOrdersApi.md#previewLoaConfiguration) | **GET** /porting/loa_configurations/{id}/preview | Preview a LOA configuration
+*PortingOrdersApi* | [**previewLoaConfigurationParams**](docs/PortingOrdersApi.md#previewLoaConfigurationParams) | **POST** /porting/loa_configuration/preview | Preview the LOA configuration parameters
+*PortingOrdersApi* | [**republishPortingEvent**](docs/PortingOrdersApi.md#republishPortingEvent) | **POST** /porting/events/{id}/republish | Republish a porting event
+*PortingOrdersApi* | [**sendPortingVerificationCodes**](docs/PortingOrdersApi.md#sendPortingVerificationCodes) | **POST** /porting_orders/{id}/verification_codes/send | Send the verification codes
+*PortingOrdersApi* | [**sharePortingOrder**](docs/PortingOrdersApi.md#sharePortingOrder) | **POST** /porting_orders/{id}/actions/share | Share a porting order
+*PortingOrdersApi* | [**showPortingEvent**](docs/PortingOrdersApi.md#showPortingEvent) | **GET** /porting/events/{id} | Show a porting event
+*PortingOrdersApi* | [**updateLoaConfiguration**](docs/PortingOrdersApi.md#updateLoaConfiguration) | **PATCH** /porting/loa_configurations/{id} | Update a LOA configuration
+*PortingOrdersApi* | [**updatePortingOrder**](docs/PortingOrdersApi.md#updatePortingOrder) | **PATCH** /porting_orders/{id} | Edit a porting order
+*PortingOrdersApi* | [**updatePortingOrdersActivationJob**](docs/PortingOrdersApi.md#updatePortingOrdersActivationJob) | **PATCH** /porting_orders/{id}/activation_jobs/{activationJobId} | Update a porting activation job
+*PortingOrdersApi* | [**verifyPortingVerificationCodes**](docs/PortingOrdersApi.md#verifyPortingVerificationCodes) | **POST** /porting_orders/{id}/verification_codes/verify | Verify the verification code for a list of phone numbers
 *PresignedObjectUrlsApi* | [**createPresignedObjectUrl**](docs/PresignedObjectUrlsApi.md#createPresignedObjectUrl) | **POST** /storage/buckets/{bucketName}/{objectName}/presigned_url | Create Presigned Object URL
 *PrivateWirelessGatewaysApi* | [**createPrivateWirelessGateway**](docs/PrivateWirelessGatewaysApi.md#createPrivateWirelessGateway) | **POST** /private_wireless_gateways | Create a Private Wireless Gateway
 *PrivateWirelessGatewaysApi* | [**deleteWirelessGateway**](docs/PrivateWirelessGatewaysApi.md#deleteWirelessGateway) | **DELETE** /private_wireless_gateways/{id} | Delete a Private Wireless Gateway
@@ -637,19 +667,32 @@ Class | Method | HTTP request | Description
 *PushCredentialsApi* | [**deletePushCredentialById**](docs/PushCredentialsApi.md#deletePushCredentialById) | **DELETE** /mobile_push_credentials/{push_credential_id} | Deletes a mobile push credential
 *PushCredentialsApi* | [**getPushCredentialById**](docs/PushCredentialsApi.md#getPushCredentialById) | **GET** /mobile_push_credentials/{push_credential_id} | Retrieves a mobile push credential
 *PushCredentialsApi* | [**listPushCredentials**](docs/PushCredentialsApi.md#listPushCredentials) | **GET** /mobile_push_credentials | List mobile push credentials
+*QueueCommandsApi* | [**createQueue**](docs/QueueCommandsApi.md#createQueue) | **POST** /queues | Create a queue
+*QueueCommandsApi* | [**deleteQueue**](docs/QueueCommandsApi.md#deleteQueue) | **DELETE** /queues/{queue_name} | Delete a queue
 *QueueCommandsApi* | [**listQueueCalls**](docs/QueueCommandsApi.md#listQueueCalls) | **GET** /queues/{queue_name}/calls | Retrieve calls from a queue
 *QueueCommandsApi* | [**retrieveCallFromQueue**](docs/QueueCommandsApi.md#retrieveCallFromQueue) | **GET** /queues/{queue_name}/calls/{call_control_id} | Retrieve a call from a queue
 *QueueCommandsApi* | [**retrieveCallQueue**](docs/QueueCommandsApi.md#retrieveCallQueue) | **GET** /queues/{queue_name} | Retrieve a call queue
+*QueueCommandsApi* | [**updateQueueMaxSize**](docs/QueueCommandsApi.md#updateQueueMaxSize) | **POST** /queues/{queue_name} | Update queue max size
+*RcsMessagingApi* | [**messsagesRcsPost**](docs/RcsMessagingApi.md#messsagesRcsPost) | **POST** /messsages/rcs | Send an RCS message
 *RegionsApi* | [**listRegions**](docs/RegionsApi.md#listRegions) | **GET** /regions | List all Regions
-*RegisterCallApi* | [**registerCall**](docs/RegisterCallApi.md#registerCall) | **POST** /calls/register | Register the call for Google Verified Calls
+*RegulatoryRequirementsApi* | [**listRegulatoryRequirements**](docs/RegulatoryRequirementsApi.md#listRegulatoryRequirements) | **GET** /regulatory_requirements | Retrieve regulatory requirements
+*RegulatoryRequirementsApi* | [**listRegulatoryRequirementsPhoneNumbers**](docs/RegulatoryRequirementsApi.md#listRegulatoryRequirementsPhoneNumbers) | **GET** /phone_numbers_regulatory_requirements | Retrieve regulatory requirements for a list of phone numbers
 *ReportingApi* | [**createWdrReport**](docs/ReportingApi.md#createWdrReport) | **POST** /wireless/detail_records_reports | Create a Wireless Detail Records (WDRs) Report
 *ReportingApi* | [**deleteWdrReport**](docs/ReportingApi.md#deleteWdrReport) | **DELETE** /wireless/detail_records_reports/{id} | Delete a Wireless Detail Record (WDR) Report
 *ReportingApi* | [**getWdrReport**](docs/ReportingApi.md#getWdrReport) | **GET** /wireless/detail_records_reports/{id} | Get a Wireless Detail Record (WDR) Report
 *ReportingApi* | [**getWdrReports**](docs/ReportingApi.md#getWdrReports) | **GET** /wireless/detail_records_reports | Get all Wireless Detail Records (WDRs) Reports
 *ReportsApi* | [**createBillingGroupReport**](docs/ReportsApi.md#createBillingGroupReport) | **POST** /ledger_billing_group_reports | Create a ledger billing group report
 *ReportsApi* | [**getBillingGroupReport**](docs/ReportsApi.md#getBillingGroupReport) | **GET** /ledger_billing_group_reports/{id} | Get a ledger billing group report
+*RequirementGroupsApi* | [**createRequirementGroup**](docs/RequirementGroupsApi.md#createRequirementGroup) | **POST** /requirement_groups | Create a new requirement group
+*RequirementGroupsApi* | [**deleteRequirementGroup**](docs/RequirementGroupsApi.md#deleteRequirementGroup) | **DELETE** /requirement_groups/{id} | Delete a requirement group by ID
+*RequirementGroupsApi* | [**getRequirementGroup**](docs/RequirementGroupsApi.md#getRequirementGroup) | **GET** /requirement_groups/{id} | Get a single requirement group by ID
+*RequirementGroupsApi* | [**getRequirementGroups**](docs/RequirementGroupsApi.md#getRequirementGroups) | **GET** /requirement_groups | List requirement groups
+*RequirementGroupsApi* | [**submitRequirementGroup**](docs/RequirementGroupsApi.md#submitRequirementGroup) | **POST** /requirement_groups/{id}/submit_for_approval | Submit a Requirement Group for Approval
+*RequirementGroupsApi* | [**updateNumberOrderPhoneNumberRequirementGroup**](docs/RequirementGroupsApi.md#updateNumberOrderPhoneNumberRequirementGroup) | **POST** /number_order_phone_numbers/{id}/requirement_group | Update requirement group for a phone number order
+*RequirementGroupsApi* | [**updateRequirementGroup**](docs/RequirementGroupsApi.md#updateRequirementGroup) | **PATCH** /requirement_groups/{id} | Update requirement values in requirement group
+*RequirementGroupsApi* | [**updateSubNumberOrderRequirementGroup**](docs/RequirementGroupsApi.md#updateSubNumberOrderRequirementGroup) | **POST** /sub_number_orders/{id}/requirement_group | Update requirement group for a sub number order
 *RequirementTypesApi* | [**listRequirementTypes**](docs/RequirementTypesApi.md#listRequirementTypes) | **GET** /requirement_types | List all requirement types
-*RequirementTypesApi* | [**retrieveRequirementType**](docs/RequirementTypesApi.md#retrieveRequirementType) | **GET** /requirement_types/{id} | Retrieve a requirement types
+*RequirementTypesApi* | [**retrieveRequirementType**](docs/RequirementTypesApi.md#retrieveRequirementType) | **GET** /requirement_types/{id} | Retrieve a requirement type
 *RequirementsApi* | [**listRequirements**](docs/RequirementsApi.md#listRequirements) | **GET** /requirements | List all requirements
 *RequirementsApi* | [**retrieveDocumentRequirements**](docs/RequirementsApi.md#retrieveDocumentRequirements) | **GET** /requirements/{id} | Retrieve a document requirement
 *RoomCompositionsApi* | [**createRoomComposition**](docs/RoomCompositionsApi.md#createRoomComposition) | **POST** /room_compositions | Create a room composition.
@@ -664,28 +707,31 @@ Class | Method | HTTP request | Description
 *RoomRecordingsApi* | [**viewRoomRecording**](docs/RoomRecordingsApi.md#viewRoomRecording) | **GET** /room_recordings/{room_recording_id} | View a room recording.
 *RoomSessionsApi* | [**endSession**](docs/RoomSessionsApi.md#endSession) | **POST** /room_sessions/{room_session_id}/actions/end | End a room session.
 *RoomSessionsApi* | [**kickParticipantInSession**](docs/RoomSessionsApi.md#kickParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/kick | Kick participants from a room session.
-*RoomSessionsApi* | [**listRoomParticipants**](docs/RoomSessionsApi.md#listRoomParticipants) | **GET** /room_sessions/{room_session_id}/participants | View a list of room participants.
 *RoomSessionsApi* | [**listRoomSessions**](docs/RoomSessionsApi.md#listRoomSessions) | **GET** /room_sessions | View a list of room sessions.
 *RoomSessionsApi* | [**muteParticipantInSession**](docs/RoomSessionsApi.md#muteParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/mute | Mute participants in room session.
+*RoomSessionsApi* | [**retrieveListRoomParticipants**](docs/RoomSessionsApi.md#retrieveListRoomParticipants) | **GET** /room_sessions/{room_session_id}/participants | View a list of room participants.
 *RoomSessionsApi* | [**unmuteParticipantInSession**](docs/RoomSessionsApi.md#unmuteParticipantInSession) | **POST** /room_sessions/{room_session_id}/actions/unmute | Unmute participants in room session.
 *RoomSessionsApi* | [**viewRoomSession**](docs/RoomSessionsApi.md#viewRoomSession) | **GET** /room_sessions/{room_session_id} | View a room session.
 *RoomsApi* | [**createRoom**](docs/RoomsApi.md#createRoom) | **POST** /rooms | Create a room.
 *RoomsApi* | [**deleteRoom**](docs/RoomsApi.md#deleteRoom) | **DELETE** /rooms/{room_id} | Delete a room.
-*RoomsApi* | [**listRoomSessions**](docs/RoomsApi.md#listRoomSessions) | **GET** /rooms/{room_id}/sessions | View a list of room sessions.
 *RoomsApi* | [**listRooms**](docs/RoomsApi.md#listRooms) | **GET** /rooms | View a list of rooms.
+*RoomsApi* | [**retrieveListRoomSessions**](docs/RoomsApi.md#retrieveListRoomSessions) | **GET** /rooms/{room_id}/sessions | View a list of room sessions.
 *RoomsApi* | [**updateRoom**](docs/RoomsApi.md#updateRoom) | **PATCH** /rooms/{room_id} | Update a room.
 *RoomsApi* | [**viewRoom**](docs/RoomsApi.md#viewRoom) | **GET** /rooms/{room_id} | View a room.
 *RoomsClientTokensApi* | [**createRoomClientToken**](docs/RoomsClientTokensApi.md#createRoomClientToken) | **POST** /rooms/{room_id}/actions/generate_join_client_token | Create Client Token to join a room.
 *RoomsClientTokensApi* | [**refreshRoomClientToken**](docs/RoomsClientTokensApi.md#refreshRoomClientToken) | **POST** /rooms/{room_id}/actions/refresh_client_token | Refresh Client Token to join a room.
-*SharedCampaignsApi* | [**getCampaignSharingStatus**](docs/SharedCampaignsApi.md#getCampaignSharingStatus) | **GET** /partnerCampaign/{campaignId}/sharing | Get Sharing Status
+*SharedCampaignsApi* | [**getPartnerCampaignSharingStatus**](docs/SharedCampaignsApi.md#getPartnerCampaignSharingStatus) | **GET** /partnerCampaign/{campaignId}/sharing | Get Sharing Status
 *SharedCampaignsApi* | [**getPartnerCampaignsSharedByUser**](docs/SharedCampaignsApi.md#getPartnerCampaignsSharedByUser) | **GET** /partnerCampaign/sharedByMe | Get Partner Campaigns Shared By User
+*SharedCampaignsApi* | [**getSharedCampaign**](docs/SharedCampaignsApi.md#getSharedCampaign) | **GET** /partner_campaigns/{campaignId} | Get Single Shared Campaign
+*SharedCampaignsApi* | [**getSharedCampaigns**](docs/SharedCampaignsApi.md#getSharedCampaigns) | **GET** /partner_campaigns | List Shared Campaigns
+*SharedCampaignsApi* | [**updateSharedCampaign**](docs/SharedCampaignsApi.md#updateSharedCampaign) | **PATCH** /partner_campaigns/{campaignId} | Update Single Shared Campaign
 *ShortCodesApi* | [**listShortCodes**](docs/ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List short codes
 *ShortCodesApi* | [**retrieveShortCode**](docs/ShortCodesApi.md#retrieveShortCode) | **GET** /short_codes/{id} | Retrieve a short code
 *ShortCodesApi* | [**updateShortCode**](docs/ShortCodesApi.md#updateShortCode) | **PATCH** /short_codes/{id} | Update short code
 *SimCardActionsApi* | [**getBulkSimCardAction**](docs/SimCardActionsApi.md#getBulkSimCardAction) | **GET** /bulk_sim_card_actions/{id} | Get bulk SIM card action details
 *SimCardActionsApi* | [**getSimCardAction**](docs/SimCardActionsApi.md#getSimCardAction) | **GET** /sim_card_actions/{id} | Get SIM card action details
-*SimCardActionsApi* | [**listSimCardActions**](docs/SimCardActionsApi.md#listSimCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
-*SimCardActionsApi* | [**listSimCardActions_0**](docs/SimCardActionsApi.md#listSimCardActions_0) | **GET** /sim_card_actions | List SIM card actions
+*SimCardActionsApi* | [**listBulkSimCardActions**](docs/SimCardActionsApi.md#listBulkSimCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
+*SimCardActionsApi* | [**listSimCardActions**](docs/SimCardActionsApi.md#listSimCardActions) | **GET** /sim_card_actions | List SIM card actions
 *SimCardGroupActionsApi* | [**getSimCardGroupAction**](docs/SimCardGroupActionsApi.md#getSimCardGroupAction) | **GET** /sim_card_group_actions/{id} | Get SIM card group action details
 *SimCardGroupActionsApi* | [**getSimCardGroupActions**](docs/SimCardGroupActionsApi.md#getSimCardGroupActions) | **GET** /sim_card_group_actions | List SIM card group actions
 *SimCardGroupsApi* | [**createSimCardGroup**](docs/SimCardGroupsApi.md#createSimCardGroup) | **POST** /sim_card_groups | Create a SIM card group
@@ -699,35 +745,32 @@ Class | Method | HTTP request | Description
 *SimCardOrdersApi* | [**getSimCardOrder**](docs/SimCardOrdersApi.md#getSimCardOrder) | **GET** /sim_card_orders/{id} | Get a single SIM card order
 *SimCardOrdersApi* | [**getSimCardOrders**](docs/SimCardOrdersApi.md#getSimCardOrders) | **GET** /sim_card_orders | Get all SIM card orders
 *SimCardOrdersApi* | [**previewSimCardOrders**](docs/SimCardOrdersApi.md#previewSimCardOrders) | **POST** /sim_card_order_preview | Preview SIM card orders
-*SimCardsApi* | [**bulkSimCardNetworkPreferences**](docs/SimCardsApi.md#bulkSimCardNetworkPreferences) | **PUT** /actions/network_preferences/sim_cards | Bulk Network Preferences for SIM cards
-*SimCardsApi* | [**deleteNetworkPreferences**](docs/SimCardsApi.md#deleteNetworkPreferences) | **POST** /sim_cards/{id}/actions/delete_network_preferences | Delete network preferences for a SIM card
-*SimCardsApi* | [**deleteSIMCardNetworkPreferences**](docs/SimCardsApi.md#deleteSIMCardNetworkPreferences) | **DELETE** /sim_cards/{sim_card_id}/network_preferences | DELETE network preferences
 *SimCardsApi* | [**deleteSimCard**](docs/SimCardsApi.md#deleteSimCard) | **DELETE** /sim_cards/{id} | Deletes a SIM card
 *SimCardsApi* | [**deleteSimCardDataUsageNotifications**](docs/SimCardsApi.md#deleteSimCardDataUsageNotifications) | **DELETE** /sim_card_data_usage_notifications/{id} | Delete SIM card data usage notifications
 *SimCardsApi* | [**disableSimCard**](docs/SimCardsApi.md#disableSimCard) | **POST** /sim_cards/{id}/actions/disable | Request a SIM card disable
 *SimCardsApi* | [**enableSimCard**](docs/SimCardsApi.md#enableSimCard) | **POST** /sim_cards/{id}/actions/enable | Request a SIM card enable
 *SimCardsApi* | [**getSimCard**](docs/SimCardsApi.md#getSimCard) | **GET** /sim_cards/{id} | Get SIM card
-*SimCardsApi* | [**getSimCardActivationCode**](docs/SimCardsApi.md#getSimCardActivationCode) | **GET** /sim_cards/{sim_card_id}/activation_code | Get activation QR code for an eSIM
+*SimCardsApi* | [**getSimCardActivationCode**](docs/SimCardsApi.md#getSimCardActivationCode) | **GET** /sim_cards/{id}/activation_code | Get activation code for an eSIM
 *SimCardsApi* | [**getSimCardDataUsageNotification**](docs/SimCardsApi.md#getSimCardDataUsageNotification) | **GET** /sim_card_data_usage_notifications/{id} | Get a single SIM card data usage notification
-*SimCardsApi* | [**getSimCardDeviceDetails**](docs/SimCardsApi.md#getSimCardDeviceDetails) | **GET** /sim_cards/{sim_card_id}/device_details | Get SIM card device details
-*SimCardsApi* | [**getSimCardNetworkPreferences**](docs/SimCardsApi.md#getSimCardNetworkPreferences) | **GET** /sim_cards/{sim_card_id}/network_preferences | Get network preferences
-*SimCardsApi* | [**getSimCardPublicIp**](docs/SimCardsApi.md#getSimCardPublicIp) | **GET** /sim_cards/{sim_card_id}/public_ip | Get SIM card public IP definition
+*SimCardsApi* | [**getSimCardDeviceDetails**](docs/SimCardsApi.md#getSimCardDeviceDetails) | **GET** /sim_cards/{id}/device_details | Get SIM card device details
+*SimCardsApi* | [**getSimCardPublicIp**](docs/SimCardsApi.md#getSimCardPublicIp) | **GET** /sim_cards/{id}/public_ip | Get SIM card public IP definition
 *SimCardsApi* | [**getSimCards**](docs/SimCardsApi.md#getSimCards) | **GET** /sim_cards | Get all SIM cards
-*SimCardsApi* | [**getWirelessConnectivityLogs**](docs/SimCardsApi.md#getWirelessConnectivityLogs) | **GET** /sim_cards/{sim_card_id}/wireless_connectivity_logs | List wireless connectivity logs
+*SimCardsApi* | [**getWirelessConnectivityLogs**](docs/SimCardsApi.md#getWirelessConnectivityLogs) | **GET** /sim_cards/{id}/wireless_connectivity_logs | List wireless connectivity logs
 *SimCardsApi* | [**listDataUsageNotifications**](docs/SimCardsApi.md#listDataUsageNotifications) | **GET** /sim_card_data_usage_notifications | List SIM card data usage notifications
 *SimCardsApi* | [**patchSimCardDataUsageNotification**](docs/SimCardsApi.md#patchSimCardDataUsageNotification) | **PATCH** /sim_card_data_usage_notifications/{id} | Updates information for a SIM Card Data Usage Notification
 *SimCardsApi* | [**postSimCardDataUsageNotification**](docs/SimCardsApi.md#postSimCardDataUsageNotification) | **POST** /sim_card_data_usage_notifications | Create a new SIM card data usage notification
 *SimCardsApi* | [**purchaseESim**](docs/SimCardsApi.md#purchaseESim) | **POST** /actions/purchase/esims | Purchase eSIMs
-*SimCardsApi* | [**putSimCardNetworkPreferences**](docs/SimCardsApi.md#putSimCardNetworkPreferences) | **PUT** /sim_cards/{sim_card_id}/network_preferences | Set network preferences
 *SimCardsApi* | [**registerSimCards**](docs/SimCardsApi.md#registerSimCards) | **POST** /actions/register/sim_cards | Register SIM cards
 *SimCardsApi* | [**removeSimCardPublicIp**](docs/SimCardsApi.md#removeSimCardPublicIp) | **POST** /sim_cards/{id}/actions/remove_public_ip | Request removing a SIM card public IP
-*SimCardsApi* | [**setNetworkPreference**](docs/SimCardsApi.md#setNetworkPreference) | **POST** /sim_cards/{id}/actions/set_network_preferences | Create or update network preferences for a SIM card
-*SimCardsApi* | [**setNetworkPreferencesBulk**](docs/SimCardsApi.md#setNetworkPreferencesBulk) | **POST** /sim_cards/actions/bulk_set_network_preferences | Request bulk setting of network preferences for SIM cards.
 *SimCardsApi* | [**setPublicIPsBulk**](docs/SimCardsApi.md#setPublicIPsBulk) | **POST** /sim_cards/actions/bulk_set_public_ips | Request bulk setting SIM card public IPs.
 *SimCardsApi* | [**setSimCardPublicIp**](docs/SimCardsApi.md#setSimCardPublicIp) | **POST** /sim_cards/{id}/actions/set_public_ip | Request setting a SIM card public IP
 *SimCardsApi* | [**setSimCardStandby**](docs/SimCardsApi.md#setSimCardStandby) | **POST** /sim_cards/{id}/actions/set_standby | Request setting a SIM card to standby
 *SimCardsApi* | [**updateSimCard**](docs/SimCardsApi.md#updateSimCard) | **PATCH** /sim_cards/{id} | Update a SIM card
 *SimCardsApi* | [**validateRegistrationCodes**](docs/SimCardsApi.md#validateRegistrationCodes) | **POST** /sim_cards/actions/validate_registration_codes | Validate SIM cards registration codes
+*SiprecConnectorApi* | [**createSiprecConnector**](docs/SiprecConnectorApi.md#createSiprecConnector) | **POST** /siprec_connectors | Creates a siprec connector
+*SiprecConnectorApi* | [**deleteSiprecConnection**](docs/SiprecConnectorApi.md#deleteSiprecConnection) | **DELETE** /siprec_connectors | Delete stored Siprec Connection
+*SiprecConnectorApi* | [**getSiprecConnection**](docs/SiprecConnectorApi.md#getSiprecConnection) | **GET** /siprec_connectors | Retrieve stored Siprec Connection
+*SiprecConnectorApi* | [**updateSiprecConnector**](docs/SiprecConnectorApi.md#updateSiprecConnector) | **PUT** /siprec_connectors | Update stored SIPREC connector
 *TeXmlApplicationsApi* | [**createTexmlApplication**](docs/TeXmlApplicationsApi.md#createTexmlApplication) | **POST** /texml_applications | Creates a TeXML Application
 *TeXmlApplicationsApi* | [**deleteTexmlApplication**](docs/TeXmlApplicationsApi.md#deleteTexmlApplication) | **DELETE** /texml_applications/{id} | Deletes a TeXML Application
 *TeXmlApplicationsApi* | [**findTexmlApplications**](docs/TeXmlApplicationsApi.md#findTexmlApplications) | **GET** /texml_applications | List all TeXML Applications
@@ -749,48 +792,54 @@ Class | Method | HTTP request | Description
 *TeXmlRestCommandsApi* | [**getTexmlConferenceRecordings**](docs/TeXmlRestCommandsApi.md#getTexmlConferenceRecordings) | **GET** /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings | List conference recordings
 *TeXmlRestCommandsApi* | [**getTexmlConferences**](docs/TeXmlRestCommandsApi.md#getTexmlConferences) | **GET** /texml/Accounts/{account_sid}/Conferences | List conference resources
 *TeXmlRestCommandsApi* | [**initiateTexmlCall**](docs/TeXmlRestCommandsApi.md#initiateTexmlCall) | **POST** /texml/Accounts/{account_sid}/Calls | Initiate an outbound call
-*TeXmlRestCommandsApi* | [**initiateTexmlCall_0**](docs/TeXmlRestCommandsApi.md#initiateTexmlCall_0) | **POST** /texml/calls/{application_id} | Initiate an outbound call
+*TeXmlRestCommandsApi* | [**initiateTexmlCallByApplicationId**](docs/TeXmlRestCommandsApi.md#initiateTexmlCallByApplicationId) | **POST** /texml/calls/{application_id} | Initiate an outbound call
 *TeXmlRestCommandsApi* | [**startTeXMLCallRecording**](docs/TeXmlRestCommandsApi.md#startTeXMLCallRecording) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json | Request recording for a call
+*TeXmlRestCommandsApi* | [**startTeXMLCallStreaming**](docs/TeXmlRestCommandsApi.md#startTeXMLCallStreaming) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Streams.json | Start streaming media from a call.
+*TeXmlRestCommandsApi* | [**startTeXMLSiprecSession**](docs/TeXmlRestCommandsApi.md#startTeXMLSiprecSession) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec.json | Request siprec session for a call
 *TeXmlRestCommandsApi* | [**updateTeXMLCallRecording**](docs/TeXmlRestCommandsApi.md#updateTeXMLCallRecording) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{recording_sid}.json | Update recording on a call
+*TeXmlRestCommandsApi* | [**updateTeXMLCallStreaming**](docs/TeXmlRestCommandsApi.md#updateTeXMLCallStreaming) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Streams/{streaming_sid}.json | Update streaming on a call
+*TeXmlRestCommandsApi* | [**updateTeXMLSiprecSession**](docs/TeXmlRestCommandsApi.md#updateTeXMLSiprecSession) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{siprec_sid}.json | Updates siprec session for a call
 *TeXmlRestCommandsApi* | [**updateTexmlCall**](docs/TeXmlRestCommandsApi.md#updateTexmlCall) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid} | Update call
-*TeXmlRestCommandsApi* | [**updateTexmlCall_0**](docs/TeXmlRestCommandsApi.md#updateTexmlCall_0) | **POST** /texml/calls/{call_sid}/update | Update call
+*TeXmlRestCommandsApi* | [**updateTexmlCallBySid**](docs/TeXmlRestCommandsApi.md#updateTexmlCallBySid) | **POST** /texml/calls/{call_sid}/update | Update call
 *TeXmlRestCommandsApi* | [**updateTexmlConference**](docs/TeXmlRestCommandsApi.md#updateTexmlConference) | **POST** /texml/Accounts/{account_sid}/Conferences/{conference_sid} | Update a conference resource
 *TeXmlRestCommandsApi* | [**updateTexmlConferenceParticipant**](docs/TeXmlRestCommandsApi.md#updateTexmlConferenceParticipant) | **POST** /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid} | Update a conference participant
 *TeXmlTwilioCompatibleRestCommandsApi* | [**deleteTeXMLRecordingTranscription**](docs/TeXmlTwilioCompatibleRestCommandsApi.md#deleteTeXMLRecordingTranscription) | **DELETE** /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json | Delete a recording transcription
 *TeXmlTwilioCompatibleRestCommandsApi* | [**getTeXMLRecordingTranscription**](docs/TeXmlTwilioCompatibleRestCommandsApi.md#getTeXMLRecordingTranscription) | **GET** /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json | Fetch a recording transcription resource
 *TeXmlTwilioCompatibleRestCommandsApi* | [**getTeXMLRecordingTranscriptions**](docs/TeXmlTwilioCompatibleRestCommandsApi.md#getTeXMLRecordingTranscriptions) | **GET** /texml/Accounts/{account_sid}/Transcriptions.json | List recording transcriptions
-*VerifiedCallsDisplayProfileApi* | [**createProfile**](docs/VerifiedCallsDisplayProfileApi.md#createProfile) | **POST** /verified_calls_display_profiles | Creates a Verified Calls Display Profile
-*VerifiedCallsDisplayProfileApi* | [**createProfileVerificationRequest**](docs/VerifiedCallsDisplayProfileApi.md#createProfileVerificationRequest) | **POST** /verified_calls_display_profiles/{id}/verification_request | Creates a Verification Request
-*VerifiedCallsDisplayProfileApi* | [**deleteProfile**](docs/VerifiedCallsDisplayProfileApi.md#deleteProfile) | **DELETE** /verified_calls_display_profiles/{id} | Deletes the Verified Calls Display Profile
-*VerifiedCallsDisplayProfileApi* | [**displayProfile**](docs/VerifiedCallsDisplayProfileApi.md#displayProfile) | **GET** /verified_calls_display_profiles/{id} | Display the Verified Calls Display Profile
-*VerifiedCallsDisplayProfileApi* | [**listProfiles**](docs/VerifiedCallsDisplayProfileApi.md#listProfiles) | **GET** /verified_calls_display_profiles | Lists the Verified Calls Display Profiles owned by the current user/organization
-*VerifiedCallsDisplayProfileApi* | [**updateProfile**](docs/VerifiedCallsDisplayProfileApi.md#updateProfile) | **PATCH** /verified_calls_display_profiles/{id} | Update a Verified Calls Display Profile
+*UsageReportsBetaApi* | [**getUsageReport**](docs/UsageReportsBetaApi.md#getUsageReport) | **GET** /usage_reports | Get Telnyx product usage data (BETA)
+*UsageReportsBetaApi* | [**listUsageReportsOptions**](docs/UsageReportsBetaApi.md#listUsageReportsOptions) | **GET** /usage_reports/options | Get Usage Reports query options (BETA)
+*UserAddressesApi* | [**createUserAddress**](docs/UserAddressesApi.md#createUserAddress) | **POST** /user_addresses | Creates a user address
+*UserAddressesApi* | [**findUserAddress**](docs/UserAddressesApi.md#findUserAddress) | **GET** /user_addresses | List all user addresses
+*UserAddressesApi* | [**getUserAddress**](docs/UserAddressesApi.md#getUserAddress) | **GET** /user_addresses/{id} | Retrieve a user address
+*UserTagsApi* | [**getUserTags**](docs/UserTagsApi.md#getUserTags) | **GET** /user_tags | List User Tags
 *VerifiedNumbersApi* | [**createVerifiedNumber**](docs/VerifiedNumbersApi.md#createVerifiedNumber) | **POST** /verified_numbers | Request phone number verification
 *VerifiedNumbersApi* | [**deleteVerifiedNumber**](docs/VerifiedNumbersApi.md#deleteVerifiedNumber) | **DELETE** /verified_numbers/{phone_number} | Delete a verified number
 *VerifiedNumbersApi* | [**getVerifiedNumber**](docs/VerifiedNumbersApi.md#getVerifiedNumber) | **GET** /verified_numbers/{phone_number} | Retrieve a verified number
 *VerifiedNumbersApi* | [**listVerifiedNumbers**](docs/VerifiedNumbersApi.md#listVerifiedNumbers) | **GET** /verified_numbers | List all Verified Numbers
 *VerifiedNumbersApi* | [**verifyVerificationCode**](docs/VerifiedNumbersApi.md#verifyVerificationCode) | **POST** /verified_numbers/{phone_number}/actions/verify | Submit verification code
-*VerifyApi* | [**createFlashcallVerification**](docs/VerifyApi.md#createFlashcallVerification) | **POST** /verifications/flashcall | Trigger a Flash call verification
-*VerifyApi* | [**createVerificationCall**](docs/VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger a Call verification
-*VerifyApi* | [**createVerificationSms**](docs/VerifyApi.md#createVerificationSms) | **POST** /verifications/sms | Trigger a SMS verification
+*VerifyApi* | [**createFlashcallVerification**](docs/VerifyApi.md#createFlashcallVerification) | **POST** /verifications/flashcall | Trigger Flash call verification
+*VerifyApi* | [**createVerificationCall**](docs/VerifyApi.md#createVerificationCall) | **POST** /verifications/call | Trigger Call verification
+*VerifyApi* | [**createVerificationSms**](docs/VerifyApi.md#createVerificationSms) | **POST** /verifications/sms | Trigger SMS verification
 *VerifyApi* | [**createVerifyProfile**](docs/VerifyApi.md#createVerifyProfile) | **POST** /verify_profiles | Create a Verify profile
-*VerifyApi* | [**deleteProfile**](docs/VerifyApi.md#deleteProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete a Verify profile
-*VerifyApi* | [**getVerifyProfile**](docs/VerifyApi.md#getVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve a Verify profile
-*VerifyApi* | [**listProfileMessageTemplates**](docs/VerifyApi.md#listProfileMessageTemplates) | **GET** /verify_profiles/templates | Retrieve a Verify profile message templates
+*VerifyApi* | [**deleteProfile**](docs/VerifyApi.md#deleteProfile) | **DELETE** /verify_profiles/{verify_profile_id} | Delete Verify profile
+*VerifyApi* | [**getVerifyProfile**](docs/VerifyApi.md#getVerifyProfile) | **GET** /verify_profiles/{verify_profile_id} | Retrieve Verify profile
+*VerifyApi* | [**listProfileMessageTemplates**](docs/VerifyApi.md#listProfileMessageTemplates) | **GET** /verify_profiles/templates | Retrieve Verify profile message templates
 *VerifyApi* | [**listProfiles**](docs/VerifyApi.md#listProfiles) | **GET** /verify_profiles | List all Verify profiles
 *VerifyApi* | [**listVerifications**](docs/VerifyApi.md#listVerifications) | **GET** /verifications/by_phone_number/{phone_number} | List verifications by phone number
-*VerifyApi* | [**retrieveVerification**](docs/VerifyApi.md#retrieveVerification) | **GET** /verifications/{verification_id} | Retrieve a verification
-*VerifyApi* | [**updateVerifyProfile**](docs/VerifyApi.md#updateVerifyProfile) | **PATCH** /verify_profiles/{verify_profile_id} | Update a Verify profile
-*VerifyApi* | [**verifyVerificationCode**](docs/VerifyApi.md#verifyVerificationCode) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Submit a verification code. Deprecation notice: &#x60;verify_profile_id&#39; is now a mandatory field. The sunset date for this change is 2022-04-02 00:00:00.
+*VerifyApi* | [**retrieveVerification**](docs/VerifyApi.md#retrieveVerification) | **GET** /verifications/{verification_id} | Retrieve verification
+*VerifyApi* | [**updateVerifyProfile**](docs/VerifyApi.md#updateVerifyProfile) | **PATCH** /verify_profiles/{verify_profile_id} | Update Verify profile
+*VerifyApi* | [**verifyVerificationCodeById**](docs/VerifyApi.md#verifyVerificationCodeById) | **POST** /verifications/{verification_id}/actions/verify | Verify verification code by ID
+*VerifyApi* | [**verifyVerificationCodeByPhoneNumber**](docs/VerifyApi.md#verifyVerificationCodeByPhoneNumber) | **POST** /verifications/by_phone_number/{phone_number}/actions/verify | Verify verification code by phone number
 *VirtualCrossConnectsApi* | [**createVirtualCrossConnect**](docs/VirtualCrossConnectsApi.md#createVirtualCrossConnect) | **POST** /virtual_cross_connects | Create a Virtual Cross Connect
 *VirtualCrossConnectsApi* | [**deleteVirtualCrossConnect**](docs/VirtualCrossConnectsApi.md#deleteVirtualCrossConnect) | **DELETE** /virtual_cross_connects/{id} | Delete a Virtual Cross Connect
 *VirtualCrossConnectsApi* | [**getVirtualCrossConnect**](docs/VirtualCrossConnectsApi.md#getVirtualCrossConnect) | **GET** /virtual_cross_connects/{id} | Retrieve a Virtual Cross Connect
-*VirtualCrossConnectsApi* | [**getVirtualCrossConnectRegion**](docs/VirtualCrossConnectsApi.md#getVirtualCrossConnectRegion) | **GET** /virtual_cross_connect_regions/{id} | Retrieve a Virtual Cross Connect Cloud Regions
-*VirtualCrossConnectsApi* | [**listVirtualCrossConnectRegions**](docs/VirtualCrossConnectsApi.md#listVirtualCrossConnectRegions) | **GET** /virtual_cross_connect_regions | List all Virtual Cross Connect Cloud Regions
+*VirtualCrossConnectsApi* | [**listVirtualCrossConnectCoverage**](docs/VirtualCrossConnectsApi.md#listVirtualCrossConnectCoverage) | **GET** /virtual_cross_connects_coverage | List Virtual Cross Connect Cloud Coverage
 *VirtualCrossConnectsApi* | [**listVirtualCrossConnects**](docs/VirtualCrossConnectsApi.md#listVirtualCrossConnects) | **GET** /virtual_cross_connects | List all Virtual Cross Connects
-*VirtualCrossConnectsApi* | [**provisionVirtualCrossConnect**](docs/VirtualCrossConnectsApi.md#provisionVirtualCrossConnect) | **POST** /virtual_cross_connects/{id}/actions/provision | Provision a Virtual Cross Connect
 *VirtualCrossConnectsApi* | [**updateVirtualCrossConnect**](docs/VirtualCrossConnectsApi.md#updateVirtualCrossConnect) | **PATCH** /virtual_cross_connects/{id} | Update the Virtual Cross Connect
-*WdrDetailReportsApi* | [**getPaginatedWdrs**](docs/WdrDetailReportsApi.md#getPaginatedWdrs) | **GET** /reports/wdrs | 
+*VoicemailApi* | [**createVoicemail**](docs/VoicemailApi.md#createVoicemail) | **POST** /phone_numbers/{phone_number_id}/voicemail | Create voicemail
+*VoicemailApi* | [**getVoicemail**](docs/VoicemailApi.md#getVoicemail) | **GET** /phone_numbers/{phone_number_id}/voicemail | Get voicemail
+*VoicemailApi* | [**updateVoicemail**](docs/VoicemailApi.md#updateVoicemail) | **PATCH** /phone_numbers/{phone_number_id}/voicemail | Update voicemail
+*WdrDetailReportsApi* | [**getPaginatedWdrs**](docs/WdrDetailReportsApi.md#getPaginatedWdrs) | **GET** /reports/wdrs | Fetches all Wdr records
 *WebhooksApi* | [**getWebhookDeliveries**](docs/WebhooksApi.md#getWebhookDeliveries) | **GET** /webhook_deliveries | List webhook deliveries
 *WebhooksApi* | [**getWebhookDelivery**](docs/WebhooksApi.md#getWebhookDelivery) | **GET** /webhook_deliveries/{id} | Find webhook_delivery details by ID
 *WireGuardInterfacesApi* | [**createWireguardInterface**](docs/WireGuardInterfacesApi.md#createWireguardInterface) | **POST** /wireguard_interfaces | Create a WireGuard Interface
@@ -799,16 +848,19 @@ Class | Method | HTTP request | Description
 *WireGuardInterfacesApi* | [**deleteWireguardPeer**](docs/WireGuardInterfacesApi.md#deleteWireguardPeer) | **DELETE** /wireguard_peers/{id} | Delete the WireGuard Peer
 *WireGuardInterfacesApi* | [**getWireguardInterface**](docs/WireGuardInterfacesApi.md#getWireguardInterface) | **GET** /wireguard_interfaces/{id} | Retrieve a WireGuard Interfaces
 *WireGuardInterfacesApi* | [**getWireguardPeer**](docs/WireGuardInterfacesApi.md#getWireguardPeer) | **GET** /wireguard_peers/{id} | Retrieve the WireGuard Peer
-*WireGuardInterfacesApi* | [**getWireguardPeerAllowedIp**](docs/WireGuardInterfacesApi.md#getWireguardPeerAllowedIp) | **GET** /wireguard_peers/{id}/allowed_ips/{child_id} | Retrieve the Allowed IP
 *WireGuardInterfacesApi* | [**getWireguardPeerConfig**](docs/WireGuardInterfacesApi.md#getWireguardPeerConfig) | **GET** /wireguard_peers/{id}/config | Retrieve Wireguard config template for Peer
 *WireGuardInterfacesApi* | [**listWireguardInterfaces**](docs/WireGuardInterfacesApi.md#listWireguardInterfaces) | **GET** /wireguard_interfaces | List all WireGuard Interfaces
-*WireGuardInterfacesApi* | [**listWireguardPeerAllowedIps**](docs/WireGuardInterfacesApi.md#listWireguardPeerAllowedIps) | **GET** /wireguard_peers/{id}/allowed_ips | List all Allowed IPs for a WireGuard Peer
 *WireGuardInterfacesApi* | [**listWireguardPeers**](docs/WireGuardInterfacesApi.md#listWireguardPeers) | **GET** /wireguard_peers | List all WireGuard Peers
 *WireGuardInterfacesApi* | [**updateWireguardPeer**](docs/WireGuardInterfacesApi.md#updateWireguardPeer) | **PATCH** /wireguard_peers/{id} | Update the WireGuard Peer
+*WirelessRegionsApi* | [**wirelessRegionsGetAll**](docs/WirelessRegionsApi.md#wirelessRegionsGetAll) | **GET** /wireless/regions | Get all wireless regions
 
 
 ## Documentation for Models
 
+ - [AIAssistantStartRequest](docs/AIAssistantStartRequest.md)
+ - [AIAssistantStartRequestAssistant](docs/AIAssistantStartRequestAssistant.md)
+ - [AIAssistantStartRequestVoiceSettings](docs/AIAssistantStartRequestVoiceSettings.md)
+ - [AIAssistantStopRequest](docs/AIAssistantStopRequest.md)
  - [AcceptSuggestionsRequest](docs/AcceptSuggestionsRequest.md)
  - [AccessIPAddressListResponseSchema](docs/AccessIPAddressListResponseSchema.md)
  - [AccessIPAddressPOST](docs/AccessIPAddressPOST.md)
@@ -825,6 +877,9 @@ Class | Method | HTTP request | Description
  - [AddressCreate](docs/AddressCreate.md)
  - [AddressSuggestionResponse](docs/AddressSuggestionResponse.md)
  - [AddressSuggestionResponseData](docs/AddressSuggestionResponseData.md)
+ - [AdvancedOrderRequest](docs/AdvancedOrderRequest.md)
+ - [AdvancedOrderResponse](docs/AdvancedOrderResponse.md)
+ - [AdvancedOrderResponseData](docs/AdvancedOrderResponseData.md)
  - [AltBusinessIdType](docs/AltBusinessIdType.md)
  - [AmdDetailRecord](docs/AmdDetailRecord.md)
  - [AnchorsiteOverride](docs/AnchorsiteOverride.md)
@@ -832,7 +887,6 @@ Class | Method | HTTP request | Description
  - [AssignPhoneNumberRequest](docs/AssignPhoneNumberRequest.md)
  - [AssignProfileToCampaignRequest](docs/AssignProfileToCampaignRequest.md)
  - [AssignProfileToCampaignResponse](docs/AssignProfileToCampaignResponse.md)
- - [AssignmentStatus](docs/AssignmentStatus.md)
  - [AssignmentTaskStatusResponse](docs/AssignmentTaskStatusResponse.md)
  - [Assistant](docs/Assistant.md)
  - [AssistantDeletedResponse](docs/AssistantDeletedResponse.md)
@@ -840,6 +894,11 @@ Class | Method | HTTP request | Description
  - [Attempt](docs/Attempt.md)
  - [AudioTranscriptionResponse](docs/AudioTranscriptionResponse.md)
  - [AudioTranscriptionResponseSegments](docs/AudioTranscriptionResponseSegments.md)
+ - [AuditEventChangesInner](docs/AuditEventChangesInner.md)
+ - [AuditEventChangesInnerFrom](docs/AuditEventChangesInnerFrom.md)
+ - [AuditEventChangesInnerTo](docs/AuditEventChangesInnerTo.md)
+ - [AuditLog](docs/AuditLog.md)
+ - [AuditLogList](docs/AuditLogList.md)
  - [AuthenticationProvider](docs/AuthenticationProvider.md)
  - [AuthenticationProviderCreate](docs/AuthenticationProviderCreate.md)
  - [AuthenticationProviderSettings](docs/AuthenticationProviderSettings.md)
@@ -852,7 +911,11 @@ Class | Method | HTTP request | Description
  - [AvailablePhoneNumber](docs/AvailablePhoneNumber.md)
  - [AvailablePhoneNumberBlock](docs/AvailablePhoneNumberBlock.md)
  - [AvailablePhoneNumbersMetadata](docs/AvailablePhoneNumbersMetadata.md)
+ - [AvailableService](docs/AvailableService.md)
  - [AzureConfigurationData](docs/AzureConfigurationData.md)
+ - [BackgroundTaskStatus](docs/BackgroundTaskStatus.md)
+ - [BackgroundTasksQueryResponse](docs/BackgroundTasksQueryResponse.md)
+ - [BackgroundTasksQueryResponseData](docs/BackgroundTasksQueryResponseData.md)
  - [BillingGroup](docs/BillingGroup.md)
  - [BrandBasic](docs/BrandBasic.md)
  - [BrandFeedback](docs/BrandFeedback.md)
@@ -861,9 +924,6 @@ Class | Method | HTTP request | Description
  - [BrandOptionalAttributes](docs/BrandOptionalAttributes.md)
  - [BrandRecordSetCSP](docs/BrandRecordSetCSP.md)
  - [BrandRelationship](docs/BrandRelationship.md)
- - [BrandRequest](docs/BrandRequest.md)
- - [BrandResponse](docs/BrandResponse.md)
- - [BrandStatus](docs/BrandStatus.md)
  - [BridgeRequest](docs/BridgeRequest.md)
  - [BucketAPIUsageResponse](docs/BucketAPIUsageResponse.md)
  - [BucketIds](docs/BucketIds.md)
@@ -871,25 +931,25 @@ Class | Method | HTTP request | Description
  - [BucketOps](docs/BucketOps.md)
  - [BucketOpsTotal](docs/BucketOpsTotal.md)
  - [BucketUsage](docs/BucketUsage.md)
- - [BulkCreationDetailedStatusResponse](docs/BulkCreationDetailedStatusResponse.md)
- - [BulkCreationRequest](docs/BulkCreationRequest.md)
- - [BulkCreationResponse](docs/BulkCreationResponse.md)
- - [BulkCreationStatusResponse](docs/BulkCreationStatusResponse.md)
- - [BulkCreationTasksResponse](docs/BulkCreationTasksResponse.md)
- - [BulkCredentialRequest](docs/BulkCredentialRequest.md)
- - [BulkCredentialResponse](docs/BulkCredentialResponse.md)
- - [BulkCredentialResponseData](docs/BulkCredentialResponseData.md)
+ - [BulkMessagingSettingsUpdatePhoneNumbers](docs/BulkMessagingSettingsUpdatePhoneNumbers.md)
+ - [BulkMessagingSettingsUpdatePhoneNumbersRequest](docs/BulkMessagingSettingsUpdatePhoneNumbersRequest.md)
  - [BulkRoomRecordingsDeleteResponse](docs/BulkRoomRecordingsDeleteResponse.md)
  - [BulkRoomRecordingsDeleteResponseData](docs/BulkRoomRecordingsDeleteResponseData.md)
  - [BulkSIMCardAction](docs/BulkSIMCardAction.md)
  - [BulkSIMCardActionDetailed](docs/BulkSIMCardActionDetailed.md)
- - [BulkSimCardNetworkPreferences202Response](docs/BulkSimCardNetworkPreferences202Response.md)
- - [BulkSimCardNetworkPreferencesRequest](docs/BulkSimCardNetworkPreferencesRequest.md)
- - [BusinessIdentity](docs/BusinessIdentity.md)
- - [BusinessIdentityAddress](docs/BusinessIdentityAddress.md)
- - [BusinessIdentityContactsInner](docs/BusinessIdentityContactsInner.md)
  - [CSVDownloadResponse](docs/CSVDownloadResponse.md)
  - [Call](docs/Call.md)
+ - [CallAIGatherEnded](docs/CallAIGatherEnded.md)
+ - [CallAIGatherEndedEvent](docs/CallAIGatherEndedEvent.md)
+ - [CallAIGatherEndedPayload](docs/CallAIGatherEndedPayload.md)
+ - [CallAIGatherPartialResults](docs/CallAIGatherPartialResults.md)
+ - [CallAIGatherPartialResultsEvent](docs/CallAIGatherPartialResultsEvent.md)
+ - [CallAIGatherPartialResultsPayload](docs/CallAIGatherPartialResultsPayload.md)
+ - [CallAIGatherToolCallEvent](docs/CallAIGatherToolCallEvent.md)
+ - [CallAIGatherToolCallEventData](docs/CallAIGatherToolCallEventData.md)
+ - [CallAIGatherToolCallEventDataPayload](docs/CallAIGatherToolCallEventDataPayload.md)
+ - [CallAIGatherToolCallEventDataPayloadToolCall](docs/CallAIGatherToolCallEventDataPayloadToolCall.md)
+ - [CallAIGatherToolCallEventDataPayloadToolCallFunction](docs/CallAIGatherToolCallEventDataPayloadToolCallFunction.md)
  - [CallAnswered](docs/CallAnswered.md)
  - [CallAnsweredEvent](docs/CallAnsweredEvent.md)
  - [CallAnsweredPayload](docs/CallAnsweredPayload.md)
@@ -902,11 +962,6 @@ Class | Method | HTTP request | Description
  - [CallControlApplicationResponse](docs/CallControlApplicationResponse.md)
  - [CallControlCommandResponse](docs/CallControlCommandResponse.md)
  - [CallControlCommandResult](docs/CallControlCommandResult.md)
- - [CallCost](docs/CallCost.md)
- - [CallCostMeta](docs/CallCostMeta.md)
- - [CallCostMetaMeta](docs/CallCostMetaMeta.md)
- - [CallCostPayload](docs/CallCostPayload.md)
- - [CallCostPayloadCostPartsInner](docs/CallCostPayloadCostPartsInner.md)
  - [CallDtmfReceived](docs/CallDtmfReceived.md)
  - [CallDtmfReceivedEvent](docs/CallDtmfReceivedEvent.md)
  - [CallDtmfReceivedPayload](docs/CallDtmfReceivedPayload.md)
@@ -970,9 +1025,19 @@ Class | Method | HTTP request | Description
  - [CallReferStartedPayload](docs/CallReferStartedPayload.md)
  - [CallRequest](docs/CallRequest.md)
  - [CallRequestAnsweringMachineDetectionConfig](docs/CallRequestAnsweringMachineDetectionConfig.md)
+ - [CallRequestConferenceConfig](docs/CallRequestConferenceConfig.md)
  - [CallRequestTo](docs/CallRequestTo.md)
  - [CallResource](docs/CallResource.md)
  - [CallResourceIndex](docs/CallResourceIndex.md)
+ - [CallSiprecFailed](docs/CallSiprecFailed.md)
+ - [CallSiprecFailedEvent](docs/CallSiprecFailedEvent.md)
+ - [CallSiprecFailedPayload](docs/CallSiprecFailedPayload.md)
+ - [CallSiprecStarted](docs/CallSiprecStarted.md)
+ - [CallSiprecStartedEvent](docs/CallSiprecStartedEvent.md)
+ - [CallSiprecStartedPayload](docs/CallSiprecStartedPayload.md)
+ - [CallSiprecStopped](docs/CallSiprecStopped.md)
+ - [CallSiprecStoppedEvent](docs/CallSiprecStoppedEvent.md)
+ - [CallSiprecStoppedPayload](docs/CallSiprecStoppedPayload.md)
  - [CallSpeakEnded](docs/CallSpeakEnded.md)
  - [CallSpeakEndedEvent](docs/CallSpeakEndedEvent.md)
  - [CallSpeakEndedPayload](docs/CallSpeakEndedPayload.md)
@@ -990,39 +1055,34 @@ Class | Method | HTTP request | Description
  - [CallStreamingStoppedEvent](docs/CallStreamingStoppedEvent.md)
  - [CallbackWebhookMeta](docs/CallbackWebhookMeta.md)
  - [CallerName](docs/CallerName.md)
- - [Campaign](docs/Campaign.md)
- - [CampaignCSP](docs/CampaignCSP.md)
  - [CampaignCost](docs/CampaignCost.md)
  - [CampaignDeletionResponse](docs/CampaignDeletionResponse.md)
  - [CampaignRecordSetCSP](docs/CampaignRecordSetCSP.md)
- - [CampaignRegistryApiSchemasBulkCreationMeta](docs/CampaignRegistryApiSchemasBulkCreationMeta.md)
- - [CampaignRegistryApiSchemasBulkCreationTaskStatus](docs/CampaignRegistryApiSchemasBulkCreationTaskStatus.md)
  - [CampaignRequest](docs/CampaignRequest.md)
  - [CampaignSharingChain](docs/CampaignSharingChain.md)
  - [CampaignSharingStatus](docs/CampaignSharingStatus.md)
- - [CampaignStatus](docs/CampaignStatus.md)
  - [CampaignStatusUpdateEvent](docs/CampaignStatusUpdateEvent.md)
  - [CancelPortingOrder200Response](docs/CancelPortingOrder200Response.md)
  - [Carrier](docs/Carrier.md)
  - [CdrGetSyncUsageReportResponse](docs/CdrGetSyncUsageReportResponse.md)
  - [CdrUsageReportResponse](docs/CdrUsageReportResponse.md)
- - [ChatCompletionMessageToolCallFunctionParam](docs/ChatCompletionMessageToolCallFunctionParam.md)
- - [ChatCompletionMessageToolCallParam](docs/ChatCompletionMessageToolCallParam.md)
- - [ChatCompletionNamedToolChoiceFunctionParam](docs/ChatCompletionNamedToolChoiceFunctionParam.md)
  - [ChatCompletionRequest](docs/ChatCompletionRequest.md)
- - [ChatCompletionRequestToolsInner](docs/ChatCompletionRequestToolsInner.md)
+ - [ChatCompletionResponseFormatParam](docs/ChatCompletionResponseFormatParam.md)
  - [ChatCompletionSystemMessageParam](docs/ChatCompletionSystemMessageParam.md)
+ - [ChatCompletionSystemMessageParamContent](docs/ChatCompletionSystemMessageParamContent.md)
  - [ChatCompletionToolParam](docs/ChatCompletionToolParam.md)
  - [CivicAddress](docs/CivicAddress.md)
  - [ClientStateUpdateRequest](docs/ClientStateUpdateRequest.md)
  - [CloudflareSyncStatus](docs/CloudflareSyncStatus.md)
+ - [ClusterNode](docs/ClusterNode.md)
+ - [ClusteringRequestInfo](docs/ClusteringRequestInfo.md)
+ - [ClusteringRequestInfoData](docs/ClusteringRequestInfoData.md)
+ - [ClusteringStatusResponse](docs/ClusteringStatusResponse.md)
+ - [ClusteringStatusResponseData](docs/ClusteringStatusResponseData.md)
  - [CnamListing](docs/CnamListing.md)
  - [Comment](docs/Comment.md)
  - [CompleteOTAUpdate](docs/CompleteOTAUpdate.md)
  - [CompleteOTAUpdateSettings](docs/CompleteOTAUpdateSettings.md)
- - [CompositionCompleted](docs/CompositionCompleted.md)
- - [CompositionCompletedEvent](docs/CompositionCompletedEvent.md)
- - [CompositionCompletedPayload](docs/CompositionCompletedPayload.md)
  - [Conference](docs/Conference.md)
  - [ConferenceCommandResponse](docs/ConferenceCommandResponse.md)
  - [ConferenceCommandResult](docs/ConferenceCommandResult.md)
@@ -1046,20 +1106,20 @@ Class | Method | HTTP request | Description
  - [ConferenceParticipantLeftEvent](docs/ConferenceParticipantLeftEvent.md)
  - [ConferenceParticipantPlaybackEnded](docs/ConferenceParticipantPlaybackEnded.md)
  - [ConferenceParticipantPlaybackEndedEvent](docs/ConferenceParticipantPlaybackEndedEvent.md)
- - [ConferenceParticipantPlaybackEndedPayload](docs/ConferenceParticipantPlaybackEndedPayload.md)
  - [ConferenceParticipantPlaybackStarted](docs/ConferenceParticipantPlaybackStarted.md)
  - [ConferenceParticipantPlaybackStartedEvent](docs/ConferenceParticipantPlaybackStartedEvent.md)
+ - [ConferenceParticipantPlaybackStartedPayload](docs/ConferenceParticipantPlaybackStartedPayload.md)
  - [ConferenceParticipantSpeakEnded](docs/ConferenceParticipantSpeakEnded.md)
  - [ConferenceParticipantSpeakEndedEvent](docs/ConferenceParticipantSpeakEndedEvent.md)
- - [ConferenceParticipantSpeakEndedPayload](docs/ConferenceParticipantSpeakEndedPayload.md)
  - [ConferenceParticipantSpeakStarted](docs/ConferenceParticipantSpeakStarted.md)
  - [ConferenceParticipantSpeakStartedEvent](docs/ConferenceParticipantSpeakStartedEvent.md)
+ - [ConferenceParticipantSpeakStartedPayload](docs/ConferenceParticipantSpeakStartedPayload.md)
  - [ConferencePlayRequest](docs/ConferencePlayRequest.md)
  - [ConferencePlaybackEnded](docs/ConferencePlaybackEnded.md)
  - [ConferencePlaybackEndedEvent](docs/ConferencePlaybackEndedEvent.md)
- - [ConferencePlaybackEndedPayload](docs/ConferencePlaybackEndedPayload.md)
  - [ConferencePlaybackStarted](docs/ConferencePlaybackStarted.md)
  - [ConferencePlaybackStartedEvent](docs/ConferencePlaybackStartedEvent.md)
+ - [ConferencePlaybackStartedPayload](docs/ConferencePlaybackStartedPayload.md)
  - [ConferenceRecordingResource](docs/ConferenceRecordingResource.md)
  - [ConferenceRecordingResourceIndex](docs/ConferenceRecordingResourceIndex.md)
  - [ConferenceRecordingSaved](docs/ConferenceRecordingSaved.md)
@@ -1070,10 +1130,10 @@ Class | Method | HTTP request | Description
  - [ConferenceResponse](docs/ConferenceResponse.md)
  - [ConferenceSpeakEnded](docs/ConferenceSpeakEnded.md)
  - [ConferenceSpeakEndedEvent](docs/ConferenceSpeakEndedEvent.md)
- - [ConferenceSpeakEndedPayload](docs/ConferenceSpeakEndedPayload.md)
  - [ConferenceSpeakRequest](docs/ConferenceSpeakRequest.md)
  - [ConferenceSpeakStarted](docs/ConferenceSpeakStarted.md)
  - [ConferenceSpeakStartedEvent](docs/ConferenceSpeakStartedEvent.md)
+ - [ConferenceSpeakStartedPayload](docs/ConferenceSpeakStartedPayload.md)
  - [ConferenceStopRequest](docs/ConferenceStopRequest.md)
  - [ConferenceUnholdRequest](docs/ConferenceUnholdRequest.md)
  - [ConferenceUnmuteRequest](docs/ConferenceUnmuteRequest.md)
@@ -1083,6 +1143,8 @@ Class | Method | HTTP request | Description
  - [ConnectionRtcpSettings](docs/ConnectionRtcpSettings.md)
  - [ConsumedData](docs/ConsumedData.md)
  - [CostInformation](docs/CostInformation.md)
+ - [CountryCoverage](docs/CountryCoverage.md)
+ - [CountryCoverageLocal](docs/CountryCoverageLocal.md)
  - [CreateAdditionalDocuments201Response](docs/CreateAdditionalDocuments201Response.md)
  - [CreateAdditionalDocumentsRequest](docs/CreateAdditionalDocumentsRequest.md)
  - [CreateAdditionalDocumentsRequestAdditionalDocumentsInner](docs/CreateAdditionalDocumentsRequestAdditionalDocumentsInner.md)
@@ -1097,21 +1159,21 @@ Class | Method | HTTP request | Description
  - [CreateCallControlApplicationRequest](docs/CreateCallControlApplicationRequest.md)
  - [CreateComment200Response](docs/CreateComment200Response.md)
  - [CreateComment200ResponseData](docs/CreateComment200ResponseData.md)
- - [CreateComment201Response](docs/CreateComment201Response.md)
  - [CreateConferenceRequest](docs/CreateConferenceRequest.md)
  - [CreateCredentialConnectionRequest](docs/CreateCredentialConnectionRequest.md)
  - [CreateCustomerServiceRecord201Response](docs/CreateCustomerServiceRecord201Response.md)
  - [CreateCustomerServiceRecordRequest](docs/CreateCustomerServiceRecordRequest.md)
- - [CreateDocServiceDocumentRequest](docs/CreateDocServiceDocumentRequest.md)
  - [CreateDocument200Response](docs/CreateDocument200Response.md)
+ - [CreateDocumentRequest](docs/CreateDocumentRequest.md)
+ - [CreateDocumentRequestOneOf](docs/CreateDocumentRequestOneOf.md)
+ - [CreateDocumentRequestOneOf1](docs/CreateDocumentRequestOneOf1.md)
  - [CreateDynamicEmergencyAddress201Response](docs/CreateDynamicEmergencyAddress201Response.md)
  - [CreateDynamicEmergencyEndpoint201Response](docs/CreateDynamicEmergencyEndpoint201Response.md)
  - [CreateExternalConnectionRequest](docs/CreateExternalConnectionRequest.md)
- - [CreateExternalConnectionRequestInbound](docs/CreateExternalConnectionRequestInbound.md)
- - [CreateExternalConnectionRequestOutbound](docs/CreateExternalConnectionRequestOutbound.md)
  - [CreateExternalConnectionUploadRequest](docs/CreateExternalConnectionUploadRequest.md)
  - [CreateFaxApplicationRequest](docs/CreateFaxApplicationRequest.md)
- - [CreateFaxApplicationRequestInbound](docs/CreateFaxApplicationRequestInbound.md)
+ - [CreateFineTuningJobRequest](docs/CreateFineTuningJobRequest.md)
+ - [CreateFineTuningJobRequestHyperparameters](docs/CreateFineTuningJobRequestHyperparameters.md)
  - [CreateFqdnConnectionRequest](docs/CreateFqdnConnectionRequest.md)
  - [CreateFqdnRequest](docs/CreateFqdnRequest.md)
  - [CreateGlobalIp202Response](docs/CreateGlobalIp202Response.md)
@@ -1119,6 +1181,7 @@ Class | Method | HTTP request | Description
  - [CreateGlobalIpHealthCheck202Response](docs/CreateGlobalIpHealthCheck202Response.md)
  - [CreateGroupMMSMessageRequest](docs/CreateGroupMMSMessageRequest.md)
  - [CreateInboundIpRequest](docs/CreateInboundIpRequest.md)
+ - [CreateIntegrationSecretRequest](docs/CreateIntegrationSecretRequest.md)
  - [CreateInventoryCoverage200Response](docs/CreateInventoryCoverage200Response.md)
  - [CreateIosPushCredentialRequest](docs/CreateIosPushCredentialRequest.md)
  - [CreateIpConnectionRequest](docs/CreateIpConnectionRequest.md)
@@ -1131,30 +1194,46 @@ Class | Method | HTTP request | Description
  - [CreateMessageRequest](docs/CreateMessageRequest.md)
  - [CreateMessagingHostedNumberOrderRequest](docs/CreateMessagingHostedNumberOrderRequest.md)
  - [CreateMessagingProfileRequest](docs/CreateMessagingProfileRequest.md)
+ - [CreateMigration200Response](docs/CreateMigration200Response.md)
+ - [CreateMigrationSource200Response](docs/CreateMigrationSource200Response.md)
  - [CreateNetwork200Response](docs/CreateNetwork200Response.md)
  - [CreateNotificationChannels200Response](docs/CreateNotificationChannels200Response.md)
  - [CreateNotificationProfile200Response](docs/CreateNotificationProfile200Response.md)
  - [CreateNotificationSetting200Response](docs/CreateNotificationSetting200Response.md)
  - [CreateNumberBlockOrderRequest](docs/CreateNumberBlockOrderRequest.md)
- - [CreateNumberOrderDocumentRequest](docs/CreateNumberOrderDocumentRequest.md)
  - [CreateNumberOrderRequest](docs/CreateNumberOrderRequest.md)
+ - [CreateNumberOrderRequestPhoneNumbersInner](docs/CreateNumberOrderRequestPhoneNumbersInner.md)
  - [CreateNumberPoolMessageRequest](docs/CreateNumberPoolMessageRequest.md)
  - [CreateNumberReservationRequest](docs/CreateNumberReservationRequest.md)
- - [CreateOrUpdateBusinessIdentityRequest](docs/CreateOrUpdateBusinessIdentityRequest.md)
  - [CreateOutboundVoiceProfileRequest](docs/CreateOutboundVoiceProfileRequest.md)
  - [CreatePhoneNumberConfigurations201Response](docs/CreatePhoneNumberConfigurations201Response.md)
  - [CreatePhoneNumberConfigurationsRequest](docs/CreatePhoneNumberConfigurationsRequest.md)
  - [CreatePhoneNumberConfigurationsRequestPhoneNumberConfigurationsInner](docs/CreatePhoneNumberConfigurationsRequestPhoneNumberConfigurationsInner.md)
+ - [CreatePortingComment201Response](docs/CreatePortingComment201Response.md)
  - [CreatePortingOrder](docs/CreatePortingOrder.md)
  - [CreatePortingOrder201Response](docs/CreatePortingOrder201Response.md)
  - [CreatePortingOrderComment](docs/CreatePortingOrderComment.md)
+ - [CreatePortingPhoneNumberBlock201Response](docs/CreatePortingPhoneNumberBlock201Response.md)
+ - [CreatePortingPhoneNumberBlockRequest](docs/CreatePortingPhoneNumberBlockRequest.md)
+ - [CreatePortingPhoneNumberBlockRequestActivationRangesInner](docs/CreatePortingPhoneNumberBlockRequestActivationRangesInner.md)
+ - [CreatePortingPhoneNumberBlockRequestPhoneNumberRange](docs/CreatePortingPhoneNumberBlockRequestPhoneNumberRange.md)
+ - [CreatePortingPhoneNumberExtension201Response](docs/CreatePortingPhoneNumberExtension201Response.md)
+ - [CreatePortingPhoneNumberExtensionRequest](docs/CreatePortingPhoneNumberExtensionRequest.md)
+ - [CreatePortingPhoneNumberExtensionRequestActivationRangesInner](docs/CreatePortingPhoneNumberExtensionRequestActivationRangesInner.md)
+ - [CreatePortingPhoneNumberExtensionRequestExtensionRange](docs/CreatePortingPhoneNumberExtensionRequestExtensionRange.md)
  - [CreatePortingReport201Response](docs/CreatePortingReport201Response.md)
  - [CreatePortingReportRequest](docs/CreatePortingReportRequest.md)
  - [CreatePortingReportRequestParams](docs/CreatePortingReportRequestParams.md)
+ - [CreatePortoutReport201Response](docs/CreatePortoutReport201Response.md)
+ - [CreatePortoutReportRequest](docs/CreatePortoutReportRequest.md)
+ - [CreatePortoutReportRequestParams](docs/CreatePortoutReportRequestParams.md)
  - [CreatePrivateWirelessGateway202Response](docs/CreatePrivateWirelessGateway202Response.md)
  - [CreatePrivateWirelessGatewayRequest](docs/CreatePrivateWirelessGatewayRequest.md)
  - [CreatePublicInternetGateway202Response](docs/CreatePublicInternetGateway202Response.md)
  - [CreatePushCredentialRequest](docs/CreatePushCredentialRequest.md)
+ - [CreateQueueRequest](docs/CreateQueueRequest.md)
+ - [CreateRequirementGroupRequest](docs/CreateRequirementGroupRequest.md)
+ - [CreateRequirementGroupRequestRegulatoryRequirementsInner](docs/CreateRequirementGroupRequestRegulatoryRequirementsInner.md)
  - [CreateRoom201Response](docs/CreateRoom201Response.md)
  - [CreateRoomClientToken201Response](docs/CreateRoomClientToken201Response.md)
  - [CreateRoomClientToken201ResponseData](docs/CreateRoomClientToken201ResponseData.md)
@@ -1168,15 +1247,13 @@ Class | Method | HTTP request | Description
  - [CreateTeXMLSecretRequest](docs/CreateTeXMLSecretRequest.md)
  - [CreateTeXMLSecretResult](docs/CreateTeXMLSecretResult.md)
  - [CreateTexmlApplicationRequest](docs/CreateTexmlApplicationRequest.md)
- - [CreateTexmlApplicationRequestInbound](docs/CreateTexmlApplicationRequestInbound.md)
- - [CreateTexmlApplicationRequestOutbound](docs/CreateTexmlApplicationRequestOutbound.md)
  - [CreateUploadRequestResponse](docs/CreateUploadRequestResponse.md)
  - [CreateUploadRequestResponse1](docs/CreateUploadRequestResponse1.md)
+ - [CreateUserAddress200Response](docs/CreateUserAddress200Response.md)
  - [CreateVerificationRequestCall](docs/CreateVerificationRequestCall.md)
  - [CreateVerificationRequestFlashcall](docs/CreateVerificationRequestFlashcall.md)
  - [CreateVerificationRequestSMS](docs/CreateVerificationRequestSMS.md)
  - [CreateVerificationResponse](docs/CreateVerificationResponse.md)
- - [CreateVerifiedCallsDisplayProfileRequest](docs/CreateVerifiedCallsDisplayProfileRequest.md)
  - [CreateVerifiedNumberRequest](docs/CreateVerifiedNumberRequest.md)
  - [CreateVerifiedNumberResponse](docs/CreateVerifiedNumberResponse.md)
  - [CreateVerifyProfileCallRequest](docs/CreateVerifyProfileCallRequest.md)
@@ -1187,14 +1264,12 @@ Class | Method | HTTP request | Description
  - [CreateWdrReport201Response](docs/CreateWdrReport201Response.md)
  - [CreateWireguardInterface202Response](docs/CreateWireguardInterface202Response.md)
  - [CreateWireguardPeer202Response](docs/CreateWireguardPeer202Response.md)
- - [CreationStatus](docs/CreationStatus.md)
  - [CredentialConnection](docs/CredentialConnection.md)
  - [CredentialConnectionResponse](docs/CredentialConnectionResponse.md)
  - [CredentialInbound](docs/CredentialInbound.md)
  - [CredentialOutbound](docs/CredentialOutbound.md)
  - [CredentialsResponse](docs/CredentialsResponse.md)
  - [CsvDownload](docs/CsvDownload.md)
- - [Currencies](docs/Currencies.md)
  - [Cursor](docs/Cursor.md)
  - [CursorPaginationMeta](docs/CursorPaginationMeta.md)
  - [CustomSipHeader](docs/CustomSipHeader.md)
@@ -1209,12 +1284,10 @@ Class | Method | HTTP request | Description
  - [CustomerServiceRecordStatusChangedEvent](docs/CustomerServiceRecordStatusChangedEvent.md)
  - [CustomerServiceRecordStatusChangedEventPayload](docs/CustomerServiceRecordStatusChangedEventPayload.md)
  - [CustomerServiceRecordsPostRequest](docs/CustomerServiceRecordsPostRequest.md)
- - [Dca](docs/Dca.md)
  - [DefaultGateway](docs/DefaultGateway.md)
  - [DeleteObjectsRequestInner](docs/DeleteObjectsRequestInner.md)
  - [DetailRecord](docs/DetailRecord.md)
  - [DetailRecordsSearchResponse](docs/DetailRecordsSearchResponse.md)
- - [DetailedTaskStatus](docs/DetailedTaskStatus.md)
  - [DialogflowConfig](docs/DialogflowConfig.md)
  - [DialogflowConnection](docs/DialogflowConnection.md)
  - [DialogflowConnectionResponse](docs/DialogflowConnectionResponse.md)
@@ -1226,14 +1299,13 @@ Class | Method | HTTP request | Description
  - [DocServiceDocument](docs/DocServiceDocument.md)
  - [DocServiceDocumentAllOfSize](docs/DocServiceDocumentAllOfSize.md)
  - [DocServiceDocumentLink](docs/DocServiceDocumentLink.md)
- - [DocServiceDocumentUploadInline](docs/DocServiceDocumentUploadInline.md)
- - [DocServiceDocumentUploadURL](docs/DocServiceDocumentUploadURL.md)
  - [DocServiceRecord](docs/DocServiceRecord.md)
  - [DownlinkData](docs/DownlinkData.md)
  - [DtmfType](docs/DtmfType.md)
  - [DynamicEmergencyAddress](docs/DynamicEmergencyAddress.md)
  - [DynamicEmergencyEndpoint](docs/DynamicEmergencyEndpoint.md)
  - [ESimPurchase](docs/ESimPurchase.md)
+ - [ElevenLabsVoiceSettings](docs/ElevenLabsVoiceSettings.md)
  - [EmbeddingBucketRequest](docs/EmbeddingBucketRequest.md)
  - [EmbeddingMetadata](docs/EmbeddingMetadata.md)
  - [EmbeddingResponse](docs/EmbeddingResponse.md)
@@ -1250,17 +1322,20 @@ Class | Method | HTTP request | Description
  - [EndSession200ResponseData](docs/EndSession200ResponseData.md)
  - [EnqueueRequest](docs/EnqueueRequest.md)
  - [EntityType](docs/EntityType.md)
+ - [EnumListResponseInner](docs/EnumListResponseInner.md)
  - [Error](docs/Error.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [ErrorResponseErrorsInner](docs/ErrorResponseErrorsInner.md)
  - [ErrorResponseErrorsInnerMeta](docs/ErrorResponseErrorsInnerMeta.md)
  - [ErrorResponseErrorsInnerSource](docs/ErrorResponseErrorsInnerSource.md)
  - [Errors](docs/Errors.md)
- - [Exchange](docs/Exchange.md)
  - [ExportPortingOrdersCSVReport](docs/ExportPortingOrdersCSVReport.md)
  - [ExportPortingOrdersCSVReportFilters](docs/ExportPortingOrdersCSVReportFilters.md)
- - [ExtVettingProvider](docs/ExtVettingProvider.md)
+ - [ExportPortoutsCSVReport](docs/ExportPortoutsCSVReport.md)
+ - [ExportPortoutsCSVReportFilters](docs/ExportPortoutsCSVReportFilters.md)
  - [ExternalConnection](docs/ExternalConnection.md)
+ - [ExternalConnectionInbound](docs/ExternalConnectionInbound.md)
+ - [ExternalConnectionOutbound](docs/ExternalConnectionOutbound.md)
  - [ExternalConnectionPhoneNumber](docs/ExternalConnectionPhoneNumber.md)
  - [ExternalConnectionResponse](docs/ExternalConnectionResponse.md)
  - [ExternalSipConnection](docs/ExternalSipConnection.md)
@@ -1272,6 +1347,7 @@ Class | Method | HTTP request | Description
  - [FQDNResponse](docs/FQDNResponse.md)
  - [Fax](docs/Fax.md)
  - [FaxApplication](docs/FaxApplication.md)
+ - [FaxApplicationInbound](docs/FaxApplicationInbound.md)
  - [FaxApplicationResponse](docs/FaxApplicationResponse.md)
  - [FaxDelivered](docs/FaxDelivered.md)
  - [FaxDeliveredPayload](docs/FaxDeliveredPayload.md)
@@ -1284,7 +1360,6 @@ Class | Method | HTTP request | Description
  - [FaxSendingStarted](docs/FaxSendingStarted.md)
  - [FaxSendingStartedPayload](docs/FaxSendingStartedPayload.md)
  - [Feature](docs/Feature.md)
- - [Filter](docs/Filter.md)
  - [FindAddresses200Response](docs/FindAddresses200Response.md)
  - [FindAuthenticationProviders200Response](docs/FindAuthenticationProviders200Response.md)
  - [FindNotificationsEvents200Response](docs/FindNotificationsEvents200Response.md)
@@ -1292,20 +1367,23 @@ Class | Method | HTTP request | Description
  - [FindNotificationsProfiles200Response](docs/FindNotificationsProfiles200Response.md)
  - [FindPortoutComments200Response](docs/FindPortoutComments200Response.md)
  - [FindPortoutRequest200Response](docs/FindPortoutRequest200Response.md)
+ - [FindUserAddress200Response](docs/FindUserAddress200Response.md)
+ - [FineTuningJob](docs/FineTuningJob.md)
+ - [FineTuningJobHyperparameters](docs/FineTuningJobHyperparameters.md)
+ - [FineTuningJobsListData](docs/FineTuningJobsListData.md)
  - [ForbiddenError](docs/ForbiddenError.md)
  - [ForbiddenErrorAllOfMeta](docs/ForbiddenErrorAllOfMeta.md)
  - [Fqdn](docs/Fqdn.md)
  - [FqdnConnection](docs/FqdnConnection.md)
  - [FqdnConnectionTransportProtocol](docs/FqdnConnectionTransportProtocol.md)
- - [FunctionCall](docs/FunctionCall.md)
  - [FunctionDefinition](docs/FunctionDefinition.md)
- - [FunctionDetailInput](docs/FunctionDetailInput.md)
- - [FunctionDetailOutput](docs/FunctionDetailOutput.md)
- - [FunctionParameters](docs/FunctionParameters.md)
  - [GCSConfigurationData](docs/GCSConfigurationData.md)
  - [GatherRequest](docs/GatherRequest.md)
+ - [GatherUsingAIRequest](docs/GatherUsingAIRequest.md)
+ - [GatherUsingAIRequestMessageHistoryInner](docs/GatherUsingAIRequestMessageHistoryInner.md)
  - [GatherUsingAudioRequest](docs/GatherUsingAudioRequest.md)
  - [GatherUsingSpeakRequest](docs/GatherUsingSpeakRequest.md)
+ - [GatherUsingSpeakRequestVoiceSettings](docs/GatherUsingSpeakRequestVoiceSettings.md)
  - [GcbChannelZone](docs/GcbChannelZone.md)
  - [GcbPhoneNumber](docs/GcbPhoneNumber.md)
  - [GenericError](docs/GenericError.md)
@@ -1323,6 +1401,7 @@ Class | Method | HTTP request | Description
  - [GetCustomerServiceRecord201Response](docs/GetCustomerServiceRecord201Response.md)
  - [GetCustomerServiceRecord404Response](docs/GetCustomerServiceRecord404Response.md)
  - [GetDefaultGateway200Response](docs/GetDefaultGateway200Response.md)
+ - [GetEnumEndpoint200Response](docs/GetEnumEndpoint200Response.md)
  - [GetExternalConnectionPhoneNumberResponse](docs/GetExternalConnectionPhoneNumberResponse.md)
  - [GetFaxResponse](docs/GetFaxResponse.md)
  - [GetGlobalIpAssignmentHealth200Response](docs/GetGlobalIpAssignmentHealth200Response.md)
@@ -1330,6 +1409,8 @@ Class | Method | HTTP request | Description
  - [GetGlobalIpLatency200Response](docs/GetGlobalIpLatency200Response.md)
  - [GetGlobalIpUsage200Response](docs/GetGlobalIpUsage200Response.md)
  - [GetLogMessageResponse](docs/GetLogMessageResponse.md)
+ - [GetMessage200Response](docs/GetMessage200Response.md)
+ - [GetMessage200ResponseData](docs/GetMessage200ResponseData.md)
  - [GetMobileNetworkOperators200Response](docs/GetMobileNetworkOperators200Response.md)
  - [GetOtaUpdate200Response](docs/GetOtaUpdate200Response.md)
  - [GetPhoneNumbers200Response](docs/GetPhoneNumbers200Response.md)
@@ -1337,6 +1418,7 @@ Class | Method | HTTP request | Description
  - [GetPortingOrder200Response](docs/GetPortingOrder200Response.md)
  - [GetPortingOrder200ResponseMeta](docs/GetPortingOrder200ResponseMeta.md)
  - [GetPortingOrderSubRequest200Response](docs/GetPortingOrderSubRequest200Response.md)
+ - [GetPrivateWirelessGateway200Response](docs/GetPrivateWirelessGateway200Response.md)
  - [GetPrivateWirelessGateways200Response](docs/GetPrivateWirelessGateways200Response.md)
  - [GetRecordingTranscription200Response](docs/GetRecordingTranscription200Response.md)
  - [GetRecordingTranscriptions200Response](docs/GetRecordingTranscriptions200Response.md)
@@ -1348,21 +1430,22 @@ Class | Method | HTTP request | Description
  - [GetSimCardDeviceDetails200Response](docs/GetSimCardDeviceDetails200Response.md)
  - [GetSimCardGroupAction200Response](docs/GetSimCardGroupAction200Response.md)
  - [GetSimCardGroupActions200Response](docs/GetSimCardGroupActions200Response.md)
- - [GetSimCardNetworkPreferences200Response](docs/GetSimCardNetworkPreferences200Response.md)
  - [GetSimCardOrders200Response](docs/GetSimCardOrders200Response.md)
  - [GetSimCardPublicIp200Response](docs/GetSimCardPublicIp200Response.md)
  - [GetSimCards200Response](docs/GetSimCards200Response.md)
  - [GetStorageAPIUsage200Response](docs/GetStorageAPIUsage200Response.md)
+ - [GetStorageSSLCertificates200Response](docs/GetStorageSSLCertificates200Response.md)
  - [GetSubRequestByPortingOrder](docs/GetSubRequestByPortingOrder.md)
  - [GetUploadResponse](docs/GetUploadResponse.md)
  - [GetUploadsStatusResponse](docs/GetUploadsStatusResponse.md)
  - [GetUploadsStatusResponseData](docs/GetUploadsStatusResponseData.md)
  - [GetUserBalance200Response](docs/GetUserBalance200Response.md)
- - [GetVirtualCrossConnectRegion200Response](docs/GetVirtualCrossConnectRegion200Response.md)
+ - [GetUserTags200Response](docs/GetUserTags200Response.md)
+ - [GetUserTags200ResponseData](docs/GetUserTags200ResponseData.md)
+ - [GetVoicemail200Response](docs/GetVoicemail200Response.md)
  - [GetWdrReports200Response](docs/GetWdrReports200Response.md)
  - [GetWebhookDeliveries200Response](docs/GetWebhookDeliveries200Response.md)
  - [GetWebhookDelivery200Response](docs/GetWebhookDelivery200Response.md)
- - [GetWireguardPeerAllowedIp200Response](docs/GetWireguardPeerAllowedIp200Response.md)
  - [GetWirelessConnectivityLogs200Response](docs/GetWirelessConnectivityLogs200Response.md)
  - [GlobalIP](docs/GlobalIP.md)
  - [GlobalIPAllowedPort](docs/GlobalIPAllowedPort.md)
@@ -1395,14 +1478,12 @@ Class | Method | HTTP request | Description
  - [GlobalIpLatencyMetricProberLocation](docs/GlobalIpLatencyMetricProberLocation.md)
  - [GlobalIpUsageMetric](docs/GlobalIpUsageMetric.md)
  - [GlobalIpUsageMetricGlobalIp](docs/GlobalIpUsageMetricGlobalIp.md)
+ - [GoogleTranscriptionLanguage](docs/GoogleTranscriptionLanguage.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
  - [HangupRequest](docs/HangupRequest.md)
  - [HostedNumber](docs/HostedNumber.md)
  - [Http](docs/Http.md)
  - [HttpRequest](docs/HttpRequest.md)
- - [HttpResponse](docs/HttpResponse.md)
- - [ImageURL](docs/ImageURL.md)
- - [ImmutableSetLong](docs/ImmutableSetLong.md)
  - [ImportExternalVetting](docs/ImportExternalVetting.md)
  - [InboundFqdn](docs/InboundFqdn.md)
  - [InboundIp](docs/InboundIp.md)
@@ -1410,19 +1491,16 @@ Class | Method | HTTP request | Description
  - [InboundMessageEvent](docs/InboundMessageEvent.md)
  - [InboundMessagePayload](docs/InboundMessagePayload.md)
  - [InboundMessagePayloadCcInner](docs/InboundMessagePayloadCcInner.md)
- - [InboundMessagePayloadCost](docs/InboundMessagePayloadCost.md)
  - [InboundMessagePayloadFrom](docs/InboundMessagePayloadFrom.md)
  - [InboundMessagePayloadMediaInner](docs/InboundMessagePayloadMediaInner.md)
  - [InboundMessagePayloadToInner](docs/InboundMessagePayloadToInner.md)
- - [InferenceRequest](docs/InferenceRequest.md)
- - [InferenceResponse](docs/InferenceResponse.md)
- - [InferenceResponseData](docs/InferenceResponseData.md)
- - [InferenceResponseStreamData](docs/InferenceResponseStreamData.md)
- - [InferenceStreamResponse](docs/InferenceStreamResponse.md)
  - [InitiateCallRequest](docs/InitiateCallRequest.md)
  - [InitiateCallResult](docs/InitiateCallResult.md)
- - [InitiateTeXMLCallResponse](docs/InitiateTeXMLCallResponse.md)
+ - [IntegrationSecret](docs/IntegrationSecret.md)
+ - [IntegrationSecretCreatedResponse](docs/IntegrationSecretCreatedResponse.md)
+ - [IntegrationSecretsListData](docs/IntegrationSecretsListData.md)
  - [InterfaceStatus](docs/InterfaceStatus.md)
+ - [InterruptionSettings](docs/InterruptionSettings.md)
  - [InventoryCoverage](docs/InventoryCoverage.md)
  - [InventoryCoverageMetadata](docs/InventoryCoverageMetadata.md)
  - [Ip](docs/Ip.md)
@@ -1434,14 +1512,15 @@ Class | Method | HTTP request | Description
  - [LeaveQueueRequest](docs/LeaveQueueRequest.md)
  - [LedgerBillingGroupReport](docs/LedgerBillingGroupReport.md)
  - [ListAdditionalDocuments200Response](docs/ListAdditionalDocuments200Response.md)
+ - [ListAdvancedOrderResponse](docs/ListAdvancedOrderResponse.md)
  - [ListAllocatableGlobalOutboundChannels200Response](docs/ListAllocatableGlobalOutboundChannels200Response.md)
  - [ListAllowedFocWindows200Response](docs/ListAllowedFocWindows200Response.md)
  - [ListAvailablePhoneNumbersBlocksResponse](docs/ListAvailablePhoneNumbersBlocksResponse.md)
  - [ListAvailablePhoneNumbersResponse](docs/ListAvailablePhoneNumbersResponse.md)
  - [ListBillingGroups200Response](docs/ListBillingGroups200Response.md)
- - [ListBucketsResponse](docs/ListBucketsResponse.md)
- - [ListBucketsResponseBucketsInner](docs/ListBucketsResponseBucketsInner.md)
- - [ListBusinessIdentitiesResponse](docs/ListBusinessIdentitiesResponse.md)
+ - [ListBuckets200Response](docs/ListBuckets200Response.md)
+ - [ListBuckets200ResponseBucketsInner](docs/ListBuckets200ResponseBucketsInner.md)
+ - [ListBulkSIMCardActions200Response](docs/ListBulkSIMCardActions200Response.md)
  - [ListCSVDownloadsResponse](docs/ListCSVDownloadsResponse.md)
  - [ListCallControlApplicationsResponse](docs/ListCallControlApplicationsResponse.md)
  - [ListCallEventsResponse](docs/ListCallEventsResponse.md)
@@ -1484,12 +1563,15 @@ Class | Method | HTTP request | Description
  - [ListMessagingProfileUrlDomainsResponse](docs/ListMessagingProfileUrlDomainsResponse.md)
  - [ListMessagingProfilesResponse](docs/ListMessagingProfilesResponse.md)
  - [ListMessagingSettingsResponse](docs/ListMessagingSettingsResponse.md)
+ - [ListMigrationSourceCoverage200Response](docs/ListMigrationSourceCoverage200Response.md)
+ - [ListMigrationSources200Response](docs/ListMigrationSources200Response.md)
+ - [ListMigrations200Response](docs/ListMigrations200Response.md)
+ - [ListNetworkCoverage200Response](docs/ListNetworkCoverage200Response.md)
  - [ListNetworkInterfaces200Response](docs/ListNetworkInterfaces200Response.md)
  - [ListNetworks200Response](docs/ListNetworks200Response.md)
  - [ListNotificationChannels200Response](docs/ListNotificationChannels200Response.md)
  - [ListNotificationSettings200Response](docs/ListNotificationSettings200Response.md)
  - [ListNumberBlockOrdersResponse](docs/ListNumberBlockOrdersResponse.md)
- - [ListNumberOrderDocumentsResponse](docs/ListNumberOrderDocumentsResponse.md)
  - [ListNumberOrderPhoneNumbersResponse](docs/ListNumberOrderPhoneNumbersResponse.md)
  - [ListNumberOrdersResponse](docs/ListNumberOrdersResponse.md)
  - [ListNumberReservationsResponse](docs/ListNumberReservationsResponse.md)
@@ -1502,21 +1584,30 @@ Class | Method | HTTP request | Description
  - [ListPhoneNumberBlocksBackgroundJobsResponse](docs/ListPhoneNumberBlocksBackgroundJobsResponse.md)
  - [ListPhoneNumberConfigurations200Response](docs/ListPhoneNumberConfigurations200Response.md)
  - [ListPhoneNumbersBackgroundJobsResponse](docs/ListPhoneNumbersBackgroundJobsResponse.md)
+ - [ListPhoneNumbersFilterCountryIsoAlpha2Parameter](docs/ListPhoneNumbersFilterCountryIsoAlpha2Parameter.md)
  - [ListPhoneNumbersResponse](docs/ListPhoneNumbersResponse.md)
  - [ListPhoneNumbersResponse1](docs/ListPhoneNumbersResponse1.md)
  - [ListPhoneNumbersWithVoiceSettingsResponse](docs/ListPhoneNumbersWithVoiceSettingsResponse.md)
+ - [ListPortingEvents200Response](docs/ListPortingEvents200Response.md)
  - [ListPortingOrderActivationJobs200Response](docs/ListPortingOrderActivationJobs200Response.md)
  - [ListPortingOrderComments200Response](docs/ListPortingOrderComments200Response.md)
  - [ListPortingOrderRequirements200Response](docs/ListPortingOrderRequirements200Response.md)
  - [ListPortingOrders200Response](docs/ListPortingOrders200Response.md)
+ - [ListPortingPhoneNumberBlocks200Response](docs/ListPortingPhoneNumberBlocks200Response.md)
+ - [ListPortingPhoneNumberExtensions200Response](docs/ListPortingPhoneNumberExtensions200Response.md)
  - [ListPortingPhoneNumbers200Response](docs/ListPortingPhoneNumbers200Response.md)
  - [ListPortingReports200Response](docs/ListPortingReports200Response.md)
+ - [ListPortoutEvents200Response](docs/ListPortoutEvents200Response.md)
+ - [ListPortoutRejections200Response](docs/ListPortoutRejections200Response.md)
+ - [ListPortoutReports200Response](docs/ListPortoutReports200Response.md)
  - [ListPortoutRequest200Response](docs/ListPortoutRequest200Response.md)
  - [ListPublicInternetGateways200Response](docs/ListPublicInternetGateways200Response.md)
+ - [ListPushCredentialsResponse](docs/ListPushCredentialsResponse.md)
  - [ListQueueCallsResponse](docs/ListQueueCallsResponse.md)
  - [ListRecordingTranscriptionsResponse](docs/ListRecordingTranscriptionsResponse.md)
  - [ListRegions200Response](docs/ListRegions200Response.md)
  - [ListRegulatoryRequirements200Response](docs/ListRegulatoryRequirements200Response.md)
+ - [ListRegulatoryRequirementsPhoneNumbers200Response](docs/ListRegulatoryRequirementsPhoneNumbers200Response.md)
  - [ListReleasesResponse](docs/ListReleasesResponse.md)
  - [ListRequirementTypes200Response](docs/ListRequirementTypes200Response.md)
  - [ListRequirements200Response](docs/ListRequirements200Response.md)
@@ -1527,21 +1618,16 @@ Class | Method | HTTP request | Description
  - [ListRooms200Response](docs/ListRooms200Response.md)
  - [ListShortCodesResponse](docs/ListShortCodesResponse.md)
  - [ListSimCardActions200Response](docs/ListSimCardActions200Response.md)
- - [ListSimCardActions200Response1](docs/ListSimCardActions200Response1.md)
  - [ListSubNumberOrdersResponse](docs/ListSubNumberOrdersResponse.md)
- - [ListTagsResponse](docs/ListTagsResponse.md)
- - [ListTagsResponseDataInner](docs/ListTagsResponseDataInner.md)
  - [ListUploadsResponse](docs/ListUploadsResponse.md)
  - [ListVerificationCodes200Response](docs/ListVerificationCodes200Response.md)
  - [ListVerificationsResponse](docs/ListVerificationsResponse.md)
- - [ListVerifiedCallsDisplayProfilesResponse](docs/ListVerifiedCallsDisplayProfilesResponse.md)
  - [ListVerifiedNumbersResponse](docs/ListVerifiedNumbersResponse.md)
  - [ListVerifyProfileMessageTemplateResponse](docs/ListVerifyProfileMessageTemplateResponse.md)
  - [ListVerifyProfilesResponse](docs/ListVerifyProfilesResponse.md)
- - [ListVirtualCrossConnectRegions200Response](docs/ListVirtualCrossConnectRegions200Response.md)
+ - [ListVirtualCrossConnectCoverage200Response](docs/ListVirtualCrossConnectCoverage200Response.md)
  - [ListVirtualCrossConnects200Response](docs/ListVirtualCrossConnects200Response.md)
  - [ListWireguardInterfaces200Response](docs/ListWireguardInterfaces200Response.md)
- - [ListWireguardPeerAllowedIps200Response](docs/ListWireguardPeerAllowedIps200Response.md)
  - [ListWireguardPeers200Response](docs/ListWireguardPeers200Response.md)
  - [Location](docs/Location.md)
  - [Location1Inner](docs/Location1Inner.md)
@@ -1555,20 +1641,12 @@ Class | Method | HTTP request | Description
  - [ManagedAccountBalance](docs/ManagedAccountBalance.md)
  - [ManagedAccountMultiListing](docs/ManagedAccountMultiListing.md)
  - [ManagedAccountsGlobalOutboundChannels](docs/ManagedAccountsGlobalOutboundChannels.md)
- - [MarkCommentRead200Response](docs/MarkCommentRead200Response.md)
- - [MarkCommentRead200ResponseData](docs/MarkCommentRead200ResponseData.md)
- - [MdrDeleteDetailReportResponse](docs/MdrDeleteDetailReportResponse.md)
  - [MdrDeleteUsageReportsResponse](docs/MdrDeleteUsageReportsResponse.md)
- - [MdrDetailReportResponse](docs/MdrDetailReportResponse.md)
  - [MdrDetailResponse](docs/MdrDetailResponse.md)
- - [MdrGetDetailReportByIdResponse](docs/MdrGetDetailReportByIdResponse.md)
- - [MdrGetDetailReportResponse](docs/MdrGetDetailReportResponse.md)
  - [MdrGetDetailResponse](docs/MdrGetDetailResponse.md)
  - [MdrGetSyncUsageReportResponse](docs/MdrGetSyncUsageReportResponse.md)
  - [MdrGetUsageReportsByIdResponse](docs/MdrGetUsageReportsByIdResponse.md)
  - [MdrGetUsageReportsResponse](docs/MdrGetUsageReportsResponse.md)
- - [MdrPostDetailReportRequest](docs/MdrPostDetailReportRequest.md)
- - [MdrPostDetailReportResponse](docs/MdrPostDetailReportResponse.md)
  - [MdrPostUsageReportRequest](docs/MdrPostUsageReportRequest.md)
  - [MdrPostUsageReportsResponse](docs/MdrPostUsageReportsResponse.md)
  - [MdrUsageRecord](docs/MdrUsageRecord.md)
@@ -1592,25 +1670,25 @@ Class | Method | HTTP request | Description
  - [MessagingUrlDomain](docs/MessagingUrlDomain.md)
  - [Meta](docs/Meta.md)
  - [Metadata](docs/Metadata.md)
- - [Mno](docs/Mno.md)
+ - [MigrationParams](docs/MigrationParams.md)
+ - [MigrationSourceCoverageParams](docs/MigrationSourceCoverageParams.md)
+ - [MigrationSourceParams](docs/MigrationSourceParams.md)
+ - [MigrationSourceParamsProviderAuth](docs/MigrationSourceParamsProviderAuth.md)
+ - [MnoMetadata](docs/MnoMetadata.md)
+ - [MnoMetadataItem](docs/MnoMetadataItem.md)
  - [MobileNetworkOperator](docs/MobileNetworkOperator.md)
- - [MobileNetworkOperatorPreferencesRequest](docs/MobileNetworkOperatorPreferencesRequest.md)
  - [MobileNetworkOperatorPreferencesResponse](docs/MobileNetworkOperatorPreferencesResponse.md)
  - [ModelInterface](docs/ModelInterface.md)
  - [ModelMetadata](docs/ModelMetadata.md)
- - [ModelNamespace](docs/ModelNamespace.md)
  - [ModelsResponse](docs/ModelsResponse.md)
- - [MultipleCallResources](docs/MultipleCallResources.md)
- - [MultipleConferenceRecordingResources](docs/MultipleConferenceRecordingResources.md)
- - [MultipleConferenceResources](docs/MultipleConferenceResources.md)
- - [MultipleParticipantResources](docs/MultipleParticipantResources.md)
  - [Network](docs/Network.md)
+ - [NetworkCoverage](docs/NetworkCoverage.md)
+ - [NetworkCoverageAvailableServicesInner](docs/NetworkCoverageAvailableServicesInner.md)
  - [NetworkCreate](docs/NetworkCreate.md)
  - [NetworkInterface](docs/NetworkInterface.md)
  - [NewBillingGroup](docs/NewBillingGroup.md)
  - [NewLedgerBillingGroupReport](docs/NewLedgerBillingGroupReport.md)
  - [NewParticipantResource](docs/NewParticipantResource.md)
- - [NewTool](docs/NewTool.md)
  - [NoiseSuppressionDirection](docs/NoiseSuppressionDirection.md)
  - [NoiseSuppressionStart](docs/NoiseSuppressionStart.md)
  - [NoiseSuppressionStop](docs/NoiseSuppressionStop.md)
@@ -1629,17 +1707,17 @@ Class | Method | HTTP request | Description
  - [NumberLookupResponse](docs/NumberLookupResponse.md)
  - [NumberOrder](docs/NumberOrder.md)
  - [NumberOrderBlockEvent](docs/NumberOrderBlockEvent.md)
- - [NumberOrderDocument](docs/NumberOrderDocument.md)
- - [NumberOrderDocumentResponse](docs/NumberOrderDocumentResponse.md)
  - [NumberOrderPhoneNumber](docs/NumberOrderPhoneNumber.md)
+ - [NumberOrderPhoneNumberRequirementGroupResponse](docs/NumberOrderPhoneNumberRequirementGroupResponse.md)
+ - [NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirementsInner](docs/NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirementsInner.md)
  - [NumberOrderPhoneNumberResponse](docs/NumberOrderPhoneNumberResponse.md)
  - [NumberOrderResponse](docs/NumberOrderResponse.md)
  - [NumberOrderWithPhoneNumbers](docs/NumberOrderWithPhoneNumbers.md)
- - [NumberOrdered](docs/NumberOrdered.md)
- - [NumberOrderedEvent](docs/NumberOrderedEvent.md)
  - [NumberPoolSettings](docs/NumberPoolSettings.md)
  - [NumberReservation](docs/NumberReservation.md)
  - [NumberReservationResponse](docs/NumberReservationResponse.md)
+ - [OperatorConnectRefreshResponse](docs/OperatorConnectRefreshResponse.md)
+ - [OperatorConnectRefreshResponse1](docs/OperatorConnectRefreshResponse1.md)
  - [OrderExternalVetting](docs/OrderExternalVetting.md)
  - [OutboundCallRecording](docs/OutboundCallRecording.md)
  - [OutboundFqdn](docs/OutboundFqdn.md)
@@ -1648,6 +1726,7 @@ Class | Method | HTTP request | Description
  - [OutboundMessageEvent](docs/OutboundMessageEvent.md)
  - [OutboundMessageEventMeta](docs/OutboundMessageEventMeta.md)
  - [OutboundMessagePayload](docs/OutboundMessagePayload.md)
+ - [OutboundMessagePayloadCost](docs/OutboundMessagePayloadCost.md)
  - [OutboundMessagePayloadFrom](docs/OutboundMessagePayloadFrom.md)
  - [OutboundMessagePayloadMediaInner](docs/OutboundMessagePayloadMediaInner.md)
  - [OutboundMessagePayloadToInner](docs/OutboundMessagePayloadToInner.md)
@@ -1655,44 +1734,38 @@ Class | Method | HTTP request | Description
  - [OutboundVoiceProfileResponse](docs/OutboundVoiceProfileResponse.md)
  - [PWGAssignedResourcesSummary](docs/PWGAssignedResourcesSummary.md)
  - [PaginatedVerificationRequestStatus](docs/PaginatedVerificationRequestStatus.md)
+ - [PaginationData](docs/PaginationData.md)
  - [PaginationMeta](docs/PaginationMeta.md)
  - [PaginationMetaSimple](docs/PaginationMetaSimple.md)
- - [ParameterProperties](docs/ParameterProperties.md)
  - [Participant](docs/Participant.md)
  - [ParticipantConference](docs/ParticipantConference.md)
- - [ParticipantJoined](docs/ParticipantJoined.md)
- - [ParticipantJoinedEvent](docs/ParticipantJoinedEvent.md)
- - [ParticipantJoinedPayload](docs/ParticipantJoinedPayload.md)
- - [ParticipantLeft](docs/ParticipantLeft.md)
- - [ParticipantLeftEvent](docs/ParticipantLeftEvent.md)
- - [ParticipantLeftPayload](docs/ParticipantLeftPayload.md)
  - [ParticipantResource](docs/ParticipantResource.md)
  - [ParticipantResourceIndex](docs/ParticipantResourceIndex.md)
  - [PatchChannelZoneRequest](docs/PatchChannelZoneRequest.md)
  - [PatchRoomRequest](docs/PatchRoomRequest.md)
  - [PauseConferenceRecordingRequest](docs/PauseConferenceRecordingRequest.md)
  - [PauseRecordingRequest](docs/PauseRecordingRequest.md)
+ - [PhoneNumber](docs/PhoneNumber.md)
  - [PhoneNumberBlocksJob](docs/PhoneNumberBlocksJob.md)
  - [PhoneNumberBlocksJobDeletePhoneNumberBlock](docs/PhoneNumberBlocksJobDeletePhoneNumberBlock.md)
  - [PhoneNumberBlocksJobDeletePhoneNumberBlockRequest](docs/PhoneNumberBlocksJobDeletePhoneNumberBlockRequest.md)
  - [PhoneNumberBlocksJobFailedOperation](docs/PhoneNumberBlocksJobFailedOperation.md)
  - [PhoneNumberBlocksJobSuccessfulOperation](docs/PhoneNumberBlocksJobSuccessfulOperation.md)
+ - [PhoneNumberBundleStatusChange](docs/PhoneNumberBundleStatusChange.md)
+ - [PhoneNumberBundleStatusChangeRequest](docs/PhoneNumberBundleStatusChangeRequest.md)
  - [PhoneNumberCampaign](docs/PhoneNumberCampaign.md)
  - [PhoneNumberCampaignCreate](docs/PhoneNumberCampaignCreate.md)
  - [PhoneNumberCampaignPaginated](docs/PhoneNumberCampaignPaginated.md)
- - [PhoneNumberCampaignUpdate](docs/PhoneNumberCampaignUpdate.md)
  - [PhoneNumberDeletedDetailed](docs/PhoneNumberDeletedDetailed.md)
  - [PhoneNumberDetailed](docs/PhoneNumberDetailed.md)
  - [PhoneNumberEnableEmergency](docs/PhoneNumberEnableEmergency.md)
  - [PhoneNumberEnableEmergencyRequest](docs/PhoneNumberEnableEmergencyRequest.md)
  - [PhoneNumberResponse](docs/PhoneNumberResponse.md)
  - [PhoneNumberResponse1](docs/PhoneNumberResponse1.md)
- - [PhoneNumberStatus](docs/PhoneNumberStatus.md)
  - [PhoneNumberStatusResponsePaginated](docs/PhoneNumberStatusResponsePaginated.md)
  - [PhoneNumberWithMessagingSettings](docs/PhoneNumberWithMessagingSettings.md)
  - [PhoneNumberWithMessagingSettingsFeatures](docs/PhoneNumberWithMessagingSettingsFeatures.md)
  - [PhoneNumberWithVoiceSettings](docs/PhoneNumberWithVoiceSettings.md)
- - [PhoneNumbersBulkUpdateError](docs/PhoneNumbersBulkUpdateError.md)
  - [PhoneNumbersEnableEmergency](docs/PhoneNumbersEnableEmergency.md)
  - [PhoneNumbersJob](docs/PhoneNumbersJob.md)
  - [PhoneNumbersJobDeletePhoneNumbers](docs/PhoneNumbersJobDeletePhoneNumbers.md)
@@ -1711,6 +1784,8 @@ Class | Method | HTTP request | Description
  - [PortabilityCheckDetails](docs/PortabilityCheckDetails.md)
  - [PortabilityStatus](docs/PortabilityStatus.md)
  - [PortingAdditionalDocument](docs/PortingAdditionalDocument.md)
+ - [PortingEvent](docs/PortingEvent.md)
+ - [PortingEventPayload](docs/PortingEventPayload.md)
  - [PortingLOAConfiguration](docs/PortingLOAConfiguration.md)
  - [PortingLOAConfigurationAddress](docs/PortingLOAConfigurationAddress.md)
  - [PortingLOAConfigurationContact](docs/PortingLOAConfigurationContact.md)
@@ -1722,6 +1797,7 @@ Class | Method | HTTP request | Description
  - [PortingOrderEndUser](docs/PortingOrderEndUser.md)
  - [PortingOrderEndUserAdmin](docs/PortingOrderEndUserAdmin.md)
  - [PortingOrderEndUserLocation](docs/PortingOrderEndUserLocation.md)
+ - [PortingOrderMessaging](docs/PortingOrderMessaging.md)
  - [PortingOrderMisc](docs/PortingOrderMisc.md)
  - [PortingOrderPhoneNumberConfiguration](docs/PortingOrderPhoneNumberConfiguration.md)
  - [PortingOrderRequirement](docs/PortingOrderRequirement.md)
@@ -1737,11 +1813,21 @@ Class | Method | HTTP request | Description
  - [PortingOrdersComment](docs/PortingOrdersComment.md)
  - [PortingOrdersExceptionType](docs/PortingOrdersExceptionType.md)
  - [PortingPhoneNumber](docs/PortingPhoneNumber.md)
+ - [PortingPhoneNumberBlock](docs/PortingPhoneNumberBlock.md)
+ - [PortingPhoneNumberBlockActivationRangesInner](docs/PortingPhoneNumberBlockActivationRangesInner.md)
+ - [PortingPhoneNumberBlockPhoneNumberRange](docs/PortingPhoneNumberBlockPhoneNumberRange.md)
  - [PortingPhoneNumberConfiguration](docs/PortingPhoneNumberConfiguration.md)
+ - [PortingPhoneNumberExtension](docs/PortingPhoneNumberExtension.md)
+ - [PortingPhoneNumberExtensionActivationRangesInner](docs/PortingPhoneNumberExtensionActivationRangesInner.md)
+ - [PortingPhoneNumberExtensionExtensionRange](docs/PortingPhoneNumberExtensionExtensionRange.md)
  - [PortingReport](docs/PortingReport.md)
  - [PortingVerificationCode](docs/PortingVerificationCode.md)
  - [PortoutComment](docs/PortoutComment.md)
  - [PortoutDetails](docs/PortoutDetails.md)
+ - [PortoutEvent](docs/PortoutEvent.md)
+ - [PortoutEventPayload](docs/PortoutEventPayload.md)
+ - [PortoutRejection](docs/PortoutRejection.md)
+ - [PortoutReport](docs/PortoutReport.md)
  - [PostNumbersFeatures200Response](docs/PostNumbersFeatures200Response.md)
  - [PostNumbersFeatures200ResponseDataInner](docs/PostNumbersFeatures200ResponseDataInner.md)
  - [PostNumbersFeaturesRequest](docs/PostNumbersFeaturesRequest.md)
@@ -1764,70 +1850,90 @@ Class | Method | HTTP request | Description
  - [PreviewSimCardOrders202Response](docs/PreviewSimCardOrders202Response.md)
  - [PreviewSimCardOrdersRequest](docs/PreviewSimCardOrdersRequest.md)
  - [PrivateWirelessGateway](docs/PrivateWirelessGateway.md)
- - [PrivateWirelessGatewayRequest](docs/PrivateWirelessGatewayRequest.md)
  - [PrivateWirelessGatewayStatus](docs/PrivateWirelessGatewayStatus.md)
  - [ProfileAssignmentPhoneNumbers](docs/ProfileAssignmentPhoneNumbers.md)
- - [PublicCompany](docs/PublicCompany.md)
- - [PublicCompanyRecordSet](docs/PublicCompanyRecordSet.md)
  - [PublicInternetGateway](docs/PublicInternetGateway.md)
  - [PublicInternetGatewayCreate](docs/PublicInternetGatewayCreate.md)
  - [PublicInternetGatewayRead](docs/PublicInternetGatewayRead.md)
+ - [PublicTextClusteringRequest](docs/PublicTextClusteringRequest.md)
  - [PurchaseESim202Response](docs/PurchaseESim202Response.md)
  - [PushCredential](docs/PushCredential.md)
- - [PutSimCardNetworkPreferencesRequest](docs/PutSimCardNetworkPreferencesRequest.md)
+ - [PushCredentialResponse](docs/PushCredentialResponse.md)
  - [Quality](docs/Quality.md)
  - [Queue](docs/Queue.md)
  - [QueueCall](docs/QueueCall.md)
  - [QueueCallResponse](docs/QueueCallResponse.md)
  - [QueueResponse](docs/QueueResponse.md)
- - [ReadComment](docs/ReadComment.md)
+ - [RCSAction](docs/RCSAction.md)
+ - [RCSAgentMessage](docs/RCSAgentMessage.md)
+ - [RCSCardContent](docs/RCSCardContent.md)
+ - [RCSCarouselCard](docs/RCSCarouselCard.md)
+ - [RCSComposeAction](docs/RCSComposeAction.md)
+ - [RCSComposeRecordingMessage](docs/RCSComposeRecordingMessage.md)
+ - [RCSComposeTextMessage](docs/RCSComposeTextMessage.md)
+ - [RCSContentInfo](docs/RCSContentInfo.md)
+ - [RCSContentMessage](docs/RCSContentMessage.md)
+ - [RCSCreateCalendarEventAction](docs/RCSCreateCalendarEventAction.md)
+ - [RCSDialAction](docs/RCSDialAction.md)
+ - [RCSEvent](docs/RCSEvent.md)
+ - [RCSFrom](docs/RCSFrom.md)
+ - [RCSLatLng](docs/RCSLatLng.md)
+ - [RCSMedia](docs/RCSMedia.md)
+ - [RCSMessage](docs/RCSMessage.md)
+ - [RCSOpenUrlAction](docs/RCSOpenUrlAction.md)
+ - [RCSReply](docs/RCSReply.md)
+ - [RCSResponse](docs/RCSResponse.md)
+ - [RCSResponseData](docs/RCSResponseData.md)
+ - [RCSRichCard](docs/RCSRichCard.md)
+ - [RCSStandaloneCard](docs/RCSStandaloneCard.md)
+ - [RCSSuggestion](docs/RCSSuggestion.md)
+ - [RCSToItem](docs/RCSToItem.md)
+ - [RCSViewLocationAction](docs/RCSViewLocationAction.md)
  - [Record](docs/Record.md)
- - [RecordingCompleted](docs/RecordingCompleted.md)
- - [RecordingCompletedEvent](docs/RecordingCompletedEvent.md)
- - [RecordingCompletedPayload](docs/RecordingCompletedPayload.md)
+ - [RecordType](docs/RecordType.md)
  - [RecordingResponse](docs/RecordingResponse.md)
  - [RecordingResponseData](docs/RecordingResponseData.md)
  - [RecordingResponseDataDownloadUrls](docs/RecordingResponseDataDownloadUrls.md)
  - [RecordingSource](docs/RecordingSource.md)
- - [RecordingStarted](docs/RecordingStarted.md)
- - [RecordingStartedEvent](docs/RecordingStartedEvent.md)
- - [RecordingStartedPayload](docs/RecordingStartedPayload.md)
  - [RecordingTrack](docs/RecordingTrack.md)
  - [RecordingTranscription](docs/RecordingTranscription.md)
+ - [RecursiveCluster](docs/RecursiveCluster.md)
  - [ReferRequest](docs/ReferRequest.md)
  - [RefreshFaxResponse](docs/RefreshFaxResponse.md)
  - [RefreshRoomClientToken201Response](docs/RefreshRoomClientToken201Response.md)
  - [RefreshRoomClientToken201ResponseData](docs/RefreshRoomClientToken201ResponseData.md)
  - [RefreshRoomClientTokenRequest](docs/RefreshRoomClientTokenRequest.md)
+ - [Region](docs/Region.md)
  - [RegionIn](docs/RegionIn.md)
  - [RegionInformation](docs/RegionInformation.md)
  - [RegionOut](docs/RegionOut.md)
  - [RegionOutRegion](docs/RegionOutRegion.md)
- - [RegisterCallCommandResult](docs/RegisterCallCommandResult.md)
- - [RegisterCallRequest](docs/RegisterCallRequest.md)
- - [RegisterCallResponse](docs/RegisterCallResponse.md)
  - [RegistrationStatus](docs/RegistrationStatus.md)
  - [RegistrationStatusResponse](docs/RegistrationStatusResponse.md)
+ - [RegulatoryRequirement](docs/RegulatoryRequirement.md)
  - [RegulatoryRequirements](docs/RegulatoryRequirements.md)
- - [RegulatoryRequirementsRegionInformationInner](docs/RegulatoryRequirementsRegionInformationInner.md)
+ - [RegulatoryRequirementsPhoneNumbers](docs/RegulatoryRequirementsPhoneNumbers.md)
+ - [RegulatoryRequirementsPhoneNumbersRegionInformationInner](docs/RegulatoryRequirementsPhoneNumbersRegionInformationInner.md)
+ - [RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner](docs/RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner.md)
+ - [RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAcceptanceCriteria](docs/RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAcceptanceCriteria.md)
  - [RegulatoryRequirementsRegulatoryRequirementsInner](docs/RegulatoryRequirementsRegulatoryRequirementsInner.md)
  - [RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria](docs/RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.md)
  - [RejectRequest](docs/RejectRequest.md)
  - [Release](docs/Release.md)
  - [ReplacedLinkClick](docs/ReplacedLinkClick.md)
  - [ReplacedLinkClickEvent](docs/ReplacedLinkClickEvent.md)
+ - [RequirementGroup](docs/RequirementGroup.md)
  - [ReservedPhoneNumber](docs/ReservedPhoneNumber.md)
- - [ResourceNotFound](docs/ResourceNotFound.md)
  - [ResourceNotFoundError](docs/ResourceNotFoundError.md)
  - [ResourceNotFoundErrorAllOfMeta](docs/ResourceNotFoundErrorAllOfMeta.md)
  - [ResponseAssignMessagingProfileToCampaignPublicPhonenumberassignmentbyprofilePost](docs/ResponseAssignMessagingProfileToCampaignPublicPhonenumberassignmentbyprofilePost.md)
- - [ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut](docs/ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.md)
- - [ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPost](docs/ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPost.md)
  - [ResponseSubmitCampaignPublicCampaignbuilderPost](docs/ResponseSubmitCampaignPublicCampaignbuilderPost.md)
  - [ResumeConferenceRecordingRequest](docs/ResumeConferenceRecordingRequest.md)
  - [ResumeRecordingRequest](docs/ResumeRecordingRequest.md)
+ - [RetreiveCountryCoverage200Response](docs/RetreiveCountryCoverage200Response.md)
+ - [RetreiveSpecificCountryCoverage200Response](docs/RetreiveSpecificCountryCoverage200Response.md)
  - [Retrieval](docs/Retrieval.md)
- - [RetrievalDetail](docs/RetrievalDetail.md)
+ - [RetrieveBulkUpdateMessagingSettingsResponse](docs/RetrieveBulkUpdateMessagingSettingsResponse.md)
  - [RetrieveCallStatusResponse](docs/RetrieveCallStatusResponse.md)
  - [RetrieveDocumentRequirements200Response](docs/RetrieveDocumentRequirements200Response.md)
  - [RetrieveMessagingHostedNumberOrderResponse](docs/RetrieveMessagingHostedNumberOrderResponse.md)
@@ -1848,7 +1954,6 @@ Class | Method | HTTP request | Description
  - [SIMCardActionStatus](docs/SIMCardActionStatus.md)
  - [SIMCardActionsSummary](docs/SIMCardActionsSummary.md)
  - [SIMCardActivationCode](docs/SIMCardActivationCode.md)
- - [SIMCardCurrentBillingPeriodConsumedData](docs/SIMCardCurrentBillingPeriodConsumedData.md)
  - [SIMCardCurrentDeviceLocation](docs/SIMCardCurrentDeviceLocation.md)
  - [SIMCardDataLimit](docs/SIMCardDataLimit.md)
  - [SIMCardDeviceDetails](docs/SIMCardDeviceDetails.md)
@@ -1856,10 +1961,7 @@ Class | Method | HTTP request | Description
  - [SIMCardGroupAction](docs/SIMCardGroupAction.md)
  - [SIMCardGroupActionSettings](docs/SIMCardGroupActionSettings.md)
  - [SIMCardGroupCreate](docs/SIMCardGroupCreate.md)
- - [SIMCardGroupDataLimit](docs/SIMCardGroupDataLimit.md)
  - [SIMCardGroupPatch](docs/SIMCardGroupPatch.md)
- - [SIMCardNetworkPreference](docs/SIMCardNetworkPreference.md)
- - [SIMCardNetworkPreferenceWithOTAUpdates](docs/SIMCardNetworkPreferenceWithOTAUpdates.md)
  - [SIMCardOrder](docs/SIMCardOrder.md)
  - [SIMCardOrderCost](docs/SIMCardOrderCost.md)
  - [SIMCardOrderOrderAddress](docs/SIMCardOrderOrderAddress.md)
@@ -1870,21 +1972,20 @@ Class | Method | HTTP request | Description
  - [SIMCardRegistrationCodeValidation](docs/SIMCardRegistrationCodeValidation.md)
  - [SIMCardRegistrationCodeValidations](docs/SIMCardRegistrationCodeValidations.md)
  - [SIMCardStatus](docs/SIMCardStatus.md)
+ - [SSLCertificate](docs/SSLCertificate.md)
+ - [SSLCertificateIssuedBy](docs/SSLCertificateIssuedBy.md)
+ - [SSLCertificateIssuedTo](docs/SSLCertificateIssuedTo.md)
  - [SearchedSIMCardGroup](docs/SearchedSIMCardGroup.md)
+ - [SearchedSIMCardGroupDataLimit](docs/SearchedSIMCardGroupDataLimit.md)
  - [SendDTMFRequest](docs/SendDTMFRequest.md)
  - [SendFaxRequest](docs/SendFaxRequest.md)
  - [SendFaxResponse](docs/SendFaxResponse.md)
  - [SendPortingVerificationCodesRequest](docs/SendPortingVerificationCodesRequest.md)
+ - [SendSIPInfoRequest](docs/SendSIPInfoRequest.md)
  - [ServicePlan](docs/ServicePlan.md)
- - [SessionEnded](docs/SessionEnded.md)
- - [SessionEndedEvent](docs/SessionEndedEvent.md)
- - [SessionEndedPayload](docs/SessionEndedPayload.md)
- - [SessionStarted](docs/SessionStarted.md)
- - [SessionStartedEvent](docs/SessionStartedEvent.md)
- - [SessionStartedPayload](docs/SessionStartedPayload.md)
- - [SetNetworkPreferencesBulk202Response](docs/SetNetworkPreferencesBulk202Response.md)
- - [SetNetworkPreferencesBulkRequest](docs/SetNetworkPreferencesBulkRequest.md)
  - [SetPrivateWirelessGatewayForSimCardGroupRequest](docs/SetPrivateWirelessGatewayForSimCardGroupRequest.md)
+ - [SetPublicIPsBulk202Response](docs/SetPublicIPsBulk202Response.md)
+ - [SetPublicIPsBulkRequest](docs/SetPublicIPsBulkRequest.md)
  - [Settings](docs/Settings.md)
  - [SettingsDataErrorMessage](docs/SettingsDataErrorMessage.md)
  - [SharePortingOrder201Response](docs/SharePortingOrder201Response.md)
@@ -1893,33 +1994,46 @@ Class | Method | HTTP request | Description
  - [SharedCampaignRecordSet](docs/SharedCampaignRecordSet.md)
  - [ShortCode](docs/ShortCode.md)
  - [ShortCodeResponse](docs/ShortCodeResponse.md)
- - [ShowBusinessIdentityResponse](docs/ShowBusinessIdentityResponse.md)
- - [ShowVerifiedCallsDisplayProfileResponse](docs/ShowVerifiedCallsDisplayProfileResponse.md)
+ - [ShowPortingEvent200Response](docs/ShowPortingEvent200Response.md)
+ - [ShowPortoutEvent200Response](docs/ShowPortoutEvent200Response.md)
  - [SimCardDataUsageNotification](docs/SimCardDataUsageNotification.md)
  - [SimCardOrderCreate](docs/SimCardOrderCreate.md)
  - [SimCardUsageDetailRecord](docs/SimCardUsageDetailRecord.md)
  - [SimpleSIMCard](docs/SimpleSIMCard.md)
+ - [SimpleSIMCardCurrentBillingPeriodConsumedData](docs/SimpleSIMCardCurrentBillingPeriodConsumedData.md)
  - [SimpleSIMCardDataLimit](docs/SimpleSIMCardDataLimit.md)
  - [SimplifiedOTAUpdate](docs/SimplifiedOTAUpdate.md)
  - [SingleManagedAccountGlobalOutboundChannels](docs/SingleManagedAccountGlobalOutboundChannels.md)
  - [SipHeader](docs/SipHeader.md)
+ - [SiprecConnector](docs/SiprecConnector.md)
+ - [SiprecConnectorResponse](docs/SiprecConnectorResponse.md)
  - [SlimPhoneNumberDetailed](docs/SlimPhoneNumberDetailed.md)
- - [SoleProprietorData](docs/SoleProprietorData.md)
  - [SoundModifications](docs/SoundModifications.md)
  - [SpeakRequest](docs/SpeakRequest.md)
  - [StartConferenceRecordingRequest](docs/StartConferenceRecordingRequest.md)
  - [StartForkingRequest](docs/StartForkingRequest.md)
  - [StartRecordingRequest](docs/StartRecordingRequest.md)
+ - [StartSiprecRequest](docs/StartSiprecRequest.md)
  - [StartStreamingRequest](docs/StartStreamingRequest.md)
- - [Status](docs/Status.md)
  - [StockExchange](docs/StockExchange.md)
  - [StopForkingRequest](docs/StopForkingRequest.md)
  - [StopGatherRequest](docs/StopGatherRequest.md)
  - [StopRecordingRequest](docs/StopRecordingRequest.md)
+ - [StopSiprecRequest](docs/StopSiprecRequest.md)
  - [StopStreamingRequest](docs/StopStreamingRequest.md)
+ - [StreamBidirectionalCodec](docs/StreamBidirectionalCodec.md)
+ - [StreamBidirectionalMode](docs/StreamBidirectionalMode.md)
+ - [StreamBidirectionalSamplingRate](docs/StreamBidirectionalSamplingRate.md)
+ - [StreamBidirectionalTargetLegs](docs/StreamBidirectionalTargetLegs.md)
+ - [StreamStatus](docs/StreamStatus.md)
+ - [StreamTrack](docs/StreamTrack.md)
  - [SubNumberOrder](docs/SubNumberOrder.md)
+ - [SubNumberOrderPhoneNumber](docs/SubNumberOrderPhoneNumber.md)
+ - [SubNumberOrderPhoneNumberRegulatoryRequirementsInner](docs/SubNumberOrderPhoneNumberRegulatoryRequirementsInner.md)
  - [SubNumberOrderRegulatoryRequirement](docs/SubNumberOrderRegulatoryRequirement.md)
  - [SubNumberOrderRegulatoryRequirementWithValue](docs/SubNumberOrderRegulatoryRequirementWithValue.md)
+ - [SubNumberOrderRequirementGroupResponse](docs/SubNumberOrderRequirementGroupResponse.md)
+ - [SubNumberOrderRequirementGroupResponseData](docs/SubNumberOrderRequirementGroupResponseData.md)
  - [SubNumberOrderResponse](docs/SubNumberOrderResponse.md)
  - [SuccessfulResponseUponAcceptingCancelFaxCommand](docs/SuccessfulResponseUponAcceptingCancelFaxCommand.md)
  - [SummaryRequest](docs/SummaryRequest.md)
@@ -1939,9 +2053,22 @@ Class | Method | HTTP request | Description
  - [TelephonyCredentialResponse](docs/TelephonyCredentialResponse.md)
  - [TelephonyCredentialUpdateRequest](docs/TelephonyCredentialUpdateRequest.md)
  - [TelnyxBrand](docs/TelnyxBrand.md)
+ - [TelnyxBrandWithCampaignsCount](docs/TelnyxBrandWithCampaignsCount.md)
+ - [TelnyxCampaignCSP](docs/TelnyxCampaignCSP.md)
+ - [TelnyxCampaignWithAssignedCountCSP](docs/TelnyxCampaignWithAssignedCountCSP.md)
+ - [TelnyxDownstreamCampaign](docs/TelnyxDownstreamCampaign.md)
+ - [TelnyxDownstreamCampaignRecordSet](docs/TelnyxDownstreamCampaignRecordSet.md)
+ - [TelnyxTranscriptionLanguage](docs/TelnyxTranscriptionLanguage.md)
+ - [TelnyxVoiceSettings](docs/TelnyxVoiceSettings.md)
  - [TexmlApplication](docs/TexmlApplication.md)
+ - [TexmlApplicationInbound](docs/TexmlApplicationInbound.md)
+ - [TexmlApplicationOutbound](docs/TexmlApplicationOutbound.md)
  - [TexmlApplicationResponse](docs/TexmlApplicationResponse.md)
+ - [TexmlBidirectionalStreamCodec](docs/TexmlBidirectionalStreamCodec.md)
+ - [TexmlBidirectionalStreamMode](docs/TexmlBidirectionalStreamMode.md)
  - [TexmlCreateCallRecordingResponseBody](docs/TexmlCreateCallRecordingResponseBody.md)
+ - [TexmlCreateCallStreamingResponseBody](docs/TexmlCreateCallStreamingResponseBody.md)
+ - [TexmlCreateSiprecSessionResponseBody](docs/TexmlCreateSiprecSessionResponseBody.md)
  - [TexmlGetCallRecordingResponseBody](docs/TexmlGetCallRecordingResponseBody.md)
  - [TexmlGetCallRecordingsResponseBody](docs/TexmlGetCallRecordingsResponseBody.md)
  - [TexmlRecordingChannels](docs/TexmlRecordingChannels.md)
@@ -1949,15 +2076,22 @@ Class | Method | HTTP request | Description
  - [TexmlRecordingSubresourcesUris](docs/TexmlRecordingSubresourcesUris.md)
  - [TexmlRecordingTranscription](docs/TexmlRecordingTranscription.md)
  - [TexmlStatusCallbackMethod](docs/TexmlStatusCallbackMethod.md)
+ - [TexmlUpdateCallStreamingResponseBody](docs/TexmlUpdateCallStreamingResponseBody.md)
+ - [TexmlUpdateSiprecSessionResponseBody](docs/TexmlUpdateSiprecSessionResponseBody.md)
+ - [TextAndImageArrayInner](docs/TextAndImageArrayInner.md)
+ - [TextClusteringResponse](docs/TextClusteringResponse.md)
+ - [TextClusteringResponseData](docs/TextClusteringResponseData.md)
  - [TnReleaseEntry](docs/TnReleaseEntry.md)
  - [TnUploadEntry](docs/TnUploadEntry.md)
- - [Tool](docs/Tool.md)
+ - [ToolsInner](docs/ToolsInner.md)
  - [TrafficType](docs/TrafficType.md)
  - [Transcription](docs/Transcription.md)
+ - [TranscriptionConfig](docs/TranscriptionConfig.md)
  - [TranscriptionEvent](docs/TranscriptionEvent.md)
  - [TranscriptionPayload](docs/TranscriptionPayload.md)
  - [TranscriptionPayloadTranscriptionData](docs/TranscriptionPayloadTranscriptionData.md)
  - [TranscriptionStartRequest](docs/TranscriptionStartRequest.md)
+ - [TranscriptionStartRequestLanguage](docs/TranscriptionStartRequestLanguage.md)
  - [TranscriptionStopRequest](docs/TranscriptionStopRequest.md)
  - [TransferCallRequest](docs/TransferCallRequest.md)
  - [TwimlRecordingChannels](docs/TwimlRecordingChannels.md)
@@ -1972,11 +2106,9 @@ Class | Method | HTTP request | Description
  - [UpdateAuthenticationProviderRequest](docs/UpdateAuthenticationProviderRequest.md)
  - [UpdateBillingGroup](docs/UpdateBillingGroup.md)
  - [UpdateBrand](docs/UpdateBrand.md)
- - [UpdateBrandRequest](docs/UpdateBrandRequest.md)
- - [UpdateBrandResponse](docs/UpdateBrandResponse.md)
  - [UpdateCallControlApplicationRequest](docs/UpdateCallControlApplicationRequest.md)
  - [UpdateCallRequest](docs/UpdateCallRequest.md)
- - [UpdateCampaign](docs/UpdateCampaign.md)
+ - [UpdateCampaignRequest](docs/UpdateCampaignRequest.md)
  - [UpdateCommandResult](docs/UpdateCommandResult.md)
  - [UpdateConferenceRequest](docs/UpdateConferenceRequest.md)
  - [UpdateCredentialConnectionRequest](docs/UpdateCredentialConnectionRequest.md)
@@ -1993,8 +2125,9 @@ Class | Method | HTTP request | Description
  - [UpdateManagedAccountRequest](docs/UpdateManagedAccountRequest.md)
  - [UpdateMediaRequest](docs/UpdateMediaRequest.md)
  - [UpdateMessagingProfileRequest](docs/UpdateMessagingProfileRequest.md)
- - [UpdateNumberOrderDocumentRequest](docs/UpdateNumberOrderDocumentRequest.md)
  - [UpdateNumberOrderPhoneNumberRequest](docs/UpdateNumberOrderPhoneNumberRequest.md)
+ - [UpdateNumberOrderPhoneNumberRequirementGroup200Response](docs/UpdateNumberOrderPhoneNumberRequirementGroup200Response.md)
+ - [UpdateNumberOrderPhoneNumberRequirementGroupRequest](docs/UpdateNumberOrderPhoneNumberRequirementGroupRequest.md)
  - [UpdateNumberOrderRequest](docs/UpdateNumberOrderRequest.md)
  - [UpdateOutboundChannels200Response](docs/UpdateOutboundChannels200Response.md)
  - [UpdateOutboundChannels200ResponseData](docs/UpdateOutboundChannels200ResponseData.md)
@@ -2003,6 +2136,7 @@ Class | Method | HTTP request | Description
  - [UpdateOutboundChannelsDefaultResponseErrorsInnerSource](docs/UpdateOutboundChannelsDefaultResponseErrorsInnerSource.md)
  - [UpdateOutboundChannelsRequest](docs/UpdateOutboundChannelsRequest.md)
  - [UpdateOutboundVoiceProfileRequest](docs/UpdateOutboundVoiceProfileRequest.md)
+ - [UpdatePartnerCampaignRequest](docs/UpdatePartnerCampaignRequest.md)
  - [UpdatePhoneNumberMessagingSettingsRequest](docs/UpdatePhoneNumberMessagingSettingsRequest.md)
  - [UpdatePhoneNumberRequest](docs/UpdatePhoneNumberRequest.md)
  - [UpdatePhoneNumberVoiceSettingsRequest](docs/UpdatePhoneNumberVoiceSettingsRequest.md)
@@ -2010,14 +2144,17 @@ Class | Method | HTTP request | Description
  - [UpdatePortingOrder200Response](docs/UpdatePortingOrder200Response.md)
  - [UpdatePortingOrder200ResponseMeta](docs/UpdatePortingOrder200ResponseMeta.md)
  - [UpdatePortingOrderActivationSettings](docs/UpdatePortingOrderActivationSettings.md)
+ - [UpdatePortingOrderMessaging](docs/UpdatePortingOrderMessaging.md)
  - [UpdatePortingOrderRequirement](docs/UpdatePortingOrderRequirement.md)
  - [UpdatePortingOrdersActivationJobRequest](docs/UpdatePortingOrdersActivationJobRequest.md)
  - [UpdatePortoutStatusRequest](docs/UpdatePortoutStatusRequest.md)
+ - [UpdateQueueMaxSizeRequest](docs/UpdateQueueMaxSizeRequest.md)
  - [UpdateRegulatoryRequirement](docs/UpdateRegulatoryRequirement.md)
+ - [UpdateRequirementGroupRequest](docs/UpdateRequirementGroupRequest.md)
+ - [UpdateRequirementGroupRequestRegulatoryRequirementsInner](docs/UpdateRequirementGroupRequestRegulatoryRequirementsInner.md)
  - [UpdateShortCodeRequest](docs/UpdateShortCodeRequest.md)
  - [UpdateSubNumberOrderRequest](docs/UpdateSubNumberOrderRequest.md)
  - [UpdateTexmlApplicationRequest](docs/UpdateTexmlApplicationRequest.md)
- - [UpdateVerifiedCallsDisplayProfileRequest](docs/UpdateVerifiedCallsDisplayProfileRequest.md)
  - [UpdateVerifyProfileCallRequest](docs/UpdateVerifyProfileCallRequest.md)
  - [UpdateVerifyProfileFlashcallRequest](docs/UpdateVerifyProfileFlashcallRequest.md)
  - [UpdateVerifyProfileRequest](docs/UpdateVerifyProfileRequest.md)
@@ -2028,12 +2165,18 @@ Class | Method | HTTP request | Description
  - [Url](docs/Url.md)
  - [UrlShortenerSettings](docs/UrlShortenerSettings.md)
  - [UsagePaymentMethod](docs/UsagePaymentMethod.md)
+ - [UsageReportsOptionsRecord](docs/UsageReportsOptionsRecord.md)
+ - [UsageReportsOptionsResponse](docs/UsageReportsOptionsResponse.md)
+ - [UsageReportsResponse](docs/UsageReportsResponse.md)
  - [UseCaseCategories](docs/UseCaseCategories.md)
- - [Usecase](docs/Usecase.md)
  - [UsecaseMetadata](docs/UsecaseMetadata.md)
+ - [UserAddress](docs/UserAddress.md)
+ - [UserAddressCreate](docs/UserAddressCreate.md)
  - [UserBalance](docs/UserBalance.md)
  - [UserEmbeddedBuckets](docs/UserEmbeddedBuckets.md)
  - [UserEmbeddedBucketsData](docs/UserEmbeddedBucketsData.md)
+ - [UserRequirement](docs/UserRequirement.md)
+ - [ValidateAddress](docs/ValidateAddress.md)
  - [ValidateAddressActionResponse](docs/ValidateAddressActionResponse.md)
  - [ValidateAddressRequest](docs/ValidateAddressRequest.md)
  - [ValidateAddressResult](docs/ValidateAddressResult.md)
@@ -2046,10 +2189,6 @@ Class | Method | HTTP request | Description
  - [VerificationRequestStatus](docs/VerificationRequestStatus.md)
  - [VerificationStatus](docs/VerificationStatus.md)
  - [VerificationType](docs/VerificationType.md)
- - [VerifiedCallsDisplayProfile](docs/VerifiedCallsDisplayProfile.md)
- - [VerifiedCallsDisplayProfileBusinessIdentity](docs/VerifiedCallsDisplayProfileBusinessIdentity.md)
- - [VerifiedCallsDisplayProfileCallReasonsInner](docs/VerifiedCallsDisplayProfileCallReasonsInner.md)
- - [VerifiedCallsDisplayProfilePhoneNumbersInner](docs/VerifiedCallsDisplayProfilePhoneNumbersInner.md)
  - [VerifiedNumberRecordType](docs/VerifiedNumberRecordType.md)
  - [VerifiedNumberResponse](docs/VerifiedNumberResponse.md)
  - [VerifiedNumberResponseDataWrapper](docs/VerifiedNumberResponseDataWrapper.md)
@@ -2066,34 +2205,47 @@ Class | Method | HTTP request | Description
  - [VerifyProfileResponseDataWrapper](docs/VerifyProfileResponseDataWrapper.md)
  - [VerifyProfileSMSResponse](docs/VerifyProfileSMSResponse.md)
  - [VerifyVerificationCodeRequest](docs/VerifyVerificationCodeRequest.md)
+ - [VerifyVerificationCodeRequestById](docs/VerifyVerificationCodeRequestById.md)
+ - [VerifyVerificationCodeRequestByPhoneNumber](docs/VerifyVerificationCodeRequestByPhoneNumber.md)
  - [VerifyVerificationCodeResponse](docs/VerifyVerificationCodeResponse.md)
  - [VerifyVerificationCodeResponseData](docs/VerifyVerificationCodeResponseData.md)
  - [Vertical](docs/Vertical.md)
- - [VettingClass](docs/VettingClass.md)
- - [VettingStatus](docs/VettingStatus.md)
  - [VideoRegion](docs/VideoRegion.md)
  - [ViewRoomParticipant200Response](docs/ViewRoomParticipant200Response.md)
  - [ViewRoomRecording200Response](docs/ViewRoomRecording200Response.md)
  - [ViewRoomSession200Response](docs/ViewRoomSession200Response.md)
  - [VirtualCrossConnect](docs/VirtualCrossConnect.md)
  - [VirtualCrossConnectCombined](docs/VirtualCrossConnectCombined.md)
+ - [VirtualCrossConnectCoverage](docs/VirtualCrossConnectCoverage.md)
  - [VirtualCrossConnectCreate](docs/VirtualCrossConnectCreate.md)
  - [VirtualCrossConnectPatch](docs/VirtualCrossConnectPatch.md)
- - [VirtualCrossConnectRegion](docs/VirtualCrossConnectRegion.md)
+ - [VoicemailPrefResponse](docs/VoicemailPrefResponse.md)
+ - [VoicemailRequest](docs/VoicemailRequest.md)
  - [Volume](docs/Volume.md)
  - [WdrReport](docs/WdrReport.md)
  - [WdrReportRequest](docs/WdrReportRequest.md)
  - [WebhookApiVersion](docs/WebhookApiVersion.md)
  - [WebhookDelivery](docs/WebhookDelivery.md)
  - [WebhookDeliveryWebhook](docs/WebhookDeliveryWebhook.md)
+ - [WebhookPortingOrderDeletedPayload](docs/WebhookPortingOrderDeletedPayload.md)
+ - [WebhookPortingOrderMessagingChangedPayload](docs/WebhookPortingOrderMessagingChangedPayload.md)
+ - [WebhookPortingOrderMessagingChangedPayloadMessaging](docs/WebhookPortingOrderMessagingChangedPayloadMessaging.md)
+ - [WebhookPortingOrderNewCommentPayload](docs/WebhookPortingOrderNewCommentPayload.md)
+ - [WebhookPortingOrderNewCommentPayloadComment](docs/WebhookPortingOrderNewCommentPayloadComment.md)
+ - [WebhookPortingOrderSplitPayload](docs/WebhookPortingOrderSplitPayload.md)
+ - [WebhookPortingOrderSplitPayloadFrom](docs/WebhookPortingOrderSplitPayloadFrom.md)
+ - [WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner](docs/WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner.md)
+ - [WebhookPortingOrderSplitPayloadTo](docs/WebhookPortingOrderSplitPayloadTo.md)
+ - [WebhookPortingOrderStatusChangedPayload](docs/WebhookPortingOrderStatusChangedPayload.md)
+ - [WebhookPortoutFocDateChangedPayload](docs/WebhookPortoutFocDateChangedPayload.md)
+ - [WebhookPortoutNewCommentPayload](docs/WebhookPortoutNewCommentPayload.md)
+ - [WebhookPortoutStatusChangedPayload](docs/WebhookPortoutStatusChangedPayload.md)
  - [WhatsAppConversationDetailRecord](docs/WhatsAppConversationDetailRecord.md)
  - [WhatsAppDetailRecord](docs/WhatsAppDetailRecord.md)
  - [WireguardInterface](docs/WireguardInterface.md)
  - [WireguardInterfaceCreate](docs/WireguardInterfaceCreate.md)
  - [WireguardInterfaceRead](docs/WireguardInterfaceRead.md)
  - [WireguardPeer](docs/WireguardPeer.md)
- - [WireguardPeerAllowedIP](docs/WireguardPeerAllowedIP.md)
- - [WireguardPeerAllowedIPCreate](docs/WireguardPeerAllowedIPCreate.md)
  - [WireguardPeerCreate](docs/WireguardPeerCreate.md)
  - [WireguardPeerPatch](docs/WireguardPeerPatch.md)
  - [WirelessConnectivityLog](docs/WirelessConnectivityLog.md)
@@ -2106,12 +2258,6 @@ Class | Method | HTTP request | Description
 
 
 Authentication schemes defined for the API:
-<a id="BearerAuth"></a>
-### BearerAuth
-
-
-- **Type**: HTTP Bearer Token authentication
-
 <a id="bearerAuth"></a>
 ### bearerAuth
 
