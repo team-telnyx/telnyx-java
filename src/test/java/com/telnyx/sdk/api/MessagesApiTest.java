@@ -137,29 +137,6 @@ public class MessagesApiTest {
     }
 
     /**
-     * Retrieve a message
-     *
-     * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Ignore
-    @Test
-    public void retrieveMessage_whenMessageExists_returnsMessage() throws ApiException {
-        CreateMessageRequest createMessageRequest = new CreateMessageRequest()
-                .from(TestConfiguration.TEST_FROM_NUMBER)
-                .to(TestConfiguration.TEST_TO_NUMBER)
-                .text("Existing Message");
-
-        UUID expectedId = api.sendMessage(createMessageRequest).getData().getId();
-
-        MessageResponse actualResponse = api.getMessage(expectedId);
-
-        assertEquals(expectedId, actualResponse.getData().getId());
-    }
-
-    /**
      * Parses the incoming webhook received when an outbound message is sent
      *
      * @throws IOException
