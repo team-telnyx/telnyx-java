@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NotificationChannel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreateNotificationChannels200Response
  */
 public class CreateNotificationChannels200ResponseTest {
-    private final CreateNotificationChannels200Response model = new CreateNotificationChannels200Response();
+
+    private final CreateNotificationChannels200Response model =
+        new CreateNotificationChannels200Response();
 
     /**
      * Model tests for CreateNotificationChannels200Response
@@ -47,5 +45,4 @@ public class CreateNotificationChannels200ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,23 +17,22 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.DynamicEmergencyAddress;
 import com.telnyx.sdk.model.DynamicEmergencyAddressResponse;
 import com.telnyx.sdk.model.ListDynamicEmergencyAddresses;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for DynamicEmergencyAddressesApi
  */
 public class DynamicEmergencyAddressesApiTest {
 
-    private final DynamicEmergencyAddressesApi api = new DynamicEmergencyAddressesApi();
+    private final DynamicEmergencyAddressesApi api =
+        new DynamicEmergencyAddressesApi();
 
     /**
      * Create a dynamic emergency address.
@@ -98,5 +96,4 @@ public class DynamicEmergencyAddressesApiTest {
         //ListDynamicEmergencyAddresses response = api.listDyanmicEmergencyAddresses(filterStatus, filterCountryCode, pageNumber, pageSize);
         // TODO: test validations
     }
-
 }

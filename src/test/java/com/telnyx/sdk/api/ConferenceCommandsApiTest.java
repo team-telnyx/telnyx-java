@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -30,15 +29,13 @@ import com.telnyx.sdk.model.ListConferencesResponse;
 import com.telnyx.sdk.model.ListParticipantsResponse;
 import com.telnyx.sdk.model.StartRecordingRequest;
 import com.telnyx.sdk.model.StopRecordingRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for ConferenceCommandsApi
@@ -50,7 +47,7 @@ public class ConferenceCommandsApiTest {
     /**
      * Dial a new participant into a conference
      *
-     * Dials a phone number and, when the call is answered, automatically joins them into the specified conference.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.answered&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+     * Dials a phone number and, when the call is answered, automatically joins them into the specified conference.  **Expected Webhooks:**  - &#x60;call.hangup&#x60; - &#x60;call.answered&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60;
      *
      * @throws ApiException
      *          if the Api call fails
@@ -82,7 +79,7 @@ public class ConferenceCommandsApiTest {
     /**
      * Join a conference
      *
-     * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; 
+     * Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the &#x60;call_control_id&#x60; of the leg you wish to join to the conference as an attribute.  **Expected Webhooks:**  - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60;
      *
      * @throws ApiException
      *          if the Api call fails
@@ -162,7 +159,7 @@ public class ConferenceCommandsApiTest {
     /**
      * Conference recording stop
      *
-     * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60; 
+     * Stop recording the conference.  **Expected Webhooks:**  - &#x60;conference.recording.saved&#x60;
      *
      * @throws ApiException
      *          if the Api call fails
@@ -210,7 +207,7 @@ public class ConferenceCommandsApiTest {
     /**
      * Create conference
      *
-     * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60; 
+     * Create a conference from an existing call leg using a &#x60;call_control_id&#x60; and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.  **Expected Webhooks:**  - &#x60;conference.created&#x60; - &#x60;conference.participant.joined&#x60; - &#x60;conference.participant.left&#x60; - &#x60;conference.ended&#x60; - &#x60;conference.recording.saved&#x60;
      *
      * @throws ApiException
      *          if the Api call fails
@@ -283,5 +280,4 @@ public class ConferenceCommandsApiTest {
         //ConferenceResponse response = api.retrieveConference(id);
         // TODO: test validations
     }
-
 }

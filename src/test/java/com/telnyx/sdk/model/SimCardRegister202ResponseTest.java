@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
@@ -24,16 +23,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for SimCardRegister202Response
  */
 public class SimCardRegister202ResponseTest {
-    private final SimCardRegister202Response model = new SimCardRegister202Response();
+
+    private final SimCardRegister202Response model =
+        new SimCardRegister202Response();
 
     /**
      * Model tests for SimCardRegister202Response
@@ -58,5 +56,4 @@ public class SimCardRegister202ResponseTest {
     public void errorsTest() {
         // TODO: test errors
     }
-
 }

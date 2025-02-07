@@ -10,397 +10,441 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * NewParticipantResource
  */
-@JsonPropertyOrder({
-  NewParticipantResource.JSON_PROPERTY_ACCOUNT_SID,
-  NewParticipantResource.JSON_PROPERTY_CALL_SID,
-  NewParticipantResource.JSON_PROPERTY_COACHING,
-  NewParticipantResource.JSON_PROPERTY_COACHING_CALL_SID,
-  NewParticipantResource.JSON_PROPERTY_END_CONFERENCE_ON_EXIT,
-  NewParticipantResource.JSON_PROPERTY_HOLD,
-  NewParticipantResource.JSON_PROPERTY_MUTED,
-  NewParticipantResource.JSON_PROPERTY_STATUS,
-  NewParticipantResource.JSON_PROPERTY_URI
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        NewParticipantResource.JSON_PROPERTY_ACCOUNT_SID,
+        NewParticipantResource.JSON_PROPERTY_CALL_SID,
+        NewParticipantResource.JSON_PROPERTY_COACHING,
+        NewParticipantResource.JSON_PROPERTY_COACHING_CALL_SID,
+        NewParticipantResource.JSON_PROPERTY_END_CONFERENCE_ON_EXIT,
+        NewParticipantResource.JSON_PROPERTY_HOLD,
+        NewParticipantResource.JSON_PROPERTY_MUTED,
+        NewParticipantResource.JSON_PROPERTY_STATUS,
+        NewParticipantResource.JSON_PROPERTY_URI,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class NewParticipantResource {
-  public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
-  private String accountSid;
 
-  public static final String JSON_PROPERTY_CALL_SID = "call_sid";
-  private String callSid;
+    public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
+    private String accountSid;
 
-  public static final String JSON_PROPERTY_COACHING = "coaching";
-  private Boolean coaching;
+    public static final String JSON_PROPERTY_CALL_SID = "call_sid";
+    private String callSid;
 
-  public static final String JSON_PROPERTY_COACHING_CALL_SID = "coaching_call_sid";
-  private String coachingCallSid;
+    public static final String JSON_PROPERTY_COACHING = "coaching";
+    private Boolean coaching;
 
-  public static final String JSON_PROPERTY_END_CONFERENCE_ON_EXIT = "end_conference_on_exit";
-  private Boolean endConferenceOnExit;
+    public static final String JSON_PROPERTY_COACHING_CALL_SID =
+        "coaching_call_sid";
+    private String coachingCallSid;
 
-  public static final String JSON_PROPERTY_HOLD = "hold";
-  private Boolean hold;
+    public static final String JSON_PROPERTY_END_CONFERENCE_ON_EXIT =
+        "end_conference_on_exit";
+    private Boolean endConferenceOnExit;
 
-  public static final String JSON_PROPERTY_MUTED = "muted";
-  private Boolean muted;
+    public static final String JSON_PROPERTY_HOLD = "hold";
+    private Boolean hold;
 
-  /**
-   * The status of the participant&#39;s call in the conference.
-   */
-  public enum StatusEnum {
-    CONNECTING(String.valueOf("connecting")),
-    
-    CONNECTED(String.valueOf("connected")),
-    
-    COMPLETED(String.valueOf("completed"));
+    public static final String JSON_PROPERTY_MUTED = "muted";
+    private Boolean muted;
 
-    private String value;
+    /**
+     * The status of the participant&#39;s call in the conference.
+     */
+    public enum StatusEnum {
+        CONNECTING(String.valueOf("connecting")),
 
-    StatusEnum(String value) {
-      this.value = value;
+        CONNECTED(String.valueOf("connected")),
+
+        COMPLETED(String.valueOf("completed"));
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private StatusEnum status;
+
+    public static final String JSON_PROPERTY_URI = "uri";
+    private String uri;
+
+    public NewParticipantResource() {}
+
+    public NewParticipantResource accountSid(String accountSid) {
+        this.accountSid = accountSid;
+        return this;
+    }
+
+    /**
+     * The id of the account the resource belongs to.
+     * @return accountSid
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "61bf923e-5e4d-4595-a110-56190ea18a1b",
+        value = "The id of the account the resource belongs to."
+    )
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAccountSid() {
+        return accountSid;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccountSid(String accountSid) {
+        this.accountSid = accountSid;
+    }
+
+    public NewParticipantResource callSid(String callSid) {
+        this.callSid = callSid;
+        return this;
+    }
+
+    /**
+     * The identifier of this participant&#39;s call.
+     * @return callSid
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ",
+        value = "The identifier of this participant's call."
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_SID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCallSid() {
+        return callSid;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_SID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallSid(String callSid) {
+        this.callSid = callSid;
+    }
+
+    public NewParticipantResource coaching(Boolean coaching) {
+        this.coaching = coaching;
+        return this;
+    }
+
+    /**
+     * Whether the participant is coaching another call.
+     * @return coaching
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "false",
+        value = "Whether the participant is coaching another call."
+    )
+    @JsonProperty(JSON_PROPERTY_COACHING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getCoaching() {
+        return coaching;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COACHING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCoaching(Boolean coaching) {
+        this.coaching = coaching;
+    }
+
+    public NewParticipantResource coachingCallSid(String coachingCallSid) {
+        this.coachingCallSid = coachingCallSid;
+        return this;
+    }
+
+    /**
+     * The identifier of the coached participant&#39;s call.
+     * @return coachingCallSid
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ",
+        value = "The identifier of the coached participant's call."
+    )
+    @JsonProperty(JSON_PROPERTY_COACHING_CALL_SID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCoachingCallSid() {
+        return coachingCallSid;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COACHING_CALL_SID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCoachingCallSid(String coachingCallSid) {
+        this.coachingCallSid = coachingCallSid;
+    }
+
+    public NewParticipantResource endConferenceOnExit(
+        Boolean endConferenceOnExit
+    ) {
+        this.endConferenceOnExit = endConferenceOnExit;
+        return this;
+    }
+
+    /**
+     * Whether the conference ends when the participant leaves.
+     * @return endConferenceOnExit
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "false",
+        value = "Whether the conference ends when the participant leaves."
+    )
+    @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getEndConferenceOnExit() {
+        return endConferenceOnExit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEndConferenceOnExit(Boolean endConferenceOnExit) {
+        this.endConferenceOnExit = endConferenceOnExit;
+    }
+
+    public NewParticipantResource hold(Boolean hold) {
+        this.hold = hold;
+        return this;
+    }
+
+    /**
+     * Whether the participant is on hold.
+     * @return hold
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "false",
+        value = "Whether the participant is on hold."
+    )
+    @JsonProperty(JSON_PROPERTY_HOLD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getHold() {
+        return hold;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HOLD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHold(Boolean hold) {
+        this.hold = hold;
+    }
+
+    public NewParticipantResource muted(Boolean muted) {
+        this.muted = muted;
+        return this;
+    }
+
+    /**
+     * Whether the participant is muted.
+     * @return muted
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "false",
+        value = "Whether the participant is muted."
+    )
+    @JsonProperty(JSON_PROPERTY_MUTED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getMuted() {
+        return muted;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MUTED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMuted(Boolean muted) {
+        this.muted = muted;
+    }
+
+    public NewParticipantResource status(StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The status of the participant&#39;s call in the conference.
+     * @return status
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "in-progress",
+        value = "The status of the participant's call in the conference."
+    )
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    public NewParticipantResource uri(String uri) {
+        this.uri = uri;
+        return this;
+    }
+
+    /**
+     * The relative URI for this participant.
+     * @return uri
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json",
+        value = "The relative URI for this participant."
+    )
+    @JsonProperty(JSON_PROPERTY_URI)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUri() {
+        return uri;
+    }
+
+    @JsonProperty(JSON_PROPERTY_URI)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    /**
+     * Return true if this NewParticipantResource object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NewParticipantResource newParticipantResource =
+            (NewParticipantResource) o;
+        return (
+            Objects.equals(
+                this.accountSid,
+                newParticipantResource.accountSid
+            ) &&
+            Objects.equals(this.callSid, newParticipantResource.callSid) &&
+            Objects.equals(this.coaching, newParticipantResource.coaching) &&
+            Objects.equals(
+                this.coachingCallSid,
+                newParticipantResource.coachingCallSid
+            ) &&
+            Objects.equals(
+                this.endConferenceOnExit,
+                newParticipantResource.endConferenceOnExit
+            ) &&
+            Objects.equals(this.hold, newParticipantResource.hold) &&
+            Objects.equals(this.muted, newParticipantResource.muted) &&
+            Objects.equals(this.status, newParticipantResource.status) &&
+            Objects.equals(this.uri, newParticipantResource.uri)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            accountSid,
+            callSid,
+            coaching,
+            coachingCallSid,
+            endConferenceOnExit,
+            hold,
+            muted,
+            status,
+            uri
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class NewParticipantResource {\n");
+        sb
+            .append("    accountSid: ")
+            .append(toIndentedString(accountSid))
+            .append("\n");
+        sb
+            .append("    callSid: ")
+            .append(toIndentedString(callSid))
+            .append("\n");
+        sb
+            .append("    coaching: ")
+            .append(toIndentedString(coaching))
+            .append("\n");
+        sb
+            .append("    coachingCallSid: ")
+            .append(toIndentedString(coachingCallSid))
+            .append("\n");
+        sb
+            .append("    endConferenceOnExit: ")
+            .append(toIndentedString(endConferenceOnExit))
+            .append("\n");
+        sb.append("    hold: ").append(toIndentedString(hold)).append("\n");
+        sb.append("    muted: ").append(toIndentedString(muted)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  public static final String JSON_PROPERTY_URI = "uri";
-  private String uri;
-
-  public NewParticipantResource() { 
-  }
-
-  public NewParticipantResource accountSid(String accountSid) {
-    this.accountSid = accountSid;
-    return this;
-  }
-
-   /**
-   * The id of the account the resource belongs to.
-   * @return accountSid
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "The id of the account the resource belongs to.")
-  @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAccountSid() {
-    return accountSid;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAccountSid(String accountSid) {
-    this.accountSid = accountSid;
-  }
-
-
-  public NewParticipantResource callSid(String callSid) {
-    this.callSid = callSid;
-    return this;
-  }
-
-   /**
-   * The identifier of this participant&#39;s call.
-   * @return callSid
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "The identifier of this participant's call.")
-  @JsonProperty(JSON_PROPERTY_CALL_SID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCallSid() {
-    return callSid;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_SID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallSid(String callSid) {
-    this.callSid = callSid;
-  }
-
-
-  public NewParticipantResource coaching(Boolean coaching) {
-    this.coaching = coaching;
-    return this;
-  }
-
-   /**
-   * Whether the participant is coaching another call.
-   * @return coaching
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "false", value = "Whether the participant is coaching another call.")
-  @JsonProperty(JSON_PROPERTY_COACHING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getCoaching() {
-    return coaching;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COACHING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCoaching(Boolean coaching) {
-    this.coaching = coaching;
-  }
-
-
-  public NewParticipantResource coachingCallSid(String coachingCallSid) {
-    this.coachingCallSid = coachingCallSid;
-    return this;
-  }
-
-   /**
-   * The identifier of the coached participant&#39;s call.
-   * @return coachingCallSid
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "The identifier of the coached participant's call.")
-  @JsonProperty(JSON_PROPERTY_COACHING_CALL_SID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCoachingCallSid() {
-    return coachingCallSid;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COACHING_CALL_SID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCoachingCallSid(String coachingCallSid) {
-    this.coachingCallSid = coachingCallSid;
-  }
-
-
-  public NewParticipantResource endConferenceOnExit(Boolean endConferenceOnExit) {
-    this.endConferenceOnExit = endConferenceOnExit;
-    return this;
-  }
-
-   /**
-   * Whether the conference ends when the participant leaves.
-   * @return endConferenceOnExit
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "false", value = "Whether the conference ends when the participant leaves.")
-  @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getEndConferenceOnExit() {
-    return endConferenceOnExit;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEndConferenceOnExit(Boolean endConferenceOnExit) {
-    this.endConferenceOnExit = endConferenceOnExit;
-  }
-
-
-  public NewParticipantResource hold(Boolean hold) {
-    this.hold = hold;
-    return this;
-  }
-
-   /**
-   * Whether the participant is on hold.
-   * @return hold
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "false", value = "Whether the participant is on hold.")
-  @JsonProperty(JSON_PROPERTY_HOLD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getHold() {
-    return hold;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HOLD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHold(Boolean hold) {
-    this.hold = hold;
-  }
-
-
-  public NewParticipantResource muted(Boolean muted) {
-    this.muted = muted;
-    return this;
-  }
-
-   /**
-   * Whether the participant is muted.
-   * @return muted
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "false", value = "Whether the participant is muted.")
-  @JsonProperty(JSON_PROPERTY_MUTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getMuted() {
-    return muted;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MUTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMuted(Boolean muted) {
-    this.muted = muted;
-  }
-
-
-  public NewParticipantResource status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the participant&#39;s call in the conference.
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "in-progress", value = "The status of the participant's call in the conference.")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  public NewParticipantResource uri(String uri) {
-    this.uri = uri;
-    return this;
-  }
-
-   /**
-   * The relative URI for this participant.
-   * @return uri
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json", value = "The relative URI for this participant.")
-  @JsonProperty(JSON_PROPERTY_URI)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUri() {
-    return uri;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_URI)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUri(String uri) {
-    this.uri = uri;
-  }
-
-
-  /**
-   * Return true if this NewParticipantResource object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    NewParticipantResource newParticipantResource = (NewParticipantResource) o;
-    return Objects.equals(this.accountSid, newParticipantResource.accountSid) &&
-        Objects.equals(this.callSid, newParticipantResource.callSid) &&
-        Objects.equals(this.coaching, newParticipantResource.coaching) &&
-        Objects.equals(this.coachingCallSid, newParticipantResource.coachingCallSid) &&
-        Objects.equals(this.endConferenceOnExit, newParticipantResource.endConferenceOnExit) &&
-        Objects.equals(this.hold, newParticipantResource.hold) &&
-        Objects.equals(this.muted, newParticipantResource.muted) &&
-        Objects.equals(this.status, newParticipantResource.status) &&
-        Objects.equals(this.uri, newParticipantResource.uri);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(accountSid, callSid, coaching, coachingCallSid, endConferenceOnExit, hold, muted, status, uri);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class NewParticipantResource {\n");
-    sb.append("    accountSid: ").append(toIndentedString(accountSid)).append("\n");
-    sb.append("    callSid: ").append(toIndentedString(callSid)).append("\n");
-    sb.append("    coaching: ").append(toIndentedString(coaching)).append("\n");
-    sb.append("    coachingCallSid: ").append(toIndentedString(coachingCallSid)).append("\n");
-    sb.append("    endConferenceOnExit: ").append(toIndentedString(endConferenceOnExit)).append("\n");
-    sb.append("    hold: ").append(toIndentedString(hold)).append("\n");
-    sb.append("    muted: ").append(toIndentedString(muted)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

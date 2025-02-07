@@ -1,13 +1,10 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.ActivatePortingOrder202Response;
 import com.telnyx.sdk.model.CancelPortingOrder200Response;
 import com.telnyx.sdk.model.ConfirmPortingOrder200Response;
@@ -26,7 +23,6 @@ import com.telnyx.sdk.model.CreatePortingPhoneNumberExtension201Response;
 import com.telnyx.sdk.model.CreatePortingPhoneNumberExtensionRequest;
 import com.telnyx.sdk.model.CreatePortingReport201Response;
 import com.telnyx.sdk.model.CreatePortingReportRequest;
-import java.io.File;
 import com.telnyx.sdk.model.GetPortingOrder200Response;
 import com.telnyx.sdk.model.GetPortingOrderSubRequest200Response;
 import com.telnyx.sdk.model.ListAdditionalDocuments200Response;
@@ -44,7 +40,6 @@ import com.telnyx.sdk.model.ListPortingPhoneNumberExtensions200Response;
 import com.telnyx.sdk.model.ListPortingPhoneNumbers200Response;
 import com.telnyx.sdk.model.ListPortingReports200Response;
 import com.telnyx.sdk.model.ListVerificationCodes200Response;
-import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.PortabilityStatus;
 import com.telnyx.sdk.model.PortingOrderActivationStatus;
 import com.telnyx.sdk.model.PortingOrderType;
@@ -53,49 +48,55 @@ import com.telnyx.sdk.model.SendPortingVerificationCodesRequest;
 import com.telnyx.sdk.model.SharePortingOrder201Response;
 import com.telnyx.sdk.model.SharePortingOrderRequest;
 import com.telnyx.sdk.model.ShowPortingEvent200Response;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdatePortingOrder;
 import com.telnyx.sdk.model.UpdatePortingOrder200Response;
 import com.telnyx.sdk.model.UpdatePortingOrdersActivationJobRequest;
 import com.telnyx.sdk.model.VerifyPortingVerificationCodes200Response;
 import com.telnyx.sdk.model.VerifyPortingVerificationCodesRequest;
-
+import jakarta.ws.rs.core.GenericType;
+import java.io.File;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PortingOrdersApi {
-  private ApiClient apiClient;
 
-  public PortingOrdersApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public PortingOrdersApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public PortingOrdersApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public PortingOrdersApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Activate every number in a porting order asynchronously.
    * Activate each number in a porting order asynchronously. This operation is limited to US FastPort orders only.
    * @param id Porting Order id (required)
@@ -109,11 +110,12 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ActivatePortingOrder202Response activatePortingOrder(UUID id) throws ApiException {
-    return activatePortingOrderWithHttpInfo(id).getData();
-  }
+    public ActivatePortingOrder202Response activatePortingOrder(UUID id)
+        throws ApiException {
+        return activatePortingOrderWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Activate every number in a porting order asynchronously.
    * Activate each number in a porting order asynchronously. This operation is limited to US FastPort orders only.
    * @param id Porting Order id (required)
@@ -127,47 +129,71 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ActivatePortingOrder202Response> activatePortingOrderWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling activatePortingOrder");
+    public ApiResponse<
+        ActivatePortingOrder202Response
+    > activatePortingOrderWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling activatePortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/actions/activate".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ActivatePortingOrder202Response> localVarReturnType =
+            new GenericType<ActivatePortingOrder202Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.activatePortingOrder",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/actions/activate"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ActivatePortingOrder202Response> localVarReturnType = new GenericType<ActivatePortingOrder202Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.activatePortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Cancel a porting order
    * Cancel a porting order
    * @param id Porting Order id (required)
@@ -181,11 +207,12 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CancelPortingOrder200Response cancelPortingOrder(UUID id) throws ApiException {
-    return cancelPortingOrderWithHttpInfo(id).getData();
-  }
+    public CancelPortingOrder200Response cancelPortingOrder(UUID id)
+        throws ApiException {
+        return cancelPortingOrderWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Cancel a porting order
    * Cancel a porting order
    * @param id Porting Order id (required)
@@ -199,47 +226,71 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CancelPortingOrder200Response> cancelPortingOrderWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling cancelPortingOrder");
+    public ApiResponse<
+        CancelPortingOrder200Response
+    > cancelPortingOrderWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling cancelPortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/actions/cancel".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CancelPortingOrder200Response> localVarReturnType =
+            new GenericType<CancelPortingOrder200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.cancelPortingOrder",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/actions/cancel"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CancelPortingOrder200Response> localVarReturnType = new GenericType<CancelPortingOrder200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.cancelPortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Submit a porting order.
    * Confirm and submit your porting order.
    * @param id Porting Order id (required)
@@ -253,11 +304,12 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ConfirmPortingOrder200Response confirmPortingOrder(UUID id) throws ApiException {
-    return confirmPortingOrderWithHttpInfo(id).getData();
-  }
+    public ConfirmPortingOrder200Response confirmPortingOrder(UUID id)
+        throws ApiException {
+        return confirmPortingOrderWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Submit a porting order.
    * Confirm and submit your porting order.
    * @param id Porting Order id (required)
@@ -271,47 +323,71 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ConfirmPortingOrder200Response> confirmPortingOrderWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling confirmPortingOrder");
+    public ApiResponse<
+        ConfirmPortingOrder200Response
+    > confirmPortingOrderWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling confirmPortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/actions/confirm".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ConfirmPortingOrder200Response> localVarReturnType =
+            new GenericType<ConfirmPortingOrder200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.confirmPortingOrder",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/actions/confirm"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ConfirmPortingOrder200Response> localVarReturnType = new GenericType<ConfirmPortingOrder200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.confirmPortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a list of additional documents
    * Creates a list of additional documents for a porting order.
    * @param id Porting Order id (required)
@@ -327,11 +403,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreateAdditionalDocuments201Response createAdditionalDocuments(UUID id, CreateAdditionalDocumentsRequest createAdditionalDocumentsRequest) throws ApiException {
-    return createAdditionalDocumentsWithHttpInfo(id, createAdditionalDocumentsRequest).getData();
-  }
+    public CreateAdditionalDocuments201Response createAdditionalDocuments(
+        UUID id,
+        CreateAdditionalDocumentsRequest createAdditionalDocumentsRequest
+    ) throws ApiException {
+        return createAdditionalDocumentsWithHttpInfo(
+            id,
+            createAdditionalDocumentsRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a list of additional documents
    * Creates a list of additional documents for a porting order.
    * @param id Porting Order id (required)
@@ -347,52 +429,82 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateAdditionalDocuments201Response> createAdditionalDocumentsWithHttpInfo(UUID id, CreateAdditionalDocumentsRequest createAdditionalDocumentsRequest) throws ApiException {
-    Object localVarPostBody = createAdditionalDocumentsRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling createAdditionalDocuments");
+    public ApiResponse<
+        CreateAdditionalDocuments201Response
+    > createAdditionalDocumentsWithHttpInfo(
+        UUID id,
+        CreateAdditionalDocumentsRequest createAdditionalDocumentsRequest
+    ) throws ApiException {
+        Object localVarPostBody = createAdditionalDocumentsRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling createAdditionalDocuments"
+            );
+        }
+
+        // verify the required parameter 'createAdditionalDocumentsRequest' is set
+        if (createAdditionalDocumentsRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createAdditionalDocumentsRequest' when calling createAdditionalDocuments"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/additional_documents".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateAdditionalDocuments201Response> localVarReturnType =
+            new GenericType<CreateAdditionalDocuments201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createAdditionalDocuments",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'createAdditionalDocumentsRequest' is set
-    if (createAdditionalDocumentsRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createAdditionalDocumentsRequest' when calling createAdditionalDocuments");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/additional_documents"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateAdditionalDocuments201Response> localVarReturnType = new GenericType<CreateAdditionalDocuments201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createAdditionalDocuments", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a LOA configuration
    * Create a LOA configuration.
    * @param previewLoaConfigurationParamsRequest  (required)
@@ -406,11 +518,15 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateLoaConfiguration201Response createLoaConfiguration(PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest) throws ApiException {
-    return createLoaConfigurationWithHttpInfo(previewLoaConfigurationParamsRequest).getData();
-  }
+    public CreateLoaConfiguration201Response createLoaConfiguration(
+        PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest
+    ) throws ApiException {
+        return createLoaConfigurationWithHttpInfo(
+            previewLoaConfigurationParamsRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a LOA configuration
    * Create a LOA configuration.
    * @param previewLoaConfigurationParamsRequest  (required)
@@ -424,46 +540,69 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateLoaConfiguration201Response> createLoaConfigurationWithHttpInfo(PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest) throws ApiException {
-    Object localVarPostBody = previewLoaConfigurationParamsRequest;
-    
-    // verify the required parameter 'previewLoaConfigurationParamsRequest' is set
-    if (previewLoaConfigurationParamsRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'previewLoaConfigurationParamsRequest' when calling createLoaConfiguration");
+    public ApiResponse<
+        CreateLoaConfiguration201Response
+    > createLoaConfigurationWithHttpInfo(
+        PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest
+    ) throws ApiException {
+        Object localVarPostBody = previewLoaConfigurationParamsRequest;
+
+        // verify the required parameter 'previewLoaConfigurationParamsRequest' is set
+        if (previewLoaConfigurationParamsRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'previewLoaConfigurationParamsRequest' when calling createLoaConfiguration"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/porting/loa_configurations";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateLoaConfiguration201Response> localVarReturnType =
+            new GenericType<CreateLoaConfiguration201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createLoaConfiguration",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/loa_configurations";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateLoaConfiguration201Response> localVarReturnType = new GenericType<CreateLoaConfiguration201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createLoaConfiguration", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a list of phone number configurations
    * Creates a list of phone number configurations.
    * @param createPhoneNumberConfigurationsRequest A list of phone number configuration parameters (required)
@@ -477,11 +616,15 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePhoneNumberConfigurations201Response createPhoneNumberConfigurations(CreatePhoneNumberConfigurationsRequest createPhoneNumberConfigurationsRequest) throws ApiException {
-    return createPhoneNumberConfigurationsWithHttpInfo(createPhoneNumberConfigurationsRequest).getData();
-  }
+    public CreatePhoneNumberConfigurations201Response createPhoneNumberConfigurations(
+        CreatePhoneNumberConfigurationsRequest createPhoneNumberConfigurationsRequest
+    ) throws ApiException {
+        return createPhoneNumberConfigurationsWithHttpInfo(
+            createPhoneNumberConfigurationsRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a list of phone number configurations
    * Creates a list of phone number configurations.
    * @param createPhoneNumberConfigurationsRequest A list of phone number configuration parameters (required)
@@ -495,46 +638,72 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePhoneNumberConfigurations201Response> createPhoneNumberConfigurationsWithHttpInfo(CreatePhoneNumberConfigurationsRequest createPhoneNumberConfigurationsRequest) throws ApiException {
-    Object localVarPostBody = createPhoneNumberConfigurationsRequest;
-    
-    // verify the required parameter 'createPhoneNumberConfigurationsRequest' is set
-    if (createPhoneNumberConfigurationsRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPhoneNumberConfigurationsRequest' when calling createPhoneNumberConfigurations");
+    public ApiResponse<
+        CreatePhoneNumberConfigurations201Response
+    > createPhoneNumberConfigurationsWithHttpInfo(
+        CreatePhoneNumberConfigurationsRequest createPhoneNumberConfigurationsRequest
+    ) throws ApiException {
+        Object localVarPostBody = createPhoneNumberConfigurationsRequest;
+
+        // verify the required parameter 'createPhoneNumberConfigurationsRequest' is set
+        if (createPhoneNumberConfigurationsRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createPhoneNumberConfigurationsRequest' when calling createPhoneNumberConfigurations"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/porting_orders/phone_number_configurations";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            CreatePhoneNumberConfigurations201Response
+        > localVarReturnType = new GenericType<
+            CreatePhoneNumberConfigurations201Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createPhoneNumberConfigurations",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/phone_number_configurations";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePhoneNumberConfigurations201Response> localVarReturnType = new GenericType<CreatePhoneNumberConfigurations201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createPhoneNumberConfigurations", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a comment for a porting order
    * Creates a new comment for a porting order.
    * @param id Porting Order id (required)
@@ -549,11 +718,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingComment201Response createPortingComment(UUID id, CreatePortingOrderComment createPortingOrderComment) throws ApiException {
-    return createPortingCommentWithHttpInfo(id, createPortingOrderComment).getData();
-  }
+    public CreatePortingComment201Response createPortingComment(
+        UUID id,
+        CreatePortingOrderComment createPortingOrderComment
+    ) throws ApiException {
+        return createPortingCommentWithHttpInfo(
+            id,
+            createPortingOrderComment
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a comment for a porting order
    * Creates a new comment for a porting order.
    * @param id Porting Order id (required)
@@ -568,52 +743,82 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingComment201Response> createPortingCommentWithHttpInfo(UUID id, CreatePortingOrderComment createPortingOrderComment) throws ApiException {
-    Object localVarPostBody = createPortingOrderComment;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling createPortingComment");
+    public ApiResponse<
+        CreatePortingComment201Response
+    > createPortingCommentWithHttpInfo(
+        UUID id,
+        CreatePortingOrderComment createPortingOrderComment
+    ) throws ApiException {
+        Object localVarPostBody = createPortingOrderComment;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling createPortingComment"
+            );
+        }
+
+        // verify the required parameter 'createPortingOrderComment' is set
+        if (createPortingOrderComment == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createPortingOrderComment' when calling createPortingComment"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/comments".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreatePortingComment201Response> localVarReturnType =
+            new GenericType<CreatePortingComment201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createPortingComment",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'createPortingOrderComment' is set
-    if (createPortingOrderComment == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPortingOrderComment' when calling createPortingComment");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/comments"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingComment201Response> localVarReturnType = new GenericType<CreatePortingComment201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createPortingComment", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a porting order
    * Creates a new porting order object.
    * @param createPortingOrder  (required)
@@ -627,11 +832,13 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingOrder201Response createPortingOrder(CreatePortingOrder createPortingOrder) throws ApiException {
-    return createPortingOrderWithHttpInfo(createPortingOrder).getData();
-  }
+    public CreatePortingOrder201Response createPortingOrder(
+        CreatePortingOrder createPortingOrder
+    ) throws ApiException {
+        return createPortingOrderWithHttpInfo(createPortingOrder).getData();
+    }
 
-  /**
+    /**
    * Create a porting order
    * Creates a new porting order object.
    * @param createPortingOrder  (required)
@@ -645,46 +852,68 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingOrder201Response> createPortingOrderWithHttpInfo(CreatePortingOrder createPortingOrder) throws ApiException {
-    Object localVarPostBody = createPortingOrder;
-    
-    // verify the required parameter 'createPortingOrder' is set
-    if (createPortingOrder == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPortingOrder' when calling createPortingOrder");
+    public ApiResponse<
+        CreatePortingOrder201Response
+    > createPortingOrderWithHttpInfo(CreatePortingOrder createPortingOrder)
+        throws ApiException {
+        Object localVarPostBody = createPortingOrder;
+
+        // verify the required parameter 'createPortingOrder' is set
+        if (createPortingOrder == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createPortingOrder' when calling createPortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/porting_orders";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreatePortingOrder201Response> localVarReturnType =
+            new GenericType<CreatePortingOrder201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createPortingOrder",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingOrder201Response> localVarReturnType = new GenericType<CreatePortingOrder201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createPortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a phone number block
    * Creates a new phone number block.
    * @param portingOrderId Identifies the Porting Order associated with the phone number block (required)
@@ -699,11 +928,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingPhoneNumberBlock201Response createPortingPhoneNumberBlock(UUID portingOrderId, CreatePortingPhoneNumberBlockRequest createPortingPhoneNumberBlockRequest) throws ApiException {
-    return createPortingPhoneNumberBlockWithHttpInfo(portingOrderId, createPortingPhoneNumberBlockRequest).getData();
-  }
+    public CreatePortingPhoneNumberBlock201Response createPortingPhoneNumberBlock(
+        UUID portingOrderId,
+        CreatePortingPhoneNumberBlockRequest createPortingPhoneNumberBlockRequest
+    ) throws ApiException {
+        return createPortingPhoneNumberBlockWithHttpInfo(
+            portingOrderId,
+            createPortingPhoneNumberBlockRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a phone number block
    * Creates a new phone number block.
    * @param portingOrderId Identifies the Porting Order associated with the phone number block (required)
@@ -718,52 +953,85 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingPhoneNumberBlock201Response> createPortingPhoneNumberBlockWithHttpInfo(UUID portingOrderId, CreatePortingPhoneNumberBlockRequest createPortingPhoneNumberBlockRequest) throws ApiException {
-    Object localVarPostBody = createPortingPhoneNumberBlockRequest;
-    
-    // verify the required parameter 'portingOrderId' is set
-    if (portingOrderId == null) {
-      throw new ApiException(400, "Missing the required parameter 'portingOrderId' when calling createPortingPhoneNumberBlock");
+    public ApiResponse<
+        CreatePortingPhoneNumberBlock201Response
+    > createPortingPhoneNumberBlockWithHttpInfo(
+        UUID portingOrderId,
+        CreatePortingPhoneNumberBlockRequest createPortingPhoneNumberBlockRequest
+    ) throws ApiException {
+        Object localVarPostBody = createPortingPhoneNumberBlockRequest;
+
+        // verify the required parameter 'portingOrderId' is set
+        if (portingOrderId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'portingOrderId' when calling createPortingPhoneNumberBlock"
+            );
+        }
+
+        // verify the required parameter 'createPortingPhoneNumberBlockRequest' is set
+        if (createPortingPhoneNumberBlockRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createPortingPhoneNumberBlockRequest' when calling createPortingPhoneNumberBlock"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{porting_order_id}/phone_number_blocks".replaceAll(
+                    "\\{" + "porting_order_id" + "\\}",
+                    apiClient.escapeString(portingOrderId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            CreatePortingPhoneNumberBlock201Response
+        > localVarReturnType = new GenericType<
+            CreatePortingPhoneNumberBlock201Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createPortingPhoneNumberBlock",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'createPortingPhoneNumberBlockRequest' is set
-    if (createPortingPhoneNumberBlockRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPortingPhoneNumberBlockRequest' when calling createPortingPhoneNumberBlock");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{porting_order_id}/phone_number_blocks"
-      .replaceAll("\\{" + "porting_order_id" + "\\}", apiClient.escapeString(portingOrderId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingPhoneNumberBlock201Response> localVarReturnType = new GenericType<CreatePortingPhoneNumberBlock201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createPortingPhoneNumberBlock", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a phone number extension
    * Creates a new phone number extension.
    * @param portingOrderId Identifies the Porting Order associated with the phone number extension (required)
@@ -778,11 +1046,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingPhoneNumberExtension201Response createPortingPhoneNumberExtension(UUID portingOrderId, CreatePortingPhoneNumberExtensionRequest createPortingPhoneNumberExtensionRequest) throws ApiException {
-    return createPortingPhoneNumberExtensionWithHttpInfo(portingOrderId, createPortingPhoneNumberExtensionRequest).getData();
-  }
+    public CreatePortingPhoneNumberExtension201Response createPortingPhoneNumberExtension(
+        UUID portingOrderId,
+        CreatePortingPhoneNumberExtensionRequest createPortingPhoneNumberExtensionRequest
+    ) throws ApiException {
+        return createPortingPhoneNumberExtensionWithHttpInfo(
+            portingOrderId,
+            createPortingPhoneNumberExtensionRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a phone number extension
    * Creates a new phone number extension.
    * @param portingOrderId Identifies the Porting Order associated with the phone number extension (required)
@@ -797,52 +1071,85 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingPhoneNumberExtension201Response> createPortingPhoneNumberExtensionWithHttpInfo(UUID portingOrderId, CreatePortingPhoneNumberExtensionRequest createPortingPhoneNumberExtensionRequest) throws ApiException {
-    Object localVarPostBody = createPortingPhoneNumberExtensionRequest;
-    
-    // verify the required parameter 'portingOrderId' is set
-    if (portingOrderId == null) {
-      throw new ApiException(400, "Missing the required parameter 'portingOrderId' when calling createPortingPhoneNumberExtension");
+    public ApiResponse<
+        CreatePortingPhoneNumberExtension201Response
+    > createPortingPhoneNumberExtensionWithHttpInfo(
+        UUID portingOrderId,
+        CreatePortingPhoneNumberExtensionRequest createPortingPhoneNumberExtensionRequest
+    ) throws ApiException {
+        Object localVarPostBody = createPortingPhoneNumberExtensionRequest;
+
+        // verify the required parameter 'portingOrderId' is set
+        if (portingOrderId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'portingOrderId' when calling createPortingPhoneNumberExtension"
+            );
+        }
+
+        // verify the required parameter 'createPortingPhoneNumberExtensionRequest' is set
+        if (createPortingPhoneNumberExtensionRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createPortingPhoneNumberExtensionRequest' when calling createPortingPhoneNumberExtension"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{porting_order_id}/phone_number_extensions".replaceAll(
+                    "\\{" + "porting_order_id" + "\\}",
+                    apiClient.escapeString(portingOrderId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            CreatePortingPhoneNumberExtension201Response
+        > localVarReturnType = new GenericType<
+            CreatePortingPhoneNumberExtension201Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createPortingPhoneNumberExtension",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'createPortingPhoneNumberExtensionRequest' is set
-    if (createPortingPhoneNumberExtensionRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPortingPhoneNumberExtensionRequest' when calling createPortingPhoneNumberExtension");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{porting_order_id}/phone_number_extensions"
-      .replaceAll("\\{" + "porting_order_id" + "\\}", apiClient.escapeString(portingOrderId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingPhoneNumberExtension201Response> localVarReturnType = new GenericType<CreatePortingPhoneNumberExtension201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createPortingPhoneNumberExtension", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Create a porting related report
    * Generate reports about porting operations.
    * @param createPortingReportRequest  (required)
@@ -856,11 +1163,15 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingReport201Response createPortingReport(CreatePortingReportRequest createPortingReportRequest) throws ApiException {
-    return createPortingReportWithHttpInfo(createPortingReportRequest).getData();
-  }
+    public CreatePortingReport201Response createPortingReport(
+        CreatePortingReportRequest createPortingReportRequest
+    ) throws ApiException {
+        return createPortingReportWithHttpInfo(
+            createPortingReportRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a porting related report
    * Generate reports about porting operations.
    * @param createPortingReportRequest  (required)
@@ -874,46 +1185,69 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingReport201Response> createPortingReportWithHttpInfo(CreatePortingReportRequest createPortingReportRequest) throws ApiException {
-    Object localVarPostBody = createPortingReportRequest;
-    
-    // verify the required parameter 'createPortingReportRequest' is set
-    if (createPortingReportRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createPortingReportRequest' when calling createPortingReport");
+    public ApiResponse<
+        CreatePortingReport201Response
+    > createPortingReportWithHttpInfo(
+        CreatePortingReportRequest createPortingReportRequest
+    ) throws ApiException {
+        Object localVarPostBody = createPortingReportRequest;
+
+        // verify the required parameter 'createPortingReportRequest' is set
+        if (createPortingReportRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createPortingReportRequest' when calling createPortingReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/porting/reports";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreatePortingReport201Response> localVarReturnType =
+            new GenericType<CreatePortingReport201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.createPortingReport",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/reports";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingReport201Response> localVarReturnType = new GenericType<CreatePortingReport201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.createPortingReport", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Delete an additional document
    * Deletes an additional document for a porting order.
    * @param id Porting Order id (required)
@@ -927,11 +1261,12 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public void deleteAdditionalDocument(UUID id, UUID additionalDocumentId) throws ApiException {
-    deleteAdditionalDocumentWithHttpInfo(id, additionalDocumentId);
-  }
+    public void deleteAdditionalDocument(UUID id, UUID additionalDocumentId)
+        throws ApiException {
+        deleteAdditionalDocumentWithHttpInfo(id, additionalDocumentId);
+    }
 
-  /**
+    /**
    * Delete an additional document
    * Deletes an additional document for a porting order.
    * @param id Porting Order id (required)
@@ -946,51 +1281,80 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteAdditionalDocumentWithHttpInfo(UUID id, UUID additionalDocumentId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteAdditionalDocument");
+    public ApiResponse<Void> deleteAdditionalDocumentWithHttpInfo(
+        UUID id,
+        UUID additionalDocumentId
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteAdditionalDocument"
+            );
+        }
+
+        // verify the required parameter 'additionalDocumentId' is set
+        if (additionalDocumentId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'additionalDocumentId' when calling deleteAdditionalDocument"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/additional_documents/{additional_document_id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "additional_document_id" + "\\}",
+                    apiClient.escapeString(additionalDocumentId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {};
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.deleteAdditionalDocument",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            null,
+            false
+        );
     }
-    
-    // verify the required parameter 'additionalDocumentId' is set
-    if (additionalDocumentId == null) {
-      throw new ApiException(400, "Missing the required parameter 'additionalDocumentId' when calling deleteAdditionalDocument");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/additional_documents/{additional_document_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "additional_document_id" + "\\}", apiClient.escapeString(additionalDocumentId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    return apiClient.invokeAPI("PortingOrdersApi.deleteAdditionalDocument", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, null, false);
-  }
-  /**
+    /**
    * Delete a LOA configuration
    * Delete a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -1003,11 +1367,11 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public void deleteLoaConfiguration(UUID id) throws ApiException {
-    deleteLoaConfigurationWithHttpInfo(id);
-  }
+    public void deleteLoaConfiguration(UUID id) throws ApiException {
+        deleteLoaConfigurationWithHttpInfo(id);
+    }
 
-  /**
+    /**
    * Delete a LOA configuration
    * Delete a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -1021,45 +1385,67 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteLoaConfigurationWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteLoaConfiguration");
+    public ApiResponse<Void> deleteLoaConfigurationWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteLoaConfiguration"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting/loa_configurations/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {};
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.deleteLoaConfiguration",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            null,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/loa_configurations/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    return apiClient.invokeAPI("PortingOrdersApi.deleteLoaConfiguration", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, null, false);
-  }
-  /**
+    /**
    * Delete a porting order
    * Deletes an existing porting order. This operation is restrict to porting orders in draft state.
    * @param id Porting Order id (required)
@@ -1072,11 +1458,11 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public void deletePortingOrder(UUID id) throws ApiException {
-    deletePortingOrderWithHttpInfo(id);
-  }
+    public void deletePortingOrder(UUID id) throws ApiException {
+        deletePortingOrderWithHttpInfo(id);
+    }
 
-  /**
+    /**
    * Delete a porting order
    * Deletes an existing porting order. This operation is restrict to porting orders in draft state.
    * @param id Porting Order id (required)
@@ -1090,45 +1476,67 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deletePortingOrderWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deletePortingOrder");
+    public ApiResponse<Void> deletePortingOrderWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deletePortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {};
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.deletePortingOrder",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            null,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    return apiClient.invokeAPI("PortingOrdersApi.deletePortingOrder", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, null, false);
-  }
-  /**
+    /**
    * Delete a phone number block
    * Deletes a phone number block.
    * @param portingOrderId Identifies the Porting Order associated with the phone number block (required)
@@ -1143,11 +1551,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingPhoneNumberBlock201Response deletePortingPhoneNumberBlock(UUID portingOrderId, UUID id) throws ApiException {
-    return deletePortingPhoneNumberBlockWithHttpInfo(portingOrderId, id).getData();
-  }
+    public CreatePortingPhoneNumberBlock201Response deletePortingPhoneNumberBlock(
+        UUID portingOrderId,
+        UUID id
+    ) throws ApiException {
+        return deletePortingPhoneNumberBlockWithHttpInfo(
+            portingOrderId,
+            id
+        ).getData();
+    }
 
-  /**
+    /**
    * Delete a phone number block
    * Deletes a phone number block.
    * @param portingOrderId Identifies the Porting Order associated with the phone number block (required)
@@ -1162,53 +1576,86 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingPhoneNumberBlock201Response> deletePortingPhoneNumberBlockWithHttpInfo(UUID portingOrderId, UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'portingOrderId' is set
-    if (portingOrderId == null) {
-      throw new ApiException(400, "Missing the required parameter 'portingOrderId' when calling deletePortingPhoneNumberBlock");
+    public ApiResponse<
+        CreatePortingPhoneNumberBlock201Response
+    > deletePortingPhoneNumberBlockWithHttpInfo(UUID portingOrderId, UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'portingOrderId' is set
+        if (portingOrderId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'portingOrderId' when calling deletePortingPhoneNumberBlock"
+            );
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deletePortingPhoneNumberBlock"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{porting_order_id}/phone_number_blocks/{id}".replaceAll(
+                    "\\{" + "porting_order_id" + "\\}",
+                    apiClient.escapeString(portingOrderId.toString())
+                ).replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            CreatePortingPhoneNumberBlock201Response
+        > localVarReturnType = new GenericType<
+            CreatePortingPhoneNumberBlock201Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.deletePortingPhoneNumberBlock",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deletePortingPhoneNumberBlock");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{porting_order_id}/phone_number_blocks/{id}"
-      .replaceAll("\\{" + "porting_order_id" + "\\}", apiClient.escapeString(portingOrderId.toString()))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingPhoneNumberBlock201Response> localVarReturnType = new GenericType<CreatePortingPhoneNumberBlock201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.deletePortingPhoneNumberBlock", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Delete a phone number extension
    * Deletes a phone number extension.
    * @param portingOrderId Identifies the Porting Order associated with the phone number extension (required)
@@ -1223,11 +1670,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingPhoneNumberExtension201Response deletePortingPhoneNumberExtension(UUID portingOrderId, UUID id) throws ApiException {
-    return deletePortingPhoneNumberExtensionWithHttpInfo(portingOrderId, id).getData();
-  }
+    public CreatePortingPhoneNumberExtension201Response deletePortingPhoneNumberExtension(
+        UUID portingOrderId,
+        UUID id
+    ) throws ApiException {
+        return deletePortingPhoneNumberExtensionWithHttpInfo(
+            portingOrderId,
+            id
+        ).getData();
+    }
 
-  /**
+    /**
    * Delete a phone number extension
    * Deletes a phone number extension.
    * @param portingOrderId Identifies the Porting Order associated with the phone number extension (required)
@@ -1242,53 +1695,88 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingPhoneNumberExtension201Response> deletePortingPhoneNumberExtensionWithHttpInfo(UUID portingOrderId, UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'portingOrderId' is set
-    if (portingOrderId == null) {
-      throw new ApiException(400, "Missing the required parameter 'portingOrderId' when calling deletePortingPhoneNumberExtension");
+    public ApiResponse<
+        CreatePortingPhoneNumberExtension201Response
+    > deletePortingPhoneNumberExtensionWithHttpInfo(
+        UUID portingOrderId,
+        UUID id
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'portingOrderId' is set
+        if (portingOrderId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'portingOrderId' when calling deletePortingPhoneNumberExtension"
+            );
+        }
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deletePortingPhoneNumberExtension"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{porting_order_id}/phone_number_extensions/{id}".replaceAll(
+                    "\\{" + "porting_order_id" + "\\}",
+                    apiClient.escapeString(portingOrderId.toString())
+                ).replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            CreatePortingPhoneNumberExtension201Response
+        > localVarReturnType = new GenericType<
+            CreatePortingPhoneNumberExtension201Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.deletePortingPhoneNumberExtension",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deletePortingPhoneNumberExtension");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{porting_order_id}/phone_number_extensions/{id}"
-      .replaceAll("\\{" + "porting_order_id" + "\\}", apiClient.escapeString(portingOrderId.toString()))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingPhoneNumberExtension201Response> localVarReturnType = new GenericType<CreatePortingPhoneNumberExtension201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.deletePortingPhoneNumberExtension", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a LOA configuration
    * Retrieve a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -1302,11 +1790,12 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateLoaConfiguration201Response getLoaConfiguration(UUID id) throws ApiException {
-    return getLoaConfigurationWithHttpInfo(id).getData();
-  }
+    public CreateLoaConfiguration201Response getLoaConfiguration(UUID id)
+        throws ApiException {
+        return getLoaConfigurationWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a LOA configuration
    * Retrieve a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -1320,47 +1809,71 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateLoaConfiguration201Response> getLoaConfigurationWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getLoaConfiguration");
+    public ApiResponse<
+        CreateLoaConfiguration201Response
+    > getLoaConfigurationWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getLoaConfiguration"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting/loa_configurations/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateLoaConfiguration201Response> localVarReturnType =
+            new GenericType<CreateLoaConfiguration201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.getLoaConfiguration",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/loa_configurations/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateLoaConfiguration201Response> localVarReturnType = new GenericType<CreateLoaConfiguration201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.getLoaConfiguration", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a porting order
    * Retrieves the details of an existing porting order.
    * @param id Porting Order id (required)
@@ -1374,11 +1887,14 @@ public class PortingOrdersApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public GetPortingOrder200Response getPortingOrder(UUID id, Boolean includePhoneNumbers) throws ApiException {
-    return getPortingOrderWithHttpInfo(id, includePhoneNumbers).getData();
-  }
+    public GetPortingOrder200Response getPortingOrder(
+        UUID id,
+        Boolean includePhoneNumbers
+    ) throws ApiException {
+        return getPortingOrderWithHttpInfo(id, includePhoneNumbers).getData();
+    }
 
-  /**
+    /**
    * Retrieve a porting order
    * Retrieves the details of an existing porting order.
    * @param id Porting Order id (required)
@@ -1392,48 +1908,80 @@ public class PortingOrdersApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetPortingOrder200Response> getPortingOrderWithHttpInfo(UUID id, Boolean includePhoneNumbers) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getPortingOrder");
+    public ApiResponse<GetPortingOrder200Response> getPortingOrderWithHttpInfo(
+        UUID id,
+        Boolean includePhoneNumbers
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getPortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "include_phone_numbers",
+                includePhoneNumbers
+            )
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetPortingOrder200Response> localVarReturnType =
+            new GenericType<GetPortingOrder200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.getPortingOrder",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "include_phone_numbers", includePhoneNumbers));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetPortingOrder200Response> localVarReturnType = new GenericType<GetPortingOrder200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.getPortingOrder", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Download a porting order loa template
    * Download a porting order loa template
    * @param id Porting Order id (required)
@@ -1447,11 +1995,15 @@ public class PortingOrdersApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public File getPortingOrderLoaTemplate(UUID id, UUID loaConfigurationId) throws ApiException {
-    return getPortingOrderLoaTemplateWithHttpInfo(id, loaConfigurationId).getData();
-  }
+    public File getPortingOrderLoaTemplate(UUID id, UUID loaConfigurationId)
+        throws ApiException {
+        return getPortingOrderLoaTemplateWithHttpInfo(
+            id,
+            loaConfigurationId
+        ).getData();
+    }
 
-  /**
+    /**
    * Download a porting order loa template
    * Download a porting order loa template
    * @param id Porting Order id (required)
@@ -1465,48 +2017,79 @@ public class PortingOrdersApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<File> getPortingOrderLoaTemplateWithHttpInfo(UUID id, UUID loaConfigurationId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getPortingOrderLoaTemplate");
+    public ApiResponse<File> getPortingOrderLoaTemplateWithHttpInfo(
+        UUID id,
+        UUID loaConfigurationId
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getPortingOrderLoaTemplate"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/loa_template".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "loa_configuration_id",
+                loaConfigurationId
+            )
+        );
+
+        final String[] localVarAccepts = { "application/pdf" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<File> localVarReturnType = new GenericType<File>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.getPortingOrderLoaTemplate",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/loa_template"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "loa_configuration_id", loaConfigurationId));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/pdf"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<File> localVarReturnType = new GenericType<File>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.getPortingOrderLoaTemplate", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve the associated V1 sub_request_id and port_request_id
    * Retrieve the associated V1 sub_request_id and port_request_id
    * @param id Porting Order id (required)
@@ -1520,11 +2103,13 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Porting Order not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetPortingOrderSubRequest200Response getPortingOrderSubRequest(UUID id) throws ApiException {
-    return getPortingOrderSubRequestWithHttpInfo(id).getData();
-  }
+    public GetPortingOrderSubRequest200Response getPortingOrderSubRequest(
+        UUID id
+    ) throws ApiException {
+        return getPortingOrderSubRequestWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve the associated V1 sub_request_id and port_request_id
    * Retrieve the associated V1 sub_request_id and port_request_id
    * @param id Porting Order id (required)
@@ -1538,47 +2123,71 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Porting Order not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetPortingOrderSubRequest200Response> getPortingOrderSubRequestWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getPortingOrderSubRequest");
+    public ApiResponse<
+        GetPortingOrderSubRequest200Response
+    > getPortingOrderSubRequestWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getPortingOrderSubRequest"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/sub_request".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetPortingOrderSubRequest200Response> localVarReturnType =
+            new GenericType<GetPortingOrderSubRequest200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.getPortingOrderSubRequest",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/sub_request"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetPortingOrderSubRequest200Response> localVarReturnType = new GenericType<GetPortingOrderSubRequest200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.getPortingOrderSubRequest", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a porting activation job
    * Returns a porting activation job.
    * @param id Porting Order id (required)
@@ -1593,11 +2202,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ActivatePortingOrder202Response getPortingOrdersActivationJob(UUID id, UUID activationJobId) throws ApiException {
-    return getPortingOrdersActivationJobWithHttpInfo(id, activationJobId).getData();
-  }
+    public ActivatePortingOrder202Response getPortingOrdersActivationJob(
+        UUID id,
+        UUID activationJobId
+    ) throws ApiException {
+        return getPortingOrdersActivationJobWithHttpInfo(
+            id,
+            activationJobId
+        ).getData();
+    }
 
-  /**
+    /**
    * Retrieve a porting activation job
    * Returns a porting activation job.
    * @param id Porting Order id (required)
@@ -1612,53 +2227,83 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ActivatePortingOrder202Response> getPortingOrdersActivationJobWithHttpInfo(UUID id, UUID activationJobId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getPortingOrdersActivationJob");
+    public ApiResponse<
+        ActivatePortingOrder202Response
+    > getPortingOrdersActivationJobWithHttpInfo(UUID id, UUID activationJobId)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getPortingOrdersActivationJob"
+            );
+        }
+
+        // verify the required parameter 'activationJobId' is set
+        if (activationJobId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'activationJobId' when calling getPortingOrdersActivationJob"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/activation_jobs/{activationJobId}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "activationJobId" + "\\}",
+                    apiClient.escapeString(activationJobId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ActivatePortingOrder202Response> localVarReturnType =
+            new GenericType<ActivatePortingOrder202Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.getPortingOrdersActivationJob",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'activationJobId' is set
-    if (activationJobId == null) {
-      throw new ApiException(400, "Missing the required parameter 'activationJobId' when calling getPortingOrdersActivationJob");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/activation_jobs/{activationJobId}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "activationJobId" + "\\}", apiClient.escapeString(activationJobId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ActivatePortingOrder202Response> localVarReturnType = new GenericType<ActivatePortingOrder202Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.getPortingOrdersActivationJob", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a report
    * Retrieve a specific report generated.
    * @param id Identifies a report. (required)
@@ -1672,11 +2317,12 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePortingReport201Response getPortingReport(UUID id) throws ApiException {
-    return getPortingReportWithHttpInfo(id).getData();
-  }
+    public CreatePortingReport201Response getPortingReport(UUID id)
+        throws ApiException {
+        return getPortingReportWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a report
    * Retrieve a specific report generated.
    * @param id Identifies a report. (required)
@@ -1690,47 +2336,71 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePortingReport201Response> getPortingReportWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getPortingReport");
+    public ApiResponse<
+        CreatePortingReport201Response
+    > getPortingReportWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getPortingReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting/reports/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreatePortingReport201Response> localVarReturnType =
+            new GenericType<CreatePortingReport201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.getPortingReport",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/reports/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePortingReport201Response> localVarReturnType = new GenericType<CreatePortingReport201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.getPortingReport", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List additional documents
    * Returns a list of additional documents for a porting order.
    * @param id Porting Order id (required)
@@ -1749,11 +2419,25 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ListAdditionalDocuments200Response listAdditionalDocuments(UUID id, Integer pageNumber, Integer pageSize, String filterDocumentType, List<String> filterDocumentTypeIn, String sort) throws ApiException {
-    return listAdditionalDocumentsWithHttpInfo(id, pageNumber, pageSize, filterDocumentType, filterDocumentTypeIn, sort).getData();
-  }
+    public ListAdditionalDocuments200Response listAdditionalDocuments(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        String filterDocumentType,
+        List<String> filterDocumentTypeIn,
+        String sort
+    ) throws ApiException {
+        return listAdditionalDocumentsWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize,
+            filterDocumentType,
+            filterDocumentTypeIn,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * List additional documents
    * Returns a list of additional documents for a porting order.
    * @param id Porting Order id (required)
@@ -1772,52 +2456,102 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListAdditionalDocuments200Response> listAdditionalDocumentsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, String filterDocumentType, List<String> filterDocumentTypeIn, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listAdditionalDocuments");
+    public ApiResponse<
+        ListAdditionalDocuments200Response
+    > listAdditionalDocumentsWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        String filterDocumentType,
+        List<String> filterDocumentTypeIn,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listAdditionalDocuments"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/additional_documents".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[document_type]",
+                filterDocumentType
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[document_type][in][]",
+                filterDocumentTypeIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ListAdditionalDocuments200Response> localVarReturnType =
+            new GenericType<ListAdditionalDocuments200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listAdditionalDocuments",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/additional_documents"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[document_type]", filterDocumentType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[document_type][in][]", filterDocumentTypeIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListAdditionalDocuments200Response> localVarReturnType = new GenericType<ListAdditionalDocuments200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listAdditionalDocuments", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List allowed FOC dates
    * Returns a list of allowed FOC dates for a porting order.
    * @param id Porting Order id (required)
@@ -1830,11 +2564,12 @@ public class PortingOrdersApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ListAllowedFocWindows200Response listAllowedFocWindows(UUID id) throws ApiException {
-    return listAllowedFocWindowsWithHttpInfo(id).getData();
-  }
+    public ListAllowedFocWindows200Response listAllowedFocWindows(UUID id)
+        throws ApiException {
+        return listAllowedFocWindowsWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * List allowed FOC dates
    * Returns a list of allowed FOC dates for a porting order.
    * @param id Porting Order id (required)
@@ -1847,47 +2582,71 @@ public class PortingOrdersApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListAllowedFocWindows200Response> listAllowedFocWindowsWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listAllowedFocWindows");
+    public ApiResponse<
+        ListAllowedFocWindows200Response
+    > listAllowedFocWindowsWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listAllowedFocWindows"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/allowed_foc_windows".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ListAllowedFocWindows200Response> localVarReturnType =
+            new GenericType<ListAllowedFocWindows200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listAllowedFocWindows",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/allowed_foc_windows"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListAllowedFocWindows200Response> localVarReturnType = new GenericType<ListAllowedFocWindows200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listAllowedFocWindows", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all exception types
    * Returns a list of all possible exception types for a porting order.
    * @return ListExceptionTypes200Response
@@ -1900,11 +2659,12 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListExceptionTypes200Response listExceptionTypes() throws ApiException {
-    return listExceptionTypesWithHttpInfo().getData();
-  }
+    public ListExceptionTypes200Response listExceptionTypes()
+        throws ApiException {
+        return listExceptionTypesWithHttpInfo().getData();
+    }
 
-  /**
+    /**
    * List all exception types
    * Returns a list of all possible exception types for a porting order.
    * @return ApiResponse&lt;ListExceptionTypes200Response&gt;
@@ -1917,41 +2677,59 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListExceptionTypes200Response> listExceptionTypesWithHttpInfo() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/exception_types";
+    public ApiResponse<
+        ListExceptionTypes200Response
+    > listExceptionTypesWithHttpInfo() throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/porting_orders/exception_types";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListExceptionTypes200Response> localVarReturnType = new GenericType<ListExceptionTypes200Response>() {};
+        GenericType<ListExceptionTypes200Response> localVarReturnType =
+            new GenericType<ListExceptionTypes200Response>() {};
 
-    return apiClient.invokeAPI("PortingOrdersApi.listExceptionTypes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listExceptionTypes",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List LOA configurations
    * List the LOA configurations.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -1966,11 +2744,17 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ListLoaConfigurations200Response listLoaConfigurations(Integer pageNumber, Integer pageSize) throws ApiException {
-    return listLoaConfigurationsWithHttpInfo(pageNumber, pageSize).getData();
-  }
+    public ListLoaConfigurations200Response listLoaConfigurations(
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return listLoaConfigurationsWithHttpInfo(
+            pageNumber,
+            pageSize
+        ).getData();
+    }
 
-  /**
+    /**
    * List LOA configurations
    * List the LOA configurations.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -1985,43 +2769,67 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListLoaConfigurations200Response> listLoaConfigurationsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/porting/loa_configurations";
+    public ApiResponse<
+        ListLoaConfigurations200Response
+    > listLoaConfigurationsWithHttpInfo(Integer pageNumber, Integer pageSize)
+        throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/porting/loa_configurations";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListLoaConfigurations200Response> localVarReturnType = new GenericType<ListLoaConfigurations200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PortingOrdersApi.listLoaConfigurations", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListLoaConfigurations200Response> localVarReturnType =
+            new GenericType<ListLoaConfigurations200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listLoaConfigurations",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List all phone number configurations
    * Returns a list of phone number configurations paginated.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2045,11 +2853,35 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPhoneNumberConfigurations200Response listPhoneNumberConfigurations(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterPortingOrderStatus, List<String> filterPortingOrderStatusIn, UUID filterPortingPhoneNumber, List<UUID> filterPortingPhoneNumberIn, UUID filterUserBundleId, List<UUID> filterUserBundleIdIn, String sort) throws ApiException {
-    return listPhoneNumberConfigurationsWithHttpInfo(pageNumber, pageSize, filterPortingOrderId, filterPortingOrderIdIn, filterPortingOrderStatus, filterPortingOrderStatusIn, filterPortingPhoneNumber, filterPortingPhoneNumberIn, filterUserBundleId, filterUserBundleIdIn, sort).getData();
-  }
+    public ListPhoneNumberConfigurations200Response listPhoneNumberConfigurations(
+        Integer pageNumber,
+        Integer pageSize,
+        UUID filterPortingOrderId,
+        List<UUID> filterPortingOrderIdIn,
+        String filterPortingOrderStatus,
+        List<String> filterPortingOrderStatusIn,
+        UUID filterPortingPhoneNumber,
+        List<UUID> filterPortingPhoneNumberIn,
+        UUID filterUserBundleId,
+        List<UUID> filterUserBundleIdIn,
+        String sort
+    ) throws ApiException {
+        return listPhoneNumberConfigurationsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterPortingOrderId,
+            filterPortingOrderIdIn,
+            filterPortingOrderStatus,
+            filterPortingOrderStatusIn,
+            filterPortingPhoneNumber,
+            filterPortingPhoneNumberIn,
+            filterUserBundleId,
+            filterUserBundleIdIn,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * List all phone number configurations
    * Returns a list of phone number configurations paginated.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2073,52 +2905,140 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPhoneNumberConfigurations200Response> listPhoneNumberConfigurationsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterPortingOrderStatus, List<String> filterPortingOrderStatusIn, UUID filterPortingPhoneNumber, List<UUID> filterPortingPhoneNumberIn, UUID filterUserBundleId, List<UUID> filterUserBundleIdIn, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/phone_number_configurations";
+    public ApiResponse<
+        ListPhoneNumberConfigurations200Response
+    > listPhoneNumberConfigurationsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        UUID filterPortingOrderId,
+        List<UUID> filterPortingOrderIdIn,
+        String filterPortingOrderStatus,
+        List<String> filterPortingOrderStatusIn,
+        UUID filterPortingPhoneNumber,
+        List<UUID> filterPortingPhoneNumberIn,
+        UUID filterUserBundleId,
+        List<UUID> filterUserBundleIdIn,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/porting_orders/phone_number_configurations";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_order_id]", filterPortingOrderId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[porting_order_id][in][]", filterPortingOrderIdIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_order.status]", filterPortingOrderStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[porting_order.status][in][]", filterPortingOrderStatusIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_phone_number]", filterPortingPhoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[porting_phone_number][in][]", filterPortingPhoneNumberIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[user_bundle_id]", filterUserBundleId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[user_bundle_id][in][]", filterUserBundleIdIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_order_id]",
+                filterPortingOrderId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[porting_order_id][in][]",
+                filterPortingOrderIdIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_order.status]",
+                filterPortingOrderStatus
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[porting_order.status][in][]",
+                filterPortingOrderStatusIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_phone_number]",
+                filterPortingPhoneNumber
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[porting_phone_number][in][]",
+                filterPortingPhoneNumberIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[user_bundle_id]",
+                filterUserBundleId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[user_bundle_id][in][]",
+                filterUserBundleIdIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListPhoneNumberConfigurations200Response> localVarReturnType = new GenericType<ListPhoneNumberConfigurations200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PortingOrdersApi.listPhoneNumberConfigurations", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<
+            ListPhoneNumberConfigurations200Response
+        > localVarReturnType = new GenericType<
+            ListPhoneNumberConfigurations200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPhoneNumberConfigurations",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List all porting events
    * Returns a list of all porting events.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2136,11 +3056,25 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingEvents200Response listPortingEvents(Integer pageNumber, Integer pageSize, String filterType, UUID filterPortingOrderId, OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtLte) throws ApiException {
-    return listPortingEventsWithHttpInfo(pageNumber, pageSize, filterType, filterPortingOrderId, filterCreatedAtGte, filterCreatedAtLte).getData();
-  }
+    public ListPortingEvents200Response listPortingEvents(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterType,
+        UUID filterPortingOrderId,
+        OffsetDateTime filterCreatedAtGte,
+        OffsetDateTime filterCreatedAtLte
+    ) throws ApiException {
+        return listPortingEventsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterType,
+            filterPortingOrderId,
+            filterCreatedAtGte,
+            filterCreatedAtLte
+        ).getData();
+    }
 
-  /**
+    /**
    * List all porting events
    * Returns a list of all porting events.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2158,47 +3092,97 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingEvents200Response> listPortingEventsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterType, UUID filterPortingOrderId, OffsetDateTime filterCreatedAtGte, OffsetDateTime filterCreatedAtLte) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/porting/events";
+    public ApiResponse<
+        ListPortingEvents200Response
+    > listPortingEventsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterType,
+        UUID filterPortingOrderId,
+        OffsetDateTime filterCreatedAtGte,
+        OffsetDateTime filterCreatedAtLte
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/porting/events";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[type]", filterType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_order_id]", filterPortingOrderId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][gte]", filterCreatedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][lte]", filterCreatedAtLte));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[type]", filterType)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_order_id]",
+                filterPortingOrderId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[created_at][gte]",
+                filterCreatedAtGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[created_at][lte]",
+                filterCreatedAtLte
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListPortingEvents200Response> localVarReturnType = new GenericType<ListPortingEvents200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingEvents", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListPortingEvents200Response> localVarReturnType =
+            new GenericType<ListPortingEvents200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingEvents",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List all porting activation jobs
    * Returns a list of your porting activation jobs.
    * @param id Porting Order id (required)
@@ -2214,11 +3198,19 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrderActivationJobs200Response listPortingOrderActivationJobs(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    return listPortingOrderActivationJobsWithHttpInfo(id, pageNumber, pageSize).getData();
-  }
+    public ListPortingOrderActivationJobs200Response listPortingOrderActivationJobs(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return listPortingOrderActivationJobsWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize
+        ).getData();
+    }
 
-  /**
+    /**
    * List all porting activation jobs
    * Returns a list of your porting activation jobs.
    * @param id Porting Order id (required)
@@ -2234,49 +3226,85 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrderActivationJobs200Response> listPortingOrderActivationJobsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listPortingOrderActivationJobs");
+    public ApiResponse<
+        ListPortingOrderActivationJobs200Response
+    > listPortingOrderActivationJobsWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listPortingOrderActivationJobs"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/activation_jobs".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            ListPortingOrderActivationJobs200Response
+        > localVarReturnType = new GenericType<
+            ListPortingOrderActivationJobs200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingOrderActivationJobs",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/activation_jobs"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListPortingOrderActivationJobs200Response> localVarReturnType = new GenericType<ListPortingOrderActivationJobs200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingOrderActivationJobs", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all comments of a porting order
    * Returns a list of all comments of a porting order.
    * @param id Porting Order id (required)
@@ -2292,11 +3320,19 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrderComments200Response listPortingOrderComments(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    return listPortingOrderCommentsWithHttpInfo(id, pageNumber, pageSize).getData();
-  }
+    public ListPortingOrderComments200Response listPortingOrderComments(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return listPortingOrderCommentsWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize
+        ).getData();
+    }
 
-  /**
+    /**
    * List all comments of a porting order
    * Returns a list of all comments of a porting order.
    * @param id Porting Order id (required)
@@ -2312,49 +3348,82 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrderComments200Response> listPortingOrderCommentsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listPortingOrderComments");
+    public ApiResponse<
+        ListPortingOrderComments200Response
+    > listPortingOrderCommentsWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listPortingOrderComments"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/comments".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ListPortingOrderComments200Response> localVarReturnType =
+            new GenericType<ListPortingOrderComments200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingOrderComments",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/comments"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListPortingOrderComments200Response> localVarReturnType = new GenericType<ListPortingOrderComments200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingOrderComments", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List porting order requirements
    * Returns a list of all requirements based on country/number type for this porting order.
    * @param id Porting Order id (required)
@@ -2370,11 +3439,19 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrderRequirements200Response listPortingOrderRequirements(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    return listPortingOrderRequirementsWithHttpInfo(id, pageNumber, pageSize).getData();
-  }
+    public ListPortingOrderRequirements200Response listPortingOrderRequirements(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return listPortingOrderRequirementsWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize
+        ).getData();
+    }
 
-  /**
+    /**
    * List porting order requirements
    * Returns a list of all requirements based on country/number type for this porting order.
    * @param id Porting Order id (required)
@@ -2390,49 +3467,85 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrderRequirements200Response> listPortingOrderRequirementsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listPortingOrderRequirements");
+    public ApiResponse<
+        ListPortingOrderRequirements200Response
+    > listPortingOrderRequirementsWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listPortingOrderRequirements"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/requirements".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            ListPortingOrderRequirements200Response
+        > localVarReturnType = new GenericType<
+            ListPortingOrderRequirements200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingOrderRequirements",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/requirements"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListPortingOrderRequirements200Response> localVarReturnType = new GenericType<ListPortingOrderRequirements200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingOrderRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all porting orders
    * Returns a list of your porting order.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2462,11 +3575,47 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingOrders200Response listPortingOrders(Integer pageNumber, Integer pageSize, Boolean includePhoneNumbers, String filterStatus, String filterStatusIn, String filterCustomerReference, String filterParentSupportKey, String filterPhoneNumbersCountryCode, String filterPhoneNumbersCarrierName, PortingOrderType filterMiscType, String filterEndUserAdminEntityName, String filterEndUserAdminAuthPersonName, Boolean filterActivationSettingsFastPortEligible, String filterActivationSettingsFocDatetimeRequestedGt, String filterActivationSettingsFocDatetimeRequestedLt, String filterPhoneNumbersPhoneNumberContains, String sort) throws ApiException {
-    return listPortingOrdersWithHttpInfo(pageNumber, pageSize, includePhoneNumbers, filterStatus, filterStatusIn, filterCustomerReference, filterParentSupportKey, filterPhoneNumbersCountryCode, filterPhoneNumbersCarrierName, filterMiscType, filterEndUserAdminEntityName, filterEndUserAdminAuthPersonName, filterActivationSettingsFastPortEligible, filterActivationSettingsFocDatetimeRequestedGt, filterActivationSettingsFocDatetimeRequestedLt, filterPhoneNumbersPhoneNumberContains, sort).getData();
-  }
+    public ListPortingOrders200Response listPortingOrders(
+        Integer pageNumber,
+        Integer pageSize,
+        Boolean includePhoneNumbers,
+        String filterStatus,
+        String filterStatusIn,
+        String filterCustomerReference,
+        String filterParentSupportKey,
+        String filterPhoneNumbersCountryCode,
+        String filterPhoneNumbersCarrierName,
+        PortingOrderType filterMiscType,
+        String filterEndUserAdminEntityName,
+        String filterEndUserAdminAuthPersonName,
+        Boolean filterActivationSettingsFastPortEligible,
+        String filterActivationSettingsFocDatetimeRequestedGt,
+        String filterActivationSettingsFocDatetimeRequestedLt,
+        String filterPhoneNumbersPhoneNumberContains,
+        String sort
+    ) throws ApiException {
+        return listPortingOrdersWithHttpInfo(
+            pageNumber,
+            pageSize,
+            includePhoneNumbers,
+            filterStatus,
+            filterStatusIn,
+            filterCustomerReference,
+            filterParentSupportKey,
+            filterPhoneNumbersCountryCode,
+            filterPhoneNumbersCarrierName,
+            filterMiscType,
+            filterEndUserAdminEntityName,
+            filterEndUserAdminAuthPersonName,
+            filterActivationSettingsFastPortEligible,
+            filterActivationSettingsFocDatetimeRequestedGt,
+            filterActivationSettingsFocDatetimeRequestedLt,
+            filterPhoneNumbersPhoneNumberContains,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * List all porting orders
    * Returns a list of your porting order.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2496,58 +3645,177 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingOrders200Response> listPortingOrdersWithHttpInfo(Integer pageNumber, Integer pageSize, Boolean includePhoneNumbers, String filterStatus, String filterStatusIn, String filterCustomerReference, String filterParentSupportKey, String filterPhoneNumbersCountryCode, String filterPhoneNumbersCarrierName, PortingOrderType filterMiscType, String filterEndUserAdminEntityName, String filterEndUserAdminAuthPersonName, Boolean filterActivationSettingsFastPortEligible, String filterActivationSettingsFocDatetimeRequestedGt, String filterActivationSettingsFocDatetimeRequestedLt, String filterPhoneNumbersPhoneNumberContains, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders";
+    public ApiResponse<
+        ListPortingOrders200Response
+    > listPortingOrdersWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        Boolean includePhoneNumbers,
+        String filterStatus,
+        String filterStatusIn,
+        String filterCustomerReference,
+        String filterParentSupportKey,
+        String filterPhoneNumbersCountryCode,
+        String filterPhoneNumbersCarrierName,
+        PortingOrderType filterMiscType,
+        String filterEndUserAdminEntityName,
+        String filterEndUserAdminAuthPersonName,
+        Boolean filterActivationSettingsFastPortEligible,
+        String filterActivationSettingsFocDatetimeRequestedGt,
+        String filterActivationSettingsFocDatetimeRequestedLt,
+        String filterPhoneNumbersPhoneNumberContains,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/porting_orders";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "include_phone_numbers", includePhoneNumbers));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status][in][]", filterStatusIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference]", filterCustomerReference));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[parent_support_key]", filterParentSupportKey));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_numbers.country_code]", filterPhoneNumbersCountryCode));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_numbers.carrier_name]", filterPhoneNumbersCarrierName));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[misc.type]", filterMiscType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[end_user.admin.entity_name]", filterEndUserAdminEntityName));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[end_user.admin.auth_person_name]", filterEndUserAdminAuthPersonName));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[activation_settings.fast_port_eligible]", filterActivationSettingsFastPortEligible));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[activation_settings.foc_datetime_requested][gt]", filterActivationSettingsFocDatetimeRequestedGt));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[activation_settings.foc_datetime_requested][lt]", filterActivationSettingsFocDatetimeRequestedLt));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_numbers.phone_number][contains]", filterPhoneNumbersPhoneNumberContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "include_phone_numbers",
+                includePhoneNumbers
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status]", filterStatus)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[status][in][]",
+                filterStatusIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[customer_reference]",
+                filterCustomerReference
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[parent_support_key]",
+                filterParentSupportKey
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_numbers.country_code]",
+                filterPhoneNumbersCountryCode
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_numbers.carrier_name]",
+                filterPhoneNumbersCarrierName
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[misc.type]", filterMiscType)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[end_user.admin.entity_name]",
+                filterEndUserAdminEntityName
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[end_user.admin.auth_person_name]",
+                filterEndUserAdminAuthPersonName
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[activation_settings.fast_port_eligible]",
+                filterActivationSettingsFastPortEligible
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[activation_settings.foc_datetime_requested][gt]",
+                filterActivationSettingsFocDatetimeRequestedGt
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[activation_settings.foc_datetime_requested][lt]",
+                filterActivationSettingsFocDatetimeRequestedLt
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_numbers.phone_number][contains]",
+                filterPhoneNumbersPhoneNumberContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListPortingOrders200Response> localVarReturnType = new GenericType<ListPortingOrders200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingOrders", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListPortingOrders200Response> localVarReturnType =
+            new GenericType<ListPortingOrders200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingOrders",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List all phone number blocks
    * Returns a list of all phone number blocks of a porting order.
    * @param portingOrderId Identifies the Porting Order associated with the phone number blocks (required)
@@ -2567,11 +3835,25 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingPhoneNumberBlocks200Response listPortingPhoneNumberBlocks(UUID portingOrderId, String filterPhoneNumber, List<String> filterPhoneNumberIn, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
-    return listPortingPhoneNumberBlocksWithHttpInfo(portingOrderId, filterPhoneNumber, filterPhoneNumberIn, sort, pageNumber, pageSize).getData();
-  }
+    public ListPortingPhoneNumberBlocks200Response listPortingPhoneNumberBlocks(
+        UUID portingOrderId,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        String sort,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return listPortingPhoneNumberBlocksWithHttpInfo(
+            portingOrderId,
+            filterPhoneNumber,
+            filterPhoneNumberIn,
+            sort,
+            pageNumber,
+            pageSize
+        ).getData();
+    }
 
-  /**
+    /**
    * List all phone number blocks
    * Returns a list of all phone number blocks of a porting order.
    * @param portingOrderId Identifies the Porting Order associated with the phone number blocks (required)
@@ -2591,52 +3873,105 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingPhoneNumberBlocks200Response> listPortingPhoneNumberBlocksWithHttpInfo(UUID portingOrderId, String filterPhoneNumber, List<String> filterPhoneNumberIn, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'portingOrderId' is set
-    if (portingOrderId == null) {
-      throw new ApiException(400, "Missing the required parameter 'portingOrderId' when calling listPortingPhoneNumberBlocks");
+    public ApiResponse<
+        ListPortingPhoneNumberBlocks200Response
+    > listPortingPhoneNumberBlocksWithHttpInfo(
+        UUID portingOrderId,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        String sort,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'portingOrderId' is set
+        if (portingOrderId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'portingOrderId' when calling listPortingPhoneNumberBlocks"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{porting_order_id}/phone_number_blocks".replaceAll(
+                    "\\{" + "porting_order_id" + "\\}",
+                    apiClient.escapeString(portingOrderId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[phone_number][in][]",
+                filterPhoneNumberIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            ListPortingPhoneNumberBlocks200Response
+        > localVarReturnType = new GenericType<
+            ListPortingPhoneNumberBlocks200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingPhoneNumberBlocks",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{porting_order_id}/phone_number_blocks"
-      .replaceAll("\\{" + "porting_order_id" + "\\}", apiClient.escapeString(portingOrderId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[phone_number][in][]", filterPhoneNumberIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListPortingPhoneNumberBlocks200Response> localVarReturnType = new GenericType<ListPortingPhoneNumberBlocks200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingPhoneNumberBlocks", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all phone number extensions
    * Returns a list of all phone number extensions of a porting order.
    * @param portingOrderId Identifies the Porting Order associated with the phone number extensions (required)
@@ -2658,11 +3993,29 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingPhoneNumberExtensions200Response listPortingPhoneNumberExtensions(UUID portingOrderId, String filterPhoneNumber, List<String> filterPhoneNumberIn, UUID filterPortingPhoneNumberId, UUID filterPortingPhoneNumberIdIn, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
-    return listPortingPhoneNumberExtensionsWithHttpInfo(portingOrderId, filterPhoneNumber, filterPhoneNumberIn, filterPortingPhoneNumberId, filterPortingPhoneNumberIdIn, sort, pageNumber, pageSize).getData();
-  }
+    public ListPortingPhoneNumberExtensions200Response listPortingPhoneNumberExtensions(
+        UUID portingOrderId,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        UUID filterPortingPhoneNumberId,
+        UUID filterPortingPhoneNumberIdIn,
+        String sort,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return listPortingPhoneNumberExtensionsWithHttpInfo(
+            portingOrderId,
+            filterPhoneNumber,
+            filterPhoneNumberIn,
+            filterPortingPhoneNumberId,
+            filterPortingPhoneNumberIdIn,
+            sort,
+            pageNumber,
+            pageSize
+        ).getData();
+    }
 
-  /**
+    /**
    * List all phone number extensions
    * Returns a list of all phone number extensions of a porting order.
    * @param portingOrderId Identifies the Porting Order associated with the phone number extensions (required)
@@ -2684,54 +4037,121 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingPhoneNumberExtensions200Response> listPortingPhoneNumberExtensionsWithHttpInfo(UUID portingOrderId, String filterPhoneNumber, List<String> filterPhoneNumberIn, UUID filterPortingPhoneNumberId, UUID filterPortingPhoneNumberIdIn, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'portingOrderId' is set
-    if (portingOrderId == null) {
-      throw new ApiException(400, "Missing the required parameter 'portingOrderId' when calling listPortingPhoneNumberExtensions");
+    public ApiResponse<
+        ListPortingPhoneNumberExtensions200Response
+    > listPortingPhoneNumberExtensionsWithHttpInfo(
+        UUID portingOrderId,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        UUID filterPortingPhoneNumberId,
+        UUID filterPortingPhoneNumberIdIn,
+        String sort,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'portingOrderId' is set
+        if (portingOrderId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'portingOrderId' when calling listPortingPhoneNumberExtensions"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{porting_order_id}/phone_number_extensions".replaceAll(
+                    "\\{" + "porting_order_id" + "\\}",
+                    apiClient.escapeString(portingOrderId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[phone_number][in][]",
+                filterPhoneNumberIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_phone_number_id]",
+                filterPortingPhoneNumberId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_phone_number_id][in][]",
+                filterPortingPhoneNumberIdIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            ListPortingPhoneNumberExtensions200Response
+        > localVarReturnType = new GenericType<
+            ListPortingPhoneNumberExtensions200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingPhoneNumberExtensions",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{porting_order_id}/phone_number_extensions"
-      .replaceAll("\\{" + "porting_order_id" + "\\}", apiClient.escapeString(portingOrderId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[phone_number][in][]", filterPhoneNumberIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_phone_number_id]", filterPortingPhoneNumberId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_phone_number_id][in][]", filterPortingPhoneNumberIdIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListPortingPhoneNumberExtensions200Response> localVarReturnType = new GenericType<ListPortingPhoneNumberExtensions200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingPhoneNumberExtensions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all porting phone numbers
    * Returns a list of your porting phone numbers.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2755,11 +4175,35 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingPhoneNumbers200Response listPortingPhoneNumbers(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterSupportKeyEq, List<String> filterSupportKeyIn, String filterPhoneNumber, List<String> filterPhoneNumberIn, String filterPortingOrderStatus, PortingOrderActivationStatus filterActivationStatus, PortabilityStatus filterPortabilityStatus) throws ApiException {
-    return listPortingPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterPortingOrderId, filterPortingOrderIdIn, filterSupportKeyEq, filterSupportKeyIn, filterPhoneNumber, filterPhoneNumberIn, filterPortingOrderStatus, filterActivationStatus, filterPortabilityStatus).getData();
-  }
+    public ListPortingPhoneNumbers200Response listPortingPhoneNumbers(
+        Integer pageNumber,
+        Integer pageSize,
+        UUID filterPortingOrderId,
+        List<UUID> filterPortingOrderIdIn,
+        String filterSupportKeyEq,
+        List<String> filterSupportKeyIn,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        String filterPortingOrderStatus,
+        PortingOrderActivationStatus filterActivationStatus,
+        PortabilityStatus filterPortabilityStatus
+    ) throws ApiException {
+        return listPortingPhoneNumbersWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterPortingOrderId,
+            filterPortingOrderIdIn,
+            filterSupportKeyEq,
+            filterSupportKeyIn,
+            filterPhoneNumber,
+            filterPhoneNumberIn,
+            filterPortingOrderStatus,
+            filterActivationStatus,
+            filterPortabilityStatus
+        ).getData();
+    }
 
-  /**
+    /**
    * List all porting phone numbers
    * Returns a list of your porting phone numbers.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2783,52 +4227,141 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingPhoneNumbers200Response> listPortingPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterPortingOrderId, List<UUID> filterPortingOrderIdIn, String filterSupportKeyEq, List<String> filterSupportKeyIn, String filterPhoneNumber, List<String> filterPhoneNumberIn, String filterPortingOrderStatus, PortingOrderActivationStatus filterActivationStatus, PortabilityStatus filterPortabilityStatus) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/porting_phone_numbers";
+    public ApiResponse<
+        ListPortingPhoneNumbers200Response
+    > listPortingPhoneNumbersWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        UUID filterPortingOrderId,
+        List<UUID> filterPortingOrderIdIn,
+        String filterSupportKeyEq,
+        List<String> filterSupportKeyIn,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        String filterPortingOrderStatus,
+        PortingOrderActivationStatus filterActivationStatus,
+        PortabilityStatus filterPortabilityStatus
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/porting_phone_numbers";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_order_id]", filterPortingOrderId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[porting_order_id][in][]", filterPortingOrderIdIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[support_key][eq]", filterSupportKeyEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[support_key][in][]", filterSupportKeyIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[phone_number][in][]", filterPhoneNumberIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[porting_order_status]", filterPortingOrderStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[activation_status]", filterActivationStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[portability_status]", filterPortabilityStatus));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json", "text/csv"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_order_id]",
+                filterPortingOrderId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[porting_order_id][in][]",
+                filterPortingOrderIdIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[support_key][eq]",
+                filterSupportKeyEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[support_key][in][]",
+                filterSupportKeyIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[phone_number][in][]",
+                filterPhoneNumberIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[porting_order_status]",
+                filterPortingOrderStatus
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[activation_status]",
+                filterActivationStatus
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[portability_status]",
+                filterPortabilityStatus
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json", "text/csv" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListPortingPhoneNumbers200Response> localVarReturnType = new GenericType<ListPortingPhoneNumbers200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingPhoneNumbers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListPortingPhoneNumbers200Response> localVarReturnType =
+            new GenericType<ListPortingPhoneNumbers200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingPhoneNumbers",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List porting related reports
    * List the reports generated about porting operations.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2845,11 +4378,21 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ListPortingReports200Response listPortingReports(Integer pageNumber, Integer pageSize, String filterReportType, String filterStatus) throws ApiException {
-    return listPortingReportsWithHttpInfo(pageNumber, pageSize, filterReportType, filterStatus).getData();
-  }
+    public ListPortingReports200Response listPortingReports(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterReportType,
+        String filterStatus
+    ) throws ApiException {
+        return listPortingReportsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterReportType,
+            filterStatus
+        ).getData();
+    }
 
-  /**
+    /**
    * List porting related reports
    * List the reports generated about porting operations.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -2866,45 +4409,81 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPortingReports200Response> listPortingReportsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterReportType, String filterStatus) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/porting/reports";
+    public ApiResponse<
+        ListPortingReports200Response
+    > listPortingReportsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterReportType,
+        String filterStatus
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/porting/reports";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[report_type]", filterReportType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[report_type]",
+                filterReportType
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status]", filterStatus)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListPortingReports200Response> localVarReturnType = new GenericType<ListPortingReports200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PortingOrdersApi.listPortingReports", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListPortingReports200Response> localVarReturnType =
+            new GenericType<ListPortingReports200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listPortingReports",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List verification codes
    * Returns a list of verification codes for a porting order.
    * @param id Porting Order id (required)
@@ -2924,11 +4503,27 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ListVerificationCodes200Response listVerificationCodes(UUID id, Integer pageNumber, Integer pageSize, String filterPhoneNumber, List<String> filterPhoneNumberIn, Boolean filterVerified, String sort) throws ApiException {
-    return listVerificationCodesWithHttpInfo(id, pageNumber, pageSize, filterPhoneNumber, filterPhoneNumberIn, filterVerified, sort).getData();
-  }
+    public ListVerificationCodes200Response listVerificationCodes(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        Boolean filterVerified,
+        String sort
+    ) throws ApiException {
+        return listVerificationCodesWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize,
+            filterPhoneNumber,
+            filterPhoneNumberIn,
+            filterVerified,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * List verification codes
    * Returns a list of verification codes for a porting order.
    * @param id Porting Order id (required)
@@ -2948,53 +4543,106 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListVerificationCodes200Response> listVerificationCodesWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, String filterPhoneNumber, List<String> filterPhoneNumberIn, Boolean filterVerified, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listVerificationCodes");
+    public ApiResponse<
+        ListVerificationCodes200Response
+    > listVerificationCodesWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        String filterPhoneNumber,
+        List<String> filterPhoneNumberIn,
+        Boolean filterVerified,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listVerificationCodes"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/verification_codes".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[phone_number][in][]",
+                filterPhoneNumberIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[verified]", filterVerified)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ListVerificationCodes200Response> localVarReturnType =
+            new GenericType<ListVerificationCodes200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.listVerificationCodes",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/verification_codes"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[phone_number][in][]", filterPhoneNumberIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[verified]", filterVerified));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListVerificationCodes200Response> localVarReturnType = new GenericType<ListVerificationCodes200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.listVerificationCodes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Preview a LOA configuration
    * Preview a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -3008,11 +4656,11 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public File previewLoaConfiguration(UUID id) throws ApiException {
-    return previewLoaConfigurationWithHttpInfo(id).getData();
-  }
+    public File previewLoaConfiguration(UUID id) throws ApiException {
+        return previewLoaConfigurationWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Preview a LOA configuration
    * Preview a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -3026,47 +4674,69 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<File> previewLoaConfigurationWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling previewLoaConfiguration");
+    public ApiResponse<File> previewLoaConfigurationWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling previewLoaConfiguration"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting/loa_configurations/{id}/preview".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/pdf" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<File> localVarReturnType = new GenericType<File>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.previewLoaConfiguration",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/loa_configurations/{id}/preview"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/pdf"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<File> localVarReturnType = new GenericType<File>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.previewLoaConfiguration", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Preview the LOA configuration parameters
    * Preview the LOA template that would be generated without need to create LOA configuration.
    * @param previewLoaConfigurationParamsRequest  (required)
@@ -3080,11 +4750,15 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public File previewLoaConfigurationParams(PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest) throws ApiException {
-    return previewLoaConfigurationParamsWithHttpInfo(previewLoaConfigurationParamsRequest).getData();
-  }
+    public File previewLoaConfigurationParams(
+        PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest
+    ) throws ApiException {
+        return previewLoaConfigurationParamsWithHttpInfo(
+            previewLoaConfigurationParamsRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Preview the LOA configuration parameters
    * Preview the LOA template that would be generated without need to create LOA configuration.
    * @param previewLoaConfigurationParamsRequest  (required)
@@ -3098,46 +4772,66 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<File> previewLoaConfigurationParamsWithHttpInfo(PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest) throws ApiException {
-    Object localVarPostBody = previewLoaConfigurationParamsRequest;
-    
-    // verify the required parameter 'previewLoaConfigurationParamsRequest' is set
-    if (previewLoaConfigurationParamsRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'previewLoaConfigurationParamsRequest' when calling previewLoaConfigurationParams");
+    public ApiResponse<File> previewLoaConfigurationParamsWithHttpInfo(
+        PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest
+    ) throws ApiException {
+        Object localVarPostBody = previewLoaConfigurationParamsRequest;
+
+        // verify the required parameter 'previewLoaConfigurationParamsRequest' is set
+        if (previewLoaConfigurationParamsRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'previewLoaConfigurationParamsRequest' when calling previewLoaConfigurationParams"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/porting/loa_configuration/preview";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/pdf" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<File> localVarReturnType = new GenericType<File>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.previewLoaConfigurationParams",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/loa_configuration/preview";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/pdf"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<File> localVarReturnType = new GenericType<File>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.previewLoaConfigurationParams", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Republish a porting event
    * Republish a specific porting event.
    * @param id Identifies the porting event. (required)
@@ -3150,11 +4844,11 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public void republishPortingEvent(UUID id) throws ApiException {
-    republishPortingEventWithHttpInfo(id);
-  }
+    public void republishPortingEvent(UUID id) throws ApiException {
+        republishPortingEventWithHttpInfo(id);
+    }
 
-  /**
+    /**
    * Republish a porting event
    * Republish a specific porting event.
    * @param id Identifies the porting event. (required)
@@ -3168,45 +4862,67 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> republishPortingEventWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling republishPortingEvent");
+    public ApiResponse<Void> republishPortingEventWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling republishPortingEvent"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting/events/{id}/republish".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {};
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.republishPortingEvent",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            null,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/events/{id}/republish"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    return apiClient.invokeAPI("PortingOrdersApi.republishPortingEvent", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, null, false);
-  }
-  /**
+    /**
    * Send the verification codes
    * Send the verification code for all porting phone numbers.
    * @param id Porting Order id (required)
@@ -3221,11 +4937,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public void sendPortingVerificationCodes(UUID id, SendPortingVerificationCodesRequest sendPortingVerificationCodesRequest) throws ApiException {
-    sendPortingVerificationCodesWithHttpInfo(id, sendPortingVerificationCodesRequest);
-  }
+    public void sendPortingVerificationCodes(
+        UUID id,
+        SendPortingVerificationCodesRequest sendPortingVerificationCodesRequest
+    ) throws ApiException {
+        sendPortingVerificationCodesWithHttpInfo(
+            id,
+            sendPortingVerificationCodesRequest
+        );
+    }
 
-  /**
+    /**
    * Send the verification codes
    * Send the verification code for all porting phone numbers.
    * @param id Porting Order id (required)
@@ -3241,45 +4963,69 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> sendPortingVerificationCodesWithHttpInfo(UUID id, SendPortingVerificationCodesRequest sendPortingVerificationCodesRequest) throws ApiException {
-    Object localVarPostBody = sendPortingVerificationCodesRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling sendPortingVerificationCodes");
+    public ApiResponse<Void> sendPortingVerificationCodesWithHttpInfo(
+        UUID id,
+        SendPortingVerificationCodesRequest sendPortingVerificationCodesRequest
+    ) throws ApiException {
+        Object localVarPostBody = sendPortingVerificationCodesRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling sendPortingVerificationCodes"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/verification_codes/send".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {};
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.sendPortingVerificationCodes",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            null,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/verification_codes/send"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    return apiClient.invokeAPI("PortingOrdersApi.sendPortingVerificationCodes", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, null, false);
-  }
-  /**
+    /**
    * Share a porting order
    * Creates a sharing token for a porting order. The token can be used to share the porting order with non-Telnyx users.
    * @param id Porting Order id (required)
@@ -3294,11 +5040,17 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Porting Order not found </td><td>  -  </td></tr>
      </table>
    */
-  public SharePortingOrder201Response sharePortingOrder(UUID id, SharePortingOrderRequest sharePortingOrderRequest) throws ApiException {
-    return sharePortingOrderWithHttpInfo(id, sharePortingOrderRequest).getData();
-  }
+    public SharePortingOrder201Response sharePortingOrder(
+        UUID id,
+        SharePortingOrderRequest sharePortingOrderRequest
+    ) throws ApiException {
+        return sharePortingOrderWithHttpInfo(
+            id,
+            sharePortingOrderRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Share a porting order
    * Creates a sharing token for a porting order. The token can be used to share the porting order with non-Telnyx users.
    * @param id Porting Order id (required)
@@ -3313,52 +5065,82 @@ public class PortingOrdersApi {
        <tr><td> 404 </td><td> Porting Order not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SharePortingOrder201Response> sharePortingOrderWithHttpInfo(UUID id, SharePortingOrderRequest sharePortingOrderRequest) throws ApiException {
-    Object localVarPostBody = sharePortingOrderRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling sharePortingOrder");
+    public ApiResponse<
+        SharePortingOrder201Response
+    > sharePortingOrderWithHttpInfo(
+        UUID id,
+        SharePortingOrderRequest sharePortingOrderRequest
+    ) throws ApiException {
+        Object localVarPostBody = sharePortingOrderRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling sharePortingOrder"
+            );
+        }
+
+        // verify the required parameter 'sharePortingOrderRequest' is set
+        if (sharePortingOrderRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'sharePortingOrderRequest' when calling sharePortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/actions/share".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<SharePortingOrder201Response> localVarReturnType =
+            new GenericType<SharePortingOrder201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.sharePortingOrder",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'sharePortingOrderRequest' is set
-    if (sharePortingOrderRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'sharePortingOrderRequest' when calling sharePortingOrder");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/actions/share"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<SharePortingOrder201Response> localVarReturnType = new GenericType<SharePortingOrder201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.sharePortingOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Show a porting event
    * Show a specific porting event.
    * @param id Identifies the porting event. (required)
@@ -3372,11 +5154,12 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ShowPortingEvent200Response showPortingEvent(UUID id) throws ApiException {
-    return showPortingEventWithHttpInfo(id).getData();
-  }
+    public ShowPortingEvent200Response showPortingEvent(UUID id)
+        throws ApiException {
+        return showPortingEventWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Show a porting event
    * Show a specific porting event.
    * @param id Identifies the porting event. (required)
@@ -3390,47 +5173,71 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ShowPortingEvent200Response> showPortingEventWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling showPortingEvent");
+    public ApiResponse<
+        ShowPortingEvent200Response
+    > showPortingEventWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling showPortingEvent"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting/events/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ShowPortingEvent200Response> localVarReturnType =
+            new GenericType<ShowPortingEvent200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.showPortingEvent",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/porting/events/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ShowPortingEvent200Response> localVarReturnType = new GenericType<ShowPortingEvent200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.showPortingEvent", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update a LOA configuration
    * Update a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -3446,11 +5253,17 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateLoaConfiguration201Response updateLoaConfiguration(UUID id, PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest) throws ApiException {
-    return updateLoaConfigurationWithHttpInfo(id, previewLoaConfigurationParamsRequest).getData();
-  }
+    public CreateLoaConfiguration201Response updateLoaConfiguration(
+        UUID id,
+        PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest
+    ) throws ApiException {
+        return updateLoaConfigurationWithHttpInfo(
+            id,
+            previewLoaConfigurationParamsRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update a LOA configuration
    * Update a specific LOA configuration.
    * @param id Identifies a LOA configuration. (required)
@@ -3466,52 +5279,82 @@ public class PortingOrdersApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateLoaConfiguration201Response> updateLoaConfigurationWithHttpInfo(UUID id, PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest) throws ApiException {
-    Object localVarPostBody = previewLoaConfigurationParamsRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateLoaConfiguration");
+    public ApiResponse<
+        CreateLoaConfiguration201Response
+    > updateLoaConfigurationWithHttpInfo(
+        UUID id,
+        PreviewLoaConfigurationParamsRequest previewLoaConfigurationParamsRequest
+    ) throws ApiException {
+        Object localVarPostBody = previewLoaConfigurationParamsRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateLoaConfiguration"
+            );
+        }
+
+        // verify the required parameter 'previewLoaConfigurationParamsRequest' is set
+        if (previewLoaConfigurationParamsRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'previewLoaConfigurationParamsRequest' when calling updateLoaConfiguration"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting/loa_configurations/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateLoaConfiguration201Response> localVarReturnType =
+            new GenericType<CreateLoaConfiguration201Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.updateLoaConfiguration",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'previewLoaConfigurationParamsRequest' is set
-    if (previewLoaConfigurationParamsRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'previewLoaConfigurationParamsRequest' when calling updateLoaConfiguration");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting/loa_configurations/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateLoaConfiguration201Response> localVarReturnType = new GenericType<CreateLoaConfiguration201Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.updateLoaConfiguration", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Edit a porting order
    * Edits the details of an existing porting order.  Any or all of a porting orders attributes may be included in the resource object included in a PATCH request.  If a request does not include all of the attributes for a resource, the system will interpret the missing attributes as if they were included with their current values. To explicitly set something to null, it must be included in the request with a null value.
    * @param id Porting Order id (required)
@@ -3526,11 +5369,14 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public UpdatePortingOrder200Response updatePortingOrder(UUID id, UpdatePortingOrder updatePortingOrder) throws ApiException {
-    return updatePortingOrderWithHttpInfo(id, updatePortingOrder).getData();
-  }
+    public UpdatePortingOrder200Response updatePortingOrder(
+        UUID id,
+        UpdatePortingOrder updatePortingOrder
+    ) throws ApiException {
+        return updatePortingOrderWithHttpInfo(id, updatePortingOrder).getData();
+    }
 
-  /**
+    /**
    * Edit a porting order
    * Edits the details of an existing porting order.  Any or all of a porting orders attributes may be included in the resource object included in a PATCH request.  If a request does not include all of the attributes for a resource, the system will interpret the missing attributes as if they were included with their current values. To explicitly set something to null, it must be included in the request with a null value.
    * @param id Porting Order id (required)
@@ -3545,52 +5391,82 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UpdatePortingOrder200Response> updatePortingOrderWithHttpInfo(UUID id, UpdatePortingOrder updatePortingOrder) throws ApiException {
-    Object localVarPostBody = updatePortingOrder;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updatePortingOrder");
+    public ApiResponse<
+        UpdatePortingOrder200Response
+    > updatePortingOrderWithHttpInfo(
+        UUID id,
+        UpdatePortingOrder updatePortingOrder
+    ) throws ApiException {
+        Object localVarPostBody = updatePortingOrder;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updatePortingOrder"
+            );
+        }
+
+        // verify the required parameter 'updatePortingOrder' is set
+        if (updatePortingOrder == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updatePortingOrder' when calling updatePortingOrder"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<UpdatePortingOrder200Response> localVarReturnType =
+            new GenericType<UpdatePortingOrder200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.updatePortingOrder",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'updatePortingOrder' is set
-    if (updatePortingOrder == null) {
-      throw new ApiException(400, "Missing the required parameter 'updatePortingOrder' when calling updatePortingOrder");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<UpdatePortingOrder200Response> localVarReturnType = new GenericType<UpdatePortingOrder200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.updatePortingOrder", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update a porting activation job
    * Updates the activation time of a porting activation job.
    * @param id Porting Order id (required)
@@ -3606,11 +5482,19 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ActivatePortingOrder202Response updatePortingOrdersActivationJob(UUID id, UUID activationJobId, UpdatePortingOrdersActivationJobRequest updatePortingOrdersActivationJobRequest) throws ApiException {
-    return updatePortingOrdersActivationJobWithHttpInfo(id, activationJobId, updatePortingOrdersActivationJobRequest).getData();
-  }
+    public ActivatePortingOrder202Response updatePortingOrdersActivationJob(
+        UUID id,
+        UUID activationJobId,
+        UpdatePortingOrdersActivationJobRequest updatePortingOrdersActivationJobRequest
+    ) throws ApiException {
+        return updatePortingOrdersActivationJobWithHttpInfo(
+            id,
+            activationJobId,
+            updatePortingOrdersActivationJobRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update a porting activation job
    * Updates the activation time of a porting activation job.
    * @param id Porting Order id (required)
@@ -3626,58 +5510,94 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ActivatePortingOrder202Response> updatePortingOrdersActivationJobWithHttpInfo(UUID id, UUID activationJobId, UpdatePortingOrdersActivationJobRequest updatePortingOrdersActivationJobRequest) throws ApiException {
-    Object localVarPostBody = updatePortingOrdersActivationJobRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updatePortingOrdersActivationJob");
+    public ApiResponse<
+        ActivatePortingOrder202Response
+    > updatePortingOrdersActivationJobWithHttpInfo(
+        UUID id,
+        UUID activationJobId,
+        UpdatePortingOrdersActivationJobRequest updatePortingOrdersActivationJobRequest
+    ) throws ApiException {
+        Object localVarPostBody = updatePortingOrdersActivationJobRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updatePortingOrdersActivationJob"
+            );
+        }
+
+        // verify the required parameter 'activationJobId' is set
+        if (activationJobId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'activationJobId' when calling updatePortingOrdersActivationJob"
+            );
+        }
+
+        // verify the required parameter 'updatePortingOrdersActivationJobRequest' is set
+        if (updatePortingOrdersActivationJobRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updatePortingOrdersActivationJobRequest' when calling updatePortingOrdersActivationJob"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/activation_jobs/{activationJobId}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "activationJobId" + "\\}",
+                    apiClient.escapeString(activationJobId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ActivatePortingOrder202Response> localVarReturnType =
+            new GenericType<ActivatePortingOrder202Response>() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.updatePortingOrdersActivationJob",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'activationJobId' is set
-    if (activationJobId == null) {
-      throw new ApiException(400, "Missing the required parameter 'activationJobId' when calling updatePortingOrdersActivationJob");
-    }
-    
-    // verify the required parameter 'updatePortingOrdersActivationJobRequest' is set
-    if (updatePortingOrdersActivationJobRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updatePortingOrdersActivationJobRequest' when calling updatePortingOrdersActivationJob");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/activation_jobs/{activationJobId}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "activationJobId" + "\\}", apiClient.escapeString(activationJobId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ActivatePortingOrder202Response> localVarReturnType = new GenericType<ActivatePortingOrder202Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.updatePortingOrdersActivationJob", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Verify the verification code for a list of phone numbers
    * Verifies the verification code for a list of phone numbers.
    * @param id Porting Order id (required)
@@ -3693,11 +5613,17 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public VerifyPortingVerificationCodes200Response verifyPortingVerificationCodes(UUID id, VerifyPortingVerificationCodesRequest verifyPortingVerificationCodesRequest) throws ApiException {
-    return verifyPortingVerificationCodesWithHttpInfo(id, verifyPortingVerificationCodesRequest).getData();
-  }
+    public VerifyPortingVerificationCodes200Response verifyPortingVerificationCodes(
+        UUID id,
+        VerifyPortingVerificationCodesRequest verifyPortingVerificationCodesRequest
+    ) throws ApiException {
+        return verifyPortingVerificationCodesWithHttpInfo(
+            id,
+            verifyPortingVerificationCodesRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Verify the verification code for a list of phone numbers
    * Verifies the verification code for a list of phone numbers.
    * @param id Porting Order id (required)
@@ -3713,49 +5639,81 @@ public class PortingOrdersApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check message field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<VerifyPortingVerificationCodes200Response> verifyPortingVerificationCodesWithHttpInfo(UUID id, VerifyPortingVerificationCodesRequest verifyPortingVerificationCodesRequest) throws ApiException {
-    Object localVarPostBody = verifyPortingVerificationCodesRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling verifyPortingVerificationCodes");
+    public ApiResponse<
+        VerifyPortingVerificationCodes200Response
+    > verifyPortingVerificationCodesWithHttpInfo(
+        UUID id,
+        VerifyPortingVerificationCodesRequest verifyPortingVerificationCodesRequest
+    ) throws ApiException {
+        Object localVarPostBody = verifyPortingVerificationCodesRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling verifyPortingVerificationCodes"
+            );
+        }
+
+        // verify the required parameter 'verifyPortingVerificationCodesRequest' is set
+        if (verifyPortingVerificationCodesRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'verifyPortingVerificationCodesRequest' when calling verifyPortingVerificationCodes"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/porting_orders/{id}/verification_codes/verify".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            VerifyPortingVerificationCodes200Response
+        > localVarReturnType = new GenericType<
+            VerifyPortingVerificationCodes200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PortingOrdersApi.verifyPortingVerificationCodes",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'verifyPortingVerificationCodesRequest' is set
-    if (verifyPortingVerificationCodesRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'verifyPortingVerificationCodesRequest' when calling verifyPortingVerificationCodes");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/porting_orders/{id}/verification_codes/verify"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<VerifyPortingVerificationCodes200Response> localVarReturnType = new GenericType<VerifyPortingVerificationCodes200Response>() {};
-
-    return apiClient.invokeAPI("PortingOrdersApi.verifyPortingVerificationCodes", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

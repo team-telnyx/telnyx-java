@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,16 +21,14 @@ import com.telnyx.sdk.model.MdrGetUsageReportsResponse;
 import com.telnyx.sdk.model.MdrPostUsageReportRequest;
 import com.telnyx.sdk.model.MdrPostUsageReportsResponse;
 import java.time.OffsetDateTime;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for MdrUsageReportsApi
@@ -41,7 +38,7 @@ public class MdrUsageReportsApiTest {
     private final MdrUsageReportsApi api = new MdrUsageReportsApi();
 
     /**
-     * 
+     *
      *
      * Delete messaging usage report by id
      *
@@ -56,7 +53,7 @@ public class MdrUsageReportsApiTest {
     }
 
     /**
-     * 
+     *
      *
      * Fetch a single messaging usage report by id
      *
@@ -71,9 +68,9 @@ public class MdrUsageReportsApiTest {
     }
 
     /**
-     * 
      *
-     * Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
+     *
+     * Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -89,7 +86,7 @@ public class MdrUsageReportsApiTest {
     }
 
     /**
-     * 
+     *
      *
      * Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown
      *
@@ -105,9 +102,9 @@ public class MdrUsageReportsApiTest {
     }
 
     /**
-     * 
      *
-     * Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period. 
+     *
+     * Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -118,5 +115,4 @@ public class MdrUsageReportsApiTest {
         //MdrPostUsageReportsResponse response = api.submitUsageReport(mdrPostUsageReportRequest);
         // TODO: test validations
     }
-
 }

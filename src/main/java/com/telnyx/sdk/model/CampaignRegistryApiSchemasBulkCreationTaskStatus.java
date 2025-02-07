@@ -10,59 +10,56 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * An enumeration.
  */
 public enum CampaignRegistryApiSchemasBulkCreationTaskStatus {
-  
-  PENDING("pending"),
-  
-  PROCESSING("processing"),
-  
-  COMPLETED("completed"),
-  
-  COMPLETED_WITH_ERRORS("completed with errors");
+    PENDING("pending"),
 
-  private String value;
+    PROCESSING("processing"),
 
-  CampaignRegistryApiSchemasBulkCreationTaskStatus(String value) {
-    this.value = value;
-  }
+    COMPLETED("completed"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    COMPLETED_WITH_ERRORS("completed with errors");
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    private String value;
 
-  @JsonCreator
-  public static CampaignRegistryApiSchemasBulkCreationTaskStatus fromValue(String value) {
-    for (CampaignRegistryApiSchemasBulkCreationTaskStatus b : CampaignRegistryApiSchemasBulkCreationTaskStatus.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    CampaignRegistryApiSchemasBulkCreationTaskStatus(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static CampaignRegistryApiSchemasBulkCreationTaskStatus fromValue(
+        String value
+    ) {
+        for (CampaignRegistryApiSchemasBulkCreationTaskStatus b : CampaignRegistryApiSchemasBulkCreationTaskStatus.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

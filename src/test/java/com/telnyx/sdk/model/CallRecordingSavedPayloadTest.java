@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRecordingSavedPayloadPublicRecordingUrls;
@@ -26,15 +25,15 @@ import java.time.OffsetDateTime;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CallRecordingSavedPayload
  */
 public class CallRecordingSavedPayloadTest {
-    private final CallRecordingSavedPayload model = new CallRecordingSavedPayload();
+
+    private final CallRecordingSavedPayload model =
+        new CallRecordingSavedPayload();
 
     /**
      * Model tests for CallRecordingSavedPayload
@@ -115,5 +114,4 @@ public class CallRecordingSavedPayloadTest {
     public void publicRecordingUrlsTest() {
         // TODO: test publicRecordingUrls
     }
-
 }

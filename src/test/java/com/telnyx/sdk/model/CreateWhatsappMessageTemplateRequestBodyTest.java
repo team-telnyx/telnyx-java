@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreateWhatsappMessageTemplateRequestBody
  */
 public class CreateWhatsappMessageTemplateRequestBodyTest {
-    private final CreateWhatsappMessageTemplateRequestBody model = new CreateWhatsappMessageTemplateRequestBody();
+
+    private final CreateWhatsappMessageTemplateRequestBody model =
+        new CreateWhatsappMessageTemplateRequestBody();
 
     /**
      * Model tests for CreateWhatsappMessageTemplateRequestBody
@@ -70,5 +68,4 @@ public class CreateWhatsappMessageTemplateRequestBodyTest {
     public void componentsTest() {
         // TODO: test components
     }
-
 }

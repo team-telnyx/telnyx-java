@@ -10,265 +10,288 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * GcbPhoneNumber
  */
-@JsonPropertyOrder({
-  GcbPhoneNumber.JSON_PROPERTY_RECORD_TYPE,
-  GcbPhoneNumber.JSON_PROPERTY_CHANNEL_ZONE_ID,
-  GcbPhoneNumber.JSON_PROPERTY_ID,
-  GcbPhoneNumber.JSON_PROPERTY_PHONE_NUMBER,
-  GcbPhoneNumber.JSON_PROPERTY_CREATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        GcbPhoneNumber.JSON_PROPERTY_RECORD_TYPE,
+        GcbPhoneNumber.JSON_PROPERTY_CHANNEL_ZONE_ID,
+        GcbPhoneNumber.JSON_PROPERTY_ID,
+        GcbPhoneNumber.JSON_PROPERTY_PHONE_NUMBER,
+        GcbPhoneNumber.JSON_PROPERTY_CREATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class GcbPhoneNumber {
-  /**
-   * Gets or Sets recordType
-   */
-  public enum RecordTypeEnum {
-    CHANNEL_ZONE_PHONE_NUMBER(String.valueOf("channel_zone_phone_number"));
 
-    private String value;
+    /**
+     * Gets or Sets recordType
+     */
+    public enum RecordTypeEnum {
+        CHANNEL_ZONE_PHONE_NUMBER(String.valueOf("channel_zone_phone_number"));
 
-    RecordTypeEnum(String value) {
-      this.value = value;
+        private String value;
+
+        RecordTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static RecordTypeEnum fromValue(String value) {
+            for (RecordTypeEnum b : RecordTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private RecordTypeEnum recordType;
+
+    public static final String JSON_PROPERTY_CHANNEL_ZONE_ID =
+        "channel_zone_id";
+    private String channelZoneId;
+
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
+
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
+
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private String createdAt;
+
+    public GcbPhoneNumber() {}
+
+    public GcbPhoneNumber recordType(RecordTypeEnum recordType) {
+        this.recordType = recordType;
+        return this;
+    }
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "channel_zone_phone_number",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public RecordTypeEnum getRecordType() {
+        return recordType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRecordType(RecordTypeEnum recordType) {
+        this.recordType = recordType;
+    }
+
+    public GcbPhoneNumber channelZoneId(String channelZoneId) {
+        this.channelZoneId = channelZoneId;
+        return this;
+    }
+
+    /**
+     * Get channelZoneId
+     * @return channelZoneId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "1653e6a1-4bfd-4857-97c6-6a51e1c34477",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_CHANNEL_ZONE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getChannelZoneId() {
+        return channelZoneId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CHANNEL_ZONE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setChannelZoneId(String channelZoneId) {
+        this.channelZoneId = channelZoneId;
+    }
+
+    public GcbPhoneNumber id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Get id
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "3da3c749-bb7d-4ad6-acae-ca0d415ae08b",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public GcbPhoneNumber phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * Get phoneNumber
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(example = "+15554441234", required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public GcbPhoneNumber createdAt(String createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date of when the phone number was created
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2019-01-23T18:10:02.574Z",
+        value = "ISO 8601 formatted date of when the phone number was created"
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Return true if this GcbPhoneNumber object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GcbPhoneNumber gcbPhoneNumber = (GcbPhoneNumber) o;
+        return (
+            Objects.equals(this.recordType, gcbPhoneNumber.recordType) &&
+            Objects.equals(this.channelZoneId, gcbPhoneNumber.channelZoneId) &&
+            Objects.equals(this.id, gcbPhoneNumber.id) &&
+            Objects.equals(this.phoneNumber, gcbPhoneNumber.phoneNumber) &&
+            Objects.equals(this.createdAt, gcbPhoneNumber.createdAt)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            channelZoneId,
+            id,
+            phoneNumber,
+            createdAt
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class GcbPhoneNumber {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    channelZoneId: ")
+            .append(toIndentedString(channelZoneId))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static RecordTypeEnum fromValue(String value) {
-      for (RecordTypeEnum b : RecordTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private RecordTypeEnum recordType;
-
-  public static final String JSON_PROPERTY_CHANNEL_ZONE_ID = "channel_zone_id";
-  private String channelZoneId;
-
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
-
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private String createdAt;
-
-  public GcbPhoneNumber() { 
-  }
-
-  public GcbPhoneNumber recordType(RecordTypeEnum recordType) {
-    this.recordType = recordType;
-    return this;
-  }
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "channel_zone_phone_number", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public RecordTypeEnum getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRecordType(RecordTypeEnum recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public GcbPhoneNumber channelZoneId(String channelZoneId) {
-    this.channelZoneId = channelZoneId;
-    return this;
-  }
-
-   /**
-   * Get channelZoneId
-   * @return channelZoneId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "1653e6a1-4bfd-4857-97c6-6a51e1c34477", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_CHANNEL_ZONE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getChannelZoneId() {
-    return channelZoneId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CHANNEL_ZONE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setChannelZoneId(String channelZoneId) {
-    this.channelZoneId = channelZoneId;
-  }
-
-
-  public GcbPhoneNumber id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "3da3c749-bb7d-4ad6-acae-ca0d415ae08b", value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public GcbPhoneNumber phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * Get phoneNumber
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+15554441234", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public GcbPhoneNumber createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date of when the phone number was created
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the phone number was created")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  /**
-   * Return true if this GcbPhoneNumber object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    GcbPhoneNumber gcbPhoneNumber = (GcbPhoneNumber) o;
-    return Objects.equals(this.recordType, gcbPhoneNumber.recordType) &&
-        Objects.equals(this.channelZoneId, gcbPhoneNumber.channelZoneId) &&
-        Objects.equals(this.id, gcbPhoneNumber.id) &&
-        Objects.equals(this.phoneNumber, gcbPhoneNumber.phoneNumber) &&
-        Objects.equals(this.createdAt, gcbPhoneNumber.createdAt);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, channelZoneId, id, phoneNumber, createdAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class GcbPhoneNumber {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    channelZoneId: ").append(toIndentedString(channelZoneId)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

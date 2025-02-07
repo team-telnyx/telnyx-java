@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -28,7 +26,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for UpdatePortingOrderMessaging
  */
 public class UpdatePortingOrderMessagingTest {
-    private final UpdatePortingOrderMessaging model = new UpdatePortingOrderMessaging();
+
+    private final UpdatePortingOrderMessaging model =
+        new UpdatePortingOrderMessaging();
 
     /**
      * Model tests for UpdatePortingOrderMessaging
@@ -45,5 +45,4 @@ public class UpdatePortingOrderMessagingTest {
     public void enableMessagingTest() {
         // TODO: test enableMessaging
     }
-
 }

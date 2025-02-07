@@ -10,136 +10,149 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CallAIGatherToolCallEventDataPayloadToolCallFunction
  */
-@JsonPropertyOrder({
-  CallAIGatherToolCallEventDataPayloadToolCallFunction.JSON_PROPERTY_NAME,
-  CallAIGatherToolCallEventDataPayloadToolCallFunction.JSON_PROPERTY_ARGUMENTS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        CallAIGatherToolCallEventDataPayloadToolCallFunction.JSON_PROPERTY_NAME,
+        CallAIGatherToolCallEventDataPayloadToolCallFunction.JSON_PROPERTY_ARGUMENTS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CallAIGatherToolCallEventDataPayloadToolCallFunction {
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
 
-  public static final String JSON_PROPERTY_ARGUMENTS = "arguments";
-  private Object arguments;
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public CallAIGatherToolCallEventDataPayloadToolCallFunction() { 
-  }
+    public static final String JSON_PROPERTY_ARGUMENTS = "arguments";
+    private Object arguments;
 
-  public CallAIGatherToolCallEventDataPayloadToolCallFunction name(String name) {
-    this.name = name;
-    return this;
-  }
+    public CallAIGatherToolCallEventDataPayloadToolCallFunction() {}
 
-   /**
-   * Get name
-   * @return name
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public CallAIGatherToolCallEventDataPayloadToolCallFunction arguments(Object arguments) {
-    this.arguments = arguments;
-    return this;
-  }
-
-   /**
-   * Get arguments
-   * @return arguments
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_ARGUMENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Object getArguments() {
-    return arguments;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ARGUMENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setArguments(Object arguments) {
-    this.arguments = arguments;
-  }
-
-
-  /**
-   * Return true if this CallAIGatherToolCallEvent_data_payload_tool_call_function object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CallAIGatherToolCallEventDataPayloadToolCallFunction name(
+        String name
+    ) {
+        this.name = name;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get name
+     * @return name
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getName() {
+        return name;
     }
-    CallAIGatherToolCallEventDataPayloadToolCallFunction callAIGatherToolCallEventDataPayloadToolCallFunction = (CallAIGatherToolCallEventDataPayloadToolCallFunction) o;
-    return Objects.equals(this.name, callAIGatherToolCallEventDataPayloadToolCallFunction.name) &&
-        Objects.equals(this.arguments, callAIGatherToolCallEventDataPayloadToolCallFunction.arguments);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, arguments);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CallAIGatherToolCallEventDataPayloadToolCallFunction {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    arguments: ").append(toIndentedString(arguments)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setName(String name) {
+        this.name = name;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CallAIGatherToolCallEventDataPayloadToolCallFunction arguments(
+        Object arguments
+    ) {
+        this.arguments = arguments;
+        return this;
+    }
+
+    /**
+     * Get arguments
+     * @return arguments
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_ARGUMENTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Object getArguments() {
+        return arguments;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ARGUMENTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setArguments(Object arguments) {
+        this.arguments = arguments;
+    }
+
+    /**
+     * Return true if this CallAIGatherToolCallEvent_data_payload_tool_call_function object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CallAIGatherToolCallEventDataPayloadToolCallFunction callAIGatherToolCallEventDataPayloadToolCallFunction =
+            (CallAIGatherToolCallEventDataPayloadToolCallFunction) o;
+        return (
+            Objects.equals(
+                this.name,
+                callAIGatherToolCallEventDataPayloadToolCallFunction.name
+            ) &&
+            Objects.equals(
+                this.arguments,
+                callAIGatherToolCallEventDataPayloadToolCallFunction.arguments
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, arguments);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(
+            "class CallAIGatherToolCallEventDataPayloadToolCallFunction {\n"
+        );
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb
+            .append("    arguments: ")
+            .append(toIndentedString(arguments))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

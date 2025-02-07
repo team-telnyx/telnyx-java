@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -35,18 +34,16 @@ import com.telnyx.sdk.model.NotificationSetting;
 import com.telnyx.sdk.model.RetrieveNotificationChannel;
 import com.telnyx.sdk.model.RetrieveNotificationProfile;
 import com.telnyx.sdk.model.RetrieveNotificationSetting;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateNotificationChannel;
 import com.telnyx.sdk.model.UpdateNotificationProfile;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for NotificationsApi
@@ -308,5 +305,4 @@ public class NotificationsApiTest {
         //UpdateNotificationProfile response = api.updateNotificationProfile(id, notificationProfile);
         // TODO: test validations
     }
-
 }

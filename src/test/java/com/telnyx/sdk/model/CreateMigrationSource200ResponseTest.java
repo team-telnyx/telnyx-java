@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.MigrationSourceParams;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for CreateMigrationSource200Response
  */
 public class CreateMigrationSource200ResponseTest {
-    private final CreateMigrationSource200Response model = new CreateMigrationSource200Response();
+
+    private final CreateMigrationSource200Response model =
+        new CreateMigrationSource200Response();
 
     /**
      * Model tests for CreateMigrationSource200Response
@@ -46,5 +46,4 @@ public class CreateMigrationSource200ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

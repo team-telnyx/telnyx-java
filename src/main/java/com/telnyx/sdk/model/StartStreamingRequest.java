@@ -10,401 +10,474 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.DialogflowConfig;
 import com.telnyx.sdk.model.StreamBidirectionalCodec;
 import com.telnyx.sdk.model.StreamBidirectionalMode;
 import com.telnyx.sdk.model.StreamBidirectionalTargetLegs;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * StartStreamingRequest
  */
-@JsonPropertyOrder({
-  StartStreamingRequest.JSON_PROPERTY_STREAM_URL,
-  StartStreamingRequest.JSON_PROPERTY_STREAM_TRACK,
-  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE,
-  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC,
-  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS,
-  StartStreamingRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
-  StartStreamingRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG,
-  StartStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
-  StartStreamingRequest.JSON_PROPERTY_COMMAND_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        StartStreamingRequest.JSON_PROPERTY_STREAM_URL,
+        StartStreamingRequest.JSON_PROPERTY_STREAM_TRACK,
+        StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE,
+        StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC,
+        StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS,
+        StartStreamingRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
+        StartStreamingRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG,
+        StartStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
+        StartStreamingRequest.JSON_PROPERTY_COMMAND_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class StartStreamingRequest {
-  public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
-  private String streamUrl;
 
-  /**
-   * Specifies which track should be streamed.
-   */
-  public enum StreamTrackEnum {
-    INBOUND_TRACK(String.valueOf("inbound_track")),
-    
-    OUTBOUND_TRACK(String.valueOf("outbound_track")),
-    
-    BOTH_TRACKS(String.valueOf("both_tracks"));
+    public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
+    private String streamUrl;
 
-    private String value;
+    /**
+     * Specifies which track should be streamed.
+     */
+    public enum StreamTrackEnum {
+        INBOUND_TRACK(String.valueOf("inbound_track")),
 
-    StreamTrackEnum(String value) {
-      this.value = value;
+        OUTBOUND_TRACK(String.valueOf("outbound_track")),
+
+        BOTH_TRACKS(String.valueOf("both_tracks"));
+
+        private String value;
+
+        StreamTrackEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StreamTrackEnum fromValue(String value) {
+            for (StreamTrackEnum b : StreamTrackEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
+    private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
+
+    public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE =
+        "stream_bidirectional_mode";
+    private StreamBidirectionalMode streamBidirectionalMode =
+        StreamBidirectionalMode.MP3;
+
+    public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC =
+        "stream_bidirectional_codec";
+    private StreamBidirectionalCodec streamBidirectionalCodec =
+        StreamBidirectionalCodec.PCMU;
+
+    public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS =
+        "stream_bidirectional_target_legs";
+    private StreamBidirectionalTargetLegs streamBidirectionalTargetLegs =
+        StreamBidirectionalTargetLegs.OPPOSITE;
+
+    public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW =
+        "enable_dialogflow";
+    private Boolean enableDialogflow = false;
+
+    public static final String JSON_PROPERTY_DIALOGFLOW_CONFIG =
+        "dialogflow_config";
+    private DialogflowConfig dialogflowConfig;
+
+    public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+    private String clientState;
+
+    public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
+    private String commandId;
+
+    public StartStreamingRequest() {}
+
+    public StartStreamingRequest streamUrl(String streamUrl) {
+        this.streamUrl = streamUrl;
+        return this;
+    }
+
+    /**
+     * The destination WebSocket address where the stream is going to be delivered.
+     * @return streamUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "wss://www.example.com/websocket",
+        value = "The destination WebSocket address where the stream is going to be delivered."
+    )
+    @JsonProperty(JSON_PROPERTY_STREAM_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStreamUrl() {
+        return streamUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STREAM_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStreamUrl(String streamUrl) {
+        this.streamUrl = streamUrl;
+    }
+
+    public StartStreamingRequest streamTrack(StreamTrackEnum streamTrack) {
+        this.streamTrack = streamTrack;
+        return this;
+    }
+
+    /**
+     * Specifies which track should be streamed.
+     * @return streamTrack
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "both_tracks",
+        value = "Specifies which track should be streamed."
+    )
+    @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StreamTrackEnum getStreamTrack() {
+        return streamTrack;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStreamTrack(StreamTrackEnum streamTrack) {
+        this.streamTrack = streamTrack;
+    }
+
+    public StartStreamingRequest streamBidirectionalMode(
+        StreamBidirectionalMode streamBidirectionalMode
+    ) {
+        this.streamBidirectionalMode = streamBidirectionalMode;
+        return this;
+    }
+
+    /**
+     * Get streamBidirectionalMode
+     * @return streamBidirectionalMode
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StreamBidirectionalMode getStreamBidirectionalMode() {
+        return streamBidirectionalMode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStreamBidirectionalMode(
+        StreamBidirectionalMode streamBidirectionalMode
+    ) {
+        this.streamBidirectionalMode = streamBidirectionalMode;
+    }
+
+    public StartStreamingRequest streamBidirectionalCodec(
+        StreamBidirectionalCodec streamBidirectionalCodec
+    ) {
+        this.streamBidirectionalCodec = streamBidirectionalCodec;
+        return this;
+    }
+
+    /**
+     * Get streamBidirectionalCodec
+     * @return streamBidirectionalCodec
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StreamBidirectionalCodec getStreamBidirectionalCodec() {
+        return streamBidirectionalCodec;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStreamBidirectionalCodec(
+        StreamBidirectionalCodec streamBidirectionalCodec
+    ) {
+        this.streamBidirectionalCodec = streamBidirectionalCodec;
+    }
+
+    public StartStreamingRequest streamBidirectionalTargetLegs(
+        StreamBidirectionalTargetLegs streamBidirectionalTargetLegs
+    ) {
+        this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
+        return this;
+    }
+
+    /**
+     * Get streamBidirectionalTargetLegs
+     * @return streamBidirectionalTargetLegs
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StreamBidirectionalTargetLegs getStreamBidirectionalTargetLegs() {
+        return streamBidirectionalTargetLegs;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStreamBidirectionalTargetLegs(
+        StreamBidirectionalTargetLegs streamBidirectionalTargetLegs
+    ) {
+        this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
+    }
+
+    public StartStreamingRequest enableDialogflow(Boolean enableDialogflow) {
+        this.enableDialogflow = enableDialogflow;
+        return this;
+    }
+
+    /**
+     * Enables Dialogflow for the current call. The default value is false.
+     * @return enableDialogflow
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "Enables Dialogflow for the current call. The default value is false."
+    )
+    @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getEnableDialogflow() {
+        return enableDialogflow;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEnableDialogflow(Boolean enableDialogflow) {
+        this.enableDialogflow = enableDialogflow;
+    }
+
+    public StartStreamingRequest dialogflowConfig(
+        DialogflowConfig dialogflowConfig
+    ) {
+        this.dialogflowConfig = dialogflowConfig;
+        return this;
+    }
+
+    /**
+     * Get dialogflowConfig
+     * @return dialogflowConfig
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DialogflowConfig getDialogflowConfig() {
+        return dialogflowConfig;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDialogflowConfig(DialogflowConfig dialogflowConfig) {
+        this.dialogflowConfig = dialogflowConfig;
+    }
+
+    public StartStreamingRequest clientState(String clientState) {
+        this.clientState = clientState;
+        return this;
+    }
+
+    /**
+     * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+     * @return clientState
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "aGF2ZSBhIG5pY2UgZGF5ID1d",
+        value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string."
+    )
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getClientState() {
+        return clientState;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setClientState(String clientState) {
+        this.clientState = clientState;
+    }
+
+    public StartStreamingRequest commandId(String commandId) {
+        this.commandId = commandId;
+        return this;
+    }
+
+    /**
+     * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+     * @return commandId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "891510ac-f3e4-11e8-af5b-de00688a4901",
+        value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`."
+    )
+    @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCommandId() {
+        return commandId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCommandId(String commandId) {
+        this.commandId = commandId;
+    }
+
+    /**
+     * Return true if this StartStreamingRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        StartStreamingRequest startStreamingRequest = (StartStreamingRequest) o;
+        return (
+            Objects.equals(this.streamUrl, startStreamingRequest.streamUrl) &&
+            Objects.equals(
+                this.streamTrack,
+                startStreamingRequest.streamTrack
+            ) &&
+            Objects.equals(
+                this.streamBidirectionalMode,
+                startStreamingRequest.streamBidirectionalMode
+            ) &&
+            Objects.equals(
+                this.streamBidirectionalCodec,
+                startStreamingRequest.streamBidirectionalCodec
+            ) &&
+            Objects.equals(
+                this.streamBidirectionalTargetLegs,
+                startStreamingRequest.streamBidirectionalTargetLegs
+            ) &&
+            Objects.equals(
+                this.enableDialogflow,
+                startStreamingRequest.enableDialogflow
+            ) &&
+            Objects.equals(
+                this.dialogflowConfig,
+                startStreamingRequest.dialogflowConfig
+            ) &&
+            Objects.equals(
+                this.clientState,
+                startStreamingRequest.clientState
+            ) &&
+            Objects.equals(this.commandId, startStreamingRequest.commandId)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            streamUrl,
+            streamTrack,
+            streamBidirectionalMode,
+            streamBidirectionalCodec,
+            streamBidirectionalTargetLegs,
+            enableDialogflow,
+            dialogflowConfig,
+            clientState,
+            commandId
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class StartStreamingRequest {\n");
+        sb
+            .append("    streamUrl: ")
+            .append(toIndentedString(streamUrl))
+            .append("\n");
+        sb
+            .append("    streamTrack: ")
+            .append(toIndentedString(streamTrack))
+            .append("\n");
+        sb
+            .append("    streamBidirectionalMode: ")
+            .append(toIndentedString(streamBidirectionalMode))
+            .append("\n");
+        sb
+            .append("    streamBidirectionalCodec: ")
+            .append(toIndentedString(streamBidirectionalCodec))
+            .append("\n");
+        sb
+            .append("    streamBidirectionalTargetLegs: ")
+            .append(toIndentedString(streamBidirectionalTargetLegs))
+            .append("\n");
+        sb
+            .append("    enableDialogflow: ")
+            .append(toIndentedString(enableDialogflow))
+            .append("\n");
+        sb
+            .append("    dialogflowConfig: ")
+            .append(toIndentedString(dialogflowConfig))
+            .append("\n");
+        sb
+            .append("    clientState: ")
+            .append(toIndentedString(clientState))
+            .append("\n");
+        sb
+            .append("    commandId: ")
+            .append(toIndentedString(commandId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static StreamTrackEnum fromValue(String value) {
-      for (StreamTrackEnum b : StreamTrackEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
-  private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
-
-  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE = "stream_bidirectional_mode";
-  private StreamBidirectionalMode streamBidirectionalMode = StreamBidirectionalMode.MP3;
-
-  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC = "stream_bidirectional_codec";
-  private StreamBidirectionalCodec streamBidirectionalCodec = StreamBidirectionalCodec.PCMU;
-
-  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS = "stream_bidirectional_target_legs";
-  private StreamBidirectionalTargetLegs streamBidirectionalTargetLegs = StreamBidirectionalTargetLegs.OPPOSITE;
-
-  public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW = "enable_dialogflow";
-  private Boolean enableDialogflow = false;
-
-  public static final String JSON_PROPERTY_DIALOGFLOW_CONFIG = "dialogflow_config";
-  private DialogflowConfig dialogflowConfig;
-
-  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
-  private String clientState;
-
-  public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
-  private String commandId;
-
-  public StartStreamingRequest() { 
-  }
-
-  public StartStreamingRequest streamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
-    return this;
-  }
-
-   /**
-   * The destination WebSocket address where the stream is going to be delivered.
-   * @return streamUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getStreamUrl() {
-    return streamUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamUrl(String streamUrl) {
-    this.streamUrl = streamUrl;
-  }
-
-
-  public StartStreamingRequest streamTrack(StreamTrackEnum streamTrack) {
-    this.streamTrack = streamTrack;
-    return this;
-  }
-
-   /**
-   * Specifies which track should be streamed.
-   * @return streamTrack
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "both_tracks", value = "Specifies which track should be streamed.")
-  @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StreamTrackEnum getStreamTrack() {
-    return streamTrack;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamTrack(StreamTrackEnum streamTrack) {
-    this.streamTrack = streamTrack;
-  }
-
-
-  public StartStreamingRequest streamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
-    this.streamBidirectionalMode = streamBidirectionalMode;
-    return this;
-  }
-
-   /**
-   * Get streamBidirectionalMode
-   * @return streamBidirectionalMode
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StreamBidirectionalMode getStreamBidirectionalMode() {
-    return streamBidirectionalMode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
-    this.streamBidirectionalMode = streamBidirectionalMode;
-  }
-
-
-  public StartStreamingRequest streamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
-    this.streamBidirectionalCodec = streamBidirectionalCodec;
-    return this;
-  }
-
-   /**
-   * Get streamBidirectionalCodec
-   * @return streamBidirectionalCodec
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StreamBidirectionalCodec getStreamBidirectionalCodec() {
-    return streamBidirectionalCodec;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
-    this.streamBidirectionalCodec = streamBidirectionalCodec;
-  }
-
-
-  public StartStreamingRequest streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs streamBidirectionalTargetLegs) {
-    this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
-    return this;
-  }
-
-   /**
-   * Get streamBidirectionalTargetLegs
-   * @return streamBidirectionalTargetLegs
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StreamBidirectionalTargetLegs getStreamBidirectionalTargetLegs() {
-    return streamBidirectionalTargetLegs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreamBidirectionalTargetLegs(StreamBidirectionalTargetLegs streamBidirectionalTargetLegs) {
-    this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
-  }
-
-
-  public StartStreamingRequest enableDialogflow(Boolean enableDialogflow) {
-    this.enableDialogflow = enableDialogflow;
-    return this;
-  }
-
-   /**
-   * Enables Dialogflow for the current call. The default value is false.
-   * @return enableDialogflow
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables Dialogflow for the current call. The default value is false.")
-  @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getEnableDialogflow() {
-    return enableDialogflow;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEnableDialogflow(Boolean enableDialogflow) {
-    this.enableDialogflow = enableDialogflow;
-  }
-
-
-  public StartStreamingRequest dialogflowConfig(DialogflowConfig dialogflowConfig) {
-    this.dialogflowConfig = dialogflowConfig;
-    return this;
-  }
-
-   /**
-   * Get dialogflowConfig
-   * @return dialogflowConfig
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DialogflowConfig getDialogflowConfig() {
-    return dialogflowConfig;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDialogflowConfig(DialogflowConfig dialogflowConfig) {
-    this.dialogflowConfig = dialogflowConfig;
-  }
-
-
-  public StartStreamingRequest clientState(String clientState) {
-    this.clientState = clientState;
-    return this;
-  }
-
-   /**
-   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
-   * @return clientState
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getClientState() {
-    return clientState;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClientState(String clientState) {
-    this.clientState = clientState;
-  }
-
-
-  public StartStreamingRequest commandId(String commandId) {
-    this.commandId = commandId;
-    return this;
-  }
-
-   /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
-   * @return commandId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCommandId() {
-    return commandId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCommandId(String commandId) {
-    this.commandId = commandId;
-  }
-
-
-  /**
-   * Return true if this StartStreamingRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    StartStreamingRequest startStreamingRequest = (StartStreamingRequest) o;
-    return Objects.equals(this.streamUrl, startStreamingRequest.streamUrl) &&
-        Objects.equals(this.streamTrack, startStreamingRequest.streamTrack) &&
-        Objects.equals(this.streamBidirectionalMode, startStreamingRequest.streamBidirectionalMode) &&
-        Objects.equals(this.streamBidirectionalCodec, startStreamingRequest.streamBidirectionalCodec) &&
-        Objects.equals(this.streamBidirectionalTargetLegs, startStreamingRequest.streamBidirectionalTargetLegs) &&
-        Objects.equals(this.enableDialogflow, startStreamingRequest.enableDialogflow) &&
-        Objects.equals(this.dialogflowConfig, startStreamingRequest.dialogflowConfig) &&
-        Objects.equals(this.clientState, startStreamingRequest.clientState) &&
-        Objects.equals(this.commandId, startStreamingRequest.commandId);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(streamUrl, streamTrack, streamBidirectionalMode, streamBidirectionalCodec, streamBidirectionalTargetLegs, enableDialogflow, dialogflowConfig, clientState, commandId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class StartStreamingRequest {\n");
-    sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
-    sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
-    sb.append("    streamBidirectionalMode: ").append(toIndentedString(streamBidirectionalMode)).append("\n");
-    sb.append("    streamBidirectionalCodec: ").append(toIndentedString(streamBidirectionalCodec)).append("\n");
-    sb.append("    streamBidirectionalTargetLegs: ").append(toIndentedString(streamBidirectionalTargetLegs)).append("\n");
-    sb.append("    enableDialogflow: ").append(toIndentedString(enableDialogflow)).append("\n");
-    sb.append("    dialogflowConfig: ").append(toIndentedString(dialogflowConfig)).append("\n");
-    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
-    sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

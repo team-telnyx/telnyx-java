@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for WhatsappMessageTemplateComponentsInner
  */
 public class WhatsappMessageTemplateComponentsInnerTest {
-    private final WhatsappMessageTemplateComponentsInner model = new WhatsappMessageTemplateComponentsInner();
+
+    private final WhatsappMessageTemplateComponentsInner model =
+        new WhatsappMessageTemplateComponentsInner();
 
     /**
      * Model tests for WhatsappMessageTemplateComponentsInner
@@ -62,5 +60,4 @@ public class WhatsappMessageTemplateComponentsInnerTest {
     public void formatTest() {
         // TODO: test format
     }
-
 }

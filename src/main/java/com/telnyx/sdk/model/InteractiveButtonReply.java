@@ -10,137 +10,140 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * InteractiveButtonReply
  */
-@JsonPropertyOrder({
-  InteractiveButtonReply.JSON_PROPERTY_TITLE,
-  InteractiveButtonReply.JSON_PROPERTY_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        InteractiveButtonReply.JSON_PROPERTY_TITLE,
+        InteractiveButtonReply.JSON_PROPERTY_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class InteractiveButtonReply {
-  public static final String JSON_PROPERTY_TITLE = "title";
-  private String title;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_TITLE = "title";
+    private String title;
 
-  public InteractiveButtonReply() { 
-  }
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public InteractiveButtonReply title(String title) {
-    this.title = title;
-    return this;
-  }
+    public InteractiveButtonReply() {}
 
-   /**
-   * Button title. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not.
-   * @return title
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Button title. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not.")
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public InteractiveButtonReply id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Unique identifier for your button. This ID is returned in the webhook when the button is clicked by the user. You cannot have leading or trailing spaces when setting the ID.
-   * @return id
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Unique identifier for your button. This ID is returned in the webhook when the button is clicked by the user. You cannot have leading or trailing spaces when setting the ID.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  /**
-   * Return true if this InteractiveButtonReply object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public InteractiveButtonReply title(String title) {
+        this.title = title;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Button title. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not.
+     * @return title
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Button title. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not."
+    )
+    @JsonProperty(JSON_PROPERTY_TITLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTitle() {
+        return title;
     }
-    InteractiveButtonReply interactiveButtonReply = (InteractiveButtonReply) o;
-    return Objects.equals(this.title, interactiveButtonReply.title) &&
-        Objects.equals(this.id, interactiveButtonReply.id);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, id);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class InteractiveButtonReply {\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TITLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTitle(String title) {
+        this.title = title;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public InteractiveButtonReply id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Unique identifier for your button. This ID is returned in the webhook when the button is clicked by the user. You cannot have leading or trailing spaces when setting the ID.
+     * @return id
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Unique identifier for your button. This ID is returned in the webhook when the button is clicked by the user. You cannot have leading or trailing spaces when setting the ID."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Return true if this InteractiveButtonReply object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        InteractiveButtonReply interactiveButtonReply =
+            (InteractiveButtonReply) o;
+        return (
+            Objects.equals(this.title, interactiveButtonReply.title) &&
+            Objects.equals(this.id, interactiveButtonReply.id)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class InteractiveButtonReply {\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

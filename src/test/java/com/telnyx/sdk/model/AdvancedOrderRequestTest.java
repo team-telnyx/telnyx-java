@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -24,7 +23,6 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -33,6 +31,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for AdvancedOrderRequest
  */
 public class AdvancedOrderRequestTest {
+
     private final AdvancedOrderRequest model = new AdvancedOrderRequest();
 
     /**
@@ -98,5 +97,4 @@ public class AdvancedOrderRequestTest {
     public void customerReferenceTest() {
         // TODO: test customerReference
     }
-
 }

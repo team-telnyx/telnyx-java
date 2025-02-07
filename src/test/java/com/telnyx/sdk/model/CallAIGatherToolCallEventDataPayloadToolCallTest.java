@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallAIGatherToolCallEventDataPayloadToolCallFunction;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for CallAIGatherToolCallEventDataPayloadToolCall
  */
 public class CallAIGatherToolCallEventDataPayloadToolCallTest {
-    private final CallAIGatherToolCallEventDataPayloadToolCall model = new CallAIGatherToolCallEventDataPayloadToolCall();
+
+    private final CallAIGatherToolCallEventDataPayloadToolCall model =
+        new CallAIGatherToolCallEventDataPayloadToolCall();
 
     /**
      * Model tests for CallAIGatherToolCallEventDataPayloadToolCall
@@ -62,5 +62,4 @@ public class CallAIGatherToolCallEventDataPayloadToolCallTest {
     public void functionTest() {
         // TODO: test function
     }
-
 }

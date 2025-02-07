@@ -10,137 +10,153 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CreateCustomerServiceRequestRequest
  */
-@JsonPropertyOrder({
-  CreateCustomerServiceRequestRequest.JSON_PROPERTY_PHONE_NUMBER,
-  CreateCustomerServiceRequestRequest.JSON_PROPERTY_WEBHOOK_URL
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        CreateCustomerServiceRequestRequest.JSON_PROPERTY_PHONE_NUMBER,
+        CreateCustomerServiceRequestRequest.JSON_PROPERTY_WEBHOOK_URL,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class CreateCustomerServiceRequestRequest {
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
 
-  public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
-  private String webhookUrl;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public CreateCustomerServiceRequestRequest() { 
-  }
+    public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
+    private String webhookUrl;
 
-  public CreateCustomerServiceRequestRequest phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
+    public CreateCustomerServiceRequestRequest() {}
 
-   /**
-   * A valid US phone number in E164 format.
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+1234567890", required = true, value = "A valid US phone number in E164 format.")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public CreateCustomerServiceRequestRequest webhookUrl(String webhookUrl) {
-    this.webhookUrl = webhookUrl;
-    return this;
-  }
-
-   /**
-   * Callback URL to receive webhook notifications.
-   * @return webhookUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "https://example.com/webhook", value = "Callback URL to receive webhook notifications.")
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getWebhookUrl() {
-    return webhookUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWebhookUrl(String webhookUrl) {
-    this.webhookUrl = webhookUrl;
-  }
-
-
-  /**
-   * Return true if this createCustomerServiceRequest_request object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CreateCustomerServiceRequestRequest phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * A valid US phone number in E164 format.
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+1234567890",
+        required = true,
+        value = "A valid US phone number in E164 format."
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-    CreateCustomerServiceRequestRequest createCustomerServiceRequestRequest = (CreateCustomerServiceRequestRequest) o;
-    return Objects.equals(this.phoneNumber, createCustomerServiceRequestRequest.phoneNumber) &&
-        Objects.equals(this.webhookUrl, createCustomerServiceRequestRequest.webhookUrl);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(phoneNumber, webhookUrl);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateCustomerServiceRequestRequest {\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CreateCustomerServiceRequestRequest webhookUrl(String webhookUrl) {
+        this.webhookUrl = webhookUrl;
+        return this;
+    }
+
+    /**
+     * Callback URL to receive webhook notifications.
+     * @return webhookUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "https://example.com/webhook",
+        value = "Callback URL to receive webhook notifications."
+    )
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getWebhookUrl() {
+        return webhookUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWebhookUrl(String webhookUrl) {
+        this.webhookUrl = webhookUrl;
+    }
+
+    /**
+     * Return true if this createCustomerServiceRequest_request object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateCustomerServiceRequestRequest createCustomerServiceRequestRequest =
+            (CreateCustomerServiceRequestRequest) o;
+        return (
+            Objects.equals(
+                this.phoneNumber,
+                createCustomerServiceRequestRequest.phoneNumber
+            ) &&
+            Objects.equals(
+                this.webhookUrl,
+                createCustomerServiceRequestRequest.webhookUrl
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phoneNumber, webhookUrl);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateCustomerServiceRequestRequest {\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    webhookUrl: ")
+            .append(toIndentedString(webhookUrl))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

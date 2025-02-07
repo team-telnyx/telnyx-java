@@ -10,136 +10,136 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * SummaryRequest
  */
-@JsonPropertyOrder({
-  SummaryRequest.JSON_PROPERTY_BUCKET,
-  SummaryRequest.JSON_PROPERTY_FILENAME
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        SummaryRequest.JSON_PROPERTY_BUCKET,
+        SummaryRequest.JSON_PROPERTY_FILENAME,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class SummaryRequest {
-  public static final String JSON_PROPERTY_BUCKET = "bucket";
-  private String bucket;
 
-  public static final String JSON_PROPERTY_FILENAME = "filename";
-  private String filename;
+    public static final String JSON_PROPERTY_BUCKET = "bucket";
+    private String bucket;
 
-  public SummaryRequest() { 
-  }
+    public static final String JSON_PROPERTY_FILENAME = "filename";
+    private String filename;
 
-  public SummaryRequest bucket(String bucket) {
-    this.bucket = bucket;
-    return this;
-  }
+    public SummaryRequest() {}
 
-   /**
-   * Get bucket
-   * @return bucket
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_BUCKET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getBucket() {
-    return bucket;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BUCKET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBucket(String bucket) {
-    this.bucket = bucket;
-  }
-
-
-  public SummaryRequest filename(String filename) {
-    this.filename = filename;
-    return this;
-  }
-
-   /**
-   * Get filename
-   * @return filename
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_FILENAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getFilename() {
-    return filename;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FILENAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFilename(String filename) {
-    this.filename = filename;
-  }
-
-
-  /**
-   * Return true if this SummaryRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SummaryRequest bucket(String bucket) {
+        this.bucket = bucket;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get bucket
+     * @return bucket
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_BUCKET)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getBucket() {
+        return bucket;
     }
-    SummaryRequest summaryRequest = (SummaryRequest) o;
-    return Objects.equals(this.bucket, summaryRequest.bucket) &&
-        Objects.equals(this.filename, summaryRequest.filename);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(bucket, filename);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SummaryRequest {\n");
-    sb.append("    bucket: ").append(toIndentedString(bucket)).append("\n");
-    sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_BUCKET)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public SummaryRequest filename(String filename) {
+        this.filename = filename;
+        return this;
+    }
+
+    /**
+     * Get filename
+     * @return filename
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_FILENAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getFilename() {
+        return filename;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FILENAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    /**
+     * Return true if this SummaryRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SummaryRequest summaryRequest = (SummaryRequest) o;
+        return (
+            Objects.equals(this.bucket, summaryRequest.bucket) &&
+            Objects.equals(this.filename, summaryRequest.filename)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bucket, filename);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SummaryRequest {\n");
+        sb.append("    bucket: ").append(toIndentedString(bucket)).append("\n");
+        sb
+            .append("    filename: ")
+            .append(toIndentedString(filename))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

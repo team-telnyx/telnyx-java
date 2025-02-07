@@ -10,36 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.telnyx.sdk.model.EnumListResponseInner;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -51,15 +30,46 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.EnumListResponseInner;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using = GetEnumEndpoint200Response.GetEnumEndpoint200ResponseDeserializer.class)
-@JsonSerialize(using = GetEnumEndpoint200Response.GetEnumEndpoint200ResponseSerializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(
+    using = GetEnumEndpoint200Response.GetEnumEndpoint200ResponseDeserializer.class
+)
+@JsonSerialize(
+    using = GetEnumEndpoint200Response.GetEnumEndpoint200ResponseSerializer.class
+)
 public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(GetEnumEndpoint200Response.class.getName());
 
-    public static class GetEnumEndpoint200ResponseSerializer extends StdSerializer<GetEnumEndpoint200Response> {
-        public GetEnumEndpoint200ResponseSerializer(Class<GetEnumEndpoint200Response> t) {
+    private static final Logger log = Logger.getLogger(
+        GetEnumEndpoint200Response.class.getName()
+    );
+
+    public static class GetEnumEndpoint200ResponseSerializer
+        extends StdSerializer<GetEnumEndpoint200Response> {
+
+        public GetEnumEndpoint200ResponseSerializer(
+            Class<GetEnumEndpoint200Response> t
+        ) {
             super(t);
         }
 
@@ -68,12 +78,18 @@ public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(GetEnumEndpoint200Response value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            GetEnumEndpoint200Response value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class GetEnumEndpoint200ResponseDeserializer extends StdDeserializer<GetEnumEndpoint200Response> {
+    public static class GetEnumEndpoint200ResponseDeserializer
+        extends StdDeserializer<GetEnumEndpoint200Response> {
+
         public GetEnumEndpoint200ResponseDeserializer() {
             this(GetEnumEndpoint200Response.class);
         }
@@ -83,10 +99,15 @@ public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
         }
 
         @Override
-        public GetEnumEndpoint200Response deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public GetEnumEndpoint200Response deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            boolean typeCoercion = ctxt.isEnabled(
+                MapperFeature.ALLOW_COERCION_OF_SCALARS
+            );
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize List<EnumListResponseInner>
@@ -94,47 +115,91 @@ public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
                 // Check if the instance is a list
-                if (List.class.equals(Integer.class) || List.class.equals(Long.class) || 
-                    List.class.equals(Float.class) || List.class.equals(Double.class) || 
-                    List.class.equals(Boolean.class) || List.class.equals(String.class)) {
-
+                if (
+                    List.class.equals(Integer.class) ||
+                    List.class.equals(Long.class) ||
+                    List.class.equals(Float.class) ||
+                    List.class.equals(Double.class) ||
+                    List.class.equals(Boolean.class) ||
+                    List.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
 
                     if (!attemptParsing) {
-                        attemptParsing |= ((Integer.class.equals(Integer.class) || Long.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((Float.class.equals(Float.class) || Double.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (Boolean.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (String.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((Integer.class.equals(
+                                        Integer.class
+                                    ) ||
+                                Long.class.equals(Long.class)) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((Float.class.equals(Float.class) ||
+                                Double.class.equals(Double.class)) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (Boolean.class.equals(
+                                    Boolean.class
+                                ) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (String.class.equals(String.class) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<EnumListResponseInner>>() {});
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(
+                            new TypeReference<List<EnumListResponseInner>>() {}
+                        );
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'List<EnumListResponseInner>'");;
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'List<EnumListResponseInner>'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'List<EnumListResponseInner>'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'List<EnumListResponseInner>'",
+                    e
+                );
             }
 
             // deserialize Object
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (Object.class.equals(Integer.class) || Object.class.equals(Long.class) || Object.class.equals(Float.class) || Object.class.equals(Double.class) || Object.class.equals(Boolean.class) || Object.class.equals(String.class)) {
+                if (
+                    Object.class.equals(Integer.class) ||
+                    Object.class.equals(Long.class) ||
+                    Object.class.equals(Float.class) ||
+                    Object.class.equals(Double.class) ||
+                    Object.class.equals(Boolean.class) ||
+                    Object.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((Object.class.equals(Integer.class) || Object.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((Object.class.equals(Float.class) || Object.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (Object.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (Object.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((Object.class.equals(
+                                        Integer.class
+                                    ) ||
+                                Object.class.equals(Long.class)) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((Object.class.equals(Float.class) ||
+                                Object.class.equals(Double.class)) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (Object.class.equals(Boolean.class) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (Object.class.equals(String.class) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(Object.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -143,28 +208,46 @@ public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'Object'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'Object'",
+                    e
+                );
             }
 
             if (match == 1) {
-                GetEnumEndpoint200Response ret = new GetEnumEndpoint200Response();
+                GetEnumEndpoint200Response ret =
+                    new GetEnumEndpoint200Response();
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for GetEnumEndpoint200Response: %d classes match result, expected 1", match));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for GetEnumEndpoint200Response: %d classes match result, expected 1",
+                    match
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public GetEnumEndpoint200Response getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "GetEnumEndpoint200Response cannot be null");
+        public GetEnumEndpoint200Response getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "GetEnumEndpoint200Response cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public GetEnumEndpoint200Response() {
         super("oneOf", Boolean.FALSE);
@@ -181,11 +264,15 @@ public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("List<EnumListResponseInner>", new GenericType<List<EnumListResponseInner>>() {
-        });
-        schemas.put("Object", new GenericType<Object>() {
-        });
-        JSON.registerDescendants(GetEnumEndpoint200Response.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+            "List<EnumListResponseInner>",
+            new GenericType<List<EnumListResponseInner>>() {}
+        );
+        schemas.put("Object", new GenericType<Object>() {});
+        JSON.registerDescendants(
+            GetEnumEndpoint200Response.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -205,18 +292,24 @@ public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
     public void setActualInstance(Object instance) {
         if (instance instanceof List<?>) {
             List<?> list = (List<?>) instance;
-            if (list.isEmpty() || list.get(0) instanceof EnumListResponseInner) {
+            if (
+                list.isEmpty() || list.get(0) instanceof EnumListResponseInner
+            ) {
                 super.setActualInstance(instance);
                 return;
             }
         }
 
-        if (JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be List<EnumListResponseInner>, Object");
+        throw new RuntimeException(
+            "Invalid instance type. Must be List<EnumListResponseInner>, Object"
+        );
     }
 
     /**
@@ -250,8 +343,6 @@ public class GetEnumEndpoint200Response extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `Object`
      */
     public Object getObject() throws ClassCastException {
-        return (Object)super.getActualInstance();
+        return (Object) super.getActualInstance();
     }
-
 }
-

@@ -1,13 +1,10 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreateExternalConnectionRequest;
 import com.telnyx.sdk.model.CreateExternalConnectionUploadRequest;
 import com.telnyx.sdk.model.CreateUploadRequestResponse;
@@ -30,47 +27,51 @@ import com.telnyx.sdk.model.ListUploadsResponse;
 import com.telnyx.sdk.model.LocationResponse;
 import com.telnyx.sdk.model.OperatorConnectRefreshResponse;
 import com.telnyx.sdk.model.OperatorConnectRefreshResponse1;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateExternalConnectionPhoneNumberRequest;
 import com.telnyx.sdk.model.UpdateExternalConnectionRequest;
 import com.telnyx.sdk.model.UpdateLocationRequest;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ExternalConnectionsApi {
-  private ApiClient apiClient;
 
-  public ExternalConnectionsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public ExternalConnectionsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public ExternalConnectionsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public ExternalConnectionsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Creates an External Connection
    * Creates a new External Connection based on the parameters sent in the request. The external_sip_connection and outbound voice profile id are required. Once created, you can assign phone numbers to your application using the &#x60;/phone_numbers&#x60; endpoint.
    * @param createExternalConnectionRequest Parameters that can be set when creating a External Connection (required)
@@ -83,11 +84,15 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalConnectionResponse createExternalConnection(CreateExternalConnectionRequest createExternalConnectionRequest) throws ApiException {
-    return createExternalConnectionWithHttpInfo(createExternalConnectionRequest).getData();
-  }
+    public ExternalConnectionResponse createExternalConnection(
+        CreateExternalConnectionRequest createExternalConnectionRequest
+    ) throws ApiException {
+        return createExternalConnectionWithHttpInfo(
+            createExternalConnectionRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Creates an External Connection
    * Creates a new External Connection based on the parameters sent in the request. The external_sip_connection and outbound voice profile id are required. Once created, you can assign phone numbers to your application using the &#x60;/phone_numbers&#x60; endpoint.
    * @param createExternalConnectionRequest Parameters that can be set when creating a External Connection (required)
@@ -100,46 +105,69 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalConnectionResponse> createExternalConnectionWithHttpInfo(CreateExternalConnectionRequest createExternalConnectionRequest) throws ApiException {
-    Object localVarPostBody = createExternalConnectionRequest;
-    
-    // verify the required parameter 'createExternalConnectionRequest' is set
-    if (createExternalConnectionRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createExternalConnectionRequest' when calling createExternalConnection");
+    public ApiResponse<
+        ExternalConnectionResponse
+    > createExternalConnectionWithHttpInfo(
+        CreateExternalConnectionRequest createExternalConnectionRequest
+    ) throws ApiException {
+        Object localVarPostBody = createExternalConnectionRequest;
+
+        // verify the required parameter 'createExternalConnectionRequest' is set
+        if (createExternalConnectionRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createExternalConnectionRequest' when calling createExternalConnection"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/external_connections";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ExternalConnectionResponse> localVarReturnType =
+            new GenericType<ExternalConnectionResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.createExternalConnection",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ExternalConnectionResponse> localVarReturnType = new GenericType<ExternalConnectionResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.createExternalConnection", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Creates an Upload request
    * Creates a new Upload request to Microsoft teams with the included phone numbers. Only one of civic_address_id or location_id must be provided, not both. The maximum allowed phone numbers for the numbers_ids array is 1000.
    * @param id The id of the resource. (required)
@@ -157,11 +185,17 @@ public class ExternalConnectionsApi {
        <tr><td> 504 </td><td> Gateway Timeout </td><td>  -  </td></tr>
      </table>
    */
-  public CreateUploadRequestResponse createExternalConnectionUpload(UUID id, CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest) throws ApiException {
-    return createExternalConnectionUploadWithHttpInfo(id, createExternalConnectionUploadRequest).getData();
-  }
+    public CreateUploadRequestResponse createExternalConnectionUpload(
+        UUID id,
+        CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest
+    ) throws ApiException {
+        return createExternalConnectionUploadWithHttpInfo(
+            id,
+            createExternalConnectionUploadRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Creates an Upload request
    * Creates a new Upload request to Microsoft teams with the included phone numbers. Only one of civic_address_id or location_id must be provided, not both. The maximum allowed phone numbers for the numbers_ids array is 1000.
    * @param id The id of the resource. (required)
@@ -179,52 +213,82 @@ public class ExternalConnectionsApi {
        <tr><td> 504 </td><td> Gateway Timeout </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateUploadRequestResponse> createExternalConnectionUploadWithHttpInfo(UUID id, CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest) throws ApiException {
-    Object localVarPostBody = createExternalConnectionUploadRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling createExternalConnectionUpload");
+    public ApiResponse<
+        CreateUploadRequestResponse
+    > createExternalConnectionUploadWithHttpInfo(
+        UUID id,
+        CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest
+    ) throws ApiException {
+        Object localVarPostBody = createExternalConnectionUploadRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling createExternalConnectionUpload"
+            );
+        }
+
+        // verify the required parameter 'createExternalConnectionUploadRequest' is set
+        if (createExternalConnectionUploadRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createExternalConnectionUploadRequest' when calling createExternalConnectionUpload"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/uploads".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateUploadRequestResponse> localVarReturnType =
+            new GenericType<CreateUploadRequestResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.createExternalConnectionUpload",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'createExternalConnectionUploadRequest' is set
-    if (createExternalConnectionUploadRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createExternalConnectionUploadRequest' when calling createExternalConnectionUpload");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/uploads"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateUploadRequestResponse> localVarReturnType = new GenericType<CreateUploadRequestResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.createExternalConnectionUpload", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Deletes an External Connection
    * Permanently deletes an External Connection. Deletion may be prevented if the application is in use by phone numbers, is active, or if it is an Operator Connect connection. To remove an Operator Connect integration please contact Telnyx support.
    * @param id The id of the resource. (required)
@@ -239,11 +303,12 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalConnectionResponse deleteExternalConnection(UUID id) throws ApiException {
-    return deleteExternalConnectionWithHttpInfo(id).getData();
-  }
+    public ExternalConnectionResponse deleteExternalConnection(UUID id)
+        throws ApiException {
+        return deleteExternalConnectionWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Deletes an External Connection
    * Permanently deletes an External Connection. Deletion may be prevented if the application is in use by phone numbers, is active, or if it is an Operator Connect connection. To remove an Operator Connect integration please contact Telnyx support.
    * @param id The id of the resource. (required)
@@ -258,47 +323,71 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalConnectionResponse> deleteExternalConnectionWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteExternalConnection");
+    public ApiResponse<
+        ExternalConnectionResponse
+    > deleteExternalConnectionWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteExternalConnection"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ExternalConnectionResponse> localVarReturnType =
+            new GenericType<ExternalConnectionResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.deleteExternalConnection",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ExternalConnectionResponse> localVarReturnType = new GenericType<ExternalConnectionResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.deleteExternalConnection", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Dismiss a log message
    * Dismiss a log message for an external connection associated with your account.
    * @param id The id of the resource. (required)
@@ -312,11 +401,13 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public DismissRequestWasSuccessful deleteExternalConnectionLogMessage(UUID id) throws ApiException {
-    return deleteExternalConnectionLogMessageWithHttpInfo(id).getData();
-  }
+    public DismissRequestWasSuccessful deleteExternalConnectionLogMessage(
+        UUID id
+    ) throws ApiException {
+        return deleteExternalConnectionLogMessageWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Dismiss a log message
    * Dismiss a log message for an external connection associated with your account.
    * @param id The id of the resource. (required)
@@ -330,47 +421,72 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DismissRequestWasSuccessful> deleteExternalConnectionLogMessageWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteExternalConnectionLogMessage");
+    public ApiResponse<
+        DismissRequestWasSuccessful
+    > deleteExternalConnectionLogMessageWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteExternalConnectionLogMessage"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/log_messages/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<DismissRequestWasSuccessful> localVarReturnType =
+            new GenericType<DismissRequestWasSuccessful>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.deleteExternalConnectionLogMessage",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/log_messages/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<DismissRequestWasSuccessful> localVarReturnType = new GenericType<DismissRequestWasSuccessful>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.deleteExternalConnectionLogMessage", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve an External Connection
    * Return the details of an existing External Connection inside the &#39;data&#39; attribute of the response.
    * @param id The id of the resource. (required)
@@ -385,11 +501,12 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalConnectionResponse getExternalConnection(UUID id) throws ApiException {
-    return getExternalConnectionWithHttpInfo(id).getData();
-  }
+    public ExternalConnectionResponse getExternalConnection(UUID id)
+        throws ApiException {
+        return getExternalConnectionWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve an External Connection
    * Return the details of an existing External Connection inside the &#39;data&#39; attribute of the response.
    * @param id The id of the resource. (required)
@@ -404,47 +521,71 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalConnectionResponse> getExternalConnectionWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExternalConnection");
+    public ApiResponse<
+        ExternalConnectionResponse
+    > getExternalConnectionWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getExternalConnection"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ExternalConnectionResponse> localVarReturnType =
+            new GenericType<ExternalConnectionResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.getExternalConnection",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ExternalConnectionResponse> localVarReturnType = new GenericType<ExternalConnectionResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.getExternalConnection", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a Civic Address
    * Return the details of an existing Civic Address with its Locations inside the &#39;data&#39; attribute of the response.
    * @param id The id of the resource. (required)
@@ -461,11 +602,17 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public GetCivicAddressResponse getExternalConnectionCivicAddress(UUID id, UUID addressId) throws ApiException {
-    return getExternalConnectionCivicAddressWithHttpInfo(id, addressId).getData();
-  }
+    public GetCivicAddressResponse getExternalConnectionCivicAddress(
+        UUID id,
+        UUID addressId
+    ) throws ApiException {
+        return getExternalConnectionCivicAddressWithHttpInfo(
+            id,
+            addressId
+        ).getData();
+    }
 
-  /**
+    /**
    * Retrieve a Civic Address
    * Return the details of an existing Civic Address with its Locations inside the &#39;data&#39; attribute of the response.
    * @param id The id of the resource. (required)
@@ -482,53 +629,83 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetCivicAddressResponse> getExternalConnectionCivicAddressWithHttpInfo(UUID id, UUID addressId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExternalConnectionCivicAddress");
+    public ApiResponse<
+        GetCivicAddressResponse
+    > getExternalConnectionCivicAddressWithHttpInfo(UUID id, UUID addressId)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getExternalConnectionCivicAddress"
+            );
+        }
+
+        // verify the required parameter 'addressId' is set
+        if (addressId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'addressId' when calling getExternalConnectionCivicAddress"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/civic_addresses/{address_id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "address_id" + "\\}",
+                    apiClient.escapeString(addressId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetCivicAddressResponse> localVarReturnType =
+            new GenericType<GetCivicAddressResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.getExternalConnectionCivicAddress",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'addressId' is set
-    if (addressId == null) {
-      throw new ApiException(400, "Missing the required parameter 'addressId' when calling getExternalConnectionCivicAddress");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/civic_addresses/{address_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "address_id" + "\\}", apiClient.escapeString(addressId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetCivicAddressResponse> localVarReturnType = new GenericType<GetCivicAddressResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.getExternalConnectionCivicAddress", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a log message
    * Retrieve a log message for an external connection associated with your account.
    * @param id The id of the resource. (required)
@@ -542,11 +719,12 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetLogMessageResponse getExternalConnectionLogMessage(UUID id) throws ApiException {
-    return getExternalConnectionLogMessageWithHttpInfo(id).getData();
-  }
+    public GetLogMessageResponse getExternalConnectionLogMessage(UUID id)
+        throws ApiException {
+        return getExternalConnectionLogMessageWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a log message
    * Retrieve a log message for an external connection associated with your account.
    * @param id The id of the resource. (required)
@@ -560,47 +738,72 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetLogMessageResponse> getExternalConnectionLogMessageWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExternalConnectionLogMessage");
+    public ApiResponse<
+        GetLogMessageResponse
+    > getExternalConnectionLogMessageWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getExternalConnectionLogMessage"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/log_messages/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetLogMessageResponse> localVarReturnType = new GenericType<
+            GetLogMessageResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.getExternalConnectionLogMessage",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/log_messages/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetLogMessageResponse> localVarReturnType = new GenericType<GetLogMessageResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.getExternalConnectionLogMessage", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a phone number
    * Return the details of a phone number associated with the given external connection.
    * @param id The id of the resource. (required)
@@ -615,11 +818,17 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetExternalConnectionPhoneNumberResponse getExternalConnectionPhoneNumber(UUID id, String phoneNumberId) throws ApiException {
-    return getExternalConnectionPhoneNumberWithHttpInfo(id, phoneNumberId).getData();
-  }
+    public GetExternalConnectionPhoneNumberResponse getExternalConnectionPhoneNumber(
+        UUID id,
+        String phoneNumberId
+    ) throws ApiException {
+        return getExternalConnectionPhoneNumberWithHttpInfo(
+            id,
+            phoneNumberId
+        ).getData();
+    }
 
-  /**
+    /**
    * Retrieve a phone number
    * Return the details of a phone number associated with the given external connection.
    * @param id The id of the resource. (required)
@@ -634,53 +843,88 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetExternalConnectionPhoneNumberResponse> getExternalConnectionPhoneNumberWithHttpInfo(UUID id, String phoneNumberId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExternalConnectionPhoneNumber");
+    public ApiResponse<
+        GetExternalConnectionPhoneNumberResponse
+    > getExternalConnectionPhoneNumberWithHttpInfo(
+        UUID id,
+        String phoneNumberId
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getExternalConnectionPhoneNumber"
+            );
+        }
+
+        // verify the required parameter 'phoneNumberId' is set
+        if (phoneNumberId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'phoneNumberId' when calling getExternalConnectionPhoneNumber"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/phone_numbers/{phone_number_id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "phone_number_id" + "\\}",
+                    apiClient.escapeString(phoneNumberId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            GetExternalConnectionPhoneNumberResponse
+        > localVarReturnType = new GenericType<
+            GetExternalConnectionPhoneNumberResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.getExternalConnectionPhoneNumber",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'phoneNumberId' is set
-    if (phoneNumberId == null) {
-      throw new ApiException(400, "Missing the required parameter 'phoneNumberId' when calling getExternalConnectionPhoneNumber");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/phone_numbers/{phone_number_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "phone_number_id" + "\\}", apiClient.escapeString(phoneNumberId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetExternalConnectionPhoneNumberResponse> localVarReturnType = new GenericType<GetExternalConnectionPhoneNumberResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.getExternalConnectionPhoneNumber", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a Release request
    * Return the details of a Release request and its phone numbers.
    * @param id The id of the resource. (required)
@@ -695,11 +939,17 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetReleaseResponse getExternalConnectionRelease(UUID id, UUID releaseId) throws ApiException {
-    return getExternalConnectionReleaseWithHttpInfo(id, releaseId).getData();
-  }
+    public GetReleaseResponse getExternalConnectionRelease(
+        UUID id,
+        UUID releaseId
+    ) throws ApiException {
+        return getExternalConnectionReleaseWithHttpInfo(
+            id,
+            releaseId
+        ).getData();
+    }
 
-  /**
+    /**
    * Retrieve a Release request
    * Return the details of a Release request and its phone numbers.
    * @param id The id of the resource. (required)
@@ -714,53 +964,84 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetReleaseResponse> getExternalConnectionReleaseWithHttpInfo(UUID id, UUID releaseId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExternalConnectionRelease");
+    public ApiResponse<
+        GetReleaseResponse
+    > getExternalConnectionReleaseWithHttpInfo(UUID id, UUID releaseId)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getExternalConnectionRelease"
+            );
+        }
+
+        // verify the required parameter 'releaseId' is set
+        if (releaseId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'releaseId' when calling getExternalConnectionRelease"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/releases/{release_id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "release_id" + "\\}",
+                    apiClient.escapeString(releaseId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetReleaseResponse> localVarReturnType = new GenericType<
+            GetReleaseResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.getExternalConnectionRelease",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'releaseId' is set
-    if (releaseId == null) {
-      throw new ApiException(400, "Missing the required parameter 'releaseId' when calling getExternalConnectionRelease");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/releases/{release_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "release_id" + "\\}", apiClient.escapeString(releaseId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetReleaseResponse> localVarReturnType = new GenericType<GetReleaseResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.getExternalConnectionRelease", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve an Upload request
    * Return the details of an Upload request and its phone numbers.
    * @param id The id of the resource. (required)
@@ -775,11 +1056,14 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetUploadResponse getExternalConnectionUpload(UUID id, UUID ticketId) throws ApiException {
-    return getExternalConnectionUploadWithHttpInfo(id, ticketId).getData();
-  }
+    public GetUploadResponse getExternalConnectionUpload(
+        UUID id,
+        UUID ticketId
+    ) throws ApiException {
+        return getExternalConnectionUploadWithHttpInfo(id, ticketId).getData();
+    }
 
-  /**
+    /**
    * Retrieve an Upload request
    * Return the details of an Upload request and its phone numbers.
    * @param id The id of the resource. (required)
@@ -794,53 +1078,84 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetUploadResponse> getExternalConnectionUploadWithHttpInfo(UUID id, UUID ticketId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExternalConnectionUpload");
+    public ApiResponse<
+        GetUploadResponse
+    > getExternalConnectionUploadWithHttpInfo(UUID id, UUID ticketId)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getExternalConnectionUpload"
+            );
+        }
+
+        // verify the required parameter 'ticketId' is set
+        if (ticketId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'ticketId' when calling getExternalConnectionUpload"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/uploads/{ticket_id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "ticket_id" + "\\}",
+                    apiClient.escapeString(ticketId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetUploadResponse> localVarReturnType = new GenericType<
+            GetUploadResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.getExternalConnectionUpload",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'ticketId' is set
-    if (ticketId == null) {
-      throw new ApiException(400, "Missing the required parameter 'ticketId' when calling getExternalConnectionUpload");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/uploads/{ticket_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "ticket_id" + "\\}", apiClient.escapeString(ticketId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetUploadResponse> localVarReturnType = new GenericType<GetUploadResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.getExternalConnectionUpload", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Get the count of pending upload requests
    * Returns the count of all pending upload requests for the given external connection.
    * @param id The id of the resource. (required)
@@ -854,11 +1169,12 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetUploadsStatusResponse getExternalConnectionUploadsStatus(UUID id) throws ApiException {
-    return getExternalConnectionUploadsStatusWithHttpInfo(id).getData();
-  }
+    public GetUploadsStatusResponse getExternalConnectionUploadsStatus(UUID id)
+        throws ApiException {
+        return getExternalConnectionUploadsStatusWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Get the count of pending upload requests
    * Returns the count of all pending upload requests for the given external connection.
    * @param id The id of the resource. (required)
@@ -872,47 +1188,72 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetUploadsStatusResponse> getExternalConnectionUploadsStatusWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getExternalConnectionUploadsStatus");
+    public ApiResponse<
+        GetUploadsStatusResponse
+    > getExternalConnectionUploadsStatusWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getExternalConnectionUploadsStatus"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/uploads/status".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetUploadsStatusResponse> localVarReturnType =
+            new GenericType<GetUploadsStatusResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.getExternalConnectionUploadsStatus",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/uploads/status"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetUploadsStatusResponse> localVarReturnType = new GenericType<GetUploadsStatusResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.getExternalConnectionUploadsStatus", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all civic addresses and locations
    * Returns the civic addresses and locations from Microsoft Teams.
    * @param id The id of the resource. (required)
@@ -929,11 +1270,14 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllCivicAddressesResponse listCivicAddresses(UUID id, List<String> filterCountry) throws ApiException {
-    return listCivicAddressesWithHttpInfo(id, filterCountry).getData();
-  }
+    public GetAllCivicAddressesResponse listCivicAddresses(
+        UUID id,
+        List<String> filterCountry
+    ) throws ApiException {
+        return listCivicAddressesWithHttpInfo(id, filterCountry).getData();
+    }
 
-  /**
+    /**
    * List all civic addresses and locations
    * Returns the civic addresses and locations from Microsoft Teams.
    * @param id The id of the resource. (required)
@@ -950,48 +1294,80 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllCivicAddressesResponse> listCivicAddressesWithHttpInfo(UUID id, List<String> filterCountry) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listCivicAddresses");
+    public ApiResponse<
+        GetAllCivicAddressesResponse
+    > listCivicAddressesWithHttpInfo(UUID id, List<String> filterCountry)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listCivicAddresses"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/civic_addresses".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[country]",
+                filterCountry
+            )
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetAllCivicAddressesResponse> localVarReturnType =
+            new GenericType<GetAllCivicAddressesResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.listCivicAddresses",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/civic_addresses"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[country]", filterCountry));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetAllCivicAddressesResponse> localVarReturnType = new GenericType<GetAllCivicAddressesResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.listCivicAddresses", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all log messages
    * Retrieve a list of log messages for all external connections associated with your account.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -1009,11 +1385,23 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListLogMessagesResponse listExternalConnectionLogMessages(Integer pageNumber, Integer pageSize, String filterExternalConnectionId, String filterTelephoneNumberContains, String filterTelephoneNumberEq) throws ApiException {
-    return listExternalConnectionLogMessagesWithHttpInfo(pageNumber, pageSize, filterExternalConnectionId, filterTelephoneNumberContains, filterTelephoneNumberEq).getData();
-  }
+    public ListLogMessagesResponse listExternalConnectionLogMessages(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterExternalConnectionId,
+        String filterTelephoneNumberContains,
+        String filterTelephoneNumberEq
+    ) throws ApiException {
+        return listExternalConnectionLogMessagesWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterExternalConnectionId,
+            filterTelephoneNumberContains,
+            filterTelephoneNumberEq
+        ).getData();
+    }
 
-  /**
+    /**
    * List all log messages
    * Retrieve a list of log messages for all external connections associated with your account.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -1031,46 +1419,93 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListLogMessagesResponse> listExternalConnectionLogMessagesWithHttpInfo(Integer pageNumber, Integer pageSize, String filterExternalConnectionId, String filterTelephoneNumberContains, String filterTelephoneNumberEq) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/log_messages";
+    public ApiResponse<
+        ListLogMessagesResponse
+    > listExternalConnectionLogMessagesWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterExternalConnectionId,
+        String filterTelephoneNumberContains,
+        String filterTelephoneNumberEq
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/external_connections/log_messages";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[external_connection_id]", filterExternalConnectionId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[telephone_number][contains]", filterTelephoneNumberContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[telephone_number][eq]", filterTelephoneNumberEq));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[external_connection_id]",
+                filterExternalConnectionId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[telephone_number][contains]",
+                filterTelephoneNumberContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[telephone_number][eq]",
+                filterTelephoneNumberEq
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListLogMessagesResponse> localVarReturnType = new GenericType<ListLogMessagesResponse>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("ExternalConnectionsApi.listExternalConnectionLogMessages", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListLogMessagesResponse> localVarReturnType =
+            new GenericType<ListLogMessagesResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.listExternalConnectionLogMessages",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List all phone numbers
    * Returns a list of all active phone numbers associated with the given external connection.
    * @param id The id of the resource. (required)
@@ -1092,11 +1527,29 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(UUID id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, String filterPhoneNumber, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
-    return listExternalConnectionPhoneNumbersWithHttpInfo(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterPhoneNumber, filterCivicAddressIdEq, filterLocationIdEq).getData();
-  }
+    public ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        String filterPhoneNumberEq,
+        String filterPhoneNumberContains,
+        String filterPhoneNumber,
+        UUID filterCivicAddressIdEq,
+        UUID filterLocationIdEq
+    ) throws ApiException {
+        return listExternalConnectionPhoneNumbersWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize,
+            filterPhoneNumberEq,
+            filterPhoneNumberContains,
+            filterPhoneNumber,
+            filterCivicAddressIdEq,
+            filterLocationIdEq
+        ).getData();
+    }
 
-  /**
+    /**
    * List all phone numbers
    * Returns a list of all active phone numbers associated with the given external connection.
    * @param id The id of the resource. (required)
@@ -1118,54 +1571,125 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListExternalConnectionPhoneNumbersResponse> listExternalConnectionPhoneNumbersWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, String filterPhoneNumber, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listExternalConnectionPhoneNumbers");
+    public ApiResponse<
+        ListExternalConnectionPhoneNumbersResponse
+    > listExternalConnectionPhoneNumbersWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        String filterPhoneNumberEq,
+        String filterPhoneNumberContains,
+        String filterPhoneNumber,
+        UUID filterCivicAddressIdEq,
+        UUID filterLocationIdEq
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listExternalConnectionPhoneNumbers"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/phone_numbers".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number][eq]",
+                filterPhoneNumberEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number][contains]",
+                filterPhoneNumberContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[civic_address_id][eq]",
+                filterCivicAddressIdEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[location_id][eq]",
+                filterLocationIdEq
+            )
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            ListExternalConnectionPhoneNumbersResponse
+        > localVarReturnType = new GenericType<
+            ListExternalConnectionPhoneNumbersResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.listExternalConnectionPhoneNumbers",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/phone_numbers"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][eq]", filterPhoneNumberEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[civic_address_id][eq]", filterCivicAddressIdEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location_id][eq]", filterLocationIdEq));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListExternalConnectionPhoneNumbersResponse> localVarReturnType = new GenericType<ListExternalConnectionPhoneNumbersResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.listExternalConnectionPhoneNumbers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all Releases
    * Returns a list of your Releases for the given external connection. These are automatically created when you change the &#x60;connection_id&#x60; of a phone number that is currently on Microsoft Teams.
    * @param id The id of the resource. (required)
@@ -1187,11 +1711,29 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListReleasesResponse listExternalConnectionReleases(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
-    return listExternalConnectionReleasesWithHttpInfo(id, pageNumber, pageSize, filterStatusEq, filterCivicAddressIdEq, filterLocationIdEq, filterPhoneNumberEq, filterPhoneNumberContains).getData();
-  }
+    public ListReleasesResponse listExternalConnectionReleases(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        List<String> filterStatusEq,
+        UUID filterCivicAddressIdEq,
+        UUID filterLocationIdEq,
+        String filterPhoneNumberEq,
+        String filterPhoneNumberContains
+    ) throws ApiException {
+        return listExternalConnectionReleasesWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize,
+            filterStatusEq,
+            filterCivicAddressIdEq,
+            filterLocationIdEq,
+            filterPhoneNumberEq,
+            filterPhoneNumberContains
+        ).getData();
+    }
 
-  /**
+    /**
    * List all Releases
    * Returns a list of your Releases for the given external connection. These are automatically created when you change the &#x60;connection_id&#x60; of a phone number that is currently on Microsoft Teams.
    * @param id The id of the resource. (required)
@@ -1213,54 +1755,123 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListReleasesResponse> listExternalConnectionReleasesWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listExternalConnectionReleases");
+    public ApiResponse<
+        ListReleasesResponse
+    > listExternalConnectionReleasesWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        List<String> filterStatusEq,
+        UUID filterCivicAddressIdEq,
+        UUID filterLocationIdEq,
+        String filterPhoneNumberEq,
+        String filterPhoneNumberContains
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listExternalConnectionReleases"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/releases".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[status][eq]",
+                filterStatusEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[civic_address_id][eq]",
+                filterCivicAddressIdEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[location_id][eq]",
+                filterLocationIdEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number][eq]",
+                filterPhoneNumberEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number][contains]",
+                filterPhoneNumberContains
+            )
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ListReleasesResponse> localVarReturnType = new GenericType<
+            ListReleasesResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.listExternalConnectionReleases",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/releases"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[status][eq]", filterStatusEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[civic_address_id][eq]", filterCivicAddressIdEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location_id][eq]", filterLocationIdEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][eq]", filterPhoneNumberEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListReleasesResponse> localVarReturnType = new GenericType<ListReleasesResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.listExternalConnectionReleases", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all Upload requests
    * Returns a list of your Upload requests for the given external connection.
    * @param id The id of the resource. (required)
@@ -1282,11 +1893,29 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListUploadsResponse listExternalConnectionUploads(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
-    return listExternalConnectionUploadsWithHttpInfo(id, pageNumber, pageSize, filterStatusEq, filterCivicAddressIdEq, filterLocationIdEq, filterPhoneNumberEq, filterPhoneNumberContains).getData();
-  }
+    public ListUploadsResponse listExternalConnectionUploads(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        List<String> filterStatusEq,
+        UUID filterCivicAddressIdEq,
+        UUID filterLocationIdEq,
+        String filterPhoneNumberEq,
+        String filterPhoneNumberContains
+    ) throws ApiException {
+        return listExternalConnectionUploadsWithHttpInfo(
+            id,
+            pageNumber,
+            pageSize,
+            filterStatusEq,
+            filterCivicAddressIdEq,
+            filterLocationIdEq,
+            filterPhoneNumberEq,
+            filterPhoneNumberContains
+        ).getData();
+    }
 
-  /**
+    /**
    * List all Upload requests
    * Returns a list of your Upload requests for the given external connection.
    * @param id The id of the resource. (required)
@@ -1308,54 +1937,123 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListUploadsResponse> listExternalConnectionUploadsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listExternalConnectionUploads");
+    public ApiResponse<
+        ListUploadsResponse
+    > listExternalConnectionUploadsWithHttpInfo(
+        UUID id,
+        Integer pageNumber,
+        Integer pageSize,
+        List<String> filterStatusEq,
+        UUID filterCivicAddressIdEq,
+        UUID filterLocationIdEq,
+        String filterPhoneNumberEq,
+        String filterPhoneNumberContains
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling listExternalConnectionUploads"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/uploads".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[status][eq]",
+                filterStatusEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[civic_address_id][eq]",
+                filterCivicAddressIdEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[location_id][eq]",
+                filterLocationIdEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number][eq]",
+                filterPhoneNumberEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number][contains]",
+                filterPhoneNumberContains
+            )
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ListUploadsResponse> localVarReturnType = new GenericType<
+            ListUploadsResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.listExternalConnectionUploads",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/uploads"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[status][eq]", filterStatusEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[civic_address_id][eq]", filterCivicAddressIdEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location_id][eq]", filterLocationIdEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][eq]", filterPhoneNumberEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListUploadsResponse> localVarReturnType = new GenericType<ListUploadsResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.listExternalConnectionUploads", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all External Connections
    * This endpoint returns a list of your External Connections inside the &#39;data&#39; attribute of the response. External Connections are used by Telnyx customers to seamless configure SIP trunking integrations with Telnyx Partners, through External Voice Integrations in Mission Control Portal.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -1376,11 +2074,27 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllExternalConnectionsResponse listExternalConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumber) throws ApiException {
-    return listExternalConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumber).getData();
-  }
+    public GetAllExternalConnectionsResponse listExternalConnections(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterConnectionNameContains,
+        String filterExternalSipConnection,
+        String filterId,
+        String filterCreatedAt,
+        String filterPhoneNumber
+    ) throws ApiException {
+        return listExternalConnectionsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterConnectionNameContains,
+            filterExternalSipConnection,
+            filterId,
+            filterCreatedAt,
+            filterPhoneNumber
+        ).getData();
+    }
 
-  /**
+    /**
    * List all External Connections
    * This endpoint returns a list of your External Connections inside the &#39;data&#39; attribute of the response. External Connections are used by Telnyx customers to seamless configure SIP trunking integrations with Telnyx Partners, through External Voice Integrations in Mission Control Portal.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -1401,48 +2115,105 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllExternalConnectionsResponse> listExternalConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumber) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/external_connections";
+    public ApiResponse<
+        GetAllExternalConnectionsResponse
+    > listExternalConnectionsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterConnectionNameContains,
+        String filterExternalSipConnection,
+        String filterId,
+        String filterCreatedAt,
+        String filterPhoneNumber
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/external_connections";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_name][contains]", filterConnectionNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[external_sip_connection]", filterExternalSipConnection));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[id]", filterId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at]", filterCreatedAt));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[connection_name][contains]",
+                filterConnectionNameContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[external_sip_connection]",
+                filterExternalSipConnection
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[id]", filterId)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[created_at]",
+                filterCreatedAt
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<GetAllExternalConnectionsResponse> localVarReturnType = new GenericType<GetAllExternalConnectionsResponse>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("ExternalConnectionsApi.listExternalConnections", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<GetAllExternalConnectionsResponse> localVarReturnType =
+            new GenericType<GetAllExternalConnectionsResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.listExternalConnections",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Refresh Operator Connect integration
    * This endpoint will make an asynchronous request to refresh the Operator Connect integration with Microsoft Teams for the current user. This will create new external connections on the user&#39;s account if needed, and/or report the integration results as [log messages](https://developers.telnyx.com/api/external-voice-integrations/list-external-connection-log-messages).
    * @return OperatorConnectRefreshResponse
@@ -1455,11 +2226,12 @@ public class ExternalConnectionsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public OperatorConnectRefreshResponse operatorConnectRefresh() throws ApiException {
-    return operatorConnectRefreshWithHttpInfo().getData();
-  }
+    public OperatorConnectRefreshResponse operatorConnectRefresh()
+        throws ApiException {
+        return operatorConnectRefreshWithHttpInfo().getData();
+    }
 
-  /**
+    /**
    * Refresh Operator Connect integration
    * This endpoint will make an asynchronous request to refresh the Operator Connect integration with Microsoft Teams for the current user. This will create new external connections on the user&#39;s account if needed, and/or report the integration results as [log messages](https://developers.telnyx.com/api/external-voice-integrations/list-external-connection-log-messages).
    * @return ApiResponse&lt;OperatorConnectRefreshResponse&gt;
@@ -1472,41 +2244,59 @@ public class ExternalConnectionsApi {
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<OperatorConnectRefreshResponse> operatorConnectRefreshWithHttpInfo() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/operator_connect/actions/refresh";
+    public ApiResponse<
+        OperatorConnectRefreshResponse
+    > operatorConnectRefreshWithHttpInfo() throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/operator_connect/actions/refresh";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<OperatorConnectRefreshResponse> localVarReturnType = new GenericType<OperatorConnectRefreshResponse>() {};
+        GenericType<OperatorConnectRefreshResponse> localVarReturnType =
+            new GenericType<OperatorConnectRefreshResponse>() {};
 
-    return apiClient.invokeAPI("ExternalConnectionsApi.operatorConnectRefresh", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.operatorConnectRefresh",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Refresh the status of all Upload requests
    * Forces a recheck of the status of all pending Upload requests for the given external connection in the background.
    * @param id The id of the resource. (required)
@@ -1521,11 +2311,13 @@ public class ExternalConnectionsApi {
        <tr><td> 409 </td><td> Status refresh is still in progress, please wait before calling again </td><td>  -  </td></tr>
      </table>
    */
-  public CreateUploadRequestResponse1 refreshExternalConnectionUploads(UUID id) throws ApiException {
-    return refreshExternalConnectionUploadsWithHttpInfo(id).getData();
-  }
+    public CreateUploadRequestResponse1 refreshExternalConnectionUploads(
+        UUID id
+    ) throws ApiException {
+        return refreshExternalConnectionUploadsWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Refresh the status of all Upload requests
    * Forces a recheck of the status of all pending Upload requests for the given external connection in the background.
    * @param id The id of the resource. (required)
@@ -1540,47 +2332,72 @@ public class ExternalConnectionsApi {
        <tr><td> 409 </td><td> Status refresh is still in progress, please wait before calling again </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateUploadRequestResponse1> refreshExternalConnectionUploadsWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling refreshExternalConnectionUploads");
+    public ApiResponse<
+        CreateUploadRequestResponse1
+    > refreshExternalConnectionUploadsWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling refreshExternalConnectionUploads"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/uploads/refresh".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateUploadRequestResponse1> localVarReturnType =
+            new GenericType<CreateUploadRequestResponse1>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.refreshExternalConnectionUploads",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/uploads/refresh"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateUploadRequestResponse1> localVarReturnType = new GenericType<CreateUploadRequestResponse1>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.refreshExternalConnectionUploads", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retry an Upload request
    * If there were any errors during the upload process, this endpoint will retry the upload request. In some cases this will reattempt the existing upload request, in other cases it may create a new upload request. Please check the ticket_id in the response to determine if a new upload request was created.
    * @param id The id of the resource. (required)
@@ -1597,11 +2414,12 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
    */
-  public GetUploadResponse retryUpload(UUID id, UUID ticketId) throws ApiException {
-    return retryUploadWithHttpInfo(id, ticketId).getData();
-  }
+    public GetUploadResponse retryUpload(UUID id, UUID ticketId)
+        throws ApiException {
+        return retryUploadWithHttpInfo(id, ticketId).getData();
+    }
 
-  /**
+    /**
    * Retry an Upload request
    * If there were any errors during the upload process, this endpoint will retry the upload request. In some cases this will reattempt the existing upload request, in other cases it may create a new upload request. Please check the ticket_id in the response to determine if a new upload request was created.
    * @param id The id of the resource. (required)
@@ -1618,53 +2436,84 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetUploadResponse> retryUploadWithHttpInfo(UUID id, UUID ticketId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retryUpload");
+    public ApiResponse<GetUploadResponse> retryUploadWithHttpInfo(
+        UUID id,
+        UUID ticketId
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling retryUpload"
+            );
+        }
+
+        // verify the required parameter 'ticketId' is set
+        if (ticketId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'ticketId' when calling retryUpload"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/uploads/{ticket_id}/retry".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "ticket_id" + "\\}",
+                    apiClient.escapeString(ticketId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetUploadResponse> localVarReturnType = new GenericType<
+            GetUploadResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.retryUpload",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'ticketId' is set
-    if (ticketId == null) {
-      throw new ApiException(400, "Missing the required parameter 'ticketId' when calling retryUpload");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/uploads/{ticket_id}/retry"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "ticket_id" + "\\}", apiClient.escapeString(ticketId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetUploadResponse> localVarReturnType = new GenericType<GetUploadResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.retryUpload", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update an External Connection
    * Updates settings of an existing External Connection based on the parameters of the request.
    * @param id The id of the resource. (required)
@@ -1680,11 +2529,17 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalConnectionResponse updateExternalConnection(UUID id, UpdateExternalConnectionRequest updateExternalConnectionRequest) throws ApiException {
-    return updateExternalConnectionWithHttpInfo(id, updateExternalConnectionRequest).getData();
-  }
+    public ExternalConnectionResponse updateExternalConnection(
+        UUID id,
+        UpdateExternalConnectionRequest updateExternalConnectionRequest
+    ) throws ApiException {
+        return updateExternalConnectionWithHttpInfo(
+            id,
+            updateExternalConnectionRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update an External Connection
    * Updates settings of an existing External Connection based on the parameters of the request.
    * @param id The id of the resource. (required)
@@ -1700,52 +2555,82 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalConnectionResponse> updateExternalConnectionWithHttpInfo(UUID id, UpdateExternalConnectionRequest updateExternalConnectionRequest) throws ApiException {
-    Object localVarPostBody = updateExternalConnectionRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateExternalConnection");
+    public ApiResponse<
+        ExternalConnectionResponse
+    > updateExternalConnectionWithHttpInfo(
+        UUID id,
+        UpdateExternalConnectionRequest updateExternalConnectionRequest
+    ) throws ApiException {
+        Object localVarPostBody = updateExternalConnectionRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateExternalConnection"
+            );
+        }
+
+        // verify the required parameter 'updateExternalConnectionRequest' is set
+        if (updateExternalConnectionRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updateExternalConnectionRequest' when calling updateExternalConnection"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ExternalConnectionResponse> localVarReturnType =
+            new GenericType<ExternalConnectionResponse>() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.updateExternalConnection",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'updateExternalConnectionRequest' is set
-    if (updateExternalConnectionRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateExternalConnectionRequest' when calling updateExternalConnection");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ExternalConnectionResponse> localVarReturnType = new GenericType<ExternalConnectionResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.updateExternalConnection", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update a phone number
    * Asynchronously update settings of the phone number associated with the given external connection.
    * @param id The id of the resource. (required)
@@ -1762,11 +2647,19 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public GetExternalConnectionPhoneNumberResponse updateExternalConnectionPhoneNumber(UUID id, String phoneNumberId, UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest) throws ApiException {
-    return updateExternalConnectionPhoneNumberWithHttpInfo(id, phoneNumberId, updateExternalConnectionPhoneNumberRequest).getData();
-  }
+    public GetExternalConnectionPhoneNumberResponse updateExternalConnectionPhoneNumber(
+        UUID id,
+        String phoneNumberId,
+        UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest
+    ) throws ApiException {
+        return updateExternalConnectionPhoneNumberWithHttpInfo(
+            id,
+            phoneNumberId,
+            updateExternalConnectionPhoneNumberRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update a phone number
    * Asynchronously update settings of the phone number associated with the given external connection.
    * @param id The id of the resource. (required)
@@ -1783,58 +2676,97 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetExternalConnectionPhoneNumberResponse> updateExternalConnectionPhoneNumberWithHttpInfo(UUID id, String phoneNumberId, UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest) throws ApiException {
-    Object localVarPostBody = updateExternalConnectionPhoneNumberRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateExternalConnectionPhoneNumber");
+    public ApiResponse<
+        GetExternalConnectionPhoneNumberResponse
+    > updateExternalConnectionPhoneNumberWithHttpInfo(
+        UUID id,
+        String phoneNumberId,
+        UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest
+    ) throws ApiException {
+        Object localVarPostBody = updateExternalConnectionPhoneNumberRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateExternalConnectionPhoneNumber"
+            );
+        }
+
+        // verify the required parameter 'phoneNumberId' is set
+        if (phoneNumberId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'phoneNumberId' when calling updateExternalConnectionPhoneNumber"
+            );
+        }
+
+        // verify the required parameter 'updateExternalConnectionPhoneNumberRequest' is set
+        if (updateExternalConnectionPhoneNumberRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updateExternalConnectionPhoneNumberRequest' when calling updateExternalConnectionPhoneNumber"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/phone_numbers/{phone_number_id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "phone_number_id" + "\\}",
+                    apiClient.escapeString(phoneNumberId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            GetExternalConnectionPhoneNumberResponse
+        > localVarReturnType = new GenericType<
+            GetExternalConnectionPhoneNumberResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.updateExternalConnectionPhoneNumber",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'phoneNumberId' is set
-    if (phoneNumberId == null) {
-      throw new ApiException(400, "Missing the required parameter 'phoneNumberId' when calling updateExternalConnectionPhoneNumber");
-    }
-    
-    // verify the required parameter 'updateExternalConnectionPhoneNumberRequest' is set
-    if (updateExternalConnectionPhoneNumberRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateExternalConnectionPhoneNumberRequest' when calling updateExternalConnectionPhoneNumber");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/phone_numbers/{phone_number_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "phone_number_id" + "\\}", apiClient.escapeString(phoneNumberId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetExternalConnectionPhoneNumberResponse> localVarReturnType = new GenericType<GetExternalConnectionPhoneNumberResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.updateExternalConnectionPhoneNumber", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update a location&#39;s static emergency address
    * 
    * @param id The ID of the external connection (required)
@@ -1851,11 +2783,19 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Unprocessable Entity - Location already has an accepted emergency address </td><td>  -  </td></tr>
      </table>
    */
-  public LocationResponse updateLocation(UUID id, UUID locationId, UpdateLocationRequest updateLocationRequest) throws ApiException {
-    return updateLocationWithHttpInfo(id, locationId, updateLocationRequest).getData();
-  }
+    public LocationResponse updateLocation(
+        UUID id,
+        UUID locationId,
+        UpdateLocationRequest updateLocationRequest
+    ) throws ApiException {
+        return updateLocationWithHttpInfo(
+            id,
+            locationId,
+            updateLocationRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update a location&#39;s static emergency address
    * 
    * @param id The ID of the external connection (required)
@@ -1872,55 +2812,89 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Unprocessable Entity - Location already has an accepted emergency address </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<LocationResponse> updateLocationWithHttpInfo(UUID id, UUID locationId, UpdateLocationRequest updateLocationRequest) throws ApiException {
-    Object localVarPostBody = updateLocationRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateLocation");
+    public ApiResponse<LocationResponse> updateLocationWithHttpInfo(
+        UUID id,
+        UUID locationId,
+        UpdateLocationRequest updateLocationRequest
+    ) throws ApiException {
+        Object localVarPostBody = updateLocationRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateLocation"
+            );
+        }
+
+        // verify the required parameter 'locationId' is set
+        if (locationId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'locationId' when calling updateLocation"
+            );
+        }
+
+        // verify the required parameter 'updateLocationRequest' is set
+        if (updateLocationRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updateLocationRequest' when calling updateLocation"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/external_connections/{id}/locations/{location_id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                ).replaceAll(
+                    "\\{" + "location_id" + "\\}",
+                    apiClient.escapeString(locationId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<LocationResponse> localVarReturnType = new GenericType<
+            LocationResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "ExternalConnectionsApi.updateLocation",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'locationId' is set
-    if (locationId == null) {
-      throw new ApiException(400, "Missing the required parameter 'locationId' when calling updateLocation");
-    }
-    
-    // verify the required parameter 'updateLocationRequest' is set
-    if (updateLocationRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateLocationRequest' when calling updateLocation");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/external_connections/{id}/locations/{location_id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "location_id" + "\\}", apiClient.escapeString(locationId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<LocationResponse> localVarReturnType = new GenericType<LocationResponse>() {};
-
-    return apiClient.invokeAPI("ExternalConnectionsApi.updateLocation", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

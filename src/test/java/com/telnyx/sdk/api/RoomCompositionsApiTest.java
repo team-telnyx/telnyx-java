@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,16 +21,14 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetRoomCompositionResponse;
 import com.telnyx.sdk.model.ListRoomCompositionsResponse;
 import java.time.LocalDate;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for RoomCompositionsApi
@@ -73,7 +70,7 @@ public class RoomCompositionsApiTest {
     /**
      * View a list of room compositions.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -94,7 +91,7 @@ public class RoomCompositionsApiTest {
     /**
      * View a room composition.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -105,5 +102,4 @@ public class RoomCompositionsApiTest {
         //GetRoomCompositionResponse response = api.viewRoomComposition(roomCompositionId);
         // TODO: test validations
     }
-
 }

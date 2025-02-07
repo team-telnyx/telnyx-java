@@ -10,22 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.GetUserTags200Response;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for UserTagsApi
@@ -48,5 +45,4 @@ public class UserTagsApiTest {
         //GetUserTags200Response response = api.getUserTags(filterStartsWith);
         // TODO: test validations
     }
-
 }

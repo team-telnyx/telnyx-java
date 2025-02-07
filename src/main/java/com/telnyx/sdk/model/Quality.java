@@ -10,61 +10,56 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The quality of the fax. The &#x60;ultra&#x60; settings provides the highest quality available, but also present longer fax processing times. &#x60;ultra_light&#x60; is best suited for images, wihle &#x60;ultra_dark&#x60; is best suited for text.
  */
 public enum Quality {
-  
-  NORMAL("normal"),
-  
-  HIGH("high"),
-  
-  VERY_HIGH("very_high"),
-  
-  ULTRA_LIGHT("ultra_light"),
-  
-  ULTRA_DARK("ultra_dark");
+    NORMAL("normal"),
 
-  private String value;
+    HIGH("high"),
 
-  Quality(String value) {
-    this.value = value;
-  }
+    VERY_HIGH("very_high"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    ULTRA_LIGHT("ultra_light"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    ULTRA_DARK("ultra_dark");
 
-  @JsonCreator
-  public static Quality fromValue(String value) {
-    for (Quality b : Quality.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    private String value;
+
+    Quality(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static Quality fromValue(String value) {
+        for (Quality b : Quality.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

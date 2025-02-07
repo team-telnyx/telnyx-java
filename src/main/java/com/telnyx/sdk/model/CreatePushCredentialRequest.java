@@ -10,41 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.CreateAndroidPushCredentialRequest;
-import com.telnyx.sdk.model.CreateIosPushCredentialRequest;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -56,15 +34,47 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.CreateAndroidPushCredentialRequest;
+import com.telnyx.sdk.model.CreateIosPushCredentialRequest;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using = CreatePushCredentialRequest.CreatePushCredentialRequestDeserializer.class)
-@JsonSerialize(using = CreatePushCredentialRequest.CreatePushCredentialRequestSerializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(
+    using = CreatePushCredentialRequest.CreatePushCredentialRequestDeserializer.class
+)
+@JsonSerialize(
+    using = CreatePushCredentialRequest.CreatePushCredentialRequestSerializer.class
+)
 public class CreatePushCredentialRequest extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(CreatePushCredentialRequest.class.getName());
 
-    public static class CreatePushCredentialRequestSerializer extends StdSerializer<CreatePushCredentialRequest> {
-        public CreatePushCredentialRequestSerializer(Class<CreatePushCredentialRequest> t) {
+    private static final Logger log = Logger.getLogger(
+        CreatePushCredentialRequest.class.getName()
+    );
+
+    public static class CreatePushCredentialRequestSerializer
+        extends StdSerializer<CreatePushCredentialRequest> {
+
+        public CreatePushCredentialRequestSerializer(
+            Class<CreatePushCredentialRequest> t
+        ) {
             super(t);
         }
 
@@ -73,12 +83,18 @@ public class CreatePushCredentialRequest extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(CreatePushCredentialRequest value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            CreatePushCredentialRequest value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class CreatePushCredentialRequestDeserializer extends StdDeserializer<CreatePushCredentialRequest> {
+    public static class CreatePushCredentialRequestDeserializer
+        extends StdDeserializer<CreatePushCredentialRequest> {
+
         public CreatePushCredentialRequestDeserializer() {
             this(CreatePushCredentialRequest.class);
         }
@@ -88,83 +104,196 @@ public class CreatePushCredentialRequest extends AbstractOpenApiSchema {
         }
 
         @Override
-        public CreatePushCredentialRequest deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public CreatePushCredentialRequest deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            boolean typeCoercion = ctxt.isEnabled(
+                MapperFeature.ALLOW_COERCION_OF_SCALARS
+            );
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize CreateAndroidPushCredentialRequest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CreateAndroidPushCredentialRequest.class.equals(Integer.class) || CreateAndroidPushCredentialRequest.class.equals(Long.class) || CreateAndroidPushCredentialRequest.class.equals(Float.class) || CreateAndroidPushCredentialRequest.class.equals(Double.class) || CreateAndroidPushCredentialRequest.class.equals(Boolean.class) || CreateAndroidPushCredentialRequest.class.equals(String.class)) {
+                if (
+                    CreateAndroidPushCredentialRequest.class.equals(
+                            Integer.class
+                        ) ||
+                    CreateAndroidPushCredentialRequest.class.equals(
+                            Long.class
+                        ) ||
+                    CreateAndroidPushCredentialRequest.class.equals(
+                            Float.class
+                        ) ||
+                    CreateAndroidPushCredentialRequest.class.equals(
+                            Double.class
+                        ) ||
+                    CreateAndroidPushCredentialRequest.class.equals(
+                            Boolean.class
+                        ) ||
+                    CreateAndroidPushCredentialRequest.class.equals(
+                            String.class
+                        )
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((CreateAndroidPushCredentialRequest.class.equals(Integer.class) || CreateAndroidPushCredentialRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((CreateAndroidPushCredentialRequest.class.equals(Float.class) || CreateAndroidPushCredentialRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (CreateAndroidPushCredentialRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (CreateAndroidPushCredentialRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                            ((CreateAndroidPushCredentialRequest.class.equals(
+                                            Integer.class
+                                        ) ||
+                                    CreateAndroidPushCredentialRequest.class.equals(
+                                            Long.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                            ((CreateAndroidPushCredentialRequest.class.equals(
+                                            Float.class
+                                        ) ||
+                                    CreateAndroidPushCredentialRequest.class.equals(
+                                            Double.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                            (CreateAndroidPushCredentialRequest.class.equals(
+                                        Boolean.class
+                                    ) &&
+                                (token == JsonToken.VALUE_FALSE ||
+                                    token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                            (CreateAndroidPushCredentialRequest.class.equals(
+                                        String.class
+                                    ) &&
+                                token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CreateAndroidPushCredentialRequest.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(CreateAndroidPushCredentialRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'CreateAndroidPushCredentialRequest'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'CreateAndroidPushCredentialRequest'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'CreateAndroidPushCredentialRequest'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'CreateAndroidPushCredentialRequest'",
+                    e
+                );
             }
 
             // deserialize CreateIosPushCredentialRequest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CreateIosPushCredentialRequest.class.equals(Integer.class) || CreateIosPushCredentialRequest.class.equals(Long.class) || CreateIosPushCredentialRequest.class.equals(Float.class) || CreateIosPushCredentialRequest.class.equals(Double.class) || CreateIosPushCredentialRequest.class.equals(Boolean.class) || CreateIosPushCredentialRequest.class.equals(String.class)) {
+                if (
+                    CreateIosPushCredentialRequest.class.equals(
+                            Integer.class
+                        ) ||
+                    CreateIosPushCredentialRequest.class.equals(Long.class) ||
+                    CreateIosPushCredentialRequest.class.equals(Float.class) ||
+                    CreateIosPushCredentialRequest.class.equals(Double.class) ||
+                    CreateIosPushCredentialRequest.class.equals(
+                            Boolean.class
+                        ) ||
+                    CreateIosPushCredentialRequest.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((CreateIosPushCredentialRequest.class.equals(Integer.class) || CreateIosPushCredentialRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((CreateIosPushCredentialRequest.class.equals(Float.class) || CreateIosPushCredentialRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (CreateIosPushCredentialRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (CreateIosPushCredentialRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                            ((CreateIosPushCredentialRequest.class.equals(
+                                            Integer.class
+                                        ) ||
+                                    CreateIosPushCredentialRequest.class.equals(
+                                            Long.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                            ((CreateIosPushCredentialRequest.class.equals(
+                                            Float.class
+                                        ) ||
+                                    CreateIosPushCredentialRequest.class.equals(
+                                            Double.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                            (CreateIosPushCredentialRequest.class.equals(
+                                        Boolean.class
+                                    ) &&
+                                (token == JsonToken.VALUE_FALSE ||
+                                    token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                            (CreateIosPushCredentialRequest.class.equals(
+                                        String.class
+                                    ) &&
+                                token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CreateIosPushCredentialRequest.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(CreateIosPushCredentialRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'CreateIosPushCredentialRequest'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'CreateIosPushCredentialRequest'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'CreateIosPushCredentialRequest'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'CreateIosPushCredentialRequest'",
+                    e
+                );
             }
 
             if (match == 1) {
-                CreatePushCredentialRequest ret = new CreatePushCredentialRequest();
+                CreatePushCredentialRequest ret =
+                    new CreatePushCredentialRequest();
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for CreatePushCredentialRequest: %d classes match result, expected 1", match));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for CreatePushCredentialRequest: %d classes match result, expected 1",
+                    match
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public CreatePushCredentialRequest getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "CreatePushCredentialRequest cannot be null");
+        public CreatePushCredentialRequest getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "CreatePushCredentialRequest cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public CreatePushCredentialRequest() {
         super("oneOf", Boolean.FALSE);
@@ -181,11 +310,18 @@ public class CreatePushCredentialRequest extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("CreateAndroidPushCredentialRequest", new GenericType<CreateAndroidPushCredentialRequest>() {
-        });
-        schemas.put("CreateIosPushCredentialRequest", new GenericType<CreateIosPushCredentialRequest>() {
-        });
-        JSON.registerDescendants(CreatePushCredentialRequest.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+            "CreateAndroidPushCredentialRequest",
+            new GenericType<CreateAndroidPushCredentialRequest>() {}
+        );
+        schemas.put(
+            "CreateIosPushCredentialRequest",
+            new GenericType<CreateIosPushCredentialRequest>() {}
+        );
+        JSON.registerDescendants(
+            CreatePushCredentialRequest.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -203,17 +339,31 @@ public class CreatePushCredentialRequest extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(CreateAndroidPushCredentialRequest.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                CreateAndroidPushCredentialRequest.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(CreateIosPushCredentialRequest.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                CreateIosPushCredentialRequest.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be CreateAndroidPushCredentialRequest, CreateIosPushCredentialRequest");
+        throw new RuntimeException(
+            "Invalid instance type. Must be CreateAndroidPushCredentialRequest, CreateIosPushCredentialRequest"
+        );
     }
 
     /**
@@ -234,8 +384,9 @@ public class CreatePushCredentialRequest extends AbstractOpenApiSchema {
      * @return The actual instance of `CreateAndroidPushCredentialRequest`
      * @throws ClassCastException if the instance is not `CreateAndroidPushCredentialRequest`
      */
-    public CreateAndroidPushCredentialRequest getCreateAndroidPushCredentialRequest() throws ClassCastException {
-        return (CreateAndroidPushCredentialRequest)super.getActualInstance();
+    public CreateAndroidPushCredentialRequest getCreateAndroidPushCredentialRequest()
+        throws ClassCastException {
+        return (CreateAndroidPushCredentialRequest) super.getActualInstance();
     }
 
     /**
@@ -245,9 +396,8 @@ public class CreatePushCredentialRequest extends AbstractOpenApiSchema {
      * @return The actual instance of `CreateIosPushCredentialRequest`
      * @throws ClassCastException if the instance is not `CreateIosPushCredentialRequest`
      */
-    public CreateIosPushCredentialRequest getCreateIosPushCredentialRequest() throws ClassCastException {
-        return (CreateIosPushCredentialRequest)super.getActualInstance();
+    public CreateIosPushCredentialRequest getCreateIosPushCredentialRequest()
+        throws ClassCastException {
+        return (CreateIosPushCredentialRequest) super.getActualInstance();
     }
-
 }
-

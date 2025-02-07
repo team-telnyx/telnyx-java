@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RCSComposeRecordingMessage;
 import com.telnyx.sdk.model.RCSComposeTextMessage;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -30,6 +28,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for RCSComposeAction
  */
 public class RCSComposeActionTest {
+
     private final RCSComposeAction model = new RCSComposeAction();
 
     /**
@@ -55,5 +54,4 @@ public class RCSComposeActionTest {
     public void composeRecordingMessageTest() {
         // TODO: test composeRecordingMessage
     }
-
 }

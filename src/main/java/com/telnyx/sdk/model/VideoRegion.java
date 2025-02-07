@@ -10,418 +10,446 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * VideoRegion
  */
-@JsonPropertyOrder({
-  VideoRegion.JSON_PROPERTY_X_POS,
-  VideoRegion.JSON_PROPERTY_Y_POS,
-  VideoRegion.JSON_PROPERTY_Z_POS,
-  VideoRegion.JSON_PROPERTY_HEIGHT,
-  VideoRegion.JSON_PROPERTY_WIDTH,
-  VideoRegion.JSON_PROPERTY_MAX_COLUMNS,
-  VideoRegion.JSON_PROPERTY_MAX_ROWS,
-  VideoRegion.JSON_PROPERTY_VIDEO_SOURCES
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        VideoRegion.JSON_PROPERTY_X_POS,
+        VideoRegion.JSON_PROPERTY_Y_POS,
+        VideoRegion.JSON_PROPERTY_Z_POS,
+        VideoRegion.JSON_PROPERTY_HEIGHT,
+        VideoRegion.JSON_PROPERTY_WIDTH,
+        VideoRegion.JSON_PROPERTY_MAX_COLUMNS,
+        VideoRegion.JSON_PROPERTY_MAX_ROWS,
+        VideoRegion.JSON_PROPERTY_VIDEO_SOURCES,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class VideoRegion {
-  public static final String JSON_PROPERTY_X_POS = "x_pos";
-  private JsonNullable<Integer> xPos = JsonNullable.<Integer>of(0);
 
-  public static final String JSON_PROPERTY_Y_POS = "y_pos";
-  private JsonNullable<Integer> yPos = JsonNullable.<Integer>of(0);
+    public static final String JSON_PROPERTY_X_POS = "x_pos";
+    private JsonNullable<Integer> xPos = JsonNullable.<Integer>of(0);
 
-  public static final String JSON_PROPERTY_Z_POS = "z_pos";
-  private JsonNullable<Integer> zPos = JsonNullable.<Integer>of(0);
+    public static final String JSON_PROPERTY_Y_POS = "y_pos";
+    private JsonNullable<Integer> yPos = JsonNullable.<Integer>of(0);
 
-  public static final String JSON_PROPERTY_HEIGHT = "height";
-  private JsonNullable<Integer> height = JsonNullable.<Integer>undefined();
+    public static final String JSON_PROPERTY_Z_POS = "z_pos";
+    private JsonNullable<Integer> zPos = JsonNullable.<Integer>of(0);
 
-  public static final String JSON_PROPERTY_WIDTH = "width";
-  private JsonNullable<Integer> width = JsonNullable.<Integer>undefined();
+    public static final String JSON_PROPERTY_HEIGHT = "height";
+    private JsonNullable<Integer> height = JsonNullable.<Integer>undefined();
 
-  public static final String JSON_PROPERTY_MAX_COLUMNS = "max_columns";
-  private JsonNullable<Integer> maxColumns = JsonNullable.<Integer>undefined();
+    public static final String JSON_PROPERTY_WIDTH = "width";
+    private JsonNullable<Integer> width = JsonNullable.<Integer>undefined();
 
-  public static final String JSON_PROPERTY_MAX_ROWS = "max_rows";
-  private JsonNullable<Integer> maxRows = JsonNullable.<Integer>undefined();
+    public static final String JSON_PROPERTY_MAX_COLUMNS = "max_columns";
+    private JsonNullable<Integer> maxColumns = JsonNullable.<
+            Integer
+        >undefined();
 
-  public static final String JSON_PROPERTY_VIDEO_SOURCES = "video_sources";
-  private List<UUID> videoSources = null;
+    public static final String JSON_PROPERTY_MAX_ROWS = "max_rows";
+    private JsonNullable<Integer> maxRows = JsonNullable.<Integer>undefined();
 
-  public VideoRegion() { 
-  }
+    public static final String JSON_PROPERTY_VIDEO_SOURCES = "video_sources";
+    private List<UUID> videoSources = null;
 
-  public VideoRegion xPos(Integer xPos) {
-    this.xPos = JsonNullable.<Integer>of(xPos);
-    return this;
-  }
+    public VideoRegion() {}
 
-   /**
-   * X axis value (in pixels) of the region&#39;s upper left corner relative to the upper left corner of the whole room composition viewport.
-   * @return xPos
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "100", value = "X axis value (in pixels) of the region's upper left corner relative to the upper left corner of the whole room composition viewport.")
-  @JsonIgnore
+    public VideoRegion xPos(Integer xPos) {
+        this.xPos = JsonNullable.<Integer>of(xPos);
+        return this;
+    }
 
-  public Integer getxPos() {
+    /**
+     * X axis value (in pixels) of the region&#39;s upper left corner relative to the upper left corner of the whole room composition viewport.
+     * @return xPos
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "100",
+        value = "X axis value (in pixels) of the region's upper left corner relative to the upper left corner of the whole room composition viewport."
+    )
+    @JsonIgnore
+    public Integer getxPos() {
         return xPos.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_X_POS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_X_POS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Integer> getxPos_JsonNullable() {
+        return xPos;
+    }
 
-  public JsonNullable<Integer> getxPos_JsonNullable() {
-    return xPos;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_X_POS)
-  public void setxPos_JsonNullable(JsonNullable<Integer> xPos) {
-    this.xPos = xPos;
-  }
+    @JsonProperty(JSON_PROPERTY_X_POS)
+    public void setxPos_JsonNullable(JsonNullable<Integer> xPos) {
+        this.xPos = xPos;
+    }
 
-  public void setxPos(Integer xPos) {
-    this.xPos = JsonNullable.<Integer>of(xPos);
-  }
+    public void setxPos(Integer xPos) {
+        this.xPos = JsonNullable.<Integer>of(xPos);
+    }
 
+    public VideoRegion yPos(Integer yPos) {
+        this.yPos = JsonNullable.<Integer>of(yPos);
+        return this;
+    }
 
-  public VideoRegion yPos(Integer yPos) {
-    this.yPos = JsonNullable.<Integer>of(yPos);
-    return this;
-  }
-
-   /**
-   * Y axis value (in pixels) of the region&#39;s upper left corner relative to the upper left corner of the whole room composition viewport.
-   * @return yPos
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "100", value = "Y axis value (in pixels) of the region's upper left corner relative to the upper left corner of the whole room composition viewport.")
-  @JsonIgnore
-
-  public Integer getyPos() {
+    /**
+     * Y axis value (in pixels) of the region&#39;s upper left corner relative to the upper left corner of the whole room composition viewport.
+     * @return yPos
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "100",
+        value = "Y axis value (in pixels) of the region's upper left corner relative to the upper left corner of the whole room composition viewport."
+    )
+    @JsonIgnore
+    public Integer getyPos() {
         return yPos.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_Y_POS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_Y_POS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Integer> getyPos_JsonNullable() {
+        return yPos;
+    }
 
-  public JsonNullable<Integer> getyPos_JsonNullable() {
-    return yPos;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_Y_POS)
-  public void setyPos_JsonNullable(JsonNullable<Integer> yPos) {
-    this.yPos = yPos;
-  }
+    @JsonProperty(JSON_PROPERTY_Y_POS)
+    public void setyPos_JsonNullable(JsonNullable<Integer> yPos) {
+        this.yPos = yPos;
+    }
 
-  public void setyPos(Integer yPos) {
-    this.yPos = JsonNullable.<Integer>of(yPos);
-  }
+    public void setyPos(Integer yPos) {
+        this.yPos = JsonNullable.<Integer>of(yPos);
+    }
 
+    public VideoRegion zPos(Integer zPos) {
+        this.zPos = JsonNullable.<Integer>of(zPos);
+        return this;
+    }
 
-  public VideoRegion zPos(Integer zPos) {
-    this.zPos = JsonNullable.<Integer>of(zPos);
-    return this;
-  }
-
-   /**
-   * Regions with higher z_pos values are stacked on top of regions with lower z_pos values
-   * minimum: -99
-   * maximum: 99
-   * @return zPos
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "1", value = "Regions with higher z_pos values are stacked on top of regions with lower z_pos values")
-  @JsonIgnore
-
-  public Integer getzPos() {
+    /**
+     * Regions with higher z_pos values are stacked on top of regions with lower z_pos values
+     * minimum: -99
+     * maximum: 99
+     * @return zPos
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "1",
+        value = "Regions with higher z_pos values are stacked on top of regions with lower z_pos values"
+    )
+    @JsonIgnore
+    public Integer getzPos() {
         return zPos.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_Z_POS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_Z_POS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Integer> getzPos_JsonNullable() {
+        return zPos;
+    }
 
-  public JsonNullable<Integer> getzPos_JsonNullable() {
-    return zPos;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_Z_POS)
-  public void setzPos_JsonNullable(JsonNullable<Integer> zPos) {
-    this.zPos = zPos;
-  }
+    @JsonProperty(JSON_PROPERTY_Z_POS)
+    public void setzPos_JsonNullable(JsonNullable<Integer> zPos) {
+        this.zPos = zPos;
+    }
 
-  public void setzPos(Integer zPos) {
-    this.zPos = JsonNullable.<Integer>of(zPos);
-  }
+    public void setzPos(Integer zPos) {
+        this.zPos = JsonNullable.<Integer>of(zPos);
+    }
 
+    public VideoRegion height(Integer height) {
+        this.height = JsonNullable.<Integer>of(height);
+        return this;
+    }
 
-  public VideoRegion height(Integer height) {
-    this.height = JsonNullable.<Integer>of(height);
-    return this;
-  }
-
-   /**
-   * Height of the video region
-   * minimum: 16
-   * @return height
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "360", value = "Height of the video region")
-  @JsonIgnore
-
-  public Integer getHeight() {
+    /**
+     * Height of the video region
+     * minimum: 16
+     * @return height
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "360", value = "Height of the video region")
+    @JsonIgnore
+    public Integer getHeight() {
         return height.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_HEIGHT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_HEIGHT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Integer> getHeight_JsonNullable() {
+        return height;
+    }
 
-  public JsonNullable<Integer> getHeight_JsonNullable() {
-    return height;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_HEIGHT)
-  public void setHeight_JsonNullable(JsonNullable<Integer> height) {
-    this.height = height;
-  }
+    @JsonProperty(JSON_PROPERTY_HEIGHT)
+    public void setHeight_JsonNullable(JsonNullable<Integer> height) {
+        this.height = height;
+    }
 
-  public void setHeight(Integer height) {
-    this.height = JsonNullable.<Integer>of(height);
-  }
+    public void setHeight(Integer height) {
+        this.height = JsonNullable.<Integer>of(height);
+    }
 
+    public VideoRegion width(Integer width) {
+        this.width = JsonNullable.<Integer>of(width);
+        return this;
+    }
 
-  public VideoRegion width(Integer width) {
-    this.width = JsonNullable.<Integer>of(width);
-    return this;
-  }
-
-   /**
-   * Width of the video region
-   * minimum: 16
-   * @return width
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "480", value = "Width of the video region")
-  @JsonIgnore
-
-  public Integer getWidth() {
+    /**
+     * Width of the video region
+     * minimum: 16
+     * @return width
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "480", value = "Width of the video region")
+    @JsonIgnore
+    public Integer getWidth() {
         return width.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_WIDTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_WIDTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Integer> getWidth_JsonNullable() {
+        return width;
+    }
 
-  public JsonNullable<Integer> getWidth_JsonNullable() {
-    return width;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_WIDTH)
-  public void setWidth_JsonNullable(JsonNullable<Integer> width) {
-    this.width = width;
-  }
+    @JsonProperty(JSON_PROPERTY_WIDTH)
+    public void setWidth_JsonNullable(JsonNullable<Integer> width) {
+        this.width = width;
+    }
 
-  public void setWidth(Integer width) {
-    this.width = JsonNullable.<Integer>of(width);
-  }
+    public void setWidth(Integer width) {
+        this.width = JsonNullable.<Integer>of(width);
+    }
 
+    public VideoRegion maxColumns(Integer maxColumns) {
+        this.maxColumns = JsonNullable.<Integer>of(maxColumns);
+        return this;
+    }
 
-  public VideoRegion maxColumns(Integer maxColumns) {
-    this.maxColumns = JsonNullable.<Integer>of(maxColumns);
-    return this;
-  }
-
-   /**
-   * Maximum number of columns of the region&#39;s placement grid. By default, the region has as many columns as needed to layout all the specified video sources.
-   * minimum: 1
-   * maximum: 1000
-   * @return maxColumns
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "3", value = "Maximum number of columns of the region's placement grid. By default, the region has as many columns as needed to layout all the specified video sources.")
-  @JsonIgnore
-
-  public Integer getMaxColumns() {
+    /**
+     * Maximum number of columns of the region&#39;s placement grid. By default, the region has as many columns as needed to layout all the specified video sources.
+     * minimum: 1
+     * maximum: 1000
+     * @return maxColumns
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "3",
+        value = "Maximum number of columns of the region's placement grid. By default, the region has as many columns as needed to layout all the specified video sources."
+    )
+    @JsonIgnore
+    public Integer getMaxColumns() {
         return maxColumns.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_MAX_COLUMNS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_MAX_COLUMNS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Integer> getMaxColumns_JsonNullable() {
+        return maxColumns;
+    }
 
-  public JsonNullable<Integer> getMaxColumns_JsonNullable() {
-    return maxColumns;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_MAX_COLUMNS)
-  public void setMaxColumns_JsonNullable(JsonNullable<Integer> maxColumns) {
-    this.maxColumns = maxColumns;
-  }
+    @JsonProperty(JSON_PROPERTY_MAX_COLUMNS)
+    public void setMaxColumns_JsonNullable(JsonNullable<Integer> maxColumns) {
+        this.maxColumns = maxColumns;
+    }
 
-  public void setMaxColumns(Integer maxColumns) {
-    this.maxColumns = JsonNullable.<Integer>of(maxColumns);
-  }
+    public void setMaxColumns(Integer maxColumns) {
+        this.maxColumns = JsonNullable.<Integer>of(maxColumns);
+    }
 
+    public VideoRegion maxRows(Integer maxRows) {
+        this.maxRows = JsonNullable.<Integer>of(maxRows);
+        return this;
+    }
 
-  public VideoRegion maxRows(Integer maxRows) {
-    this.maxRows = JsonNullable.<Integer>of(maxRows);
-    return this;
-  }
-
-   /**
-   * Maximum number of rows of the region&#39;s placement grid. By default, the region has as many rows as needed to layout all the specified video sources.
-   * minimum: 1
-   * maximum: 1000
-   * @return maxRows
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "3", value = "Maximum number of rows of the region's placement grid. By default, the region has as many rows as needed to layout all the specified video sources.")
-  @JsonIgnore
-
-  public Integer getMaxRows() {
+    /**
+     * Maximum number of rows of the region&#39;s placement grid. By default, the region has as many rows as needed to layout all the specified video sources.
+     * minimum: 1
+     * maximum: 1000
+     * @return maxRows
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "3",
+        value = "Maximum number of rows of the region's placement grid. By default, the region has as many rows as needed to layout all the specified video sources."
+    )
+    @JsonIgnore
+    public Integer getMaxRows() {
         return maxRows.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_MAX_ROWS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Integer> getMaxRows_JsonNullable() {
-    return maxRows;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_MAX_ROWS)
-  public void setMaxRows_JsonNullable(JsonNullable<Integer> maxRows) {
-    this.maxRows = maxRows;
-  }
-
-  public void setMaxRows(Integer maxRows) {
-    this.maxRows = JsonNullable.<Integer>of(maxRows);
-  }
-
-
-  public VideoRegion videoSources(List<UUID> videoSources) {
-    this.videoSources = videoSources;
-    return this;
-  }
-
-  public VideoRegion addvideoSourcesItem(UUID videoSourcesItem) {
-    if (this.videoSources == null) {
-      this.videoSources = new ArrayList<>();
     }
-    this.videoSources.add(videoSourcesItem);
-    return this;
-  }
 
-   /**
-   * Array of video recording ids to be composed in the region. Can be \&quot;*\&quot; to specify all video recordings in the session
-   * @return videoSources
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Array of video recording ids to be composed in the region. Can be \"*\" to specify all video recordings in the session")
-  @JsonProperty(JSON_PROPERTY_VIDEO_SOURCES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<UUID> getVideoSources() {
-    return videoSources;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VIDEO_SOURCES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVideoSources(List<UUID> videoSources) {
-    this.videoSources = videoSources;
-  }
-
-
-  /**
-   * Return true if this VideoRegion object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @JsonProperty(JSON_PROPERTY_MAX_ROWS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Integer> getMaxRows_JsonNullable() {
+        return maxRows;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_MAX_ROWS)
+    public void setMaxRows_JsonNullable(JsonNullable<Integer> maxRows) {
+        this.maxRows = maxRows;
     }
-    VideoRegion videoRegion = (VideoRegion) o;
-    return equalsNullable(this.xPos, videoRegion.xPos) &&
-        equalsNullable(this.yPos, videoRegion.yPos) &&
-        equalsNullable(this.zPos, videoRegion.zPos) &&
-        equalsNullable(this.height, videoRegion.height) &&
-        equalsNullable(this.width, videoRegion.width) &&
-        equalsNullable(this.maxColumns, videoRegion.maxColumns) &&
-        equalsNullable(this.maxRows, videoRegion.maxRows) &&
-        Objects.equals(this.videoSources, videoRegion.videoSources);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(hashCodeNullable(xPos), hashCodeNullable(yPos), hashCodeNullable(zPos), hashCodeNullable(height), hashCodeNullable(width), hashCodeNullable(maxColumns), hashCodeNullable(maxRows), videoSources);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    public void setMaxRows(Integer maxRows) {
+        this.maxRows = JsonNullable.<Integer>of(maxRows);
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class VideoRegion {\n");
-    sb.append("    xPos: ").append(toIndentedString(xPos)).append("\n");
-    sb.append("    yPos: ").append(toIndentedString(yPos)).append("\n");
-    sb.append("    zPos: ").append(toIndentedString(zPos)).append("\n");
-    sb.append("    height: ").append(toIndentedString(height)).append("\n");
-    sb.append("    width: ").append(toIndentedString(width)).append("\n");
-    sb.append("    maxColumns: ").append(toIndentedString(maxColumns)).append("\n");
-    sb.append("    maxRows: ").append(toIndentedString(maxRows)).append("\n");
-    sb.append("    videoSources: ").append(toIndentedString(videoSources)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public VideoRegion videoSources(List<UUID> videoSources) {
+        this.videoSources = videoSources;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public VideoRegion addvideoSourcesItem(UUID videoSourcesItem) {
+        if (this.videoSources == null) {
+            this.videoSources = new ArrayList<>();
+        }
+        this.videoSources.add(videoSourcesItem);
+        return this;
+    }
+
+    /**
+     * Array of video recording ids to be composed in the region. Can be \&quot;*\&quot; to specify all video recordings in the session
+     * @return videoSources
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Array of video recording ids to be composed in the region. Can be \"*\" to specify all video recordings in the session"
+    )
+    @JsonProperty(JSON_PROPERTY_VIDEO_SOURCES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<UUID> getVideoSources() {
+        return videoSources;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VIDEO_SOURCES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVideoSources(List<UUID> videoSources) {
+        this.videoSources = videoSources;
+    }
+
+    /**
+     * Return true if this VideoRegion object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VideoRegion videoRegion = (VideoRegion) o;
+        return (
+            equalsNullable(this.xPos, videoRegion.xPos) &&
+            equalsNullable(this.yPos, videoRegion.yPos) &&
+            equalsNullable(this.zPos, videoRegion.zPos) &&
+            equalsNullable(this.height, videoRegion.height) &&
+            equalsNullable(this.width, videoRegion.width) &&
+            equalsNullable(this.maxColumns, videoRegion.maxColumns) &&
+            equalsNullable(this.maxRows, videoRegion.maxRows) &&
+            Objects.equals(this.videoSources, videoRegion.videoSources)
+        );
+    }
+
+    private static <T> boolean equalsNullable(
+        JsonNullable<T> a,
+        JsonNullable<T> b
+    ) {
+        return (
+            a == b ||
+            (a != null &&
+                b != null &&
+                a.isPresent() &&
+                b.isPresent() &&
+                Objects.deepEquals(a.get(), b.get()))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            hashCodeNullable(xPos),
+            hashCodeNullable(yPos),
+            hashCodeNullable(zPos),
+            hashCodeNullable(height),
+            hashCodeNullable(width),
+            hashCodeNullable(maxColumns),
+            hashCodeNullable(maxRows),
+            videoSources
+        );
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent()
+            ? Arrays.deepHashCode(new Object[] { a.get() })
+            : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class VideoRegion {\n");
+        sb.append("    xPos: ").append(toIndentedString(xPos)).append("\n");
+        sb.append("    yPos: ").append(toIndentedString(yPos)).append("\n");
+        sb.append("    zPos: ").append(toIndentedString(zPos)).append("\n");
+        sb.append("    height: ").append(toIndentedString(height)).append("\n");
+        sb.append("    width: ").append(toIndentedString(width)).append("\n");
+        sb
+            .append("    maxColumns: ")
+            .append(toIndentedString(maxColumns))
+            .append("\n");
+        sb
+            .append("    maxRows: ")
+            .append(toIndentedString(maxRows))
+            .append("\n");
+        sb
+            .append("    videoSources: ")
+            .append(toIndentedString(videoSources))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

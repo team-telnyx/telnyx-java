@@ -10,8 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.*;
 
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -28,14 +29,11 @@ import com.telnyx.sdk.model.IpResponse;
 import com.telnyx.sdk.model.ListIpsResponse;
 import com.telnyx.sdk.model.OutboundIp;
 import com.telnyx.sdk.model.UpdateIpRequest;
+import java.util.Collections;
+import java.util.UUID;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.Collections;
-import java.util.UUID;
-
-import static org.junit.Assert.*;
 
 /**
  * API tests for IPsApi
@@ -50,7 +48,8 @@ public class IPsApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
@@ -83,10 +82,13 @@ public class IPsApiTest {
      */
     @Test
     @Ignore
-    public void deleteIp_ipIdProvided_ipWouldNotReturnAnymore() throws ApiException {
+    public void deleteIp_ipIdProvided_ipWouldNotReturnAnymore()
+        throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
-        UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
+        UUID ipId = UUID.fromString(
+            api.createIp(createIpRequest).getData().getId()
+        );
 
         //when
         IpResponse response = api.deleteIp(ipId);
@@ -107,16 +109,18 @@ public class IPsApiTest {
      */
     @Test
     @Ignore
-    public void listIps_defaultParams_returnsNotNullListOfIps() throws ApiException {
+    public void listIps_defaultParams_returnsNotNullListOfIps()
+        throws ApiException {
         //given
         Integer pageNumber = 1;
         Integer pageSize = 20;
 
         //when
-        ListIpsResponse response = api.listIps()
-                .pageNumber(pageNumber)
-                .pageSize(pageSize)
-                .execute();
+        ListIpsResponse response = api
+            .listIps()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .execute();
 
         //then
         assertNotNull(response);
@@ -134,7 +138,9 @@ public class IPsApiTest {
     public void retrieveIp_ipIdProvided_returnsIp() throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
-        UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
+        UUID ipId = UUID.fromString(
+            api.createIp(createIpRequest).getData().getId()
+        );
 
         //when
         IpResponse response = api.retrieveIp(ipId);
@@ -155,7 +161,9 @@ public class IPsApiTest {
     public void updateIp_changedParams_returnsUpdatedIp() throws ApiException {
         //given
         CreateIpRequest createIpRequest = prepareSampleCreateIpRequest();
-        UUID ipId = UUID.fromString(api.createIp(createIpRequest).getData().getId());
+        UUID ipId = UUID.fromString(
+            api.createIp(createIpRequest).getData().getId()
+        );
         UpdateIpRequest updateIpRequest = prepareSampleUpdateIpRequest();
 
         //when
@@ -164,81 +172,103 @@ public class IPsApiTest {
         //then
         assertNotNull(response);
         assertEquals(updateIpRequest.getPort(), response.getData().getPort());
-        assertEquals(updateIpRequest.getConnectionId(), response.getData().getConnectionId());
-        assertEquals(updateIpRequest.getIpAddress(), response.getData().getIpAddress());
+        assertEquals(
+            updateIpRequest.getConnectionId(),
+            response.getData().getConnectionId()
+        );
+        assertEquals(
+            updateIpRequest.getIpAddress(),
+            response.getData().getIpAddress()
+        );
     }
 
     private UpdateIpRequest prepareSampleUpdateIpRequest() throws ApiException {
         String ipConnectionId = new IpConnectionsApi()
-                .createIpConnection(prepareSampleCreateIpConnectionRequest())
-                .getData().getId();
+            .createIpConnection(prepareSampleCreateIpConnectionRequest())
+            .getData()
+            .getId();
 
         return new UpdateIpRequest()
-                .ipAddress("192.168.0.1")
-                .connectionId(ipConnectionId)
-                .port(5061);
+            .ipAddress("192.168.0.1")
+            .connectionId(ipConnectionId)
+            .port(5061);
     }
-
 
     private CreateIpRequest prepareSampleCreateIpRequest() throws ApiException {
         String ipConnectionId = new IpConnectionsApi()
-                .createIpConnection(prepareSampleCreateIpConnectionRequest())
-                .getData().getId();
+            .createIpConnection(prepareSampleCreateIpConnectionRequest())
+            .getData()
+            .getId();
 
         return new CreateIpRequest()
-                .ipAddress("192.168.0.0")
-                .connectionId(ipConnectionId)
-                .port(5060);
+            .ipAddress("192.168.0.0")
+            .connectionId(ipConnectionId)
+            .port(5060);
     }
 
     private CreateIpConnectionRequest prepareSampleCreateIpConnectionRequest() {
         return new CreateIpConnectionRequest()
-                .active(true)
-                .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
-                .connectionName("some_connection")
-                .defaultOnHoldComfortNoiseEnabled(true)
-                .dtmfType(DtmfType.RFC_2833)
-                .encodeContactHeaderEnabled(false)
-                .encryptedMedia(EncryptedMedia.SRTP)
-                .inbound(new CreateInboundIpRequest()
-                        .aniNumberFormat(CreateInboundIpRequest.AniNumberFormatEnum._E_164)
-                        .channelLimit(10)
-                        .codecs(Collections.singletonList("G722"))
-                        .defaultRoutingMethod(CreateInboundIpRequest.DefaultRoutingMethodEnum.SEQUENTIAL)
-                        .dnisNumberFormat(CreateInboundIpRequest.DnisNumberFormatEnum._E164)
-                        .generateRingbackTone(true)
-                        .isupHeadersEnabled(true)
-                        .prackEnabled(true)
-                        .sipCompactHeadersEnabled(true)
-                        .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
-                        .sipSubdomain("test")
-                        .sipSubdomainReceiveSettings(CreateInboundIpRequest.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
-                        .timeout1xxSecs(10)
-                        .timeout2xxSecs(20)
-                )
-                .onnetT38PassthroughEnabled(false)
-                .outbound(new OutboundIp()
-                        .aniOverride("test")
-                        .aniOverrideType(OutboundIp.AniOverrideTypeEnum.ALWAYS)
-                        .callParkingEnabled(true)
-                        .channelLimit(10)
-                        .generateRingbackTone(true)
-                        .instantRingbackEnabled(true)
-                        .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethodEnum.TOKEN)
-                        .ipAuthenticationToken("test")
-                        .localization("test")
-                        .outboundVoiceProfileId("123")
-                        .t38ReinviteSource(OutboundIp.T38ReinviteSourceEnum.TELNYX)
-                        .techPrefix("test")
-                )
-                .rtcpSettings(new ConnectionRtcpSettings()
-                        .captureEnabled(true)
-                        .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
-                        .reportFrequencySecs(10)
-                )
-                .transportProtocol(CreateIpConnectionRequest.TransportProtocolEnum.UDP)
-                .webhookEventFailoverUrl("https://failover.example.com")
-                .webhookEventUrl("https://example.com")
-                .webhookTimeoutSecs(25);
+            .active(true)
+            .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
+            .connectionName("some_connection")
+            .defaultOnHoldComfortNoiseEnabled(true)
+            .dtmfType(DtmfType.RFC_2833)
+            .encodeContactHeaderEnabled(false)
+            .encryptedMedia(EncryptedMedia.SRTP)
+            .inbound(
+                new CreateInboundIpRequest()
+                    .aniNumberFormat(
+                        CreateInboundIpRequest.AniNumberFormatEnum._E_164
+                    )
+                    .channelLimit(10)
+                    .codecs(Collections.singletonList("G722"))
+                    .defaultRoutingMethod(
+                        CreateInboundIpRequest.DefaultRoutingMethodEnum.SEQUENTIAL
+                    )
+                    .dnisNumberFormat(
+                        CreateInboundIpRequest.DnisNumberFormatEnum._E164
+                    )
+                    .generateRingbackTone(true)
+                    .isupHeadersEnabled(true)
+                    .prackEnabled(true)
+                    .sipCompactHeadersEnabled(true)
+                    .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
+                    .sipSubdomain("test")
+                    .sipSubdomainReceiveSettings(
+                        CreateInboundIpRequest.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS
+                    )
+                    .timeout1xxSecs(10)
+                    .timeout2xxSecs(20)
+            )
+            .onnetT38PassthroughEnabled(false)
+            .outbound(
+                new OutboundIp()
+                    .aniOverride("test")
+                    .aniOverrideType(OutboundIp.AniOverrideTypeEnum.ALWAYS)
+                    .callParkingEnabled(true)
+                    .channelLimit(10)
+                    .generateRingbackTone(true)
+                    .instantRingbackEnabled(true)
+                    .ipAuthenticationMethod(
+                        OutboundIp.IpAuthenticationMethodEnum.TOKEN
+                    )
+                    .ipAuthenticationToken("test")
+                    .localization("test")
+                    .outboundVoiceProfileId("123")
+                    .t38ReinviteSource(OutboundIp.T38ReinviteSourceEnum.TELNYX)
+                    .techPrefix("test")
+            )
+            .rtcpSettings(
+                new ConnectionRtcpSettings()
+                    .captureEnabled(true)
+                    .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
+                    .reportFrequencySecs(10)
+            )
+            .transportProtocol(
+                CreateIpConnectionRequest.TransportProtocolEnum.UDP
+            )
+            .webhookEventFailoverUrl("https://failover.example.com")
+            .webhookEventUrl("https://example.com")
+            .webhookTimeoutSecs(25);
     }
 }

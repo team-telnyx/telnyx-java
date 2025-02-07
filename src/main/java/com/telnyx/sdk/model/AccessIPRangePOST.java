@@ -10,136 +10,139 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * AccessIPRangePOST
  */
-@JsonPropertyOrder({
-  AccessIPRangePOST.JSON_PROPERTY_CIDR_BLOCK,
-  AccessIPRangePOST.JSON_PROPERTY_DESCRIPTION
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        AccessIPRangePOST.JSON_PROPERTY_CIDR_BLOCK,
+        AccessIPRangePOST.JSON_PROPERTY_DESCRIPTION,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AccessIPRangePOST {
-  public static final String JSON_PROPERTY_CIDR_BLOCK = "cidr_block";
-  private String cidrBlock;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
+    public static final String JSON_PROPERTY_CIDR_BLOCK = "cidr_block";
+    private String cidrBlock;
 
-  public AccessIPRangePOST() { 
-  }
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    private String description;
 
-  public AccessIPRangePOST cidrBlock(String cidrBlock) {
-    this.cidrBlock = cidrBlock;
-    return this;
-  }
+    public AccessIPRangePOST() {}
 
-   /**
-   * Get cidrBlock
-   * @return cidrBlock
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_CIDR_BLOCK)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCidrBlock() {
-    return cidrBlock;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CIDR_BLOCK)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCidrBlock(String cidrBlock) {
-    this.cidrBlock = cidrBlock;
-  }
-
-
-  public AccessIPRangePOST description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  /**
-   * Return true if this AccessIPRangePOST object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AccessIPRangePOST cidrBlock(String cidrBlock) {
+        this.cidrBlock = cidrBlock;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get cidrBlock
+     * @return cidrBlock
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_CIDR_BLOCK)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCidrBlock() {
+        return cidrBlock;
     }
-    AccessIPRangePOST accessIPRangePOST = (AccessIPRangePOST) o;
-    return Objects.equals(this.cidrBlock, accessIPRangePOST.cidrBlock) &&
-        Objects.equals(this.description, accessIPRangePOST.description);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(cidrBlock, description);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AccessIPRangePOST {\n");
-    sb.append("    cidrBlock: ").append(toIndentedString(cidrBlock)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_CIDR_BLOCK)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCidrBlock(String cidrBlock) {
+        this.cidrBlock = cidrBlock;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public AccessIPRangePOST description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     * @return description
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Return true if this AccessIPRangePOST object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AccessIPRangePOST accessIPRangePOST = (AccessIPRangePOST) o;
+        return (
+            Objects.equals(this.cidrBlock, accessIPRangePOST.cidrBlock) &&
+            Objects.equals(this.description, accessIPRangePOST.description)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cidrBlock, description);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AccessIPRangePOST {\n");
+        sb
+            .append("    cidrBlock: ")
+            .append(toIndentedString(cidrBlock))
+            .append("\n");
+        sb
+            .append("    description: ")
+            .append(toIndentedString(description))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

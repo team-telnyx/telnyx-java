@@ -10,139 +10,149 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import java.util.UUID;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * PrivateWirelessGatewayRequest
  */
-@JsonPropertyOrder({
-  PrivateWirelessGatewayRequest.JSON_PROPERTY_NETWORK_ID,
-  PrivateWirelessGatewayRequest.JSON_PROPERTY_NAME
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        PrivateWirelessGatewayRequest.JSON_PROPERTY_NETWORK_ID,
+        PrivateWirelessGatewayRequest.JSON_PROPERTY_NAME,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class PrivateWirelessGatewayRequest {
-  public static final String JSON_PROPERTY_NETWORK_ID = "network_id";
-  private UUID networkId;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
+    public static final String JSON_PROPERTY_NETWORK_ID = "network_id";
+    private UUID networkId;
 
-  public PrivateWirelessGatewayRequest() { 
-  }
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public PrivateWirelessGatewayRequest networkId(UUID networkId) {
-    this.networkId = networkId;
-    return this;
-  }
+    public PrivateWirelessGatewayRequest() {}
 
-   /**
-   * The identification of the related network resource.
-   * @return networkId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The identification of the related network resource.")
-  @JsonProperty(JSON_PROPERTY_NETWORK_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getNetworkId() {
-    return networkId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NETWORK_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNetworkId(UUID networkId) {
-    this.networkId = networkId;
-  }
-
-
-  public PrivateWirelessGatewayRequest name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * The private wireless gateway name.
-   * @return name
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "My private wireless gateway", value = "The private wireless gateway name.")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  /**
-   * Return true if this PrivateWirelessGatewayRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PrivateWirelessGatewayRequest networkId(UUID networkId) {
+        this.networkId = networkId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The identification of the related network resource.
+     * @return networkId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+        value = "The identification of the related network resource."
+    )
+    @JsonProperty(JSON_PROPERTY_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getNetworkId() {
+        return networkId;
     }
-    PrivateWirelessGatewayRequest privateWirelessGatewayRequest = (PrivateWirelessGatewayRequest) o;
-    return Objects.equals(this.networkId, privateWirelessGatewayRequest.networkId) &&
-        Objects.equals(this.name, privateWirelessGatewayRequest.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(networkId, name);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PrivateWirelessGatewayRequest {\n");
-    sb.append("    networkId: ").append(toIndentedString(networkId)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNetworkId(UUID networkId) {
+        this.networkId = networkId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public PrivateWirelessGatewayRequest name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * The private wireless gateway name.
+     * @return name
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "My private wireless gateway",
+        value = "The private wireless gateway name."
+    )
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Return true if this PrivateWirelessGatewayRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PrivateWirelessGatewayRequest privateWirelessGatewayRequest =
+            (PrivateWirelessGatewayRequest) o;
+        return (
+            Objects.equals(
+                this.networkId,
+                privateWirelessGatewayRequest.networkId
+            ) &&
+            Objects.equals(this.name, privateWirelessGatewayRequest.name)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(networkId, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PrivateWirelessGatewayRequest {\n");
+        sb
+            .append("    networkId: ")
+            .append(toIndentedString(networkId))
+            .append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

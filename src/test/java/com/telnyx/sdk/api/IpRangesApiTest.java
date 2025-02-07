@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -21,15 +20,13 @@ import com.telnyx.sdk.model.AccessIPRangeResponseSchema;
 import com.telnyx.sdk.model.CloudflareSyncStatus;
 import com.telnyx.sdk.model.Errors;
 import java.time.OffsetDateTime;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for IpRangesApi
@@ -41,7 +38,7 @@ public class IpRangesApiTest {
     /**
      * Create new Access IP Range
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -56,7 +53,7 @@ public class IpRangesApiTest {
     /**
      * List all Access IP Ranges
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -79,7 +76,7 @@ public class IpRangesApiTest {
     /**
      * Delete access IP ranges
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -90,5 +87,4 @@ public class IpRangesApiTest {
         //AccessIPRangeResponseSchema response = api.accessIpRangesAccessIpRangeIdDelete(accessIpRangeId);
         // TODO: test validations
     }
-
 }

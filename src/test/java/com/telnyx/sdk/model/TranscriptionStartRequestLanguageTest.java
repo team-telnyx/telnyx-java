@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.telnyx.sdk.model.GoogleTranscriptionLanguage;
 import com.telnyx.sdk.model.TelnyxTranscriptionLanguage;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -28,7 +26,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for TranscriptionStartRequestLanguage
  */
 public class TranscriptionStartRequestLanguageTest {
-    private final TranscriptionStartRequestLanguage model = new TranscriptionStartRequestLanguage();
+
+    private final TranscriptionStartRequestLanguage model =
+        new TranscriptionStartRequestLanguage();
 
     /**
      * Model tests for TranscriptionStartRequestLanguage
@@ -37,5 +37,4 @@ public class TranscriptionStartRequestLanguageTest {
     public void testTranscriptionStartRequestLanguage() {
         // TODO: test TranscriptionStartRequestLanguage
     }
-
 }

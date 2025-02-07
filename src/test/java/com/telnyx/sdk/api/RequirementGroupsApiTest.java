@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,19 +18,17 @@ import com.telnyx.sdk.model.CreateRequirementGroupRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.RequirementGroup;
 import com.telnyx.sdk.model.SubNumberOrderRequirementGroupResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateNumberOrderPhoneNumberRequirementGroup200Response;
 import com.telnyx.sdk.model.UpdateNumberOrderPhoneNumberRequirementGroupRequest;
 import com.telnyx.sdk.model.UpdateRequirementGroupRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for RequirementGroupsApi
@@ -43,7 +40,7 @@ public class RequirementGroupsApiTest {
     /**
      * Create a new requirement group
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -58,7 +55,7 @@ public class RequirementGroupsApiTest {
     /**
      * Delete a requirement group by ID
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -73,7 +70,7 @@ public class RequirementGroupsApiTest {
     /**
      * Get a single requirement group by ID
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -88,7 +85,7 @@ public class RequirementGroupsApiTest {
     /**
      * List requirement groups
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -107,7 +104,7 @@ public class RequirementGroupsApiTest {
     /**
      * Submit a Requirement Group for Approval
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -122,13 +119,14 @@ public class RequirementGroupsApiTest {
     /**
      * Update requirement group for a phone number order
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void updateNumberOrderPhoneNumberRequirementGroupTest() throws ApiException {
+    public void updateNumberOrderPhoneNumberRequirementGroupTest()
+        throws ApiException {
         //UUID id = null;
         //UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest = null;
         //UpdateNumberOrderPhoneNumberRequirementGroup200Response response = api.updateNumberOrderPhoneNumberRequirementGroup(id, updateNumberOrderPhoneNumberRequirementGroupRequest);
@@ -138,7 +136,7 @@ public class RequirementGroupsApiTest {
     /**
      * Update requirement values in requirement group
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -154,7 +152,7 @@ public class RequirementGroupsApiTest {
     /**
      * Update requirement group for a sub number order
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -166,5 +164,4 @@ public class RequirementGroupsApiTest {
         //SubNumberOrderRequirementGroupResponse response = api.updateSubNumberOrderRequirementGroup(id, updateNumberOrderPhoneNumberRequirementGroupRequest);
         // TODO: test validations
     }
-
 }

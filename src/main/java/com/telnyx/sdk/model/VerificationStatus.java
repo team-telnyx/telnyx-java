@@ -10,61 +10,56 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The possible statuses of the verification request.
  */
 public enum VerificationStatus {
-  
-  PENDING("pending"),
-  
-  ACCEPTED("accepted"),
-  
-  INVALID("invalid"),
-  
-  EXPIRED("expired"),
-  
-  ERROR("error");
+    PENDING("pending"),
 
-  private String value;
+    ACCEPTED("accepted"),
 
-  VerificationStatus(String value) {
-    this.value = value;
-  }
+    INVALID("invalid"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    EXPIRED("expired"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    ERROR("error");
 
-  @JsonCreator
-  public static VerificationStatus fromValue(String value) {
-    for (VerificationStatus b : VerificationStatus.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    private String value;
+
+    VerificationStatus(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static VerificationStatus fromValue(String value) {
+        for (VerificationStatus b : VerificationStatus.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

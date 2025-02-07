@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Filter;
@@ -27,15 +26,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for MdrPostDetailReportRequest
  */
 public class MdrPostDetailReportRequestTest {
-    private final MdrPostDetailReportRequest model = new MdrPostDetailReportRequest();
+
+    private final MdrPostDetailReportRequest model =
+        new MdrPostDetailReportRequest();
 
     /**
      * Model tests for MdrPostDetailReportRequest
@@ -116,5 +115,4 @@ public class MdrPostDetailReportRequestTest {
     public void profilesTest() {
         // TODO: test profiles
     }
-
 }

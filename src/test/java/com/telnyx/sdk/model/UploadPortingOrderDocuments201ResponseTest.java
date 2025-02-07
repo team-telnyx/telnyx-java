@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortingOrderDocument;
@@ -23,16 +22,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for UploadPortingOrderDocuments201Response
  */
 public class UploadPortingOrderDocuments201ResponseTest {
-    private final UploadPortingOrderDocuments201Response model = new UploadPortingOrderDocuments201Response();
+
+    private final UploadPortingOrderDocuments201Response model =
+        new UploadPortingOrderDocuments201Response();
 
     /**
      * Model tests for UploadPortingOrderDocuments201Response
@@ -49,5 +47,4 @@ public class UploadPortingOrderDocuments201ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

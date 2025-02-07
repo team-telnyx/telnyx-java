@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.InterfaceStatus;
@@ -26,15 +25,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.UUID;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for VirtualCrossConnect
  */
 public class VirtualCrossConnectTest {
+
     private final VirtualCrossConnect model = new VirtualCrossConnect();
 
     /**
@@ -212,5 +209,4 @@ public class VirtualCrossConnectTest {
     public void secondaryBgpKeyTest() {
         // TODO: test secondaryBgpKey
     }
-
 }

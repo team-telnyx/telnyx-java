@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,19 +21,17 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetRoomResponse;
 import com.telnyx.sdk.model.ListRoomSessionsResponse;
 import com.telnyx.sdk.model.ListRoomsResponse;
-import java.time.LocalDate;
 import com.telnyx.sdk.model.PatchRoomRequest;
 import com.telnyx.sdk.model.PatchRoomResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for RoomsApi
@@ -76,7 +73,7 @@ public class RoomsApiTest {
     /**
      * View a list of rooms.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -100,7 +97,7 @@ public class RoomsApiTest {
     /**
      * View a list of room sessions.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -144,7 +141,7 @@ public class RoomsApiTest {
     /**
      * View a room.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -156,5 +153,4 @@ public class RoomsApiTest {
         //GetRoomResponse response = api.viewRoom(roomId, includeSessions);
         // TODO: test validations
     }
-
 }

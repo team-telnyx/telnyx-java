@@ -197,42 +197,84 @@
             <!-- Use spotless plugin to automatically format code, remove unused import, etc
                  To apply changes directly to the file, run `mvn spotless:apply`
                  Ref: https://github.com/diffplug/spotless/tree/main/plugin-maven
-            -->
+                        -->
             <plugin>
-              <groupId>com.diffplug.spotless</groupId>
-              <artifactId>spotless-maven-plugin</artifactId>
-              <version>${spotless.version}</version>
-              <configuration>
+            <groupId>com.diffplug.spotless</groupId>
+            <artifactId>spotless-maven-plugin</artifactId>
+            <version>${spotless.version}</version>
+            <configuration>
                 <formats>
-                  <!-- you can define as many formats as you want, each is independent -->
-                  <format>
+                <!-- you can define as many formats as you want, each is independent -->
+                <format>
                     <!-- define the files to apply to -->
                     <includes>
-                      <include>.gitignore</include>
+                    <include>.gitattributes</include>
+                    <include>.gitignore</include>
                     </includes>
                     <!-- define the steps to apply to those files -->
                     <trimTrailingWhitespace/>
                     <endWithNewline/>
                     <indent>
-                      <spaces>true</spaces> <!-- or <tabs>true</tabs> -->
-                      <spacesPerTab>4</spacesPerTab> <!-- optional, default is 4 -->
+                        <tabs>true</tabs>
+                        <spacesPerTab>4</spacesPerTab>
                     </indent>
-                  </format>
+                </format>
+                    <format>
+                <includes>
+                    <include>src/*/java/**/*.java</include>
+                </includes>
+
+                <prettier>
+                    <devDependencies>
+                        <prettier>3.4.2</prettier>
+                        <prettier-plugin-java>2.6.7</prettier-plugin-java>
+                    </devDependencies>
+                    <config>
+                        <tabWidth>4</tabWidth>
+                        <parser>java</parser>
+                        <plugins>prettier-plugin-java</plugins><!-- this is only for prettier 3.0.0 and above: an additional 'plugins' config element is required -->
+                    </config>
+                </prettier>
+                </format>
                 </formats>
                 <!-- define a language-specific format -->
                 <java>
-                  <!-- no need to specify files, inferred automatically, but you can if you want -->
+                    <!-- These are the defaults, you can override if you want -->
+                    <includes>
+                    <include>src/main/java/**/*.java</include>
+                    <include>src/test/java/**/*.java</include>
+                    </includes>
 
-                  <!-- apply a specific flavor of google-java-format and reflow long strings -->
-                  <googleJavaFormat>
-                    <version>1.8</version>
-                    <style>AOSP</style>
-                    <reflowLongStrings>true</reflowLongStrings>
-                  </googleJavaFormat>
-                  <removeUnusedImports/>
-                  <importOrder/>
+                    <!-- Cleanthat will refactor your code, but it may break your style: apply it before your formatter -->
+                    <cleanthat />        <!-- has its own section below -->
+
+                    <googleJavaFormat /> <!-- has its own section below -->
+                    <eclipse />          <!-- has its own section below -->
+                    <prettier />         <!-- has its own section below -->
+
+                    <importOrder /> <!-- standard import order -->
+                    <importOrder>  <!-- or a custom ordering -->
+                    <wildcardsLast>false</wildcardsLast> <!-- Optional, default false. Sort wildcard import after specific imports -->
+                    <order>java|javax,org,com,com.diffplug,,\#com.diffplug,\#</order>  <!-- or use <file>${project.basedir}/eclipse.importorder</file> -->
+                    <!-- you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\#` prefix for static imports. -->
+                    <semanticSort>false</semanticSort> <!-- Optional, default false. Sort by package, then class, then member (for static imports). Splitting is based on common conventions (packages are lower case, classes start with upper case). Use <treatAsPackage> and <treatAsClass> for exceptions. -->
+                    <treatAsPackage> <!-- Packages starting with upper case letters. -->
+                        <package>com.example.MyPackage</package>
+                    </treatAsPackage>
+                    <treatAsClass> <!-- Classes starting with lower case letters. -->
+                        <class>com.example.myClass</class>
+                    </treatAsClass>
+                    </importOrder>
+
+                    <removeUnusedImports /> <!-- self-explanatory -->
+
+                    <formatAnnotations />  <!-- fixes formatting of type annotations, see below -->
+
+                    <licenseHeader>
+                    <content>/* (C)$YEAR */</content>  <!-- or <file>${project.basedir}/license-header</file> -->
+                    </licenseHeader>
                 </java>
-              </configuration>
+            </configuration>
             </plugin>
         </plugins>
     </build>
@@ -423,6 +465,6 @@
         <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
         <jakarta-annotation-version>2.1.1</jakarta-annotation-version>
         <junit-version>4.13.2</junit-version>
-        <spotless.version>2.17.3</spotless.version>
+        <spotless.version>2.44.2</spotless.version>
     </properties>
 </project>

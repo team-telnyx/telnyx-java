@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for UpdatePortoutRequestRequest
  */
 public class UpdatePortoutRequestRequestTest {
-    private final UpdatePortoutRequestRequest model = new UpdatePortoutRequestRequest();
+
+    private final UpdatePortoutRequestRequest model =
+        new UpdatePortoutRequestRequest();
 
     /**
      * Model tests for UpdatePortoutRequestRequest
@@ -46,5 +44,4 @@ public class UpdatePortoutRequestRequestTest {
     public void reasonTest() {
         // TODO: test reason
     }
-
 }

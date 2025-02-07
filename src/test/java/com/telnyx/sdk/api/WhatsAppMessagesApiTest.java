@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,15 +18,13 @@ import com.telnyx.sdk.model.CreateWhatsAppMessageRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.MarkMessageAsReadRequestBody;
 import com.telnyx.sdk.model.WhatsAppMessageResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for WhatsAppMessagesApi
@@ -66,5 +63,4 @@ public class WhatsAppMessagesApiTest {
         //WhatsAppMessageResponse response = api.sendMessage(createWhatsAppMessageRequest);
         // TODO: test validations
     }
-
 }

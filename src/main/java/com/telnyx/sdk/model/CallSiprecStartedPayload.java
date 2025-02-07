@@ -10,232 +10,274 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CallSiprecStartedPayload
  */
-@JsonPropertyOrder({
-  CallSiprecStartedPayload.JSON_PROPERTY_CALL_CONTROL_ID,
-  CallSiprecStartedPayload.JSON_PROPERTY_CONNECTION_ID,
-  CallSiprecStartedPayload.JSON_PROPERTY_CALL_LEG_ID,
-  CallSiprecStartedPayload.JSON_PROPERTY_CALL_SESSION_ID,
-  CallSiprecStartedPayload.JSON_PROPERTY_CLIENT_STATE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        CallSiprecStartedPayload.JSON_PROPERTY_CALL_CONTROL_ID,
+        CallSiprecStartedPayload.JSON_PROPERTY_CONNECTION_ID,
+        CallSiprecStartedPayload.JSON_PROPERTY_CALL_LEG_ID,
+        CallSiprecStartedPayload.JSON_PROPERTY_CALL_SESSION_ID,
+        CallSiprecStartedPayload.JSON_PROPERTY_CLIENT_STATE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CallSiprecStartedPayload {
-  public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
-  private String callControlId;
 
-  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private String connectionId;
+    public static final String JSON_PROPERTY_CALL_CONTROL_ID =
+        "call_control_id";
+    private String callControlId;
 
-  public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
-  private String callLegId;
+    public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
+    private String connectionId;
 
-  public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
-  private String callSessionId;
+    public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
+    private String callLegId;
 
-  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
-  private String clientState;
+    public static final String JSON_PROPERTY_CALL_SESSION_ID =
+        "call_session_id";
+    private String callSessionId;
 
-  public CallSiprecStartedPayload() { 
-  }
+    public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+    private String clientState;
 
-  public CallSiprecStartedPayload callControlId(String callControlId) {
-    this.callControlId = callControlId;
-    return this;
-  }
+    public CallSiprecStartedPayload() {}
 
-   /**
-   * Call ID used to issue commands via Call Control API.
-   * @return callControlId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "31f19208-5db0-11ec-9ea7-02420a0d3a69", value = "Call ID used to issue commands via Call Control API.")
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCallControlId() {
-    return callControlId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallControlId(String callControlId) {
-    this.callControlId = callControlId;
-  }
-
-
-  public CallSiprecStartedPayload connectionId(String connectionId) {
-    this.connectionId = connectionId;
-    return this;
-  }
-
-   /**
-   * Call Control App ID (formerly Telnyx connection ID) used in the call.
-   * @return connectionId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getConnectionId() {
-    return connectionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConnectionId(String connectionId) {
-    this.connectionId = connectionId;
-  }
-
-
-  public CallSiprecStartedPayload callLegId(String callLegId) {
-    this.callLegId = callLegId;
-    return this;
-  }
-
-   /**
-   * ID that is unique to the call and can be used to correlate webhook events.
-   * @return callLegId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "31f19208-5db0-11ec-9ea7-02420a0d3a69", value = "ID that is unique to the call and can be used to correlate webhook events.")
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCallLegId() {
-    return callLegId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallLegId(String callLegId) {
-    this.callLegId = callLegId;
-  }
-
-
-  public CallSiprecStartedPayload callSessionId(String callSessionId) {
-    this.callSessionId = callSessionId;
-    return this;
-  }
-
-   /**
-   * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
-   * @return callSessionId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "31f19208-5db0-11ec-9ea7-02420a0d3a69", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCallSessionId() {
-    return callSessionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallSessionId(String callSessionId) {
-    this.callSessionId = callSessionId;
-  }
-
-
-  public CallSiprecStartedPayload clientState(String clientState) {
-    this.clientState = clientState;
-    return this;
-  }
-
-   /**
-   * State received from a command.
-   * @return clientState
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getClientState() {
-    return clientState;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClientState(String clientState) {
-    this.clientState = clientState;
-  }
-
-
-  /**
-   * Return true if this CallSiprecStarted_payload object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CallSiprecStartedPayload callControlId(String callControlId) {
+        this.callControlId = callControlId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Call ID used to issue commands via Call Control API.
+     * @return callControlId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+        value = "Call ID used to issue commands via Call Control API."
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCallControlId() {
+        return callControlId;
     }
-    CallSiprecStartedPayload callSiprecStartedPayload = (CallSiprecStartedPayload) o;
-    return Objects.equals(this.callControlId, callSiprecStartedPayload.callControlId) &&
-        Objects.equals(this.connectionId, callSiprecStartedPayload.connectionId) &&
-        Objects.equals(this.callLegId, callSiprecStartedPayload.callLegId) &&
-        Objects.equals(this.callSessionId, callSiprecStartedPayload.callSessionId) &&
-        Objects.equals(this.clientState, callSiprecStartedPayload.clientState);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CallSiprecStartedPayload {\n");
-    sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
-    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
-    sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
-    sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
-    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallControlId(String callControlId) {
+        this.callControlId = callControlId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CallSiprecStartedPayload connectionId(String connectionId) {
+        this.connectionId = connectionId;
+        return this;
+    }
+
+    /**
+     * Call Control App ID (formerly Telnyx connection ID) used in the call.
+     * @return connectionId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "7267xxxxxxxxxxxxxx",
+        value = "Call Control App ID (formerly Telnyx connection ID) used in the call."
+    )
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getConnectionId() {
+        return connectionId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConnectionId(String connectionId) {
+        this.connectionId = connectionId;
+    }
+
+    public CallSiprecStartedPayload callLegId(String callLegId) {
+        this.callLegId = callLegId;
+        return this;
+    }
+
+    /**
+     * ID that is unique to the call and can be used to correlate webhook events.
+     * @return callLegId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+        value = "ID that is unique to the call and can be used to correlate webhook events."
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCallLegId() {
+        return callLegId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallLegId(String callLegId) {
+        this.callLegId = callLegId;
+    }
+
+    public CallSiprecStartedPayload callSessionId(String callSessionId) {
+        this.callSessionId = callSessionId;
+        return this;
+    }
+
+    /**
+     * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+     * @return callSessionId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+        value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call."
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCallSessionId() {
+        return callSessionId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallSessionId(String callSessionId) {
+        this.callSessionId = callSessionId;
+    }
+
+    public CallSiprecStartedPayload clientState(String clientState) {
+        this.clientState = clientState;
+        return this;
+    }
+
+    /**
+     * State received from a command.
+     * @return clientState
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "aGF2ZSBhIG5pY2UgZGF5ID1d",
+        value = "State received from a command."
+    )
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getClientState() {
+        return clientState;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setClientState(String clientState) {
+        this.clientState = clientState;
+    }
+
+    /**
+     * Return true if this CallSiprecStarted_payload object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CallSiprecStartedPayload callSiprecStartedPayload =
+            (CallSiprecStartedPayload) o;
+        return (
+            Objects.equals(
+                this.callControlId,
+                callSiprecStartedPayload.callControlId
+            ) &&
+            Objects.equals(
+                this.connectionId,
+                callSiprecStartedPayload.connectionId
+            ) &&
+            Objects.equals(
+                this.callLegId,
+                callSiprecStartedPayload.callLegId
+            ) &&
+            Objects.equals(
+                this.callSessionId,
+                callSiprecStartedPayload.callSessionId
+            ) &&
+            Objects.equals(
+                this.clientState,
+                callSiprecStartedPayload.clientState
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            callControlId,
+            connectionId,
+            callLegId,
+            callSessionId,
+            clientState
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CallSiprecStartedPayload {\n");
+        sb
+            .append("    callControlId: ")
+            .append(toIndentedString(callControlId))
+            .append("\n");
+        sb
+            .append("    connectionId: ")
+            .append(toIndentedString(connectionId))
+            .append("\n");
+        sb
+            .append("    callLegId: ")
+            .append(toIndentedString(callLegId))
+            .append("\n");
+        sb
+            .append("    callSessionId: ")
+            .append(toIndentedString(callSessionId))
+            .append("\n");
+        sb
+            .append("    clientState: ")
+            .append(toIndentedString(clientState))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PaginationMeta;
@@ -27,15 +26,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for ListRegulatoryRequirements
  */
 public class ListRegulatoryRequirementsTest {
-    private final ListRegulatoryRequirements model = new ListRegulatoryRequirements();
+
+    private final ListRegulatoryRequirements model =
+        new ListRegulatoryRequirements();
 
     /**
      * Model tests for ListRegulatoryRequirements
@@ -60,5 +59,4 @@ public class ListRegulatoryRequirementsTest {
     public void metaTest() {
         // TODO: test meta
     }
-
 }

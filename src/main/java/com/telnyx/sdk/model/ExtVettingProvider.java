@@ -10,244 +10,257 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ExtVettingProvider
  */
-@JsonPropertyOrder({
-  ExtVettingProvider.JSON_PROPERTY_EVP_ID,
-  ExtVettingProvider.JSON_PROPERTY_DISPLAY_NAME,
-  ExtVettingProvider.JSON_PROPERTY_TCR_BILLABLE,
-  ExtVettingProvider.JSON_PROPERTY_VETTING_CLASSES,
-  ExtVettingProvider.JSON_PROPERTY_VETTING_INSTRUCTION
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        ExtVettingProvider.JSON_PROPERTY_EVP_ID,
+        ExtVettingProvider.JSON_PROPERTY_DISPLAY_NAME,
+        ExtVettingProvider.JSON_PROPERTY_TCR_BILLABLE,
+        ExtVettingProvider.JSON_PROPERTY_VETTING_CLASSES,
+        ExtVettingProvider.JSON_PROPERTY_VETTING_INSTRUCTION,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class ExtVettingProvider {
-  public static final String JSON_PROPERTY_EVP_ID = "evpId";
-  private String evpId;
 
-  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  private String displayName;
+    public static final String JSON_PROPERTY_EVP_ID = "evpId";
+    private String evpId;
 
-  public static final String JSON_PROPERTY_TCR_BILLABLE = "tcrBillable";
-  private Boolean tcrBillable;
+    public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
+    private String displayName;
 
-  public static final String JSON_PROPERTY_VETTING_CLASSES = "vettingClasses";
-  private List<String> vettingClasses = null;
+    public static final String JSON_PROPERTY_TCR_BILLABLE = "tcrBillable";
+    private Boolean tcrBillable;
 
-  public static final String JSON_PROPERTY_VETTING_INSTRUCTION = "vettingInstruction";
-  private String vettingInstruction;
+    public static final String JSON_PROPERTY_VETTING_CLASSES = "vettingClasses";
+    private List<String> vettingClasses = null;
 
-  public ExtVettingProvider() { 
-  }
+    public static final String JSON_PROPERTY_VETTING_INSTRUCTION =
+        "vettingInstruction";
+    private String vettingInstruction;
 
-  public ExtVettingProvider evpId(String evpId) {
-    this.evpId = evpId;
-    return this;
-  }
+    public ExtVettingProvider() {}
 
-   /**
-   * Get evpId
-   * @return evpId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_EVP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getEvpId() {
-    return evpId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EVP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEvpId(String evpId) {
-    this.evpId = evpId;
-  }
-
-
-  public ExtVettingProvider displayName(String displayName) {
-    this.displayName = displayName;
-    return this;
-  }
-
-   /**
-   * Get displayName
-   * @return displayName
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDisplayName() {
-    return displayName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplayName(String displayName) {
-    this.displayName = displayName;
-  }
-
-
-  public ExtVettingProvider tcrBillable(Boolean tcrBillable) {
-    this.tcrBillable = tcrBillable;
-    return this;
-  }
-
-   /**
-   * Get tcrBillable
-   * @return tcrBillable
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_TCR_BILLABLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getTcrBillable() {
-    return tcrBillable;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TCR_BILLABLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTcrBillable(Boolean tcrBillable) {
-    this.tcrBillable = tcrBillable;
-  }
-
-
-  public ExtVettingProvider vettingClasses(List<String> vettingClasses) {
-    this.vettingClasses = vettingClasses;
-    return this;
-  }
-
-  public ExtVettingProvider addVettingClassesItem(String vettingClassesItem) {
-    if (this.vettingClasses == null) {
-      this.vettingClasses = new ArrayList<>();
+    public ExtVettingProvider evpId(String evpId) {
+        this.evpId = evpId;
+        return this;
     }
-    this.vettingClasses.add(vettingClassesItem);
-    return this;
-  }
 
-   /**
-   * Get vettingClasses
-   * @return vettingClasses
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_VETTING_CLASSES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getVettingClasses() {
-    return vettingClasses;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VETTING_CLASSES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVettingClasses(List<String> vettingClasses) {
-    this.vettingClasses = vettingClasses;
-  }
-
-
-  public ExtVettingProvider vettingInstruction(String vettingInstruction) {
-    this.vettingInstruction = vettingInstruction;
-    return this;
-  }
-
-   /**
-   * Get vettingInstruction
-   * @return vettingInstruction
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_VETTING_INSTRUCTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getVettingInstruction() {
-    return vettingInstruction;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VETTING_INSTRUCTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVettingInstruction(String vettingInstruction) {
-    this.vettingInstruction = vettingInstruction;
-  }
-
-
-  /**
-   * Return true if this ExtVettingProvider object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get evpId
+     * @return evpId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_EVP_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getEvpId() {
+        return evpId;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_EVP_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEvpId(String evpId) {
+        this.evpId = evpId;
     }
-    ExtVettingProvider extVettingProvider = (ExtVettingProvider) o;
-    return Objects.equals(this.evpId, extVettingProvider.evpId) &&
-        Objects.equals(this.displayName, extVettingProvider.displayName) &&
-        Objects.equals(this.tcrBillable, extVettingProvider.tcrBillable) &&
-        Objects.equals(this.vettingClasses, extVettingProvider.vettingClasses) &&
-        Objects.equals(this.vettingInstruction, extVettingProvider.vettingInstruction);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(evpId, displayName, tcrBillable, vettingClasses, vettingInstruction);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExtVettingProvider {\n");
-    sb.append("    evpId: ").append(toIndentedString(evpId)).append("\n");
-    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
-    sb.append("    tcrBillable: ").append(toIndentedString(tcrBillable)).append("\n");
-    sb.append("    vettingClasses: ").append(toIndentedString(vettingClasses)).append("\n");
-    sb.append("    vettingInstruction: ").append(toIndentedString(vettingInstruction)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public ExtVettingProvider displayName(String displayName) {
+        this.displayName = displayName;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Get displayName
+     * @return displayName
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public ExtVettingProvider tcrBillable(Boolean tcrBillable) {
+        this.tcrBillable = tcrBillable;
+        return this;
+    }
+
+    /**
+     * Get tcrBillable
+     * @return tcrBillable
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_TCR_BILLABLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getTcrBillable() {
+        return tcrBillable;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TCR_BILLABLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTcrBillable(Boolean tcrBillable) {
+        this.tcrBillable = tcrBillable;
+    }
+
+    public ExtVettingProvider vettingClasses(List<String> vettingClasses) {
+        this.vettingClasses = vettingClasses;
+        return this;
+    }
+
+    public ExtVettingProvider addVettingClassesItem(String vettingClassesItem) {
+        if (this.vettingClasses == null) {
+            this.vettingClasses = new ArrayList<>();
+        }
+        this.vettingClasses.add(vettingClassesItem);
+        return this;
+    }
+
+    /**
+     * Get vettingClasses
+     * @return vettingClasses
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_VETTING_CLASSES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getVettingClasses() {
+        return vettingClasses;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VETTING_CLASSES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVettingClasses(List<String> vettingClasses) {
+        this.vettingClasses = vettingClasses;
+    }
+
+    public ExtVettingProvider vettingInstruction(String vettingInstruction) {
+        this.vettingInstruction = vettingInstruction;
+        return this;
+    }
+
+    /**
+     * Get vettingInstruction
+     * @return vettingInstruction
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_VETTING_INSTRUCTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getVettingInstruction() {
+        return vettingInstruction;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VETTING_INSTRUCTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVettingInstruction(String vettingInstruction) {
+        this.vettingInstruction = vettingInstruction;
+    }
+
+    /**
+     * Return true if this ExtVettingProvider object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ExtVettingProvider extVettingProvider = (ExtVettingProvider) o;
+        return (
+            Objects.equals(this.evpId, extVettingProvider.evpId) &&
+            Objects.equals(this.displayName, extVettingProvider.displayName) &&
+            Objects.equals(this.tcrBillable, extVettingProvider.tcrBillable) &&
+            Objects.equals(
+                this.vettingClasses,
+                extVettingProvider.vettingClasses
+            ) &&
+            Objects.equals(
+                this.vettingInstruction,
+                extVettingProvider.vettingInstruction
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            evpId,
+            displayName,
+            tcrBillable,
+            vettingClasses,
+            vettingInstruction
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExtVettingProvider {\n");
+        sb.append("    evpId: ").append(toIndentedString(evpId)).append("\n");
+        sb
+            .append("    displayName: ")
+            .append(toIndentedString(displayName))
+            .append("\n");
+        sb
+            .append("    tcrBillable: ")
+            .append(toIndentedString(tcrBillable))
+            .append("\n");
+        sb
+            .append("    vettingClasses: ")
+            .append(toIndentedString(vettingClasses))
+            .append("\n");
+        sb
+            .append("    vettingInstruction: ")
+            .append(toIndentedString(vettingInstruction))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

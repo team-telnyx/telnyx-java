@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortoutRejection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -31,7 +29,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for ListPortoutRejections200Response
  */
 public class ListPortoutRejections200ResponseTest {
-    private final ListPortoutRejections200Response model = new ListPortoutRejections200Response();
+
+    private final ListPortoutRejections200Response model =
+        new ListPortoutRejections200Response();
 
     /**
      * Model tests for ListPortoutRejections200Response
@@ -48,5 +48,4 @@ public class ListPortoutRejections200ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

@@ -10,113 +10,107 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * InferenceResponse
  */
-@JsonPropertyOrder({
-  InferenceResponse.JSON_PROPERTY_ANSWER
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder({ InferenceResponse.JSON_PROPERTY_ANSWER })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class InferenceResponse {
-  public static final String JSON_PROPERTY_ANSWER = "answer";
-  private List<String> answer = new ArrayList<>();
 
-  public InferenceResponse() { 
-  }
+    public static final String JSON_PROPERTY_ANSWER = "answer";
+    private List<String> answer = new ArrayList<>();
 
-  public InferenceResponse answer(List<String> answer) {
-    this.answer = answer;
-    return this;
-  }
+    public InferenceResponse() {}
 
-  public InferenceResponse addAnswerItem(String answerItem) {
-    this.answer.add(answerItem);
-    return this;
-  }
-
-   /**
-   * Get answer
-   * @return answer
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_ANSWER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<String> getAnswer() {
-    return answer;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ANSWER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAnswer(List<String> answer) {
-    this.answer = answer;
-  }
-
-
-  /**
-   * Return true if this InferenceResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public InferenceResponse answer(List<String> answer) {
+        this.answer = answer;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public InferenceResponse addAnswerItem(String answerItem) {
+        this.answer.add(answerItem);
+        return this;
     }
-    InferenceResponse inferenceResponse = (InferenceResponse) o;
-    return Objects.equals(this.answer, inferenceResponse.answer);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(answer);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class InferenceResponse {\n");
-    sb.append("    answer: ").append(toIndentedString(answer)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Get answer
+     * @return answer
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_ANSWER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<String> getAnswer() {
+        return answer;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @JsonProperty(JSON_PROPERTY_ANSWER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAnswer(List<String> answer) {
+        this.answer = answer;
+    }
+
+    /**
+     * Return true if this InferenceResponse object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        InferenceResponse inferenceResponse = (InferenceResponse) o;
+        return Objects.equals(this.answer, inferenceResponse.answer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(answer);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class InferenceResponse {\n");
+        sb.append("    answer: ").append(toIndentedString(answer)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

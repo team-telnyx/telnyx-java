@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -24,17 +23,15 @@ import com.telnyx.sdk.model.GetSimCardGroupResponse;
 import com.telnyx.sdk.model.SIMCardGroupActionResponse;
 import com.telnyx.sdk.model.SIMCardGroupCreate;
 import com.telnyx.sdk.model.SIMCardGroupPatch;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateSimCardGroupResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for SimCardGroupsApi
@@ -52,7 +49,8 @@ public class SimCardGroupsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void removeSIMCardGroupPrivateWirelessGatewayTest() throws ApiException {
+    public void removeSIMCardGroupPrivateWirelessGatewayTest()
+        throws ApiException {
         //UUID id = null;
         //SIMCardGroupActionResponse response = api.removeSIMCardGroupPrivateWirelessGateway(id);
         // TODO: test validations
@@ -67,7 +65,8 @@ public class SimCardGroupsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void setSIMCardGroupPrivateWirelessGatewayTest() throws ApiException {
+    public void setSIMCardGroupPrivateWirelessGatewayTest()
+        throws ApiException {
         //UUID id = null;
         //CreatePrivateWirelessGatwewayRequest1 createPrivateWirelessGatwewayRequest1 = null;
         //SIMCardGroupActionResponse response = api.setSIMCardGroupPrivateWirelessGateway(id, createPrivateWirelessGatwewayRequest1);
@@ -151,5 +150,4 @@ public class SimCardGroupsApiTest {
         //CreateSimCardGroupResponse response = api.simCardGroupsPost(siMCardGroupCreate);
         // TODO: test validations
     }
-
 }

@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.MdrUsageRecord;
@@ -28,14 +27,13 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for MdrUsageReportResponse
  */
 public class MdrUsageReportResponseTest {
+
     private final MdrUsageReportResponse model = new MdrUsageReportResponse();
 
     /**
@@ -141,5 +139,4 @@ public class MdrUsageReportResponseTest {
     public void recordTypeTest() {
         // TODO: test recordType
     }
-
 }

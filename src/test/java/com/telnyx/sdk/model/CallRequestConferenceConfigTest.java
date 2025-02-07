@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -31,7 +29,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for CallRequestConferenceConfig
  */
 public class CallRequestConferenceConfigTest {
-    private final CallRequestConferenceConfig model = new CallRequestConferenceConfig();
+
+    private final CallRequestConferenceConfig model =
+        new CallRequestConferenceConfig();
 
     /**
      * Model tests for CallRequestConferenceConfig
@@ -152,5 +152,4 @@ public class CallRequestConferenceConfigTest {
     public void beepEnabledTest() {
         // TODO: test beepEnabled
     }
-
 }

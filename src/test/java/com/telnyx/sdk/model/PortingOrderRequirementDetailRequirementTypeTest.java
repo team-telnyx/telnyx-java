@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for PortingOrderRequirementDetailRequirementType
  */
 public class PortingOrderRequirementDetailRequirementTypeTest {
-    private final PortingOrderRequirementDetailRequirementType model = new PortingOrderRequirementDetailRequirementType();
+
+    private final PortingOrderRequirementDetailRequirementType model =
+        new PortingOrderRequirementDetailRequirementType();
 
     /**
      * Model tests for PortingOrderRequirementDetailRequirementType
@@ -86,5 +84,4 @@ public class PortingOrderRequirementDetailRequirementTypeTest {
     public void typeTest() {
         // TODO: test type
     }
-
 }

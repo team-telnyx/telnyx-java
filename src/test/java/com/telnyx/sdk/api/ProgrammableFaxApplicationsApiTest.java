@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,22 +18,21 @@ import com.telnyx.sdk.model.CreateFaxApplicationRequest;
 import com.telnyx.sdk.model.InlineResponse200;
 import com.telnyx.sdk.model.InlineResponse201;
 import com.telnyx.sdk.model.UpdateFaxApplicationRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for ProgrammableFaxApplicationsApi
  */
 public class ProgrammableFaxApplicationsApiTest {
 
-    private final ProgrammableFaxApplicationsApi api = new ProgrammableFaxApplicationsApi();
+    private final ProgrammableFaxApplicationsApi api =
+        new ProgrammableFaxApplicationsApi();
 
     /**
      * Creates a Fax Application
@@ -115,5 +113,4 @@ public class ProgrammableFaxApplicationsApiTest {
         //InlineResponse201 response = api.updateFaxApplication(id, updateFaxApplicationRequest);
         // TODO: test validations
     }
-
 }

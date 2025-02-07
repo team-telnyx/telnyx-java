@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NetworkCoverage;
@@ -23,7 +22,6 @@ import com.telnyx.sdk.model.PaginationMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -32,7 +30,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for ListNetworkCoverage200Response
  */
 public class ListNetworkCoverage200ResponseTest {
-    private final ListNetworkCoverage200Response model = new ListNetworkCoverage200Response();
+
+    private final ListNetworkCoverage200Response model =
+        new ListNetworkCoverage200Response();
 
     /**
      * Model tests for ListNetworkCoverage200Response
@@ -57,5 +57,4 @@ public class ListNetworkCoverage200ResponseTest {
     public void metaTest() {
         // TODO: test meta
     }
-
 }

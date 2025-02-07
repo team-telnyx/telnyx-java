@@ -10,105 +10,111 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UpdateWhatsappPhoneNumberRequest
  */
-@JsonPropertyOrder({
-  UpdateWhatsappPhoneNumberRequest.JSON_PROPERTY_WEBHOOK_URL
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    { UpdateWhatsappPhoneNumberRequest.JSON_PROPERTY_WEBHOOK_URL }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class UpdateWhatsappPhoneNumberRequest {
-  public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
-  private String webhookUrl;
 
-  public UpdateWhatsappPhoneNumberRequest() { 
-  }
+    public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
+    private String webhookUrl;
 
-  public UpdateWhatsappPhoneNumberRequest webhookUrl(String webhookUrl) {
-    this.webhookUrl = webhookUrl;
-    return this;
-  }
+    public UpdateWhatsappPhoneNumberRequest() {}
 
-   /**
-   * The desired URL to set for your WhatsApp webhook endpoint.
-   * @return webhookUrl
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "https://mywebhook.com/example/endpoint", required = true, value = "The desired URL to set for your WhatsApp webhook endpoint.")
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getWebhookUrl() {
-    return webhookUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setWebhookUrl(String webhookUrl) {
-    this.webhookUrl = webhookUrl;
-  }
-
-
-  /**
-   * Return true if this UpdateWhatsappPhoneNumberRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UpdateWhatsappPhoneNumberRequest webhookUrl(String webhookUrl) {
+        this.webhookUrl = webhookUrl;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The desired URL to set for your WhatsApp webhook endpoint.
+     * @return webhookUrl
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "https://mywebhook.com/example/endpoint",
+        required = true,
+        value = "The desired URL to set for your WhatsApp webhook endpoint."
+    )
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getWebhookUrl() {
+        return webhookUrl;
     }
-    UpdateWhatsappPhoneNumberRequest updateWhatsappPhoneNumberRequest = (UpdateWhatsappPhoneNumberRequest) o;
-    return Objects.equals(this.webhookUrl, updateWhatsappPhoneNumberRequest.webhookUrl);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(webhookUrl);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdateWhatsappPhoneNumberRequest {\n");
-    sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setWebhookUrl(String webhookUrl) {
+        this.webhookUrl = webhookUrl;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this UpdateWhatsappPhoneNumberRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdateWhatsappPhoneNumberRequest updateWhatsappPhoneNumberRequest =
+            (UpdateWhatsappPhoneNumberRequest) o;
+        return Objects.equals(
+            this.webhookUrl,
+            updateWhatsappPhoneNumberRequest.webhookUrl
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(webhookUrl);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UpdateWhatsappPhoneNumberRequest {\n");
+        sb
+            .append("    webhookUrl: ")
+            .append(toIndentedString(webhookUrl))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

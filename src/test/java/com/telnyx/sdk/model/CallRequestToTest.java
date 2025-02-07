@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -24,6 +22,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for CallRequestTo
  */
 public class CallRequestToTest {
+
     private final CallRequestTo model = new CallRequestTo();
 
     /**
@@ -33,5 +32,4 @@ public class CallRequestToTest {
     public void testCallRequestTo() {
         // TODO: test CallRequestTo
     }
-
 }

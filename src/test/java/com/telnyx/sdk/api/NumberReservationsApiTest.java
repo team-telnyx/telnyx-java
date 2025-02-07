@@ -10,24 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.*;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.*;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for NumberReservationsApi
@@ -43,7 +40,8 @@ public class NumberReservationsApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
@@ -56,25 +54,33 @@ public class NumberReservationsApiTest {
      */
     @Ignore
     @Test
-    public void createNumberReservation_whenRequestIsValid_returnsNumberReservation() throws ApiException {
+    public void createNumberReservation_whenRequestIsValid_returnsNumberReservation()
+        throws ApiException {
         List<AvailablePhoneNumber> availableNumbers = numberSearchApi
-                .listAvailablePhoneNumbers()
-                .filterLimit(2)
-                .execute()
-                .getData();
+            .listAvailablePhoneNumbers()
+            .filterLimit(2)
+            .execute()
+            .getData();
 
         List<ReservedPhoneNumber> numbersToReserve = availableNumbers
-                .stream()
-                .map(AvailablePhoneNumber::getPhoneNumber)
-                .map(phoneNumber -> new ReservedPhoneNumber().phoneNumber(phoneNumber))
-                .collect(Collectors.toList());
+            .stream()
+            .map(AvailablePhoneNumber::getPhoneNumber)
+            .map(phoneNumber ->
+                new ReservedPhoneNumber().phoneNumber(phoneNumber)
+            )
+            .collect(Collectors.toList());
 
-        CreateNumberReservationRequest createNumberReservationRequest = new CreateNumberReservationRequest()
-                .phoneNumbers(numbersToReserve);
+        CreateNumberReservationRequest createNumberReservationRequest =
+            new CreateNumberReservationRequest().phoneNumbers(numbersToReserve);
 
-        NumberReservationResponse actualResponse = api.createNumberReservation(createNumberReservationRequest);
+        NumberReservationResponse actualResponse = api.createNumberReservation(
+            createNumberReservationRequest
+        );
 
-        assertEquals(numbersToReserve.size(), actualResponse.getData().getPhoneNumbers().size());
+        assertEquals(
+            numbersToReserve.size(),
+            actualResponse.getData().getPhoneNumbers().size()
+        );
     }
 
     /**
@@ -84,26 +90,38 @@ public class NumberReservationsApiTest {
      */
     @Ignore
     @Test
-    public void createNumberReservation_whenReservingFivePhoneNumbers_returnsNumberReservation() throws ApiException {
+    public void createNumberReservation_whenReservingFivePhoneNumbers_returnsNumberReservation()
+        throws ApiException {
         List<String> phoneNumbers = new ArrayList<>();
 
         try {
-            phoneNumbers = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+            phoneNumbers = Objects.requireNonNull(
+                numberSearchApi
+                    .listAvailablePhoneNumbers()
                     .filterLimit(5)
                     .execute()
-                    .getData())
-                    .stream()
-                    .map(AvailablePhoneNumber::getPhoneNumber)
-                    .collect(Collectors.toList());
+                    .getData()
+            )
+                .stream()
+                .map(AvailablePhoneNumber::getPhoneNumber)
+                .collect(Collectors.toList());
         } catch (Exception e) {
-            fail("Test Setup Failure - unable to find 5 phone numbers to to reserve: " + e.getMessage());
+            fail(
+                "Test Setup Failure - unable to find 5 phone numbers to to reserve: " +
+                e.getMessage()
+            );
         }
 
-        List<ReservedPhoneNumber> reservedPhoneNumbers = phoneNumbers.stream()
-                .map(phoneNumber -> new ReservedPhoneNumber().phoneNumber(phoneNumber))
-                .collect(Collectors.toList());
+        List<ReservedPhoneNumber> reservedPhoneNumbers = phoneNumbers
+            .stream()
+            .map(phoneNumber ->
+                new ReservedPhoneNumber().phoneNumber(phoneNumber)
+            )
+            .collect(Collectors.toList());
         NumberReservationResponse actualResponse = api.createNumberReservation(
-                new CreateNumberReservationRequest().phoneNumbers(reservedPhoneNumbers));
+            new CreateNumberReservationRequest()
+                .phoneNumbers(reservedPhoneNumbers)
+        );
 
         assertNotNull(actualResponse);
         assertNotNull(actualResponse.getData());
@@ -152,5 +170,4 @@ public class NumberReservationsApiTest {
         //NumberReservationResponse response = api.retrieveNumberReservation(numberReservationId);
         // TODO: test validations
     }
-
 }

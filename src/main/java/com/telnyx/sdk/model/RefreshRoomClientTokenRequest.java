@@ -10,138 +10,155 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RefreshRoomClientTokenRequest
  */
-@JsonPropertyOrder({
-  RefreshRoomClientTokenRequest.JSON_PROPERTY_TOKEN_TTL_SECS,
-  RefreshRoomClientTokenRequest.JSON_PROPERTY_REFRESH_TOKEN
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        RefreshRoomClientTokenRequest.JSON_PROPERTY_TOKEN_TTL_SECS,
+        RefreshRoomClientTokenRequest.JSON_PROPERTY_REFRESH_TOKEN,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RefreshRoomClientTokenRequest {
-  public static final String JSON_PROPERTY_TOKEN_TTL_SECS = "token_ttl_secs";
-  private Integer tokenTtlSecs = 600;
 
-  public static final String JSON_PROPERTY_REFRESH_TOKEN = "refresh_token";
-  private String refreshToken;
+    public static final String JSON_PROPERTY_TOKEN_TTL_SECS = "token_ttl_secs";
+    private Integer tokenTtlSecs = 600;
 
-  public RefreshRoomClientTokenRequest() { 
-  }
+    public static final String JSON_PROPERTY_REFRESH_TOKEN = "refresh_token";
+    private String refreshToken;
 
-  public RefreshRoomClientTokenRequest tokenTtlSecs(Integer tokenTtlSecs) {
-    this.tokenTtlSecs = tokenTtlSecs;
-    return this;
-  }
+    public RefreshRoomClientTokenRequest() {}
 
-   /**
-   * The time to live in seconds of the Client Token, after that time the Client Token is invalid and can&#39;t be used to join a Room.
-   * minimum: 10
-   * maximum: 3600
-   * @return tokenTtlSecs
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "600", value = "The time to live in seconds of the Client Token, after that time the Client Token is invalid and can't be used to join a Room.")
-  @JsonProperty(JSON_PROPERTY_TOKEN_TTL_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTokenTtlSecs() {
-    return tokenTtlSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOKEN_TTL_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTokenTtlSecs(Integer tokenTtlSecs) {
-    this.tokenTtlSecs = tokenTtlSecs;
-  }
-
-
-  public RefreshRoomClientTokenRequest refreshToken(String refreshToken) {
-    this.refreshToken = refreshToken;
-    return this;
-  }
-
-   /**
-   * Get refreshToken
-   * @return refreshToken
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_REFRESH_TOKEN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getRefreshToken() {
-    return refreshToken;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REFRESH_TOKEN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRefreshToken(String refreshToken) {
-    this.refreshToken = refreshToken;
-  }
-
-
-  /**
-   * Return true if this RefreshRoomClientTokenRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RefreshRoomClientTokenRequest tokenTtlSecs(Integer tokenTtlSecs) {
+        this.tokenTtlSecs = tokenTtlSecs;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The time to live in seconds of the Client Token, after that time the Client Token is invalid and can&#39;t be used to join a Room.
+     * minimum: 10
+     * maximum: 3600
+     * @return tokenTtlSecs
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "600",
+        value = "The time to live in seconds of the Client Token, after that time the Client Token is invalid and can't be used to join a Room."
+    )
+    @JsonProperty(JSON_PROPERTY_TOKEN_TTL_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTokenTtlSecs() {
+        return tokenTtlSecs;
     }
-    RefreshRoomClientTokenRequest refreshRoomClientTokenRequest = (RefreshRoomClientTokenRequest) o;
-    return Objects.equals(this.tokenTtlSecs, refreshRoomClientTokenRequest.tokenTtlSecs) &&
-        Objects.equals(this.refreshToken, refreshRoomClientTokenRequest.refreshToken);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(tokenTtlSecs, refreshToken);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RefreshRoomClientTokenRequest {\n");
-    sb.append("    tokenTtlSecs: ").append(toIndentedString(tokenTtlSecs)).append("\n");
-    sb.append("    refreshToken: ").append(toIndentedString(refreshToken)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TOKEN_TTL_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTokenTtlSecs(Integer tokenTtlSecs) {
+        this.tokenTtlSecs = tokenTtlSecs;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public RefreshRoomClientTokenRequest refreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+        return this;
+    }
+
+    /**
+     * Get refreshToken
+     * @return refreshToken
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_REFRESH_TOKEN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REFRESH_TOKEN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    /**
+     * Return true if this RefreshRoomClientTokenRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RefreshRoomClientTokenRequest refreshRoomClientTokenRequest =
+            (RefreshRoomClientTokenRequest) o;
+        return (
+            Objects.equals(
+                this.tokenTtlSecs,
+                refreshRoomClientTokenRequest.tokenTtlSecs
+            ) &&
+            Objects.equals(
+                this.refreshToken,
+                refreshRoomClientTokenRequest.refreshToken
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tokenTtlSecs, refreshToken);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RefreshRoomClientTokenRequest {\n");
+        sb
+            .append("    tokenTtlSecs: ")
+            .append(toIndentedString(tokenTtlSecs))
+            .append("\n");
+        sb
+            .append("    refreshToken: ")
+            .append(toIndentedString(refreshToken))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

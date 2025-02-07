@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ReservedPhoneNumber;
@@ -27,15 +26,15 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreateNumberReservationRequest
  */
 public class CreateNumberReservationRequestTest {
-    private final CreateNumberReservationRequest model = new CreateNumberReservationRequest();
+
+    private final CreateNumberReservationRequest model =
+        new CreateNumberReservationRequest();
 
     /**
      * Model tests for CreateNumberReservationRequest
@@ -100,5 +99,4 @@ public class CreateNumberReservationRequestTest {
     public void updatedAtTest() {
         // TODO: test updatedAt
     }
-
 }

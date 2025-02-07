@@ -10,212 +10,216 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.RCSMedia;
 import com.telnyx.sdk.model.RCSSuggestion;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RCSCardContent
  */
-@JsonPropertyOrder({
-  RCSCardContent.JSON_PROPERTY_TITLE,
-  RCSCardContent.JSON_PROPERTY_DESCRIPTION,
-  RCSCardContent.JSON_PROPERTY_MEDIA,
-  RCSCardContent.JSON_PROPERTY_SUGGESTIONS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        RCSCardContent.JSON_PROPERTY_TITLE,
+        RCSCardContent.JSON_PROPERTY_DESCRIPTION,
+        RCSCardContent.JSON_PROPERTY_MEDIA,
+        RCSCardContent.JSON_PROPERTY_SUGGESTIONS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RCSCardContent {
-  public static final String JSON_PROPERTY_TITLE = "title";
-  private String title;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
+    public static final String JSON_PROPERTY_TITLE = "title";
+    private String title;
 
-  public static final String JSON_PROPERTY_MEDIA = "media";
-  private RCSMedia media;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    private String description;
 
-  public static final String JSON_PROPERTY_SUGGESTIONS = "suggestions";
-  private List<RCSSuggestion> suggestions = null;
+    public static final String JSON_PROPERTY_MEDIA = "media";
+    private RCSMedia media;
 
-  public RCSCardContent() { 
-  }
+    public static final String JSON_PROPERTY_SUGGESTIONS = "suggestions";
+    private List<RCSSuggestion> suggestions = null;
 
-  public RCSCardContent title(String title) {
-    this.title = title;
-    return this;
-  }
+    public RCSCardContent() {}
 
-   /**
-   * Title of the card (at most 200 characters)
-   * @return title
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Elephant", value = "Title of the card (at most 200 characters)")
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTitle() {
-    return title;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-
-  public RCSCardContent description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Description of the card (at most 2000 characters)
-   * @return description
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Description of the card (at most 2000 characters)")
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public RCSCardContent media(RCSMedia media) {
-    this.media = media;
-    return this;
-  }
-
-   /**
-   * Get media
-   * @return media
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RCSMedia getMedia() {
-    return media;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMedia(RCSMedia media) {
-    this.media = media;
-  }
-
-
-  public RCSCardContent suggestions(List<RCSSuggestion> suggestions) {
-    this.suggestions = suggestions;
-    return this;
-  }
-
-  public RCSCardContent addsuggestionsItem(RCSSuggestion suggestionsItem) {
-    if (this.suggestions == null) {
-      this.suggestions = new ArrayList<>();
+    public RCSCardContent title(String title) {
+        this.title = title;
+        return this;
     }
-    this.suggestions.add(suggestionsItem);
-    return this;
-  }
 
-   /**
-   * List of suggestions to include in the card. Maximum 10 suggestions.
-   * @return suggestions
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "List of suggestions to include in the card. Maximum 10 suggestions.")
-  @JsonProperty(JSON_PROPERTY_SUGGESTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<RCSSuggestion> getSuggestions() {
-    return suggestions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUGGESTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuggestions(List<RCSSuggestion> suggestions) {
-    this.suggestions = suggestions;
-  }
-
-
-  /**
-   * Return true if this RCSCardContent object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Title of the card (at most 200 characters)
+     * @return title
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Elephant",
+        value = "Title of the card (at most 200 characters)"
+    )
+    @JsonProperty(JSON_PROPERTY_TITLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTitle() {
+        return title;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_TITLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTitle(String title) {
+        this.title = title;
     }
-    RCSCardContent rcSCardContent = (RCSCardContent) o;
-    return Objects.equals(this.title, rcSCardContent.title) &&
-        Objects.equals(this.description, rcSCardContent.description) &&
-        Objects.equals(this.media, rcSCardContent.media) &&
-        Objects.equals(this.suggestions, rcSCardContent.suggestions);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, description, media, suggestions);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RCSCardContent {\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    media: ").append(toIndentedString(media)).append("\n");
-    sb.append("    suggestions: ").append(toIndentedString(suggestions)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public RCSCardContent description(String description) {
+        this.description = description;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Description of the card (at most 2000 characters)
+     * @return description
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Description of the card (at most 2000 characters)"
+    )
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public RCSCardContent media(RCSMedia media) {
+        this.media = media;
+        return this;
+    }
+
+    /**
+     * Get media
+     * @return media
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_MEDIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RCSMedia getMedia() {
+        return media;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEDIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMedia(RCSMedia media) {
+        this.media = media;
+    }
+
+    public RCSCardContent suggestions(List<RCSSuggestion> suggestions) {
+        this.suggestions = suggestions;
+        return this;
+    }
+
+    public RCSCardContent addsuggestionsItem(RCSSuggestion suggestionsItem) {
+        if (this.suggestions == null) {
+            this.suggestions = new ArrayList<>();
+        }
+        this.suggestions.add(suggestionsItem);
+        return this;
+    }
+
+    /**
+     * List of suggestions to include in the card. Maximum 10 suggestions.
+     * @return suggestions
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "List of suggestions to include in the card. Maximum 10 suggestions."
+    )
+    @JsonProperty(JSON_PROPERTY_SUGGESTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<RCSSuggestion> getSuggestions() {
+        return suggestions;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUGGESTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSuggestions(List<RCSSuggestion> suggestions) {
+        this.suggestions = suggestions;
+    }
+
+    /**
+     * Return true if this RCSCardContent object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RCSCardContent rcSCardContent = (RCSCardContent) o;
+        return (
+            Objects.equals(this.title, rcSCardContent.title) &&
+            Objects.equals(this.description, rcSCardContent.description) &&
+            Objects.equals(this.media, rcSCardContent.media) &&
+            Objects.equals(this.suggestions, rcSCardContent.suggestions)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, media, suggestions);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RCSCardContent {\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb
+            .append("    description: ")
+            .append(toIndentedString(description))
+            .append("\n");
+        sb.append("    media: ").append(toIndentedString(media)).append("\n");
+        sb
+            .append("    suggestions: ")
+            .append(toIndentedString(suggestions))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

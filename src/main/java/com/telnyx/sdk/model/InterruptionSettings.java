@@ -10,105 +10,103 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Settings for handling user interruptions during assistant speech
  */
-@ApiModel(description = "Settings for handling user interruptions during assistant speech")
-@JsonPropertyOrder({
-  InterruptionSettings.JSON_PROPERTY_ENABLE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "Settings for handling user interruptions during assistant speech"
+)
+@JsonPropertyOrder({ InterruptionSettings.JSON_PROPERTY_ENABLE })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class InterruptionSettings {
-  public static final String JSON_PROPERTY_ENABLE = "enable";
-  private Boolean enable = true;
 
-  public InterruptionSettings() { 
-  }
+    public static final String JSON_PROPERTY_ENABLE = "enable";
+    private Boolean enable = true;
 
-  public InterruptionSettings enable(Boolean enable) {
-    this.enable = enable;
-    return this;
-  }
+    public InterruptionSettings() {}
 
-   /**
-   * When true, allows users to interrupt the assistant while speaking
-   * @return enable
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "When true, allows users to interrupt the assistant while speaking")
-  @JsonProperty(JSON_PROPERTY_ENABLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getEnable() {
-    return enable;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ENABLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEnable(Boolean enable) {
-    this.enable = enable;
-  }
-
-
-  /**
-   * Return true if this InterruptionSettings object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public InterruptionSettings enable(Boolean enable) {
+        this.enable = enable;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * When true, allows users to interrupt the assistant while speaking
+     * @return enable
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "When true, allows users to interrupt the assistant while speaking"
+    )
+    @JsonProperty(JSON_PROPERTY_ENABLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getEnable() {
+        return enable;
     }
-    InterruptionSettings interruptionSettings = (InterruptionSettings) o;
-    return Objects.equals(this.enable, interruptionSettings.enable);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(enable);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class InterruptionSettings {\n");
-    sb.append("    enable: ").append(toIndentedString(enable)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ENABLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this InterruptionSettings object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        InterruptionSettings interruptionSettings = (InterruptionSettings) o;
+        return Objects.equals(this.enable, interruptionSettings.enable);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(enable);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class InterruptionSettings {\n");
+        sb.append("    enable: ").append(toIndentedString(enable)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

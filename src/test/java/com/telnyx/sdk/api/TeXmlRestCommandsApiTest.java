@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -41,18 +40,16 @@ import com.telnyx.sdk.model.TexmlRecordingChannels;
 import com.telnyx.sdk.model.TexmlStatusCallbackMethod;
 import com.telnyx.sdk.model.TexmlUpdateCallStreamingResponseBody;
 import com.telnyx.sdk.model.TexmlUpdateSiprecSessionResponseBody;
-import java.net.URI;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateCallRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for TeXmlRestCommandsApi
@@ -658,5 +655,4 @@ public class TeXmlRestCommandsApiTest {
         //ParticipantResource response = api.updateTexmlConferenceParticipant(accountSid, conferenceSid, callSid, muted, hold, holdUrl, holdMethod, announceUrl, announceMethod, waitUrl, beepOnExit, endConferenceOnExit, coaching, callSidToCoach);
         // TODO: test validations
     }
-
 }

@@ -10,332 +10,326 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Date/time by component
  */
 @ApiModel(description = "Date/time by component")
-@JsonPropertyOrder({
-  DateTimeComponent.JSON_PROPERTY_DAY_OF_WEEK,
-  DateTimeComponent.JSON_PROPERTY_DAY_OF_MONTH,
-  DateTimeComponent.JSON_PROPERTY_YEAR,
-  DateTimeComponent.JSON_PROPERTY_MONTH,
-  DateTimeComponent.JSON_PROPERTY_HOUR,
-  DateTimeComponent.JSON_PROPERTY_MINUTE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        DateTimeComponent.JSON_PROPERTY_DAY_OF_WEEK,
+        DateTimeComponent.JSON_PROPERTY_DAY_OF_MONTH,
+        DateTimeComponent.JSON_PROPERTY_YEAR,
+        DateTimeComponent.JSON_PROPERTY_MONTH,
+        DateTimeComponent.JSON_PROPERTY_HOUR,
+        DateTimeComponent.JSON_PROPERTY_MINUTE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class DateTimeComponent {
-  /**
-   * Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.
-   */
-  public enum DayOfWeekEnum {
-    /**
-     * Monday
-     */
-    MONDAY(1),
-    
-    /**
-     * Tuesday
-     */
-    TUESDAY(2),
-    
-    /**
-     * Wednesday
-     */
-    WEDNESDAY(3),
-    
-    /**
-     * Thursday
-     */
-    THURSDAY(4),
-    
-    /**
-     * Friday
-     */
-    FRIDAY(5),
-    
-    /**
-     * Saturday
-     */
-    SATURDAY(6),
-    
-    /**
-     * Sunday
-     */
-    SUNDAY(7);
 
-    private Integer value;
+    /**
+     * Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.
+     */
+    public enum DayOfWeekEnum {
+        /**
+         * Monday
+         */
+        MONDAY(1),
 
-    DayOfWeekEnum(Integer value) {
-      this.value = value;
+        /**
+         * Tuesday
+         */
+        TUESDAY(2),
+
+        /**
+         * Wednesday
+         */
+        WEDNESDAY(3),
+
+        /**
+         * Thursday
+         */
+        THURSDAY(4),
+
+        /**
+         * Friday
+         */
+        FRIDAY(5),
+
+        /**
+         * Saturday
+         */
+        SATURDAY(6),
+
+        /**
+         * Sunday
+         */
+        SUNDAY(7);
+
+        private Integer value;
+
+        DayOfWeekEnum(Integer value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public Integer getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static DayOfWeekEnum fromValue(Integer value) {
+            for (DayOfWeekEnum b : DayOfWeekEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public Integer getValue() {
-      return value;
+    public static final String JSON_PROPERTY_DAY_OF_WEEK = "day_of_week";
+    private DayOfWeekEnum dayOfWeek;
+
+    public static final String JSON_PROPERTY_DAY_OF_MONTH = "day_of_month";
+    private Integer dayOfMonth;
+
+    public static final String JSON_PROPERTY_YEAR = "year";
+    private Integer year;
+
+    public static final String JSON_PROPERTY_MONTH = "month";
+    private Integer month;
+
+    public static final String JSON_PROPERTY_HOUR = "hour";
+    private Integer hour;
+
+    public static final String JSON_PROPERTY_MINUTE = "minute";
+    private Integer minute;
+
+    public DateTimeComponent() {}
+
+    public DateTimeComponent dayOfWeek(DayOfWeekEnum dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+        return this;
+    }
+
+    /**
+     * Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.
+     * @return dayOfWeek
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value."
+    )
+    @JsonProperty(JSON_PROPERTY_DAY_OF_WEEK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DayOfWeekEnum getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DAY_OF_WEEK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDayOfWeek(DayOfWeekEnum dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public DateTimeComponent dayOfMonth(Integer dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
+        return this;
+    }
+
+    /**
+     * The day of month
+     * @return dayOfMonth
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The day of month")
+    @JsonProperty(JSON_PROPERTY_DAY_OF_MONTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getDayOfMonth() {
+        return dayOfMonth;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DAY_OF_MONTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDayOfMonth(Integer dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
+    }
+
+    public DateTimeComponent year(Integer year) {
+        this.year = year;
+        return this;
+    }
+
+    /**
+     * The year
+     * @return year
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The year")
+    @JsonProperty(JSON_PROPERTY_YEAR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getYear() {
+        return year;
+    }
+
+    @JsonProperty(JSON_PROPERTY_YEAR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public DateTimeComponent month(Integer month) {
+        this.month = month;
+        return this;
+    }
+
+    /**
+     * The month
+     * @return month
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The month")
+    @JsonProperty(JSON_PROPERTY_MONTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getMonth() {
+        return month;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MONTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    public DateTimeComponent hour(Integer hour) {
+        this.hour = hour;
+        return this;
+    }
+
+    /**
+     * The hour
+     * @return hour
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The hour")
+    @JsonProperty(JSON_PROPERTY_HOUR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getHour() {
+        return hour;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HOUR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHour(Integer hour) {
+        this.hour = hour;
+    }
+
+    public DateTimeComponent minute(Integer minute) {
+        this.minute = minute;
+        return this;
+    }
+
+    /**
+     * The minute
+     * @return minute
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The minute")
+    @JsonProperty(JSON_PROPERTY_MINUTE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getMinute() {
+        return minute;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MINUTE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMinute(Integer minute) {
+        this.minute = minute;
+    }
+
+    /**
+     * Return true if this DateTimeComponent object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DateTimeComponent dateTimeComponent = (DateTimeComponent) o;
+        return (
+            Objects.equals(this.dayOfWeek, dateTimeComponent.dayOfWeek) &&
+            Objects.equals(this.dayOfMonth, dateTimeComponent.dayOfMonth) &&
+            Objects.equals(this.year, dateTimeComponent.year) &&
+            Objects.equals(this.month, dateTimeComponent.month) &&
+            Objects.equals(this.hour, dateTimeComponent.hour) &&
+            Objects.equals(this.minute, dateTimeComponent.minute)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dayOfWeek, dayOfMonth, year, month, hour, minute);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class DateTimeComponent {\n");
+        sb
+            .append("    dayOfWeek: ")
+            .append(toIndentedString(dayOfWeek))
+            .append("\n");
+        sb
+            .append("    dayOfMonth: ")
+            .append(toIndentedString(dayOfMonth))
+            .append("\n");
+        sb.append("    year: ").append(toIndentedString(year)).append("\n");
+        sb.append("    month: ").append(toIndentedString(month)).append("\n");
+        sb.append("    hour: ").append(toIndentedString(hour)).append("\n");
+        sb.append("    minute: ").append(toIndentedString(minute)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static DayOfWeekEnum fromValue(Integer value) {
-      for (DayOfWeekEnum b : DayOfWeekEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_DAY_OF_WEEK = "day_of_week";
-  private DayOfWeekEnum dayOfWeek;
-
-  public static final String JSON_PROPERTY_DAY_OF_MONTH = "day_of_month";
-  private Integer dayOfMonth;
-
-  public static final String JSON_PROPERTY_YEAR = "year";
-  private Integer year;
-
-  public static final String JSON_PROPERTY_MONTH = "month";
-  private Integer month;
-
-  public static final String JSON_PROPERTY_HOUR = "hour";
-  private Integer hour;
-
-  public static final String JSON_PROPERTY_MINUTE = "minute";
-  private Integer minute;
-
-  public DateTimeComponent() { 
-  }
-
-  public DateTimeComponent dayOfWeek(DayOfWeekEnum dayOfWeek) {
-    this.dayOfWeek = dayOfWeek;
-    return this;
-  }
-
-   /**
-   * Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.
-   * @return dayOfWeek
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Both strings and numbers are accepted. If different from the value derived from the date (if specified), use the derived value.")
-  @JsonProperty(JSON_PROPERTY_DAY_OF_WEEK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DayOfWeekEnum getDayOfWeek() {
-    return dayOfWeek;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DAY_OF_WEEK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDayOfWeek(DayOfWeekEnum dayOfWeek) {
-    this.dayOfWeek = dayOfWeek;
-  }
-
-
-  public DateTimeComponent dayOfMonth(Integer dayOfMonth) {
-    this.dayOfMonth = dayOfMonth;
-    return this;
-  }
-
-   /**
-   * The day of month
-   * @return dayOfMonth
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The day of month")
-  @JsonProperty(JSON_PROPERTY_DAY_OF_MONTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getDayOfMonth() {
-    return dayOfMonth;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DAY_OF_MONTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDayOfMonth(Integer dayOfMonth) {
-    this.dayOfMonth = dayOfMonth;
-  }
-
-
-  public DateTimeComponent year(Integer year) {
-    this.year = year;
-    return this;
-  }
-
-   /**
-   * The year
-   * @return year
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The year")
-  @JsonProperty(JSON_PROPERTY_YEAR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getYear() {
-    return year;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_YEAR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setYear(Integer year) {
-    this.year = year;
-  }
-
-
-  public DateTimeComponent month(Integer month) {
-    this.month = month;
-    return this;
-  }
-
-   /**
-   * The month
-   * @return month
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The month")
-  @JsonProperty(JSON_PROPERTY_MONTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getMonth() {
-    return month;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MONTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMonth(Integer month) {
-    this.month = month;
-  }
-
-
-  public DateTimeComponent hour(Integer hour) {
-    this.hour = hour;
-    return this;
-  }
-
-   /**
-   * The hour
-   * @return hour
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The hour")
-  @JsonProperty(JSON_PROPERTY_HOUR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getHour() {
-    return hour;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HOUR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHour(Integer hour) {
-    this.hour = hour;
-  }
-
-
-  public DateTimeComponent minute(Integer minute) {
-    this.minute = minute;
-    return this;
-  }
-
-   /**
-   * The minute
-   * @return minute
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The minute")
-  @JsonProperty(JSON_PROPERTY_MINUTE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getMinute() {
-    return minute;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MINUTE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMinute(Integer minute) {
-    this.minute = minute;
-  }
-
-
-  /**
-   * Return true if this DateTimeComponent object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    DateTimeComponent dateTimeComponent = (DateTimeComponent) o;
-    return Objects.equals(this.dayOfWeek, dateTimeComponent.dayOfWeek) &&
-        Objects.equals(this.dayOfMonth, dateTimeComponent.dayOfMonth) &&
-        Objects.equals(this.year, dateTimeComponent.year) &&
-        Objects.equals(this.month, dateTimeComponent.month) &&
-        Objects.equals(this.hour, dateTimeComponent.hour) &&
-        Objects.equals(this.minute, dateTimeComponent.minute);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(dayOfWeek, dayOfMonth, year, month, hour, minute);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DateTimeComponent {\n");
-    sb.append("    dayOfWeek: ").append(toIndentedString(dayOfWeek)).append("\n");
-    sb.append("    dayOfMonth: ").append(toIndentedString(dayOfMonth)).append("\n");
-    sb.append("    year: ").append(toIndentedString(year)).append("\n");
-    sb.append("    month: ").append(toIndentedString(month)).append("\n");
-    sb.append("    hour: ").append(toIndentedString(hour)).append("\n");
-    sb.append("    minute: ").append(toIndentedString(minute)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

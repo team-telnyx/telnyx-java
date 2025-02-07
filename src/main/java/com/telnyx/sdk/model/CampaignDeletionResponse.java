@@ -10,169 +10,173 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CampaignDeletionResponse
  */
-@JsonPropertyOrder({
-  CampaignDeletionResponse.JSON_PROPERTY_TIME,
-  CampaignDeletionResponse.JSON_PROPERTY_RECORD_TYPE,
-  CampaignDeletionResponse.JSON_PROPERTY_MESSAGE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        CampaignDeletionResponse.JSON_PROPERTY_TIME,
+        CampaignDeletionResponse.JSON_PROPERTY_RECORD_TYPE,
+        CampaignDeletionResponse.JSON_PROPERTY_MESSAGE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CampaignDeletionResponse {
-  public static final String JSON_PROPERTY_TIME = "time";
-  private BigDecimal time;
 
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+    public static final String JSON_PROPERTY_TIME = "time";
+    private BigDecimal time;
 
-  public static final String JSON_PROPERTY_MESSAGE = "message";
-  private String message;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public CampaignDeletionResponse() { 
-  }
+    public static final String JSON_PROPERTY_MESSAGE = "message";
+    private String message;
 
-  public CampaignDeletionResponse time(BigDecimal time) {
-    this.time = time;
-    return this;
-  }
+    public CampaignDeletionResponse() {}
 
-   /**
-   * Get time
-   * @return time
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_TIME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getTime() {
-    return time;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TIME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTime(BigDecimal time) {
-    this.time = time;
-  }
-
-
-  public CampaignDeletionResponse recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public CampaignDeletionResponse message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * Get message
-   * @return message
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMessage() {
-    return message;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-
-  /**
-   * Return true if this CampaignDeletionResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CampaignDeletionResponse time(BigDecimal time) {
+        this.time = time;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get time
+     * @return time
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_TIME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getTime() {
+        return time;
     }
-    CampaignDeletionResponse campaignDeletionResponse = (CampaignDeletionResponse) o;
-    return Objects.equals(this.time, campaignDeletionResponse.time) &&
-        Objects.equals(this.recordType, campaignDeletionResponse.recordType) &&
-        Objects.equals(this.message, campaignDeletionResponse.message);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(time, recordType, message);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CampaignDeletionResponse {\n");
-    sb.append("    time: ").append(toIndentedString(time)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TIME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTime(BigDecimal time) {
+        this.time = time;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CampaignDeletionResponse recordType(String recordType) {
+        this.recordType = recordType;
+        return this;
+    }
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
+    }
+
+    public CampaignDeletionResponse message(String message) {
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * Get message
+     * @return message
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMessage() {
+        return message;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * Return true if this CampaignDeletionResponse object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CampaignDeletionResponse campaignDeletionResponse =
+            (CampaignDeletionResponse) o;
+        return (
+            Objects.equals(this.time, campaignDeletionResponse.time) &&
+            Objects.equals(
+                this.recordType,
+                campaignDeletionResponse.recordType
+            ) &&
+            Objects.equals(this.message, campaignDeletionResponse.message)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time, recordType, message);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CampaignDeletionResponse {\n");
+        sb.append("    time: ").append(toIndentedString(time)).append("\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    message: ")
+            .append(toIndentedString(message))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,436 +10,521 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.CallForwarding;
 import com.telnyx.sdk.model.CallRecording;
 import com.telnyx.sdk.model.CnamListing;
 import com.telnyx.sdk.model.MediaFeatures;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UpdatePhoneNumberVoiceSettingsRequest
  */
-@JsonPropertyOrder({
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_TECH_PREFIX_ENABLED,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_TRANSLATED_NUMBER,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALLER_ID_NAME_ENABLED,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_FORWARDING,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CNAM_LISTING,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_USAGE_PAYMENT_METHOD,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_MEDIA_FEATURES,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_RECORDING,
-  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_INBOUND_CALL_SCREENING
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_TECH_PREFIX_ENABLED,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_TRANSLATED_NUMBER,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALLER_ID_NAME_ENABLED,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_FORWARDING,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CNAM_LISTING,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_USAGE_PAYMENT_METHOD,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_MEDIA_FEATURES,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_RECORDING,
+        UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_INBOUND_CALL_SCREENING,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UpdatePhoneNumberVoiceSettingsRequest {
-  public static final String JSON_PROPERTY_TECH_PREFIX_ENABLED = "tech_prefix_enabled";
-  private Boolean techPrefixEnabled = false;
 
-  public static final String JSON_PROPERTY_TRANSLATED_NUMBER = "translated_number";
-  private String translatedNumber;
+    public static final String JSON_PROPERTY_TECH_PREFIX_ENABLED =
+        "tech_prefix_enabled";
+    private Boolean techPrefixEnabled = false;
 
-  public static final String JSON_PROPERTY_CALLER_ID_NAME_ENABLED = "caller_id_name_enabled";
-  private Boolean callerIdNameEnabled = false;
+    public static final String JSON_PROPERTY_TRANSLATED_NUMBER =
+        "translated_number";
+    private String translatedNumber;
 
-  public static final String JSON_PROPERTY_CALL_FORWARDING = "call_forwarding";
-  private CallForwarding callForwarding;
+    public static final String JSON_PROPERTY_CALLER_ID_NAME_ENABLED =
+        "caller_id_name_enabled";
+    private Boolean callerIdNameEnabled = false;
 
-  public static final String JSON_PROPERTY_CNAM_LISTING = "cnam_listing";
-  private CnamListing cnamListing;
+    public static final String JSON_PROPERTY_CALL_FORWARDING =
+        "call_forwarding";
+    private CallForwarding callForwarding;
 
-  /**
-   * Controls whether a number is billed per minute or uses your concurrent channels.
-   */
-  public enum UsagePaymentMethodEnum {
-    PAY_PER_MINUTE(String.valueOf("pay-per-minute")),
-    
-    CHANNEL(String.valueOf("channel"));
+    public static final String JSON_PROPERTY_CNAM_LISTING = "cnam_listing";
+    private CnamListing cnamListing;
 
-    private String value;
+    /**
+     * Controls whether a number is billed per minute or uses your concurrent channels.
+     */
+    public enum UsagePaymentMethodEnum {
+        PAY_PER_MINUTE(String.valueOf("pay-per-minute")),
 
-    UsagePaymentMethodEnum(String value) {
-      this.value = value;
+        CHANNEL(String.valueOf("channel"));
+
+        private String value;
+
+        UsagePaymentMethodEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static UsagePaymentMethodEnum fromValue(String value) {
+            for (UsagePaymentMethodEnum b : UsagePaymentMethodEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_USAGE_PAYMENT_METHOD =
+        "usage_payment_method";
+    private UsagePaymentMethodEnum usagePaymentMethod =
+        UsagePaymentMethodEnum.PAY_PER_MINUTE;
+
+    public static final String JSON_PROPERTY_MEDIA_FEATURES = "media_features";
+    private MediaFeatures mediaFeatures;
+
+    public static final String JSON_PROPERTY_CALL_RECORDING = "call_recording";
+    private CallRecording callRecording;
+
+    /**
+     * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
+     */
+    public enum InboundCallScreeningEnum {
+        DISABLED(String.valueOf("disabled")),
+
+        REJECT_CALLS(String.valueOf("reject_calls")),
+
+        FLAG_CALLS(String.valueOf("flag_calls"));
+
+        private String value;
+
+        InboundCallScreeningEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static InboundCallScreeningEnum fromValue(String value) {
+            for (InboundCallScreeningEnum b : InboundCallScreeningEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_INBOUND_CALL_SCREENING =
+        "inbound_call_screening";
+    private InboundCallScreeningEnum inboundCallScreening =
+        InboundCallScreeningEnum.DISABLED;
+
+    public UpdatePhoneNumberVoiceSettingsRequest() {}
+
+    public UpdatePhoneNumberVoiceSettingsRequest techPrefixEnabled(
+        Boolean techPrefixEnabled
+    ) {
+        this.techPrefixEnabled = techPrefixEnabled;
+        return this;
+    }
+
+    /**
+     * Controls whether a tech prefix is enabled for this phone number.
+     * @return techPrefixEnabled
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Controls whether a tech prefix is enabled for this phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_TECH_PREFIX_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getTechPrefixEnabled() {
+        return techPrefixEnabled;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TECH_PREFIX_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTechPrefixEnabled(Boolean techPrefixEnabled) {
+        this.techPrefixEnabled = techPrefixEnabled;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest translatedNumber(
+        String translatedNumber
+    ) {
+        this.translatedNumber = translatedNumber;
+        return this;
+    }
+
+    /**
+     * This field allows you to rewrite the destination number of an inbound call before the call is routed to you. The value of this field may be any alphanumeric value, and the value will replace the number originally dialed.
+     * @return translatedNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "This field allows you to rewrite the destination number of an inbound call before the call is routed to you. The value of this field may be any alphanumeric value, and the value will replace the number originally dialed."
+    )
+    @JsonProperty(JSON_PROPERTY_TRANSLATED_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTranslatedNumber() {
+        return translatedNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRANSLATED_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTranslatedNumber(String translatedNumber) {
+        this.translatedNumber = translatedNumber;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest callerIdNameEnabled(
+        Boolean callerIdNameEnabled
+    ) {
+        this.callerIdNameEnabled = callerIdNameEnabled;
+        return this;
+    }
+
+    /**
+     * Controls whether the caller ID name is enabled for this phone number.
+     * @return callerIdNameEnabled
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Controls whether the caller ID name is enabled for this phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getCallerIdNameEnabled() {
+        return callerIdNameEnabled;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallerIdNameEnabled(Boolean callerIdNameEnabled) {
+        this.callerIdNameEnabled = callerIdNameEnabled;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest callForwarding(
+        CallForwarding callForwarding
+    ) {
+        this.callForwarding = callForwarding;
+        return this;
+    }
+
+    /**
+     * Get callForwarding
+     * @return callForwarding
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CALL_FORWARDING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public CallForwarding getCallForwarding() {
+        return callForwarding;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_FORWARDING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallForwarding(CallForwarding callForwarding) {
+        this.callForwarding = callForwarding;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest cnamListing(
+        CnamListing cnamListing
+    ) {
+        this.cnamListing = cnamListing;
+        return this;
+    }
+
+    /**
+     * Get cnamListing
+     * @return cnamListing
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CNAM_LISTING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public CnamListing getCnamListing() {
+        return cnamListing;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CNAM_LISTING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCnamListing(CnamListing cnamListing) {
+        this.cnamListing = cnamListing;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest usagePaymentMethod(
+        UsagePaymentMethodEnum usagePaymentMethod
+    ) {
+        this.usagePaymentMethod = usagePaymentMethod;
+        return this;
+    }
+
+    /**
+     * Controls whether a number is billed per minute or uses your concurrent channels.
+     * @return usagePaymentMethod
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Controls whether a number is billed per minute or uses your concurrent channels."
+    )
+    @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UsagePaymentMethodEnum getUsagePaymentMethod() {
+        return usagePaymentMethod;
+    }
+
+    @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUsagePaymentMethod(
+        UsagePaymentMethodEnum usagePaymentMethod
+    ) {
+        this.usagePaymentMethod = usagePaymentMethod;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest mediaFeatures(
+        MediaFeatures mediaFeatures
+    ) {
+        this.mediaFeatures = mediaFeatures;
+        return this;
+    }
+
+    /**
+     * Get mediaFeatures
+     * @return mediaFeatures
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_MEDIA_FEATURES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public MediaFeatures getMediaFeatures() {
+        return mediaFeatures;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEDIA_FEATURES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMediaFeatures(MediaFeatures mediaFeatures) {
+        this.mediaFeatures = mediaFeatures;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest callRecording(
+        CallRecording callRecording
+    ) {
+        this.callRecording = callRecording;
+        return this;
+    }
+
+    /**
+     * Get callRecording
+     * @return callRecording
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public CallRecording getCallRecording() {
+        return callRecording;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallRecording(CallRecording callRecording) {
+        this.callRecording = callRecording;
+    }
+
+    public UpdatePhoneNumberVoiceSettingsRequest inboundCallScreening(
+        InboundCallScreeningEnum inboundCallScreening
+    ) {
+        this.inboundCallScreening = inboundCallScreening;
+        return this;
+    }
+
+    /**
+     * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
+     * @return inboundCallScreening
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it."
+    )
+    @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public InboundCallScreeningEnum getInboundCallScreening() {
+        return inboundCallScreening;
+    }
+
+    @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setInboundCallScreening(
+        InboundCallScreeningEnum inboundCallScreening
+    ) {
+        this.inboundCallScreening = inboundCallScreening;
+    }
+
+    /**
+     * Return true if this UpdatePhoneNumberVoiceSettingsRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest =
+            (UpdatePhoneNumberVoiceSettingsRequest) o;
+        return (
+            Objects.equals(
+                this.techPrefixEnabled,
+                updatePhoneNumberVoiceSettingsRequest.techPrefixEnabled
+            ) &&
+            Objects.equals(
+                this.translatedNumber,
+                updatePhoneNumberVoiceSettingsRequest.translatedNumber
+            ) &&
+            Objects.equals(
+                this.callerIdNameEnabled,
+                updatePhoneNumberVoiceSettingsRequest.callerIdNameEnabled
+            ) &&
+            Objects.equals(
+                this.callForwarding,
+                updatePhoneNumberVoiceSettingsRequest.callForwarding
+            ) &&
+            Objects.equals(
+                this.cnamListing,
+                updatePhoneNumberVoiceSettingsRequest.cnamListing
+            ) &&
+            Objects.equals(
+                this.usagePaymentMethod,
+                updatePhoneNumberVoiceSettingsRequest.usagePaymentMethod
+            ) &&
+            Objects.equals(
+                this.mediaFeatures,
+                updatePhoneNumberVoiceSettingsRequest.mediaFeatures
+            ) &&
+            Objects.equals(
+                this.callRecording,
+                updatePhoneNumberVoiceSettingsRequest.callRecording
+            ) &&
+            Objects.equals(
+                this.inboundCallScreening,
+                updatePhoneNumberVoiceSettingsRequest.inboundCallScreening
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            techPrefixEnabled,
+            translatedNumber,
+            callerIdNameEnabled,
+            callForwarding,
+            cnamListing,
+            usagePaymentMethod,
+            mediaFeatures,
+            callRecording,
+            inboundCallScreening
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UpdatePhoneNumberVoiceSettingsRequest {\n");
+        sb
+            .append("    techPrefixEnabled: ")
+            .append(toIndentedString(techPrefixEnabled))
+            .append("\n");
+        sb
+            .append("    translatedNumber: ")
+            .append(toIndentedString(translatedNumber))
+            .append("\n");
+        sb
+            .append("    callerIdNameEnabled: ")
+            .append(toIndentedString(callerIdNameEnabled))
+            .append("\n");
+        sb
+            .append("    callForwarding: ")
+            .append(toIndentedString(callForwarding))
+            .append("\n");
+        sb
+            .append("    cnamListing: ")
+            .append(toIndentedString(cnamListing))
+            .append("\n");
+        sb
+            .append("    usagePaymentMethod: ")
+            .append(toIndentedString(usagePaymentMethod))
+            .append("\n");
+        sb
+            .append("    mediaFeatures: ")
+            .append(toIndentedString(mediaFeatures))
+            .append("\n");
+        sb
+            .append("    callRecording: ")
+            .append(toIndentedString(callRecording))
+            .append("\n");
+        sb
+            .append("    inboundCallScreening: ")
+            .append(toIndentedString(inboundCallScreening))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static UsagePaymentMethodEnum fromValue(String value) {
-      for (UsagePaymentMethodEnum b : UsagePaymentMethodEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_USAGE_PAYMENT_METHOD = "usage_payment_method";
-  private UsagePaymentMethodEnum usagePaymentMethod = UsagePaymentMethodEnum.PAY_PER_MINUTE;
-
-  public static final String JSON_PROPERTY_MEDIA_FEATURES = "media_features";
-  private MediaFeatures mediaFeatures;
-
-  public static final String JSON_PROPERTY_CALL_RECORDING = "call_recording";
-  private CallRecording callRecording;
-
-  /**
-   * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
-   */
-  public enum InboundCallScreeningEnum {
-    DISABLED(String.valueOf("disabled")),
-    
-    REJECT_CALLS(String.valueOf("reject_calls")),
-    
-    FLAG_CALLS(String.valueOf("flag_calls"));
-
-    private String value;
-
-    InboundCallScreeningEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static InboundCallScreeningEnum fromValue(String value) {
-      for (InboundCallScreeningEnum b : InboundCallScreeningEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_INBOUND_CALL_SCREENING = "inbound_call_screening";
-  private InboundCallScreeningEnum inboundCallScreening = InboundCallScreeningEnum.DISABLED;
-
-  public UpdatePhoneNumberVoiceSettingsRequest() { 
-  }
-
-  public UpdatePhoneNumberVoiceSettingsRequest techPrefixEnabled(Boolean techPrefixEnabled) {
-    this.techPrefixEnabled = techPrefixEnabled;
-    return this;
-  }
-
-   /**
-   * Controls whether a tech prefix is enabled for this phone number.
-   * @return techPrefixEnabled
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Controls whether a tech prefix is enabled for this phone number.")
-  @JsonProperty(JSON_PROPERTY_TECH_PREFIX_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getTechPrefixEnabled() {
-    return techPrefixEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TECH_PREFIX_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTechPrefixEnabled(Boolean techPrefixEnabled) {
-    this.techPrefixEnabled = techPrefixEnabled;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest translatedNumber(String translatedNumber) {
-    this.translatedNumber = translatedNumber;
-    return this;
-  }
-
-   /**
-   * This field allows you to rewrite the destination number of an inbound call before the call is routed to you. The value of this field may be any alphanumeric value, and the value will replace the number originally dialed.
-   * @return translatedNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "This field allows you to rewrite the destination number of an inbound call before the call is routed to you. The value of this field may be any alphanumeric value, and the value will replace the number originally dialed.")
-  @JsonProperty(JSON_PROPERTY_TRANSLATED_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTranslatedNumber() {
-    return translatedNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRANSLATED_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTranslatedNumber(String translatedNumber) {
-    this.translatedNumber = translatedNumber;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest callerIdNameEnabled(Boolean callerIdNameEnabled) {
-    this.callerIdNameEnabled = callerIdNameEnabled;
-    return this;
-  }
-
-   /**
-   * Controls whether the caller ID name is enabled for this phone number.
-   * @return callerIdNameEnabled
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Controls whether the caller ID name is enabled for this phone number.")
-  @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getCallerIdNameEnabled() {
-    return callerIdNameEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallerIdNameEnabled(Boolean callerIdNameEnabled) {
-    this.callerIdNameEnabled = callerIdNameEnabled;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest callForwarding(CallForwarding callForwarding) {
-    this.callForwarding = callForwarding;
-    return this;
-  }
-
-   /**
-   * Get callForwarding
-   * @return callForwarding
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CALL_FORWARDING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public CallForwarding getCallForwarding() {
-    return callForwarding;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_FORWARDING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallForwarding(CallForwarding callForwarding) {
-    this.callForwarding = callForwarding;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest cnamListing(CnamListing cnamListing) {
-    this.cnamListing = cnamListing;
-    return this;
-  }
-
-   /**
-   * Get cnamListing
-   * @return cnamListing
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CNAM_LISTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public CnamListing getCnamListing() {
-    return cnamListing;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CNAM_LISTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCnamListing(CnamListing cnamListing) {
-    this.cnamListing = cnamListing;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest usagePaymentMethod(UsagePaymentMethodEnum usagePaymentMethod) {
-    this.usagePaymentMethod = usagePaymentMethod;
-    return this;
-  }
-
-   /**
-   * Controls whether a number is billed per minute or uses your concurrent channels.
-   * @return usagePaymentMethod
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Controls whether a number is billed per minute or uses your concurrent channels.")
-  @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UsagePaymentMethodEnum getUsagePaymentMethod() {
-    return usagePaymentMethod;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsagePaymentMethod(UsagePaymentMethodEnum usagePaymentMethod) {
-    this.usagePaymentMethod = usagePaymentMethod;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest mediaFeatures(MediaFeatures mediaFeatures) {
-    this.mediaFeatures = mediaFeatures;
-    return this;
-  }
-
-   /**
-   * Get mediaFeatures
-   * @return mediaFeatures
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_MEDIA_FEATURES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public MediaFeatures getMediaFeatures() {
-    return mediaFeatures;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_FEATURES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaFeatures(MediaFeatures mediaFeatures) {
-    this.mediaFeatures = mediaFeatures;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest callRecording(CallRecording callRecording) {
-    this.callRecording = callRecording;
-    return this;
-  }
-
-   /**
-   * Get callRecording
-   * @return callRecording
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public CallRecording getCallRecording() {
-    return callRecording;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallRecording(CallRecording callRecording) {
-    this.callRecording = callRecording;
-  }
-
-
-  public UpdatePhoneNumberVoiceSettingsRequest inboundCallScreening(InboundCallScreeningEnum inboundCallScreening) {
-    this.inboundCallScreening = inboundCallScreening;
-    return this;
-  }
-
-   /**
-   * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
-   * @return inboundCallScreening
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.")
-  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public InboundCallScreeningEnum getInboundCallScreening() {
-    return inboundCallScreening;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInboundCallScreening(InboundCallScreeningEnum inboundCallScreening) {
-    this.inboundCallScreening = inboundCallScreening;
-  }
-
-
-  /**
-   * Return true if this UpdatePhoneNumberVoiceSettingsRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest = (UpdatePhoneNumberVoiceSettingsRequest) o;
-    return Objects.equals(this.techPrefixEnabled, updatePhoneNumberVoiceSettingsRequest.techPrefixEnabled) &&
-        Objects.equals(this.translatedNumber, updatePhoneNumberVoiceSettingsRequest.translatedNumber) &&
-        Objects.equals(this.callerIdNameEnabled, updatePhoneNumberVoiceSettingsRequest.callerIdNameEnabled) &&
-        Objects.equals(this.callForwarding, updatePhoneNumberVoiceSettingsRequest.callForwarding) &&
-        Objects.equals(this.cnamListing, updatePhoneNumberVoiceSettingsRequest.cnamListing) &&
-        Objects.equals(this.usagePaymentMethod, updatePhoneNumberVoiceSettingsRequest.usagePaymentMethod) &&
-        Objects.equals(this.mediaFeatures, updatePhoneNumberVoiceSettingsRequest.mediaFeatures) &&
-        Objects.equals(this.callRecording, updatePhoneNumberVoiceSettingsRequest.callRecording) &&
-        Objects.equals(this.inboundCallScreening, updatePhoneNumberVoiceSettingsRequest.inboundCallScreening);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(techPrefixEnabled, translatedNumber, callerIdNameEnabled, callForwarding, cnamListing, usagePaymentMethod, mediaFeatures, callRecording, inboundCallScreening);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdatePhoneNumberVoiceSettingsRequest {\n");
-    sb.append("    techPrefixEnabled: ").append(toIndentedString(techPrefixEnabled)).append("\n");
-    sb.append("    translatedNumber: ").append(toIndentedString(translatedNumber)).append("\n");
-    sb.append("    callerIdNameEnabled: ").append(toIndentedString(callerIdNameEnabled)).append("\n");
-    sb.append("    callForwarding: ").append(toIndentedString(callForwarding)).append("\n");
-    sb.append("    cnamListing: ").append(toIndentedString(cnamListing)).append("\n");
-    sb.append("    usagePaymentMethod: ").append(toIndentedString(usagePaymentMethod)).append("\n");
-    sb.append("    mediaFeatures: ").append(toIndentedString(mediaFeatures)).append("\n");
-    sb.append("    callRecording: ").append(toIndentedString(callRecording)).append("\n");
-    sb.append("    inboundCallScreening: ").append(toIndentedString(inboundCallScreening)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

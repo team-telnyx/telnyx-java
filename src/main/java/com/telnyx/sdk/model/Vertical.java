@@ -10,85 +10,80 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Vertical or industry segment of the brand or campaign.
  */
 public enum Vertical {
-  
-  REAL_ESTATE("REAL_ESTATE"),
-  
-  HEALTHCARE("HEALTHCARE"),
-  
-  ENERGY("ENERGY"),
-  
-  ENTERTAINMENT("ENTERTAINMENT"),
-  
-  RETAIL("RETAIL"),
-  
-  AGRICULTURE("AGRICULTURE"),
-  
-  INSURANCE("INSURANCE"),
-  
-  EDUCATION("EDUCATION"),
-  
-  HOSPITALITY("HOSPITALITY"),
-  
-  FINANCIAL("FINANCIAL"),
-  
-  GAMBLING("GAMBLING"),
-  
-  CONSTRUCTION("CONSTRUCTION"),
-  
-  NGO("NGO"),
-  
-  MANUFACTURING("MANUFACTURING"),
-  
-  GOVERNMENT("GOVERNMENT"),
-  
-  TECHNOLOGY("TECHNOLOGY"),
-  
-  COMMUNICATION("COMMUNICATION");
+    REAL_ESTATE("REAL_ESTATE"),
 
-  private String value;
+    HEALTHCARE("HEALTHCARE"),
 
-  Vertical(String value) {
-    this.value = value;
-  }
+    ENERGY("ENERGY"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    ENTERTAINMENT("ENTERTAINMENT"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    RETAIL("RETAIL"),
 
-  @JsonCreator
-  public static Vertical fromValue(String value) {
-    for (Vertical b : Vertical.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    AGRICULTURE("AGRICULTURE"),
+
+    INSURANCE("INSURANCE"),
+
+    EDUCATION("EDUCATION"),
+
+    HOSPITALITY("HOSPITALITY"),
+
+    FINANCIAL("FINANCIAL"),
+
+    GAMBLING("GAMBLING"),
+
+    CONSTRUCTION("CONSTRUCTION"),
+
+    NGO("NGO"),
+
+    MANUFACTURING("MANUFACTURING"),
+
+    GOVERNMENT("GOVERNMENT"),
+
+    TECHNOLOGY("TECHNOLOGY"),
+
+    COMMUNICATION("COMMUNICATION");
+
+    private String value;
+
+    Vertical(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static Vertical fromValue(String value) {
+        for (Vertical b : Vertical.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

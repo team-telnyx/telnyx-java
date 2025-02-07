@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,15 +18,13 @@ import com.telnyx.sdk.model.CreateOrUpdateBusinessIdentityRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListBusinessIdentitiesResponse;
 import com.telnyx.sdk.model.ShowBusinessIdentityResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for BusinessIdentityApi
@@ -70,7 +67,7 @@ public class BusinessIdentityApiTest {
     /**
      * Display the Business Identity
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -86,7 +83,7 @@ public class BusinessIdentityApiTest {
     /**
      * Lists the Business Identities owned by the current user/organization
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -117,5 +114,4 @@ public class BusinessIdentityApiTest {
         //api.updateBusinessIdentity(id, createOrUpdateBusinessIdentityRequest);
         // TODO: test validations
     }
-
 }

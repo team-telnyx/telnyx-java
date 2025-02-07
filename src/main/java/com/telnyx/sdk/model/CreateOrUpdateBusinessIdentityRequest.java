@@ -10,360 +10,414 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Address;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CreateOrUpdateBusinessIdentityRequest
  */
-@JsonPropertyOrder({
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_NAME,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_EMAIL,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_NAME,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_PHONE_NUMBER,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_DESCRIPTION,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_WEBSITE_URL,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_ADDRESS,
-  CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_CONTACTS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_NAME,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_EMAIL,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_NAME,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_PHONE_NUMBER,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_BUSINESS_DESCRIPTION,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_WEBSITE_URL,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_ADDRESS,
+        CreateOrUpdateBusinessIdentityRequest.JSON_PROPERTY_CONTACTS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class CreateOrUpdateBusinessIdentityRequest {
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
 
-  public static final String JSON_PROPERTY_BUSINESS_EMAIL = "business_email";
-  private String businessEmail = null;
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public static final String JSON_PROPERTY_BUSINESS_NAME = "business_name";
-  private String businessName = null;
+    public static final String JSON_PROPERTY_BUSINESS_EMAIL = "business_email";
+    private String businessEmail = null;
 
-  public static final String JSON_PROPERTY_BUSINESS_PHONE_NUMBER = "business_phone_number";
-  private String businessPhoneNumber = null;
+    public static final String JSON_PROPERTY_BUSINESS_NAME = "business_name";
+    private String businessName = null;
 
-  public static final String JSON_PROPERTY_BUSINESS_DESCRIPTION = "business_description";
-  private String businessDescription = null;
+    public static final String JSON_PROPERTY_BUSINESS_PHONE_NUMBER =
+        "business_phone_number";
+    private String businessPhoneNumber = null;
 
-  public static final String JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT = "submission_acknowledgement";
-  private String submissionAcknowledgement = null;
+    public static final String JSON_PROPERTY_BUSINESS_DESCRIPTION =
+        "business_description";
+    private String businessDescription = null;
 
-  public static final String JSON_PROPERTY_WEBSITE_URL = "website_url";
-  private String websiteUrl = null;
+    public static final String JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT =
+        "submission_acknowledgement";
+    private String submissionAcknowledgement = null;
 
-  public static final String JSON_PROPERTY_ADDRESS = "address";
-  private Address address = null;
+    public static final String JSON_PROPERTY_WEBSITE_URL = "website_url";
+    private String websiteUrl = null;
 
-  public static final String JSON_PROPERTY_CONTACTS = "contacts";
-  private String contacts = null;
+    public static final String JSON_PROPERTY_ADDRESS = "address";
+    private Address address = null;
 
-  public CreateOrUpdateBusinessIdentityRequest() { 
-  }
+    public static final String JSON_PROPERTY_CONTACTS = "contacts";
+    private String contacts = null;
 
-  public CreateOrUpdateBusinessIdentityRequest name(String name) {
-    this.name = name;
-    return this;
-  }
+    public CreateOrUpdateBusinessIdentityRequest() {}
 
-   /**
-   * The name associated with the authentication provider.
-   * @return name
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "Okta", required = true, value = "The name associated with the authentication provider.")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest businessEmail(String businessEmail) {
-    this.businessEmail = businessEmail;
-    return this;
-  }
-
-   /**
-   * Get businessEmail
-   * @return businessEmail
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BUSINESS_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBusinessEmail() {
-    return businessEmail;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BUSINESS_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessEmail(String businessEmail) {
-    this.businessEmail = businessEmail;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest businessName(String businessName) {
-    this.businessName = businessName;
-    return this;
-  }
-
-   /**
-   * Get businessName
-   * @return businessName
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBusinessName() {
-    return businessName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessName(String businessName) {
-    this.businessName = businessName;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest businessPhoneNumber(String businessPhoneNumber) {
-    this.businessPhoneNumber = businessPhoneNumber;
-    return this;
-  }
-
-   /**
-   * Get businessPhoneNumber
-   * @return businessPhoneNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BUSINESS_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBusinessPhoneNumber() {
-    return businessPhoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BUSINESS_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessPhoneNumber(String businessPhoneNumber) {
-    this.businessPhoneNumber = businessPhoneNumber;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest businessDescription(String businessDescription) {
-    this.businessDescription = businessDescription;
-    return this;
-  }
-
-   /**
-   * Get businessDescription
-   * @return businessDescription
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BUSINESS_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBusinessDescription() {
-    return businessDescription;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BUSINESS_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBusinessDescription(String businessDescription) {
-    this.businessDescription = businessDescription;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest submissionAcknowledgement(String submissionAcknowledgement) {
-    this.submissionAcknowledgement = submissionAcknowledgement;
-    return this;
-  }
-
-   /**
-   * Get submissionAcknowledgement
-   * @return submissionAcknowledgement
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSubmissionAcknowledgement() {
-    return submissionAcknowledgement;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSubmissionAcknowledgement(String submissionAcknowledgement) {
-    this.submissionAcknowledgement = submissionAcknowledgement;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest websiteUrl(String websiteUrl) {
-    this.websiteUrl = websiteUrl;
-    return this;
-  }
-
-   /**
-   * Get websiteUrl
-   * @return websiteUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_WEBSITE_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getWebsiteUrl() {
-    return websiteUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WEBSITE_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWebsiteUrl(String websiteUrl) {
-    this.websiteUrl = websiteUrl;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest address(Address address) {
-    this.address = address;
-    return this;
-  }
-
-   /**
-   * Get address
-   * @return address
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Address getAddress() {
-    return address;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAddress(Address address) {
-    this.address = address;
-  }
-
-
-  public CreateOrUpdateBusinessIdentityRequest contacts(String contacts) {
-    this.contacts = contacts;
-    return this;
-  }
-
-   /**
-   * Get contacts
-   * @return contacts
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CONTACTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getContacts() {
-    return contacts;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONTACTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setContacts(String contacts) {
-    this.contacts = contacts;
-  }
-
-
-  /**
-   * Return true if this CreateOrUpdateBusinessIdentityRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CreateOrUpdateBusinessIdentityRequest name(String name) {
+        this.name = name;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The name associated with the authentication provider.
+     * @return name
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "Okta",
+        required = true,
+        value = "The name associated with the authentication provider."
+    )
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getName() {
+        return name;
     }
-    CreateOrUpdateBusinessIdentityRequest createOrUpdateBusinessIdentityRequest = (CreateOrUpdateBusinessIdentityRequest) o;
-    return Objects.equals(this.name, createOrUpdateBusinessIdentityRequest.name) &&
-        Objects.equals(this.businessEmail, createOrUpdateBusinessIdentityRequest.businessEmail) &&
-        Objects.equals(this.businessName, createOrUpdateBusinessIdentityRequest.businessName) &&
-        Objects.equals(this.businessPhoneNumber, createOrUpdateBusinessIdentityRequest.businessPhoneNumber) &&
-        Objects.equals(this.businessDescription, createOrUpdateBusinessIdentityRequest.businessDescription) &&
-        Objects.equals(this.submissionAcknowledgement, createOrUpdateBusinessIdentityRequest.submissionAcknowledgement) &&
-        Objects.equals(this.websiteUrl, createOrUpdateBusinessIdentityRequest.websiteUrl) &&
-        Objects.equals(this.address, createOrUpdateBusinessIdentityRequest.address) &&
-        Objects.equals(this.contacts, createOrUpdateBusinessIdentityRequest.contacts);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, businessEmail, businessName, businessPhoneNumber, businessDescription, submissionAcknowledgement, websiteUrl, address, contacts);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateOrUpdateBusinessIdentityRequest {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    businessEmail: ").append(toIndentedString(businessEmail)).append("\n");
-    sb.append("    businessName: ").append(toIndentedString(businessName)).append("\n");
-    sb.append("    businessPhoneNumber: ").append(toIndentedString(businessPhoneNumber)).append("\n");
-    sb.append("    businessDescription: ").append(toIndentedString(businessDescription)).append("\n");
-    sb.append("    submissionAcknowledgement: ").append(toIndentedString(submissionAcknowledgement)).append("\n");
-    sb.append("    websiteUrl: ").append(toIndentedString(websiteUrl)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    contacts: ").append(toIndentedString(contacts)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setName(String name) {
+        this.name = name;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CreateOrUpdateBusinessIdentityRequest businessEmail(
+        String businessEmail
+    ) {
+        this.businessEmail = businessEmail;
+        return this;
+    }
+
+    /**
+     * Get businessEmail
+     * @return businessEmail
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_BUSINESS_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBusinessEmail() {
+        return businessEmail;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BUSINESS_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBusinessEmail(String businessEmail) {
+        this.businessEmail = businessEmail;
+    }
+
+    public CreateOrUpdateBusinessIdentityRequest businessName(
+        String businessName
+    ) {
+        this.businessName = businessName;
+        return this;
+    }
+
+    /**
+     * Get businessName
+     * @return businessName
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    public CreateOrUpdateBusinessIdentityRequest businessPhoneNumber(
+        String businessPhoneNumber
+    ) {
+        this.businessPhoneNumber = businessPhoneNumber;
+        return this;
+    }
+
+    /**
+     * Get businessPhoneNumber
+     * @return businessPhoneNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_BUSINESS_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBusinessPhoneNumber() {
+        return businessPhoneNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BUSINESS_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBusinessPhoneNumber(String businessPhoneNumber) {
+        this.businessPhoneNumber = businessPhoneNumber;
+    }
+
+    public CreateOrUpdateBusinessIdentityRequest businessDescription(
+        String businessDescription
+    ) {
+        this.businessDescription = businessDescription;
+        return this;
+    }
+
+    /**
+     * Get businessDescription
+     * @return businessDescription
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_BUSINESS_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBusinessDescription() {
+        return businessDescription;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BUSINESS_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBusinessDescription(String businessDescription) {
+        this.businessDescription = businessDescription;
+    }
+
+    public CreateOrUpdateBusinessIdentityRequest submissionAcknowledgement(
+        String submissionAcknowledgement
+    ) {
+        this.submissionAcknowledgement = submissionAcknowledgement;
+        return this;
+    }
+
+    /**
+     * Get submissionAcknowledgement
+     * @return submissionAcknowledgement
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSubmissionAcknowledgement() {
+        return submissionAcknowledgement;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUBMISSION_ACKNOWLEDGEMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSubmissionAcknowledgement(String submissionAcknowledgement) {
+        this.submissionAcknowledgement = submissionAcknowledgement;
+    }
+
+    public CreateOrUpdateBusinessIdentityRequest websiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+        return this;
+    }
+
+    /**
+     * Get websiteUrl
+     * @return websiteUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_WEBSITE_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_WEBSITE_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public CreateOrUpdateBusinessIdentityRequest address(Address address) {
+        this.address = address;
+        return this;
+    }
+
+    /**
+     * Get address
+     * @return address
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Address getAddress() {
+        return address;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public CreateOrUpdateBusinessIdentityRequest contacts(String contacts) {
+        this.contacts = contacts;
+        return this;
+    }
+
+    /**
+     * Get contacts
+     * @return contacts
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CONTACTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getContacts() {
+        return contacts;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONTACTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
+    /**
+     * Return true if this CreateOrUpdateBusinessIdentityRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateOrUpdateBusinessIdentityRequest createOrUpdateBusinessIdentityRequest =
+            (CreateOrUpdateBusinessIdentityRequest) o;
+        return (
+            Objects.equals(
+                this.name,
+                createOrUpdateBusinessIdentityRequest.name
+            ) &&
+            Objects.equals(
+                this.businessEmail,
+                createOrUpdateBusinessIdentityRequest.businessEmail
+            ) &&
+            Objects.equals(
+                this.businessName,
+                createOrUpdateBusinessIdentityRequest.businessName
+            ) &&
+            Objects.equals(
+                this.businessPhoneNumber,
+                createOrUpdateBusinessIdentityRequest.businessPhoneNumber
+            ) &&
+            Objects.equals(
+                this.businessDescription,
+                createOrUpdateBusinessIdentityRequest.businessDescription
+            ) &&
+            Objects.equals(
+                this.submissionAcknowledgement,
+                createOrUpdateBusinessIdentityRequest.submissionAcknowledgement
+            ) &&
+            Objects.equals(
+                this.websiteUrl,
+                createOrUpdateBusinessIdentityRequest.websiteUrl
+            ) &&
+            Objects.equals(
+                this.address,
+                createOrUpdateBusinessIdentityRequest.address
+            ) &&
+            Objects.equals(
+                this.contacts,
+                createOrUpdateBusinessIdentityRequest.contacts
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            name,
+            businessEmail,
+            businessName,
+            businessPhoneNumber,
+            businessDescription,
+            submissionAcknowledgement,
+            websiteUrl,
+            address,
+            contacts
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateOrUpdateBusinessIdentityRequest {\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb
+            .append("    businessEmail: ")
+            .append(toIndentedString(businessEmail))
+            .append("\n");
+        sb
+            .append("    businessName: ")
+            .append(toIndentedString(businessName))
+            .append("\n");
+        sb
+            .append("    businessPhoneNumber: ")
+            .append(toIndentedString(businessPhoneNumber))
+            .append("\n");
+        sb
+            .append("    businessDescription: ")
+            .append(toIndentedString(businessDescription))
+            .append("\n");
+        sb
+            .append("    submissionAcknowledgement: ")
+            .append(toIndentedString(submissionAcknowledgement))
+            .append("\n");
+        sb
+            .append("    websiteUrl: ")
+            .append(toIndentedString(websiteUrl))
+            .append("\n");
+        sb
+            .append("    address: ")
+            .append(toIndentedString(address))
+            .append("\n");
+        sb
+            .append("    contacts: ")
+            .append(toIndentedString(contacts))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

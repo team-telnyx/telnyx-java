@@ -10,139 +10,132 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.PortingOrder;
 import com.telnyx.sdk.model.ShowPortingOrderMeta;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ShowPortingOrder
  */
-@JsonPropertyOrder({
-  ShowPortingOrder.JSON_PROPERTY_DATA,
-  ShowPortingOrder.JSON_PROPERTY_META
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    { ShowPortingOrder.JSON_PROPERTY_DATA, ShowPortingOrder.JSON_PROPERTY_META }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class ShowPortingOrder {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private PortingOrder data;
 
-  public static final String JSON_PROPERTY_META = "meta";
-  private ShowPortingOrderMeta meta;
+    public static final String JSON_PROPERTY_DATA = "data";
+    private PortingOrder data;
 
-  public ShowPortingOrder() { 
-  }
+    public static final String JSON_PROPERTY_META = "meta";
+    private ShowPortingOrderMeta meta;
 
-  public ShowPortingOrder data(PortingOrder data) {
-    this.data = data;
-    return this;
-  }
+    public ShowPortingOrder() {}
 
-   /**
-   * Get data
-   * @return data
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PortingOrder getData() {
-    return data;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(PortingOrder data) {
-    this.data = data;
-  }
-
-
-  public ShowPortingOrder meta(ShowPortingOrderMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ShowPortingOrderMeta getMeta() {
-    return meta;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMeta(ShowPortingOrderMeta meta) {
-    this.meta = meta;
-  }
-
-
-  /**
-   * Return true if this Show_Porting_Order object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ShowPortingOrder data(PortingOrder data) {
+        this.data = data;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get data
+     * @return data
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PortingOrder getData() {
+        return data;
     }
-    ShowPortingOrder showPortingOrder = (ShowPortingOrder) o;
-    return Objects.equals(this.data, showPortingOrder.data) &&
-        Objects.equals(this.meta, showPortingOrder.meta);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(data, meta);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ShowPortingOrder {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setData(PortingOrder data) {
+        this.data = data;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public ShowPortingOrder meta(ShowPortingOrderMeta meta) {
+        this.meta = meta;
+        return this;
+    }
+
+    /**
+     * Get meta
+     * @return meta
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_META)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ShowPortingOrderMeta getMeta() {
+        return meta;
+    }
+
+    @JsonProperty(JSON_PROPERTY_META)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMeta(ShowPortingOrderMeta meta) {
+        this.meta = meta;
+    }
+
+    /**
+     * Return true if this Show_Porting_Order object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ShowPortingOrder showPortingOrder = (ShowPortingOrder) o;
+        return (
+            Objects.equals(this.data, showPortingOrder.data) &&
+            Objects.equals(this.meta, showPortingOrder.meta)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data, meta);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ShowPortingOrder {\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -1,13 +1,10 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreateGroupMMSMessageRequest;
 import com.telnyx.sdk.model.CreateLongCodeMessageRequest;
 import com.telnyx.sdk.model.CreateMessageRequest;
@@ -16,44 +13,48 @@ import com.telnyx.sdk.model.CreateShortCodeMessageRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetMessage200Response;
 import com.telnyx.sdk.model.MessageResponse;
-import java.util.UUID;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class MessagesApi {
-  private ApiClient apiClient;
 
-  public MessagesApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public MessagesApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public MessagesApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public MessagesApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Send a group MMS message
    * 
    * @param createGroupMMSMessageRequest Message payload (optional)
@@ -66,11 +67,15 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public MessageResponse createGroupMmsMessage(CreateGroupMMSMessageRequest createGroupMMSMessageRequest) throws ApiException {
-    return createGroupMmsMessageWithHttpInfo(createGroupMMSMessageRequest).getData();
-  }
+    public MessageResponse createGroupMmsMessage(
+        CreateGroupMMSMessageRequest createGroupMMSMessageRequest
+    ) throws ApiException {
+        return createGroupMmsMessageWithHttpInfo(
+            createGroupMMSMessageRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Send a group MMS message
    * 
    * @param createGroupMMSMessageRequest Message payload (optional)
@@ -83,41 +88,60 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MessageResponse> createGroupMmsMessageWithHttpInfo(CreateGroupMMSMessageRequest createGroupMMSMessageRequest) throws ApiException {
-    Object localVarPostBody = createGroupMMSMessageRequest;
-    
-    // create path and map variables
-    String localVarPath = "/messages/group_mms";
+    public ApiResponse<MessageResponse> createGroupMmsMessageWithHttpInfo(
+        CreateGroupMMSMessageRequest createGroupMMSMessageRequest
+    ) throws ApiException {
+        Object localVarPostBody = createGroupMMSMessageRequest;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/messages/group_mms";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<MessageResponse> localVarReturnType = new GenericType<MessageResponse>() {};
+        GenericType<MessageResponse> localVarReturnType = new GenericType<
+            MessageResponse
+        >() {};
 
-    return apiClient.invokeAPI("MessagesApi.createGroupMmsMessage", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        return apiClient.invokeAPI(
+            "MessagesApi.createGroupMmsMessage",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Send a long code message
    * 
    * @param createLongCodeMessageRequest Message payload (optional)
@@ -130,11 +154,15 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public MessageResponse createLongCodeMessage(CreateLongCodeMessageRequest createLongCodeMessageRequest) throws ApiException {
-    return createLongCodeMessageWithHttpInfo(createLongCodeMessageRequest).getData();
-  }
+    public MessageResponse createLongCodeMessage(
+        CreateLongCodeMessageRequest createLongCodeMessageRequest
+    ) throws ApiException {
+        return createLongCodeMessageWithHttpInfo(
+            createLongCodeMessageRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Send a long code message
    * 
    * @param createLongCodeMessageRequest Message payload (optional)
@@ -147,41 +175,60 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MessageResponse> createLongCodeMessageWithHttpInfo(CreateLongCodeMessageRequest createLongCodeMessageRequest) throws ApiException {
-    Object localVarPostBody = createLongCodeMessageRequest;
-    
-    // create path and map variables
-    String localVarPath = "/messages/long_code";
+    public ApiResponse<MessageResponse> createLongCodeMessageWithHttpInfo(
+        CreateLongCodeMessageRequest createLongCodeMessageRequest
+    ) throws ApiException {
+        Object localVarPostBody = createLongCodeMessageRequest;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/messages/long_code";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<MessageResponse> localVarReturnType = new GenericType<MessageResponse>() {};
+        GenericType<MessageResponse> localVarReturnType = new GenericType<
+            MessageResponse
+        >() {};
 
-    return apiClient.invokeAPI("MessagesApi.createLongCodeMessage", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        return apiClient.invokeAPI(
+            "MessagesApi.createLongCodeMessage",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Send a message using number pool
    * 
    * @param createNumberPoolMessageRequest Message payload (optional)
@@ -194,11 +241,15 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public MessageResponse createNumberPoolMessage(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) throws ApiException {
-    return createNumberPoolMessageWithHttpInfo(createNumberPoolMessageRequest).getData();
-  }
+    public MessageResponse createNumberPoolMessage(
+        CreateNumberPoolMessageRequest createNumberPoolMessageRequest
+    ) throws ApiException {
+        return createNumberPoolMessageWithHttpInfo(
+            createNumberPoolMessageRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Send a message using number pool
    * 
    * @param createNumberPoolMessageRequest Message payload (optional)
@@ -211,41 +262,60 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MessageResponse> createNumberPoolMessageWithHttpInfo(CreateNumberPoolMessageRequest createNumberPoolMessageRequest) throws ApiException {
-    Object localVarPostBody = createNumberPoolMessageRequest;
-    
-    // create path and map variables
-    String localVarPath = "/messages/number_pool";
+    public ApiResponse<MessageResponse> createNumberPoolMessageWithHttpInfo(
+        CreateNumberPoolMessageRequest createNumberPoolMessageRequest
+    ) throws ApiException {
+        Object localVarPostBody = createNumberPoolMessageRequest;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/messages/number_pool";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<MessageResponse> localVarReturnType = new GenericType<MessageResponse>() {};
+        GenericType<MessageResponse> localVarReturnType = new GenericType<
+            MessageResponse
+        >() {};
 
-    return apiClient.invokeAPI("MessagesApi.createNumberPoolMessage", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        return apiClient.invokeAPI(
+            "MessagesApi.createNumberPoolMessage",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Send a short code message
    * 
    * @param createShortCodeMessageRequest Message payload (optional)
@@ -258,11 +328,15 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public MessageResponse createShortCodeMessage(CreateShortCodeMessageRequest createShortCodeMessageRequest) throws ApiException {
-    return createShortCodeMessageWithHttpInfo(createShortCodeMessageRequest).getData();
-  }
+    public MessageResponse createShortCodeMessage(
+        CreateShortCodeMessageRequest createShortCodeMessageRequest
+    ) throws ApiException {
+        return createShortCodeMessageWithHttpInfo(
+            createShortCodeMessageRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Send a short code message
    * 
    * @param createShortCodeMessageRequest Message payload (optional)
@@ -275,41 +349,60 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MessageResponse> createShortCodeMessageWithHttpInfo(CreateShortCodeMessageRequest createShortCodeMessageRequest) throws ApiException {
-    Object localVarPostBody = createShortCodeMessageRequest;
-    
-    // create path and map variables
-    String localVarPath = "/messages/short_code";
+    public ApiResponse<MessageResponse> createShortCodeMessageWithHttpInfo(
+        CreateShortCodeMessageRequest createShortCodeMessageRequest
+    ) throws ApiException {
+        Object localVarPostBody = createShortCodeMessageRequest;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/messages/short_code";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<MessageResponse> localVarReturnType = new GenericType<MessageResponse>() {};
+        GenericType<MessageResponse> localVarReturnType = new GenericType<
+            MessageResponse
+        >() {};
 
-    return apiClient.invokeAPI("MessagesApi.createShortCodeMessage", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        return apiClient.invokeAPI(
+            "MessagesApi.createShortCodeMessage",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Retrieve a message
    * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/api/v1/mission-control/add-mdr-request)
    * @param id The id of the message (required)
@@ -322,11 +415,11 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetMessage200Response getMessage(UUID id) throws ApiException {
-    return getMessageWithHttpInfo(id).getData();
-  }
+    public GetMessage200Response getMessage(UUID id) throws ApiException {
+        return getMessageWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a message
    * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/api/v1/mission-control/add-mdr-request)
    * @param id The id of the message (required)
@@ -339,47 +432,71 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetMessage200Response> getMessageWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getMessage");
+    public ApiResponse<GetMessage200Response> getMessageWithHttpInfo(UUID id)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getMessage"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/messages/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetMessage200Response> localVarReturnType = new GenericType<
+            GetMessage200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "MessagesApi.getMessage",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/messages/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetMessage200Response> localVarReturnType = new GenericType<GetMessage200Response>() {};
-
-    return apiClient.invokeAPI("MessagesApi.getMessage", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Send a message
    * Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.  This endpoint allows you to send a message with any messaging resource. Current messaging resources include: long-code, short-code, number-pool, and alphanumeric-sender-id. 
    * @param createMessageRequest Message payload (optional)
@@ -392,11 +509,13 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public MessageResponse sendMessage(CreateMessageRequest createMessageRequest) throws ApiException {
-    return sendMessageWithHttpInfo(createMessageRequest).getData();
-  }
+    public MessageResponse sendMessage(
+        CreateMessageRequest createMessageRequest
+    ) throws ApiException {
+        return sendMessageWithHttpInfo(createMessageRequest).getData();
+    }
 
-  /**
+    /**
    * Send a message
    * Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.  This endpoint allows you to send a message with any messaging resource. Current messaging resources include: long-code, short-code, number-pool, and alphanumeric-sender-id. 
    * @param createMessageRequest Message payload (optional)
@@ -409,38 +528,56 @@ public class MessagesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MessageResponse> sendMessageWithHttpInfo(CreateMessageRequest createMessageRequest) throws ApiException {
-    Object localVarPostBody = createMessageRequest;
-    
-    // create path and map variables
-    String localVarPath = "/messages";
+    public ApiResponse<MessageResponse> sendMessageWithHttpInfo(
+        CreateMessageRequest createMessageRequest
+    ) throws ApiException {
+        Object localVarPostBody = createMessageRequest;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/messages";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<MessageResponse> localVarReturnType = new GenericType<MessageResponse>() {};
+        GenericType<MessageResponse> localVarReturnType = new GenericType<
+            MessageResponse
+        >() {};
 
-    return apiClient.invokeAPI("MessagesApi.sendMessage", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
+        return apiClient.invokeAPI(
+            "MessagesApi.sendMessage",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
 }

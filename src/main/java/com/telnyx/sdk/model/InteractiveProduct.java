@@ -10,105 +10,108 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * InteractiveProduct
  */
-@JsonPropertyOrder({
-  InteractiveProduct.JSON_PROPERTY_PRODUCT_RETAILER_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder({ InteractiveProduct.JSON_PROPERTY_PRODUCT_RETAILER_ID })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class InteractiveProduct {
-  public static final String JSON_PROPERTY_PRODUCT_RETAILER_ID = "product_retailer_id";
-  private String productRetailerId;
 
-  public InteractiveProduct() { 
-  }
+    public static final String JSON_PROPERTY_PRODUCT_RETAILER_ID =
+        "product_retailer_id";
+    private String productRetailerId;
 
-  public InteractiveProduct productRetailerId(String productRetailerId) {
-    this.productRetailerId = productRetailerId;
-    return this;
-  }
+    public InteractiveProduct() {}
 
-   /**
-   * Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog &gt; Items, and find the item you want to mention. The ID for that item is displayed under the item&#39;s name.
-   * @return productRetailerId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog > Items, and find the item you want to mention. The ID for that item is displayed under the item's name.")
-  @JsonProperty(JSON_PROPERTY_PRODUCT_RETAILER_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getProductRetailerId() {
-    return productRetailerId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRODUCT_RETAILER_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setProductRetailerId(String productRetailerId) {
-    this.productRetailerId = productRetailerId;
-  }
-
-
-  /**
-   * Return true if this InteractiveProduct object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public InteractiveProduct productRetailerId(String productRetailerId) {
+        this.productRetailerId = productRetailerId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog &gt; Items, and find the item you want to mention. The ID for that item is displayed under the item&#39;s name.
+     * @return productRetailerId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Unique identifier of the product in a catalog. To get this ID, go to Commerce Manager, select your Facebook Business account, and you will see a list of shops connected to your account. Click the shop you want to use. On the left-side panel, click Catalog > Items, and find the item you want to mention. The ID for that item is displayed under the item's name."
+    )
+    @JsonProperty(JSON_PROPERTY_PRODUCT_RETAILER_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getProductRetailerId() {
+        return productRetailerId;
     }
-    InteractiveProduct interactiveProduct = (InteractiveProduct) o;
-    return Objects.equals(this.productRetailerId, interactiveProduct.productRetailerId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(productRetailerId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class InteractiveProduct {\n");
-    sb.append("    productRetailerId: ").append(toIndentedString(productRetailerId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PRODUCT_RETAILER_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setProductRetailerId(String productRetailerId) {
+        this.productRetailerId = productRetailerId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this InteractiveProduct object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        InteractiveProduct interactiveProduct = (InteractiveProduct) o;
+        return Objects.equals(
+            this.productRetailerId,
+            interactiveProduct.productRetailerId
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productRetailerId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class InteractiveProduct {\n");
+        sb
+            .append("    productRetailerId: ")
+            .append(toIndentedString(productRetailerId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

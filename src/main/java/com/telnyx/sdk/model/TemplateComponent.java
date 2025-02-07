@@ -10,149 +10,150 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.TemplateComponentType;
 import com.telnyx.sdk.model.TemplateParameters;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * TemplateComponent
  */
-@JsonPropertyOrder({
-  TemplateComponent.JSON_PROPERTY_TYPE,
-  TemplateComponent.JSON_PROPERTY_PARAMETERS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        TemplateComponent.JSON_PROPERTY_TYPE,
+        TemplateComponent.JSON_PROPERTY_PARAMETERS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class TemplateComponent {
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private TemplateComponentType type;
 
-  public static final String JSON_PROPERTY_PARAMETERS = "parameters";
-  private List<TemplateParameters> parameters = null;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private TemplateComponentType type;
 
-  public TemplateComponent() { 
-  }
+    public static final String JSON_PROPERTY_PARAMETERS = "parameters";
+    private List<TemplateParameters> parameters = null;
 
-  public TemplateComponent type(TemplateComponentType type) {
-    this.type = type;
-    return this;
-  }
+    public TemplateComponent() {}
 
-   /**
-   * Describes the component type.
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(required = true, value = "Describes the component type.")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public TemplateComponentType getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(TemplateComponentType type) {
-    this.type = type;
-  }
-
-
-  public TemplateComponent parameters(List<TemplateParameters> parameters) {
-    this.parameters = parameters;
-    return this;
-  }
-
-  public TemplateComponent addParametersItem(TemplateParameters parametersItem) {
-    if (this.parameters == null) {
-      this.parameters = new ArrayList<>();
+    public TemplateComponent type(TemplateComponentType type) {
+        this.type = type;
+        return this;
     }
-    this.parameters.add(parametersItem);
-    return this;
-  }
 
-   /**
-   * Get parameters
-   * @return parameters
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PARAMETERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<TemplateParameters> getParameters() {
-    return parameters;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PARAMETERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParameters(List<TemplateParameters> parameters) {
-    this.parameters = parameters;
-  }
-
-
-  /**
-   * Return true if this TemplateComponent object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Describes the component type.
+     * @return type
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(required = true, value = "Describes the component type.")
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TemplateComponentType getType() {
+        return type;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setType(TemplateComponentType type) {
+        this.type = type;
     }
-    TemplateComponent templateComponent = (TemplateComponent) o;
-    return Objects.equals(this.type, templateComponent.type) &&
-        Objects.equals(this.parameters, templateComponent.parameters);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, parameters);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TemplateComponent {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    parameters: ").append(toIndentedString(parameters)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public TemplateComponent parameters(List<TemplateParameters> parameters) {
+        this.parameters = parameters;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public TemplateComponent addParametersItem(
+        TemplateParameters parametersItem
+    ) {
+        if (this.parameters == null) {
+            this.parameters = new ArrayList<>();
+        }
+        this.parameters.add(parametersItem);
+        return this;
+    }
+
+    /**
+     * Get parameters
+     * @return parameters
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_PARAMETERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<TemplateParameters> getParameters() {
+        return parameters;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PARAMETERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setParameters(List<TemplateParameters> parameters) {
+        this.parameters = parameters;
+    }
+
+    /**
+     * Return true if this TemplateComponent object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TemplateComponent templateComponent = (TemplateComponent) o;
+        return (
+            Objects.equals(this.type, templateComponent.type) &&
+            Objects.equals(this.parameters, templateComponent.parameters)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, parameters);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TemplateComponent {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb
+            .append("    parameters: ")
+            .append(toIndentedString(parameters))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,346 +10,346 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Currency;
 import com.telnyx.sdk.model.DateTimeObject;
 import com.telnyx.sdk.model.Document;
 import com.telnyx.sdk.model.Image;
 import com.telnyx.sdk.model.Video;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Array containing the content of the message.
  */
 @ApiModel(description = "Array containing the content of the message.")
-@JsonPropertyOrder({
-  TemplateParameters.JSON_PROPERTY_TYPE,
-  TemplateParameters.JSON_PROPERTY_TEXT,
-  TemplateParameters.JSON_PROPERTY_CURRENCY,
-  TemplateParameters.JSON_PROPERTY_DATE_TIME,
-  TemplateParameters.JSON_PROPERTY_IMAGE,
-  TemplateParameters.JSON_PROPERTY_DOCUMENT,
-  TemplateParameters.JSON_PROPERTY_VIDEO
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        TemplateParameters.JSON_PROPERTY_TYPE,
+        TemplateParameters.JSON_PROPERTY_TEXT,
+        TemplateParameters.JSON_PROPERTY_CURRENCY,
+        TemplateParameters.JSON_PROPERTY_DATE_TIME,
+        TemplateParameters.JSON_PROPERTY_IMAGE,
+        TemplateParameters.JSON_PROPERTY_DOCUMENT,
+        TemplateParameters.JSON_PROPERTY_VIDEO,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class TemplateParameters {
-  /**
-   * Describes the parameter type.
-   */
-  public enum TypeEnum {
-    TEXT("text"),
-    
-    CURRENCY("currency"),
-    
-    DATE_TIME("date_time"),
-    
-    IMAGE("image"),
-    
-    DOCUMENT("document"),
-    
-    VIDEO("video");
 
-    private String value;
+    /**
+     * Describes the parameter type.
+     */
+    public enum TypeEnum {
+        TEXT("text"),
 
-    TypeEnum(String value) {
-      this.value = value;
+        CURRENCY("currency"),
+
+        DATE_TIME("date_time"),
+
+        IMAGE("image"),
+
+        DOCUMENT("document"),
+
+        VIDEO("video");
+
+        private String value;
+
+        TypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TypeEnum fromValue(String value) {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private TypeEnum type;
+
+    public static final String JSON_PROPERTY_TEXT = "text";
+    private String text;
+
+    public static final String JSON_PROPERTY_CURRENCY = "currency";
+    private Currency currency;
+
+    public static final String JSON_PROPERTY_DATE_TIME = "date_time";
+    private DateTimeObject dateTime;
+
+    public static final String JSON_PROPERTY_IMAGE = "image";
+    private Image image;
+
+    public static final String JSON_PROPERTY_DOCUMENT = "document";
+    private Document document;
+
+    public static final String JSON_PROPERTY_VIDEO = "video";
+    private Video video;
+
+    public TemplateParameters() {}
+
+    public TemplateParameters type(TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Describes the parameter type.
+     * @return type
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "Describes the parameter type.")
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TypeEnum getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setType(TypeEnum type) {
+        this.type = type;
+    }
+
+    public TemplateParameters text(String text) {
+        this.text = text;
+        return this;
+    }
+
+    /**
+     * Get text
+     * @return text
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getText() {
+        return text;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public TemplateParameters currency(Currency currency) {
+        this.currency = currency;
+        return this;
+    }
+
+    /**
+     * Get currency
+     * @return currency
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public TemplateParameters dateTime(DateTimeObject dateTime) {
+        this.dateTime = dateTime;
+        return this;
+    }
+
+    /**
+     * Get dateTime
+     * @return dateTime
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DATE_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DateTimeObject getDateTime() {
+        return dateTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DATE_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDateTime(DateTimeObject dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public TemplateParameters image(Image image) {
+        this.image = image;
+        return this;
+    }
+
+    /**
+     * Get image
+     * @return image
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_IMAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Image getImage() {
+        return image;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IMAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public TemplateParameters document(Document document) {
+        this.document = document;
+        return this;
+    }
+
+    /**
+     * Get document
+     * @return document
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DOCUMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Document getDocument() {
+        return document;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DOCUMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public TemplateParameters video(Video video) {
+        this.video = video;
+        return this;
+    }
+
+    /**
+     * Get video
+     * @return video
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_VIDEO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Video getVideo() {
+        return video;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VIDEO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVideo(Video video) {
+        this.video = video;
+    }
+
+    /**
+     * Return true if this Template_Parameters object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TemplateParameters templateParameters = (TemplateParameters) o;
+        return (
+            Objects.equals(this.type, templateParameters.type) &&
+            Objects.equals(this.text, templateParameters.text) &&
+            Objects.equals(this.currency, templateParameters.currency) &&
+            Objects.equals(this.dateTime, templateParameters.dateTime) &&
+            Objects.equals(this.image, templateParameters.image) &&
+            Objects.equals(this.document, templateParameters.document) &&
+            Objects.equals(this.video, templateParameters.video)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            type,
+            text,
+            currency,
+            dateTime,
+            image,
+            document,
+            video
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TemplateParameters {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    text: ").append(toIndentedString(text)).append("\n");
+        sb
+            .append("    currency: ")
+            .append(toIndentedString(currency))
+            .append("\n");
+        sb
+            .append("    dateTime: ")
+            .append(toIndentedString(dateTime))
+            .append("\n");
+        sb.append("    image: ").append(toIndentedString(image)).append("\n");
+        sb
+            .append("    document: ")
+            .append(toIndentedString(document))
+            .append("\n");
+        sb.append("    video: ").append(toIndentedString(video)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private TypeEnum type;
-
-  public static final String JSON_PROPERTY_TEXT = "text";
-  private String text;
-
-  public static final String JSON_PROPERTY_CURRENCY = "currency";
-  private Currency currency;
-
-  public static final String JSON_PROPERTY_DATE_TIME = "date_time";
-  private DateTimeObject dateTime;
-
-  public static final String JSON_PROPERTY_IMAGE = "image";
-  private Image image;
-
-  public static final String JSON_PROPERTY_DOCUMENT = "document";
-  private Document document;
-
-  public static final String JSON_PROPERTY_VIDEO = "video";
-  private Video video;
-
-  public TemplateParameters() { 
-  }
-
-  public TemplateParameters type(TypeEnum type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Describes the parameter type.
-   * @return type
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Describes the parameter type.")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(TypeEnum type) {
-    this.type = type;
-  }
-
-
-  public TemplateParameters text(String text) {
-    this.text = text;
-    return this;
-  }
-
-   /**
-   * Get text
-   * @return text
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getText() {
-    return text;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setText(String text) {
-    this.text = text;
-  }
-
-
-  public TemplateParameters currency(Currency currency) {
-    this.currency = currency;
-    return this;
-  }
-
-   /**
-   * Get currency
-   * @return currency
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Currency getCurrency() {
-    return currency;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrency(Currency currency) {
-    this.currency = currency;
-  }
-
-
-  public TemplateParameters dateTime(DateTimeObject dateTime) {
-    this.dateTime = dateTime;
-    return this;
-  }
-
-   /**
-   * Get dateTime
-   * @return dateTime
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DateTimeObject getDateTime() {
-    return dateTime;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDateTime(DateTimeObject dateTime) {
-    this.dateTime = dateTime;
-  }
-
-
-  public TemplateParameters image(Image image) {
-    this.image = image;
-    return this;
-  }
-
-   /**
-   * Get image
-   * @return image
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_IMAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Image getImage() {
-    return image;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IMAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setImage(Image image) {
-    this.image = image;
-  }
-
-
-  public TemplateParameters document(Document document) {
-    this.document = document;
-    return this;
-  }
-
-   /**
-   * Get document
-   * @return document
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DOCUMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Document getDocument() {
-    return document;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DOCUMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDocument(Document document) {
-    this.document = document;
-  }
-
-
-  public TemplateParameters video(Video video) {
-    this.video = video;
-    return this;
-  }
-
-   /**
-   * Get video
-   * @return video
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_VIDEO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Video getVideo() {
-    return video;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VIDEO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVideo(Video video) {
-    this.video = video;
-  }
-
-
-  /**
-   * Return true if this Template_Parameters object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TemplateParameters templateParameters = (TemplateParameters) o;
-    return Objects.equals(this.type, templateParameters.type) &&
-        Objects.equals(this.text, templateParameters.text) &&
-        Objects.equals(this.currency, templateParameters.currency) &&
-        Objects.equals(this.dateTime, templateParameters.dateTime) &&
-        Objects.equals(this.image, templateParameters.image) &&
-        Objects.equals(this.document, templateParameters.document) &&
-        Objects.equals(this.video, templateParameters.video);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, text, currency, dateTime, image, document, video);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TemplateParameters {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    text: ").append(toIndentedString(text)).append("\n");
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");
-    sb.append("    image: ").append(toIndentedString(image)).append("\n");
-    sb.append("    document: ").append(toIndentedString(document)).append("\n");
-    sb.append("    video: ").append(toIndentedString(video)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

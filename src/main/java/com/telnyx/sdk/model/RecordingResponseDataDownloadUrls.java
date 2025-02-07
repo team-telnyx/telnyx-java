@@ -10,137 +10,135 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The links to download the recording files.
  */
 @ApiModel(description = "The links to download the recording files.")
-@JsonPropertyOrder({
-  RecordingResponseDataDownloadUrls.JSON_PROPERTY_MP3,
-  RecordingResponseDataDownloadUrls.JSON_PROPERTY_WAV
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        RecordingResponseDataDownloadUrls.JSON_PROPERTY_MP3,
+        RecordingResponseDataDownloadUrls.JSON_PROPERTY_WAV,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RecordingResponseDataDownloadUrls {
-  public static final String JSON_PROPERTY_MP3 = "mp3";
-  private String mp3;
 
-  public static final String JSON_PROPERTY_WAV = "wav";
-  private String wav;
+    public static final String JSON_PROPERTY_MP3 = "mp3";
+    private String mp3;
 
-  public RecordingResponseDataDownloadUrls() { 
-  }
+    public static final String JSON_PROPERTY_WAV = "wav";
+    private String wav;
 
-  public RecordingResponseDataDownloadUrls mp3(String mp3) {
-    this.mp3 = mp3;
-    return this;
-  }
+    public RecordingResponseDataDownloadUrls() {}
 
-   /**
-   * Link to download the recording in mp3 format.
-   * @return mp3
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Link to download the recording in mp3 format.")
-  @JsonProperty(JSON_PROPERTY_MP3)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMp3() {
-    return mp3;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MP3)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMp3(String mp3) {
-    this.mp3 = mp3;
-  }
-
-
-  public RecordingResponseDataDownloadUrls wav(String wav) {
-    this.wav = wav;
-    return this;
-  }
-
-   /**
-   * Link to download the recording in wav format.
-   * @return wav
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Link to download the recording in wav format.")
-  @JsonProperty(JSON_PROPERTY_WAV)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getWav() {
-    return wav;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WAV)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWav(String wav) {
-    this.wav = wav;
-  }
-
-
-  /**
-   * Return true if this RecordingResponseData_download_urls object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RecordingResponseDataDownloadUrls mp3(String mp3) {
+        this.mp3 = mp3;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Link to download the recording in mp3 format.
+     * @return mp3
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Link to download the recording in mp3 format.")
+    @JsonProperty(JSON_PROPERTY_MP3)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMp3() {
+        return mp3;
     }
-    RecordingResponseDataDownloadUrls recordingResponseDataDownloadUrls = (RecordingResponseDataDownloadUrls) o;
-    return Objects.equals(this.mp3, recordingResponseDataDownloadUrls.mp3) &&
-        Objects.equals(this.wav, recordingResponseDataDownloadUrls.wav);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(mp3, wav);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RecordingResponseDataDownloadUrls {\n");
-    sb.append("    mp3: ").append(toIndentedString(mp3)).append("\n");
-    sb.append("    wav: ").append(toIndentedString(wav)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_MP3)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMp3(String mp3) {
+        this.mp3 = mp3;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public RecordingResponseDataDownloadUrls wav(String wav) {
+        this.wav = wav;
+        return this;
+    }
+
+    /**
+     * Link to download the recording in wav format.
+     * @return wav
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Link to download the recording in wav format.")
+    @JsonProperty(JSON_PROPERTY_WAV)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getWav() {
+        return wav;
+    }
+
+    @JsonProperty(JSON_PROPERTY_WAV)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWav(String wav) {
+        this.wav = wav;
+    }
+
+    /**
+     * Return true if this RecordingResponseData_download_urls object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RecordingResponseDataDownloadUrls recordingResponseDataDownloadUrls =
+            (RecordingResponseDataDownloadUrls) o;
+        return (
+            Objects.equals(this.mp3, recordingResponseDataDownloadUrls.mp3) &&
+            Objects.equals(this.wav, recordingResponseDataDownloadUrls.wav)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mp3, wav);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RecordingResponseDataDownloadUrls {\n");
+        sb.append("    mp3: ").append(toIndentedString(mp3)).append("\n");
+        sb.append("    wav: ").append(toIndentedString(wav)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

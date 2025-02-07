@@ -10,137 +10,154 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The contact information of the company.
  */
 @ApiModel(description = "The contact information of the company.")
-@JsonPropertyOrder({
-  PreviewLoaConfigurationParamsRequestContact.JSON_PROPERTY_EMAIL,
-  PreviewLoaConfigurationParamsRequestContact.JSON_PROPERTY_PHONE_NUMBER
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        PreviewLoaConfigurationParamsRequestContact.JSON_PROPERTY_EMAIL,
+        PreviewLoaConfigurationParamsRequestContact.JSON_PROPERTY_PHONE_NUMBER,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PreviewLoaConfigurationParamsRequestContact {
-  public static final String JSON_PROPERTY_EMAIL = "email";
-  private String email;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
+    public static final String JSON_PROPERTY_EMAIL = "email";
+    private String email;
 
-  public PreviewLoaConfigurationParamsRequestContact() { 
-  }
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public PreviewLoaConfigurationParamsRequestContact email(String email) {
-    this.email = email;
-    return this;
-  }
+    public PreviewLoaConfigurationParamsRequestContact() {}
 
-   /**
-   * The email address of the contact
-   * @return email
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "testing@telnyx.com", required = true, value = "The email address of the contact")
-  @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getEmail() {
-    return email;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-
-  public PreviewLoaConfigurationParamsRequestContact phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * The phone number of the contact
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+12003270001", required = true, value = "The phone number of the contact")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  /**
-   * Return true if this PreviewLoaConfigurationParams_request_contact object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PreviewLoaConfigurationParamsRequestContact email(String email) {
+        this.email = email;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The email address of the contact
+     * @return email
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "testing@telnyx.com",
+        required = true,
+        value = "The email address of the contact"
+    )
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getEmail() {
+        return email;
     }
-    PreviewLoaConfigurationParamsRequestContact previewLoaConfigurationParamsRequestContact = (PreviewLoaConfigurationParamsRequestContact) o;
-    return Objects.equals(this.email, previewLoaConfigurationParamsRequestContact.email) &&
-        Objects.equals(this.phoneNumber, previewLoaConfigurationParamsRequestContact.phoneNumber);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(email, phoneNumber);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PreviewLoaConfigurationParamsRequestContact {\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEmail(String email) {
+        this.email = email;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public PreviewLoaConfigurationParamsRequestContact phoneNumber(
+        String phoneNumber
+    ) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * The phone number of the contact
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+12003270001",
+        required = true,
+        value = "The phone number of the contact"
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Return true if this PreviewLoaConfigurationParams_request_contact object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PreviewLoaConfigurationParamsRequestContact previewLoaConfigurationParamsRequestContact =
+            (PreviewLoaConfigurationParamsRequestContact) o;
+        return (
+            Objects.equals(
+                this.email,
+                previewLoaConfigurationParamsRequestContact.email
+            ) &&
+            Objects.equals(
+                this.phoneNumber,
+                previewLoaConfigurationParamsRequestContact.phoneNumber
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, phoneNumber);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PreviewLoaConfigurationParamsRequestContact {\n");
+        sb.append("    email: ").append(toIndentedString(email)).append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

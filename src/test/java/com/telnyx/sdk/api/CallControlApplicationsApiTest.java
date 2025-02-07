@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,22 +18,21 @@ import com.telnyx.sdk.model.CallControlApplicationResponse;
 import com.telnyx.sdk.model.CreateCallControlApplicationRequest;
 import com.telnyx.sdk.model.ListCallControlApplicationsResponse;
 import com.telnyx.sdk.model.UpdateCallControlApplicationRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for CallControlApplicationsApi
  */
 public class CallControlApplicationsApiTest {
 
-    private final CallControlApplicationsApi api = new CallControlApplicationsApi();
+    private final CallControlApplicationsApi api =
+        new CallControlApplicationsApi();
 
     /**
      * Create a call control application
@@ -121,5 +119,4 @@ public class CallControlApplicationsApiTest {
         //CallControlApplicationResponse response = api.updateCallControlApplication(id, updateCallControlApplicationRequest);
         // TODO: test validations
     }
-
 }

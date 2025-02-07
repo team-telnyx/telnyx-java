@@ -10,234 +10,275 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- * Number Pool allows you to send messages from a pool of numbers of different types, assigning weights to each type. The pool consists of all the long code and toll free numbers assigned to the messaging profile.  To disable this feature, set the object field to &#x60;null&#x60;. 
+ * Number Pool allows you to send messages from a pool of numbers of different types, assigning weights to each type. The pool consists of all the long code and toll free numbers assigned to the messaging profile.  To disable this feature, set the object field to &#x60;null&#x60;.
  */
-@ApiModel(description = "Number Pool allows you to send messages from a pool of numbers of different types, assigning weights to each type. The pool consists of all the long code and toll free numbers assigned to the messaging profile.  To disable this feature, set the object field to `null`. ")
-@JsonPropertyOrder({
-  NumberPoolSettings.JSON_PROPERTY_TOLL_FREE_WEIGHT,
-  NumberPoolSettings.JSON_PROPERTY_LONG_CODE_WEIGHT,
-  NumberPoolSettings.JSON_PROPERTY_SKIP_UNHEALTHY,
-  NumberPoolSettings.JSON_PROPERTY_STICKY_SENDER,
-  NumberPoolSettings.JSON_PROPERTY_GEOMATCH
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "Number Pool allows you to send messages from a pool of numbers of different types, assigning weights to each type. The pool consists of all the long code and toll free numbers assigned to the messaging profile.  To disable this feature, set the object field to `null`. "
+)
+@JsonPropertyOrder(
+    {
+        NumberPoolSettings.JSON_PROPERTY_TOLL_FREE_WEIGHT,
+        NumberPoolSettings.JSON_PROPERTY_LONG_CODE_WEIGHT,
+        NumberPoolSettings.JSON_PROPERTY_SKIP_UNHEALTHY,
+        NumberPoolSettings.JSON_PROPERTY_STICKY_SENDER,
+        NumberPoolSettings.JSON_PROPERTY_GEOMATCH,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class NumberPoolSettings {
-  public static final String JSON_PROPERTY_TOLL_FREE_WEIGHT = "toll_free_weight";
-  private BigDecimal tollFreeWeight;
 
-  public static final String JSON_PROPERTY_LONG_CODE_WEIGHT = "long_code_weight";
-  private BigDecimal longCodeWeight;
+    public static final String JSON_PROPERTY_TOLL_FREE_WEIGHT =
+        "toll_free_weight";
+    private BigDecimal tollFreeWeight;
 
-  public static final String JSON_PROPERTY_SKIP_UNHEALTHY = "skip_unhealthy";
-  private Boolean skipUnhealthy;
+    public static final String JSON_PROPERTY_LONG_CODE_WEIGHT =
+        "long_code_weight";
+    private BigDecimal longCodeWeight;
 
-  public static final String JSON_PROPERTY_STICKY_SENDER = "sticky_sender";
-  private Boolean stickySender = false;
+    public static final String JSON_PROPERTY_SKIP_UNHEALTHY = "skip_unhealthy";
+    private Boolean skipUnhealthy;
 
-  public static final String JSON_PROPERTY_GEOMATCH = "geomatch";
-  private Boolean geomatch = false;
+    public static final String JSON_PROPERTY_STICKY_SENDER = "sticky_sender";
+    private Boolean stickySender = false;
 
-  public NumberPoolSettings() { 
-  }
+    public static final String JSON_PROPERTY_GEOMATCH = "geomatch";
+    private Boolean geomatch = false;
 
-  public NumberPoolSettings tollFreeWeight(BigDecimal tollFreeWeight) {
-    this.tollFreeWeight = tollFreeWeight;
-    return this;
-  }
+    public NumberPoolSettings() {}
 
-   /**
-   * Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. 
-   * @return tollFreeWeight
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "10", required = true, value = "Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. ")
-  @JsonProperty(JSON_PROPERTY_TOLL_FREE_WEIGHT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getTollFreeWeight() {
-    return tollFreeWeight;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOLL_FREE_WEIGHT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTollFreeWeight(BigDecimal tollFreeWeight) {
-    this.tollFreeWeight = tollFreeWeight;
-  }
-
-
-  public NumberPoolSettings longCodeWeight(BigDecimal longCodeWeight) {
-    this.longCodeWeight = longCodeWeight;
-    return this;
-  }
-
-   /**
-   * Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. 
-   * @return longCodeWeight
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "1", required = true, value = "Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. ")
-  @JsonProperty(JSON_PROPERTY_LONG_CODE_WEIGHT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getLongCodeWeight() {
-    return longCodeWeight;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LONG_CODE_WEIGHT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLongCodeWeight(BigDecimal longCodeWeight) {
-    this.longCodeWeight = longCodeWeight;
-  }
-
-
-  public NumberPoolSettings skipUnhealthy(Boolean skipUnhealthy) {
-    this.skipUnhealthy = skipUnhealthy;
-    return this;
-  }
-
-   /**
-   * If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy. 
-   * @return skipUnhealthy
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "true", required = true, value = "If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy. ")
-  @JsonProperty(JSON_PROPERTY_SKIP_UNHEALTHY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Boolean getSkipUnhealthy() {
-    return skipUnhealthy;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SKIP_UNHEALTHY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSkipUnhealthy(Boolean skipUnhealthy) {
-    this.skipUnhealthy = skipUnhealthy;
-  }
-
-
-  public NumberPoolSettings stickySender(Boolean stickySender) {
-    this.stickySender = stickySender;
-    return this;
-  }
-
-   /**
-   * If set to true, Number Pool will try to choose the same sending number for all messages to a particular recipient. If the sending number becomes unhealthy and &#x60;skip_unhealthy&#x60; is set to true, a new number will be chosen. 
-   * @return stickySender
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "If set to true, Number Pool will try to choose the same sending number for all messages to a particular recipient. If the sending number becomes unhealthy and `skip_unhealthy` is set to true, a new number will be chosen. ")
-  @JsonProperty(JSON_PROPERTY_STICKY_SENDER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getStickySender() {
-    return stickySender;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STICKY_SENDER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStickySender(Boolean stickySender) {
-    this.stickySender = stickySender;
-  }
-
-
-  public NumberPoolSettings geomatch(Boolean geomatch) {
-    this.geomatch = geomatch;
-    return this;
-  }
-
-   /**
-   * If set to true, Number Pool will try to choose a sending number with the same area code as the destination number. If there are no such numbers available, a nunber with a different area code will be chosen. Currently only NANP numbers are supported. 
-   * @return geomatch
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "If set to true, Number Pool will try to choose a sending number with the same area code as the destination number. If there are no such numbers available, a nunber with a different area code will be chosen. Currently only NANP numbers are supported. ")
-  @JsonProperty(JSON_PROPERTY_GEOMATCH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getGeomatch() {
-    return geomatch;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_GEOMATCH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGeomatch(Boolean geomatch) {
-    this.geomatch = geomatch;
-  }
-
-
-  /**
-   * Return true if this NumberPoolSettings object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public NumberPoolSettings tollFreeWeight(BigDecimal tollFreeWeight) {
+        this.tollFreeWeight = tollFreeWeight;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool.
+     * @return tollFreeWeight
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "10",
+        required = true,
+        value = "Defines the probability weight for a Toll Free number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100. Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. "
+    )
+    @JsonProperty(JSON_PROPERTY_TOLL_FREE_WEIGHT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getTollFreeWeight() {
+        return tollFreeWeight;
     }
-    NumberPoolSettings numberPoolSettings = (NumberPoolSettings) o;
-    return Objects.equals(this.tollFreeWeight, numberPoolSettings.tollFreeWeight) &&
-        Objects.equals(this.longCodeWeight, numberPoolSettings.longCodeWeight) &&
-        Objects.equals(this.skipUnhealthy, numberPoolSettings.skipUnhealthy) &&
-        Objects.equals(this.stickySender, numberPoolSettings.stickySender) &&
-        Objects.equals(this.geomatch, numberPoolSettings.geomatch);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(tollFreeWeight, longCodeWeight, skipUnhealthy, stickySender, geomatch);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class NumberPoolSettings {\n");
-    sb.append("    tollFreeWeight: ").append(toIndentedString(tollFreeWeight)).append("\n");
-    sb.append("    longCodeWeight: ").append(toIndentedString(longCodeWeight)).append("\n");
-    sb.append("    skipUnhealthy: ").append(toIndentedString(skipUnhealthy)).append("\n");
-    sb.append("    stickySender: ").append(toIndentedString(stickySender)).append("\n");
-    sb.append("    geomatch: ").append(toIndentedString(geomatch)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TOLL_FREE_WEIGHT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTollFreeWeight(BigDecimal tollFreeWeight) {
+        this.tollFreeWeight = tollFreeWeight;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public NumberPoolSettings longCodeWeight(BigDecimal longCodeWeight) {
+        this.longCodeWeight = longCodeWeight;
+        return this;
+    }
+
+    /**
+     * Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool.
+     * @return longCodeWeight
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "1",
+        required = true,
+        value = "Defines the probability weight for a Long Code number to be selected when sending a message. The higher the weight the higher the probability. The sum of the weights for all number types does not necessarily need to add to 100.  Weight must be a non-negative number, and when equal to zero it will remove the number type from the pool. "
+    )
+    @JsonProperty(JSON_PROPERTY_LONG_CODE_WEIGHT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getLongCodeWeight() {
+        return longCodeWeight;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LONG_CODE_WEIGHT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLongCodeWeight(BigDecimal longCodeWeight) {
+        this.longCodeWeight = longCodeWeight;
+    }
+
+    public NumberPoolSettings skipUnhealthy(Boolean skipUnhealthy) {
+        this.skipUnhealthy = skipUnhealthy;
+        return this;
+    }
+
+    /**
+     * If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy.
+     * @return skipUnhealthy
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "true",
+        required = true,
+        value = "If set to true all unhealthy numbers will be automatically excluded from the pool. Health metrics per number are calculated on a regular basis, taking into account the deliverability rate and the amount of messages marked as spam by upstream carriers. Numbers with a deliverability rate below 25% or spam ratio over 75% will be considered unhealthy. "
+    )
+    @JsonProperty(JSON_PROPERTY_SKIP_UNHEALTHY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Boolean getSkipUnhealthy() {
+        return skipUnhealthy;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SKIP_UNHEALTHY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setSkipUnhealthy(Boolean skipUnhealthy) {
+        this.skipUnhealthy = skipUnhealthy;
+    }
+
+    public NumberPoolSettings stickySender(Boolean stickySender) {
+        this.stickySender = stickySender;
+        return this;
+    }
+
+    /**
+     * If set to true, Number Pool will try to choose the same sending number for all messages to a particular recipient. If the sending number becomes unhealthy and &#x60;skip_unhealthy&#x60; is set to true, a new number will be chosen.
+     * @return stickySender
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "If set to true, Number Pool will try to choose the same sending number for all messages to a particular recipient. If the sending number becomes unhealthy and `skip_unhealthy` is set to true, a new number will be chosen. "
+    )
+    @JsonProperty(JSON_PROPERTY_STICKY_SENDER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getStickySender() {
+        return stickySender;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STICKY_SENDER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStickySender(Boolean stickySender) {
+        this.stickySender = stickySender;
+    }
+
+    public NumberPoolSettings geomatch(Boolean geomatch) {
+        this.geomatch = geomatch;
+        return this;
+    }
+
+    /**
+     * If set to true, Number Pool will try to choose a sending number with the same area code as the destination number. If there are no such numbers available, a nunber with a different area code will be chosen. Currently only NANP numbers are supported.
+     * @return geomatch
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "If set to true, Number Pool will try to choose a sending number with the same area code as the destination number. If there are no such numbers available, a nunber with a different area code will be chosen. Currently only NANP numbers are supported. "
+    )
+    @JsonProperty(JSON_PROPERTY_GEOMATCH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getGeomatch() {
+        return geomatch;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GEOMATCH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGeomatch(Boolean geomatch) {
+        this.geomatch = geomatch;
+    }
+
+    /**
+     * Return true if this NumberPoolSettings object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NumberPoolSettings numberPoolSettings = (NumberPoolSettings) o;
+        return (
+            Objects.equals(
+                this.tollFreeWeight,
+                numberPoolSettings.tollFreeWeight
+            ) &&
+            Objects.equals(
+                this.longCodeWeight,
+                numberPoolSettings.longCodeWeight
+            ) &&
+            Objects.equals(
+                this.skipUnhealthy,
+                numberPoolSettings.skipUnhealthy
+            ) &&
+            Objects.equals(
+                this.stickySender,
+                numberPoolSettings.stickySender
+            ) &&
+            Objects.equals(this.geomatch, numberPoolSettings.geomatch)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            tollFreeWeight,
+            longCodeWeight,
+            skipUnhealthy,
+            stickySender,
+            geomatch
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class NumberPoolSettings {\n");
+        sb
+            .append("    tollFreeWeight: ")
+            .append(toIndentedString(tollFreeWeight))
+            .append("\n");
+        sb
+            .append("    longCodeWeight: ")
+            .append(toIndentedString(longCodeWeight))
+            .append("\n");
+        sb
+            .append("    skipUnhealthy: ")
+            .append(toIndentedString(skipUnhealthy))
+            .append("\n");
+        sb
+            .append("    stickySender: ")
+            .append(toIndentedString(stickySender))
+            .append("\n");
+        sb
+            .append("    geomatch: ")
+            .append(toIndentedString(geomatch))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

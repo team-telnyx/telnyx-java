@@ -10,116 +10,141 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.MobileOperatorNetworkPreferencesRequest;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * SIMCardNetworkPreferencesPutRequest
  */
-@JsonPropertyOrder({
-  SIMCardNetworkPreferencesPutRequest.JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        SIMCardNetworkPreferencesPutRequest.JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class SIMCardNetworkPreferencesPutRequest {
-  public static final String JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES = "mobile_operator_networks_preferences";
-  private List<MobileOperatorNetworkPreferencesRequest> mobileOperatorNetworksPreferences = null;
 
-  public SIMCardNetworkPreferencesPutRequest() { 
-  }
+    public static final String JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES =
+        "mobile_operator_networks_preferences";
+    private List<
+        MobileOperatorNetworkPreferencesRequest
+    > mobileOperatorNetworksPreferences = null;
 
-  public SIMCardNetworkPreferencesPutRequest mobileOperatorNetworksPreferences(List<MobileOperatorNetworkPreferencesRequest> mobileOperatorNetworksPreferences) {
-    this.mobileOperatorNetworksPreferences = mobileOperatorNetworksPreferences;
-    return this;
-  }
+    public SIMCardNetworkPreferencesPutRequest() {}
 
-  public SIMCardNetworkPreferencesPutRequest addMobileOperatorNetworksPreferencesItem(MobileOperatorNetworkPreferencesRequest mobileOperatorNetworksPreferencesItem) {
-    if (this.mobileOperatorNetworksPreferences == null) {
-      this.mobileOperatorNetworksPreferences = new ArrayList<>();
+    public SIMCardNetworkPreferencesPutRequest mobileOperatorNetworksPreferences(
+        List<
+            MobileOperatorNetworkPreferencesRequest
+        > mobileOperatorNetworksPreferences
+    ) {
+        this.mobileOperatorNetworksPreferences =
+            mobileOperatorNetworksPreferences;
+        return this;
     }
-    this.mobileOperatorNetworksPreferences.add(mobileOperatorNetworksPreferencesItem);
-    return this;
-  }
 
-   /**
-   * A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.
-   * @return mobileOperatorNetworksPreferences
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.")
-  @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<MobileOperatorNetworkPreferencesRequest> getMobileOperatorNetworksPreferences() {
-    return mobileOperatorNetworksPreferences;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMobileOperatorNetworksPreferences(List<MobileOperatorNetworkPreferencesRequest> mobileOperatorNetworksPreferences) {
-    this.mobileOperatorNetworksPreferences = mobileOperatorNetworksPreferences;
-  }
-
-
-  /**
-   * Return true if this SIMCardNetworkPreferencesPut_request object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SIMCardNetworkPreferencesPutRequest addMobileOperatorNetworksPreferencesItem(
+        MobileOperatorNetworkPreferencesRequest mobileOperatorNetworksPreferencesItem
+    ) {
+        if (this.mobileOperatorNetworksPreferences == null) {
+            this.mobileOperatorNetworksPreferences = new ArrayList<>();
+        }
+        this.mobileOperatorNetworksPreferences.add(
+                mobileOperatorNetworksPreferencesItem
+            );
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.
+     * @return mobileOperatorNetworksPreferences
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network."
+    )
+    @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<
+        MobileOperatorNetworkPreferencesRequest
+    > getMobileOperatorNetworksPreferences() {
+        return mobileOperatorNetworksPreferences;
     }
-    SIMCardNetworkPreferencesPutRequest siMCardNetworkPreferencesPutRequest = (SIMCardNetworkPreferencesPutRequest) o;
-    return Objects.equals(this.mobileOperatorNetworksPreferences, siMCardNetworkPreferencesPutRequest.mobileOperatorNetworksPreferences);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(mobileOperatorNetworksPreferences);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SIMCardNetworkPreferencesPutRequest {\n");
-    sb.append("    mobileOperatorNetworksPreferences: ").append(toIndentedString(mobileOperatorNetworksPreferences)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMobileOperatorNetworksPreferences(
+        List<
+            MobileOperatorNetworkPreferencesRequest
+        > mobileOperatorNetworksPreferences
+    ) {
+        this.mobileOperatorNetworksPreferences =
+            mobileOperatorNetworksPreferences;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this SIMCardNetworkPreferencesPut_request object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SIMCardNetworkPreferencesPutRequest siMCardNetworkPreferencesPutRequest =
+            (SIMCardNetworkPreferencesPutRequest) o;
+        return Objects.equals(
+            this.mobileOperatorNetworksPreferences,
+            siMCardNetworkPreferencesPutRequest.mobileOperatorNetworksPreferences
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mobileOperatorNetworksPreferences);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SIMCardNetworkPreferencesPutRequest {\n");
+        sb
+            .append("    mobileOperatorNetworksPreferences: ")
+            .append(toIndentedString(mobileOperatorNetworksPreferences))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

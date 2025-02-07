@@ -10,137 +10,146 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * AI Assistant configuration
  */
 @ApiModel(description = "AI Assistant configuration")
-@JsonPropertyOrder({
-  AIAssistantStartRequestAssistant.JSON_PROPERTY_ID,
-  AIAssistantStartRequestAssistant.JSON_PROPERTY_OPENAI_API_KEY_REF
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        AIAssistantStartRequestAssistant.JSON_PROPERTY_ID,
+        AIAssistantStartRequestAssistant.JSON_PROPERTY_OPENAI_API_KEY_REF,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AIAssistantStartRequestAssistant {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
 
-  public static final String JSON_PROPERTY_OPENAI_API_KEY_REF = "openai_api_key_ref";
-  private String openaiApiKeyRef;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public AIAssistantStartRequestAssistant() { 
-  }
+    public static final String JSON_PROPERTY_OPENAI_API_KEY_REF =
+        "openai_api_key_ref";
+    private String openaiApiKeyRef;
 
-  public AIAssistantStartRequestAssistant id(String id) {
-    this.id = id;
-    return this;
-  }
+    public AIAssistantStartRequestAssistant() {}
 
-   /**
-   * The identifier of the AI assistant to use
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The identifier of the AI assistant to use")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public AIAssistantStartRequestAssistant openaiApiKeyRef(String openaiApiKeyRef) {
-    this.openaiApiKeyRef = openaiApiKeyRef;
-    return this;
-  }
-
-   /**
-   * Reference to the OpenAI API key. Required only when using OpenAI models
-   * @return openaiApiKeyRef
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Reference to the OpenAI API key. Required only when using OpenAI models")
-  @JsonProperty(JSON_PROPERTY_OPENAI_API_KEY_REF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getOpenaiApiKeyRef() {
-    return openaiApiKeyRef;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OPENAI_API_KEY_REF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOpenaiApiKeyRef(String openaiApiKeyRef) {
-    this.openaiApiKeyRef = openaiApiKeyRef;
-  }
-
-
-  /**
-   * Return true if this AIAssistantStartRequest_assistant object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AIAssistantStartRequestAssistant id(String id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The identifier of the AI assistant to use
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The identifier of the AI assistant to use")
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
     }
-    AIAssistantStartRequestAssistant aiAssistantStartRequestAssistant = (AIAssistantStartRequestAssistant) o;
-    return Objects.equals(this.id, aiAssistantStartRequestAssistant.id) &&
-        Objects.equals(this.openaiApiKeyRef, aiAssistantStartRequestAssistant.openaiApiKeyRef);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, openaiApiKeyRef);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AIAssistantStartRequestAssistant {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    openaiApiKeyRef: ").append(toIndentedString(openaiApiKeyRef)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public AIAssistantStartRequestAssistant openaiApiKeyRef(
+        String openaiApiKeyRef
+    ) {
+        this.openaiApiKeyRef = openaiApiKeyRef;
+        return this;
+    }
+
+    /**
+     * Reference to the OpenAI API key. Required only when using OpenAI models
+     * @return openaiApiKeyRef
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Reference to the OpenAI API key. Required only when using OpenAI models"
+    )
+    @JsonProperty(JSON_PROPERTY_OPENAI_API_KEY_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOpenaiApiKeyRef() {
+        return openaiApiKeyRef;
+    }
+
+    @JsonProperty(JSON_PROPERTY_OPENAI_API_KEY_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOpenaiApiKeyRef(String openaiApiKeyRef) {
+        this.openaiApiKeyRef = openaiApiKeyRef;
+    }
+
+    /**
+     * Return true if this AIAssistantStartRequest_assistant object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AIAssistantStartRequestAssistant aiAssistantStartRequestAssistant =
+            (AIAssistantStartRequestAssistant) o;
+        return (
+            Objects.equals(this.id, aiAssistantStartRequestAssistant.id) &&
+            Objects.equals(
+                this.openaiApiKeyRef,
+                aiAssistantStartRequestAssistant.openaiApiKeyRef
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, openaiApiKeyRef);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AIAssistantStartRequestAssistant {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    openaiApiKeyRef: ")
+            .append(toIndentedString(openaiApiKeyRef))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

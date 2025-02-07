@@ -1,53 +1,54 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListRegulatoryRequirements200Response;
 import com.telnyx.sdk.model.ListRegulatoryRequirementsPhoneNumbers200Response;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RegulatoryRequirementsApi {
-  private ApiClient apiClient;
 
-  public RegulatoryRequirementsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public RegulatoryRequirementsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public RegulatoryRequirementsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public RegulatoryRequirementsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Retrieve regulatory requirements
    * 
    * @param filterPhoneNumber Phone number to check requirements for (optional)
@@ -64,11 +65,23 @@ public class RegulatoryRequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListRegulatoryRequirements200Response listRegulatoryRequirements(String filterPhoneNumber, String filterRequirementGroupId, String filterCountryCode, String filterPhoneNumberType, String filterAction) throws ApiException {
-    return listRegulatoryRequirementsWithHttpInfo(filterPhoneNumber, filterRequirementGroupId, filterCountryCode, filterPhoneNumberType, filterAction).getData();
-  }
+    public ListRegulatoryRequirements200Response listRegulatoryRequirements(
+        String filterPhoneNumber,
+        String filterRequirementGroupId,
+        String filterCountryCode,
+        String filterPhoneNumberType,
+        String filterAction
+    ) throws ApiException {
+        return listRegulatoryRequirementsWithHttpInfo(
+            filterPhoneNumber,
+            filterRequirementGroupId,
+            filterCountryCode,
+            filterPhoneNumberType,
+            filterAction
+        ).getData();
+    }
 
-  /**
+    /**
    * Retrieve regulatory requirements
    * 
    * @param filterPhoneNumber Phone number to check requirements for (optional)
@@ -85,46 +98,97 @@ public class RegulatoryRequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRegulatoryRequirements200Response> listRegulatoryRequirementsWithHttpInfo(String filterPhoneNumber, String filterRequirementGroupId, String filterCountryCode, String filterPhoneNumberType, String filterAction) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/regulatory_requirements";
+    public ApiResponse<
+        ListRegulatoryRequirements200Response
+    > listRegulatoryRequirementsWithHttpInfo(
+        String filterPhoneNumber,
+        String filterRequirementGroupId,
+        String filterCountryCode,
+        String filterPhoneNumberType,
+        String filterAction
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/regulatory_requirements";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[requirement_group_id]", filterRequirementGroupId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_code]", filterCountryCode));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number_type]", filterPhoneNumberType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[action]", filterAction));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[requirement_group_id]",
+                filterRequirementGroupId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[country_code]",
+                filterCountryCode
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number_type]",
+                filterPhoneNumberType
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[action]", filterAction)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListRegulatoryRequirements200Response> localVarReturnType = new GenericType<ListRegulatoryRequirements200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("RegulatoryRequirementsApi.listRegulatoryRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListRegulatoryRequirements200Response> localVarReturnType =
+            new GenericType<ListRegulatoryRequirements200Response>() {};
+
+        return apiClient.invokeAPI(
+            "RegulatoryRequirementsApi.listRegulatoryRequirements",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Retrieve regulatory requirements for a list of phone numbers
    * 
    * @param filterPhoneNumber Record type phone number/ phone numbers (required)
@@ -137,11 +201,15 @@ public class RegulatoryRequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListRegulatoryRequirementsPhoneNumbers200Response listRegulatoryRequirementsPhoneNumbers(String filterPhoneNumber) throws ApiException {
-    return listRegulatoryRequirementsPhoneNumbersWithHttpInfo(filterPhoneNumber).getData();
-  }
+    public ListRegulatoryRequirementsPhoneNumbers200Response listRegulatoryRequirementsPhoneNumbers(
+        String filterPhoneNumber
+    ) throws ApiException {
+        return listRegulatoryRequirementsPhoneNumbersWithHttpInfo(
+            filterPhoneNumber
+        ).getData();
+    }
 
-  /**
+    /**
    * Retrieve regulatory requirements for a list of phone numbers
    * 
    * @param filterPhoneNumber Record type phone number/ phone numbers (required)
@@ -154,44 +222,76 @@ public class RegulatoryRequirementsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRegulatoryRequirementsPhoneNumbers200Response> listRegulatoryRequirementsPhoneNumbersWithHttpInfo(String filterPhoneNumber) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'filterPhoneNumber' is set
-    if (filterPhoneNumber == null) {
-      throw new ApiException(400, "Missing the required parameter 'filterPhoneNumber' when calling listRegulatoryRequirementsPhoneNumbers");
+    public ApiResponse<
+        ListRegulatoryRequirementsPhoneNumbers200Response
+    > listRegulatoryRequirementsPhoneNumbersWithHttpInfo(
+        String filterPhoneNumber
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'filterPhoneNumber' is set
+        if (filterPhoneNumber == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'filterPhoneNumber' when calling listRegulatoryRequirementsPhoneNumbers"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/phone_numbers_regulatory_requirements";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number]",
+                filterPhoneNumber
+            )
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            ListRegulatoryRequirementsPhoneNumbers200Response
+        > localVarReturnType = new GenericType<
+            ListRegulatoryRequirementsPhoneNumbers200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "RegulatoryRequirementsApi.listRegulatoryRequirementsPhoneNumbers",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/phone_numbers_regulatory_requirements";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListRegulatoryRequirementsPhoneNumbers200Response> localVarReturnType = new GenericType<ListRegulatoryRequirementsPhoneNumbers200Response>() {};
-
-    return apiClient.invokeAPI("RegulatoryRequirementsApi.listRegulatoryRequirementsPhoneNumbers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

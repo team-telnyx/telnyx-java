@@ -10,403 +10,444 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.FineTuningJobHyperparameters;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import com.telnyx.sdk.model.FineTuningJobHyperparameters;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The &#x60;fine_tuning.job&#x60; object represents a fine-tuning job that has been created through the API.
  */
-@ApiModel(description = "The `fine_tuning.job` object represents a fine-tuning job that has been created through the API.")
-@JsonPropertyOrder({
-  FineTuningJob.JSON_PROPERTY_ID,
-  FineTuningJob.JSON_PROPERTY_CREATED_AT,
-  FineTuningJob.JSON_PROPERTY_FINISHED_AT,
-  FineTuningJob.JSON_PROPERTY_HYPERPARAMETERS,
-  FineTuningJob.JSON_PROPERTY_MODEL,
-  FineTuningJob.JSON_PROPERTY_ORGANIZATION_ID,
-  FineTuningJob.JSON_PROPERTY_STATUS,
-  FineTuningJob.JSON_PROPERTY_TRAINED_TOKENS,
-  FineTuningJob.JSON_PROPERTY_TRAINING_FILE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "The `fine_tuning.job` object represents a fine-tuning job that has been created through the API."
+)
+@JsonPropertyOrder(
+    {
+        FineTuningJob.JSON_PROPERTY_ID,
+        FineTuningJob.JSON_PROPERTY_CREATED_AT,
+        FineTuningJob.JSON_PROPERTY_FINISHED_AT,
+        FineTuningJob.JSON_PROPERTY_HYPERPARAMETERS,
+        FineTuningJob.JSON_PROPERTY_MODEL,
+        FineTuningJob.JSON_PROPERTY_ORGANIZATION_ID,
+        FineTuningJob.JSON_PROPERTY_STATUS,
+        FineTuningJob.JSON_PROPERTY_TRAINED_TOKENS,
+        FineTuningJob.JSON_PROPERTY_TRAINING_FILE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class FineTuningJob {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
 
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private Integer createdAt;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_FINISHED_AT = "finished_at";
-  private Integer finishedAt;
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private Integer createdAt;
 
-  public static final String JSON_PROPERTY_HYPERPARAMETERS = "hyperparameters";
-  private FineTuningJobHyperparameters hyperparameters;
+    public static final String JSON_PROPERTY_FINISHED_AT = "finished_at";
+    private Integer finishedAt;
 
-  public static final String JSON_PROPERTY_MODEL = "model";
-  private String model;
+    public static final String JSON_PROPERTY_HYPERPARAMETERS =
+        "hyperparameters";
+    private FineTuningJobHyperparameters hyperparameters;
 
-  public static final String JSON_PROPERTY_ORGANIZATION_ID = "organization_id";
-  private String organizationId;
+    public static final String JSON_PROPERTY_MODEL = "model";
+    private String model;
 
-  /**
-   * The current status of the fine-tuning job.
-   */
-  public enum StatusEnum {
-    QUEUED(String.valueOf("queued")),
-    
-    RUNNING(String.valueOf("running")),
-    
-    SUCCEEDED(String.valueOf("succeeded")),
-    
-    FAILED(String.valueOf("failed")),
-    
-    CANCELLED(String.valueOf("cancelled"));
+    public static final String JSON_PROPERTY_ORGANIZATION_ID =
+        "organization_id";
+    private String organizationId;
 
-    private String value;
+    /**
+     * The current status of the fine-tuning job.
+     */
+    public enum StatusEnum {
+        QUEUED(String.valueOf("queued")),
 
-    StatusEnum(String value) {
-      this.value = value;
+        RUNNING(String.valueOf("running")),
+
+        SUCCEEDED(String.valueOf("succeeded")),
+
+        FAILED(String.valueOf("failed")),
+
+        CANCELLED(String.valueOf("cancelled"));
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private StatusEnum status;
+
+    public static final String JSON_PROPERTY_TRAINED_TOKENS = "trained_tokens";
+    private Integer trainedTokens;
+
+    public static final String JSON_PROPERTY_TRAINING_FILE = "training_file";
+    private String trainingFile;
+
+    public FineTuningJob() {}
+
+    public FineTuningJob id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * The name of the fine-tuned model that is being created.
+     * @return id
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The name of the fine-tuned model that is being created."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public FineTuningJob createdAt(Integer createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * The Unix timestamp (in seconds) for when the fine-tuning job was created.
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The Unix timestamp (in seconds) for when the fine-tuning job was created."
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCreatedAt(Integer createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public FineTuningJob finishedAt(Integer finishedAt) {
+        this.finishedAt = finishedAt;
+        return this;
+    }
+
+    /**
+     * The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
+     * @return finishedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        required = true,
+        value = "The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running."
+    )
+    @JsonProperty(JSON_PROPERTY_FINISHED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getFinishedAt() {
+        return finishedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FINISHED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFinishedAt(Integer finishedAt) {
+        this.finishedAt = finishedAt;
+    }
+
+    public FineTuningJob hyperparameters(
+        FineTuningJobHyperparameters hyperparameters
+    ) {
+        this.hyperparameters = hyperparameters;
+        return this;
+    }
+
+    /**
+     * Get hyperparameters
+     * @return hyperparameters
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_HYPERPARAMETERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public FineTuningJobHyperparameters getHyperparameters() {
+        return hyperparameters;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HYPERPARAMETERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setHyperparameters(
+        FineTuningJobHyperparameters hyperparameters
+    ) {
+        this.hyperparameters = hyperparameters;
+    }
+
+    public FineTuningJob model(String model) {
+        this.model = model;
+        return this;
+    }
+
+    /**
+     * The base model that is being fine-tuned.
+     * @return model
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The base model that is being fine-tuned."
+    )
+    @JsonProperty(JSON_PROPERTY_MODEL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getModel() {
+        return model;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MODEL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public FineTuningJob organizationId(String organizationId) {
+        this.organizationId = organizationId;
+        return this;
+    }
+
+    /**
+     * The organization that owns the fine-tuning job.
+     * @return organizationId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The organization that owns the fine-tuning job."
+    )
+    @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public FineTuningJob status(StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The current status of the fine-tuning job.
+     * @return status
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The current status of the fine-tuning job."
+    )
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    public FineTuningJob trainedTokens(Integer trainedTokens) {
+        this.trainedTokens = trainedTokens;
+        return this;
+    }
+
+    /**
+     * The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
+     * @return trainedTokens
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        required = true,
+        value = "The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running."
+    )
+    @JsonProperty(JSON_PROPERTY_TRAINED_TOKENS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getTrainedTokens() {
+        return trainedTokens;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRAINED_TOKENS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTrainedTokens(Integer trainedTokens) {
+        this.trainedTokens = trainedTokens;
+    }
+
+    public FineTuningJob trainingFile(String trainingFile) {
+        this.trainingFile = trainingFile;
+        return this;
+    }
+
+    /**
+     * The storage bucket or object used for training.
+     * @return trainingFile
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The storage bucket or object used for training."
+    )
+    @JsonProperty(JSON_PROPERTY_TRAINING_FILE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTrainingFile() {
+        return trainingFile;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRAINING_FILE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTrainingFile(String trainingFile) {
+        this.trainingFile = trainingFile;
+    }
+
+    /**
+     * Return true if this FineTuningJob object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        FineTuningJob fineTuningJob = (FineTuningJob) o;
+        return (
+            Objects.equals(this.id, fineTuningJob.id) &&
+            Objects.equals(this.createdAt, fineTuningJob.createdAt) &&
+            Objects.equals(this.finishedAt, fineTuningJob.finishedAt) &&
+            Objects.equals(
+                this.hyperparameters,
+                fineTuningJob.hyperparameters
+            ) &&
+            Objects.equals(this.model, fineTuningJob.model) &&
+            Objects.equals(this.organizationId, fineTuningJob.organizationId) &&
+            Objects.equals(this.status, fineTuningJob.status) &&
+            Objects.equals(this.trainedTokens, fineTuningJob.trainedTokens) &&
+            Objects.equals(this.trainingFile, fineTuningJob.trainingFile)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            id,
+            createdAt,
+            finishedAt,
+            hyperparameters,
+            model,
+            organizationId,
+            status,
+            trainedTokens,
+            trainingFile
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class FineTuningJob {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    finishedAt: ")
+            .append(toIndentedString(finishedAt))
+            .append("\n");
+        sb
+            .append("    hyperparameters: ")
+            .append(toIndentedString(hyperparameters))
+            .append("\n");
+        sb.append("    model: ").append(toIndentedString(model)).append("\n");
+        sb
+            .append("    organizationId: ")
+            .append(toIndentedString(organizationId))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    trainedTokens: ")
+            .append(toIndentedString(trainedTokens))
+            .append("\n");
+        sb
+            .append("    trainingFile: ")
+            .append(toIndentedString(trainingFile))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  public static final String JSON_PROPERTY_TRAINED_TOKENS = "trained_tokens";
-  private Integer trainedTokens;
-
-  public static final String JSON_PROPERTY_TRAINING_FILE = "training_file";
-  private String trainingFile;
-
-  public FineTuningJob() { 
-  }
-
-  public FineTuningJob id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * The name of the fine-tuned model that is being created.
-   * @return id
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The name of the fine-tuned model that is being created.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public FineTuningJob createdAt(Integer createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * The Unix timestamp (in seconds) for when the fine-tuning job was created.
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The Unix timestamp (in seconds) for when the fine-tuning job was created.")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCreatedAt(Integer createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public FineTuningJob finishedAt(Integer finishedAt) {
-    this.finishedAt = finishedAt;
-    return this;
-  }
-
-   /**
-   * The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
-   * @return finishedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(required = true, value = "The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.")
-  @JsonProperty(JSON_PROPERTY_FINISHED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getFinishedAt() {
-    return finishedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FINISHED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFinishedAt(Integer finishedAt) {
-    this.finishedAt = finishedAt;
-  }
-
-
-  public FineTuningJob hyperparameters(FineTuningJobHyperparameters hyperparameters) {
-    this.hyperparameters = hyperparameters;
-    return this;
-  }
-
-   /**
-   * Get hyperparameters
-   * @return hyperparameters
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_HYPERPARAMETERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public FineTuningJobHyperparameters getHyperparameters() {
-    return hyperparameters;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HYPERPARAMETERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setHyperparameters(FineTuningJobHyperparameters hyperparameters) {
-    this.hyperparameters = hyperparameters;
-  }
-
-
-  public FineTuningJob model(String model) {
-    this.model = model;
-    return this;
-  }
-
-   /**
-   * The base model that is being fine-tuned.
-   * @return model
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The base model that is being fine-tuned.")
-  @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getModel() {
-    return model;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setModel(String model) {
-    this.model = model;
-  }
-
-
-  public FineTuningJob organizationId(String organizationId) {
-    this.organizationId = organizationId;
-    return this;
-  }
-
-   /**
-   * The organization that owns the fine-tuning job.
-   * @return organizationId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The organization that owns the fine-tuning job.")
-  @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getOrganizationId() {
-    return organizationId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOrganizationId(String organizationId) {
-    this.organizationId = organizationId;
-  }
-
-
-  public FineTuningJob status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The current status of the fine-tuning job.
-   * @return status
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The current status of the fine-tuning job.")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  public FineTuningJob trainedTokens(Integer trainedTokens) {
-    this.trainedTokens = trainedTokens;
-    return this;
-  }
-
-   /**
-   * The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
-   * @return trainedTokens
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(required = true, value = "The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.")
-  @JsonProperty(JSON_PROPERTY_TRAINED_TOKENS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getTrainedTokens() {
-    return trainedTokens;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRAINED_TOKENS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTrainedTokens(Integer trainedTokens) {
-    this.trainedTokens = trainedTokens;
-  }
-
-
-  public FineTuningJob trainingFile(String trainingFile) {
-    this.trainingFile = trainingFile;
-    return this;
-  }
-
-   /**
-   * The storage bucket or object used for training.
-   * @return trainingFile
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The storage bucket or object used for training.")
-  @JsonProperty(JSON_PROPERTY_TRAINING_FILE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTrainingFile() {
-    return trainingFile;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRAINING_FILE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTrainingFile(String trainingFile) {
-    this.trainingFile = trainingFile;
-  }
-
-
-  /**
-   * Return true if this FineTuningJob object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    FineTuningJob fineTuningJob = (FineTuningJob) o;
-    return Objects.equals(this.id, fineTuningJob.id) &&
-        Objects.equals(this.createdAt, fineTuningJob.createdAt) &&
-        Objects.equals(this.finishedAt, fineTuningJob.finishedAt) &&
-        Objects.equals(this.hyperparameters, fineTuningJob.hyperparameters) &&
-        Objects.equals(this.model, fineTuningJob.model) &&
-        Objects.equals(this.organizationId, fineTuningJob.organizationId) &&
-        Objects.equals(this.status, fineTuningJob.status) &&
-        Objects.equals(this.trainedTokens, fineTuningJob.trainedTokens) &&
-        Objects.equals(this.trainingFile, fineTuningJob.trainingFile);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, createdAt, finishedAt, hyperparameters, model, organizationId, status, trainedTokens, trainingFile);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class FineTuningJob {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    finishedAt: ").append(toIndentedString(finishedAt)).append("\n");
-    sb.append("    hyperparameters: ").append(toIndentedString(hyperparameters)).append("\n");
-    sb.append("    model: ").append(toIndentedString(model)).append("\n");
-    sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    trainedTokens: ").append(toIndentedString(trainedTokens)).append("\n");
-    sb.append("    trainingFile: ").append(toIndentedString(trainingFile)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

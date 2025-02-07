@@ -10,161 +10,171 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.HttpRequest;
-import java.util.Arrays;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import com.telnyx.sdk.model.HttpRequest;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * HTTP request and response information.
  */
 @ApiModel(description = "HTTP request and response information.")
-@JsonPropertyOrder({
-  Http.JSON_PROPERTY_REQUEST,
-  Http.JSON_PROPERTY_RESPONSE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ Http.JSON_PROPERTY_REQUEST, Http.JSON_PROPERTY_RESPONSE })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class Http {
-  public static final String JSON_PROPERTY_REQUEST = "request";
-  private HttpRequest request;
 
-  public static final String JSON_PROPERTY_RESPONSE = "response";
-  private JsonNullable<String> response = JsonNullable.<String>undefined();
+    public static final String JSON_PROPERTY_REQUEST = "request";
+    private HttpRequest request;
 
-  public Http() { 
-  }
+    public static final String JSON_PROPERTY_RESPONSE = "response";
+    private JsonNullable<String> response = JsonNullable.<String>undefined();
 
-  public Http request(HttpRequest request) {
-    this.request = request;
-    return this;
-  }
+    public Http() {}
 
-   /**
-   * Get request
-   * @return request
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_REQUEST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Http request(HttpRequest request) {
+        this.request = request;
+        return this;
+    }
 
-  public HttpRequest getRequest() {
-    return request;
-  }
+    /**
+     * Get request
+     * @return request
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_REQUEST)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public HttpRequest getRequest() {
+        return request;
+    }
 
+    @JsonProperty(JSON_PROPERTY_REQUEST)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRequest(HttpRequest request) {
+        this.request = request;
+    }
 
-  @JsonProperty(JSON_PROPERTY_REQUEST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequest(HttpRequest request) {
-    this.request = request;
-  }
+    public Http response(String response) {
+        this.response = JsonNullable.<String>of(response);
+        return this;
+    }
 
-
-  public Http response(String response) {
-    this.response = JsonNullable.<String>of(response);
-    return this;
-  }
-
-   /**
-   * Response details, optional.
-   * @return response
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Response details, optional.")
-  @JsonIgnore
-
-  public String getResponse() {
+    /**
+     * Response details, optional.
+     * @return response
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Response details, optional.")
+    @JsonIgnore
+    public String getResponse() {
         return response.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_RESPONSE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<String> getResponse_JsonNullable() {
-    return response;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_RESPONSE)
-  public void setResponse_JsonNullable(JsonNullable<String> response) {
-    this.response = response;
-  }
-
-  public void setResponse(String response) {
-    this.response = JsonNullable.<String>of(response);
-  }
-
-
-  /**
-   * Return true if this http object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_RESPONSE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<String> getResponse_JsonNullable() {
+        return response;
     }
-    Http http = (Http) o;
-    return Objects.equals(this.request, http.request) &&
-        equalsNullable(this.response, http.response);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(request, hashCodeNullable(response));
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    @JsonProperty(JSON_PROPERTY_RESPONSE)
+    public void setResponse_JsonNullable(JsonNullable<String> response) {
+        this.response = response;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Http {\n");
-    sb.append("    request: ").append(toIndentedString(request)).append("\n");
-    sb.append("    response: ").append(toIndentedString(response)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setResponse(String response) {
+        this.response = JsonNullable.<String>of(response);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this http object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Http http = (Http) o;
+        return (
+            Objects.equals(this.request, http.request) &&
+            equalsNullable(this.response, http.response)
+        );
+    }
+
+    private static <T> boolean equalsNullable(
+        JsonNullable<T> a,
+        JsonNullable<T> b
+    ) {
+        return (
+            a == b ||
+            (a != null &&
+                b != null &&
+                a.isPresent() &&
+                b.isPresent() &&
+                Objects.deepEquals(a.get(), b.get()))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(request, hashCodeNullable(response));
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent()
+            ? Arrays.deepHashCode(new Object[] { a.get() })
+            : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Http {\n");
+        sb
+            .append("    request: ")
+            .append(toIndentedString(request))
+            .append("\n");
+        sb
+            .append("    response: ")
+            .append(toIndentedString(response))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

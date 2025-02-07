@@ -10,19 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.*;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-
 import java.math.BigDecimal;
 import java.util.UUID;
-
 import org.junit.*;
-
-import static org.junit.Assert.*;
 
 /**
  * API tests for MessagingProfilesApi
@@ -31,35 +28,47 @@ public class MessagingProfilesApiTest {
 
     private final MessagingProfilesApi api = new MessagingProfilesApi();
     private MessagingProfile existingMessagingProfile;
+
     @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
 
         NumberPoolSettings numberPoolSettings = new NumberPoolSettings()
-                .geomatch(false)
-                .longCodeWeight(BigDecimal.ONE)
-                .skipUnhealthy(true)
-                .stickySender(false)
-                .tollFreeWeight(BigDecimal.valueOf(10));
+            .geomatch(false)
+            .longCodeWeight(BigDecimal.ONE)
+            .skipUnhealthy(true)
+            .stickySender(false)
+            .tollFreeWeight(BigDecimal.valueOf(10));
 
-        CreateMessagingProfileRequest createMessagingProfileRequest = new CreateMessagingProfileRequest().name("existing-test-profile")
+        CreateMessagingProfileRequest createMessagingProfileRequest =
+            new CreateMessagingProfileRequest()
+                .name("existing-test-profile")
                 .enabled(true)
                 .numberPoolSettings(numberPoolSettings)
-                .webhookApiVersion(CreateMessagingProfileRequest.WebhookApiVersionEnum._1)
+                .webhookApiVersion(
+                    CreateMessagingProfileRequest.WebhookApiVersionEnum._1
+                )
                 .webhookUrl("http://webhook.com")
                 .webhookFailoverUrl("http://webhook-failover.com");
 
         try {
-            existingMessagingProfile = api.createMessagingProfile(createMessagingProfileRequest).getData();
+            existingMessagingProfile = api
+                .createMessagingProfile(createMessagingProfileRequest)
+                .getData();
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to create messaging profile: " + e.getMessage());
+            fail(
+                "Test Setup Failure - Unable to create messaging profile: " +
+                e.getMessage()
+            );
         }
     }
+
     @Ignore
     @After
     public void tearDown() {
@@ -77,24 +86,30 @@ public class MessagingProfilesApiTest {
      */
     @Ignore
     @Test
-    public void createMessagingProfile_whenRequestIsValid_returnsCreatedMessagingProfile() throws ApiException {
+    public void createMessagingProfile_whenRequestIsValid_returnsCreatedMessagingProfile()
+        throws ApiException {
         NumberPoolSettings numberPoolSettings = new NumberPoolSettings()
-                .geomatch(false)
-                .longCodeWeight(BigDecimal.ONE)
-                .skipUnhealthy(true)
-                .stickySender(false)
-                .tollFreeWeight(BigDecimal.valueOf(10));
+            .geomatch(false)
+            .longCodeWeight(BigDecimal.ONE)
+            .skipUnhealthy(true)
+            .stickySender(false)
+            .tollFreeWeight(BigDecimal.valueOf(10));
 
-        CreateMessagingProfileRequest createMessagingProfileRequest = new CreateMessagingProfileRequest().name("test-profile-1")
+        CreateMessagingProfileRequest createMessagingProfileRequest =
+            new CreateMessagingProfileRequest()
+                .name("test-profile-1")
                 .enabled(true)
                 .numberPoolSettings(numberPoolSettings)
-                .webhookApiVersion(CreateMessagingProfileRequest.WebhookApiVersionEnum._1)
+                .webhookApiVersion(
+                    CreateMessagingProfileRequest.WebhookApiVersionEnum._1
+                )
                 .webhookUrl("http://webhook.com")
                 .webhookFailoverUrl("http://webhook-failover.com");
 
-        UUID actualId = api.createMessagingProfile(createMessagingProfileRequest)
-                .getData()
-                .getId();
+        UUID actualId = api
+            .createMessagingProfile(createMessagingProfileRequest)
+            .getData()
+            .getId();
 
         assertNotNull(actualId);
     }
@@ -106,12 +121,17 @@ public class MessagingProfilesApiTest {
      */
     @Ignore
     @Test
-    public void deleteMessagingProfile_whenProfileExists_returnsDeletedProfile() throws ApiException {
-        UUID actualMessagingProfileId = api.deleteMessagingProfile(existingMessagingProfile.getId())
-                .getData()
-                .getId();
+    public void deleteMessagingProfile_whenProfileExists_returnsDeletedProfile()
+        throws ApiException {
+        UUID actualMessagingProfileId = api
+            .deleteMessagingProfile(existingMessagingProfile.getId())
+            .getData()
+            .getId();
 
-        assertEquals(existingMessagingProfile.getId(), actualMessagingProfileId);
+        assertEquals(
+            existingMessagingProfile.getId(),
+            actualMessagingProfileId
+        );
     }
 
     /**
@@ -127,11 +147,13 @@ public class MessagingProfilesApiTest {
      */
     @Ignore
     @Test
-    public void listMessagingProfilePhoneNumbers_whenNumbersExist_returnsNumbers() throws ApiException {
-        ListMessagingProfilePhoneNumbersResponse actualResponse = api.listProfilePhoneNumbers(existingMessagingProfile.getId())
-                .pageNumber(1)
-                .pageSize(20)
-                .execute();
+    public void listMessagingProfilePhoneNumbers_whenNumbersExist_returnsNumbers()
+        throws ApiException {
+        ListMessagingProfilePhoneNumbersResponse actualResponse = api
+            .listProfilePhoneNumbers(existingMessagingProfile.getId())
+            .pageNumber(1)
+            .pageSize(20)
+            .execute();
 
         assertNotNull(actualResponse);
     }
@@ -178,10 +200,16 @@ public class MessagingProfilesApiTest {
      */
     @Ignore
     @Test
-    public void retrieveMessagingProfile_whenProfileExists_returnsProfile() throws ApiException {
-        MessagingProfile actualMessagingProfile = api.retrieveMessagingProfile(existingMessagingProfile.getId()).getData();
+    public void retrieveMessagingProfile_whenProfileExists_returnsProfile()
+        throws ApiException {
+        MessagingProfile actualMessagingProfile = api
+            .retrieveMessagingProfile(existingMessagingProfile.getId())
+            .getData();
 
-        assertEquals(existingMessagingProfile.getId(), actualMessagingProfile.getId());
+        assertEquals(
+            existingMessagingProfile.getId(),
+            actualMessagingProfile.getId()
+        );
     }
 
     /**
@@ -197,33 +225,57 @@ public class MessagingProfilesApiTest {
      */
     @Test
     @Ignore
-    public void updateMessagingProfile_whenRequestIsValid_returnsUpdatedProfile() throws ApiException {
+    public void updateMessagingProfile_whenRequestIsValid_returnsUpdatedProfile()
+        throws ApiException {
         NumberPoolSettings numberPoolSettings = new NumberPoolSettings()
-                .geomatch(true)
-                .longCodeWeight(BigDecimal.valueOf(10.0))
-                .skipUnhealthy(false)
-                .stickySender(true)
-                .tollFreeWeight(BigDecimal.valueOf(2.0));
+            .geomatch(true)
+            .longCodeWeight(BigDecimal.valueOf(10.0))
+            .skipUnhealthy(false)
+            .stickySender(true)
+            .tollFreeWeight(BigDecimal.valueOf(2.0));
 
-        UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest()
+        UpdateMessagingProfileRequest updateMessagingProfileRequest =
+            new UpdateMessagingProfileRequest()
                 .name("updated-test-profile")
                 .enabled(false)
                 .numberPoolSettings(numberPoolSettings)
-                .webhookApiVersion(UpdateMessagingProfileRequest.WebhookApiVersionEnum._2)
+                .webhookApiVersion(
+                    UpdateMessagingProfileRequest.WebhookApiVersionEnum._2
+                )
                 .webhookUrl("http://updated-webhook.com")
                 .webhookFailoverUrl("http://updated-webhook-failover.com");
 
-
         MessagingProfile actualMessagingProfile = api
-                .updateMessagingProfile(existingMessagingProfile.getId(), updateMessagingProfileRequest)
-                .getData();
+            .updateMessagingProfile(
+                existingMessagingProfile.getId(),
+                updateMessagingProfileRequest
+            )
+            .getData();
 
-        assertEquals(updateMessagingProfileRequest.getName(), actualMessagingProfile.getName());
-        assertEquals(updateMessagingProfileRequest.getEnabled(), actualMessagingProfile.getEnabled());
-        assertEquals(updateMessagingProfileRequest.getWebhookApiVersion().getValue(), actualMessagingProfile.getWebhookApiVersion().getValue());
-        assertEquals(updateMessagingProfileRequest.getWebhookUrl(), actualMessagingProfile.getWebhookUrl());
-        assertEquals(updateMessagingProfileRequest.getWebhookFailoverUrl(), actualMessagingProfile.getWebhookFailoverUrl());
-        assertEquals(updateMessagingProfileRequest.getNumberPoolSettings(), actualMessagingProfile.getNumberPoolSettings());
+        assertEquals(
+            updateMessagingProfileRequest.getName(),
+            actualMessagingProfile.getName()
+        );
+        assertEquals(
+            updateMessagingProfileRequest.getEnabled(),
+            actualMessagingProfile.getEnabled()
+        );
+        assertEquals(
+            updateMessagingProfileRequest.getWebhookApiVersion().getValue(),
+            actualMessagingProfile.getWebhookApiVersion().getValue()
+        );
+        assertEquals(
+            updateMessagingProfileRequest.getWebhookUrl(),
+            actualMessagingProfile.getWebhookUrl()
+        );
+        assertEquals(
+            updateMessagingProfileRequest.getWebhookFailoverUrl(),
+            actualMessagingProfile.getWebhookFailoverUrl()
+        );
+        assertEquals(
+            updateMessagingProfileRequest.getNumberPoolSettings(),
+            actualMessagingProfile.getNumberPoolSettings()
+        );
     }
 
     /**
@@ -233,21 +285,26 @@ public class MessagingProfilesApiTest {
      */
     @Test
     @Ignore
-    public void updateMessagingProfile_whenNumberPoolSettingsAreSent_returnsProfileWithEnabledNumberPool() throws ApiException {
+    public void updateMessagingProfile_whenNumberPoolSettingsAreSent_returnsProfileWithEnabledNumberPool()
+        throws ApiException {
         NumberPoolSettings expectedNumberPoolSettings = new NumberPoolSettings()
-                .geomatch(false)
-                .longCodeWeight(BigDecimal.valueOf(2.0))
-                .skipUnhealthy(false)
-                .stickySender(true)
-                .tollFreeWeight(BigDecimal.valueOf(10.0));
+            .geomatch(false)
+            .longCodeWeight(BigDecimal.valueOf(2.0))
+            .skipUnhealthy(false)
+            .stickySender(true)
+            .tollFreeWeight(BigDecimal.valueOf(10.0));
 
-        UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest()
+        UpdateMessagingProfileRequest updateMessagingProfileRequest =
+            new UpdateMessagingProfileRequest()
                 .numberPoolSettings(expectedNumberPoolSettings);
 
         NumberPoolSettings actualNumberPoolSettings = api
-                .updateMessagingProfile(existingMessagingProfile.getId(), updateMessagingProfileRequest)
-                .getData()
-                .getNumberPoolSettings();
+            .updateMessagingProfile(
+                existingMessagingProfile.getId(),
+                updateMessagingProfileRequest
+            )
+            .getData()
+            .getNumberPoolSettings();
 
         assertEquals(expectedNumberPoolSettings, actualNumberPoolSettings);
     }
@@ -259,16 +316,23 @@ public class MessagingProfilesApiTest {
      */
     @Test
     @Ignore
-    public void updateMessagingProfile_whenNumberPoolSettingsNull_returnsDisabledNumberPool() throws ApiException {
-        UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest()
-                .numberPoolSettings(null);
+    public void updateMessagingProfile_whenNumberPoolSettingsNull_returnsDisabledNumberPool()
+        throws ApiException {
+        UpdateMessagingProfileRequest updateMessagingProfileRequest =
+            new UpdateMessagingProfileRequest().numberPoolSettings(null);
 
         NumberPoolSettings actualNumberPoolSettings = api
-                .updateMessagingProfile(existingMessagingProfile.getId(), updateMessagingProfileRequest)
-                .getData()
-                .getNumberPoolSettings();
+            .updateMessagingProfile(
+                existingMessagingProfile.getId(),
+                updateMessagingProfileRequest
+            )
+            .getData()
+            .getNumberPoolSettings();
 
-        assertEquals(updateMessagingProfileRequest.getNumberPoolSettings(), actualNumberPoolSettings);
+        assertEquals(
+            updateMessagingProfileRequest.getNumberPoolSettings(),
+            actualNumberPoolSettings
+        );
     }
 
     /**
@@ -278,15 +342,21 @@ public class MessagingProfilesApiTest {
      */
     @Test
     @Ignore
-    public void updateMessagingProfile_whenRequestToDisable_returnsDisabledMessagingProfile() throws ApiException {
-        UpdateMessagingProfileRequest updateMessagingProfileRequest = new UpdateMessagingProfileRequest()
-                .enabled(false);
+    public void updateMessagingProfile_whenRequestToDisable_returnsDisabledMessagingProfile()
+        throws ApiException {
+        UpdateMessagingProfileRequest updateMessagingProfileRequest =
+            new UpdateMessagingProfileRequest().enabled(false);
 
         MessagingProfile actualMessagingProfile = api
-                .updateMessagingProfile(existingMessagingProfile.getId(), updateMessagingProfileRequest)
-                .getData();
+            .updateMessagingProfile(
+                existingMessagingProfile.getId(),
+                updateMessagingProfileRequest
+            )
+            .getData();
 
-        assertEquals(updateMessagingProfileRequest.getEnabled(), actualMessagingProfile.getEnabled());
+        assertEquals(
+            updateMessagingProfileRequest.getEnabled(),
+            actualMessagingProfile.getEnabled()
+        );
     }
-
 }

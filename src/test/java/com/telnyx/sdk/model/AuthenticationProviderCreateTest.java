@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Settings;
@@ -24,15 +23,15 @@ import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for AuthenticationProviderCreate
  */
 public class AuthenticationProviderCreateTest {
-    private final AuthenticationProviderCreate model = new AuthenticationProviderCreate();
+
+    private final AuthenticationProviderCreate model =
+        new AuthenticationProviderCreate();
 
     /**
      * Model tests for AuthenticationProviderCreate
@@ -81,5 +80,4 @@ public class AuthenticationProviderCreateTest {
     public void settingsUrlTest() {
         // TODO: test settingsUrl
     }
-
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -20,22 +19,21 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListVerifiedCallsDisplayProfilesResponse;
 import com.telnyx.sdk.model.ShowVerifiedCallsDisplayProfileResponse;
 import com.telnyx.sdk.model.UpdateVerifiedCallsDisplayProfileRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for VerifiedCallsDisplayProfileApi
  */
 public class VerifiedCallsDisplayProfileApiTest {
 
-    private final VerifiedCallsDisplayProfileApi api = new VerifiedCallsDisplayProfileApi();
+    private final VerifiedCallsDisplayProfileApi api =
+        new VerifiedCallsDisplayProfileApi();
 
     /**
      * Creates a Verified Calls Display Profile
@@ -63,7 +61,8 @@ public class VerifiedCallsDisplayProfileApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createVerifiedCallsDisplayProfileVerificationRequestTest() throws ApiException {
+    public void createVerifiedCallsDisplayProfileVerificationRequestTest()
+        throws ApiException {
         //String id = null;
         //api.createVerifiedCallsDisplayProfileVerificationRequest(id);
         // TODO: test validations
@@ -88,7 +87,7 @@ public class VerifiedCallsDisplayProfileApiTest {
     /**
      * Display the Verified Calls Display Profile
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -104,7 +103,7 @@ public class VerifiedCallsDisplayProfileApiTest {
     /**
      * Lists the Verified Calls Display Profiles owned by the current user/organization
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -137,5 +136,4 @@ public class VerifiedCallsDisplayProfileApiTest {
         //        .execute();
         // TODO: test validations
     }
-
 }

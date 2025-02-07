@@ -10,106 +10,115 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * A JSON object representation of the action params.
  */
 @ApiModel(description = "A JSON object representation of the action params.")
-@JsonPropertyOrder({
-  SIMCardGroupActionSettings.JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { SIMCardGroupActionSettings.JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class SIMCardGroupActionSettings {
-  public static final String JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID = "private_wireless_gateway_id";
-  private UUID privateWirelessGatewayId;
 
-  public SIMCardGroupActionSettings() { 
-  }
+    public static final String JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID =
+        "private_wireless_gateway_id";
+    private UUID privateWirelessGatewayId;
 
-  public SIMCardGroupActionSettings privateWirelessGatewayId(UUID privateWirelessGatewayId) {
-    this.privateWirelessGatewayId = privateWirelessGatewayId;
-    return this;
-  }
+    public SIMCardGroupActionSettings() {}
 
-   /**
-   * The identification of the related Private Wireless Gateway resource.
-   * @return privateWirelessGatewayId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The identification of the related Private Wireless Gateway resource.")
-  @JsonProperty(JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getPrivateWirelessGatewayId() {
-    return privateWirelessGatewayId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrivateWirelessGatewayId(UUID privateWirelessGatewayId) {
-    this.privateWirelessGatewayId = privateWirelessGatewayId;
-  }
-
-
-  /**
-   * Return true if this SIMCardGroupAction_settings object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SIMCardGroupActionSettings privateWirelessGatewayId(
+        UUID privateWirelessGatewayId
+    ) {
+        this.privateWirelessGatewayId = privateWirelessGatewayId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The identification of the related Private Wireless Gateway resource.
+     * @return privateWirelessGatewayId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+        value = "The identification of the related Private Wireless Gateway resource."
+    )
+    @JsonProperty(JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getPrivateWirelessGatewayId() {
+        return privateWirelessGatewayId;
     }
-    SIMCardGroupActionSettings siMCardGroupActionSettings = (SIMCardGroupActionSettings) o;
-    return Objects.equals(this.privateWirelessGatewayId, siMCardGroupActionSettings.privateWirelessGatewayId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(privateWirelessGatewayId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SIMCardGroupActionSettings {\n");
-    sb.append("    privateWirelessGatewayId: ").append(toIndentedString(privateWirelessGatewayId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPrivateWirelessGatewayId(UUID privateWirelessGatewayId) {
+        this.privateWirelessGatewayId = privateWirelessGatewayId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this SIMCardGroupAction_settings object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SIMCardGroupActionSettings siMCardGroupActionSettings =
+            (SIMCardGroupActionSettings) o;
+        return Objects.equals(
+            this.privateWirelessGatewayId,
+            siMCardGroupActionSettings.privateWirelessGatewayId
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(privateWirelessGatewayId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SIMCardGroupActionSettings {\n");
+        sb
+            .append("    privateWirelessGatewayId: ")
+            .append(toIndentedString(privateWirelessGatewayId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

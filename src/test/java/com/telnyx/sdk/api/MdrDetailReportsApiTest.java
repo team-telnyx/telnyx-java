@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -21,16 +20,14 @@ import com.telnyx.sdk.model.MdrGetDetailReportResponse;
 import com.telnyx.sdk.model.MdrGetDetailResponse;
 import com.telnyx.sdk.model.MdrPostDetailReportRequest;
 import com.telnyx.sdk.model.MdrPostDetailReportResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for MdrDetailReportsApi
@@ -40,7 +37,7 @@ public class MdrDetailReportsApiTest {
     private final MdrDetailReportsApi api = new MdrDetailReportsApi();
 
     /**
-     * 
+     *
      *
      * Delete generated messaging detail report by id
      *
@@ -55,9 +52,9 @@ public class MdrDetailReportsApiTest {
     }
 
     /**
-     * 
      *
-     * Fetch all previous requests for messaging detail reports. Messaging detail reports are reports for pulling all messaging records. 
+     *
+     * Fetch all previous requests for messaging detail reports. Messaging detail reports are reports for pulling all messaging records.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -71,7 +68,7 @@ public class MdrDetailReportsApiTest {
     }
 
     /**
-     * 
+     *
      *
      * Fetch single messaging detail report by id.
      *
@@ -86,9 +83,9 @@ public class MdrDetailReportsApiTest {
     }
 
     /**
-     * 
      *
-     * Fetch all Mdr records 
+     *
+     * Fetch all Mdr records
      *
      * @throws ApiException
      *          if the Api call fails
@@ -109,7 +106,7 @@ public class MdrDetailReportsApiTest {
     }
 
     /**
-     * 
+     *
      *
      * Submit a request for new messaging detail report. Messaging detail report pulls all raw messaging data according to defined filters.
      *
@@ -122,5 +119,4 @@ public class MdrDetailReportsApiTest {
         //MdrPostDetailReportResponse response = api.submitMdrRequest(mdrPostDetailReportRequest);
         // TODO: test validations
     }
-
 }

@@ -10,24 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
-import java.time.LocalDate;
 import com.telnyx.sdk.model.PushCredentialResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for PushCredentialsApi
@@ -100,5 +97,4 @@ public class PushCredentialsApiTest {
         //PushCredentialResponse response = api.updatePushCredentialById(pushCredentialId, UNKNOWN_BASE_TYPE);
         // TODO: test validations
     }
-
 }

@@ -10,101 +10,96 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * An enumeration.
  */
 public enum Exchange {
-  
-  NONE("NONE"),
-  
-  NASDAQ("NASDAQ"),
-  
-  NYSE("NYSE"),
-  
-  AMEX("AMEX"),
-  
-  AMX("AMX"),
-  
-  ASX("ASX"),
-  
-  B3("B3"),
-  
-  BME("BME"),
-  
-  BSE("BSE"),
-  
-  FRA("FRA"),
-  
-  ICEX("ICEX"),
-  
-  JPX("JPX"),
-  
-  JSE("JSE"),
-  
-  KRX("KRX"),
-  
-  LON("LON"),
-  
-  NSE("NSE"),
-  
-  OMX("OMX"),
-  
-  SEHK("SEHK"),
-  
-  SSE("SSE"),
-  
-  STO("STO"),
-  
-  SWX("SWX"),
-  
-  SZSE("SZSE"),
-  
-  TSX("TSX"),
-  
-  TWSE("TWSE"),
-  
-  VSE("VSE");
+    NONE("NONE"),
 
-  private String value;
+    NASDAQ("NASDAQ"),
 
-  Exchange(String value) {
-    this.value = value;
-  }
+    NYSE("NYSE"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    AMEX("AMEX"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    AMX("AMX"),
 
-  @JsonCreator
-  public static Exchange fromValue(String value) {
-    for (Exchange b : Exchange.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    ASX("ASX"),
+
+    B3("B3"),
+
+    BME("BME"),
+
+    BSE("BSE"),
+
+    FRA("FRA"),
+
+    ICEX("ICEX"),
+
+    JPX("JPX"),
+
+    JSE("JSE"),
+
+    KRX("KRX"),
+
+    LON("LON"),
+
+    NSE("NSE"),
+
+    OMX("OMX"),
+
+    SEHK("SEHK"),
+
+    SSE("SSE"),
+
+    STO("STO"),
+
+    SWX("SWX"),
+
+    SZSE("SZSE"),
+
+    TSX("TSX"),
+
+    TWSE("TWSE"),
+
+    VSE("VSE");
+
+    private String value;
+
+    Exchange(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static Exchange fromValue(String value) {
+        for (Exchange b : Exchange.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for RefreshRoomClientToken201ResponseData
  */
 public class RefreshRoomClientToken201ResponseDataTest {
-    private final RefreshRoomClientToken201ResponseData model = new RefreshRoomClientToken201ResponseData();
+
+    private final RefreshRoomClientToken201ResponseData model =
+        new RefreshRoomClientToken201ResponseData();
 
     /**
      * Model tests for RefreshRoomClientToken201ResponseData
@@ -54,5 +52,4 @@ public class RefreshRoomClientToken201ResponseDataTest {
     public void tokenExpiresAtTest() {
         // TODO: test tokenExpiresAt
     }
-
 }

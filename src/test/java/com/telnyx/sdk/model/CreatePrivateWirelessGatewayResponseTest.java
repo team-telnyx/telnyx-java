@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PrivateWirelessGateway;
@@ -24,15 +23,15 @@ import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreatePrivateWirelessGatewayResponse
  */
 public class CreatePrivateWirelessGatewayResponseTest {
-    private final CreatePrivateWirelessGatewayResponse model = new CreatePrivateWirelessGatewayResponse();
+
+    private final CreatePrivateWirelessGatewayResponse model =
+        new CreatePrivateWirelessGatewayResponse();
 
     /**
      * Model tests for CreatePrivateWirelessGatewayResponse
@@ -49,5 +48,4 @@ public class CreatePrivateWirelessGatewayResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

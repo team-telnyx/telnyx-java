@@ -10,203 +10,236 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.WebhookPortingOrderMessagingChangedPayloadMessaging;
-import java.util.Arrays;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import com.telnyx.sdk.model.WebhookPortingOrderMessagingChangedPayloadMessaging;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * The webhook payload for the porting_order.messaging_changed event
  */
-@ApiModel(description = "The webhook payload for the porting_order.messaging_changed event")
-@JsonPropertyOrder({
-  WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_ID,
-  WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_CUSTOMER_REFERENCE,
-  WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_SUPPORT_KEY,
-  WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_MESSAGING
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "The webhook payload for the porting_order.messaging_changed event"
+)
+@JsonPropertyOrder(
+    {
+        WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_ID,
+        WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_CUSTOMER_REFERENCE,
+        WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_SUPPORT_KEY,
+        WebhookPortingOrderMessagingChangedPayload.JSON_PROPERTY_MESSAGING,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class WebhookPortingOrderMessagingChangedPayload {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
-  private String customerReference;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_SUPPORT_KEY = "support_key";
-  private String supportKey;
+    public static final String JSON_PROPERTY_CUSTOMER_REFERENCE =
+        "customer_reference";
+    private String customerReference;
 
-  public static final String JSON_PROPERTY_MESSAGING = "messaging";
-  private WebhookPortingOrderMessagingChangedPayloadMessaging messaging;
+    public static final String JSON_PROPERTY_SUPPORT_KEY = "support_key";
+    private String supportKey;
 
-  public WebhookPortingOrderMessagingChangedPayload() { 
-  }
+    public static final String JSON_PROPERTY_MESSAGING = "messaging";
+    private WebhookPortingOrderMessagingChangedPayloadMessaging messaging;
 
-  public WebhookPortingOrderMessagingChangedPayload id(UUID id) {
-    this.id = id;
-    return this;
-  }
+    public WebhookPortingOrderMessagingChangedPayload() {}
 
-   /**
-   * Identifies the porting order that was moved.
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting order that was moved.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-  public WebhookPortingOrderMessagingChangedPayload customerReference(String customerReference) {
-    this.customerReference = customerReference;
-    return this;
-  }
-
-   /**
-   * Identifies the customer reference associated with the porting order.
-   * @return customerReference
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "my-ref-001", value = "Identifies the customer reference associated with the porting order.")
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCustomerReference() {
-    return customerReference;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCustomerReference(String customerReference) {
-    this.customerReference = customerReference;
-  }
-
-
-  public WebhookPortingOrderMessagingChangedPayload supportKey(String supportKey) {
-    this.supportKey = supportKey;
-    return this;
-  }
-
-   /**
-   * Identifies the support key associated with the porting order.
-   * @return supportKey
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "sr_b1a2c3", value = "Identifies the support key associated with the porting order.")
-  @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSupportKey() {
-    return supportKey;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSupportKey(String supportKey) {
-    this.supportKey = supportKey;
-  }
-
-
-  public WebhookPortingOrderMessagingChangedPayload messaging(WebhookPortingOrderMessagingChangedPayloadMessaging messaging) {
-    this.messaging = messaging;
-    return this;
-  }
-
-   /**
-   * Get messaging
-   * @return messaging
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_MESSAGING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public WebhookPortingOrderMessagingChangedPayloadMessaging getMessaging() {
-    return messaging;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MESSAGING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessaging(WebhookPortingOrderMessagingChangedPayloadMessaging messaging) {
-    this.messaging = messaging;
-  }
-
-
-  /**
-   * Return true if this WebhookPortingOrderMessagingChangedPayload object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WebhookPortingOrderMessagingChangedPayload id(UUID id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the porting order that was moved.
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c",
+        value = "Identifies the porting order that was moved."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
     }
-    WebhookPortingOrderMessagingChangedPayload webhookPortingOrderMessagingChangedPayload = (WebhookPortingOrderMessagingChangedPayload) o;
-    return Objects.equals(this.id, webhookPortingOrderMessagingChangedPayload.id) &&
-        Objects.equals(this.customerReference, webhookPortingOrderMessagingChangedPayload.customerReference) &&
-        Objects.equals(this.supportKey, webhookPortingOrderMessagingChangedPayload.supportKey) &&
-        Objects.equals(this.messaging, webhookPortingOrderMessagingChangedPayload.messaging);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, customerReference, supportKey, messaging);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WebhookPortingOrderMessagingChangedPayload {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
-    sb.append("    supportKey: ").append(toIndentedString(supportKey)).append("\n");
-    sb.append("    messaging: ").append(toIndentedString(messaging)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public WebhookPortingOrderMessagingChangedPayload customerReference(
+        String customerReference
+    ) {
+        this.customerReference = customerReference;
+        return this;
+    }
+
+    /**
+     * Identifies the customer reference associated with the porting order.
+     * @return customerReference
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "my-ref-001",
+        value = "Identifies the customer reference associated with the porting order."
+    )
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCustomerReference() {
+        return customerReference;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomerReference(String customerReference) {
+        this.customerReference = customerReference;
+    }
+
+    public WebhookPortingOrderMessagingChangedPayload supportKey(
+        String supportKey
+    ) {
+        this.supportKey = supportKey;
+        return this;
+    }
+
+    /**
+     * Identifies the support key associated with the porting order.
+     * @return supportKey
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "sr_b1a2c3",
+        value = "Identifies the support key associated with the porting order."
+    )
+    @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSupportKey() {
+        return supportKey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSupportKey(String supportKey) {
+        this.supportKey = supportKey;
+    }
+
+    public WebhookPortingOrderMessagingChangedPayload messaging(
+        WebhookPortingOrderMessagingChangedPayloadMessaging messaging
+    ) {
+        this.messaging = messaging;
+        return this;
+    }
+
+    /**
+     * Get messaging
+     * @return messaging
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_MESSAGING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookPortingOrderMessagingChangedPayloadMessaging getMessaging() {
+        return messaging;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MESSAGING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMessaging(
+        WebhookPortingOrderMessagingChangedPayloadMessaging messaging
+    ) {
+        this.messaging = messaging;
+    }
+
+    /**
+     * Return true if this WebhookPortingOrderMessagingChangedPayload object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WebhookPortingOrderMessagingChangedPayload webhookPortingOrderMessagingChangedPayload =
+            (WebhookPortingOrderMessagingChangedPayload) o;
+        return (
+            Objects.equals(
+                this.id,
+                webhookPortingOrderMessagingChangedPayload.id
+            ) &&
+            Objects.equals(
+                this.customerReference,
+                webhookPortingOrderMessagingChangedPayload.customerReference
+            ) &&
+            Objects.equals(
+                this.supportKey,
+                webhookPortingOrderMessagingChangedPayload.supportKey
+            ) &&
+            Objects.equals(
+                this.messaging,
+                webhookPortingOrderMessagingChangedPayload.messaging
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, customerReference, supportKey, messaging);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WebhookPortingOrderMessagingChangedPayload {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    customerReference: ")
+            .append(toIndentedString(customerReference))
+            .append("\n");
+        sb
+            .append("    supportKey: ")
+            .append(toIndentedString(supportKey))
+            .append("\n");
+        sb
+            .append("    messaging: ")
+            .append(toIndentedString(messaging))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

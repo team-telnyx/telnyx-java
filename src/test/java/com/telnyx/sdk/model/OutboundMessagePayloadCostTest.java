@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for OutboundMessagePayloadCost
  */
 public class OutboundMessagePayloadCostTest {
-    private final OutboundMessagePayloadCost model = new OutboundMessagePayloadCost();
+
+    private final OutboundMessagePayloadCost model =
+        new OutboundMessagePayloadCost();
 
     /**
      * Model tests for OutboundMessagePayloadCost
@@ -54,5 +54,4 @@ public class OutboundMessagePayloadCostTest {
     public void currencyTest() {
         // TODO: test currency
     }
-
 }

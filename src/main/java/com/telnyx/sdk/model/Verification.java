@@ -10,419 +10,455 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.VerificationRecordType;
 import com.telnyx.sdk.model.VerificationStatus;
 import com.telnyx.sdk.model.VerificationType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * Verification
  */
-@JsonPropertyOrder({
-  Verification.JSON_PROPERTY_ID,
-  Verification.JSON_PROPERTY_TYPE,
-  Verification.JSON_PROPERTY_RECORD_TYPE,
-  Verification.JSON_PROPERTY_PHONE_NUMBER,
-  Verification.JSON_PROPERTY_VERIFY_PROFILE_ID,
-  Verification.JSON_PROPERTY_CUSTOM_CODE,
-  Verification.JSON_PROPERTY_TIMEOUT_SECS,
-  Verification.JSON_PROPERTY_STATUS,
-  Verification.JSON_PROPERTY_CREATED_AT,
-  Verification.JSON_PROPERTY_UPDATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        Verification.JSON_PROPERTY_ID,
+        Verification.JSON_PROPERTY_TYPE,
+        Verification.JSON_PROPERTY_RECORD_TYPE,
+        Verification.JSON_PROPERTY_PHONE_NUMBER,
+        Verification.JSON_PROPERTY_VERIFY_PROFILE_ID,
+        Verification.JSON_PROPERTY_CUSTOM_CODE,
+        Verification.JSON_PROPERTY_TIMEOUT_SECS,
+        Verification.JSON_PROPERTY_STATUS,
+        Verification.JSON_PROPERTY_CREATED_AT,
+        Verification.JSON_PROPERTY_UPDATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class Verification {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private VerificationType type;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private VerificationRecordType recordType;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private VerificationType type;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private VerificationRecordType recordType;
 
-  public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
-  private UUID verifyProfileId;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public static final String JSON_PROPERTY_CUSTOM_CODE = "custom_code";
-  private JsonNullable<String> customCode = JsonNullable.<String>undefined();
+    public static final String JSON_PROPERTY_VERIFY_PROFILE_ID =
+        "verify_profile_id";
+    private UUID verifyProfileId;
 
-  public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
-  private Integer timeoutSecs;
+    public static final String JSON_PROPERTY_CUSTOM_CODE = "custom_code";
+    private JsonNullable<String> customCode = JsonNullable.<String>undefined();
 
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private VerificationStatus status;
+    public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
+    private Integer timeoutSecs;
 
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private String createdAt;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private VerificationStatus status;
 
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private String updatedAt;
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private String createdAt;
 
-  public Verification() { 
-  }
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private String updatedAt;
 
-  public Verification id(UUID id) {
-    this.id = id;
-    return this;
-  }
+    public Verification() {}
 
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Verification id(UUID id) {
+        this.id = id;
+        return this;
+    }
 
-  public UUID getId() {
-    return id;
-  }
+    /**
+     * Get id
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "12ade33a-21c0-473b-b055-b3c836e1c292",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
+    }
 
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
+    public Verification type(VerificationType type) {
+        this.type = type;
+        return this;
+    }
 
+    /**
+     * Get type
+     * @return type
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public VerificationType getType() {
+        return type;
+    }
 
-  public Verification type(VerificationType type) {
-    this.type = type;
-    return this;
-  }
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(VerificationType type) {
+        this.type = type;
+    }
 
-   /**
-   * Get type
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Verification recordType(VerificationRecordType recordType) {
+        this.recordType = recordType;
+        return this;
+    }
 
-  public VerificationType getType() {
-    return type;
-  }
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public VerificationRecordType getRecordType() {
+        return recordType;
+    }
 
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(VerificationRecordType recordType) {
+        this.recordType = recordType;
+    }
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(VerificationType type) {
-    this.type = type;
-  }
+    public Verification phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
 
+    /**
+     * +E164 formatted phone number.
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "+13035551234",
+        value = "+E164 formatted phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-  public Verification recordType(VerificationRecordType recordType) {
-    this.recordType = recordType;
-    return this;
-  }
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Verification verifyProfileId(UUID verifyProfileId) {
+        this.verifyProfileId = verifyProfileId;
+        return this;
+    }
 
-  public VerificationRecordType getRecordType() {
-    return recordType;
-  }
+    /**
+     * The identifier of the associated Verify profile.
+     * @return verifyProfileId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "12ade33a-21c0-473b-b055-b3c836e1c292",
+        value = "The identifier of the associated Verify profile."
+    )
+    @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getVerifyProfileId() {
+        return verifyProfileId;
+    }
 
+    @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVerifyProfileId(UUID verifyProfileId) {
+        this.verifyProfileId = verifyProfileId;
+    }
 
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(VerificationRecordType recordType) {
-    this.recordType = recordType;
-  }
+    public Verification customCode(String customCode) {
+        this.customCode = JsonNullable.<String>of(customCode);
+        return this;
+    }
 
-
-  public Verification phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * +E164 formatted phone number.
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+13035551234", value = "+E164 formatted phone number.")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public Verification verifyProfileId(UUID verifyProfileId) {
-    this.verifyProfileId = verifyProfileId;
-    return this;
-  }
-
-   /**
-   * The identifier of the associated Verify profile.
-   * @return verifyProfileId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "The identifier of the associated Verify profile.")
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getVerifyProfileId() {
-    return verifyProfileId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVerifyProfileId(UUID verifyProfileId) {
-    this.verifyProfileId = verifyProfileId;
-  }
-
-
-  public Verification customCode(String customCode) {
-    this.customCode = JsonNullable.<String>of(customCode);
-    return this;
-  }
-
-   /**
-   * Send a self-generated numeric code to the end-user
-   * @return customCode
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "43612", value = "Send a self-generated numeric code to the end-user")
-  @JsonIgnore
-
-  public String getCustomCode() {
+    /**
+     * Send a self-generated numeric code to the end-user
+     * @return customCode
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "43612",
+        value = "Send a self-generated numeric code to the end-user"
+    )
+    @JsonIgnore
+    public String getCustomCode() {
         return customCode.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<String> getCustomCode_JsonNullable() {
-    return customCode;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
-  public void setCustomCode_JsonNullable(JsonNullable<String> customCode) {
-    this.customCode = customCode;
-  }
-
-  public void setCustomCode(String customCode) {
-    this.customCode = JsonNullable.<String>of(customCode);
-  }
-
-
-  public Verification timeoutSecs(Integer timeoutSecs) {
-    this.timeoutSecs = timeoutSecs;
-    return this;
-  }
-
-   /**
-   * This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the &#x60;default_verification_timeout_secs&#x60; on the Verify profile.
-   * @return timeoutSecs
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "300", value = "This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the `default_verification_timeout_secs` on the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTimeoutSecs() {
-    return timeoutSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimeoutSecs(Integer timeoutSecs) {
-    this.timeoutSecs = timeoutSecs;
-  }
-
-
-  public Verification status(VerificationStatus status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public VerificationStatus getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(VerificationStatus status) {
-    this.status = status;
-  }
-
-
-  public Verification createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public Verification updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-
-  /**
-   * Return true if this Verification object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<String> getCustomCode_JsonNullable() {
+        return customCode;
     }
-    Verification verification = (Verification) o;
-    return Objects.equals(this.id, verification.id) &&
-        Objects.equals(this.type, verification.type) &&
-        Objects.equals(this.recordType, verification.recordType) &&
-        Objects.equals(this.phoneNumber, verification.phoneNumber) &&
-        Objects.equals(this.verifyProfileId, verification.verifyProfileId) &&
-        equalsNullable(this.customCode, verification.customCode) &&
-        Objects.equals(this.timeoutSecs, verification.timeoutSecs) &&
-        Objects.equals(this.status, verification.status) &&
-        Objects.equals(this.createdAt, verification.createdAt) &&
-        Objects.equals(this.updatedAt, verification.updatedAt);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, type, recordType, phoneNumber, verifyProfileId, hashCodeNullable(customCode), timeoutSecs, status, createdAt, updatedAt);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+    public void setCustomCode_JsonNullable(JsonNullable<String> customCode) {
+        this.customCode = customCode;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Verification {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
-    sb.append("    customCode: ").append(toIndentedString(customCode)).append("\n");
-    sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setCustomCode(String customCode) {
+        this.customCode = JsonNullable.<String>of(customCode);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public Verification timeoutSecs(Integer timeoutSecs) {
+        this.timeoutSecs = timeoutSecs;
+        return this;
+    }
+
+    /**
+     * This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the &#x60;default_verification_timeout_secs&#x60; on the Verify profile.
+     * @return timeoutSecs
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "300",
+        value = "This is the number of seconds before the code of the request is expired. Once this request has expired, the code will no longer verify the user. Note: this will override the `default_verification_timeout_secs` on the Verify profile."
+    )
+    @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTimeoutSecs() {
+        return timeoutSecs;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTimeoutSecs(Integer timeoutSecs) {
+        this.timeoutSecs = timeoutSecs;
+    }
+
+    public Verification status(VerificationStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     * @return status
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public VerificationStatus getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(VerificationStatus status) {
+        this.status = status;
+    }
+
+    public Verification createdAt(String createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Verification updatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Get updatedAt
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Return true if this Verification object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Verification verification = (Verification) o;
+        return (
+            Objects.equals(this.id, verification.id) &&
+            Objects.equals(this.type, verification.type) &&
+            Objects.equals(this.recordType, verification.recordType) &&
+            Objects.equals(this.phoneNumber, verification.phoneNumber) &&
+            Objects.equals(
+                this.verifyProfileId,
+                verification.verifyProfileId
+            ) &&
+            equalsNullable(this.customCode, verification.customCode) &&
+            Objects.equals(this.timeoutSecs, verification.timeoutSecs) &&
+            Objects.equals(this.status, verification.status) &&
+            Objects.equals(this.createdAt, verification.createdAt) &&
+            Objects.equals(this.updatedAt, verification.updatedAt)
+        );
+    }
+
+    private static <T> boolean equalsNullable(
+        JsonNullable<T> a,
+        JsonNullable<T> b
+    ) {
+        return (
+            a == b ||
+            (a != null &&
+                b != null &&
+                a.isPresent() &&
+                b.isPresent() &&
+                Objects.deepEquals(a.get(), b.get()))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            id,
+            type,
+            recordType,
+            phoneNumber,
+            verifyProfileId,
+            hashCodeNullable(customCode),
+            timeoutSecs,
+            status,
+            createdAt,
+            updatedAt
+        );
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent()
+            ? Arrays.deepHashCode(new Object[] { a.get() })
+            : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Verification {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    verifyProfileId: ")
+            .append(toIndentedString(verifyProfileId))
+            .append("\n");
+        sb
+            .append("    customCode: ")
+            .append(toIndentedString(customCode))
+            .append("\n");
+        sb
+            .append("    timeoutSecs: ")
+            .append(toIndentedString(timeoutSecs))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,21 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ExternalWdrGetDetailResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for WdrDetailReportsApi
@@ -34,9 +31,9 @@ public class WdrDetailReportsApiTest {
     private final WdrDetailReportsApi api = new WdrDetailReportsApi();
 
     /**
-     * 
      *
-     * Fetch all Wdr records 
+     *
+     * Fetch all Wdr records
      *
      * @throws ApiException
      *          if the Api call fails
@@ -58,5 +55,4 @@ public class WdrDetailReportsApiTest {
         //ExternalWdrGetDetailResponse response = api.getPaginatedWdrs(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize);
         // TODO: test validations
     }
-
 }

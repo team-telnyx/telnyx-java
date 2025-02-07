@@ -10,265 +10,312 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The address of the company.
  */
 @ApiModel(description = "The address of the company.")
-@JsonPropertyOrder({
-  PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_STREET_ADDRESS,
-  PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_EXTENDED_ADDRESS,
-  PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_CITY,
-  PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_STATE,
-  PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_ZIP_CODE,
-  PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_COUNTRY_CODE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_STREET_ADDRESS,
+        PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_EXTENDED_ADDRESS,
+        PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_CITY,
+        PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_STATE,
+        PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_ZIP_CODE,
+        PreviewLoaConfigurationParamsRequestAddress.JSON_PROPERTY_COUNTRY_CODE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PreviewLoaConfigurationParamsRequestAddress {
-  public static final String JSON_PROPERTY_STREET_ADDRESS = "street_address";
-  private String streetAddress;
 
-  public static final String JSON_PROPERTY_EXTENDED_ADDRESS = "extended_address";
-  private String extendedAddress;
+    public static final String JSON_PROPERTY_STREET_ADDRESS = "street_address";
+    private String streetAddress;
 
-  public static final String JSON_PROPERTY_CITY = "city";
-  private String city;
+    public static final String JSON_PROPERTY_EXTENDED_ADDRESS =
+        "extended_address";
+    private String extendedAddress;
 
-  public static final String JSON_PROPERTY_STATE = "state";
-  private String state;
+    public static final String JSON_PROPERTY_CITY = "city";
+    private String city;
 
-  public static final String JSON_PROPERTY_ZIP_CODE = "zip_code";
-  private String zipCode;
+    public static final String JSON_PROPERTY_STATE = "state";
+    private String state;
 
-  public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
-  private String countryCode;
+    public static final String JSON_PROPERTY_ZIP_CODE = "zip_code";
+    private String zipCode;
 
-  public PreviewLoaConfigurationParamsRequestAddress() { 
-  }
+    public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
+    private String countryCode;
 
-  public PreviewLoaConfigurationParamsRequestAddress streetAddress(String streetAddress) {
-    this.streetAddress = streetAddress;
-    return this;
-  }
+    public PreviewLoaConfigurationParamsRequestAddress() {}
 
-   /**
-   * The street address of the company
-   * @return streetAddress
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "600 Congress Avenue", required = true, value = "The street address of the company")
-  @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getStreetAddress() {
-    return streetAddress;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStreetAddress(String streetAddress) {
-    this.streetAddress = streetAddress;
-  }
-
-
-  public PreviewLoaConfigurationParamsRequestAddress extendedAddress(String extendedAddress) {
-    this.extendedAddress = extendedAddress;
-    return this;
-  }
-
-   /**
-   * The extended address of the company
-   * @return extendedAddress
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "14th Floor", value = "The extended address of the company")
-  @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getExtendedAddress() {
-    return extendedAddress;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExtendedAddress(String extendedAddress) {
-    this.extendedAddress = extendedAddress;
-  }
-
-
-  public PreviewLoaConfigurationParamsRequestAddress city(String city) {
-    this.city = city;
-    return this;
-  }
-
-   /**
-   * The locality of the company
-   * @return city
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Austin", value = "The locality of the company")
-  @JsonProperty(JSON_PROPERTY_CITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCity() {
-    return city;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-
-  public PreviewLoaConfigurationParamsRequestAddress state(String state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * The administrative area of the company
-   * @return state
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "TX", value = "The administrative area of the company")
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getState() {
-    return state;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(String state) {
-    this.state = state;
-  }
-
-
-  public PreviewLoaConfigurationParamsRequestAddress zipCode(String zipCode) {
-    this.zipCode = zipCode;
-    return this;
-  }
-
-   /**
-   * The postal code of the company
-   * @return zipCode
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "78701", value = "The postal code of the company")
-  @JsonProperty(JSON_PROPERTY_ZIP_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getZipCode() {
-    return zipCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ZIP_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setZipCode(String zipCode) {
-    this.zipCode = zipCode;
-  }
-
-
-  public PreviewLoaConfigurationParamsRequestAddress countryCode(String countryCode) {
-    this.countryCode = countryCode;
-    return this;
-  }
-
-   /**
-   * The country code of the company
-   * @return countryCode
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "US", required = true, value = "The country code of the company")
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCountryCode() {
-    return countryCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCountryCode(String countryCode) {
-    this.countryCode = countryCode;
-  }
-
-
-  /**
-   * Return true if this PreviewLoaConfigurationParams_request_address object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PreviewLoaConfigurationParamsRequestAddress streetAddress(
+        String streetAddress
+    ) {
+        this.streetAddress = streetAddress;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The street address of the company
+     * @return streetAddress
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "600 Congress Avenue",
+        required = true,
+        value = "The street address of the company"
+    )
+    @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getStreetAddress() {
+        return streetAddress;
     }
-    PreviewLoaConfigurationParamsRequestAddress previewLoaConfigurationParamsRequestAddress = (PreviewLoaConfigurationParamsRequestAddress) o;
-    return Objects.equals(this.streetAddress, previewLoaConfigurationParamsRequestAddress.streetAddress) &&
-        Objects.equals(this.extendedAddress, previewLoaConfigurationParamsRequestAddress.extendedAddress) &&
-        Objects.equals(this.city, previewLoaConfigurationParamsRequestAddress.city) &&
-        Objects.equals(this.state, previewLoaConfigurationParamsRequestAddress.state) &&
-        Objects.equals(this.zipCode, previewLoaConfigurationParamsRequestAddress.zipCode) &&
-        Objects.equals(this.countryCode, previewLoaConfigurationParamsRequestAddress.countryCode);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(streetAddress, extendedAddress, city, state, zipCode, countryCode);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PreviewLoaConfigurationParamsRequestAddress {\n");
-    sb.append("    streetAddress: ").append(toIndentedString(streetAddress)).append("\n");
-    sb.append("    extendedAddress: ").append(toIndentedString(extendedAddress)).append("\n");
-    sb.append("    city: ").append(toIndentedString(city)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    zipCode: ").append(toIndentedString(zipCode)).append("\n");
-    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public PreviewLoaConfigurationParamsRequestAddress extendedAddress(
+        String extendedAddress
+    ) {
+        this.extendedAddress = extendedAddress;
+        return this;
+    }
+
+    /**
+     * The extended address of the company
+     * @return extendedAddress
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "14th Floor",
+        value = "The extended address of the company"
+    )
+    @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExtendedAddress() {
+        return extendedAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExtendedAddress(String extendedAddress) {
+        this.extendedAddress = extendedAddress;
+    }
+
+    public PreviewLoaConfigurationParamsRequestAddress city(String city) {
+        this.city = city;
+        return this;
+    }
+
+    /**
+     * The locality of the company
+     * @return city
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "Austin", value = "The locality of the company")
+    @JsonProperty(JSON_PROPERTY_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCity() {
+        return city;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public PreviewLoaConfigurationParamsRequestAddress state(String state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
+     * The administrative area of the company
+     * @return state
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "TX",
+        value = "The administrative area of the company"
+    )
+    @JsonProperty(JSON_PROPERTY_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getState() {
+        return state;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public PreviewLoaConfigurationParamsRequestAddress zipCode(String zipCode) {
+        this.zipCode = zipCode;
+        return this;
+    }
+
+    /**
+     * The postal code of the company
+     * @return zipCode
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "78701",
+        value = "The postal code of the company"
+    )
+    @JsonProperty(JSON_PROPERTY_ZIP_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ZIP_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public PreviewLoaConfigurationParamsRequestAddress countryCode(
+        String countryCode
+    ) {
+        this.countryCode = countryCode;
+        return this;
+    }
+
+    /**
+     * The country code of the company
+     * @return countryCode
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "US",
+        required = true,
+        value = "The country code of the company"
+    )
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    /**
+     * Return true if this PreviewLoaConfigurationParams_request_address object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PreviewLoaConfigurationParamsRequestAddress previewLoaConfigurationParamsRequestAddress =
+            (PreviewLoaConfigurationParamsRequestAddress) o;
+        return (
+            Objects.equals(
+                this.streetAddress,
+                previewLoaConfigurationParamsRequestAddress.streetAddress
+            ) &&
+            Objects.equals(
+                this.extendedAddress,
+                previewLoaConfigurationParamsRequestAddress.extendedAddress
+            ) &&
+            Objects.equals(
+                this.city,
+                previewLoaConfigurationParamsRequestAddress.city
+            ) &&
+            Objects.equals(
+                this.state,
+                previewLoaConfigurationParamsRequestAddress.state
+            ) &&
+            Objects.equals(
+                this.zipCode,
+                previewLoaConfigurationParamsRequestAddress.zipCode
+            ) &&
+            Objects.equals(
+                this.countryCode,
+                previewLoaConfigurationParamsRequestAddress.countryCode
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            streetAddress,
+            extendedAddress,
+            city,
+            state,
+            zipCode,
+            countryCode
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PreviewLoaConfigurationParamsRequestAddress {\n");
+        sb
+            .append("    streetAddress: ")
+            .append(toIndentedString(streetAddress))
+            .append("\n");
+        sb
+            .append("    extendedAddress: ")
+            .append(toIndentedString(extendedAddress))
+            .append("\n");
+        sb.append("    city: ").append(toIndentedString(city)).append("\n");
+        sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb
+            .append("    zipCode: ")
+            .append(toIndentedString(zipCode))
+            .append("\n");
+        sb
+            .append("    countryCode: ")
+            .append(toIndentedString(countryCode))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

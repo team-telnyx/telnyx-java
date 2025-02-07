@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -24,7 +22,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for ListPhoneNumbersFilterCountryIsoAlpha2Parameter
  */
 public class ListPhoneNumbersFilterCountryIsoAlpha2ParameterTest {
-    private final ListPhoneNumbersFilterCountryIsoAlpha2Parameter model = new ListPhoneNumbersFilterCountryIsoAlpha2Parameter();
+
+    private final ListPhoneNumbersFilterCountryIsoAlpha2Parameter model =
+        new ListPhoneNumbersFilterCountryIsoAlpha2Parameter();
 
     /**
      * Model tests for ListPhoneNumbersFilterCountryIsoAlpha2Parameter
@@ -33,5 +33,4 @@ public class ListPhoneNumbersFilterCountryIsoAlpha2ParameterTest {
     public void testListPhoneNumbersFilterCountryIsoAlpha2Parameter() {
         // TODO: test ListPhoneNumbersFilterCountryIsoAlpha2Parameter
     }
-
 }

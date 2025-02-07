@@ -10,236 +10,249 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.CreationStatus;
-import java.time.OffsetDateTime;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CampaignStatus
  */
-@JsonPropertyOrder({
-  CampaignStatus.JSON_PROPERTY_DESCRIPTION,
-  CampaignStatus.JSON_PROPERTY_STATUS,
-  CampaignStatus.JSON_PROPERTY_CAMPAIGN_ID,
-  CampaignStatus.JSON_PROPERTY_CREATED_AT,
-  CampaignStatus.JSON_PROPERTY_ERROR
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        CampaignStatus.JSON_PROPERTY_DESCRIPTION,
+        CampaignStatus.JSON_PROPERTY_STATUS,
+        CampaignStatus.JSON_PROPERTY_CAMPAIGN_ID,
+        CampaignStatus.JSON_PROPERTY_CREATED_AT,
+        CampaignStatus.JSON_PROPERTY_ERROR,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class CampaignStatus {
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
 
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private CreationStatus status;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    private String description;
 
-  public static final String JSON_PROPERTY_CAMPAIGN_ID = "campaignId";
-  private String campaignId;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private CreationStatus status;
 
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private OffsetDateTime createdAt;
+    public static final String JSON_PROPERTY_CAMPAIGN_ID = "campaignId";
+    private String campaignId;
 
-  public static final String JSON_PROPERTY_ERROR = "error";
-  private String error;
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private OffsetDateTime createdAt;
 
-  public CampaignStatus() { 
-  }
+    public static final String JSON_PROPERTY_ERROR = "error";
+    private String error;
 
-  public CampaignStatus description(String description) {
-    this.description = description;
-    return this;
-  }
+    public CampaignStatus() {}
 
-   /**
-   * The campaign description.
-   * @return description
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "This campaign belongs to John's Donuts and will be used for marketing.", required = true, value = "The campaign description.")
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public CampaignStatus status(CreationStatus status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The current status of the campaign.
-   * @return status
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The current status of the campaign.")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public CreationStatus getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStatus(CreationStatus status) {
-    this.status = status;
-  }
-
-
-  public CampaignStatus campaignId(String campaignId) {
-    this.campaignId = campaignId;
-    return this;
-  }
-
-   /**
-   * The ID of the campaign created via bulk creation. This campaign will only have a campaignId after the campaign has been created.
-   * @return campaignId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "4b30017a-2f50-4c90-c9e6-5f67304cbde7", value = "The ID of the campaign created via bulk creation. This campaign will only have a campaignId after the campaign has been created.")
-  @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCampaignId() {
-    return campaignId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCampaignId(String campaignId) {
-    this.campaignId = campaignId;
-  }
-
-
-  public CampaignStatus createdAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * The date and time that the campaign was created.
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-06-30T10:49:04-07:00", value = "The date and time that the campaign was created.")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public CampaignStatus error(String error) {
-    this.error = error;
-    return this;
-  }
-
-   /**
-   * Errors related to a campaign creation failure.
-   * @return error
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "More sample messages required for some mobile network operators.", value = "Errors related to a campaign creation failure.")
-  @JsonProperty(JSON_PROPERTY_ERROR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getError() {
-    return error;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ERROR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setError(String error) {
-    this.error = error;
-  }
-
-
-  /**
-   * Return true if this CampaignStatus object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CampaignStatus description(String description) {
+        this.description = description;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The campaign description.
+     * @return description
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "This campaign belongs to John's Donuts and will be used for marketing.",
+        required = true,
+        value = "The campaign description."
+    )
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getDescription() {
+        return description;
     }
-    CampaignStatus campaignStatus = (CampaignStatus) o;
-    return Objects.equals(this.description, campaignStatus.description) &&
-        Objects.equals(this.status, campaignStatus.status) &&
-        Objects.equals(this.campaignId, campaignStatus.campaignId) &&
-        Objects.equals(this.createdAt, campaignStatus.createdAt) &&
-        Objects.equals(this.error, campaignStatus.error);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, status, campaignId, createdAt, error);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CampaignStatus {\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    campaignId: ").append(toIndentedString(campaignId)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    error: ").append(toIndentedString(error)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setDescription(String description) {
+        this.description = description;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CampaignStatus status(CreationStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The current status of the campaign.
+     * @return status
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The current status of the campaign."
+    )
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public CreationStatus getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(CreationStatus status) {
+        this.status = status;
+    }
+
+    public CampaignStatus campaignId(String campaignId) {
+        this.campaignId = campaignId;
+        return this;
+    }
+
+    /**
+     * The ID of the campaign created via bulk creation. This campaign will only have a campaignId after the campaign has been created.
+     * @return campaignId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "4b30017a-2f50-4c90-c9e6-5f67304cbde7",
+        value = "The ID of the campaign created via bulk creation. This campaign will only have a campaignId after the campaign has been created."
+    )
+    @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
+    }
+
+    public CampaignStatus createdAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * The date and time that the campaign was created.
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-06-30T10:49:04-07:00",
+        value = "The date and time that the campaign was created."
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public CampaignStatus error(String error) {
+        this.error = error;
+        return this;
+    }
+
+    /**
+     * Errors related to a campaign creation failure.
+     * @return error
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "More sample messages required for some mobile network operators.",
+        value = "Errors related to a campaign creation failure."
+    )
+    @JsonProperty(JSON_PROPERTY_ERROR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getError() {
+        return error;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ERROR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    /**
+     * Return true if this CampaignStatus object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CampaignStatus campaignStatus = (CampaignStatus) o;
+        return (
+            Objects.equals(this.description, campaignStatus.description) &&
+            Objects.equals(this.status, campaignStatus.status) &&
+            Objects.equals(this.campaignId, campaignStatus.campaignId) &&
+            Objects.equals(this.createdAt, campaignStatus.createdAt) &&
+            Objects.equals(this.error, campaignStatus.error)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, status, campaignId, createdAt, error);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CampaignStatus {\n");
+        sb
+            .append("    description: ")
+            .append(toIndentedString(description))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    campaignId: ")
+            .append(toIndentedString(campaignId))
+            .append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb.append("    error: ").append(toIndentedString(error)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

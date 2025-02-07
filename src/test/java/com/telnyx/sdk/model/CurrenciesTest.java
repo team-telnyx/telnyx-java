@@ -10,21 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import io.swagger.annotations.ApiModel;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for Currencies
  */
 public class CurrenciesTest {
+
     /**
      * Model tests for Currencies
      */
@@ -32,5 +30,4 @@ public class CurrenciesTest {
     public void testCurrencies() {
         // TODO: test Currencies
     }
-
 }

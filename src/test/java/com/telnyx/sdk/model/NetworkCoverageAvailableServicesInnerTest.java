@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.telnyx.sdk.model.AvailableService;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -24,7 +22,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for NetworkCoverageAvailableServicesInner
  */
 public class NetworkCoverageAvailableServicesInnerTest {
-    private final NetworkCoverageAvailableServicesInner model = new NetworkCoverageAvailableServicesInner();
+
+    private final NetworkCoverageAvailableServicesInner model =
+        new NetworkCoverageAvailableServicesInner();
 
     /**
      * Model tests for NetworkCoverageAvailableServicesInner
@@ -33,5 +33,4 @@ public class NetworkCoverageAvailableServicesInnerTest {
     public void testNetworkCoverageAvailableServicesInner() {
         // TODO: test NetworkCoverageAvailableServicesInner
     }
-
 }

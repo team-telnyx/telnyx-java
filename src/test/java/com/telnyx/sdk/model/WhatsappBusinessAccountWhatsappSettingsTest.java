@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
@@ -24,15 +23,15 @@ import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for WhatsappBusinessAccountWhatsappSettings
  */
 public class WhatsappBusinessAccountWhatsappSettingsTest {
-    private final WhatsappBusinessAccountWhatsappSettings model = new WhatsappBusinessAccountWhatsappSettings();
+
+    private final WhatsappBusinessAccountWhatsappSettings model =
+        new WhatsappBusinessAccountWhatsappSettings();
 
     /**
      * Model tests for WhatsappBusinessAccountWhatsappSettings
@@ -105,5 +104,4 @@ public class WhatsappBusinessAccountWhatsappSettingsTest {
     public void banDateTest() {
         // TODO: test banDate
     }
-
 }

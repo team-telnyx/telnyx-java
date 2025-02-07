@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,16 +21,14 @@ import com.telnyx.sdk.model.GetRoomSessionResponse;
 import com.telnyx.sdk.model.ListRoomParticipantsResponse;
 import com.telnyx.sdk.model.ListRoomSessionsResponse;
 import java.time.LocalDate;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for RoomSessionsApi
@@ -43,7 +40,7 @@ public class RoomSessionsApiTest {
     /**
      * Kick participants from a room session.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -59,7 +56,7 @@ public class RoomSessionsApiTest {
     /**
      * View a list of room sessions.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -87,7 +84,7 @@ public class RoomSessionsApiTest {
     /**
      * Mute participants in room session.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -103,7 +100,7 @@ public class RoomSessionsApiTest {
     /**
      * View a list of room participants.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -130,7 +127,7 @@ public class RoomSessionsApiTest {
     /**
      * Unmute participants in room session.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -146,7 +143,7 @@ public class RoomSessionsApiTest {
     /**
      * View a room session.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -158,5 +155,4 @@ public class RoomSessionsApiTest {
         //GetRoomSessionResponse response = api.viewRoomSession(roomSessionId, includeParticipants);
         // TODO: test validations
     }
-
 }

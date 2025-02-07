@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.telnyx.sdk.model.EnumListResponseInner;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for GetEnumEndpoint200Response
  */
 public class GetEnumEndpoint200ResponseTest {
-    private final GetEnumEndpoint200Response model = new GetEnumEndpoint200Response();
+
+    private final GetEnumEndpoint200Response model =
+        new GetEnumEndpoint200Response();
 
     /**
      * Model tests for GetEnumEndpoint200Response
@@ -34,5 +34,4 @@ public class GetEnumEndpoint200ResponseTest {
     public void testGetEnumEndpoint200Response() {
         // TODO: test GetEnumEndpoint200Response
     }
-
 }

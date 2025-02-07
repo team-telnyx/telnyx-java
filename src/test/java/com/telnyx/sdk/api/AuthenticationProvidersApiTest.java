@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,22 +18,21 @@ import com.telnyx.sdk.model.AuthenticationProviderCreate;
 import com.telnyx.sdk.model.AuthenticationProviderResponse;
 import com.telnyx.sdk.model.GetAllAuthenticationProvidersResponse;
 import com.telnyx.sdk.model.UpdateAuthenticationProviderRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for AuthenticationProvidersApi
  */
 public class AuthenticationProvidersApiTest {
 
-    private final AuthenticationProvidersApi api = new AuthenticationProvidersApi();
+    private final AuthenticationProvidersApi api =
+        new AuthenticationProvidersApi();
 
     /**
      * Creates an authentication provider
@@ -113,5 +111,4 @@ public class AuthenticationProvidersApiTest {
         //AuthenticationProviderResponse response = api.updateAuthenticationProvider(id, updateAuthenticationProviderRequest);
         // TODO: test validations
     }
-
 }

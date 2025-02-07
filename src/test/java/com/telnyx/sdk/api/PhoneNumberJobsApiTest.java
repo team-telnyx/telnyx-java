@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,15 +21,13 @@ import com.telnyx.sdk.model.PhoneNumbersJob;
 import com.telnyx.sdk.model.PhoneNumbersJobDeletePhoneNumbers;
 import com.telnyx.sdk.model.PhoneNumbersJobDeletePhoneNumbersRequest;
 import com.telnyx.sdk.model.PhoneNumbersJobUpdateEmergencySettingsRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for PhoneNumberJobsApi
@@ -42,13 +39,14 @@ public class PhoneNumberJobsApiTest {
     /**
      * Creates a new background job to delete a batch of numbers. At most one thousand numbers can be updated per API call.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void createPhoneNumbersJobDeletePhoneNumbersTest() throws ApiException {
+    public void createPhoneNumbersJobDeletePhoneNumbersTest()
+        throws ApiException {
         //PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest = null;
         //PhoneNumbersJobDeletePhoneNumbers response = api.createPhoneNumbersJobDeletePhoneNumbers()
         //        .phoneNumbersJobDeletePhoneNumbersRequest(phoneNumbersJobDeletePhoneNumbersRequest)
@@ -59,13 +57,14 @@ public class PhoneNumberJobsApiTest {
     /**
      * Creates a background job to update the emergency settings of a collection of phone numbers. At most one thousand numbers can be updated per API call.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void createPhoneNumbersJobUpdateEmergencySettingsTest() throws ApiException {
+    public void createPhoneNumbersJobUpdateEmergencySettingsTest()
+        throws ApiException {
         //PhoneNumbersJobUpdateEmergencySettingsRequest phoneNumbersJobUpdateEmergencySettingsRequest = null;
         //PhoneNumbersEnableEmergency response = api.createPhoneNumbersJobUpdateEmergencySettings(phoneNumbersJobUpdateEmergencySettingsRequest);
         // TODO: test validations
@@ -74,7 +73,7 @@ public class PhoneNumberJobsApiTest {
     /**
      * Lists the phone numbers asynchronous jobs.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -97,7 +96,7 @@ public class PhoneNumberJobsApiTest {
     /**
      * Retrieves the details of a given phone numbers job.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -109,5 +108,4 @@ public class PhoneNumberJobsApiTest {
         //        .execute();
         // TODO: test validations
     }
-
 }

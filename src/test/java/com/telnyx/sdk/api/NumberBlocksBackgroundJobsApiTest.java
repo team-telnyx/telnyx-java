@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -20,22 +19,21 @@ import com.telnyx.sdk.model.ListPhoneNumberBlocksBackgroundJobsResponse;
 import com.telnyx.sdk.model.PhoneNumberBlocksJob;
 import com.telnyx.sdk.model.PhoneNumberBlocksJobDeletePhoneNumberBlock;
 import com.telnyx.sdk.model.PhoneNumberBlocksJobDeletePhoneNumberBlockRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for NumberBlocksBackgroundJobsApi
  */
 public class NumberBlocksBackgroundJobsApiTest {
 
-    private final NumberBlocksBackgroundJobsApi api = new NumberBlocksBackgroundJobsApi();
+    private final NumberBlocksBackgroundJobsApi api =
+        new NumberBlocksBackgroundJobsApi();
 
     /**
      * Deletes all numbers associated with a phone number block
@@ -46,7 +44,8 @@ public class NumberBlocksBackgroundJobsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createPhoneNumberBlocksJobDeletePhoneNumberBlockTest() throws ApiException {
+    public void createPhoneNumberBlocksJobDeletePhoneNumberBlockTest()
+        throws ApiException {
         //PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest = null;
         //PhoneNumberBlocksJobDeletePhoneNumberBlock response = api.createPhoneNumberBlocksJobDeletePhoneNumberBlock()
         //        .phoneNumberBlocksJobDeletePhoneNumberBlockRequest(phoneNumberBlocksJobDeletePhoneNumberBlockRequest)
@@ -57,7 +56,7 @@ public class NumberBlocksBackgroundJobsApiTest {
     /**
      * Lists the phone number blocks jobs
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -82,7 +81,7 @@ public class NumberBlocksBackgroundJobsApiTest {
     /**
      * Retrieves a phone number blocks job
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -94,5 +93,4 @@ public class NumberBlocksBackgroundJobsApiTest {
         //        .execute();
         // TODO: test validations
     }
-
 }

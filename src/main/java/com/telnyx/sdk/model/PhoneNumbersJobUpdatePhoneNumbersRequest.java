@@ -10,344 +10,412 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.UpdatePhoneNumberVoiceSettingsRequest;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * PhoneNumbersJobUpdatePhoneNumbersRequest
  */
-@JsonPropertyOrder({
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_PHONE_NUMBERS,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_TAGS,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_EXTERNAL_PIN,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_CONNECTION_ID,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_BILLING_GROUP_ID,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_HD_VOICE_ENABLED,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_VOICE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_PHONE_NUMBERS,
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_TAGS,
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_EXTERNAL_PIN,
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_CONNECTION_ID,
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_BILLING_GROUP_ID,
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_HD_VOICE_ENABLED,
+        PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_VOICE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PhoneNumbersJobUpdatePhoneNumbersRequest {
-  public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
-  private List<String> phoneNumbers = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_TAGS = "tags";
-  private List<String> tags = null;
+    public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
+    private List<String> phoneNumbers = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_EXTERNAL_PIN = "external_pin";
-  private String externalPin;
+    public static final String JSON_PROPERTY_TAGS = "tags";
+    private List<String> tags = null;
 
-  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
-  private String customerReference;
+    public static final String JSON_PROPERTY_EXTERNAL_PIN = "external_pin";
+    private String externalPin;
 
-  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private String connectionId;
+    public static final String JSON_PROPERTY_CUSTOMER_REFERENCE =
+        "customer_reference";
+    private String customerReference;
 
-  public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
-  private String billingGroupId;
+    public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
+    private String connectionId;
 
-  public static final String JSON_PROPERTY_HD_VOICE_ENABLED = "hd_voice_enabled";
-  private Boolean hdVoiceEnabled;
+    public static final String JSON_PROPERTY_BILLING_GROUP_ID =
+        "billing_group_id";
+    private String billingGroupId;
 
-  public static final String JSON_PROPERTY_VOICE = "voice";
-  private UpdatePhoneNumberVoiceSettingsRequest voice;
+    public static final String JSON_PROPERTY_HD_VOICE_ENABLED =
+        "hd_voice_enabled";
+    private Boolean hdVoiceEnabled;
 
-  public PhoneNumbersJobUpdatePhoneNumbersRequest() { 
-  }
+    public static final String JSON_PROPERTY_VOICE = "voice";
+    private UpdatePhoneNumberVoiceSettingsRequest voice;
 
-  public PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbers(List<String> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-    return this;
-  }
+    public PhoneNumbersJobUpdatePhoneNumbersRequest() {}
 
-  public PhoneNumbersJobUpdatePhoneNumbersRequest addphoneNumbersItem(String phoneNumbersItem) {
-    this.phoneNumbers.add(phoneNumbersItem);
-    return this;
-  }
-
-   /**
-   * Array of phone number ids and/or phone numbers in E164 format to update
-   * @return phoneNumbers
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Array of phone number ids and/or phone numbers in E164 format to update")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<String> getPhoneNumbers() {
-    return phoneNumbers;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumbers(List<String> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-  }
-
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest tags(List<String> tags) {
-    this.tags = tags;
-    return this;
-  }
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest addtagsItem(String tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<>();
+    public PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbers(
+        List<String> phoneNumbers
+    ) {
+        this.phoneNumbers = phoneNumbers;
+        return this;
     }
-    this.tags.add(tagsItem);
-    return this;
-  }
 
-   /**
-   * A list of user-assigned tags to help organize phone numbers.
-   * @return tags
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "A list of user-assigned tags to help organize phone numbers.")
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getTags() {
-    return tags;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTags(List<String> tags) {
-    this.tags = tags;
-  }
-
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest externalPin(String externalPin) {
-    this.externalPin = externalPin;
-    return this;
-  }
-
-   /**
-   * If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, we will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.
-   * @return externalPin
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, we will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.")
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getExternalPin() {
-    return externalPin;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternalPin(String externalPin) {
-    this.externalPin = externalPin;
-  }
-
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest customerReference(String customerReference) {
-    this.customerReference = customerReference;
-    return this;
-  }
-
-   /**
-   * A customer reference string for customer look ups.
-   * @return customerReference
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCustomerReference() {
-    return customerReference;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCustomerReference(String customerReference) {
-    this.customerReference = customerReference;
-  }
-
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest connectionId(String connectionId) {
-    this.connectionId = connectionId;
-    return this;
-  }
-
-   /**
-   * Identifies the connection associated with the phone number.
-   * @return connectionId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getConnectionId() {
-    return connectionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConnectionId(String connectionId) {
-    this.connectionId = connectionId;
-  }
-
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest billingGroupId(String billingGroupId) {
-    this.billingGroupId = billingGroupId;
-    return this;
-  }
-
-   /**
-   * Identifies the billing group associated with the phone number.
-   * @return billingGroupId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Identifies the billing group associated with the phone number.")
-  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBillingGroupId() {
-    return billingGroupId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBillingGroupId(String billingGroupId) {
-    this.billingGroupId = billingGroupId;
-  }
-
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest hdVoiceEnabled(Boolean hdVoiceEnabled) {
-    this.hdVoiceEnabled = hdVoiceEnabled;
-    return this;
-  }
-
-   /**
-   * Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation.
-   * @return hdVoiceEnabled
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation.")
-  @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getHdVoiceEnabled() {
-    return hdVoiceEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHdVoiceEnabled(Boolean hdVoiceEnabled) {
-    this.hdVoiceEnabled = hdVoiceEnabled;
-  }
-
-
-  public PhoneNumbersJobUpdatePhoneNumbersRequest voice(UpdatePhoneNumberVoiceSettingsRequest voice) {
-    this.voice = voice;
-    return this;
-  }
-
-   /**
-   * Get voice
-   * @return voice
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_VOICE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UpdatePhoneNumberVoiceSettingsRequest getVoice() {
-    return voice;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VOICE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVoice(UpdatePhoneNumberVoiceSettingsRequest voice) {
-    this.voice = voice;
-  }
-
-
-  /**
-   * Return true if this PhoneNumbersJobUpdatePhoneNumbersRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PhoneNumbersJobUpdatePhoneNumbersRequest addphoneNumbersItem(
+        String phoneNumbersItem
+    ) {
+        this.phoneNumbers.add(phoneNumbersItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Array of phone number ids and/or phone numbers in E164 format to update
+     * @return phoneNumbers
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Array of phone number ids and/or phone numbers in E164 format to update"
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<String> getPhoneNumbers() {
+        return phoneNumbers;
     }
-    PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest = (PhoneNumbersJobUpdatePhoneNumbersRequest) o;
-    return Objects.equals(this.phoneNumbers, phoneNumbersJobUpdatePhoneNumbersRequest.phoneNumbers) &&
-        Objects.equals(this.tags, phoneNumbersJobUpdatePhoneNumbersRequest.tags) &&
-        Objects.equals(this.externalPin, phoneNumbersJobUpdatePhoneNumbersRequest.externalPin) &&
-        Objects.equals(this.customerReference, phoneNumbersJobUpdatePhoneNumbersRequest.customerReference) &&
-        Objects.equals(this.connectionId, phoneNumbersJobUpdatePhoneNumbersRequest.connectionId) &&
-        Objects.equals(this.billingGroupId, phoneNumbersJobUpdatePhoneNumbersRequest.billingGroupId) &&
-        Objects.equals(this.hdVoiceEnabled, phoneNumbersJobUpdatePhoneNumbersRequest.hdVoiceEnabled) &&
-        Objects.equals(this.voice, phoneNumbersJobUpdatePhoneNumbersRequest.voice);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(phoneNumbers, tags, externalPin, customerReference, connectionId, billingGroupId, hdVoiceEnabled, voice);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PhoneNumbersJobUpdatePhoneNumbersRequest {\n");
-    sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    externalPin: ").append(toIndentedString(externalPin)).append("\n");
-    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
-    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
-    sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
-    sb.append("    hdVoiceEnabled: ").append(toIndentedString(hdVoiceEnabled)).append("\n");
-    sb.append("    voice: ").append(toIndentedString(voice)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumbers(List<String> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public PhoneNumbersJobUpdatePhoneNumbersRequest tags(List<String> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public PhoneNumbersJobUpdatePhoneNumbersRequest addtagsItem(
+        String tagsItem
+    ) {
+        if (this.tags == null) {
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tagsItem);
+        return this;
+    }
+
+    /**
+     * A list of user-assigned tags to help organize phone numbers.
+     * @return tags
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "A list of user-assigned tags to help organize phone numbers."
+    )
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getTags() {
+        return tags;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public PhoneNumbersJobUpdatePhoneNumbersRequest externalPin(
+        String externalPin
+    ) {
+        this.externalPin = externalPin;
+        return this;
+    }
+
+    /**
+     * If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, we will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.
+     * @return externalPin
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, we will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism."
+    )
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExternalPin() {
+        return externalPin;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExternalPin(String externalPin) {
+        this.externalPin = externalPin;
+    }
+
+    public PhoneNumbersJobUpdatePhoneNumbersRequest customerReference(
+        String customerReference
+    ) {
+        this.customerReference = customerReference;
+        return this;
+    }
+
+    /**
+     * A customer reference string for customer look ups.
+     * @return customerReference
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "MY REF 001",
+        value = "A customer reference string for customer look ups."
+    )
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCustomerReference() {
+        return customerReference;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomerReference(String customerReference) {
+        this.customerReference = customerReference;
+    }
+
+    public PhoneNumbersJobUpdatePhoneNumbersRequest connectionId(
+        String connectionId
+    ) {
+        this.connectionId = connectionId;
+        return this;
+    }
+
+    /**
+     * Identifies the connection associated with the phone number.
+     * @return connectionId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Identifies the connection associated with the phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getConnectionId() {
+        return connectionId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConnectionId(String connectionId) {
+        this.connectionId = connectionId;
+    }
+
+    public PhoneNumbersJobUpdatePhoneNumbersRequest billingGroupId(
+        String billingGroupId
+    ) {
+        this.billingGroupId = billingGroupId;
+        return this;
+    }
+
+    /**
+     * Identifies the billing group associated with the phone number.
+     * @return billingGroupId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Identifies the billing group associated with the phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBillingGroupId() {
+        return billingGroupId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBillingGroupId(String billingGroupId) {
+        this.billingGroupId = billingGroupId;
+    }
+
+    public PhoneNumbersJobUpdatePhoneNumbersRequest hdVoiceEnabled(
+        Boolean hdVoiceEnabled
+    ) {
+        this.hdVoiceEnabled = hdVoiceEnabled;
+        return this;
+    }
+
+    /**
+     * Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation.
+     * @return hdVoiceEnabled
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation."
+    )
+    @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getHdVoiceEnabled() {
+        return hdVoiceEnabled;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHdVoiceEnabled(Boolean hdVoiceEnabled) {
+        this.hdVoiceEnabled = hdVoiceEnabled;
+    }
+
+    public PhoneNumbersJobUpdatePhoneNumbersRequest voice(
+        UpdatePhoneNumberVoiceSettingsRequest voice
+    ) {
+        this.voice = voice;
+        return this;
+    }
+
+    /**
+     * Get voice
+     * @return voice
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_VOICE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UpdatePhoneNumberVoiceSettingsRequest getVoice() {
+        return voice;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VOICE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVoice(UpdatePhoneNumberVoiceSettingsRequest voice) {
+        this.voice = voice;
+    }
+
+    /**
+     * Return true if this PhoneNumbersJobUpdatePhoneNumbersRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PhoneNumbersJobUpdatePhoneNumbersRequest phoneNumbersJobUpdatePhoneNumbersRequest =
+            (PhoneNumbersJobUpdatePhoneNumbersRequest) o;
+        return (
+            Objects.equals(
+                this.phoneNumbers,
+                phoneNumbersJobUpdatePhoneNumbersRequest.phoneNumbers
+            ) &&
+            Objects.equals(
+                this.tags,
+                phoneNumbersJobUpdatePhoneNumbersRequest.tags
+            ) &&
+            Objects.equals(
+                this.externalPin,
+                phoneNumbersJobUpdatePhoneNumbersRequest.externalPin
+            ) &&
+            Objects.equals(
+                this.customerReference,
+                phoneNumbersJobUpdatePhoneNumbersRequest.customerReference
+            ) &&
+            Objects.equals(
+                this.connectionId,
+                phoneNumbersJobUpdatePhoneNumbersRequest.connectionId
+            ) &&
+            Objects.equals(
+                this.billingGroupId,
+                phoneNumbersJobUpdatePhoneNumbersRequest.billingGroupId
+            ) &&
+            Objects.equals(
+                this.hdVoiceEnabled,
+                phoneNumbersJobUpdatePhoneNumbersRequest.hdVoiceEnabled
+            ) &&
+            Objects.equals(
+                this.voice,
+                phoneNumbersJobUpdatePhoneNumbersRequest.voice
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            phoneNumbers,
+            tags,
+            externalPin,
+            customerReference,
+            connectionId,
+            billingGroupId,
+            hdVoiceEnabled,
+            voice
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PhoneNumbersJobUpdatePhoneNumbersRequest {\n");
+        sb
+            .append("    phoneNumbers: ")
+            .append(toIndentedString(phoneNumbers))
+            .append("\n");
+        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+        sb
+            .append("    externalPin: ")
+            .append(toIndentedString(externalPin))
+            .append("\n");
+        sb
+            .append("    customerReference: ")
+            .append(toIndentedString(customerReference))
+            .append("\n");
+        sb
+            .append("    connectionId: ")
+            .append(toIndentedString(connectionId))
+            .append("\n");
+        sb
+            .append("    billingGroupId: ")
+            .append(toIndentedString(billingGroupId))
+            .append("\n");
+        sb
+            .append("    hdVoiceEnabled: ")
+            .append(toIndentedString(hdVoiceEnabled))
+            .append("\n");
+        sb.append("    voice: ").append(toIndentedString(voice)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

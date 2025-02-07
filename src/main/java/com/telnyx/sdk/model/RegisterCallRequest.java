@@ -10,170 +10,176 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RegisterCallRequest
  */
-@JsonPropertyOrder({
-  RegisterCallRequest.JSON_PROPERTY_FROM,
-  RegisterCallRequest.JSON_PROPERTY_TO,
-  RegisterCallRequest.JSON_PROPERTY_REASON
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        RegisterCallRequest.JSON_PROPERTY_FROM,
+        RegisterCallRequest.JSON_PROPERTY_TO,
+        RegisterCallRequest.JSON_PROPERTY_REASON,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class RegisterCallRequest {
-  public static final String JSON_PROPERTY_FROM = "from";
-  private String from;
 
-  public static final String JSON_PROPERTY_TO = "to";
-  private String to;
+    public static final String JSON_PROPERTY_FROM = "from";
+    private String from;
 
-  public static final String JSON_PROPERTY_REASON = "reason";
-  private String reason;
+    public static final String JSON_PROPERTY_TO = "to";
+    private String to;
 
-  public RegisterCallRequest() { 
-  }
+    public static final String JSON_PROPERTY_REASON = "reason";
+    private String reason;
 
-  public RegisterCallRequest from(String from) {
-    this.from = from;
-    return this;
-  }
+    public RegisterCallRequest() {}
 
-   /**
-   * The DID that you will dial out from.
-   * @return from
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+15001340938", required = true, value = "The DID that you will dial out from.")
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getFrom() {
-    return from;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFrom(String from) {
-    this.from = from;
-  }
-
-
-  public RegisterCallRequest to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * The DID that you will dial out to.
-   * @return to
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+18005550100", required = true, value = "The DID that you will dial out to.")
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTo() {
-    return to;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-
-  public RegisterCallRequest reason(String reason) {
-    this.reason = reason;
-    return this;
-  }
-
-   /**
-   * The reason for call (this will be displayed on call recipient&#39;s device).
-   * @return reason
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "Confirm the Doctor appointment.", required = true, value = "The reason for call (this will be displayed on call recipient's device).")
-  @JsonProperty(JSON_PROPERTY_REASON)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getReason() {
-    return reason;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REASON)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setReason(String reason) {
-    this.reason = reason;
-  }
-
-
-  /**
-   * Return true if this RegisterCallRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RegisterCallRequest from(String from) {
+        this.from = from;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The DID that you will dial out from.
+     * @return from
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+15001340938",
+        required = true,
+        value = "The DID that you will dial out from."
+    )
+    @JsonProperty(JSON_PROPERTY_FROM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getFrom() {
+        return from;
     }
-    RegisterCallRequest registerCallRequest = (RegisterCallRequest) o;
-    return Objects.equals(this.from, registerCallRequest.from) &&
-        Objects.equals(this.to, registerCallRequest.to) &&
-        Objects.equals(this.reason, registerCallRequest.reason);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(from, to, reason);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RegisterCallRequest {\n");
-    sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_FROM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFrom(String from) {
+        this.from = from;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public RegisterCallRequest to(String to) {
+        this.to = to;
+        return this;
+    }
+
+    /**
+     * The DID that you will dial out to.
+     * @return to
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+18005550100",
+        required = true,
+        value = "The DID that you will dial out to."
+    )
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTo() {
+        return to;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public RegisterCallRequest reason(String reason) {
+        this.reason = reason;
+        return this;
+    }
+
+    /**
+     * The reason for call (this will be displayed on call recipient&#39;s device).
+     * @return reason
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "Confirm the Doctor appointment.",
+        required = true,
+        value = "The reason for call (this will be displayed on call recipient's device)."
+    )
+    @JsonProperty(JSON_PROPERTY_REASON)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getReason() {
+        return reason;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REASON)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    /**
+     * Return true if this RegisterCallRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RegisterCallRequest registerCallRequest = (RegisterCallRequest) o;
+        return (
+            Objects.equals(this.from, registerCallRequest.from) &&
+            Objects.equals(this.to, registerCallRequest.to) &&
+            Objects.equals(this.reason, registerCallRequest.reason)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(from, to, reason);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RegisterCallRequest {\n");
+        sb.append("    from: ").append(toIndentedString(from)).append("\n");
+        sb.append("    to: ").append(toIndentedString(to)).append("\n");
+        sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

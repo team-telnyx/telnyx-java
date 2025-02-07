@@ -10,136 +10,143 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CreateIntegrationSecretRequest
  */
-@JsonPropertyOrder({
-  CreateIntegrationSecretRequest.JSON_PROPERTY_IDENTIFIER,
-  CreateIntegrationSecretRequest.JSON_PROPERTY_VALUE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        CreateIntegrationSecretRequest.JSON_PROPERTY_IDENTIFIER,
+        CreateIntegrationSecretRequest.JSON_PROPERTY_VALUE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CreateIntegrationSecretRequest {
-  public static final String JSON_PROPERTY_IDENTIFIER = "identifier";
-  private String identifier;
 
-  public static final String JSON_PROPERTY_VALUE = "value";
-  private String value;
+    public static final String JSON_PROPERTY_IDENTIFIER = "identifier";
+    private String identifier;
 
-  public CreateIntegrationSecretRequest() { 
-  }
+    public static final String JSON_PROPERTY_VALUE = "value";
+    private String value;
 
-  public CreateIntegrationSecretRequest identifier(String identifier) {
-    this.identifier = identifier;
-    return this;
-  }
+    public CreateIntegrationSecretRequest() {}
 
-   /**
-   * The unique identifier of the secret.
-   * @return identifier
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The unique identifier of the secret.")
-  @JsonProperty(JSON_PROPERTY_IDENTIFIER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getIdentifier() {
-    return identifier;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IDENTIFIER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIdentifier(String identifier) {
-    this.identifier = identifier;
-  }
-
-
-  public CreateIntegrationSecretRequest value(String value) {
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * The value of the secret.
-   * @return value
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The value of the secret.")
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getValue() {
-    return value;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-
-  /**
-   * Return true if this CreateIntegrationSecretRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CreateIntegrationSecretRequest identifier(String identifier) {
+        this.identifier = identifier;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The unique identifier of the secret.
+     * @return identifier
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The unique identifier of the secret."
+    )
+    @JsonProperty(JSON_PROPERTY_IDENTIFIER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getIdentifier() {
+        return identifier;
     }
-    CreateIntegrationSecretRequest createIntegrationSecretRequest = (CreateIntegrationSecretRequest) o;
-    return Objects.equals(this.identifier, createIntegrationSecretRequest.identifier) &&
-        Objects.equals(this.value, createIntegrationSecretRequest.value);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(identifier, value);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateIntegrationSecretRequest {\n");
-    sb.append("    identifier: ").append(toIndentedString(identifier)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_IDENTIFIER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CreateIntegrationSecretRequest value(String value) {
+        this.value = value;
+        return this;
+    }
+
+    /**
+     * The value of the secret.
+     * @return value
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "The value of the secret.")
+    @JsonProperty(JSON_PROPERTY_VALUE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getValue() {
+        return value;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VALUE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    /**
+     * Return true if this CreateIntegrationSecretRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateIntegrationSecretRequest createIntegrationSecretRequest =
+            (CreateIntegrationSecretRequest) o;
+        return (
+            Objects.equals(
+                this.identifier,
+                createIntegrationSecretRequest.identifier
+            ) &&
+            Objects.equals(this.value, createIntegrationSecretRequest.value)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identifier, value);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateIntegrationSecretRequest {\n");
+        sb
+            .append("    identifier: ")
+            .append(toIndentedString(identifier))
+            .append("\n");
+        sb.append("    value: ").append(toIndentedString(value)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

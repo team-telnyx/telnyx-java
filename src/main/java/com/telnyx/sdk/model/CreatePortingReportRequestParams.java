@@ -10,41 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ExportPortingOrdersCSVReport;
-import com.telnyx.sdk.model.ExportPortingOrdersCSVReportFilters;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -56,15 +34,47 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.ExportPortingOrdersCSVReport;
+import com.telnyx.sdk.model.ExportPortingOrdersCSVReportFilters;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using = CreatePortingReportRequestParams.CreatePortingReportRequestParamsDeserializer.class)
-@JsonSerialize(using = CreatePortingReportRequestParams.CreatePortingReportRequestParamsSerializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(
+    using = CreatePortingReportRequestParams.CreatePortingReportRequestParamsDeserializer.class
+)
+@JsonSerialize(
+    using = CreatePortingReportRequestParams.CreatePortingReportRequestParamsSerializer.class
+)
 public class CreatePortingReportRequestParams extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(CreatePortingReportRequestParams.class.getName());
 
-    public static class CreatePortingReportRequestParamsSerializer extends StdSerializer<CreatePortingReportRequestParams> {
-        public CreatePortingReportRequestParamsSerializer(Class<CreatePortingReportRequestParams> t) {
+    private static final Logger log = Logger.getLogger(
+        CreatePortingReportRequestParams.class.getName()
+    );
+
+    public static class CreatePortingReportRequestParamsSerializer
+        extends StdSerializer<CreatePortingReportRequestParams> {
+
+        public CreatePortingReportRequestParamsSerializer(
+            Class<CreatePortingReportRequestParams> t
+        ) {
             super(t);
         }
 
@@ -73,12 +83,18 @@ public class CreatePortingReportRequestParams extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(CreatePortingReportRequestParams value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            CreatePortingReportRequestParams value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class CreatePortingReportRequestParamsDeserializer extends StdDeserializer<CreatePortingReportRequestParams> {
+    public static class CreatePortingReportRequestParamsDeserializer
+        extends StdDeserializer<CreatePortingReportRequestParams> {
+
         public CreatePortingReportRequestParamsDeserializer() {
             this(CreatePortingReportRequestParams.class);
         }
@@ -88,57 +104,115 @@ public class CreatePortingReportRequestParams extends AbstractOpenApiSchema {
         }
 
         @Override
-        public CreatePortingReportRequestParams deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public CreatePortingReportRequestParams deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            boolean typeCoercion = ctxt.isEnabled(
+                MapperFeature.ALLOW_COERCION_OF_SCALARS
+            );
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize ExportPortingOrdersCSVReport
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (ExportPortingOrdersCSVReport.class.equals(Integer.class) || ExportPortingOrdersCSVReport.class.equals(Long.class) || ExportPortingOrdersCSVReport.class.equals(Float.class) || ExportPortingOrdersCSVReport.class.equals(Double.class) || ExportPortingOrdersCSVReport.class.equals(Boolean.class) || ExportPortingOrdersCSVReport.class.equals(String.class)) {
+                if (
+                    ExportPortingOrdersCSVReport.class.equals(Integer.class) ||
+                    ExportPortingOrdersCSVReport.class.equals(Long.class) ||
+                    ExportPortingOrdersCSVReport.class.equals(Float.class) ||
+                    ExportPortingOrdersCSVReport.class.equals(Double.class) ||
+                    ExportPortingOrdersCSVReport.class.equals(Boolean.class) ||
+                    ExportPortingOrdersCSVReport.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((ExportPortingOrdersCSVReport.class.equals(Integer.class) || ExportPortingOrdersCSVReport.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((ExportPortingOrdersCSVReport.class.equals(Float.class) || ExportPortingOrdersCSVReport.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (ExportPortingOrdersCSVReport.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (ExportPortingOrdersCSVReport.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                            ((ExportPortingOrdersCSVReport.class.equals(
+                                            Integer.class
+                                        ) ||
+                                    ExportPortingOrdersCSVReport.class.equals(
+                                            Long.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                            ((ExportPortingOrdersCSVReport.class.equals(
+                                            Float.class
+                                        ) ||
+                                    ExportPortingOrdersCSVReport.class.equals(
+                                            Double.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                            (ExportPortingOrdersCSVReport.class.equals(
+                                        Boolean.class
+                                    ) &&
+                                (token == JsonToken.VALUE_FALSE ||
+                                    token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                            (ExportPortingOrdersCSVReport.class.equals(
+                                        String.class
+                                    ) &&
+                                token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(ExportPortingOrdersCSVReport.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(ExportPortingOrdersCSVReport.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'ExportPortingOrdersCSVReport'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'ExportPortingOrdersCSVReport'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'ExportPortingOrdersCSVReport'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'ExportPortingOrdersCSVReport'",
+                    e
+                );
             }
 
             if (match == 1) {
-                CreatePortingReportRequestParams ret = new CreatePortingReportRequestParams();
+                CreatePortingReportRequestParams ret =
+                    new CreatePortingReportRequestParams();
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for CreatePortingReportRequestParams: %d classes match result, expected 1", match));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for CreatePortingReportRequestParams: %d classes match result, expected 1",
+                    match
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public CreatePortingReportRequestParams getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "CreatePortingReportRequestParams cannot be null");
+        public CreatePortingReportRequestParams getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "CreatePortingReportRequestParams cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public CreatePortingReportRequestParams() {
         super("oneOf", Boolean.FALSE);
@@ -150,9 +224,14 @@ public class CreatePortingReportRequestParams extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("ExportPortingOrdersCSVReport", new GenericType<ExportPortingOrdersCSVReport>() {
-        });
-        JSON.registerDescendants(CreatePortingReportRequestParams.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+            "ExportPortingOrdersCSVReport",
+            new GenericType<ExportPortingOrdersCSVReport>() {}
+        );
+        JSON.registerDescendants(
+            CreatePortingReportRequestParams.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -170,12 +249,20 @@ public class CreatePortingReportRequestParams extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(ExportPortingOrdersCSVReport.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                ExportPortingOrdersCSVReport.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be ExportPortingOrdersCSVReport");
+        throw new RuntimeException(
+            "Invalid instance type. Must be ExportPortingOrdersCSVReport"
+        );
     }
 
     /**
@@ -196,9 +283,8 @@ public class CreatePortingReportRequestParams extends AbstractOpenApiSchema {
      * @return The actual instance of `ExportPortingOrdersCSVReport`
      * @throws ClassCastException if the instance is not `ExportPortingOrdersCSVReport`
      */
-    public ExportPortingOrdersCSVReport getExportPortingOrdersCSVReport() throws ClassCastException {
-        return (ExportPortingOrdersCSVReport)super.getActualInstance();
+    public ExportPortingOrdersCSVReport getExportPortingOrdersCSVReport()
+        throws ClassCastException {
+        return (ExportPortingOrdersCSVReport) super.getActualInstance();
     }
-
 }
-

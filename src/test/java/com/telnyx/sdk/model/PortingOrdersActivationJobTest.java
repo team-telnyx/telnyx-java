@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
@@ -25,15 +24,15 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for PortingOrdersActivationJob
  */
 public class PortingOrdersActivationJobTest {
-    private final PortingOrdersActivationJob model = new PortingOrdersActivationJob();
+
+    private final PortingOrdersActivationJob model =
+        new PortingOrdersActivationJob();
 
     /**
      * Model tests for PortingOrdersActivationJob
@@ -82,5 +81,4 @@ public class PortingOrdersActivationJobTest {
     public void updatedAtTest() {
         // TODO: test updatedAt
     }
-
 }

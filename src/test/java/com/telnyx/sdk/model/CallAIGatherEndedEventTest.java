@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallAIGatherEnded;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -29,6 +27,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for CallAIGatherEndedEvent
  */
 public class CallAIGatherEndedEventTest {
+
     private final CallAIGatherEndedEvent model = new CallAIGatherEndedEvent();
 
     /**
@@ -46,5 +45,4 @@ public class CallAIGatherEndedEventTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

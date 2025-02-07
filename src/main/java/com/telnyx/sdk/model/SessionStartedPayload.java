@@ -10,139 +10,145 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import java.util.UUID;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * SessionStartedPayload
  */
-@JsonPropertyOrder({
-  SessionStartedPayload.JSON_PROPERTY_SESSION_ID,
-  SessionStartedPayload.JSON_PROPERTY_ROOM_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        SessionStartedPayload.JSON_PROPERTY_SESSION_ID,
+        SessionStartedPayload.JSON_PROPERTY_ROOM_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class SessionStartedPayload {
-  public static final String JSON_PROPERTY_SESSION_ID = "session_id";
-  private UUID sessionId;
 
-  public static final String JSON_PROPERTY_ROOM_ID = "room_id";
-  private UUID roomId;
+    public static final String JSON_PROPERTY_SESSION_ID = "session_id";
+    private UUID sessionId;
 
-  public SessionStartedPayload() { 
-  }
+    public static final String JSON_PROPERTY_ROOM_ID = "room_id";
+    private UUID roomId;
 
-  public SessionStartedPayload sessionId(UUID sessionId) {
-    this.sessionId = sessionId;
-    return this;
-  }
+    public SessionStartedPayload() {}
 
-   /**
-   * Session ID that identifies the session that started.
-   * @return sessionId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Session ID that identifies the session that started.")
-  @JsonProperty(JSON_PROPERTY_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getSessionId() {
-    return sessionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSessionId(UUID sessionId) {
-    this.sessionId = sessionId;
-  }
-
-
-  public SessionStartedPayload roomId(UUID roomId) {
-    this.roomId = roomId;
-    return this;
-  }
-
-   /**
-   * Room ID that identifies the room where the session started.
-   * @return roomId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Room ID that identifies the room where the session started.")
-  @JsonProperty(JSON_PROPERTY_ROOM_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getRoomId() {
-    return roomId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ROOM_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRoomId(UUID roomId) {
-    this.roomId = roomId;
-  }
-
-
-  /**
-   * Return true if this SessionStarted_payload object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SessionStartedPayload sessionId(UUID sessionId) {
+        this.sessionId = sessionId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Session ID that identifies the session that started.
+     * @return sessionId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+        value = "Session ID that identifies the session that started."
+    )
+    @JsonProperty(JSON_PROPERTY_SESSION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getSessionId() {
+        return sessionId;
     }
-    SessionStartedPayload sessionStartedPayload = (SessionStartedPayload) o;
-    return Objects.equals(this.sessionId, sessionStartedPayload.sessionId) &&
-        Objects.equals(this.roomId, sessionStartedPayload.roomId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(sessionId, roomId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SessionStartedPayload {\n");
-    sb.append("    sessionId: ").append(toIndentedString(sessionId)).append("\n");
-    sb.append("    roomId: ").append(toIndentedString(roomId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_SESSION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSessionId(UUID sessionId) {
+        this.sessionId = sessionId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public SessionStartedPayload roomId(UUID roomId) {
+        this.roomId = roomId;
+        return this;
+    }
+
+    /**
+     * Room ID that identifies the room where the session started.
+     * @return roomId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+        value = "Room ID that identifies the room where the session started."
+    )
+    @JsonProperty(JSON_PROPERTY_ROOM_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getRoomId() {
+        return roomId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ROOM_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRoomId(UUID roomId) {
+        this.roomId = roomId;
+    }
+
+    /**
+     * Return true if this SessionStarted_payload object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SessionStartedPayload sessionStartedPayload = (SessionStartedPayload) o;
+        return (
+            Objects.equals(this.sessionId, sessionStartedPayload.sessionId) &&
+            Objects.equals(this.roomId, sessionStartedPayload.roomId)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sessionId, roomId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SessionStartedPayload {\n");
+        sb
+            .append("    sessionId: ")
+            .append(toIndentedString(sessionId))
+            .append("\n");
+        sb.append("    roomId: ").append(toIndentedString(roomId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

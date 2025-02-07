@@ -10,300 +10,333 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * StartConferenceRecordingRequest
  */
-@JsonPropertyOrder({
-  StartConferenceRecordingRequest.JSON_PROPERTY_FORMAT,
-  StartConferenceRecordingRequest.JSON_PROPERTY_COMMAND_ID,
-  StartConferenceRecordingRequest.JSON_PROPERTY_PLAY_BEEP,
-  StartConferenceRecordingRequest.JSON_PROPERTY_TRIM,
-  StartConferenceRecordingRequest.JSON_PROPERTY_CUSTOM_FILE_NAME
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        StartConferenceRecordingRequest.JSON_PROPERTY_FORMAT,
+        StartConferenceRecordingRequest.JSON_PROPERTY_COMMAND_ID,
+        StartConferenceRecordingRequest.JSON_PROPERTY_PLAY_BEEP,
+        StartConferenceRecordingRequest.JSON_PROPERTY_TRIM,
+        StartConferenceRecordingRequest.JSON_PROPERTY_CUSTOM_FILE_NAME,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class StartConferenceRecordingRequest {
-  /**
-   * The audio file format used when storing the conference recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
-   */
-  public enum FormatEnum {
-    WAV(String.valueOf("wav")),
-    
-    MP3(String.valueOf("mp3"));
 
-    private String value;
+    /**
+     * The audio file format used when storing the conference recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
+     */
+    public enum FormatEnum {
+        WAV(String.valueOf("wav")),
 
-    FormatEnum(String value) {
-      this.value = value;
+        MP3(String.valueOf("mp3"));
+
+        private String value;
+
+        FormatEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static FormatEnum fromValue(String value) {
+            for (FormatEnum b : FormatEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_FORMAT = "format";
+    private FormatEnum format;
+
+    public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
+    private String commandId;
+
+    public static final String JSON_PROPERTY_PLAY_BEEP = "play_beep";
+    private Boolean playBeep;
+
+    /**
+     * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+     */
+    public enum TrimEnum {
+        TRIM_SILENCE(String.valueOf("trim-silence"));
+
+        private String value;
+
+        TrimEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TrimEnum fromValue(String value) {
+            for (TrimEnum b : TrimEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_TRIM = "trim";
+    private TrimEnum trim;
+
+    public static final String JSON_PROPERTY_CUSTOM_FILE_NAME =
+        "custom_file_name";
+    private String customFileName;
+
+    public StartConferenceRecordingRequest() {}
+
+    public StartConferenceRecordingRequest format(FormatEnum format) {
+        this.format = format;
+        return this;
+    }
+
+    /**
+     * The audio file format used when storing the conference recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
+     * @return format
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "mp3",
+        required = true,
+        value = "The audio file format used when storing the conference recording. Can be either `mp3` or `wav`."
+    )
+    @JsonProperty(JSON_PROPERTY_FORMAT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public FormatEnum getFormat() {
+        return format;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FORMAT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFormat(FormatEnum format) {
+        this.format = format;
+    }
+
+    public StartConferenceRecordingRequest commandId(String commandId) {
+        this.commandId = commandId;
+        return this;
+    }
+
+    /**
+     * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;conference_id&#x60;.
+     * @return commandId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "891510ac-f3e4-11e8-af5b-de00688a4901",
+        value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `conference_id`."
+    )
+    @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCommandId() {
+        return commandId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCommandId(String commandId) {
+        this.commandId = commandId;
+    }
+
+    public StartConferenceRecordingRequest playBeep(Boolean playBeep) {
+        this.playBeep = playBeep;
+        return this;
+    }
+
+    /**
+     * If enabled, a beep sound will be played at the start of a recording.
+     * @return playBeep
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "If enabled, a beep sound will be played at the start of a recording."
+    )
+    @JsonProperty(JSON_PROPERTY_PLAY_BEEP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getPlayBeep() {
+        return playBeep;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PLAY_BEEP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPlayBeep(Boolean playBeep) {
+        this.playBeep = playBeep;
+    }
+
+    public StartConferenceRecordingRequest trim(TrimEnum trim) {
+        this.trim = trim;
+        return this;
+    }
+
+    /**
+     * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
+     * @return trim
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "trim-silence",
+        value = "When set to `trim-silence`, silence will be removed from the beginning and end of the recording."
+    )
+    @JsonProperty(JSON_PROPERTY_TRIM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TrimEnum getTrim() {
+        return trim;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRIM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTrim(TrimEnum trim) {
+        this.trim = trim;
+    }
+
+    public StartConferenceRecordingRequest customFileName(
+        String customFileName
+    ) {
+        this.customFileName = customFileName;
+        return this;
+    }
+
+    /**
+     * The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix.
+     * @return customFileName
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "my_recording_file_name",
+        value = "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix."
+    )
+    @JsonProperty(JSON_PROPERTY_CUSTOM_FILE_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCustomFileName() {
+        return customFileName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOM_FILE_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomFileName(String customFileName) {
+        this.customFileName = customFileName;
+    }
+
+    /**
+     * Return true if this StartConferenceRecordingRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        StartConferenceRecordingRequest startConferenceRecordingRequest =
+            (StartConferenceRecordingRequest) o;
+        return (
+            Objects.equals(
+                this.format,
+                startConferenceRecordingRequest.format
+            ) &&
+            Objects.equals(
+                this.commandId,
+                startConferenceRecordingRequest.commandId
+            ) &&
+            Objects.equals(
+                this.playBeep,
+                startConferenceRecordingRequest.playBeep
+            ) &&
+            Objects.equals(this.trim, startConferenceRecordingRequest.trim) &&
+            Objects.equals(
+                this.customFileName,
+                startConferenceRecordingRequest.customFileName
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(format, commandId, playBeep, trim, customFileName);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class StartConferenceRecordingRequest {\n");
+        sb.append("    format: ").append(toIndentedString(format)).append("\n");
+        sb
+            .append("    commandId: ")
+            .append(toIndentedString(commandId))
+            .append("\n");
+        sb
+            .append("    playBeep: ")
+            .append(toIndentedString(playBeep))
+            .append("\n");
+        sb.append("    trim: ").append(toIndentedString(trim)).append("\n");
+        sb
+            .append("    customFileName: ")
+            .append(toIndentedString(customFileName))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static FormatEnum fromValue(String value) {
-      for (FormatEnum b : FormatEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_FORMAT = "format";
-  private FormatEnum format;
-
-  public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
-  private String commandId;
-
-  public static final String JSON_PROPERTY_PLAY_BEEP = "play_beep";
-  private Boolean playBeep;
-
-  /**
-   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
-   */
-  public enum TrimEnum {
-    TRIM_SILENCE(String.valueOf("trim-silence"));
-
-    private String value;
-
-    TrimEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TrimEnum fromValue(String value) {
-      for (TrimEnum b : TrimEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_TRIM = "trim";
-  private TrimEnum trim;
-
-  public static final String JSON_PROPERTY_CUSTOM_FILE_NAME = "custom_file_name";
-  private String customFileName;
-
-  public StartConferenceRecordingRequest() { 
-  }
-
-  public StartConferenceRecordingRequest format(FormatEnum format) {
-    this.format = format;
-    return this;
-  }
-
-   /**
-   * The audio file format used when storing the conference recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
-   * @return format
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "mp3", required = true, value = "The audio file format used when storing the conference recording. Can be either `mp3` or `wav`.")
-  @JsonProperty(JSON_PROPERTY_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public FormatEnum getFormat() {
-    return format;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFormat(FormatEnum format) {
-    this.format = format;
-  }
-
-
-  public StartConferenceRecordingRequest commandId(String commandId) {
-    this.commandId = commandId;
-    return this;
-  }
-
-   /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;conference_id&#x60;.
-   * @return commandId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `conference_id`.")
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCommandId() {
-    return commandId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCommandId(String commandId) {
-    this.commandId = commandId;
-  }
-
-
-  public StartConferenceRecordingRequest playBeep(Boolean playBeep) {
-    this.playBeep = playBeep;
-    return this;
-  }
-
-   /**
-   * If enabled, a beep sound will be played at the start of a recording.
-   * @return playBeep
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "If enabled, a beep sound will be played at the start of a recording.")
-  @JsonProperty(JSON_PROPERTY_PLAY_BEEP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getPlayBeep() {
-    return playBeep;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PLAY_BEEP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPlayBeep(Boolean playBeep) {
-    this.playBeep = playBeep;
-  }
-
-
-  public StartConferenceRecordingRequest trim(TrimEnum trim) {
-    this.trim = trim;
-    return this;
-  }
-
-   /**
-   * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
-   * @return trim
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "trim-silence", value = "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.")
-  @JsonProperty(JSON_PROPERTY_TRIM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public TrimEnum getTrim() {
-    return trim;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRIM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTrim(TrimEnum trim) {
-    this.trim = trim;
-  }
-
-
-  public StartConferenceRecordingRequest customFileName(String customFileName) {
-    this.customFileName = customFileName;
-    return this;
-  }
-
-   /**
-   * The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix.
-   * @return customFileName
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "my_recording_file_name", value = "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.")
-  @JsonProperty(JSON_PROPERTY_CUSTOM_FILE_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCustomFileName() {
-    return customFileName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CUSTOM_FILE_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCustomFileName(String customFileName) {
-    this.customFileName = customFileName;
-  }
-
-
-  /**
-   * Return true if this StartConferenceRecordingRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    StartConferenceRecordingRequest startConferenceRecordingRequest = (StartConferenceRecordingRequest) o;
-    return Objects.equals(this.format, startConferenceRecordingRequest.format) &&
-        Objects.equals(this.commandId, startConferenceRecordingRequest.commandId) &&
-        Objects.equals(this.playBeep, startConferenceRecordingRequest.playBeep) &&
-        Objects.equals(this.trim, startConferenceRecordingRequest.trim) &&
-        Objects.equals(this.customFileName, startConferenceRecordingRequest.customFileName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(format, commandId, playBeep, trim, customFileName);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class StartConferenceRecordingRequest {\n");
-    sb.append("    format: ").append(toIndentedString(format)).append("\n");
-    sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
-    sb.append("    playBeep: ").append(toIndentedString(playBeep)).append("\n");
-    sb.append("    trim: ").append(toIndentedString(trim)).append("\n");
-    sb.append("    customFileName: ").append(toIndentedString(customFileName)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

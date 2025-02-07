@@ -10,114 +10,120 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ConferenceUnmuteRequest
  */
-@JsonPropertyOrder({
-  ConferenceUnmuteRequest.JSON_PROPERTY_CALL_CONTROL_IDS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ ConferenceUnmuteRequest.JSON_PROPERTY_CALL_CONTROL_IDS })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ConferenceUnmuteRequest {
-  public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
-  private List<String> callControlIds = null;
 
-  public ConferenceUnmuteRequest() { 
-  }
+    public static final String JSON_PROPERTY_CALL_CONTROL_IDS =
+        "call_control_ids";
+    private List<String> callControlIds = null;
 
-  public ConferenceUnmuteRequest callControlIds(List<String> callControlIds) {
-    this.callControlIds = callControlIds;
-    return this;
-  }
+    public ConferenceUnmuteRequest() {}
 
-  public ConferenceUnmuteRequest addcallControlIdsItem(String callControlIdsItem) {
-    if (this.callControlIds == null) {
-      this.callControlIds = new ArrayList<>();
+    public ConferenceUnmuteRequest callControlIds(List<String> callControlIds) {
+        this.callControlIds = callControlIds;
+        return this;
     }
-    this.callControlIds.add(callControlIdsItem);
-    return this;
-  }
 
-   /**
-   * List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unmuted. When empty all participants will be unmuted.
-   * @return callControlIds
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unmuted. When empty all participants will be unmuted.")
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getCallControlIds() {
-    return callControlIds;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallControlIds(List<String> callControlIds) {
-    this.callControlIds = callControlIds;
-  }
-
-
-  /**
-   * Return true if this ConferenceUnmuteRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ConferenceUnmuteRequest addcallControlIdsItem(
+        String callControlIdsItem
+    ) {
+        if (this.callControlIds == null) {
+            this.callControlIds = new ArrayList<>();
+        }
+        this.callControlIds.add(callControlIdsItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unmuted. When empty all participants will be unmuted.
+     * @return callControlIds
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unmuted. When empty all participants will be unmuted."
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getCallControlIds() {
+        return callControlIds;
     }
-    ConferenceUnmuteRequest conferenceUnmuteRequest = (ConferenceUnmuteRequest) o;
-    return Objects.equals(this.callControlIds, conferenceUnmuteRequest.callControlIds);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(callControlIds);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ConferenceUnmuteRequest {\n");
-    sb.append("    callControlIds: ").append(toIndentedString(callControlIds)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallControlIds(List<String> callControlIds) {
+        this.callControlIds = callControlIds;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this ConferenceUnmuteRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ConferenceUnmuteRequest conferenceUnmuteRequest =
+            (ConferenceUnmuteRequest) o;
+        return Objects.equals(
+            this.callControlIds,
+            conferenceUnmuteRequest.callControlIds
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(callControlIds);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ConferenceUnmuteRequest {\n");
+        sb
+            .append("    callControlIds: ")
+            .append(toIndentedString(callControlIds))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

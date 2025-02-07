@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CreateRoomClientToken201ResponseData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreateRoomClientToken201Response
  */
 public class CreateRoomClientToken201ResponseTest {
-    private final CreateRoomClientToken201Response model = new CreateRoomClientToken201Response();
+
+    private final CreateRoomClientToken201Response model =
+        new CreateRoomClientToken201Response();
 
     /**
      * Model tests for CreateRoomClientToken201Response
@@ -47,5 +45,4 @@ public class CreateRoomClientToken201ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

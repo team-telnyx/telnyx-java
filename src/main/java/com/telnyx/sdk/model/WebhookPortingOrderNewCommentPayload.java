@@ -10,171 +10,199 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.WebhookPortingOrderNewCommentPayloadComment;
-import java.util.Arrays;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import com.telnyx.sdk.model.WebhookPortingOrderNewCommentPayloadComment;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * The webhook payload for the porting_order.new_comment event
  */
-@ApiModel(description = "The webhook payload for the porting_order.new_comment event")
-@JsonPropertyOrder({
-  WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_PORTING_ORDER_ID,
-  WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_SUPPORT_KEY,
-  WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_COMMENT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "The webhook payload for the porting_order.new_comment event"
+)
+@JsonPropertyOrder(
+    {
+        WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_PORTING_ORDER_ID,
+        WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_SUPPORT_KEY,
+        WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_COMMENT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class WebhookPortingOrderNewCommentPayload {
-  public static final String JSON_PROPERTY_PORTING_ORDER_ID = "porting_order_id";
-  private UUID portingOrderId;
 
-  public static final String JSON_PROPERTY_SUPPORT_KEY = "support_key";
-  private String supportKey;
+    public static final String JSON_PROPERTY_PORTING_ORDER_ID =
+        "porting_order_id";
+    private UUID portingOrderId;
 
-  public static final String JSON_PROPERTY_COMMENT = "comment";
-  private WebhookPortingOrderNewCommentPayloadComment comment;
+    public static final String JSON_PROPERTY_SUPPORT_KEY = "support_key";
+    private String supportKey;
 
-  public WebhookPortingOrderNewCommentPayload() { 
-  }
+    public static final String JSON_PROPERTY_COMMENT = "comment";
+    private WebhookPortingOrderNewCommentPayloadComment comment;
 
-  public WebhookPortingOrderNewCommentPayload portingOrderId(UUID portingOrderId) {
-    this.portingOrderId = portingOrderId;
-    return this;
-  }
+    public WebhookPortingOrderNewCommentPayload() {}
 
-   /**
-   * Identifies the porting order that the comment was added to.
-   * @return portingOrderId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting order that the comment was added to.")
-  @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getPortingOrderId() {
-    return portingOrderId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPortingOrderId(UUID portingOrderId) {
-    this.portingOrderId = portingOrderId;
-  }
-
-
-  public WebhookPortingOrderNewCommentPayload supportKey(String supportKey) {
-    this.supportKey = supportKey;
-    return this;
-  }
-
-   /**
-   * Identifies the support key associated with the porting order.
-   * @return supportKey
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "sr_b1a2c3", value = "Identifies the support key associated with the porting order.")
-  @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSupportKey() {
-    return supportKey;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSupportKey(String supportKey) {
-    this.supportKey = supportKey;
-  }
-
-
-  public WebhookPortingOrderNewCommentPayload comment(WebhookPortingOrderNewCommentPayloadComment comment) {
-    this.comment = comment;
-    return this;
-  }
-
-   /**
-   * Get comment
-   * @return comment
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_COMMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public WebhookPortingOrderNewCommentPayloadComment getComment() {
-    return comment;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COMMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setComment(WebhookPortingOrderNewCommentPayloadComment comment) {
-    this.comment = comment;
-  }
-
-
-  /**
-   * Return true if this WebhookPortingOrderNewCommentPayload object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WebhookPortingOrderNewCommentPayload portingOrderId(
+        UUID portingOrderId
+    ) {
+        this.portingOrderId = portingOrderId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the porting order that the comment was added to.
+     * @return portingOrderId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c",
+        value = "Identifies the porting order that the comment was added to."
+    )
+    @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getPortingOrderId() {
+        return portingOrderId;
     }
-    WebhookPortingOrderNewCommentPayload webhookPortingOrderNewCommentPayload = (WebhookPortingOrderNewCommentPayload) o;
-    return Objects.equals(this.portingOrderId, webhookPortingOrderNewCommentPayload.portingOrderId) &&
-        Objects.equals(this.supportKey, webhookPortingOrderNewCommentPayload.supportKey) &&
-        Objects.equals(this.comment, webhookPortingOrderNewCommentPayload.comment);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(portingOrderId, supportKey, comment);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WebhookPortingOrderNewCommentPayload {\n");
-    sb.append("    portingOrderId: ").append(toIndentedString(portingOrderId)).append("\n");
-    sb.append("    supportKey: ").append(toIndentedString(supportKey)).append("\n");
-    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPortingOrderId(UUID portingOrderId) {
+        this.portingOrderId = portingOrderId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public WebhookPortingOrderNewCommentPayload supportKey(String supportKey) {
+        this.supportKey = supportKey;
+        return this;
+    }
+
+    /**
+     * Identifies the support key associated with the porting order.
+     * @return supportKey
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "sr_b1a2c3",
+        value = "Identifies the support key associated with the porting order."
+    )
+    @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSupportKey() {
+        return supportKey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSupportKey(String supportKey) {
+        this.supportKey = supportKey;
+    }
+
+    public WebhookPortingOrderNewCommentPayload comment(
+        WebhookPortingOrderNewCommentPayloadComment comment
+    ) {
+        this.comment = comment;
+        return this;
+    }
+
+    /**
+     * Get comment
+     * @return comment
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_COMMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookPortingOrderNewCommentPayloadComment getComment() {
+        return comment;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COMMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setComment(
+        WebhookPortingOrderNewCommentPayloadComment comment
+    ) {
+        this.comment = comment;
+    }
+
+    /**
+     * Return true if this WebhookPortingOrderNewCommentPayload object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WebhookPortingOrderNewCommentPayload webhookPortingOrderNewCommentPayload =
+            (WebhookPortingOrderNewCommentPayload) o;
+        return (
+            Objects.equals(
+                this.portingOrderId,
+                webhookPortingOrderNewCommentPayload.portingOrderId
+            ) &&
+            Objects.equals(
+                this.supportKey,
+                webhookPortingOrderNewCommentPayload.supportKey
+            ) &&
+            Objects.equals(
+                this.comment,
+                webhookPortingOrderNewCommentPayload.comment
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(portingOrderId, supportKey, comment);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WebhookPortingOrderNewCommentPayload {\n");
+        sb
+            .append("    portingOrderId: ")
+            .append(toIndentedString(portingOrderId))
+            .append("\n");
+        sb
+            .append("    supportKey: ")
+            .append(toIndentedString(supportKey))
+            .append("\n");
+        sb
+            .append("    comment: ")
+            .append(toIndentedString(comment))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

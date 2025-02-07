@@ -10,126 +10,134 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * SIMCardActivationCode
  */
-@JsonPropertyOrder({
-  SIMCardActivationCode.JSON_PROPERTY_RECORD_TYPE,
-  SIMCardActivationCode.JSON_PROPERTY_ACTIVATION_CODE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        SIMCardActivationCode.JSON_PROPERTY_RECORD_TYPE,
+        SIMCardActivationCode.JSON_PROPERTY_ACTIVATION_CODE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class SIMCardActivationCode {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_ACTIVATION_CODE = "activation_code";
-  private String activationCode;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public SIMCardActivationCode() { 
-  }
+    public static final String JSON_PROPERTY_ACTIVATION_CODE =
+        "activation_code";
+    private String activationCode;
 
-  @JsonCreator
-  public SIMCardActivationCode(
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
-    @JsonProperty(JSON_PROPERTY_ACTIVATION_CODE) String activationCode
-  ) {
-    this();
-    this.recordType = recordType;
-    this.activationCode = activationCode;
-  }
+    public SIMCardActivationCode() {}
 
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "sim_card_activation_code", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-   /**
-   * Contents of the eSIM activation QR code.
-   * @return activationCode
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "LPA:1$....", value = "Contents of the eSIM activation QR code.")
-  @JsonProperty(JSON_PROPERTY_ACTIVATION_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getActivationCode() {
-    return activationCode;
-  }
-
-
-
-
-  /**
-   * Return true if this SIMCardActivationCode object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @JsonCreator
+    public SIMCardActivationCode(
+        @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType,
+        @JsonProperty(JSON_PROPERTY_ACTIVATION_CODE) String activationCode
+    ) {
+        this();
+        this.recordType = recordType;
+        this.activationCode = activationCode;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "sim_card_activation_code", value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
     }
-    SIMCardActivationCode siMCardActivationCode = (SIMCardActivationCode) o;
-    return Objects.equals(this.recordType, siMCardActivationCode.recordType) &&
-        Objects.equals(this.activationCode, siMCardActivationCode.activationCode);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, activationCode);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SIMCardActivationCode {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    activationCode: ").append(toIndentedString(activationCode)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Contents of the eSIM activation QR code.
+     * @return activationCode
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "LPA:1$....",
+        value = "Contents of the eSIM activation QR code."
+    )
+    @JsonProperty(JSON_PROPERTY_ACTIVATION_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getActivationCode() {
+        return activationCode;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this SIMCardActivationCode object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SIMCardActivationCode siMCardActivationCode = (SIMCardActivationCode) o;
+        return (
+            Objects.equals(this.recordType, siMCardActivationCode.recordType) &&
+            Objects.equals(
+                this.activationCode,
+                siMCardActivationCode.activationCode
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(recordType, activationCode);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SIMCardActivationCode {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    activationCode: ")
+            .append(toIndentedString(activationCode))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

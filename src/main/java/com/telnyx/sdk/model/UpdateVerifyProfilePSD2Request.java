@@ -10,105 +10,117 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UpdateVerifyProfilePSD2Request
  */
-@JsonPropertyOrder({
-  UpdateVerifyProfilePSD2Request.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        UpdateVerifyProfilePSD2Request.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class UpdateVerifyProfilePSD2Request {
-  public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
-  private Integer defaultVerificationTimeoutSecs;
 
-  public UpdateVerifyProfilePSD2Request() { 
-  }
+    public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS =
+        "default_verification_timeout_secs";
+    private Integer defaultVerificationTimeoutSecs;
 
-  public UpdateVerifyProfilePSD2Request defaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
-    this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
-    return this;
-  }
+    public UpdateVerifyProfilePSD2Request() {}
 
-   /**
-   * For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.
-   * @return defaultVerificationTimeoutSecs
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "300", value = "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.")
-  @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getDefaultVerificationTimeoutSecs() {
-    return defaultVerificationTimeoutSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDefaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
-    this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
-  }
-
-
-  /**
-   * Return true if this UpdateVerifyProfilePSD2Request object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UpdateVerifyProfilePSD2Request defaultVerificationTimeoutSecs(
+        Integer defaultVerificationTimeoutSecs
+    ) {
+        this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.
+     * @return defaultVerificationTimeoutSecs
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "300",
+        value = "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity."
+    )
+    @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getDefaultVerificationTimeoutSecs() {
+        return defaultVerificationTimeoutSecs;
     }
-    UpdateVerifyProfilePSD2Request updateVerifyProfilePSD2Request = (UpdateVerifyProfilePSD2Request) o;
-    return Objects.equals(this.defaultVerificationTimeoutSecs, updateVerifyProfilePSD2Request.defaultVerificationTimeoutSecs);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(defaultVerificationTimeoutSecs);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdateVerifyProfilePSD2Request {\n");
-    sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDefaultVerificationTimeoutSecs(
+        Integer defaultVerificationTimeoutSecs
+    ) {
+        this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this UpdateVerifyProfilePSD2Request object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdateVerifyProfilePSD2Request updateVerifyProfilePSD2Request =
+            (UpdateVerifyProfilePSD2Request) o;
+        return Objects.equals(
+            this.defaultVerificationTimeoutSecs,
+            updateVerifyProfilePSD2Request.defaultVerificationTimeoutSecs
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(defaultVerificationTimeoutSecs);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UpdateVerifyProfilePSD2Request {\n");
+        sb
+            .append("    defaultVerificationTimeoutSecs: ")
+            .append(toIndentedString(defaultVerificationTimeoutSecs))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

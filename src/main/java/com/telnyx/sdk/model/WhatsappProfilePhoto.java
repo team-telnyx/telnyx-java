@@ -10,202 +10,233 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * WhatsappProfilePhoto
  */
-@JsonPropertyOrder({
-  WhatsappProfilePhoto.JSON_PROPERTY_RECORD_TYPE,
-  WhatsappProfilePhoto.JSON_PROPERTY_THUMBNAIL_PHOTO_URL,
-  WhatsappProfilePhoto.JSON_PROPERTY_PHONE_NUMBER_ID,
-  WhatsappProfilePhoto.JSON_PROPERTY_WHATSAPP_USER_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        WhatsappProfilePhoto.JSON_PROPERTY_RECORD_TYPE,
+        WhatsappProfilePhoto.JSON_PROPERTY_THUMBNAIL_PHOTO_URL,
+        WhatsappProfilePhoto.JSON_PROPERTY_PHONE_NUMBER_ID,
+        WhatsappProfilePhoto.JSON_PROPERTY_WHATSAPP_USER_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class WhatsappProfilePhoto {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_THUMBNAIL_PHOTO_URL = "thumbnail_photo_url";
-  private String thumbnailPhotoUrl;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER_ID = "phone_number_id";
-  private UUID phoneNumberId;
+    public static final String JSON_PROPERTY_THUMBNAIL_PHOTO_URL =
+        "thumbnail_photo_url";
+    private String thumbnailPhotoUrl;
 
-  public static final String JSON_PROPERTY_WHATSAPP_USER_ID = "whatsapp_user_id";
-  private String whatsappUserId;
+    public static final String JSON_PROPERTY_PHONE_NUMBER_ID =
+        "phone_number_id";
+    private UUID phoneNumberId;
 
-  public WhatsappProfilePhoto() { 
-  }
+    public static final String JSON_PROPERTY_WHATSAPP_USER_ID =
+        "whatsapp_user_id";
+    private String whatsappUserId;
 
-  public WhatsappProfilePhoto recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
+    public WhatsappProfilePhoto() {}
 
-   /**
-   * the record type
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "whatsapp_profile_photo", value = "the record type")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public WhatsappProfilePhoto thumbnailPhotoUrl(String thumbnailPhotoUrl) {
-    this.thumbnailPhotoUrl = thumbnailPhotoUrl;
-    return this;
-  }
-
-   /**
-   * An URL to the thumbnail photo
-   * @return thumbnailPhotoUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "https://pps.whatsapp.net/v/t61.24694-24/11111111_2222222222222222_3333333_n.jpg?oh=f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8&oe=5E5E5E5E", value = "An URL to the thumbnail photo")
-  @JsonProperty(JSON_PROPERTY_THUMBNAIL_PHOTO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getThumbnailPhotoUrl() {
-    return thumbnailPhotoUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_THUMBNAIL_PHOTO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setThumbnailPhotoUrl(String thumbnailPhotoUrl) {
-    this.thumbnailPhotoUrl = thumbnailPhotoUrl;
-  }
-
-
-  public WhatsappProfilePhoto phoneNumberId(UUID phoneNumberId) {
-    this.phoneNumberId = phoneNumberId;
-    return this;
-  }
-
-   /**
-   * The associated Whatsapp Phone Number ID
-   * @return phoneNumberId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "The associated Whatsapp Phone Number ID")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getPhoneNumberId() {
-    return phoneNumberId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumberId(UUID phoneNumberId) {
-    this.phoneNumberId = phoneNumberId;
-  }
-
-
-  public WhatsappProfilePhoto whatsappUserId(String whatsappUserId) {
-    this.whatsappUserId = whatsappUserId;
-    return this;
-  }
-
-   /**
-   * The phone number&#39;s WhatsApp User ID, used in other Telnyx Whatsapp API endpoints
-   * @return whatsappUserId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "123456789", value = "The phone number's WhatsApp User ID, used in other Telnyx Whatsapp API endpoints")
-  @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getWhatsappUserId() {
-    return whatsappUserId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWhatsappUserId(String whatsappUserId) {
-    this.whatsappUserId = whatsappUserId;
-  }
-
-
-  /**
-   * Return true if this WhatsappProfilePhoto object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WhatsappProfilePhoto recordType(String recordType) {
+        this.recordType = recordType;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * the record type
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "whatsapp_profile_photo",
+        value = "the record type"
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
     }
-    WhatsappProfilePhoto whatsappProfilePhoto = (WhatsappProfilePhoto) o;
-    return Objects.equals(this.recordType, whatsappProfilePhoto.recordType) &&
-        Objects.equals(this.thumbnailPhotoUrl, whatsappProfilePhoto.thumbnailPhotoUrl) &&
-        Objects.equals(this.phoneNumberId, whatsappProfilePhoto.phoneNumberId) &&
-        Objects.equals(this.whatsappUserId, whatsappProfilePhoto.whatsappUserId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, thumbnailPhotoUrl, phoneNumberId, whatsappUserId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WhatsappProfilePhoto {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    thumbnailPhotoUrl: ").append(toIndentedString(thumbnailPhotoUrl)).append("\n");
-    sb.append("    phoneNumberId: ").append(toIndentedString(phoneNumberId)).append("\n");
-    sb.append("    whatsappUserId: ").append(toIndentedString(whatsappUserId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public WhatsappProfilePhoto thumbnailPhotoUrl(String thumbnailPhotoUrl) {
+        this.thumbnailPhotoUrl = thumbnailPhotoUrl;
+        return this;
+    }
+
+    /**
+     * An URL to the thumbnail photo
+     * @return thumbnailPhotoUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "https://pps.whatsapp.net/v/t61.24694-24/11111111_2222222222222222_3333333_n.jpg?oh=f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8&oe=5E5E5E5E",
+        value = "An URL to the thumbnail photo"
+    )
+    @JsonProperty(JSON_PROPERTY_THUMBNAIL_PHOTO_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getThumbnailPhotoUrl() {
+        return thumbnailPhotoUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_THUMBNAIL_PHOTO_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setThumbnailPhotoUrl(String thumbnailPhotoUrl) {
+        this.thumbnailPhotoUrl = thumbnailPhotoUrl;
+    }
+
+    public WhatsappProfilePhoto phoneNumberId(UUID phoneNumberId) {
+        this.phoneNumberId = phoneNumberId;
+        return this;
+    }
+
+    /**
+     * The associated Whatsapp Phone Number ID
+     * @return phoneNumberId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "12ade33a-21c0-473b-b055-b3c836e1c292",
+        value = "The associated Whatsapp Phone Number ID"
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getPhoneNumberId() {
+        return phoneNumberId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneNumberId(UUID phoneNumberId) {
+        this.phoneNumberId = phoneNumberId;
+    }
+
+    public WhatsappProfilePhoto whatsappUserId(String whatsappUserId) {
+        this.whatsappUserId = whatsappUserId;
+        return this;
+    }
+
+    /**
+     * The phone number&#39;s WhatsApp User ID, used in other Telnyx Whatsapp API endpoints
+     * @return whatsappUserId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "123456789",
+        value = "The phone number's WhatsApp User ID, used in other Telnyx Whatsapp API endpoints"
+    )
+    @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getWhatsappUserId() {
+        return whatsappUserId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWhatsappUserId(String whatsappUserId) {
+        this.whatsappUserId = whatsappUserId;
+    }
+
+    /**
+     * Return true if this WhatsappProfilePhoto object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WhatsappProfilePhoto whatsappProfilePhoto = (WhatsappProfilePhoto) o;
+        return (
+            Objects.equals(this.recordType, whatsappProfilePhoto.recordType) &&
+            Objects.equals(
+                this.thumbnailPhotoUrl,
+                whatsappProfilePhoto.thumbnailPhotoUrl
+            ) &&
+            Objects.equals(
+                this.phoneNumberId,
+                whatsappProfilePhoto.phoneNumberId
+            ) &&
+            Objects.equals(
+                this.whatsappUserId,
+                whatsappProfilePhoto.whatsappUserId
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            thumbnailPhotoUrl,
+            phoneNumberId,
+            whatsappUserId
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WhatsappProfilePhoto {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    thumbnailPhotoUrl: ")
+            .append(toIndentedString(thumbnailPhotoUrl))
+            .append("\n");
+        sb
+            .append("    phoneNumberId: ")
+            .append(toIndentedString(phoneNumberId))
+            .append("\n");
+        sb
+            .append("    whatsappUserId: ")
+            .append(toIndentedString(whatsappUserId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

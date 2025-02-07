@@ -10,106 +10,102 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Date/time by Unix epoch
  */
 @ApiModel(description = "Date/time by Unix epoch")
-@JsonPropertyOrder({
-  DateTimeUnixEpoch.JSON_PROPERTY_TIMESTAMP
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder({ DateTimeUnixEpoch.JSON_PROPERTY_TIMESTAMP })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class DateTimeUnixEpoch {
-  public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-  private Integer timestamp;
 
-  public DateTimeUnixEpoch() { 
-  }
+    public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
+    private Integer timestamp;
 
-  public DateTimeUnixEpoch timestamp(Integer timestamp) {
-    this.timestamp = timestamp;
-    return this;
-  }
+    public DateTimeUnixEpoch() {}
 
-   /**
-   * Epoch timestamp in seconds
-   * @return timestamp
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Epoch timestamp in seconds")
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTimestamp() {
-    return timestamp;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimestamp(Integer timestamp) {
-    this.timestamp = timestamp;
-  }
-
-
-  /**
-   * Return true if this DateTimeUnixEpoch object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public DateTimeUnixEpoch timestamp(Integer timestamp) {
+        this.timestamp = timestamp;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Epoch timestamp in seconds
+     * @return timestamp
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Epoch timestamp in seconds")
+    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTimestamp() {
+        return timestamp;
     }
-    DateTimeUnixEpoch dateTimeUnixEpoch = (DateTimeUnixEpoch) o;
-    return Objects.equals(this.timestamp, dateTimeUnixEpoch.timestamp);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(timestamp);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DateTimeUnixEpoch {\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTimestamp(Integer timestamp) {
+        this.timestamp = timestamp;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this DateTimeUnixEpoch object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DateTimeUnixEpoch dateTimeUnixEpoch = (DateTimeUnixEpoch) o;
+        return Objects.equals(this.timestamp, dateTimeUnixEpoch.timestamp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class DateTimeUnixEpoch {\n");
+        sb
+            .append("    timestamp: ")
+            .append(toIndentedString(timestamp))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

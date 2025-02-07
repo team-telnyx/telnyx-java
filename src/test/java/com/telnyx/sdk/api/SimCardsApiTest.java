@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -39,19 +38,17 @@ import com.telnyx.sdk.model.SIMCardRegistrationCodeValidations;
 import com.telnyx.sdk.model.SearchSimCardsResponse;
 import com.telnyx.sdk.model.SimCardDataUsageNotification;
 import com.telnyx.sdk.model.SimCardDataUsageNotificationCollection;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateSimCardDataUsageNotificationResponse;
 import com.telnyx.sdk.model.UpdateSimCardResponse;
 import com.telnyx.sdk.model.WirelessConnectivityLogCollectionResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for SimCardsApi
@@ -63,7 +60,7 @@ public class SimCardsApiTest {
     /**
      * Bulk Network Preferences for SIM cards
      *
-     * This API allows dispatching the same operation described for the PUT sim_cards/:sim_card_id/network_preferences API for multiple SIM cards at once.&lt;br/&gt;&lt;br/&gt; Although, a SIM card network preference may fail individually under any validation triggered as a consequence of its state. For example, a SIM can&#39;t have an in-progress OTA update for applying a Network Preference, so they&#39;ll fail when requested in this API. In that scenario, the specific error will be present in the response along with the successful definitions in the \&quot;errors\&quot; response node. 
+     * This API allows dispatching the same operation described for the PUT sim_cards/:sim_card_id/network_preferences API for multiple SIM cards at once.&lt;br/&gt;&lt;br/&gt; Although, a SIM card network preference may fail individually under any validation triggered as a consequence of its state. For example, a SIM can&#39;t have an in-progress OTA update for applying a Network Preference, so they&#39;ll fail when requested in this API. In that scenario, the specific error will be present in the response along with the successful definitions in the \&quot;errors\&quot; response node.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -125,7 +122,7 @@ public class SimCardsApiTest {
     /**
      * DELETE network preferences
      *
-     * This API asynchronously removes the custom-defined network preferences settings. After this operation is done the Telnyx default settings, the same applied for an unaltered SIM card, will be in place. 
+     * This API asynchronously removes the custom-defined network preferences settings. After this operation is done the Telnyx default settings, the same applied for an unaltered SIM card, will be in place.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -140,7 +137,7 @@ public class SimCardsApiTest {
     /**
      * Get network preferences
      *
-     * It returns the network preferences currently applied in the SIM card. 
+     * It returns the network preferences currently applied in the SIM card.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -156,7 +153,7 @@ public class SimCardsApiTest {
     /**
      * Set network preferences
      *
-     * This API allows setting or updating a SIM card network preference. &lt;br/&gt;&lt;br/&gt; Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.&lt;br/&gt;&lt;br/&gt; There can be multiple scenarios where an operator can be preferred over another, for example, when a specific mobile operator can provide better network latency or better pricing. 
+     * This API allows setting or updating a SIM card network preference. &lt;br/&gt;&lt;br/&gt; Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.&lt;br/&gt;&lt;br/&gt; There can be multiple scenarios where an operator can be preferred over another, for example, when a specific mobile operator can provide better network latency or better pricing.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -172,7 +169,7 @@ public class SimCardsApiTest {
     /**
      * Get SIM card public IP definition
      *
-     * It returns the public IP requested for a SIM card. 
+     * It returns the public IP requested for a SIM card.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -278,7 +275,7 @@ public class SimCardsApiTest {
     /**
      * Request a SIM card disable
      *
-     * This API disables a SIM card, disconnecting it from the network and making it impossible to consume data.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the disabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+     * This API disables a SIM card, disconnecting it from the network and making it impossible to consume data.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the disabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -293,7 +290,7 @@ public class SimCardsApiTest {
     /**
      * Request a SIM card enable
      *
-     * This API enables a SIM card, connecting it to the network and making it possible to consume data.&lt;br/&gt; To enable a SIM card, it must be associated with a SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the enabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+     * This API enables a SIM card, connecting it to the network and making it possible to consume data.&lt;br/&gt; To enable a SIM card, it must be associated with a SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the enabled state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -324,7 +321,7 @@ public class SimCardsApiTest {
     /**
      * Register SIM cards
      *
-     * Register the SIM cards associated with the provided registration codes to the current user&#39;s account.&lt;br/&gt;&lt;br/&gt; If &lt;code&gt;sim_card_group_id&lt;/code&gt; is provided, the SIM cards will be associated with that group. Otherwise, the default group for the current user will be used.&lt;br/&gt;&lt;br/&gt; 
+     * Register the SIM cards associated with the provided registration codes to the current user&#39;s account.&lt;br/&gt;&lt;br/&gt; If &lt;code&gt;sim_card_group_id&lt;/code&gt; is provided, the SIM cards will be associated with that group. Otherwise, the default group for the current user will be used.&lt;br/&gt;&lt;br/&gt;
      *
      * @throws ApiException
      *          if the Api call fails
@@ -339,7 +336,7 @@ public class SimCardsApiTest {
     /**
      * Request setting a SIM card to standby
      *
-     * The SIM card will be able to connect to the network once the process to set it to standby has been completed, thus making it possible to consume data.&lt;br/&gt; To set a SIM card to standby, it must be associated with SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the standby state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API. 
+     * The SIM card will be able to connect to the network once the process to set it to standby has been completed, thus making it possible to consume data.&lt;br/&gt; To set a SIM card to standby, it must be associated with SIM card group.&lt;br/&gt; The API will trigger an asynchronous operation called a SIM Card Action. Transitioning to the standby state may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developers.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -403,5 +400,4 @@ public class SimCardsApiTest {
         //WirelessConnectivityLogCollectionResponse response = api.wirelessConnectivityLogsGet(simCardId, pageNumber, pageSize);
         // TODO: test validations
     }
-
 }

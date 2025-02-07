@@ -10,241 +10,252 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.UnauthorizedErrorAllOfMeta;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Objects;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * UnauthorizedErrorAllOf
  */
-@JsonPropertyOrder({
-  UnauthorizedErrorAllOf.JSON_PROPERTY_CODE,
-  UnauthorizedErrorAllOf.JSON_PROPERTY_TITLE,
-  UnauthorizedErrorAllOf.JSON_PROPERTY_DETAIL,
-  UnauthorizedErrorAllOf.JSON_PROPERTY_META
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        UnauthorizedErrorAllOf.JSON_PROPERTY_CODE,
+        UnauthorizedErrorAllOf.JSON_PROPERTY_TITLE,
+        UnauthorizedErrorAllOf.JSON_PROPERTY_DETAIL,
+        UnauthorizedErrorAllOf.JSON_PROPERTY_META,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class UnauthorizedErrorAllOf {
-  public static final String JSON_PROPERTY_CODE = "code";
-  private JsonNullable<Object> code = JsonNullable.<Object>of(null);
 
-  public static final String JSON_PROPERTY_TITLE = "title";
-  private JsonNullable<Object> title = JsonNullable.<Object>of(null);
+    public static final String JSON_PROPERTY_CODE = "code";
+    private JsonNullable<Object> code = JsonNullable.<Object>of(null);
 
-  public static final String JSON_PROPERTY_DETAIL = "detail";
-  private JsonNullable<Object> detail = JsonNullable.<Object>of(null);
+    public static final String JSON_PROPERTY_TITLE = "title";
+    private JsonNullable<Object> title = JsonNullable.<Object>of(null);
 
-  public static final String JSON_PROPERTY_META = "meta";
-  private UnauthorizedErrorAllOfMeta meta;
+    public static final String JSON_PROPERTY_DETAIL = "detail";
+    private JsonNullable<Object> detail = JsonNullable.<Object>of(null);
 
-  public UnauthorizedErrorAllOf() { 
-  }
+    public static final String JSON_PROPERTY_META = "meta";
+    private UnauthorizedErrorAllOfMeta meta;
 
-  public UnauthorizedErrorAllOf code(Object code) {
-    this.code = JsonNullable.<Object>of(code);
-    return this;
-  }
+    public UnauthorizedErrorAllOf() {}
 
-   /**
-   * Get code
-   * @return code
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "10009", value = "")
-  @JsonIgnore
+    public UnauthorizedErrorAllOf code(Object code) {
+        this.code = JsonNullable.<Object>of(code);
+        return this;
+    }
 
-  public Object getCode() {
+    /**
+     * Get code
+     * @return code
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "10009", value = "")
+    @JsonIgnore
+    public Object getCode() {
         return code.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Object> getCode_JsonNullable() {
+        return code;
+    }
 
-  public JsonNullable<Object> getCode_JsonNullable() {
-    return code;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_CODE)
-  public void setCode_JsonNullable(JsonNullable<Object> code) {
-    this.code = code;
-  }
+    @JsonProperty(JSON_PROPERTY_CODE)
+    public void setCode_JsonNullable(JsonNullable<Object> code) {
+        this.code = code;
+    }
 
-  public void setCode(Object code) {
-    this.code = JsonNullable.<Object>of(code);
-  }
+    public void setCode(Object code) {
+        this.code = JsonNullable.<Object>of(code);
+    }
 
+    public UnauthorizedErrorAllOf title(Object title) {
+        this.title = JsonNullable.<Object>of(title);
+        return this;
+    }
 
-  public UnauthorizedErrorAllOf title(Object title) {
-    this.title = JsonNullable.<Object>of(title);
-    return this;
-  }
-
-   /**
-   * Get title
-   * @return title
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Authentication failed", value = "")
-  @JsonIgnore
-
-  public Object getTitle() {
+    /**
+     * Get title
+     * @return title
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "Authentication failed", value = "")
+    @JsonIgnore
+    public Object getTitle() {
         return title.orElse(null);
-  }
+    }
 
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonProperty(JSON_PROPERTY_TITLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Object> getTitle_JsonNullable() {
+        return title;
+    }
 
-  public JsonNullable<Object> getTitle_JsonNullable() {
-    return title;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  public void setTitle_JsonNullable(JsonNullable<Object> title) {
-    this.title = title;
-  }
+    @JsonProperty(JSON_PROPERTY_TITLE)
+    public void setTitle_JsonNullable(JsonNullable<Object> title) {
+        this.title = title;
+    }
 
-  public void setTitle(Object title) {
-    this.title = JsonNullable.<Object>of(title);
-  }
+    public void setTitle(Object title) {
+        this.title = JsonNullable.<Object>of(title);
+    }
 
+    public UnauthorizedErrorAllOf detail(Object detail) {
+        this.detail = JsonNullable.<Object>of(detail);
+        return this;
+    }
 
-  public UnauthorizedErrorAllOf detail(Object detail) {
-    this.detail = JsonNullable.<Object>of(detail);
-    return this;
-  }
-
-   /**
-   * Get detail
-   * @return detail
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "The required authentication headers were either invalid or not included in the request.", value = "")
-  @JsonIgnore
-
-  public Object getDetail() {
+    /**
+     * Get detail
+     * @return detail
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "The required authentication headers were either invalid or not included in the request.",
+        value = ""
+    )
+    @JsonIgnore
+    public Object getDetail() {
         return detail.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Object> getDetail_JsonNullable() {
-    return detail;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  public void setDetail_JsonNullable(JsonNullable<Object> detail) {
-    this.detail = detail;
-  }
-
-  public void setDetail(Object detail) {
-    this.detail = JsonNullable.<Object>of(detail);
-  }
-
-
-  public UnauthorizedErrorAllOf meta(UnauthorizedErrorAllOfMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UnauthorizedErrorAllOfMeta getMeta() {
-    return meta;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMeta(UnauthorizedErrorAllOfMeta meta) {
-    this.meta = meta;
-  }
-
-
-  /**
-   * Return true if this UnauthorizedError_allOf object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_DETAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Object> getDetail_JsonNullable() {
+        return detail;
     }
-    UnauthorizedErrorAllOf unauthorizedErrorAllOf = (UnauthorizedErrorAllOf) o;
-    return equalsNullable(this.code, unauthorizedErrorAllOf.code) &&
-        equalsNullable(this.title, unauthorizedErrorAllOf.title) &&
-        equalsNullable(this.detail, unauthorizedErrorAllOf.detail) &&
-        Objects.equals(this.meta, unauthorizedErrorAllOf.meta);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(hashCodeNullable(code), hashCodeNullable(title), hashCodeNullable(detail), meta);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    @JsonProperty(JSON_PROPERTY_DETAIL)
+    public void setDetail_JsonNullable(JsonNullable<Object> detail) {
+        this.detail = detail;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UnauthorizedErrorAllOf {\n");
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setDetail(Object detail) {
+        this.detail = JsonNullable.<Object>of(detail);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public UnauthorizedErrorAllOf meta(UnauthorizedErrorAllOfMeta meta) {
+        this.meta = meta;
+        return this;
+    }
+
+    /**
+     * Get meta
+     * @return meta
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_META)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UnauthorizedErrorAllOfMeta getMeta() {
+        return meta;
+    }
+
+    @JsonProperty(JSON_PROPERTY_META)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMeta(UnauthorizedErrorAllOfMeta meta) {
+        this.meta = meta;
+    }
+
+    /**
+     * Return true if this UnauthorizedError_allOf object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UnauthorizedErrorAllOf unauthorizedErrorAllOf =
+            (UnauthorizedErrorAllOf) o;
+        return (
+            equalsNullable(this.code, unauthorizedErrorAllOf.code) &&
+            equalsNullable(this.title, unauthorizedErrorAllOf.title) &&
+            equalsNullable(this.detail, unauthorizedErrorAllOf.detail) &&
+            Objects.equals(this.meta, unauthorizedErrorAllOf.meta)
+        );
+    }
+
+    private static <T> boolean equalsNullable(
+        JsonNullable<T> a,
+        JsonNullable<T> b
+    ) {
+        return (
+            a == b ||
+            (a != null &&
+                b != null &&
+                a.isPresent() &&
+                b.isPresent() &&
+                Objects.deepEquals(a.get(), b.get()))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            hashCodeNullable(code),
+            hashCodeNullable(title),
+            hashCodeNullable(detail),
+            meta
+        );
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent()
+            ? Arrays.deepHashCode(new Object[] { a.get() })
+            : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UnauthorizedErrorAllOf {\n");
+        sb.append("    code: ").append(toIndentedString(code)).append("\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+        sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

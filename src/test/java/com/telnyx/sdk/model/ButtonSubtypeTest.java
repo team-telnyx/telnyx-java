@@ -10,19 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import io.swagger.annotations.ApiModel;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for ButtonSubtype
  */
 public class ButtonSubtypeTest {
+
     /**
      * Model tests for ButtonSubtype
      */
@@ -30,5 +27,4 @@ public class ButtonSubtypeTest {
     public void testButtonSubtype() {
         // TODO: test ButtonSubtype
     }
-
 }

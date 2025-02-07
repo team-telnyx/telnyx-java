@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -20,15 +19,13 @@ import com.telnyx.sdk.model.ClusteringStatusResponseData;
 import com.telnyx.sdk.model.HTTPValidationError;
 import com.telnyx.sdk.model.PublicTextClusteringRequest;
 import com.telnyx.sdk.model.TextClusteringResponseData;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for ClustersApi
@@ -46,7 +43,8 @@ public class ClustersApiTest {
      *          if the Api call fails
      */
     @Test
-    public void computeNewClusterPublicTextClustersPostTest() throws ApiException {
+    public void computeNewClusterPublicTextClustersPostTest()
+        throws ApiException {
         //PublicTextClusteringRequest publicTextClusteringRequest = null;
         //TextClusteringResponseData response = api.computeNewClusterPublicTextClustersPost(publicTextClusteringRequest);
         // TODO: test validations
@@ -55,13 +53,14 @@ public class ClustersApiTest {
     /**
      * Delete a cluster
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void deleteClusterByTaskIdPublicTextClustersTaskIdDeleteTest() throws ApiException {
+    public void deleteClusterByTaskIdPublicTextClustersTaskIdDeleteTest()
+        throws ApiException {
         //String taskId = null;
         //api.deleteClusterByTaskIdPublicTextClustersTaskIdDelete(taskId);
         // TODO: test validations
@@ -70,13 +69,14 @@ public class ClustersApiTest {
     /**
      * Fetch a cluster
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void fetchClusterByTaskIdPublicTextClustersTaskIdGetTest() throws ApiException {
+    public void fetchClusterByTaskIdPublicTextClustersTaskIdGetTest()
+        throws ApiException {
         //String taskId = null;
         //Integer topNNodes = null;
         //Boolean showSubclusters = null;
@@ -87,13 +87,14 @@ public class ClustersApiTest {
     /**
      * Fetch a cluster visualization
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void fetchClusterImageByTaskIdPublicTextClustersTaskIdImageGetTest() throws ApiException {
+    public void fetchClusterImageByTaskIdPublicTextClustersTaskIdImageGetTest()
+        throws ApiException {
         //String taskId = null;
         //Integer clusterId = null;
         //Object response = api.fetchClusterImageByTaskIdPublicTextClustersTaskIdImageGet(taskId, clusterId);
@@ -103,17 +104,17 @@ public class ClustersApiTest {
     /**
      * List all clusters
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void listAllRequestedClustersPublicTextClustersGetTest() throws ApiException {
+    public void listAllRequestedClustersPublicTextClustersGetTest()
+        throws ApiException {
         //Integer pageNumber = null;
         //Integer pageSize = null;
         //ClusteringRequestInfoData response = api.listAllRequestedClustersPublicTextClustersGet(pageNumber, pageSize);
         // TODO: test validations
     }
-
 }

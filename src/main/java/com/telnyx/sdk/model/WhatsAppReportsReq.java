@@ -10,138 +10,148 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * WhatsAppReportsReq
  */
-@JsonPropertyOrder({
-  WhatsAppReportsReq.JSON_PROPERTY_START_DATE,
-  WhatsAppReportsReq.JSON_PROPERTY_END_DATE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        WhatsAppReportsReq.JSON_PROPERTY_START_DATE,
+        WhatsAppReportsReq.JSON_PROPERTY_END_DATE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class WhatsAppReportsReq {
-  public static final String JSON_PROPERTY_START_DATE = "start_date";
-  private OffsetDateTime startDate;
 
-  public static final String JSON_PROPERTY_END_DATE = "end_date";
-  private OffsetDateTime endDate;
+    public static final String JSON_PROPERTY_START_DATE = "start_date";
+    private OffsetDateTime startDate;
 
-  public WhatsAppReportsReq() { 
-  }
+    public static final String JSON_PROPERTY_END_DATE = "end_date";
+    private OffsetDateTime endDate;
 
-  public WhatsAppReportsReq startDate(OffsetDateTime startDate) {
-    this.startDate = startDate;
-    return this;
-  }
+    public WhatsAppReportsReq() {}
 
-   /**
-   * Get startDate
-   * @return startDate
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "2021-05-01T00:00-06:00", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public OffsetDateTime getStartDate() {
-    return startDate;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStartDate(OffsetDateTime startDate) {
-    this.startDate = startDate;
-  }
-
-
-  public WhatsAppReportsReq endDate(OffsetDateTime endDate) {
-    this.endDate = endDate;
-    return this;
-  }
-
-   /**
-   * Get endDate
-   * @return endDate
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "2021-05-01T00:00-06:00", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_END_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public OffsetDateTime getEndDate() {
-    return endDate;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_END_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEndDate(OffsetDateTime endDate) {
-    this.endDate = endDate;
-  }
-
-
-  /**
-   * Return true if this WhatsAppReportsReq object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WhatsAppReportsReq startDate(OffsetDateTime startDate) {
+        this.startDate = startDate;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get startDate
+     * @return startDate
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "2021-05-01T00:00-06:00",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_START_DATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public OffsetDateTime getStartDate() {
+        return startDate;
     }
-    WhatsAppReportsReq whatsAppReportsReq = (WhatsAppReportsReq) o;
-    return Objects.equals(this.startDate, whatsAppReportsReq.startDate) &&
-        Objects.equals(this.endDate, whatsAppReportsReq.endDate);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(startDate, endDate);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WhatsAppReportsReq {\n");
-    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
-    sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_START_DATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStartDate(OffsetDateTime startDate) {
+        this.startDate = startDate;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public WhatsAppReportsReq endDate(OffsetDateTime endDate) {
+        this.endDate = endDate;
+        return this;
+    }
+
+    /**
+     * Get endDate
+     * @return endDate
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "2021-05-01T00:00-06:00",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_END_DATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public OffsetDateTime getEndDate() {
+        return endDate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_END_DATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEndDate(OffsetDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * Return true if this WhatsAppReportsReq object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WhatsAppReportsReq whatsAppReportsReq = (WhatsAppReportsReq) o;
+        return (
+            Objects.equals(this.startDate, whatsAppReportsReq.startDate) &&
+            Objects.equals(this.endDate, whatsAppReportsReq.endDate)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startDate, endDate);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WhatsAppReportsReq {\n");
+        sb
+            .append("    startDate: ")
+            .append(toIndentedString(startDate))
+            .append("\n");
+        sb
+            .append("    endDate: ")
+            .append(toIndentedString(endDate))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

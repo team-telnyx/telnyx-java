@@ -10,136 +10,158 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UpdateRequirementGroupRequestRegulatoryRequirementsInner
  */
-@JsonPropertyOrder({
-  UpdateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_REQUIREMENT_ID,
-  UpdateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_VALUE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        UpdateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_REQUIREMENT_ID,
+        UpdateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_VALUE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UpdateRequirementGroupRequestRegulatoryRequirementsInner {
-  public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
-  private String requirementId;
 
-  public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
-  private String fieldValue;
+    public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
+    private String requirementId;
 
-  public UpdateRequirementGroupRequestRegulatoryRequirementsInner() { 
-  }
+    public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
+    private String fieldValue;
 
-  public UpdateRequirementGroupRequestRegulatoryRequirementsInner requirementId(String requirementId) {
-    this.requirementId = requirementId;
-    return this;
-  }
+    public UpdateRequirementGroupRequestRegulatoryRequirementsInner() {}
 
-   /**
-   * Unique identifier for the regulatory requirement
-   * @return requirementId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "53970723-fbff-4f46-a975-f62be6c1a585", value = "Unique identifier for the regulatory requirement")
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRequirementId() {
-    return requirementId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequirementId(String requirementId) {
-    this.requirementId = requirementId;
-  }
-
-
-  public UpdateRequirementGroupRequestRegulatoryRequirementsInner fieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
-    return this;
-  }
-
-   /**
-   * New value for the regulatory requirement
-   * @return fieldValue
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "new requirement value", value = "New value for the regulatory requirement")
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFieldValue() {
-    return fieldValue;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
-  }
-
-
-  /**
-   * Return true if this UpdateRequirementGroup_request_regulatory_requirements_inner object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UpdateRequirementGroupRequestRegulatoryRequirementsInner requirementId(
+        String requirementId
+    ) {
+        this.requirementId = requirementId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Unique identifier for the regulatory requirement
+     * @return requirementId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "53970723-fbff-4f46-a975-f62be6c1a585",
+        value = "Unique identifier for the regulatory requirement"
+    )
+    @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRequirementId() {
+        return requirementId;
     }
-    UpdateRequirementGroupRequestRegulatoryRequirementsInner updateRequirementGroupRequestRegulatoryRequirementsInner = (UpdateRequirementGroupRequestRegulatoryRequirementsInner) o;
-    return Objects.equals(this.requirementId, updateRequirementGroupRequestRegulatoryRequirementsInner.requirementId) &&
-        Objects.equals(this.fieldValue, updateRequirementGroupRequestRegulatoryRequirementsInner.fieldValue);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(requirementId, fieldValue);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdateRequirementGroupRequestRegulatoryRequirementsInner {\n");
-    sb.append("    requirementId: ").append(toIndentedString(requirementId)).append("\n");
-    sb.append("    fieldValue: ").append(toIndentedString(fieldValue)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRequirementId(String requirementId) {
+        this.requirementId = requirementId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public UpdateRequirementGroupRequestRegulatoryRequirementsInner fieldValue(
+        String fieldValue
+    ) {
+        this.fieldValue = fieldValue;
+        return this;
+    }
+
+    /**
+     * New value for the regulatory requirement
+     * @return fieldValue
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "new requirement value",
+        value = "New value for the regulatory requirement"
+    )
+    @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFieldValue() {
+        return fieldValue;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFieldValue(String fieldValue) {
+        this.fieldValue = fieldValue;
+    }
+
+    /**
+     * Return true if this UpdateRequirementGroup_request_regulatory_requirements_inner object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdateRequirementGroupRequestRegulatoryRequirementsInner updateRequirementGroupRequestRegulatoryRequirementsInner =
+            (UpdateRequirementGroupRequestRegulatoryRequirementsInner) o;
+        return (
+            Objects.equals(
+                this.requirementId,
+                updateRequirementGroupRequestRegulatoryRequirementsInner.requirementId
+            ) &&
+            Objects.equals(
+                this.fieldValue,
+                updateRequirementGroupRequestRegulatoryRequirementsInner.fieldValue
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requirementId, fieldValue);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(
+            "class UpdateRequirementGroupRequestRegulatoryRequirementsInner {\n"
+        );
+        sb
+            .append("    requirementId: ")
+            .append(toIndentedString(requirementId))
+            .append("\n");
+        sb
+            .append("    fieldValue: ")
+            .append(toIndentedString(fieldValue))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

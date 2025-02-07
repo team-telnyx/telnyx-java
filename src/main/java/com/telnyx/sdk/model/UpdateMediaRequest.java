@@ -10,136 +10,145 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UpdateMediaRequest
  */
-@JsonPropertyOrder({
-  UpdateMediaRequest.JSON_PROPERTY_MEDIA_URL,
-  UpdateMediaRequest.JSON_PROPERTY_TTL_SECS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        UpdateMediaRequest.JSON_PROPERTY_MEDIA_URL,
+        UpdateMediaRequest.JSON_PROPERTY_TTL_SECS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UpdateMediaRequest {
-  public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
-  private String mediaUrl;
 
-  public static final String JSON_PROPERTY_TTL_SECS = "ttl_secs";
-  private Integer ttlSecs;
+    public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
+    private String mediaUrl;
 
-  public UpdateMediaRequest() { 
-  }
+    public static final String JSON_PROPERTY_TTL_SECS = "ttl_secs";
+    private Integer ttlSecs;
 
-  public UpdateMediaRequest mediaUrl(String mediaUrl) {
-    this.mediaUrl = mediaUrl;
-    return this;
-  }
+    public UpdateMediaRequest() {}
 
-   /**
-   * The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB.
-   * @return mediaUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "http://www.example.com/audio.mp3", value = "The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaUrl() {
-    return mediaUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaUrl(String mediaUrl) {
-    this.mediaUrl = mediaUrl;
-  }
-
-
-  public UpdateMediaRequest ttlSecs(Integer ttlSecs) {
-    this.ttlSecs = ttlSecs;
-    return this;
-  }
-
-   /**
-   * The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.
-   * @return ttlSecs
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "86400", value = "The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.")
-  @JsonProperty(JSON_PROPERTY_TTL_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTtlSecs() {
-    return ttlSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TTL_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTtlSecs(Integer ttlSecs) {
-    this.ttlSecs = ttlSecs;
-  }
-
-
-  /**
-   * Return true if this UpdateMediaRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UpdateMediaRequest mediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB.
+     * @return mediaUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "http://www.example.com/audio.mp3",
+        value = "The URL where the media to be stored in Telnyx network is currently hosted. The maximum allowed size is 20 MB."
+    )
+    @JsonProperty(JSON_PROPERTY_MEDIA_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMediaUrl() {
+        return mediaUrl;
     }
-    UpdateMediaRequest updateMediaRequest = (UpdateMediaRequest) o;
-    return Objects.equals(this.mediaUrl, updateMediaRequest.mediaUrl) &&
-        Objects.equals(this.ttlSecs, updateMediaRequest.ttlSecs);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(mediaUrl, ttlSecs);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdateMediaRequest {\n");
-    sb.append("    mediaUrl: ").append(toIndentedString(mediaUrl)).append("\n");
-    sb.append("    ttlSecs: ").append(toIndentedString(ttlSecs)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_MEDIA_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public UpdateMediaRequest ttlSecs(Integer ttlSecs) {
+        this.ttlSecs = ttlSecs;
+        return this;
+    }
+
+    /**
+     * The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.
+     * @return ttlSecs
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "86400",
+        value = "The number of seconds after which the media resource will be deleted, defaults to 2 days. The maximum allowed vale is 630720000, which translates to 20 years."
+    )
+    @JsonProperty(JSON_PROPERTY_TTL_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTtlSecs() {
+        return ttlSecs;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TTL_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTtlSecs(Integer ttlSecs) {
+        this.ttlSecs = ttlSecs;
+    }
+
+    /**
+     * Return true if this UpdateMediaRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdateMediaRequest updateMediaRequest = (UpdateMediaRequest) o;
+        return (
+            Objects.equals(this.mediaUrl, updateMediaRequest.mediaUrl) &&
+            Objects.equals(this.ttlSecs, updateMediaRequest.ttlSecs)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mediaUrl, ttlSecs);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UpdateMediaRequest {\n");
+        sb
+            .append("    mediaUrl: ")
+            .append(toIndentedString(mediaUrl))
+            .append("\n");
+        sb
+            .append("    ttlSecs: ")
+            .append(toIndentedString(ttlSecs))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,23 +18,22 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.PublicInternetGatewayCreate;
 import com.telnyx.sdk.model.PublicInternetGatewayCreate202Response;
 import com.telnyx.sdk.model.PublicInternetGatewayList200Response;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for PublicInternetGatewaysApi
  */
 public class PublicInternetGatewaysApiTest {
 
-    private final PublicInternetGatewaysApi api = new PublicInternetGatewaysApi();
+    private final PublicInternetGatewaysApi api =
+        new PublicInternetGatewaysApi();
 
     /**
      * Create a Public Internet Gateway
@@ -98,5 +96,4 @@ public class PublicInternetGatewaysApiTest {
         //PublicInternetGatewayList200Response response = api.publicInternetGatewayList(pageNumber, pageSize, filterNetworkId);
         // TODO: test validations
     }
-
 }

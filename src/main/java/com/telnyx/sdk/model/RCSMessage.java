@@ -10,266 +10,286 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.RCSAgentMessage;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import com.telnyx.sdk.model.RCSAgentMessage;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RCSMessage
  */
-@JsonPropertyOrder({
-  RCSMessage.JSON_PROPERTY_AGENT_ID,
-  RCSMessage.JSON_PROPERTY_TO,
-  RCSMessage.JSON_PROPERTY_MESSAGING_PROFILE_ID,
-  RCSMessage.JSON_PROPERTY_TYPE,
-  RCSMessage.JSON_PROPERTY_AGENT_MESSAGE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        RCSMessage.JSON_PROPERTY_AGENT_ID,
+        RCSMessage.JSON_PROPERTY_TO,
+        RCSMessage.JSON_PROPERTY_MESSAGING_PROFILE_ID,
+        RCSMessage.JSON_PROPERTY_TYPE,
+        RCSMessage.JSON_PROPERTY_AGENT_MESSAGE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RCSMessage {
-  public static final String JSON_PROPERTY_AGENT_ID = "agent_id";
-  private String agentId;
 
-  public static final String JSON_PROPERTY_TO = "to";
-  private String to;
+    public static final String JSON_PROPERTY_AGENT_ID = "agent_id";
+    private String agentId;
 
-  public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
-  private String messagingProfileId;
+    public static final String JSON_PROPERTY_TO = "to";
+    private String to;
 
-  /**
-   * Message type - must be set to \&quot;RCS\&quot;
-   */
-  public enum TypeEnum {
-    RCS(String.valueOf("RCS"));
+    public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID =
+        "messaging_profile_id";
+    private String messagingProfileId;
 
-    private String value;
+    /**
+     * Message type - must be set to \&quot;RCS\&quot;
+     */
+    public enum TypeEnum {
+        RCS(String.valueOf("RCS"));
 
-    TypeEnum(String value) {
-      this.value = value;
+        private String value;
+
+        TypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TypeEnum fromValue(String value) {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private TypeEnum type;
+
+    public static final String JSON_PROPERTY_AGENT_MESSAGE = "agent_message";
+    private RCSAgentMessage agentMessage;
+
+    public RCSMessage() {}
+
+    public RCSMessage agentId(String agentId) {
+        this.agentId = agentId;
+        return this;
+    }
+
+    /**
+     * RCS Agent ID
+     * @return agentId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "Agent007",
+        required = true,
+        value = "RCS Agent ID"
+    )
+    @JsonProperty(JSON_PROPERTY_AGENT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getAgentId() {
+        return agentId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AGENT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
+    }
+
+    public RCSMessage to(String to) {
+        this.to = to;
+        return this;
+    }
+
+    /**
+     * Phone number in +E.164 format
+     * @return to
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+13125551234",
+        required = true,
+        value = "Phone number in +E.164 format"
+    )
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTo() {
+        return to;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public RCSMessage messagingProfileId(String messagingProfileId) {
+        this.messagingProfileId = messagingProfileId;
+        return this;
+    }
+
+    /**
+     * A valid messaging profile ID
+     * @return messagingProfileId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "A valid messaging profile ID")
+    @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getMessagingProfileId() {
+        return messagingProfileId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setMessagingProfileId(String messagingProfileId) {
+        this.messagingProfileId = messagingProfileId;
+    }
+
+    public RCSMessage type(TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Message type - must be set to \&quot;RCS\&quot;
+     * @return type
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "RCS",
+        value = "Message type - must be set to \"RCS\""
+    )
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TypeEnum getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(TypeEnum type) {
+        this.type = type;
+    }
+
+    public RCSMessage agentMessage(RCSAgentMessage agentMessage) {
+        this.agentMessage = agentMessage;
+        return this;
+    }
+
+    /**
+     * Get agentMessage
+     * @return agentMessage
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_AGENT_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public RCSAgentMessage getAgentMessage() {
+        return agentMessage;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AGENT_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAgentMessage(RCSAgentMessage agentMessage) {
+        this.agentMessage = agentMessage;
+    }
+
+    /**
+     * Return true if this RCSMessage object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RCSMessage rcSMessage = (RCSMessage) o;
+        return (
+            Objects.equals(this.agentId, rcSMessage.agentId) &&
+            Objects.equals(this.to, rcSMessage.to) &&
+            Objects.equals(
+                this.messagingProfileId,
+                rcSMessage.messagingProfileId
+            ) &&
+            Objects.equals(this.type, rcSMessage.type) &&
+            Objects.equals(this.agentMessage, rcSMessage.agentMessage)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            agentId,
+            to,
+            messagingProfileId,
+            type,
+            agentMessage
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RCSMessage {\n");
+        sb
+            .append("    agentId: ")
+            .append(toIndentedString(agentId))
+            .append("\n");
+        sb.append("    to: ").append(toIndentedString(to)).append("\n");
+        sb
+            .append("    messagingProfileId: ")
+            .append(toIndentedString(messagingProfileId))
+            .append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb
+            .append("    agentMessage: ")
+            .append(toIndentedString(agentMessage))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private TypeEnum type;
-
-  public static final String JSON_PROPERTY_AGENT_MESSAGE = "agent_message";
-  private RCSAgentMessage agentMessage;
-
-  public RCSMessage() { 
-  }
-
-  public RCSMessage agentId(String agentId) {
-    this.agentId = agentId;
-    return this;
-  }
-
-   /**
-   * RCS Agent ID
-   * @return agentId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "Agent007", required = true, value = "RCS Agent ID")
-  @JsonProperty(JSON_PROPERTY_AGENT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getAgentId() {
-    return agentId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AGENT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAgentId(String agentId) {
-    this.agentId = agentId;
-  }
-
-
-  public RCSMessage to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * Phone number in +E.164 format
-   * @return to
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+13125551234", required = true, value = "Phone number in +E.164 format")
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTo() {
-    return to;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-
-  public RCSMessage messagingProfileId(String messagingProfileId) {
-    this.messagingProfileId = messagingProfileId;
-    return this;
-  }
-
-   /**
-   * A valid messaging profile ID
-   * @return messagingProfileId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "A valid messaging profile ID")
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getMessagingProfileId() {
-    return messagingProfileId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMessagingProfileId(String messagingProfileId) {
-    this.messagingProfileId = messagingProfileId;
-  }
-
-
-  public RCSMessage type(TypeEnum type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Message type - must be set to \&quot;RCS\&quot;
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "RCS", value = "Message type - must be set to \"RCS\"")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(TypeEnum type) {
-    this.type = type;
-  }
-
-
-  public RCSMessage agentMessage(RCSAgentMessage agentMessage) {
-    this.agentMessage = agentMessage;
-    return this;
-  }
-
-   /**
-   * Get agentMessage
-   * @return agentMessage
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_AGENT_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public RCSAgentMessage getAgentMessage() {
-    return agentMessage;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AGENT_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAgentMessage(RCSAgentMessage agentMessage) {
-    this.agentMessage = agentMessage;
-  }
-
-
-  /**
-   * Return true if this RCSMessage object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    RCSMessage rcSMessage = (RCSMessage) o;
-    return Objects.equals(this.agentId, rcSMessage.agentId) &&
-        Objects.equals(this.to, rcSMessage.to) &&
-        Objects.equals(this.messagingProfileId, rcSMessage.messagingProfileId) &&
-        Objects.equals(this.type, rcSMessage.type) &&
-        Objects.equals(this.agentMessage, rcSMessage.agentMessage);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(agentId, to, messagingProfileId, type, agentMessage);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RCSMessage {\n");
-    sb.append("    agentId: ").append(toIndentedString(agentId)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    agentMessage: ").append(toIndentedString(agentMessage)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,19 +18,17 @@ import com.telnyx.sdk.model.CreateDocServiceDocumentRequest;
 import com.telnyx.sdk.model.DocServiceDocument;
 import com.telnyx.sdk.model.DocServiceDocumentResponse;
 import com.telnyx.sdk.model.Errors;
-import java.io.File;
 import com.telnyx.sdk.model.ListDocServiceDocumentLinksResponse;
 import com.telnyx.sdk.model.ListDocServiceDocumentsResposne;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for DocumentsApi
@@ -156,5 +153,4 @@ public class DocumentsApiTest {
         //DocServiceDocumentResponse response = api.updateDocument(id, docServiceDocument);
         // TODO: test validations
     }
-
 }

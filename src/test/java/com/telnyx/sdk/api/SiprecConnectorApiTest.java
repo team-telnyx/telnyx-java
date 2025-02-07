@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,15 +17,13 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.SiprecConnector;
 import com.telnyx.sdk.model.SiprecConnectorResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for SiprecConnectorApi
@@ -95,5 +92,4 @@ public class SiprecConnectorApiTest {
         //SiprecConnectorResponse response = api.updateSiprecConnector(siprecConnectorName, siprecConnector);
         // TODO: test validations
     }
-
 }

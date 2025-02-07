@@ -10,178 +10,174 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Money
  */
-@JsonPropertyOrder({
-  Money.JSON_PROPERTY_AMOUNT,
-  Money.JSON_PROPERTY_CURRENCY
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder({ Money.JSON_PROPERTY_AMOUNT, Money.JSON_PROPERTY_CURRENCY })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class Money {
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private String amount;
 
-  /**
-   * Gets or Sets currency
-   */
-  public enum CurrencyEnum {
-    AUD("AUD"),
-    
-    CAD("CAD"),
-    
-    EUR("EUR"),
-    
-    GBP("GBP"),
-    
-    USD("USD");
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private String amount;
 
-    private String value;
+    /**
+     * Gets or Sets currency
+     */
+    public enum CurrencyEnum {
+        AUD("AUD"),
 
-    CurrencyEnum(String value) {
-      this.value = value;
+        CAD("CAD"),
+
+        EUR("EUR"),
+
+        GBP("GBP"),
+
+        USD("USD");
+
+        private String value;
+
+        CurrencyEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static CurrencyEnum fromValue(String value) {
+            for (CurrencyEnum b : CurrencyEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_CURRENCY = "currency";
+    private CurrencyEnum currency;
+
+    public Money() {}
+
+    public Money amount(String amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Get amount
+     * @return amount
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "0.06", value = "")
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAmount() {
+        return amount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public Money currency(CurrencyEnum currency) {
+        this.currency = currency;
+        return this;
+    }
+
+    /**
+     * Get currency
+     * @return currency
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public CurrencyEnum getCurrency() {
+        return currency;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCurrency(CurrencyEnum currency) {
+        this.currency = currency;
+    }
+
+    /**
+     * Return true if this Money object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Money money = (Money) o;
+        return (
+            Objects.equals(this.amount, money.amount) &&
+            Objects.equals(this.currency, money.currency)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, currency);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Money {\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb
+            .append("    currency: ")
+            .append(toIndentedString(currency))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static CurrencyEnum fromValue(String value) {
-      for (CurrencyEnum b : CurrencyEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_CURRENCY = "currency";
-  private CurrencyEnum currency;
-
-  public Money() { 
-  }
-
-  public Money amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "0.06", value = "")
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAmount(String amount) {
-    this.amount = amount;
-  }
-
-
-  public Money currency(CurrencyEnum currency) {
-    this.currency = currency;
-    return this;
-  }
-
-   /**
-   * Get currency
-   * @return currency
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public CurrencyEnum getCurrency() {
-    return currency;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrency(CurrencyEnum currency) {
-    this.currency = currency;
-  }
-
-
-  /**
-   * Return true if this Money object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Money money = (Money) o;
-    return Objects.equals(this.amount, money.amount) &&
-        Objects.equals(this.currency, money.currency);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(amount, currency);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Money {\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

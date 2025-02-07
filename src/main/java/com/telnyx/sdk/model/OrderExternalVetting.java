@@ -10,136 +10,142 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * OrderExternalVetting
  */
-@JsonPropertyOrder({
-  OrderExternalVetting.JSON_PROPERTY_EVP_ID,
-  OrderExternalVetting.JSON_PROPERTY_VETTING_CLASS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        OrderExternalVetting.JSON_PROPERTY_EVP_ID,
+        OrderExternalVetting.JSON_PROPERTY_VETTING_CLASS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class OrderExternalVetting {
-  public static final String JSON_PROPERTY_EVP_ID = "evpId";
-  private String evpId;
 
-  public static final String JSON_PROPERTY_VETTING_CLASS = "vettingClass";
-  private String vettingClass;
+    public static final String JSON_PROPERTY_EVP_ID = "evpId";
+    private String evpId;
 
-  public OrderExternalVetting() { 
-  }
+    public static final String JSON_PROPERTY_VETTING_CLASS = "vettingClass";
+    private String vettingClass;
 
-  public OrderExternalVetting evpId(String evpId) {
-    this.evpId = evpId;
-    return this;
-  }
+    public OrderExternalVetting() {}
 
-   /**
-   * External vetting provider ID for the brand.
-   * @return evpId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "External vetting provider ID for the brand.")
-  @JsonProperty(JSON_PROPERTY_EVP_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getEvpId() {
-    return evpId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EVP_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEvpId(String evpId) {
-    this.evpId = evpId;
-  }
-
-
-  public OrderExternalVetting vettingClass(String vettingClass) {
-    this.vettingClass = vettingClass;
-    return this;
-  }
-
-   /**
-   * Identifies the vetting classification.
-   * @return vettingClass
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Identifies the vetting classification.")
-  @JsonProperty(JSON_PROPERTY_VETTING_CLASS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getVettingClass() {
-    return vettingClass;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VETTING_CLASS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVettingClass(String vettingClass) {
-    this.vettingClass = vettingClass;
-  }
-
-
-  /**
-   * Return true if this OrderExternalVetting object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public OrderExternalVetting evpId(String evpId) {
+        this.evpId = evpId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * External vetting provider ID for the brand.
+     * @return evpId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "External vetting provider ID for the brand."
+    )
+    @JsonProperty(JSON_PROPERTY_EVP_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getEvpId() {
+        return evpId;
     }
-    OrderExternalVetting orderExternalVetting = (OrderExternalVetting) o;
-    return Objects.equals(this.evpId, orderExternalVetting.evpId) &&
-        Objects.equals(this.vettingClass, orderExternalVetting.vettingClass);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(evpId, vettingClass);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class OrderExternalVetting {\n");
-    sb.append("    evpId: ").append(toIndentedString(evpId)).append("\n");
-    sb.append("    vettingClass: ").append(toIndentedString(vettingClass)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_EVP_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEvpId(String evpId) {
+        this.evpId = evpId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public OrderExternalVetting vettingClass(String vettingClass) {
+        this.vettingClass = vettingClass;
+        return this;
+    }
+
+    /**
+     * Identifies the vetting classification.
+     * @return vettingClass
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Identifies the vetting classification."
+    )
+    @JsonProperty(JSON_PROPERTY_VETTING_CLASS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getVettingClass() {
+        return vettingClass;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VETTING_CLASS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVettingClass(String vettingClass) {
+        this.vettingClass = vettingClass;
+    }
+
+    /**
+     * Return true if this OrderExternalVetting object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderExternalVetting orderExternalVetting = (OrderExternalVetting) o;
+        return (
+            Objects.equals(this.evpId, orderExternalVetting.evpId) &&
+            Objects.equals(this.vettingClass, orderExternalVetting.vettingClass)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(evpId, vettingClass);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class OrderExternalVetting {\n");
+        sb.append("    evpId: ").append(toIndentedString(evpId)).append("\n");
+        sb
+            .append("    vettingClass: ")
+            .append(toIndentedString(vettingClass))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

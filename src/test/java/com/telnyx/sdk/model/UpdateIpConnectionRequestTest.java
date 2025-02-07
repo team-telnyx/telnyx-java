@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AnchorsiteOverride;
@@ -26,21 +26,20 @@ import com.telnyx.sdk.model.InboundIp;
 import com.telnyx.sdk.model.OutboundIp;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Model tests for UpdateIpConnectionRequest
  */
 public class UpdateIpConnectionRequestTest {
-    private final UpdateIpConnectionRequest model = new UpdateIpConnectionRequest();
+
+    private final UpdateIpConnectionRequest model =
+        new UpdateIpConnectionRequest();
 
     /**
      * Model tests for UpdateIpConnectionRequest
@@ -177,5 +176,4 @@ public class UpdateIpConnectionRequestTest {
     public void outboundTest() {
         // TODO: test outbound
     }
-
 }

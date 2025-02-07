@@ -10,17 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.*;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
@@ -29,8 +25,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for NumberOrdersApi
@@ -46,7 +43,8 @@ public class NumberOrdersApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
@@ -57,30 +55,42 @@ public class NumberOrdersApiTest {
      */
     @Ignore
     @Test
-    public void createNumberOrder_whenOrderingUSPhoneNumber_returnsCreatedOrder() throws ApiException {
+    public void createNumberOrder_whenOrderingUSPhoneNumber_returnsCreatedOrder()
+        throws ApiException {
         String countryCode = "US";
         String phoneNumber = null;
 
         try {
-            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
+            phoneNumber = Objects.requireNonNull(
+                numberSearchApi
+                    .listAvailablePhoneNumbers()
                     .filterCountryCode(countryCode)
                     .filterLimit(1)
                     .execute()
-                    .getData())
-                    .get(0)
-                    .getPhoneNumber();
+                    .getData()
+            )
+                .get(0)
+                .getPhoneNumber();
         } catch (Exception e) {
-            fail("Test Setup Failure - Unable to find available number to order: " + e.getMessage());
+            fail(
+                "Test Setup Failure - Unable to find available number to order: " +
+                e.getMessage()
+            );
         }
 
         NumberOrderResponse actualResponse = api.createNumberOrder(
-                new CreateNumberOrderRequest()
-                    .phoneNumbers(Collections.singletonList(new CreateNumberOrderRequestPhoneNumbersInner().phoneNumber(phoneNumber))));
+            new CreateNumberOrderRequest()
+                .phoneNumbers(
+                    Collections.singletonList(
+                        new CreateNumberOrderRequestPhoneNumbersInner()
+                            .phoneNumber(phoneNumber)
+                    )
+                )
+        );
 
         assertNotNull(actualResponse);
         assertNotNull(actualResponse.getData());
     }
-
 
     /**
      * Retrieve a number order
@@ -112,5 +122,4 @@ public class NumberOrdersApiTest {
         //NumberOrderResponse response = api.updateNumberOrder(numberOrderId, updateNumberOrderRequest);
         // TODO: test validations
     }
-
 }

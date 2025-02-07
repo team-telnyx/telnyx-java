@@ -10,307 +10,357 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import java.util.UUID;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * A Phone Number that can make phone calls displaying the configured brand information
  */
-@ApiModel(description = "A Phone Number that can make phone calls displaying the configured brand information")
-@JsonPropertyOrder({
-  VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_RECORD_TYPE,
-  VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_ID,
-  VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_PHONE_NUMBER,
-  VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS,
-  VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_GOOGLE_APPROVAL_INFO,
-  VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_DISPLAY_PROFILE_ID,
-  VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_DELETE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@ApiModel(
+    description = "A Phone Number that can make phone calls displaying the configured brand information"
+)
+@JsonPropertyOrder(
+    {
+        VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_RECORD_TYPE,
+        VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_ID,
+        VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_PHONE_NUMBER,
+        VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS,
+        VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_GOOGLE_APPROVAL_INFO,
+        VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_DISPLAY_PROFILE_ID,
+        VerifiedCallsDisplayProfilePhoneNumbersInner.JSON_PROPERTY_DELETE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class VerifiedCallsDisplayProfilePhoneNumbersInner {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  /**
-   * The approval status of this individual phone number in Google
-   */
-  public enum GoogleVerificationStatusEnum {
-    STATE_UNSPECIFIED("STATE_UNSPECIFIED"),
-    
-    PENDING_APPROVAL("PENDING_APPROVAL"),
-    
-    APPROVED("APPROVED"),
-    
-    DENIED("DENIED"),
-    
-    PENDING_REMOVAL("PENDING_REMOVAL");
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-    private String value;
+    /**
+     * The approval status of this individual phone number in Google
+     */
+    public enum GoogleVerificationStatusEnum {
+        STATE_UNSPECIFIED("STATE_UNSPECIFIED"),
 
-    GoogleVerificationStatusEnum(String value) {
-      this.value = value;
+        PENDING_APPROVAL("PENDING_APPROVAL"),
+
+        APPROVED("APPROVED"),
+
+        DENIED("DENIED"),
+
+        PENDING_REMOVAL("PENDING_REMOVAL");
+
+        private String value;
+
+        GoogleVerificationStatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static GoogleVerificationStatusEnum fromValue(String value) {
+            for (GoogleVerificationStatusEnum b : GoogleVerificationStatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS =
+        "google_verification_status";
+    private GoogleVerificationStatusEnum googleVerificationStatus;
+
+    public static final String JSON_PROPERTY_GOOGLE_APPROVAL_INFO =
+        "google_approval_info";
+    private String googleApprovalInfo;
+
+    public static final String JSON_PROPERTY_DISPLAY_PROFILE_ID =
+        "display_profile_id";
+    private UUID displayProfileId;
+
+    public static final String JSON_PROPERTY_DELETE = "delete";
+    private Boolean delete;
+
+    public VerifiedCallsDisplayProfilePhoneNumbersInner() {}
+
+    @JsonCreator
+    public VerifiedCallsDisplayProfilePhoneNumbersInner(
+        @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType,
+        @JsonProperty(JSON_PROPERTY_ID) UUID id,
+        @JsonProperty(
+            JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS
+        ) GoogleVerificationStatusEnum googleVerificationStatus,
+        @JsonProperty(
+            JSON_PROPERTY_GOOGLE_APPROVAL_INFO
+        ) String googleApprovalInfo,
+        @JsonProperty(JSON_PROPERTY_DISPLAY_PROFILE_ID) UUID displayProfileId
+    ) {
+        this();
+        this.recordType = recordType;
+        this.id = id;
+        this.googleVerificationStatus = googleVerificationStatus;
+        this.googleApprovalInfo = googleApprovalInfo;
+        this.displayProfileId = displayProfileId;
+    }
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "phone_number", value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    /**
+     * Get id
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "c6feda4e-6501-4db9-a21f-665e5b4ce2ba",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
+    }
+
+    public VerifiedCallsDisplayProfilePhoneNumbersInner phoneNumber(
+        String phoneNumber
+    ) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * The phone number in e164 format
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "+15001340938",
+        value = "The phone number in e164 format"
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * The approval status of this individual phone number in Google
+     * @return googleVerificationStatus
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "The approval status of this individual phone number in Google"
+    )
+    @JsonProperty(JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public GoogleVerificationStatusEnum getGoogleVerificationStatus() {
+        return googleVerificationStatus;
+    }
+
+    /**
+     * Additional information about the decision, if available.
+     * @return googleApprovalInfo
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Additional information about the decision, if available."
+    )
+    @JsonProperty(JSON_PROPERTY_GOOGLE_APPROVAL_INFO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getGoogleApprovalInfo() {
+        return googleApprovalInfo;
+    }
+
+    /**
+     * Get displayProfileId
+     * @return displayProfileId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "c6feda4e-6501-4db9-a21f-665e5b4ce2ba",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_DISPLAY_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getDisplayProfileId() {
+        return displayProfileId;
+    }
+
+    public VerifiedCallsDisplayProfilePhoneNumbersInner delete(Boolean delete) {
+        this.delete = delete;
+        return this;
+    }
+
+    /**
+     * Marks the Phone Number to be removed from the Display Profile
+     * @return delete
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Marks the Phone Number to be removed from the Display Profile"
+    )
+    @JsonProperty(JSON_PROPERTY_DELETE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DELETE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
+    }
+
+    /**
+     * Return true if this VerifiedCallsDisplayProfile_phone_numbers_inner object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VerifiedCallsDisplayProfilePhoneNumbersInner verifiedCallsDisplayProfilePhoneNumbersInner =
+            (VerifiedCallsDisplayProfilePhoneNumbersInner) o;
+        return (
+            Objects.equals(
+                this.recordType,
+                verifiedCallsDisplayProfilePhoneNumbersInner.recordType
+            ) &&
+            Objects.equals(
+                this.id,
+                verifiedCallsDisplayProfilePhoneNumbersInner.id
+            ) &&
+            Objects.equals(
+                this.phoneNumber,
+                verifiedCallsDisplayProfilePhoneNumbersInner.phoneNumber
+            ) &&
+            Objects.equals(
+                this.googleVerificationStatus,
+                verifiedCallsDisplayProfilePhoneNumbersInner.googleVerificationStatus
+            ) &&
+            Objects.equals(
+                this.googleApprovalInfo,
+                verifiedCallsDisplayProfilePhoneNumbersInner.googleApprovalInfo
+            ) &&
+            Objects.equals(
+                this.displayProfileId,
+                verifiedCallsDisplayProfilePhoneNumbersInner.displayProfileId
+            ) &&
+            Objects.equals(
+                this.delete,
+                verifiedCallsDisplayProfilePhoneNumbersInner.delete
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            id,
+            phoneNumber,
+            googleVerificationStatus,
+            googleApprovalInfo,
+            displayProfileId,
+            delete
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class VerifiedCallsDisplayProfilePhoneNumbersInner {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    googleVerificationStatus: ")
+            .append(toIndentedString(googleVerificationStatus))
+            .append("\n");
+        sb
+            .append("    googleApprovalInfo: ")
+            .append(toIndentedString(googleApprovalInfo))
+            .append("\n");
+        sb
+            .append("    displayProfileId: ")
+            .append(toIndentedString(displayProfileId))
+            .append("\n");
+        sb.append("    delete: ").append(toIndentedString(delete)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static GoogleVerificationStatusEnum fromValue(String value) {
-      for (GoogleVerificationStatusEnum b : GoogleVerificationStatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS = "google_verification_status";
-  private GoogleVerificationStatusEnum googleVerificationStatus;
-
-  public static final String JSON_PROPERTY_GOOGLE_APPROVAL_INFO = "google_approval_info";
-  private String googleApprovalInfo;
-
-  public static final String JSON_PROPERTY_DISPLAY_PROFILE_ID = "display_profile_id";
-  private UUID displayProfileId;
-
-  public static final String JSON_PROPERTY_DELETE = "delete";
-  private Boolean delete;
-
-  public VerifiedCallsDisplayProfilePhoneNumbersInner() { 
-  }
-
-  @JsonCreator
-  public VerifiedCallsDisplayProfilePhoneNumbersInner(
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
-    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
-    @JsonProperty(JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS) GoogleVerificationStatusEnum googleVerificationStatus, 
-    @JsonProperty(JSON_PROPERTY_GOOGLE_APPROVAL_INFO) String googleApprovalInfo, 
-    @JsonProperty(JSON_PROPERTY_DISPLAY_PROFILE_ID) UUID displayProfileId
-  ) {
-    this();
-    this.recordType = recordType;
-    this.id = id;
-    this.googleVerificationStatus = googleVerificationStatus;
-    this.googleApprovalInfo = googleApprovalInfo;
-    this.displayProfileId = displayProfileId;
-  }
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "phone_number", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "c6feda4e-6501-4db9-a21f-665e5b4ce2ba", value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-
-
-  public VerifiedCallsDisplayProfilePhoneNumbersInner phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * The phone number in e164 format
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+15001340938", value = "The phone number in e164 format")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-   /**
-   * The approval status of this individual phone number in Google
-   * @return googleVerificationStatus
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The approval status of this individual phone number in Google")
-  @JsonProperty(JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public GoogleVerificationStatusEnum getGoogleVerificationStatus() {
-    return googleVerificationStatus;
-  }
-
-
-
-
-   /**
-   * Additional information about the decision, if available.
-   * @return googleApprovalInfo
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Additional information about the decision, if available.")
-  @JsonProperty(JSON_PROPERTY_GOOGLE_APPROVAL_INFO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getGoogleApprovalInfo() {
-    return googleApprovalInfo;
-  }
-
-
-
-
-   /**
-   * Get displayProfileId
-   * @return displayProfileId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "c6feda4e-6501-4db9-a21f-665e5b4ce2ba", value = "")
-  @JsonProperty(JSON_PROPERTY_DISPLAY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getDisplayProfileId() {
-    return displayProfileId;
-  }
-
-
-
-
-  public VerifiedCallsDisplayProfilePhoneNumbersInner delete(Boolean delete) {
-    this.delete = delete;
-    return this;
-  }
-
-   /**
-   * Marks the Phone Number to be removed from the Display Profile
-   * @return delete
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Marks the Phone Number to be removed from the Display Profile")
-  @JsonProperty(JSON_PROPERTY_DELETE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getDelete() {
-    return delete;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDelete(Boolean delete) {
-    this.delete = delete;
-  }
-
-
-  /**
-   * Return true if this VerifiedCallsDisplayProfile_phone_numbers_inner object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    VerifiedCallsDisplayProfilePhoneNumbersInner verifiedCallsDisplayProfilePhoneNumbersInner = (VerifiedCallsDisplayProfilePhoneNumbersInner) o;
-    return Objects.equals(this.recordType, verifiedCallsDisplayProfilePhoneNumbersInner.recordType) &&
-        Objects.equals(this.id, verifiedCallsDisplayProfilePhoneNumbersInner.id) &&
-        Objects.equals(this.phoneNumber, verifiedCallsDisplayProfilePhoneNumbersInner.phoneNumber) &&
-        Objects.equals(this.googleVerificationStatus, verifiedCallsDisplayProfilePhoneNumbersInner.googleVerificationStatus) &&
-        Objects.equals(this.googleApprovalInfo, verifiedCallsDisplayProfilePhoneNumbersInner.googleApprovalInfo) &&
-        Objects.equals(this.displayProfileId, verifiedCallsDisplayProfilePhoneNumbersInner.displayProfileId) &&
-        Objects.equals(this.delete, verifiedCallsDisplayProfilePhoneNumbersInner.delete);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, id, phoneNumber, googleVerificationStatus, googleApprovalInfo, displayProfileId, delete);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class VerifiedCallsDisplayProfilePhoneNumbersInner {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    googleVerificationStatus: ").append(toIndentedString(googleVerificationStatus)).append("\n");
-    sb.append("    googleApprovalInfo: ").append(toIndentedString(googleApprovalInfo)).append("\n");
-    sb.append("    displayProfileId: ").append(toIndentedString(displayProfileId)).append("\n");
-    sb.append("    delete: ").append(toIndentedString(delete)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

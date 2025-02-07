@@ -10,137 +10,160 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Specifies a value for a requirement on the Porting Order.
  */
-@ApiModel(description = "Specifies a value for a requirement on the Porting Order.")
-@JsonPropertyOrder({
-  UpdatePortingOrderRequirement.JSON_PROPERTY_FIELD_VALUE,
-  UpdatePortingOrderRequirement.JSON_PROPERTY_REQUIREMENT_TYPE_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "Specifies a value for a requirement on the Porting Order."
+)
+@JsonPropertyOrder(
+    {
+        UpdatePortingOrderRequirement.JSON_PROPERTY_FIELD_VALUE,
+        UpdatePortingOrderRequirement.JSON_PROPERTY_REQUIREMENT_TYPE_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UpdatePortingOrderRequirement {
-  public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
-  private String fieldValue;
 
-  public static final String JSON_PROPERTY_REQUIREMENT_TYPE_ID = "requirement_type_id";
-  private String requirementTypeId;
+    public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
+    private String fieldValue;
 
-  public UpdatePortingOrderRequirement() { 
-  }
+    public static final String JSON_PROPERTY_REQUIREMENT_TYPE_ID =
+        "requirement_type_id";
+    private String requirementTypeId;
 
-  public UpdatePortingOrderRequirement fieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
-    return this;
-  }
+    public UpdatePortingOrderRequirement() {}
 
-   /**
-   * identifies the document or provides the text value that satisfies this requirement
-   * @return fieldValue
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe", required = true, value = "identifies the document or provides the text value that satisfies this requirement")
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getFieldValue() {
-    return fieldValue;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
-  }
-
-
-  public UpdatePortingOrderRequirement requirementTypeId(String requirementTypeId) {
-    this.requirementTypeId = requirementTypeId;
-    return this;
-  }
-
-   /**
-   * Identifies the requirement type that the &#x60;field_value&#x60; fulfills
-   * @return requirementTypeId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "59b0762a-b274-4f76-ac32-4d5cf0272e66", required = true, value = "Identifies the requirement type that the `field_value` fulfills")
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getRequirementTypeId() {
-    return requirementTypeId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRequirementTypeId(String requirementTypeId) {
-    this.requirementTypeId = requirementTypeId;
-  }
-
-
-  /**
-   * Return true if this UpdatePortingOrderRequirement object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UpdatePortingOrderRequirement fieldValue(String fieldValue) {
+        this.fieldValue = fieldValue;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * identifies the document or provides the text value that satisfies this requirement
+     * @return fieldValue
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe",
+        required = true,
+        value = "identifies the document or provides the text value that satisfies this requirement"
+    )
+    @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getFieldValue() {
+        return fieldValue;
     }
-    UpdatePortingOrderRequirement updatePortingOrderRequirement = (UpdatePortingOrderRequirement) o;
-    return Objects.equals(this.fieldValue, updatePortingOrderRequirement.fieldValue) &&
-        Objects.equals(this.requirementTypeId, updatePortingOrderRequirement.requirementTypeId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(fieldValue, requirementTypeId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdatePortingOrderRequirement {\n");
-    sb.append("    fieldValue: ").append(toIndentedString(fieldValue)).append("\n");
-    sb.append("    requirementTypeId: ").append(toIndentedString(requirementTypeId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFieldValue(String fieldValue) {
+        this.fieldValue = fieldValue;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public UpdatePortingOrderRequirement requirementTypeId(
+        String requirementTypeId
+    ) {
+        this.requirementTypeId = requirementTypeId;
+        return this;
+    }
+
+    /**
+     * Identifies the requirement type that the &#x60;field_value&#x60; fulfills
+     * @return requirementTypeId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "59b0762a-b274-4f76-ac32-4d5cf0272e66",
+        required = true,
+        value = "Identifies the requirement type that the `field_value` fulfills"
+    )
+    @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getRequirementTypeId() {
+        return requirementTypeId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRequirementTypeId(String requirementTypeId) {
+        this.requirementTypeId = requirementTypeId;
+    }
+
+    /**
+     * Return true if this UpdatePortingOrderRequirement object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdatePortingOrderRequirement updatePortingOrderRequirement =
+            (UpdatePortingOrderRequirement) o;
+        return (
+            Objects.equals(
+                this.fieldValue,
+                updatePortingOrderRequirement.fieldValue
+            ) &&
+            Objects.equals(
+                this.requirementTypeId,
+                updatePortingOrderRequirement.requirementTypeId
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fieldValue, requirementTypeId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UpdatePortingOrderRequirement {\n");
+        sb
+            .append("    fieldValue: ")
+            .append(toIndentedString(fieldValue))
+            .append("\n");
+        sb
+            .append("    requirementTypeId: ")
+            .append(toIndentedString(requirementTypeId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

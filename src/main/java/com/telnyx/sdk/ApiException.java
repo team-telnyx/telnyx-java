@@ -10,17 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk;
 
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * API Exception
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ApiException extends Exception {
+
     private int code = 0;
     private Map<String, List<String>> responseHeaders = null;
     private String responseBody = null;
@@ -35,23 +38,49 @@ public class ApiException extends Exception {
         super(message);
     }
 
-    public ApiException(String message, Throwable throwable, int code, Map<String, List<String>> responseHeaders, String responseBody) {
+    public ApiException(
+        String message,
+        Throwable throwable,
+        int code,
+        Map<String, List<String>> responseHeaders,
+        String responseBody
+    ) {
         super(message, throwable);
         this.code = code;
         this.responseHeaders = responseHeaders;
         this.responseBody = responseBody;
     }
 
-    public ApiException(String message, int code, Map<String, List<String>> responseHeaders, String responseBody) {
+    public ApiException(
+        String message,
+        int code,
+        Map<String, List<String>> responseHeaders,
+        String responseBody
+    ) {
         this(message, (Throwable) null, code, responseHeaders, responseBody);
     }
 
-    public ApiException(String message, Throwable throwable, int code, Map<String, List<String>> responseHeaders) {
+    public ApiException(
+        String message,
+        Throwable throwable,
+        int code,
+        Map<String, List<String>> responseHeaders
+    ) {
         this(message, throwable, code, responseHeaders, null);
     }
 
-    public ApiException(int code, Map<String, List<String>> responseHeaders, String responseBody) {
-        this((String) null, (Throwable) null, code, responseHeaders, responseBody);
+    public ApiException(
+        int code,
+        Map<String, List<String>> responseHeaders,
+        String responseBody
+    ) {
+        this(
+            (String) null,
+            (Throwable) null,
+            code,
+            responseHeaders,
+            responseBody
+        );
     }
 
     public ApiException(int code, String message) {
@@ -59,7 +88,12 @@ public class ApiException extends Exception {
         this.code = code;
     }
 
-    public ApiException(int code, String message, Map<String, List<String>> responseHeaders, String responseBody) {
+    public ApiException(
+        int code,
+        String message,
+        Map<String, List<String>> responseHeaders,
+        String responseBody
+    ) {
         this(code, message);
         this.responseHeaders = responseHeaders;
         this.responseBody = responseBody;

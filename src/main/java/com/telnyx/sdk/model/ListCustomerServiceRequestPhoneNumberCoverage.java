@@ -10,116 +10,119 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.CustomerServiceRequestPhoneNumberCoverage;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ListCustomerServiceRequestPhoneNumberCoverage
  */
-@JsonPropertyOrder({
-  ListCustomerServiceRequestPhoneNumberCoverage.JSON_PROPERTY_DATA
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    { ListCustomerServiceRequestPhoneNumberCoverage.JSON_PROPERTY_DATA }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class ListCustomerServiceRequestPhoneNumberCoverage {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private List<CustomerServiceRequestPhoneNumberCoverage> data = null;
 
-  public ListCustomerServiceRequestPhoneNumberCoverage() { 
-  }
+    public static final String JSON_PROPERTY_DATA = "data";
+    private List<CustomerServiceRequestPhoneNumberCoverage> data = null;
 
-  public ListCustomerServiceRequestPhoneNumberCoverage data(List<CustomerServiceRequestPhoneNumberCoverage> data) {
-    this.data = data;
-    return this;
-  }
+    public ListCustomerServiceRequestPhoneNumberCoverage() {}
 
-  public ListCustomerServiceRequestPhoneNumberCoverage addDataItem(CustomerServiceRequestPhoneNumberCoverage dataItem) {
-    if (this.data == null) {
-      this.data = new ArrayList<>();
+    public ListCustomerServiceRequestPhoneNumberCoverage data(
+        List<CustomerServiceRequestPhoneNumberCoverage> data
+    ) {
+        this.data = data;
+        return this;
     }
-    this.data.add(dataItem);
-    return this;
-  }
 
-   /**
-   * Get data
-   * @return data
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<CustomerServiceRequestPhoneNumberCoverage> getData() {
-    return data;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(List<CustomerServiceRequestPhoneNumberCoverage> data) {
-    this.data = data;
-  }
-
-
-  /**
-   * Return true if this List_Customer_Service_Request_PhoneNumber_Coverage object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ListCustomerServiceRequestPhoneNumberCoverage addDataItem(
+        CustomerServiceRequestPhoneNumberCoverage dataItem
+    ) {
+        if (this.data == null) {
+            this.data = new ArrayList<>();
+        }
+        this.data.add(dataItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get data
+     * @return data
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<CustomerServiceRequestPhoneNumberCoverage> getData() {
+        return data;
     }
-    ListCustomerServiceRequestPhoneNumberCoverage listCustomerServiceRequestPhoneNumberCoverage = (ListCustomerServiceRequestPhoneNumberCoverage) o;
-    return Objects.equals(this.data, listCustomerServiceRequestPhoneNumberCoverage.data);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(data);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ListCustomerServiceRequestPhoneNumberCoverage {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setData(List<CustomerServiceRequestPhoneNumberCoverage> data) {
+        this.data = data;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this List_Customer_Service_Request_PhoneNumber_Coverage object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ListCustomerServiceRequestPhoneNumberCoverage listCustomerServiceRequestPhoneNumberCoverage =
+            (ListCustomerServiceRequestPhoneNumberCoverage) o;
+        return Objects.equals(
+            this.data,
+            listCustomerServiceRequestPhoneNumberCoverage.data
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ListCustomerServiceRequestPhoneNumberCoverage {\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

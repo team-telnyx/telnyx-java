@@ -10,211 +10,232 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Language;
 import com.telnyx.sdk.model.LocalizableParam;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The containing element for the message content — Indicates that the message is highly structured. Parameters contained within provide the structure.
  */
-@ApiModel(description = "The containing element for the message content — Indicates that the message is highly structured. Parameters contained within provide the structure.")
-@JsonPropertyOrder({
-  Hsm.JSON_PROPERTY_NAMESPACE,
-  Hsm.JSON_PROPERTY_ELEMENT_NAME,
-  Hsm.JSON_PROPERTY_LANGUAGE,
-  Hsm.JSON_PROPERTY_LOCALIZABLE_PARAMS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@ApiModel(
+    description = "The containing element for the message content — Indicates that the message is highly structured. Parameters contained within provide the structure."
+)
+@JsonPropertyOrder(
+    {
+        Hsm.JSON_PROPERTY_NAMESPACE,
+        Hsm.JSON_PROPERTY_ELEMENT_NAME,
+        Hsm.JSON_PROPERTY_LANGUAGE,
+        Hsm.JSON_PROPERTY_LOCALIZABLE_PARAMS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class Hsm {
-  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  private String namespace;
 
-  public static final String JSON_PROPERTY_ELEMENT_NAME = "element_name";
-  private String elementName;
+    public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+    private String namespace;
 
-  public static final String JSON_PROPERTY_LANGUAGE = "language";
-  private Language language;
+    public static final String JSON_PROPERTY_ELEMENT_NAME = "element_name";
+    private String elementName;
 
-  public static final String JSON_PROPERTY_LOCALIZABLE_PARAMS = "localizable_params";
-  private List<LocalizableParam> localizableParams = new ArrayList<>();
+    public static final String JSON_PROPERTY_LANGUAGE = "language";
+    private Language language;
 
-  public Hsm() { 
-  }
+    public static final String JSON_PROPERTY_LOCALIZABLE_PARAMS =
+        "localizable_params";
+    private List<LocalizableParam> localizableParams = new ArrayList<>();
 
-  public Hsm namespace(String namespace) {
-    this.namespace = namespace;
-    return this;
-  }
+    public Hsm() {}
 
-   /**
-   * The namespace that will be used
-   * @return namespace
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The namespace that will be used")
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getNamespace() {
-    return namespace;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(String namespace) {
-    this.namespace = namespace;
-  }
-
-
-  public Hsm elementName(String elementName) {
-    this.elementName = elementName;
-    return this;
-  }
-
-   /**
-   * The element name that indicates which template to use within the namespace
-   * @return elementName
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The element name that indicates which template to use within the namespace")
-  @JsonProperty(JSON_PROPERTY_ELEMENT_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getElementName() {
-    return elementName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ELEMENT_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setElementName(String elementName) {
-    this.elementName = elementName;
-  }
-
-
-  public Hsm language(Language language) {
-    this.language = language;
-    return this;
-  }
-
-   /**
-   * Get language
-   * @return language
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Language getLanguage() {
-    return language;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLanguage(Language language) {
-    this.language = language;
-  }
-
-
-  public Hsm localizableParams(List<LocalizableParam> localizableParams) {
-    this.localizableParams = localizableParams;
-    return this;
-  }
-
-  public Hsm addLocalizableParamsItem(LocalizableParam localizableParamsItem) {
-    this.localizableParams.add(localizableParamsItem);
-    return this;
-  }
-
-   /**
-   * This field is an array of values to apply to variables in the template
-   * @return localizableParams
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "This field is an array of values to apply to variables in the template")
-  @JsonProperty(JSON_PROPERTY_LOCALIZABLE_PARAMS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<LocalizableParam> getLocalizableParams() {
-    return localizableParams;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LOCALIZABLE_PARAMS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLocalizableParams(List<LocalizableParam> localizableParams) {
-    this.localizableParams = localizableParams;
-  }
-
-
-  /**
-   * Return true if this Hsm object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Hsm namespace(String namespace) {
+        this.namespace = namespace;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The namespace that will be used
+     * @return namespace
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The namespace that will be used"
+    )
+    @JsonProperty(JSON_PROPERTY_NAMESPACE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getNamespace() {
+        return namespace;
     }
-    Hsm hsm = (Hsm) o;
-    return Objects.equals(this.namespace, hsm.namespace) &&
-        Objects.equals(this.elementName, hsm.elementName) &&
-        Objects.equals(this.language, hsm.language) &&
-        Objects.equals(this.localizableParams, hsm.localizableParams);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(namespace, elementName, language, localizableParams);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Hsm {\n");
-    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
-    sb.append("    elementName: ").append(toIndentedString(elementName)).append("\n");
-    sb.append("    language: ").append(toIndentedString(language)).append("\n");
-    sb.append("    localizableParams: ").append(toIndentedString(localizableParams)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_NAMESPACE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public Hsm elementName(String elementName) {
+        this.elementName = elementName;
+        return this;
+    }
+
+    /**
+     * The element name that indicates which template to use within the namespace
+     * @return elementName
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The element name that indicates which template to use within the namespace"
+    )
+    @JsonProperty(JSON_PROPERTY_ELEMENT_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getElementName() {
+        return elementName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ELEMENT_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
+    }
+
+    public Hsm language(Language language) {
+        this.language = language;
+        return this;
+    }
+
+    /**
+     * Get language
+     * @return language
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_LANGUAGE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Language getLanguage() {
+        return language;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LANGUAGE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public Hsm localizableParams(List<LocalizableParam> localizableParams) {
+        this.localizableParams = localizableParams;
+        return this;
+    }
+
+    public Hsm addLocalizableParamsItem(
+        LocalizableParam localizableParamsItem
+    ) {
+        this.localizableParams.add(localizableParamsItem);
+        return this;
+    }
+
+    /**
+     * This field is an array of values to apply to variables in the template
+     * @return localizableParams
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "This field is an array of values to apply to variables in the template"
+    )
+    @JsonProperty(JSON_PROPERTY_LOCALIZABLE_PARAMS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<LocalizableParam> getLocalizableParams() {
+        return localizableParams;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LOCALIZABLE_PARAMS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLocalizableParams(List<LocalizableParam> localizableParams) {
+        this.localizableParams = localizableParams;
+    }
+
+    /**
+     * Return true if this Hsm object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Hsm hsm = (Hsm) o;
+        return (
+            Objects.equals(this.namespace, hsm.namespace) &&
+            Objects.equals(this.elementName, hsm.elementName) &&
+            Objects.equals(this.language, hsm.language) &&
+            Objects.equals(this.localizableParams, hsm.localizableParams)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            namespace,
+            elementName,
+            language,
+            localizableParams
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Hsm {\n");
+        sb
+            .append("    namespace: ")
+            .append(toIndentedString(namespace))
+            .append("\n");
+        sb
+            .append("    elementName: ")
+            .append(toIndentedString(elementName))
+            .append("\n");
+        sb
+            .append("    language: ")
+            .append(toIndentedString(language))
+            .append("\n");
+        sb
+            .append("    localizableParams: ")
+            .append(toIndentedString(localizableParams))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

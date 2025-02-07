@@ -1,58 +1,59 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreateRequirementGroupRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.RequirementGroup;
 import com.telnyx.sdk.model.SubNumberOrderRequirementGroupResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateNumberOrderPhoneNumberRequirementGroup200Response;
 import com.telnyx.sdk.model.UpdateNumberOrderPhoneNumberRequirementGroupRequest;
 import com.telnyx.sdk.model.UpdateRequirementGroupRequest;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RequirementGroupsApi {
-  private ApiClient apiClient;
 
-  public RequirementGroupsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public RequirementGroupsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public RequirementGroupsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public RequirementGroupsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Create a new requirement group
    * 
    * @param createRequirementGroupRequest  (required)
@@ -64,11 +65,15 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> Requirement group created </td><td>  -  </td></tr>
      </table>
    */
-  public RequirementGroup createRequirementGroup(CreateRequirementGroupRequest createRequirementGroupRequest) throws ApiException {
-    return createRequirementGroupWithHttpInfo(createRequirementGroupRequest).getData();
-  }
+    public RequirementGroup createRequirementGroup(
+        CreateRequirementGroupRequest createRequirementGroupRequest
+    ) throws ApiException {
+        return createRequirementGroupWithHttpInfo(
+            createRequirementGroupRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a new requirement group
    * 
    * @param createRequirementGroupRequest  (required)
@@ -80,46 +85,68 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> Requirement group created </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RequirementGroup> createRequirementGroupWithHttpInfo(CreateRequirementGroupRequest createRequirementGroupRequest) throws ApiException {
-    Object localVarPostBody = createRequirementGroupRequest;
-    
-    // verify the required parameter 'createRequirementGroupRequest' is set
-    if (createRequirementGroupRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createRequirementGroupRequest' when calling createRequirementGroup");
+    public ApiResponse<RequirementGroup> createRequirementGroupWithHttpInfo(
+        CreateRequirementGroupRequest createRequirementGroupRequest
+    ) throws ApiException {
+        Object localVarPostBody = createRequirementGroupRequest;
+
+        // verify the required parameter 'createRequirementGroupRequest' is set
+        if (createRequirementGroupRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createRequirementGroupRequest' when calling createRequirementGroup"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/requirement_groups";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<RequirementGroup> localVarReturnType = new GenericType<
+            RequirementGroup
+        >() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.createRequirementGroup",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/requirement_groups";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RequirementGroup> localVarReturnType = new GenericType<RequirementGroup>() {};
-
-    return apiClient.invokeAPI("RequirementGroupsApi.createRequirementGroup", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Delete a requirement group by ID
    * 
    * @param id ID of the requirement group (required)
@@ -131,11 +158,12 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> Deleted requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public RequirementGroup deleteRequirementGroup(String id) throws ApiException {
-    return deleteRequirementGroupWithHttpInfo(id).getData();
-  }
+    public RequirementGroup deleteRequirementGroup(String id)
+        throws ApiException {
+        return deleteRequirementGroupWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Delete a requirement group by ID
    * 
    * @param id ID of the requirement group (required)
@@ -147,47 +175,72 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> Deleted requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RequirementGroup> deleteRequirementGroupWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteRequirementGroup");
+    public ApiResponse<RequirementGroup> deleteRequirementGroupWithHttpInfo(
+        String id
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteRequirementGroup"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/requirement_groups/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<RequirementGroup> localVarReturnType = new GenericType<
+            RequirementGroup
+        >() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.deleteRequirementGroup",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/requirement_groups/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RequirementGroup> localVarReturnType = new GenericType<RequirementGroup>() {};
-
-    return apiClient.invokeAPI("RequirementGroupsApi.deleteRequirementGroup", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Get a single requirement group by ID
    * 
    * @param id ID of the requirement group to retrieve (required)
@@ -199,11 +252,11 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> A single requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public RequirementGroup getRequirementGroup(String id) throws ApiException {
-    return getRequirementGroupWithHttpInfo(id).getData();
-  }
+    public RequirementGroup getRequirementGroup(String id) throws ApiException {
+        return getRequirementGroupWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Get a single requirement group by ID
    * 
    * @param id ID of the requirement group to retrieve (required)
@@ -215,47 +268,72 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> A single requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RequirementGroup> getRequirementGroupWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getRequirementGroup");
+    public ApiResponse<RequirementGroup> getRequirementGroupWithHttpInfo(
+        String id
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getRequirementGroup"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/requirement_groups/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<RequirementGroup> localVarReturnType = new GenericType<
+            RequirementGroup
+        >() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.getRequirementGroup",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/requirement_groups/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RequirementGroup> localVarReturnType = new GenericType<RequirementGroup>() {};
-
-    return apiClient.invokeAPI("RequirementGroupsApi.getRequirementGroup", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List requirement groups
    * 
    * @param filterCountryCode Filter requirement groups by country code (iso alpha 2) (optional)
@@ -271,11 +349,23 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> List requirement groups </td><td>  -  </td></tr>
      </table>
    */
-  public List<RequirementGroup> getRequirementGroups(String filterCountryCode, String filterPhoneNumberType, String filterAction, String filterStatus, String filterCustomerReference) throws ApiException {
-    return getRequirementGroupsWithHttpInfo(filterCountryCode, filterPhoneNumberType, filterAction, filterStatus, filterCustomerReference).getData();
-  }
+    public List<RequirementGroup> getRequirementGroups(
+        String filterCountryCode,
+        String filterPhoneNumberType,
+        String filterAction,
+        String filterStatus,
+        String filterCustomerReference
+    ) throws ApiException {
+        return getRequirementGroupsWithHttpInfo(
+            filterCountryCode,
+            filterPhoneNumberType,
+            filterAction,
+            filterStatus,
+            filterCustomerReference
+        ).getData();
+    }
 
-  /**
+    /**
    * List requirement groups
    * 
    * @param filterCountryCode Filter requirement groups by country code (iso alpha 2) (optional)
@@ -291,46 +381,91 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> List requirement groups </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<List<RequirementGroup>> getRequirementGroupsWithHttpInfo(String filterCountryCode, String filterPhoneNumberType, String filterAction, String filterStatus, String filterCustomerReference) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/requirement_groups";
+    public ApiResponse<List<RequirementGroup>> getRequirementGroupsWithHttpInfo(
+        String filterCountryCode,
+        String filterPhoneNumberType,
+        String filterAction,
+        String filterStatus,
+        String filterCustomerReference
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/requirement_groups";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_code]", filterCountryCode));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number_type]", filterPhoneNumberType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[action]", filterAction));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference]", filterCustomerReference));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[country_code]",
+                filterCountryCode
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number_type]",
+                filterPhoneNumberType
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[action]", filterAction)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status]", filterStatus)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[customer_reference]",
+                filterCustomerReference
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<List<RequirementGroup>> localVarReturnType = new GenericType<List<RequirementGroup>>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("RequirementGroupsApi.getRequirementGroups", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<List<RequirementGroup>> localVarReturnType =
+            new GenericType<List<RequirementGroup>>() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.getRequirementGroups",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Submit a Requirement Group for Approval
    * 
    * @param id ID of the requirement group to submit (required)
@@ -342,11 +477,12 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> A single requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public RequirementGroup submitRequirementGroup(String id) throws ApiException {
-    return submitRequirementGroupWithHttpInfo(id).getData();
-  }
+    public RequirementGroup submitRequirementGroup(String id)
+        throws ApiException {
+        return submitRequirementGroupWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Submit a Requirement Group for Approval
    * 
    * @param id ID of the requirement group to submit (required)
@@ -358,47 +494,72 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> A single requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RequirementGroup> submitRequirementGroupWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling submitRequirementGroup");
+    public ApiResponse<RequirementGroup> submitRequirementGroupWithHttpInfo(
+        String id
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling submitRequirementGroup"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/requirement_groups/{id}/submit_for_approval".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<RequirementGroup> localVarReturnType = new GenericType<
+            RequirementGroup
+        >() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.submitRequirementGroup",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/requirement_groups/{id}/submit_for_approval"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RequirementGroup> localVarReturnType = new GenericType<RequirementGroup>() {};
-
-    return apiClient.invokeAPI("RequirementGroupsApi.submitRequirementGroup", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update requirement group for a phone number order
    * 
    * @param id The unique identifier of the number order phone number (required)
@@ -412,11 +573,17 @@ public class RequirementGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public UpdateNumberOrderPhoneNumberRequirementGroup200Response updateNumberOrderPhoneNumberRequirementGroup(UUID id, UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest) throws ApiException {
-    return updateNumberOrderPhoneNumberRequirementGroupWithHttpInfo(id, updateNumberOrderPhoneNumberRequirementGroupRequest).getData();
-  }
+    public UpdateNumberOrderPhoneNumberRequirementGroup200Response updateNumberOrderPhoneNumberRequirementGroup(
+        UUID id,
+        UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest
+    ) throws ApiException {
+        return updateNumberOrderPhoneNumberRequirementGroupWithHttpInfo(
+            id,
+            updateNumberOrderPhoneNumberRequirementGroupRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update requirement group for a phone number order
    * 
    * @param id The unique identifier of the number order phone number (required)
@@ -430,52 +597,86 @@ public class RequirementGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<UpdateNumberOrderPhoneNumberRequirementGroup200Response> updateNumberOrderPhoneNumberRequirementGroupWithHttpInfo(UUID id, UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest) throws ApiException {
-    Object localVarPostBody = updateNumberOrderPhoneNumberRequirementGroupRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateNumberOrderPhoneNumberRequirementGroup");
+    public ApiResponse<
+        UpdateNumberOrderPhoneNumberRequirementGroup200Response
+    > updateNumberOrderPhoneNumberRequirementGroupWithHttpInfo(
+        UUID id,
+        UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest
+    ) throws ApiException {
+        Object localVarPostBody =
+            updateNumberOrderPhoneNumberRequirementGroupRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateNumberOrderPhoneNumberRequirementGroup"
+            );
+        }
+
+        // verify the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' is set
+        if (updateNumberOrderPhoneNumberRequirementGroupRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' when calling updateNumberOrderPhoneNumberRequirementGroup"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/number_order_phone_numbers/{id}/requirement_group".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            UpdateNumberOrderPhoneNumberRequirementGroup200Response
+        > localVarReturnType = new GenericType<
+            UpdateNumberOrderPhoneNumberRequirementGroup200Response
+        >() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.updateNumberOrderPhoneNumberRequirementGroup",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' is set
-    if (updateNumberOrderPhoneNumberRequirementGroupRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' when calling updateNumberOrderPhoneNumberRequirementGroup");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/number_order_phone_numbers/{id}/requirement_group"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<UpdateNumberOrderPhoneNumberRequirementGroup200Response> localVarReturnType = new GenericType<UpdateNumberOrderPhoneNumberRequirementGroup200Response>() {};
-
-    return apiClient.invokeAPI("RequirementGroupsApi.updateNumberOrderPhoneNumberRequirementGroup", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update requirement values in requirement group
    * 
    * @param id ID of the requirement group (required)
@@ -488,11 +689,17 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> Updated requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public RequirementGroup updateRequirementGroup(String id, UpdateRequirementGroupRequest updateRequirementGroupRequest) throws ApiException {
-    return updateRequirementGroupWithHttpInfo(id, updateRequirementGroupRequest).getData();
-  }
+    public RequirementGroup updateRequirementGroup(
+        String id,
+        UpdateRequirementGroupRequest updateRequirementGroupRequest
+    ) throws ApiException {
+        return updateRequirementGroupWithHttpInfo(
+            id,
+            updateRequirementGroupRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update requirement values in requirement group
    * 
    * @param id ID of the requirement group (required)
@@ -505,52 +712,81 @@ public class RequirementGroupsApi {
        <tr><td> 200 </td><td> Updated requirement group </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RequirementGroup> updateRequirementGroupWithHttpInfo(String id, UpdateRequirementGroupRequest updateRequirementGroupRequest) throws ApiException {
-    Object localVarPostBody = updateRequirementGroupRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateRequirementGroup");
+    public ApiResponse<RequirementGroup> updateRequirementGroupWithHttpInfo(
+        String id,
+        UpdateRequirementGroupRequest updateRequirementGroupRequest
+    ) throws ApiException {
+        Object localVarPostBody = updateRequirementGroupRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateRequirementGroup"
+            );
+        }
+
+        // verify the required parameter 'updateRequirementGroupRequest' is set
+        if (updateRequirementGroupRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updateRequirementGroupRequest' when calling updateRequirementGroup"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/requirement_groups/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<RequirementGroup> localVarReturnType = new GenericType<
+            RequirementGroup
+        >() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.updateRequirementGroup",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'updateRequirementGroupRequest' is set
-    if (updateRequirementGroupRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateRequirementGroupRequest' when calling updateRequirementGroup");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/requirement_groups/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RequirementGroup> localVarReturnType = new GenericType<RequirementGroup>() {};
-
-    return apiClient.invokeAPI("RequirementGroupsApi.updateRequirementGroup", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update requirement group for a sub number order
    * 
    * @param id The ID of the sub number order (required)
@@ -564,11 +800,17 @@ public class RequirementGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public SubNumberOrderRequirementGroupResponse updateSubNumberOrderRequirementGroup(UUID id, UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest) throws ApiException {
-    return updateSubNumberOrderRequirementGroupWithHttpInfo(id, updateNumberOrderPhoneNumberRequirementGroupRequest).getData();
-  }
+    public SubNumberOrderRequirementGroupResponse updateSubNumberOrderRequirementGroup(
+        UUID id,
+        UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest
+    ) throws ApiException {
+        return updateSubNumberOrderRequirementGroupWithHttpInfo(
+            id,
+            updateNumberOrderPhoneNumberRequirementGroupRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update requirement group for a sub number order
    * 
    * @param id The ID of the sub number order (required)
@@ -582,49 +824,79 @@ public class RequirementGroupsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<SubNumberOrderRequirementGroupResponse> updateSubNumberOrderRequirementGroupWithHttpInfo(UUID id, UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest) throws ApiException {
-    Object localVarPostBody = updateNumberOrderPhoneNumberRequirementGroupRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateSubNumberOrderRequirementGroup");
+    public ApiResponse<
+        SubNumberOrderRequirementGroupResponse
+    > updateSubNumberOrderRequirementGroupWithHttpInfo(
+        UUID id,
+        UpdateNumberOrderPhoneNumberRequirementGroupRequest updateNumberOrderPhoneNumberRequirementGroupRequest
+    ) throws ApiException {
+        Object localVarPostBody =
+            updateNumberOrderPhoneNumberRequirementGroupRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateSubNumberOrderRequirementGroup"
+            );
+        }
+
+        // verify the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' is set
+        if (updateNumberOrderPhoneNumberRequirementGroupRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' when calling updateSubNumberOrderRequirementGroup"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/sub_number_orders/{id}/requirement_group".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<SubNumberOrderRequirementGroupResponse> localVarReturnType =
+            new GenericType<SubNumberOrderRequirementGroupResponse>() {};
+
+        return apiClient.invokeAPI(
+            "RequirementGroupsApi.updateSubNumberOrderRequirementGroup",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' is set
-    if (updateNumberOrderPhoneNumberRequirementGroupRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateNumberOrderPhoneNumberRequirementGroupRequest' when calling updateSubNumberOrderRequirementGroup");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/sub_number_orders/{id}/requirement_group"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<SubNumberOrderRequirementGroupResponse> localVarReturnType = new GenericType<SubNumberOrderRequirementGroupResponse>() {};
-
-    return apiClient.invokeAPI("RequirementGroupsApi.updateSubNumberOrderRequirementGroup", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

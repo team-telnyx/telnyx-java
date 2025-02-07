@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RegulatoryRequirementsAcceptanceCriteria;
@@ -25,15 +24,15 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for RegulatoryRequirementsRegulatoryRequirements
  */
 public class RegulatoryRequirementsRegulatoryRequirementsTest {
-    private final RegulatoryRequirementsRegulatoryRequirements model = new RegulatoryRequirementsRegulatoryRequirements();
+
+    private final RegulatoryRequirementsRegulatoryRequirements model =
+        new RegulatoryRequirementsRegulatoryRequirements();
 
     /**
      * Model tests for RegulatoryRequirementsRegulatoryRequirements
@@ -98,5 +97,4 @@ public class RegulatoryRequirementsRegulatoryRequirementsTest {
     public void recordTypeTest() {
         // TODO: test recordType
     }
-
 }

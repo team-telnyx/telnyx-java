@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -21,16 +20,14 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetRoomRecordingResponse;
 import com.telnyx.sdk.model.ListRoomRecordingsResponse;
 import java.time.LocalDate;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for RoomRecordingsApi
@@ -57,7 +54,7 @@ public class RoomRecordingsApiTest {
     /**
      * Delete several room recordings in a bulk.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -87,7 +84,7 @@ public class RoomRecordingsApiTest {
     /**
      * View a list of room recordings.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -117,7 +114,7 @@ public class RoomRecordingsApiTest {
     /**
      * View a room recording.
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -128,5 +125,4 @@ public class RoomRecordingsApiTest {
         //GetRoomRecordingResponse response = api.viewRoomRecording(roomRecordingId);
         // TODO: test validations
     }
-
 }

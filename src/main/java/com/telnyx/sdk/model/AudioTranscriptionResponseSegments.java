@@ -10,201 +10,205 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * AudioTranscriptionResponseSegments
  */
-@JsonPropertyOrder({
-  AudioTranscriptionResponseSegments.JSON_PROPERTY_ID,
-  AudioTranscriptionResponseSegments.JSON_PROPERTY_START,
-  AudioTranscriptionResponseSegments.JSON_PROPERTY_END,
-  AudioTranscriptionResponseSegments.JSON_PROPERTY_TEXT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        AudioTranscriptionResponseSegments.JSON_PROPERTY_ID,
+        AudioTranscriptionResponseSegments.JSON_PROPERTY_START,
+        AudioTranscriptionResponseSegments.JSON_PROPERTY_END,
+        AudioTranscriptionResponseSegments.JSON_PROPERTY_TEXT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AudioTranscriptionResponseSegments {
-  public static final String JSON_PROPERTY_ID = "id";
-  private BigDecimal id;
 
-  public static final String JSON_PROPERTY_START = "start";
-  private BigDecimal start;
+    public static final String JSON_PROPERTY_ID = "id";
+    private BigDecimal id;
 
-  public static final String JSON_PROPERTY_END = "end";
-  private BigDecimal end;
+    public static final String JSON_PROPERTY_START = "start";
+    private BigDecimal start;
 
-  public static final String JSON_PROPERTY_TEXT = "text";
-  private String text;
+    public static final String JSON_PROPERTY_END = "end";
+    private BigDecimal end;
 
-  public AudioTranscriptionResponseSegments() { 
-  }
+    public static final String JSON_PROPERTY_TEXT = "text";
+    private String text;
 
-  public AudioTranscriptionResponseSegments id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
+    public AudioTranscriptionResponseSegments() {}
 
-   /**
-   * Unique identifier of the segment.
-   * @return id
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Unique identifier of the segment.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(BigDecimal id) {
-    this.id = id;
-  }
-
-
-  public AudioTranscriptionResponseSegments start(BigDecimal start) {
-    this.start = start;
-    return this;
-  }
-
-   /**
-   * Start time of the segment in seconds.
-   * @return start
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Start time of the segment in seconds.")
-  @JsonProperty(JSON_PROPERTY_START)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getStart() {
-    return start;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_START)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStart(BigDecimal start) {
-    this.start = start;
-  }
-
-
-  public AudioTranscriptionResponseSegments end(BigDecimal end) {
-    this.end = end;
-    return this;
-  }
-
-   /**
-   * End time of the segment in seconds.
-   * @return end
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "End time of the segment in seconds.")
-  @JsonProperty(JSON_PROPERTY_END)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getEnd() {
-    return end;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_END)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEnd(BigDecimal end) {
-    this.end = end;
-  }
-
-
-  public AudioTranscriptionResponseSegments text(String text) {
-    this.text = text;
-    return this;
-  }
-
-   /**
-   * Text content of the segment.
-   * @return text
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Text content of the segment.")
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getText() {
-    return text;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setText(String text) {
-    this.text = text;
-  }
-
-
-  /**
-   * Return true if this AudioTranscriptionResponseSegments object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AudioTranscriptionResponseSegments id(BigDecimal id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Unique identifier of the segment.
+     * @return id
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Unique identifier of the segment."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getId() {
+        return id;
     }
-    AudioTranscriptionResponseSegments audioTranscriptionResponseSegments = (AudioTranscriptionResponseSegments) o;
-    return Objects.equals(this.id, audioTranscriptionResponseSegments.id) &&
-        Objects.equals(this.start, audioTranscriptionResponseSegments.start) &&
-        Objects.equals(this.end, audioTranscriptionResponseSegments.end) &&
-        Objects.equals(this.text, audioTranscriptionResponseSegments.text);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, start, end, text);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AudioTranscriptionResponseSegments {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    start: ").append(toIndentedString(start)).append("\n");
-    sb.append("    end: ").append(toIndentedString(end)).append("\n");
-    sb.append("    text: ").append(toIndentedString(text)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public AudioTranscriptionResponseSegments start(BigDecimal start) {
+        this.start = start;
+        return this;
+    }
+
+    /**
+     * Start time of the segment in seconds.
+     * @return start
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Start time of the segment in seconds."
+    )
+    @JsonProperty(JSON_PROPERTY_START)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getStart() {
+        return start;
+    }
+
+    @JsonProperty(JSON_PROPERTY_START)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStart(BigDecimal start) {
+        this.start = start;
+    }
+
+    public AudioTranscriptionResponseSegments end(BigDecimal end) {
+        this.end = end;
+        return this;
+    }
+
+    /**
+     * End time of the segment in seconds.
+     * @return end
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "End time of the segment in seconds."
+    )
+    @JsonProperty(JSON_PROPERTY_END)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getEnd() {
+        return end;
+    }
+
+    @JsonProperty(JSON_PROPERTY_END)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEnd(BigDecimal end) {
+        this.end = end;
+    }
+
+    public AudioTranscriptionResponseSegments text(String text) {
+        this.text = text;
+        return this;
+    }
+
+    /**
+     * Text content of the segment.
+     * @return text
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "Text content of the segment.")
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getText() {
+        return text;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * Return true if this AudioTranscriptionResponseSegments object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AudioTranscriptionResponseSegments audioTranscriptionResponseSegments =
+            (AudioTranscriptionResponseSegments) o;
+        return (
+            Objects.equals(this.id, audioTranscriptionResponseSegments.id) &&
+            Objects.equals(
+                this.start,
+                audioTranscriptionResponseSegments.start
+            ) &&
+            Objects.equals(this.end, audioTranscriptionResponseSegments.end) &&
+            Objects.equals(this.text, audioTranscriptionResponseSegments.text)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, start, end, text);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AudioTranscriptionResponseSegments {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    start: ").append(toIndentedString(start)).append("\n");
+        sb.append("    end: ").append(toIndentedString(end)).append("\n");
+        sb.append("    text: ").append(toIndentedString(text)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

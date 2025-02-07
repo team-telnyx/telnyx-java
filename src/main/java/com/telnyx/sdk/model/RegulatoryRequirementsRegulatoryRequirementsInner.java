@@ -10,248 +10,289 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria;
-import java.util.Arrays;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import com.telnyx.sdk.model.RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * RegulatoryRequirementsRegulatoryRequirementsInner
  */
-@JsonPropertyOrder({
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_DESCRIPTION,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_ID,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_EXAMPLE,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_NAME,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_TYPE,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_ACCEPTANCE_CRITERIA
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_DESCRIPTION,
+        RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_ID,
+        RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_EXAMPLE,
+        RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_NAME,
+        RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_TYPE,
+        RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_ACCEPTANCE_CRITERIA,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RegulatoryRequirementsRegulatoryRequirementsInner {
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    private String description;
 
-  public static final String JSON_PROPERTY_EXAMPLE = "example";
-  private String example;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
+    public static final String JSON_PROPERTY_EXAMPLE = "example";
+    private String example;
 
-  public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
-  private String fieldType;
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public static final String JSON_PROPERTY_ACCEPTANCE_CRITERIA = "acceptance_criteria";
-  private RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptanceCriteria;
+    public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
+    private String fieldType;
 
-  public RegulatoryRequirementsRegulatoryRequirementsInner() { 
-  }
+    public static final String JSON_PROPERTY_ACCEPTANCE_CRITERIA =
+        "acceptance_criteria";
+    private RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptanceCriteria;
 
-  @JsonCreator
-  public RegulatoryRequirementsRegulatoryRequirementsInner(
-    @JsonProperty(JSON_PROPERTY_DESCRIPTION) String description, 
-    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
-    @JsonProperty(JSON_PROPERTY_EXAMPLE) String example
-  ) {
-    this();
-    this.description = description;
-    this.id = id;
-    this.example = example;
-  }
+    public RegulatoryRequirementsRegulatoryRequirementsInner() {}
 
-   /**
-   * Get description
-   * @return description
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Address matching the DID area code (street, building number, postal code, city and country)", value = "")
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-
-
-   /**
-   * Get example
-   * @return example
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "600 Congress Avenue, 14th Floor, Austin, TX 78701", value = "")
-  @JsonProperty(JSON_PROPERTY_EXAMPLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getExample() {
-    return example;
-  }
-
-
-
-
-  public RegulatoryRequirementsRegulatoryRequirementsInner name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Get name
-   * @return name
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Address matching the DID area code", value = "")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public RegulatoryRequirementsRegulatoryRequirementsInner fieldType(String fieldType) {
-    this.fieldType = fieldType;
-    return this;
-  }
-
-   /**
-   * Get fieldType
-   * @return fieldType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "address_id", value = "")
-  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFieldType() {
-    return fieldType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFieldType(String fieldType) {
-    this.fieldType = fieldType;
-  }
-
-
-  public RegulatoryRequirementsRegulatoryRequirementsInner acceptanceCriteria(RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptanceCriteria) {
-    this.acceptanceCriteria = acceptanceCriteria;
-    return this;
-  }
-
-   /**
-   * Get acceptanceCriteria
-   * @return acceptanceCriteria
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ACCEPTANCE_CRITERIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria getAcceptanceCriteria() {
-    return acceptanceCriteria;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ACCEPTANCE_CRITERIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAcceptanceCriteria(RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptanceCriteria) {
-    this.acceptanceCriteria = acceptanceCriteria;
-  }
-
-
-  /**
-   * Return true if this RegulatoryRequirements_regulatory_requirements_inner object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @JsonCreator
+    public RegulatoryRequirementsRegulatoryRequirementsInner(
+        @JsonProperty(JSON_PROPERTY_DESCRIPTION) String description,
+        @JsonProperty(JSON_PROPERTY_ID) UUID id,
+        @JsonProperty(JSON_PROPERTY_EXAMPLE) String example
+    ) {
+        this();
+        this.description = description;
+        this.id = id;
+        this.example = example;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get description
+     * @return description
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Address matching the DID area code (street, building number, postal code, city and country)",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDescription() {
+        return description;
     }
-    RegulatoryRequirementsRegulatoryRequirementsInner regulatoryRequirementsRegulatoryRequirementsInner = (RegulatoryRequirementsRegulatoryRequirementsInner) o;
-    return Objects.equals(this.description, regulatoryRequirementsRegulatoryRequirementsInner.description) &&
-        Objects.equals(this.id, regulatoryRequirementsRegulatoryRequirementsInner.id) &&
-        Objects.equals(this.example, regulatoryRequirementsRegulatoryRequirementsInner.example) &&
-        Objects.equals(this.name, regulatoryRequirementsRegulatoryRequirementsInner.name) &&
-        Objects.equals(this.fieldType, regulatoryRequirementsRegulatoryRequirementsInner.fieldType) &&
-        Objects.equals(this.acceptanceCriteria, regulatoryRequirementsRegulatoryRequirementsInner.acceptanceCriteria);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, id, example, name, fieldType, acceptanceCriteria);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RegulatoryRequirementsRegulatoryRequirementsInner {\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    example: ").append(toIndentedString(example)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    fieldType: ").append(toIndentedString(fieldType)).append("\n");
-    sb.append("    acceptanceCriteria: ").append(toIndentedString(acceptanceCriteria)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Get id
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "12ade33a-21c0-473b-b055-b3c836e1c292",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Get example
+     * @return example
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "600 Congress Avenue, 14th Floor, Austin, TX 78701",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_EXAMPLE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExample() {
+        return example;
+    }
+
+    public RegulatoryRequirementsRegulatoryRequirementsInner name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     * @return name
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Address matching the DID area code",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public RegulatoryRequirementsRegulatoryRequirementsInner fieldType(
+        String fieldType
+    ) {
+        this.fieldType = fieldType;
+        return this;
+    }
+
+    /**
+     * Get fieldType
+     * @return fieldType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "address_id", value = "")
+    @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFieldType() {
+        return fieldType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFieldType(String fieldType) {
+        this.fieldType = fieldType;
+    }
+
+    public RegulatoryRequirementsRegulatoryRequirementsInner acceptanceCriteria(
+        RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptanceCriteria
+    ) {
+        this.acceptanceCriteria = acceptanceCriteria;
+        return this;
+    }
+
+    /**
+     * Get acceptanceCriteria
+     * @return acceptanceCriteria
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ACCEPTANCE_CRITERIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria getAcceptanceCriteria() {
+        return acceptanceCriteria;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCEPTANCE_CRITERIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAcceptanceCriteria(
+        RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptanceCriteria
+    ) {
+        this.acceptanceCriteria = acceptanceCriteria;
+    }
+
+    /**
+     * Return true if this RegulatoryRequirements_regulatory_requirements_inner object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RegulatoryRequirementsRegulatoryRequirementsInner regulatoryRequirementsRegulatoryRequirementsInner =
+            (RegulatoryRequirementsRegulatoryRequirementsInner) o;
+        return (
+            Objects.equals(
+                this.description,
+                regulatoryRequirementsRegulatoryRequirementsInner.description
+            ) &&
+            Objects.equals(
+                this.id,
+                regulatoryRequirementsRegulatoryRequirementsInner.id
+            ) &&
+            Objects.equals(
+                this.example,
+                regulatoryRequirementsRegulatoryRequirementsInner.example
+            ) &&
+            Objects.equals(
+                this.name,
+                regulatoryRequirementsRegulatoryRequirementsInner.name
+            ) &&
+            Objects.equals(
+                this.fieldType,
+                regulatoryRequirementsRegulatoryRequirementsInner.fieldType
+            ) &&
+            Objects.equals(
+                this.acceptanceCriteria,
+                regulatoryRequirementsRegulatoryRequirementsInner.acceptanceCriteria
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            description,
+            id,
+            example,
+            name,
+            fieldType,
+            acceptanceCriteria
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(
+            "class RegulatoryRequirementsRegulatoryRequirementsInner {\n"
+        );
+        sb
+            .append("    description: ")
+            .append(toIndentedString(description))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    example: ")
+            .append(toIndentedString(example))
+            .append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb
+            .append("    fieldType: ")
+            .append(toIndentedString(fieldType))
+            .append("\n");
+        sb
+            .append("    acceptanceCriteria: ")
+            .append(toIndentedString(acceptanceCriteria))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

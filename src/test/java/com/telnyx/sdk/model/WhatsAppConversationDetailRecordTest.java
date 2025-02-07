@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for WhatsAppConversationDetailRecord
  */
 public class WhatsAppConversationDetailRecordTest {
-    private final WhatsAppConversationDetailRecord model = new WhatsAppConversationDetailRecord();
+
+    private final WhatsAppConversationDetailRecord model =
+        new WhatsAppConversationDetailRecord();
 
     /**
      * Model tests for WhatsAppConversationDetailRecord
@@ -103,5 +101,4 @@ public class WhatsAppConversationDetailRecordTest {
     public void recordTypeTest() {
         // TODO: test recordType
     }
-
 }

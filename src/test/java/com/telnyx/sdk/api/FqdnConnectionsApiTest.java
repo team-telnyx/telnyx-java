@@ -10,20 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
-
-import com.telnyx.sdk.*;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import org.junit.*;
-
 
 import static java.lang.Thread.sleep;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
+import com.telnyx.sdk.*;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
 import java.util.UUID;
+import org.junit.*;
 
 /**
  * API tests for FqdnConnectionsApi
@@ -39,15 +36,26 @@ public class FqdnConnectionsApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
 
         try {
-            CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest().connectionName("test-existing-fqdn-connection-" + System.currentTimeMillis());
-            existingFqdnConnection = api.createFqdnConnection(createFqdnConnectionRequest).getData();
+            CreateFqdnConnectionRequest createFqdnConnectionRequest =
+                new CreateFqdnConnectionRequest()
+                    .connectionName(
+                        "test-existing-fqdn-connection-" +
+                        System.currentTimeMillis()
+                    );
+            existingFqdnConnection = api
+                .createFqdnConnection(createFqdnConnectionRequest)
+                .getData();
         } catch (Exception e) {
             e.printStackTrace();
-            fail("Test Setup Failure - Unable to create fqdn connection: " + e.getMessage());
+            fail(
+                "Test Setup Failure - Unable to create fqdn connection: " +
+                e.getMessage()
+            );
         }
     }
 
@@ -58,29 +66,36 @@ public class FqdnConnectionsApiTest {
      */
     @Ignore
     @Test
-    public void createFqdnConnection_whenRequestIsValid_returnsCreatedFqdnConnection() throws ApiException {
+    public void createFqdnConnection_whenRequestIsValid_returnsCreatedFqdnConnection()
+        throws ApiException {
         InboundFqdn inboundFqdn = new InboundFqdn()
-                .aniNumberFormat(InboundFqdn.AniNumberFormatEnum.E_164)
-                .channelLimit(5)
-                .codecs(asList("G711A"))
-                .defaultRoutingMethod(InboundFqdn.DefaultRoutingMethodEnum.SEQUENTIAL)
-                .dnisNumberFormat(InboundFqdn.DnisNumberFormatEnum.NATIONAL)
-                .generateRingbackTone(true)
-                .isupHeadersEnabled(true)
-                .prackEnabled(true)
-                .sipCompactHeadersEnabled(false)
-                .sipRegion(InboundFqdn.SipRegionEnum.EUROPE)
-                .sipSubdomain("example2.sip.telnyx.com")
-                .sipSubdomainReceiveSettings(InboundFqdn.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
-                .timeout1xxSecs(1)
-                .timeout2xxSecs(2);
+            .aniNumberFormat(InboundFqdn.AniNumberFormatEnum.E_164)
+            .channelLimit(5)
+            .codecs(asList("G711A"))
+            .defaultRoutingMethod(
+                InboundFqdn.DefaultRoutingMethodEnum.SEQUENTIAL
+            )
+            .dnisNumberFormat(InboundFqdn.DnisNumberFormatEnum.NATIONAL)
+            .generateRingbackTone(true)
+            .isupHeadersEnabled(true)
+            .prackEnabled(true)
+            .sipCompactHeadersEnabled(false)
+            .sipRegion(InboundFqdn.SipRegionEnum.EUROPE)
+            .sipSubdomain("example2.sip.telnyx.com")
+            .sipSubdomainReceiveSettings(
+                InboundFqdn.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS
+            )
+            .timeout1xxSecs(1)
+            .timeout2xxSecs(2);
 
-        ConnectionRtcpSettings connectionRtcpSettings = new ConnectionRtcpSettings()
+        ConnectionRtcpSettings connectionRtcpSettings =
+            new ConnectionRtcpSettings()
                 .captureEnabled(true)
                 .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
                 .reportFrequencySecs(30);
 
-        CreateFqdnConnectionRequest createFqdnConnectionRequest = new CreateFqdnConnectionRequest()
+        CreateFqdnConnectionRequest createFqdnConnectionRequest =
+            new CreateFqdnConnectionRequest()
                 .active(false)
                 .anchorsiteOverride(AnchorsiteOverride.AMSTERDAM_NETHERLANDS)
                 .connectionName("test-create-fqdn-connection")
@@ -93,7 +108,8 @@ public class FqdnConnectionsApiTest {
                 .rtcpSettings(connectionRtcpSettings)
                 .transportProtocol(FqdnConnectionTransportProtocol.TCP);
 
-        FQDNConnectionResponse actualFqdnConnectionResponse = api.createFqdnConnection(createFqdnConnectionRequest);
+        FQDNConnectionResponse actualFqdnConnectionResponse =
+            api.createFqdnConnection(createFqdnConnectionRequest);
         String actualId = actualFqdnConnectionResponse.getData().getId();
 
         assertNotNull(actualId);
@@ -105,13 +121,17 @@ public class FqdnConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Ignore("Mock returns error message when trying to sort, however sort works as expected in production. Ignore until mock is fixed.")
-    public void listFqdnConnections_whenFqdnConnectionsExist_returnsFqdnConnections() throws ApiException {
-        ListFQDNConnectionsResponse listFqdnConnectionsResponse = api.listFqdnConnections()
-                .pageNumber(1)
-                .pageSize(2)
-                .sort("-active")
-                .execute();
+    @Ignore(
+        "Mock returns error message when trying to sort, however sort works as expected in production. Ignore until mock is fixed."
+    )
+    public void listFqdnConnections_whenFqdnConnectionsExist_returnsFqdnConnections()
+        throws ApiException {
+        ListFQDNConnectionsResponse listFqdnConnectionsResponse = api
+            .listFqdnConnections()
+            .pageNumber(1)
+            .pageSize(2)
+            .sort("-active")
+            .execute();
 
         assertNotNull(listFqdnConnectionsResponse.getData());
     }
@@ -123,11 +143,17 @@ public class FqdnConnectionsApiTest {
      */
     @Ignore
     @Test
-    public void retrieveFqdnConnection_whenFqdnConnectionExists_returnsFqdnConnection() throws ApiException {
+    public void retrieveFqdnConnection_whenFqdnConnectionExists_returnsFqdnConnection()
+        throws ApiException {
         UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
-        FqdnConnection actualFqdnConnection = api.retrieveFqdnConnection(fqdnConnectionId).getData();
-        
-        assertEquals(existingFqdnConnection.getId(), actualFqdnConnection.getId());
+        FqdnConnection actualFqdnConnection = api
+            .retrieveFqdnConnection(fqdnConnectionId)
+            .getData();
+
+        assertEquals(
+            existingFqdnConnection.getId(),
+            actualFqdnConnection.getId()
+        );
     }
 
     /**
@@ -137,29 +163,36 @@ public class FqdnConnectionsApiTest {
      */
     @Ignore
     @Test
-    public void updateFqdnConnection_whenRequestIsValid_returnsUpdatedFqdnConnection() throws ApiException {
+    public void updateFqdnConnection_whenRequestIsValid_returnsUpdatedFqdnConnection()
+        throws ApiException {
         InboundFqdn inboundFqdn = new InboundFqdn()
-                .aniNumberFormat(InboundFqdn.AniNumberFormatEnum.E_164)
-                .channelLimit(5)
-                .codecs(asList("G711A"))
-                .defaultRoutingMethod(InboundFqdn.DefaultRoutingMethodEnum.SEQUENTIAL)
-                .dnisNumberFormat(InboundFqdn.DnisNumberFormatEnum.NATIONAL)
-                .generateRingbackTone(true)
-                .isupHeadersEnabled(true)
-                .prackEnabled(true)
-                .sipCompactHeadersEnabled(false)
-                .sipRegion(InboundFqdn.SipRegionEnum.EUROPE)
-                .sipSubdomain("update-example.sip.telnyx.com")
-                .sipSubdomainReceiveSettings(InboundFqdn.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS)
-                .timeout1xxSecs(1)
-                .timeout2xxSecs(2);
+            .aniNumberFormat(InboundFqdn.AniNumberFormatEnum.E_164)
+            .channelLimit(5)
+            .codecs(asList("G711A"))
+            .defaultRoutingMethod(
+                InboundFqdn.DefaultRoutingMethodEnum.SEQUENTIAL
+            )
+            .dnisNumberFormat(InboundFqdn.DnisNumberFormatEnum.NATIONAL)
+            .generateRingbackTone(true)
+            .isupHeadersEnabled(true)
+            .prackEnabled(true)
+            .sipCompactHeadersEnabled(false)
+            .sipRegion(InboundFqdn.SipRegionEnum.EUROPE)
+            .sipSubdomain("update-example.sip.telnyx.com")
+            .sipSubdomainReceiveSettings(
+                InboundFqdn.SipSubdomainReceiveSettingsEnum.ONLY_MY_CONNECTIONS
+            )
+            .timeout1xxSecs(1)
+            .timeout2xxSecs(2);
 
-        ConnectionRtcpSettings connectionRtcpSettings = new ConnectionRtcpSettings()
+        ConnectionRtcpSettings connectionRtcpSettings =
+            new ConnectionRtcpSettings()
                 .captureEnabled(true)
                 .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
                 .reportFrequencySecs(30);
 
-        UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
+        UpdateFqdnConnectionRequest updateFqdnConnectionRequest =
+            new UpdateFqdnConnectionRequest()
                 .active(false)
                 .anchorsiteOverride(AnchorsiteOverride.AMSTERDAM_NETHERLANDS)
                 .connectionName("test-update-fqdn-connection")
@@ -172,20 +205,55 @@ public class FqdnConnectionsApiTest {
                 .rtcpSettings(connectionRtcpSettings)
                 .transportProtocol(FqdnConnectionTransportProtocol.TCP);
 
-                UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
-                FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
-                
-        assertEquals(updateFqdnConnectionRequest.getActive(), actualFqdnConnection.getActive());
-        assertEquals(updateFqdnConnectionRequest.getAnchorsiteOverride(), actualFqdnConnection.getAnchorsiteOverride());
-        assertEquals(updateFqdnConnectionRequest.getConnectionName(), actualFqdnConnection.getConnectionName());
-        assertEquals(updateFqdnConnectionRequest.getDefaultOnHoldComfortNoiseEnabled(), actualFqdnConnection.getDefaultOnHoldComfortNoiseEnabled());
-        assertEquals(updateFqdnConnectionRequest.getDtmfType(), actualFqdnConnection.getDtmfType());
-        assertEquals(updateFqdnConnectionRequest.getEncodeContactHeaderEnabled(), actualFqdnConnection.getEncodeContactHeaderEnabled());
-        assertEquals(updateFqdnConnectionRequest.getEncryptedMedia(), actualFqdnConnection.getEncryptedMedia());
-        assertEquals(updateFqdnConnectionRequest.getInbound(), actualFqdnConnection.getInbound());
-        assertEquals(updateFqdnConnectionRequest.getOnnetT38PassthroughEnabled(), actualFqdnConnection.getOnnetT38PassthroughEnabled());
-        assertEquals(updateFqdnConnectionRequest.getRtcpSettings(), actualFqdnConnection.getRtcpSettings());
-        assertEquals(updateFqdnConnectionRequest.getTransportProtocol(), actualFqdnConnection.getTransportProtocol());
+        UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
+        FqdnConnection actualFqdnConnection = api
+            .updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest)
+            .getData();
+
+        assertEquals(
+            updateFqdnConnectionRequest.getActive(),
+            actualFqdnConnection.getActive()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getAnchorsiteOverride(),
+            actualFqdnConnection.getAnchorsiteOverride()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getConnectionName(),
+            actualFqdnConnection.getConnectionName()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getDefaultOnHoldComfortNoiseEnabled(),
+            actualFqdnConnection.getDefaultOnHoldComfortNoiseEnabled()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getDtmfType(),
+            actualFqdnConnection.getDtmfType()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getEncodeContactHeaderEnabled(),
+            actualFqdnConnection.getEncodeContactHeaderEnabled()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getEncryptedMedia(),
+            actualFqdnConnection.getEncryptedMedia()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getInbound(),
+            actualFqdnConnection.getInbound()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getOnnetT38PassthroughEnabled(),
+            actualFqdnConnection.getOnnetT38PassthroughEnabled()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getRtcpSettings(),
+            actualFqdnConnection.getRtcpSettings()
+        );
+        assertEquals(
+            updateFqdnConnectionRequest.getTransportProtocol(),
+            actualFqdnConnection.getTransportProtocol()
+        );
     }
 
     /**
@@ -194,13 +262,18 @@ public class FqdnConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Ignore("Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed.")
-    public void updateFqdnConnection_whenEncryptedMediaIsNull_returnsUpdatedFqdnConnection() throws ApiException {
-        UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
-                .encryptedMedia(null);
+    @Ignore(
+        "Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed."
+    )
+    public void updateFqdnConnection_whenEncryptedMediaIsNull_returnsUpdatedFqdnConnection()
+        throws ApiException {
+        UpdateFqdnConnectionRequest updateFqdnConnectionRequest =
+            new UpdateFqdnConnectionRequest().encryptedMedia(null);
 
         UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
+        FqdnConnection actualFqdnConnection = api
+            .updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest)
+            .getData();
         assertNull(actualFqdnConnection.getEncryptedMedia());
     }
 
@@ -210,16 +283,20 @@ public class FqdnConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Ignore("Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed.")
-    public void updateFqdnConnection_whenInboundChannelLimitIsNull_returnsUpdatedFqdnConnection() throws ApiException {
-        InboundFqdn inboundFqdn = new InboundFqdn()
-                .channelLimit(null);
+    @Ignore(
+        "Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed."
+    )
+    public void updateFqdnConnection_whenInboundChannelLimitIsNull_returnsUpdatedFqdnConnection()
+        throws ApiException {
+        InboundFqdn inboundFqdn = new InboundFqdn().channelLimit(null);
 
-        UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
-                .inbound(inboundFqdn);
+        UpdateFqdnConnectionRequest updateFqdnConnectionRequest =
+            new UpdateFqdnConnectionRequest().inbound(inboundFqdn);
 
         UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
+        FqdnConnection actualFqdnConnection = api
+            .updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest)
+            .getData();
         assertNull(actualFqdnConnection.getInbound().getChannelLimit());
     }
 
@@ -229,17 +306,20 @@ public class FqdnConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Ignore("Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed.")
-    public void updateFqdnConnection_whenDefaultRoutingMethodIsNull_returnsUpdatedFqdnConnection() throws ApiException {
-        InboundFqdn inboundFqdn = new InboundFqdn()
-                .defaultRoutingMethod(null);
+    @Ignore(
+        "Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed."
+    )
+    public void updateFqdnConnection_whenDefaultRoutingMethodIsNull_returnsUpdatedFqdnConnection()
+        throws ApiException {
+        InboundFqdn inboundFqdn = new InboundFqdn().defaultRoutingMethod(null);
 
-        UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
-                .inbound(inboundFqdn);
-        
-        
+        UpdateFqdnConnectionRequest updateFqdnConnectionRequest =
+            new UpdateFqdnConnectionRequest().inbound(inboundFqdn);
+
         UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
+        FqdnConnection actualFqdnConnection = api
+            .updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest)
+            .getData();
 
         assertNull(actualFqdnConnection.getInbound().getDefaultRoutingMethod());
     }
@@ -250,17 +330,20 @@ public class FqdnConnectionsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Ignore("Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed.")
-    public void updateFqdnConnection_whenSipSubdomainIsNull_returnsUpdatedFqdnConnection() throws ApiException {
-        InboundFqdn inboundFqdn = new InboundFqdn()
-                .sipSubdomain(null);
+    @Ignore(
+        "Mock doesn't allow null value, but production api does. This test exists to ensure the sdk allows null values to be sent. Ignore until mock is fixed."
+    )
+    public void updateFqdnConnection_whenSipSubdomainIsNull_returnsUpdatedFqdnConnection()
+        throws ApiException {
+        InboundFqdn inboundFqdn = new InboundFqdn().sipSubdomain(null);
 
-        UpdateFqdnConnectionRequest updateFqdnConnectionRequest = new UpdateFqdnConnectionRequest()
-                .inbound(inboundFqdn);
-        
+        UpdateFqdnConnectionRequest updateFqdnConnectionRequest =
+            new UpdateFqdnConnectionRequest().inbound(inboundFqdn);
+
         UUID fqdnConnectionId = UUID.fromString(existingFqdnConnection.getId());
-        FqdnConnection actualFqdnConnection = api.updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest).getData();
-
+        FqdnConnection actualFqdnConnection = api
+            .updateFqdnConnection(fqdnConnectionId, updateFqdnConnectionRequest)
+            .getData();
 
         assertNull(actualFqdnConnection.getInbound().getSipSubdomain());
     }

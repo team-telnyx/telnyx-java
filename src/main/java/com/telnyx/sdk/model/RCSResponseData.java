@@ -10,438 +10,455 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.RCSAgentMessage;
 import com.telnyx.sdk.model.RCSFrom;
 import com.telnyx.sdk.model.RCSToItem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RCSResponseData
  */
-@JsonPropertyOrder({
-  RCSResponseData.JSON_PROPERTY_RECORD_TYPE,
-  RCSResponseData.JSON_PROPERTY_DIRECTION,
-  RCSResponseData.JSON_PROPERTY_ID,
-  RCSResponseData.JSON_PROPERTY_TYPE,
-  RCSResponseData.JSON_PROPERTY_ORGANIZATION_ID,
-  RCSResponseData.JSON_PROPERTY_MESSAGING_PROFILE_ID,
-  RCSResponseData.JSON_PROPERTY_FROM,
-  RCSResponseData.JSON_PROPERTY_TO,
-  RCSResponseData.JSON_PROPERTY_BODY,
-  RCSResponseData.JSON_PROPERTY_ENCODING,
-  RCSResponseData.JSON_PROPERTY_RECEIVED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        RCSResponseData.JSON_PROPERTY_RECORD_TYPE,
+        RCSResponseData.JSON_PROPERTY_DIRECTION,
+        RCSResponseData.JSON_PROPERTY_ID,
+        RCSResponseData.JSON_PROPERTY_TYPE,
+        RCSResponseData.JSON_PROPERTY_ORGANIZATION_ID,
+        RCSResponseData.JSON_PROPERTY_MESSAGING_PROFILE_ID,
+        RCSResponseData.JSON_PROPERTY_FROM,
+        RCSResponseData.JSON_PROPERTY_TO,
+        RCSResponseData.JSON_PROPERTY_BODY,
+        RCSResponseData.JSON_PROPERTY_ENCODING,
+        RCSResponseData.JSON_PROPERTY_RECEIVED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RCSResponseData {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_DIRECTION = "direction";
-  private String direction;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_DIRECTION = "direction";
+    private String direction;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private String type;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_ORGANIZATION_ID = "organization_id";
-  private String organizationId;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private String type;
 
-  public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
-  private String messagingProfileId;
+    public static final String JSON_PROPERTY_ORGANIZATION_ID =
+        "organization_id";
+    private String organizationId;
 
-  public static final String JSON_PROPERTY_FROM = "from";
-  private RCSFrom from;
+    public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID =
+        "messaging_profile_id";
+    private String messagingProfileId;
 
-  public static final String JSON_PROPERTY_TO = "to";
-  private List<RCSToItem> to = null;
+    public static final String JSON_PROPERTY_FROM = "from";
+    private RCSFrom from;
 
-  public static final String JSON_PROPERTY_BODY = "body";
-  private RCSAgentMessage body;
+    public static final String JSON_PROPERTY_TO = "to";
+    private List<RCSToItem> to = null;
 
-  public static final String JSON_PROPERTY_ENCODING = "encoding";
-  private String encoding;
+    public static final String JSON_PROPERTY_BODY = "body";
+    private RCSAgentMessage body;
 
-  public static final String JSON_PROPERTY_RECEIVED_AT = "received_at";
-  private OffsetDateTime receivedAt;
+    public static final String JSON_PROPERTY_ENCODING = "encoding";
+    private String encoding;
 
-  public RCSResponseData() { 
-  }
+    public static final String JSON_PROPERTY_RECEIVED_AT = "received_at";
+    private OffsetDateTime receivedAt;
 
-  public RCSResponseData recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
+    public RCSResponseData() {}
 
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "message", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public RCSResponseData direction(String direction) {
-    this.direction = direction;
-    return this;
-  }
-
-   /**
-   * Get direction
-   * @return direction
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "outbound", value = "")
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDirection() {
-    return direction;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirection(String direction) {
-    this.direction = direction;
-  }
-
-
-  public RCSResponseData id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * message ID
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "4031938e-60e4-4235-a8dd-0b1c55a23e7a", value = "message ID")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public RCSResponseData type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Get type
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "RCS", value = "")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(String type) {
-    this.type = type;
-  }
-
-
-  public RCSResponseData organizationId(String organizationId) {
-    this.organizationId = organizationId;
-    return this;
-  }
-
-   /**
-   * Get organizationId
-   * @return organizationId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "9f61d8e1-7687-4d6d-9cae-9ff682985983", value = "")
-  @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getOrganizationId() {
-    return organizationId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOrganizationId(String organizationId) {
-    this.organizationId = organizationId;
-  }
-
-
-  public RCSResponseData messagingProfileId(String messagingProfileId) {
-    this.messagingProfileId = messagingProfileId;
-    return this;
-  }
-
-   /**
-   * Get messagingProfileId
-   * @return messagingProfileId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "4001781e-626f-4a41-a914-b1b682150f94", value = "")
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMessagingProfileId() {
-    return messagingProfileId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessagingProfileId(String messagingProfileId) {
-    this.messagingProfileId = messagingProfileId;
-  }
-
-
-  public RCSResponseData from(RCSFrom from) {
-    this.from = from;
-    return this;
-  }
-
-   /**
-   * Get from
-   * @return from
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RCSFrom getFrom() {
-    return from;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFrom(RCSFrom from) {
-    this.from = from;
-  }
-
-
-  public RCSResponseData to(List<RCSToItem> to) {
-    this.to = to;
-    return this;
-  }
-
-  public RCSResponseData addtoItem(RCSToItem toItem) {
-    if (this.to == null) {
-      this.to = new ArrayList<>();
+    public RCSResponseData recordType(String recordType) {
+        this.recordType = recordType;
+        return this;
     }
-    this.to.add(toItem);
-    return this;
-  }
 
-   /**
-   * Get to
-   * @return to
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<RCSToItem> getTo() {
-    return to;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTo(List<RCSToItem> to) {
-    this.to = to;
-  }
-
-
-  public RCSResponseData body(RCSAgentMessage body) {
-    this.body = body;
-    return this;
-  }
-
-   /**
-   * Get body
-   * @return body
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BODY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RCSAgentMessage getBody() {
-    return body;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BODY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBody(RCSAgentMessage body) {
-    this.body = body;
-  }
-
-
-  public RCSResponseData encoding(String encoding) {
-    this.encoding = encoding;
-    return this;
-  }
-
-   /**
-   * Get encoding
-   * @return encoding
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "utf-8", value = "")
-  @JsonProperty(JSON_PROPERTY_ENCODING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getEncoding() {
-    return encoding;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ENCODING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEncoding(String encoding) {
-    this.encoding = encoding;
-  }
-
-
-  public RCSResponseData receivedAt(OffsetDateTime receivedAt) {
-    this.receivedAt = receivedAt;
-    return this;
-  }
-
-   /**
-   * Get receivedAt
-   * @return receivedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_RECEIVED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getReceivedAt() {
-    return receivedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECEIVED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReceivedAt(OffsetDateTime receivedAt) {
-    this.receivedAt = receivedAt;
-  }
-
-
-  /**
-   * Return true if this RCSResponse_data object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "message", value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
     }
-    RCSResponseData rcSResponseData = (RCSResponseData) o;
-    return Objects.equals(this.recordType, rcSResponseData.recordType) &&
-        Objects.equals(this.direction, rcSResponseData.direction) &&
-        Objects.equals(this.id, rcSResponseData.id) &&
-        Objects.equals(this.type, rcSResponseData.type) &&
-        Objects.equals(this.organizationId, rcSResponseData.organizationId) &&
-        Objects.equals(this.messagingProfileId, rcSResponseData.messagingProfileId) &&
-        Objects.equals(this.from, rcSResponseData.from) &&
-        Objects.equals(this.to, rcSResponseData.to) &&
-        Objects.equals(this.body, rcSResponseData.body) &&
-        Objects.equals(this.encoding, rcSResponseData.encoding) &&
-        Objects.equals(this.receivedAt, rcSResponseData.receivedAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, direction, id, type, organizationId, messagingProfileId, from, to, body, encoding, receivedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RCSResponseData {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
-    sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
-    sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    body: ").append(toIndentedString(body)).append("\n");
-    sb.append("    encoding: ").append(toIndentedString(encoding)).append("\n");
-    sb.append("    receivedAt: ").append(toIndentedString(receivedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public RCSResponseData direction(String direction) {
+        this.direction = direction;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Get direction
+     * @return direction
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "outbound", value = "")
+    @JsonProperty(JSON_PROPERTY_DIRECTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDirection() {
+        return direction;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DIRECTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public RCSResponseData id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * message ID
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "4031938e-60e4-4235-a8dd-0b1c55a23e7a",
+        value = "message ID"
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public RCSResponseData type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     * @return type
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "RCS", value = "")
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public RCSResponseData organizationId(String organizationId) {
+        this.organizationId = organizationId;
+        return this;
+    }
+
+    /**
+     * Get organizationId
+     * @return organizationId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "9f61d8e1-7687-4d6d-9cae-9ff682985983",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public RCSResponseData messagingProfileId(String messagingProfileId) {
+        this.messagingProfileId = messagingProfileId;
+        return this;
+    }
+
+    /**
+     * Get messagingProfileId
+     * @return messagingProfileId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "4001781e-626f-4a41-a914-b1b682150f94",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMessagingProfileId() {
+        return messagingProfileId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMessagingProfileId(String messagingProfileId) {
+        this.messagingProfileId = messagingProfileId;
+    }
+
+    public RCSResponseData from(RCSFrom from) {
+        this.from = from;
+        return this;
+    }
+
+    /**
+     * Get from
+     * @return from
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_FROM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RCSFrom getFrom() {
+        return from;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FROM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFrom(RCSFrom from) {
+        this.from = from;
+    }
+
+    public RCSResponseData to(List<RCSToItem> to) {
+        this.to = to;
+        return this;
+    }
+
+    public RCSResponseData addtoItem(RCSToItem toItem) {
+        if (this.to == null) {
+            this.to = new ArrayList<>();
+        }
+        this.to.add(toItem);
+        return this;
+    }
+
+    /**
+     * Get to
+     * @return to
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<RCSToItem> getTo() {
+        return to;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTo(List<RCSToItem> to) {
+        this.to = to;
+    }
+
+    public RCSResponseData body(RCSAgentMessage body) {
+        this.body = body;
+        return this;
+    }
+
+    /**
+     * Get body
+     * @return body
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_BODY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RCSAgentMessage getBody() {
+        return body;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BODY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBody(RCSAgentMessage body) {
+        this.body = body;
+    }
+
+    public RCSResponseData encoding(String encoding) {
+        this.encoding = encoding;
+        return this;
+    }
+
+    /**
+     * Get encoding
+     * @return encoding
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "utf-8", value = "")
+    @JsonProperty(JSON_PROPERTY_ENCODING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getEncoding() {
+        return encoding;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ENCODING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public RCSResponseData receivedAt(OffsetDateTime receivedAt) {
+        this.receivedAt = receivedAt;
+        return this;
+    }
+
+    /**
+     * Get receivedAt
+     * @return receivedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_RECEIVED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getReceivedAt() {
+        return receivedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECEIVED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setReceivedAt(OffsetDateTime receivedAt) {
+        this.receivedAt = receivedAt;
+    }
+
+    /**
+     * Return true if this RCSResponse_data object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RCSResponseData rcSResponseData = (RCSResponseData) o;
+        return (
+            Objects.equals(this.recordType, rcSResponseData.recordType) &&
+            Objects.equals(this.direction, rcSResponseData.direction) &&
+            Objects.equals(this.id, rcSResponseData.id) &&
+            Objects.equals(this.type, rcSResponseData.type) &&
+            Objects.equals(
+                this.organizationId,
+                rcSResponseData.organizationId
+            ) &&
+            Objects.equals(
+                this.messagingProfileId,
+                rcSResponseData.messagingProfileId
+            ) &&
+            Objects.equals(this.from, rcSResponseData.from) &&
+            Objects.equals(this.to, rcSResponseData.to) &&
+            Objects.equals(this.body, rcSResponseData.body) &&
+            Objects.equals(this.encoding, rcSResponseData.encoding) &&
+            Objects.equals(this.receivedAt, rcSResponseData.receivedAt)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            direction,
+            id,
+            type,
+            organizationId,
+            messagingProfileId,
+            from,
+            to,
+            body,
+            encoding,
+            receivedAt
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RCSResponseData {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    direction: ")
+            .append(toIndentedString(direction))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb
+            .append("    organizationId: ")
+            .append(toIndentedString(organizationId))
+            .append("\n");
+        sb
+            .append("    messagingProfileId: ")
+            .append(toIndentedString(messagingProfileId))
+            .append("\n");
+        sb.append("    from: ").append(toIndentedString(from)).append("\n");
+        sb.append("    to: ").append(toIndentedString(to)).append("\n");
+        sb.append("    body: ").append(toIndentedString(body)).append("\n");
+        sb
+            .append("    encoding: ")
+            .append(toIndentedString(encoding))
+            .append("\n");
+        sb
+            .append("    receivedAt: ")
+            .append(toIndentedString(receivedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,21 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import io.swagger.annotations.ApiModel;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for UsagePaymentMethod
  */
 public class UsagePaymentMethodTest {
+
     /**
      * Model tests for UsagePaymentMethod
      */
@@ -32,5 +30,4 @@ public class UsagePaymentMethodTest {
     public void testUsagePaymentMethod() {
         // TODO: test UsagePaymentMethod
     }
-
 }

@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SimCardDataUsageNotification;
@@ -24,15 +23,15 @@ import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for DeleteSimCardDataUsageNotificationResponse
  */
 public class DeleteSimCardDataUsageNotificationResponseTest {
-    private final DeleteSimCardDataUsageNotificationResponse model = new DeleteSimCardDataUsageNotificationResponse();
+
+    private final DeleteSimCardDataUsageNotificationResponse model =
+        new DeleteSimCardDataUsageNotificationResponse();
 
     /**
      * Model tests for DeleteSimCardDataUsageNotificationResponse
@@ -49,5 +48,4 @@ public class DeleteSimCardDataUsageNotificationResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

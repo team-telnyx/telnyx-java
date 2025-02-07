@@ -10,136 +10,156 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * GetUploadsStatusResponseData
  */
-@JsonPropertyOrder({
-  GetUploadsStatusResponseData.JSON_PROPERTY_PENDING_NUMBERS_COUNT,
-  GetUploadsStatusResponseData.JSON_PROPERTY_PENDING_ORDERS_COUNT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        GetUploadsStatusResponseData.JSON_PROPERTY_PENDING_NUMBERS_COUNT,
+        GetUploadsStatusResponseData.JSON_PROPERTY_PENDING_ORDERS_COUNT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class GetUploadsStatusResponseData {
-  public static final String JSON_PROPERTY_PENDING_NUMBERS_COUNT = "pending_numbers_count";
-  private Integer pendingNumbersCount;
 
-  public static final String JSON_PROPERTY_PENDING_ORDERS_COUNT = "pending_orders_count";
-  private Integer pendingOrdersCount;
+    public static final String JSON_PROPERTY_PENDING_NUMBERS_COUNT =
+        "pending_numbers_count";
+    private Integer pendingNumbersCount;
 
-  public GetUploadsStatusResponseData() { 
-  }
+    public static final String JSON_PROPERTY_PENDING_ORDERS_COUNT =
+        "pending_orders_count";
+    private Integer pendingOrdersCount;
 
-  public GetUploadsStatusResponseData pendingNumbersCount(Integer pendingNumbersCount) {
-    this.pendingNumbersCount = pendingNumbersCount;
-    return this;
-  }
+    public GetUploadsStatusResponseData() {}
 
-   /**
-   * The count of phone numbers that are pending assignment to the external connection.
-   * @return pendingNumbersCount
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The count of phone numbers that are pending assignment to the external connection.")
-  @JsonProperty(JSON_PROPERTY_PENDING_NUMBERS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getPendingNumbersCount() {
-    return pendingNumbersCount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PENDING_NUMBERS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPendingNumbersCount(Integer pendingNumbersCount) {
-    this.pendingNumbersCount = pendingNumbersCount;
-  }
-
-
-  public GetUploadsStatusResponseData pendingOrdersCount(Integer pendingOrdersCount) {
-    this.pendingOrdersCount = pendingOrdersCount;
-    return this;
-  }
-
-   /**
-   * The count of number uploads that have not yet been uploaded to Microsoft.
-   * @return pendingOrdersCount
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The count of number uploads that have not yet been uploaded to Microsoft.")
-  @JsonProperty(JSON_PROPERTY_PENDING_ORDERS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getPendingOrdersCount() {
-    return pendingOrdersCount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PENDING_ORDERS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPendingOrdersCount(Integer pendingOrdersCount) {
-    this.pendingOrdersCount = pendingOrdersCount;
-  }
-
-
-  /**
-   * Return true if this Get_Uploads_Status_Response_data object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public GetUploadsStatusResponseData pendingNumbersCount(
+        Integer pendingNumbersCount
+    ) {
+        this.pendingNumbersCount = pendingNumbersCount;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The count of phone numbers that are pending assignment to the external connection.
+     * @return pendingNumbersCount
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "The count of phone numbers that are pending assignment to the external connection."
+    )
+    @JsonProperty(JSON_PROPERTY_PENDING_NUMBERS_COUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getPendingNumbersCount() {
+        return pendingNumbersCount;
     }
-    GetUploadsStatusResponseData getUploadsStatusResponseData = (GetUploadsStatusResponseData) o;
-    return Objects.equals(this.pendingNumbersCount, getUploadsStatusResponseData.pendingNumbersCount) &&
-        Objects.equals(this.pendingOrdersCount, getUploadsStatusResponseData.pendingOrdersCount);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(pendingNumbersCount, pendingOrdersCount);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class GetUploadsStatusResponseData {\n");
-    sb.append("    pendingNumbersCount: ").append(toIndentedString(pendingNumbersCount)).append("\n");
-    sb.append("    pendingOrdersCount: ").append(toIndentedString(pendingOrdersCount)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PENDING_NUMBERS_COUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPendingNumbersCount(Integer pendingNumbersCount) {
+        this.pendingNumbersCount = pendingNumbersCount;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public GetUploadsStatusResponseData pendingOrdersCount(
+        Integer pendingOrdersCount
+    ) {
+        this.pendingOrdersCount = pendingOrdersCount;
+        return this;
+    }
+
+    /**
+     * The count of number uploads that have not yet been uploaded to Microsoft.
+     * @return pendingOrdersCount
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "The count of number uploads that have not yet been uploaded to Microsoft."
+    )
+    @JsonProperty(JSON_PROPERTY_PENDING_ORDERS_COUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getPendingOrdersCount() {
+        return pendingOrdersCount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PENDING_ORDERS_COUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPendingOrdersCount(Integer pendingOrdersCount) {
+        this.pendingOrdersCount = pendingOrdersCount;
+    }
+
+    /**
+     * Return true if this Get_Uploads_Status_Response_data object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GetUploadsStatusResponseData getUploadsStatusResponseData =
+            (GetUploadsStatusResponseData) o;
+        return (
+            Objects.equals(
+                this.pendingNumbersCount,
+                getUploadsStatusResponseData.pendingNumbersCount
+            ) &&
+            Objects.equals(
+                this.pendingOrdersCount,
+                getUploadsStatusResponseData.pendingOrdersCount
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pendingNumbersCount, pendingOrdersCount);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class GetUploadsStatusResponseData {\n");
+        sb
+            .append("    pendingNumbersCount: ")
+            .append(toIndentedString(pendingNumbersCount))
+            .append("\n");
+        sb
+            .append("    pendingOrdersCount: ")
+            .append(toIndentedString(pendingOrdersCount))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

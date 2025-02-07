@@ -10,104 +10,102 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CreatePortingOrderComment
  */
-@JsonPropertyOrder({
-  CreatePortingOrderComment.JSON_PROPERTY_BODY
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ CreatePortingOrderComment.JSON_PROPERTY_BODY })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CreatePortingOrderComment {
-  public static final String JSON_PROPERTY_BODY = "body";
-  private String body;
 
-  public CreatePortingOrderComment() { 
-  }
+    public static final String JSON_PROPERTY_BODY = "body";
+    private String body;
 
-  public CreatePortingOrderComment body(String body) {
-    this.body = body;
-    return this;
-  }
+    public CreatePortingOrderComment() {}
 
-   /**
-   * Get body
-   * @return body
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Please, let me know when the port completes", value = "")
-  @JsonProperty(JSON_PROPERTY_BODY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBody() {
-    return body;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BODY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBody(String body) {
-    this.body = body;
-  }
-
-
-  /**
-   * Return true if this CreatePortingOrderComment object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CreatePortingOrderComment body(String body) {
+        this.body = body;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get body
+     * @return body
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Please, let me know when the port completes",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_BODY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBody() {
+        return body;
     }
-    CreatePortingOrderComment createPortingOrderComment = (CreatePortingOrderComment) o;
-    return Objects.equals(this.body, createPortingOrderComment.body);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(body);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreatePortingOrderComment {\n");
-    sb.append("    body: ").append(toIndentedString(body)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_BODY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBody(String body) {
+        this.body = body;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this CreatePortingOrderComment object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreatePortingOrderComment createPortingOrderComment =
+            (CreatePortingOrderComment) o;
+        return Objects.equals(this.body, createPortingOrderComment.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(body);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreatePortingOrderComment {\n");
+        sb.append("    body: ").append(toIndentedString(body)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

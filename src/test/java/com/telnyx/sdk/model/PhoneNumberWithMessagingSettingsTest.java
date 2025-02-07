@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NumberHealthMetrics;
@@ -25,21 +25,20 @@ import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Model tests for PhoneNumberWithMessagingSettings
  */
 public class PhoneNumberWithMessagingSettingsTest {
-    private final PhoneNumberWithMessagingSettings model = new PhoneNumberWithMessagingSettings();
+
+    private final PhoneNumberWithMessagingSettings model =
+        new PhoneNumberWithMessagingSettings();
 
     /**
      * Model tests for PhoneNumberWithMessagingSettings
@@ -152,5 +151,4 @@ public class PhoneNumberWithMessagingSettingsTest {
     public void featuresTest() {
         // TODO: test features
     }
-
 }

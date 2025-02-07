@@ -10,106 +10,108 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UpdateQueueMaxSizeRequest
  */
-@JsonPropertyOrder({
-  UpdateQueueMaxSizeRequest.JSON_PROPERTY_MAX_SIZE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ UpdateQueueMaxSizeRequest.JSON_PROPERTY_MAX_SIZE })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UpdateQueueMaxSizeRequest {
-  public static final String JSON_PROPERTY_MAX_SIZE = "max_size";
-  private Integer maxSize = 300;
 
-  public UpdateQueueMaxSizeRequest() { 
-  }
+    public static final String JSON_PROPERTY_MAX_SIZE = "max_size";
+    private Integer maxSize = 300;
 
-  public UpdateQueueMaxSizeRequest maxSize(Integer maxSize) {
-    this.maxSize = maxSize;
-    return this;
-  }
+    public UpdateQueueMaxSizeRequest() {}
 
-   /**
-   * Maximum number of calls that can be in the queue at once
-   * minimum: 1
-   * maximum: 300
-   * @return maxSize
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "100", required = true, value = "Maximum number of calls that can be in the queue at once")
-  @JsonProperty(JSON_PROPERTY_MAX_SIZE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getMaxSize() {
-    return maxSize;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MAX_SIZE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMaxSize(Integer maxSize) {
-    this.maxSize = maxSize;
-  }
-
-
-  /**
-   * Return true if this UpdateQueueMaxSize_request object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UpdateQueueMaxSizeRequest maxSize(Integer maxSize) {
+        this.maxSize = maxSize;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Maximum number of calls that can be in the queue at once
+     * minimum: 1
+     * maximum: 300
+     * @return maxSize
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "100",
+        required = true,
+        value = "Maximum number of calls that can be in the queue at once"
+    )
+    @JsonProperty(JSON_PROPERTY_MAX_SIZE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getMaxSize() {
+        return maxSize;
     }
-    UpdateQueueMaxSizeRequest updateQueueMaxSizeRequest = (UpdateQueueMaxSizeRequest) o;
-    return Objects.equals(this.maxSize, updateQueueMaxSizeRequest.maxSize);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(maxSize);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdateQueueMaxSizeRequest {\n");
-    sb.append("    maxSize: ").append(toIndentedString(maxSize)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_MAX_SIZE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setMaxSize(Integer maxSize) {
+        this.maxSize = maxSize;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this UpdateQueueMaxSize_request object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdateQueueMaxSizeRequest updateQueueMaxSizeRequest =
+            (UpdateQueueMaxSizeRequest) o;
+        return Objects.equals(this.maxSize, updateQueueMaxSizeRequest.maxSize);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maxSize);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UpdateQueueMaxSizeRequest {\n");
+        sb
+            .append("    maxSize: ")
+            .append(toIndentedString(maxSize))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

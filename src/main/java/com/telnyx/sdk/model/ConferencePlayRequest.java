@@ -10,211 +10,225 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Loopcount;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ConferencePlayRequest
  */
-@JsonPropertyOrder({
-  ConferencePlayRequest.JSON_PROPERTY_AUDIO_URL,
-  ConferencePlayRequest.JSON_PROPERTY_MEDIA_NAME,
-  ConferencePlayRequest.JSON_PROPERTY_LOOP,
-  ConferencePlayRequest.JSON_PROPERTY_CALL_CONTROL_IDS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        ConferencePlayRequest.JSON_PROPERTY_AUDIO_URL,
+        ConferencePlayRequest.JSON_PROPERTY_MEDIA_NAME,
+        ConferencePlayRequest.JSON_PROPERTY_LOOP,
+        ConferencePlayRequest.JSON_PROPERTY_CALL_CONTROL_IDS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ConferencePlayRequest {
-  public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
-  private String audioUrl;
 
-  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
-  private String mediaName;
+    public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
+    private String audioUrl;
 
-  public static final String JSON_PROPERTY_LOOP = "loop";
-  private Loopcount loop;
+    public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+    private String mediaName;
 
-  public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
-  private List<String> callControlIds = null;
+    public static final String JSON_PROPERTY_LOOP = "loop";
+    private Loopcount loop;
 
-  public ConferencePlayRequest() { 
-  }
+    public static final String JSON_PROPERTY_CALL_CONTROL_IDS =
+        "call_control_ids";
+    private List<String> callControlIds = null;
 
-  public ConferencePlayRequest audioUrl(String audioUrl) {
-    this.audioUrl = audioUrl;
-    return this;
-  }
+    public ConferencePlayRequest() {}
 
-   /**
-   * The URL of a file to be played back in the conference. media_name and audio_url cannot be used together in one request.
-   * @return audioUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back in the conference. media_name and audio_url cannot be used together in one request.")
-  @JsonProperty(JSON_PROPERTY_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAudioUrl() {
-    return audioUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AUDIO_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAudioUrl(String audioUrl) {
-    this.audioUrl = audioUrl;
-  }
-
-
-  public ConferencePlayRequest mediaName(String mediaName) {
-    this.mediaName = mediaName;
-    return this;
-  }
-
-   /**
-   * The media_name of a file to be played back in the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
-   * @return mediaName
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back in the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaName() {
-    return mediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaName(String mediaName) {
-    this.mediaName = mediaName;
-  }
-
-
-  public ConferencePlayRequest loop(Loopcount loop) {
-    this.loop = loop;
-    return this;
-  }
-
-   /**
-   * Get loop
-   * @return loop
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_LOOP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Loopcount getLoop() {
-    return loop;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LOOP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLoop(Loopcount loop) {
-    this.loop = loop;
-  }
-
-
-  public ConferencePlayRequest callControlIds(List<String> callControlIds) {
-    this.callControlIds = callControlIds;
-    return this;
-  }
-
-  public ConferencePlayRequest addcallControlIdsItem(String callControlIdsItem) {
-    if (this.callControlIds == null) {
-      this.callControlIds = new ArrayList<>();
+    public ConferencePlayRequest audioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
+        return this;
     }
-    this.callControlIds.add(callControlIdsItem);
-    return this;
-  }
 
-   /**
-   * List of call control ids identifying participants the audio file should be played to. If not given, the audio file will be played to the entire conference.
-   * @return callControlIds
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "List of call control ids identifying participants the audio file should be played to. If not given, the audio file will be played to the entire conference.")
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getCallControlIds() {
-    return callControlIds;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallControlIds(List<String> callControlIds) {
-    this.callControlIds = callControlIds;
-  }
-
-
-  /**
-   * Return true if this ConferencePlayRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * The URL of a file to be played back in the conference. media_name and audio_url cannot be used together in one request.
+     * @return audioUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "http://example.com/message.wav",
+        value = "The URL of a file to be played back in the conference. media_name and audio_url cannot be used together in one request."
+    )
+    @JsonProperty(JSON_PROPERTY_AUDIO_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAudioUrl() {
+        return audioUrl;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_AUDIO_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
     }
-    ConferencePlayRequest conferencePlayRequest = (ConferencePlayRequest) o;
-    return Objects.equals(this.audioUrl, conferencePlayRequest.audioUrl) &&
-        Objects.equals(this.mediaName, conferencePlayRequest.mediaName) &&
-        Objects.equals(this.loop, conferencePlayRequest.loop) &&
-        Objects.equals(this.callControlIds, conferencePlayRequest.callControlIds);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(audioUrl, mediaName, loop, callControlIds);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ConferencePlayRequest {\n");
-    sb.append("    audioUrl: ").append(toIndentedString(audioUrl)).append("\n");
-    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
-    sb.append("    loop: ").append(toIndentedString(loop)).append("\n");
-    sb.append("    callControlIds: ").append(toIndentedString(callControlIds)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public ConferencePlayRequest mediaName(String mediaName) {
+        this.mediaName = mediaName;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * The media_name of a file to be played back in the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
+     * @return mediaName
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "my_media_uploaded_to_media_storage_api",
+        value = "The media_name of a file to be played back in the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file."
+    )
+    @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMediaName() {
+        return mediaName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
+    }
+
+    public ConferencePlayRequest loop(Loopcount loop) {
+        this.loop = loop;
+        return this;
+    }
+
+    /**
+     * Get loop
+     * @return loop
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_LOOP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Loopcount getLoop() {
+        return loop;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LOOP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLoop(Loopcount loop) {
+        this.loop = loop;
+    }
+
+    public ConferencePlayRequest callControlIds(List<String> callControlIds) {
+        this.callControlIds = callControlIds;
+        return this;
+    }
+
+    public ConferencePlayRequest addcallControlIdsItem(
+        String callControlIdsItem
+    ) {
+        if (this.callControlIds == null) {
+            this.callControlIds = new ArrayList<>();
+        }
+        this.callControlIds.add(callControlIdsItem);
+        return this;
+    }
+
+    /**
+     * List of call control ids identifying participants the audio file should be played to. If not given, the audio file will be played to the entire conference.
+     * @return callControlIds
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "List of call control ids identifying participants the audio file should be played to. If not given, the audio file will be played to the entire conference."
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getCallControlIds() {
+        return callControlIds;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallControlIds(List<String> callControlIds) {
+        this.callControlIds = callControlIds;
+    }
+
+    /**
+     * Return true if this ConferencePlayRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ConferencePlayRequest conferencePlayRequest = (ConferencePlayRequest) o;
+        return (
+            Objects.equals(this.audioUrl, conferencePlayRequest.audioUrl) &&
+            Objects.equals(this.mediaName, conferencePlayRequest.mediaName) &&
+            Objects.equals(this.loop, conferencePlayRequest.loop) &&
+            Objects.equals(
+                this.callControlIds,
+                conferencePlayRequest.callControlIds
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(audioUrl, mediaName, loop, callControlIds);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ConferencePlayRequest {\n");
+        sb
+            .append("    audioUrl: ")
+            .append(toIndentedString(audioUrl))
+            .append("\n");
+        sb
+            .append("    mediaName: ")
+            .append(toIndentedString(mediaName))
+            .append("\n");
+        sb.append("    loop: ").append(toIndentedString(loop)).append("\n");
+        sb
+            .append("    callControlIds: ")
+            .append(toIndentedString(callControlIds))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

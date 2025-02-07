@@ -10,32 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallControlApplicationInbound;
 import com.telnyx.sdk.model.CallControlApplicationOutbound;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Model tests for CallControlApplication
  */
 public class CallControlApplicationTest {
+
     private final CallControlApplication model = new CallControlApplication();
 
     /**
@@ -173,5 +171,4 @@ public class CallControlApplicationTest {
     public void webhookTimeoutSecsTest() {
         // TODO: test webhookTimeoutSecs
     }
-
 }

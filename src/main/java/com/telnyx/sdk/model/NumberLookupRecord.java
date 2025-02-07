@@ -10,331 +10,356 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.CallerName;
 import com.telnyx.sdk.model.Carrier;
 import com.telnyx.sdk.model.Portability;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * NumberLookupRecord
  */
-@JsonPropertyOrder({
-  NumberLookupRecord.JSON_PROPERTY_RECORD_TYPE,
-  NumberLookupRecord.JSON_PROPERTY_COUNTRY_CODE,
-  NumberLookupRecord.JSON_PROPERTY_NATIONAL_FORMAT,
-  NumberLookupRecord.JSON_PROPERTY_PHONE_NUMBER,
-  NumberLookupRecord.JSON_PROPERTY_FRAUD,
-  NumberLookupRecord.JSON_PROPERTY_CARRIER,
-  NumberLookupRecord.JSON_PROPERTY_CALLER_NAME,
-  NumberLookupRecord.JSON_PROPERTY_PORTABILITY
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        NumberLookupRecord.JSON_PROPERTY_RECORD_TYPE,
+        NumberLookupRecord.JSON_PROPERTY_COUNTRY_CODE,
+        NumberLookupRecord.JSON_PROPERTY_NATIONAL_FORMAT,
+        NumberLookupRecord.JSON_PROPERTY_PHONE_NUMBER,
+        NumberLookupRecord.JSON_PROPERTY_FRAUD,
+        NumberLookupRecord.JSON_PROPERTY_CARRIER,
+        NumberLookupRecord.JSON_PROPERTY_CALLER_NAME,
+        NumberLookupRecord.JSON_PROPERTY_PORTABILITY,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class NumberLookupRecord {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
-  private String countryCode;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_NATIONAL_FORMAT = "national_format";
-  private String nationalFormat;
+    public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
+    private String countryCode;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
+    public static final String JSON_PROPERTY_NATIONAL_FORMAT =
+        "national_format";
+    private String nationalFormat;
 
-  public static final String JSON_PROPERTY_FRAUD = "fraud";
-  private String fraud;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public static final String JSON_PROPERTY_CARRIER = "carrier";
-  private Carrier carrier;
+    public static final String JSON_PROPERTY_FRAUD = "fraud";
+    private String fraud;
 
-  public static final String JSON_PROPERTY_CALLER_NAME = "caller_name";
-  private CallerName callerName;
+    public static final String JSON_PROPERTY_CARRIER = "carrier";
+    private Carrier carrier;
 
-  public static final String JSON_PROPERTY_PORTABILITY = "portability";
-  private Portability portability;
+    public static final String JSON_PROPERTY_CALLER_NAME = "caller_name";
+    private CallerName callerName;
 
-  public NumberLookupRecord() { 
-  }
+    public static final String JSON_PROPERTY_PORTABILITY = "portability";
+    private Portability portability;
 
-  public NumberLookupRecord recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
+    public NumberLookupRecord() {}
 
-   /**
-   * Identifies the type of record
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "number_lookup", value = "Identifies the type of record")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public NumberLookupRecord countryCode(String countryCode) {
-    this.countryCode = countryCode;
-    return this;
-  }
-
-   /**
-   * Region code that matches the specific country calling code
-   * @return countryCode
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "US", value = "Region code that matches the specific country calling code")
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCountryCode() {
-    return countryCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCountryCode(String countryCode) {
-    this.countryCode = countryCode;
-  }
-
-
-  public NumberLookupRecord nationalFormat(String nationalFormat) {
-    this.nationalFormat = nationalFormat;
-    return this;
-  }
-
-   /**
-   * Hyphen-separated national number, preceded by the national destination code (NDC), with a 0 prefix, if an NDC is found
-   * @return nationalFormat
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "(0312) 945-7420", value = "Hyphen-separated national number, preceded by the national destination code (NDC), with a 0 prefix, if an NDC is found")
-  @JsonProperty(JSON_PROPERTY_NATIONAL_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getNationalFormat() {
-    return nationalFormat;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NATIONAL_FORMAT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNationalFormat(String nationalFormat) {
-    this.nationalFormat = nationalFormat;
-  }
-
-
-  public NumberLookupRecord phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * E164-formatted phone number
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+13129457420", value = "E164-formatted phone number")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public NumberLookupRecord fraud(String fraud) {
-    this.fraud = fraud;
-    return this;
-  }
-
-   /**
-   * Unused
-   * @return fraud
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Unused")
-  @JsonProperty(JSON_PROPERTY_FRAUD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFraud() {
-    return fraud;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FRAUD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFraud(String fraud) {
-    this.fraud = fraud;
-  }
-
-
-  public NumberLookupRecord carrier(Carrier carrier) {
-    this.carrier = carrier;
-    return this;
-  }
-
-   /**
-   * Get carrier
-   * @return carrier
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CARRIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Carrier getCarrier() {
-    return carrier;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CARRIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCarrier(Carrier carrier) {
-    this.carrier = carrier;
-  }
-
-
-  public NumberLookupRecord callerName(CallerName callerName) {
-    this.callerName = callerName;
-    return this;
-  }
-
-   /**
-   * Get callerName
-   * @return callerName
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CALLER_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public CallerName getCallerName() {
-    return callerName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALLER_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallerName(CallerName callerName) {
-    this.callerName = callerName;
-  }
-
-
-  public NumberLookupRecord portability(Portability portability) {
-    this.portability = portability;
-    return this;
-  }
-
-   /**
-   * Get portability
-   * @return portability
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PORTABILITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Portability getPortability() {
-    return portability;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PORTABILITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPortability(Portability portability) {
-    this.portability = portability;
-  }
-
-
-  /**
-   * Return true if this NumberLookupRecord object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public NumberLookupRecord recordType(String recordType) {
+        this.recordType = recordType;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the type of record
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "number_lookup",
+        value = "Identifies the type of record"
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
     }
-    NumberLookupRecord numberLookupRecord = (NumberLookupRecord) o;
-    return Objects.equals(this.recordType, numberLookupRecord.recordType) &&
-        Objects.equals(this.countryCode, numberLookupRecord.countryCode) &&
-        Objects.equals(this.nationalFormat, numberLookupRecord.nationalFormat) &&
-        Objects.equals(this.phoneNumber, numberLookupRecord.phoneNumber) &&
-        Objects.equals(this.fraud, numberLookupRecord.fraud) &&
-        Objects.equals(this.carrier, numberLookupRecord.carrier) &&
-        Objects.equals(this.callerName, numberLookupRecord.callerName) &&
-        Objects.equals(this.portability, numberLookupRecord.portability);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, countryCode, nationalFormat, phoneNumber, fraud, carrier, callerName, portability);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class NumberLookupRecord {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
-    sb.append("    nationalFormat: ").append(toIndentedString(nationalFormat)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    fraud: ").append(toIndentedString(fraud)).append("\n");
-    sb.append("    carrier: ").append(toIndentedString(carrier)).append("\n");
-    sb.append("    callerName: ").append(toIndentedString(callerName)).append("\n");
-    sb.append("    portability: ").append(toIndentedString(portability)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public NumberLookupRecord countryCode(String countryCode) {
+        this.countryCode = countryCode;
+        return this;
+    }
+
+    /**
+     * Region code that matches the specific country calling code
+     * @return countryCode
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "US",
+        value = "Region code that matches the specific country calling code"
+    )
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public NumberLookupRecord nationalFormat(String nationalFormat) {
+        this.nationalFormat = nationalFormat;
+        return this;
+    }
+
+    /**
+     * Hyphen-separated national number, preceded by the national destination code (NDC), with a 0 prefix, if an NDC is found
+     * @return nationalFormat
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "(0312) 945-7420",
+        value = "Hyphen-separated national number, preceded by the national destination code (NDC), with a 0 prefix, if an NDC is found"
+    )
+    @JsonProperty(JSON_PROPERTY_NATIONAL_FORMAT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNationalFormat() {
+        return nationalFormat;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NATIONAL_FORMAT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNationalFormat(String nationalFormat) {
+        this.nationalFormat = nationalFormat;
+    }
+
+    public NumberLookupRecord phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * E164-formatted phone number
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "+13129457420",
+        value = "E164-formatted phone number"
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public NumberLookupRecord fraud(String fraud) {
+        this.fraud = fraud;
+        return this;
+    }
+
+    /**
+     * Unused
+     * @return fraud
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Unused")
+    @JsonProperty(JSON_PROPERTY_FRAUD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFraud() {
+        return fraud;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FRAUD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFraud(String fraud) {
+        this.fraud = fraud;
+    }
+
+    public NumberLookupRecord carrier(Carrier carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+
+    /**
+     * Get carrier
+     * @return carrier
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CARRIER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Carrier getCarrier() {
+        return carrier;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CARRIER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCarrier(Carrier carrier) {
+        this.carrier = carrier;
+    }
+
+    public NumberLookupRecord callerName(CallerName callerName) {
+        this.callerName = callerName;
+        return this;
+    }
+
+    /**
+     * Get callerName
+     * @return callerName
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CALLER_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public CallerName getCallerName() {
+        return callerName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALLER_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallerName(CallerName callerName) {
+        this.callerName = callerName;
+    }
+
+    public NumberLookupRecord portability(Portability portability) {
+        this.portability = portability;
+        return this;
+    }
+
+    /**
+     * Get portability
+     * @return portability
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_PORTABILITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Portability getPortability() {
+        return portability;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PORTABILITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPortability(Portability portability) {
+        this.portability = portability;
+    }
+
+    /**
+     * Return true if this NumberLookupRecord object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NumberLookupRecord numberLookupRecord = (NumberLookupRecord) o;
+        return (
+            Objects.equals(this.recordType, numberLookupRecord.recordType) &&
+            Objects.equals(this.countryCode, numberLookupRecord.countryCode) &&
+            Objects.equals(
+                this.nationalFormat,
+                numberLookupRecord.nationalFormat
+            ) &&
+            Objects.equals(this.phoneNumber, numberLookupRecord.phoneNumber) &&
+            Objects.equals(this.fraud, numberLookupRecord.fraud) &&
+            Objects.equals(this.carrier, numberLookupRecord.carrier) &&
+            Objects.equals(this.callerName, numberLookupRecord.callerName) &&
+            Objects.equals(this.portability, numberLookupRecord.portability)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            countryCode,
+            nationalFormat,
+            phoneNumber,
+            fraud,
+            carrier,
+            callerName,
+            portability
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class NumberLookupRecord {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    countryCode: ")
+            .append(toIndentedString(countryCode))
+            .append("\n");
+        sb
+            .append("    nationalFormat: ")
+            .append(toIndentedString(nationalFormat))
+            .append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb.append("    fraud: ").append(toIndentedString(fraud)).append("\n");
+        sb
+            .append("    carrier: ")
+            .append(toIndentedString(carrier))
+            .append("\n");
+        sb
+            .append("    callerName: ")
+            .append(toIndentedString(callerName))
+            .append("\n");
+        sb
+            .append("    portability: ")
+            .append(toIndentedString(portability))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,104 +10,110 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * VerifyVerificationCodeRequest
  */
-@JsonPropertyOrder({
-  VerifyVerificationCodeRequest.JSON_PROPERTY_VERIFICATION_CODE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { VerifyVerificationCodeRequest.JSON_PROPERTY_VERIFICATION_CODE }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class VerifyVerificationCodeRequest {
-  public static final String JSON_PROPERTY_VERIFICATION_CODE = "verification_code";
-  private String verificationCode;
 
-  public VerifyVerificationCodeRequest() { 
-  }
+    public static final String JSON_PROPERTY_VERIFICATION_CODE =
+        "verification_code";
+    private String verificationCode;
 
-  public VerifyVerificationCodeRequest verificationCode(String verificationCode) {
-    this.verificationCode = verificationCode;
-    return this;
-  }
+    public VerifyVerificationCodeRequest() {}
 
-   /**
-   * Get verificationCode
-   * @return verificationCode
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "123456", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_VERIFICATION_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getVerificationCode() {
-    return verificationCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VERIFICATION_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVerificationCode(String verificationCode) {
-    this.verificationCode = verificationCode;
-  }
-
-
-  /**
-   * Return true if this Verify_Verification_Code_Request object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public VerifyVerificationCodeRequest verificationCode(
+        String verificationCode
+    ) {
+        this.verificationCode = verificationCode;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get verificationCode
+     * @return verificationCode
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(example = "123456", required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_VERIFICATION_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getVerificationCode() {
+        return verificationCode;
     }
-    VerifyVerificationCodeRequest verifyVerificationCodeRequest = (VerifyVerificationCodeRequest) o;
-    return Objects.equals(this.verificationCode, verifyVerificationCodeRequest.verificationCode);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(verificationCode);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class VerifyVerificationCodeRequest {\n");
-    sb.append("    verificationCode: ").append(toIndentedString(verificationCode)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_VERIFICATION_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this Verify_Verification_Code_Request object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VerifyVerificationCodeRequest verifyVerificationCodeRequest =
+            (VerifyVerificationCodeRequest) o;
+        return Objects.equals(
+            this.verificationCode,
+            verifyVerificationCodeRequest.verificationCode
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(verificationCode);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class VerifyVerificationCodeRequest {\n");
+        sb
+            .append("    verificationCode: ")
+            .append(toIndentedString(verificationCode))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

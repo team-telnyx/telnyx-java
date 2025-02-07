@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.MobileOperatorNetworkPreferencesRequest;
@@ -27,15 +26,15 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for BulkUpdateSimNetworkPreference
  */
 public class BulkUpdateSimNetworkPreferenceTest {
-    private final BulkUpdateSimNetworkPreference model = new BulkUpdateSimNetworkPreference();
+
+    private final BulkUpdateSimNetworkPreference model =
+        new BulkUpdateSimNetworkPreference();
 
     /**
      * Model tests for BulkUpdateSimNetworkPreference
@@ -60,5 +59,4 @@ public class BulkUpdateSimNetworkPreferenceTest {
     public void mobileOperatorNetworksPreferencesTest() {
         // TODO: test mobileOperatorNetworksPreferences
     }
-
 }

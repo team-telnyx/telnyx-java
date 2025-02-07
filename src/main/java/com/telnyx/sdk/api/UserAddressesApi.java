@@ -1,53 +1,54 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreateUserAddress200Response;
 import com.telnyx.sdk.model.FindUserAddress200Response;
 import com.telnyx.sdk.model.UserAddressCreate;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UserAddressesApi {
-  private ApiClient apiClient;
 
-  public UserAddressesApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public UserAddressesApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public UserAddressesApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public UserAddressesApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Creates a user address
    * Creates a user address.
    * @param userAddressCreate Parameters that can be defined during user address creation (required)
@@ -60,11 +61,13 @@ public class UserAddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public CreateUserAddress200Response createUserAddress(UserAddressCreate userAddressCreate) throws ApiException {
-    return createUserAddressWithHttpInfo(userAddressCreate).getData();
-  }
+    public CreateUserAddress200Response createUserAddress(
+        UserAddressCreate userAddressCreate
+    ) throws ApiException {
+        return createUserAddressWithHttpInfo(userAddressCreate).getData();
+    }
 
-  /**
+    /**
    * Creates a user address
    * Creates a user address.
    * @param userAddressCreate Parameters that can be defined during user address creation (required)
@@ -77,46 +80,68 @@ public class UserAddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateUserAddress200Response> createUserAddressWithHttpInfo(UserAddressCreate userAddressCreate) throws ApiException {
-    Object localVarPostBody = userAddressCreate;
-    
-    // verify the required parameter 'userAddressCreate' is set
-    if (userAddressCreate == null) {
-      throw new ApiException(400, "Missing the required parameter 'userAddressCreate' when calling createUserAddress");
+    public ApiResponse<
+        CreateUserAddress200Response
+    > createUserAddressWithHttpInfo(UserAddressCreate userAddressCreate)
+        throws ApiException {
+        Object localVarPostBody = userAddressCreate;
+
+        // verify the required parameter 'userAddressCreate' is set
+        if (userAddressCreate == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'userAddressCreate' when calling createUserAddress"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/user_addresses";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateUserAddress200Response> localVarReturnType =
+            new GenericType<CreateUserAddress200Response>() {};
+
+        return apiClient.invokeAPI(
+            "UserAddressesApi.createUserAddress",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/user_addresses";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateUserAddress200Response> localVarReturnType = new GenericType<CreateUserAddress200Response>() {};
-
-    return apiClient.invokeAPI("UserAddressesApi.createUserAddress", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all user addresses
    * Returns a list of your user addresses.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -136,11 +161,25 @@ public class UserAddressesApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public FindUserAddress200Response findUserAddress(Integer pageNumber, Integer pageSize, String filterCustomerReferenceEq, String filterCustomerReferenceContains, String filterStreetAddressContains, String sort) throws ApiException {
-    return findUserAddressWithHttpInfo(pageNumber, pageSize, filterCustomerReferenceEq, filterCustomerReferenceContains, filterStreetAddressContains, sort).getData();
-  }
+    public FindUserAddress200Response findUserAddress(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterCustomerReferenceEq,
+        String filterCustomerReferenceContains,
+        String filterStreetAddressContains,
+        String sort
+    ) throws ApiException {
+        return findUserAddressWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterCustomerReferenceEq,
+            filterCustomerReferenceContains,
+            filterStreetAddressContains,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * List all user addresses
    * Returns a list of your user addresses.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -160,47 +199,95 @@ public class UserAddressesApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FindUserAddress200Response> findUserAddressWithHttpInfo(Integer pageNumber, Integer pageSize, String filterCustomerReferenceEq, String filterCustomerReferenceContains, String filterStreetAddressContains, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/user_addresses";
+    public ApiResponse<FindUserAddress200Response> findUserAddressWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterCustomerReferenceEq,
+        String filterCustomerReferenceContains,
+        String filterStreetAddressContains,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/user_addresses";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference][eq]", filterCustomerReferenceEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference][contains]", filterCustomerReferenceContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[street_address][contains]", filterStreetAddressContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[customer_reference][eq]",
+                filterCustomerReferenceEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[customer_reference][contains]",
+                filterCustomerReferenceContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[street_address][contains]",
+                filterStreetAddressContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort", sort)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<FindUserAddress200Response> localVarReturnType = new GenericType<FindUserAddress200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("UserAddressesApi.findUserAddress", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<FindUserAddress200Response> localVarReturnType =
+            new GenericType<FindUserAddress200Response>() {};
+
+        return apiClient.invokeAPI(
+            "UserAddressesApi.findUserAddress",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Retrieve a user address
    * Retrieves the details of an existing user address.
    * @param id user address ID (required)
@@ -215,11 +302,12 @@ public class UserAddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public CreateUserAddress200Response getUserAddress(String id) throws ApiException {
-    return getUserAddressWithHttpInfo(id).getData();
-  }
+    public CreateUserAddress200Response getUserAddress(String id)
+        throws ApiException {
+        return getUserAddressWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a user address
    * Retrieves the details of an existing user address.
    * @param id user address ID (required)
@@ -234,44 +322,67 @@ public class UserAddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateUserAddress200Response> getUserAddressWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getUserAddress");
+    public ApiResponse<CreateUserAddress200Response> getUserAddressWithHttpInfo(
+        String id
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getUserAddress"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/user_addresses/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateUserAddress200Response> localVarReturnType =
+            new GenericType<CreateUserAddress200Response>() {};
+
+        return apiClient.invokeAPI(
+            "UserAddressesApi.getUserAddress",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/user_addresses/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateUserAddress200Response> localVarReturnType = new GenericType<CreateUserAddress200Response>() {};
-
-    return apiClient.invokeAPI("UserAddressesApi.getUserAddress", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

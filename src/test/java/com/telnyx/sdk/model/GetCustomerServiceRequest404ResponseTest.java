@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ResourceNotFoundError;
@@ -23,16 +22,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for GetCustomerServiceRequest404Response
  */
 public class GetCustomerServiceRequest404ResponseTest {
-    private final GetCustomerServiceRequest404Response model = new GetCustomerServiceRequest404Response();
+
+    private final GetCustomerServiceRequest404Response model =
+        new GetCustomerServiceRequest404Response();
 
     /**
      * Model tests for GetCustomerServiceRequest404Response
@@ -49,5 +47,4 @@ public class GetCustomerServiceRequest404ResponseTest {
     public void errorsTest() {
         // TODO: test errors
     }
-
 }

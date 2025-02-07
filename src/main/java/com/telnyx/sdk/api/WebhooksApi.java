@@ -1,53 +1,54 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.GetWebhookDeliveries200Response;
 import com.telnyx.sdk.model.GetWebhookDelivery200Response;
-import java.util.UUID;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class WebhooksApi {
-  private ApiClient apiClient;
 
-  public WebhooksApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public WebhooksApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public WebhooksApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public WebhooksApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * List webhook deliveries
    * Lists webhook_deliveries for the authenticated user
    * @param filterStatusEq Return only webhook_deliveries matching the given &#x60;status&#x60; (optional)
@@ -70,11 +71,33 @@ public class WebhooksApi {
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public GetWebhookDeliveries200Response getWebhookDeliveries(String filterStatusEq, String filterEventType, String filterWebhookContains, String filterAttemptsContains, String filterStartedAtGte, String filterStartedAtLte, String filterFinishedAtGte, String filterFinishedAtLte, Integer pageNumber, Integer pageSize) throws ApiException {
-    return getWebhookDeliveriesWithHttpInfo(filterStatusEq, filterEventType, filterWebhookContains, filterAttemptsContains, filterStartedAtGte, filterStartedAtLte, filterFinishedAtGte, filterFinishedAtLte, pageNumber, pageSize).getData();
-  }
+    public GetWebhookDeliveries200Response getWebhookDeliveries(
+        String filterStatusEq,
+        String filterEventType,
+        String filterWebhookContains,
+        String filterAttemptsContains,
+        String filterStartedAtGte,
+        String filterStartedAtLte,
+        String filterFinishedAtGte,
+        String filterFinishedAtLte,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return getWebhookDeliveriesWithHttpInfo(
+            filterStatusEq,
+            filterEventType,
+            filterWebhookContains,
+            filterAttemptsContains,
+            filterStartedAtGte,
+            filterStartedAtLte,
+            filterFinishedAtGte,
+            filterFinishedAtLte,
+            pageNumber,
+            pageSize
+        ).getData();
+    }
 
-  /**
+    /**
    * List webhook deliveries
    * Lists webhook_deliveries for the authenticated user
    * @param filterStatusEq Return only webhook_deliveries matching the given &#x60;status&#x60; (optional)
@@ -97,51 +120,129 @@ public class WebhooksApi {
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetWebhookDeliveries200Response> getWebhookDeliveriesWithHttpInfo(String filterStatusEq, String filterEventType, String filterWebhookContains, String filterAttemptsContains, String filterStartedAtGte, String filterStartedAtLte, String filterFinishedAtGte, String filterFinishedAtLte, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/webhook_deliveries";
+    public ApiResponse<
+        GetWebhookDeliveries200Response
+    > getWebhookDeliveriesWithHttpInfo(
+        String filterStatusEq,
+        String filterEventType,
+        String filterWebhookContains,
+        String filterAttemptsContains,
+        String filterStartedAtGte,
+        String filterStartedAtLte,
+        String filterFinishedAtGte,
+        String filterFinishedAtLte,
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/webhook_deliveries";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status][eq]", filterStatusEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[event_type]", filterEventType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[webhook][contains]", filterWebhookContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[attempts][contains]", filterAttemptsContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[started_at][gte]", filterStartedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[started_at][lte]", filterStartedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[finished_at][gte]", filterFinishedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[finished_at][lte]", filterFinishedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status][eq]", filterStatusEq)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[event_type]",
+                filterEventType
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[webhook][contains]",
+                filterWebhookContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[attempts][contains]",
+                filterAttemptsContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[started_at][gte]",
+                filterStartedAtGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[started_at][lte]",
+                filterStartedAtLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[finished_at][gte]",
+                filterFinishedAtGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[finished_at][lte]",
+                filterFinishedAtLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<GetWebhookDeliveries200Response> localVarReturnType = new GenericType<GetWebhookDeliveries200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("WebhooksApi.getWebhookDeliveries", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<GetWebhookDeliveries200Response> localVarReturnType =
+            new GenericType<GetWebhookDeliveries200Response>() {};
+
+        return apiClient.invokeAPI(
+            "WebhooksApi.getWebhookDeliveries",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Find webhook_delivery details by ID
    * Provides webhook_delivery debug data, such as timestamps, delivery status and attempts.
    * @param id Uniquely identifies the webhook_delivery. (required)
@@ -155,11 +256,12 @@ public class WebhooksApi {
        <tr><td> 404 </td><td> WebhookDelivery not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetWebhookDelivery200Response getWebhookDelivery(UUID id) throws ApiException {
-    return getWebhookDeliveryWithHttpInfo(id).getData();
-  }
+    public GetWebhookDelivery200Response getWebhookDelivery(UUID id)
+        throws ApiException {
+        return getWebhookDeliveryWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Find webhook_delivery details by ID
    * Provides webhook_delivery debug data, such as timestamps, delivery status and attempts.
    * @param id Uniquely identifies the webhook_delivery. (required)
@@ -173,44 +275,67 @@ public class WebhooksApi {
        <tr><td> 404 </td><td> WebhookDelivery not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetWebhookDelivery200Response> getWebhookDeliveryWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getWebhookDelivery");
+    public ApiResponse<
+        GetWebhookDelivery200Response
+    > getWebhookDeliveryWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getWebhookDelivery"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/webhook_deliveries/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetWebhookDelivery200Response> localVarReturnType =
+            new GenericType<GetWebhookDelivery200Response>() {};
+
+        return apiClient.invokeAPI(
+            "WebhooksApi.getWebhookDelivery",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/webhook_deliveries/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetWebhookDelivery200Response> localVarReturnType = new GenericType<GetWebhookDelivery200Response>() {};
-
-    return apiClient.invokeAPI("WebhooksApi.getWebhookDelivery", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

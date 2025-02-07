@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.BackgroundTaskStatus;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -30,7 +28,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for BackgroundTasksQueryResponse
  */
 public class BackgroundTasksQueryResponseTest {
-    private final BackgroundTasksQueryResponse model = new BackgroundTasksQueryResponse();
+
+    private final BackgroundTasksQueryResponse model =
+        new BackgroundTasksQueryResponse();
 
     /**
      * Model tests for BackgroundTasksQueryResponse
@@ -95,5 +95,4 @@ public class BackgroundTasksQueryResponseTest {
     public void bucketTest() {
         // TODO: test bucket
     }
-
 }

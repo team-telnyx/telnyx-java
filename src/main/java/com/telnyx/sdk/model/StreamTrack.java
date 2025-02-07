@@ -10,57 +10,52 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Tracks to be included in the stream
  */
 public enum StreamTrack {
-  
-  INBOUND_TRACK("inbound_track"),
-  
-  OUTBOUND_TRACK("outbound_track"),
-  
-  BOTH_TRACKS("both_tracks");
+    INBOUND_TRACK("inbound_track"),
 
-  private String value;
+    OUTBOUND_TRACK("outbound_track"),
 
-  StreamTrack(String value) {
-    this.value = value;
-  }
+    BOTH_TRACKS("both_tracks");
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    private String value;
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static StreamTrack fromValue(String value) {
-    for (StreamTrack b : StreamTrack.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    StreamTrack(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StreamTrack fromValue(String value) {
+        for (StreamTrack b : StreamTrack.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
-
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -22,6 +20,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for StreamBidirectionalTargetLegs
  */
 public class StreamBidirectionalTargetLegsTest {
+
     /**
      * Model tests for StreamBidirectionalTargetLegs
      */
@@ -29,5 +28,4 @@ public class StreamBidirectionalTargetLegsTest {
     public void testStreamBidirectionalTargetLegs() {
         // TODO: test StreamBidirectionalTargetLegs
     }
-
 }

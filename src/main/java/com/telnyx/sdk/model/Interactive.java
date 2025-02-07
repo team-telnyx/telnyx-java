@@ -10,238 +10,228 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Action;
 import com.telnyx.sdk.model.Body;
 import com.telnyx.sdk.model.Footer;
 import com.telnyx.sdk.model.Header;
 import com.telnyx.sdk.model.InteractiveType;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Interactive
  */
-@JsonPropertyOrder({
-  Interactive.JSON_PROPERTY_TYPE,
-  Interactive.JSON_PROPERTY_HEADER,
-  Interactive.JSON_PROPERTY_BODY,
-  Interactive.JSON_PROPERTY_FOOTER,
-  Interactive.JSON_PROPERTY_ACTION
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        Interactive.JSON_PROPERTY_TYPE,
+        Interactive.JSON_PROPERTY_HEADER,
+        Interactive.JSON_PROPERTY_BODY,
+        Interactive.JSON_PROPERTY_FOOTER,
+        Interactive.JSON_PROPERTY_ACTION,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class Interactive {
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private InteractiveType type;
 
-  public static final String JSON_PROPERTY_HEADER = "header";
-  private Header header;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private InteractiveType type;
 
-  public static final String JSON_PROPERTY_BODY = "body";
-  private Body body;
+    public static final String JSON_PROPERTY_HEADER = "header";
+    private Header header;
 
-  public static final String JSON_PROPERTY_FOOTER = "footer";
-  private Footer footer;
+    public static final String JSON_PROPERTY_BODY = "body";
+    private Body body;
 
-  public static final String JSON_PROPERTY_ACTION = "action";
-  private Action action;
+    public static final String JSON_PROPERTY_FOOTER = "footer";
+    private Footer footer;
 
-  public Interactive() { 
-  }
+    public static final String JSON_PROPERTY_ACTION = "action";
+    private Action action;
 
-  public Interactive type(InteractiveType type) {
-    this.type = type;
-    return this;
-  }
+    public Interactive() {}
 
-   /**
-   * The type of interactive message you want to send.
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(required = true, value = "The type of interactive message you want to send.")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public InteractiveType getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(InteractiveType type) {
-    this.type = type;
-  }
-
-
-  public Interactive header(Header header) {
-    this.header = header;
-    return this;
-  }
-
-   /**
-   * Get header
-   * @return header
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_HEADER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Header getHeader() {
-    return header;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HEADER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHeader(Header header) {
-    this.header = header;
-  }
-
-
-  public Interactive body(Body body) {
-    this.body = body;
-    return this;
-  }
-
-   /**
-   * Get body
-   * @return body
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BODY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Body getBody() {
-    return body;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BODY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBody(Body body) {
-    this.body = body;
-  }
-
-
-  public Interactive footer(Footer footer) {
-    this.footer = footer;
-    return this;
-  }
-
-   /**
-   * Get footer
-   * @return footer
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_FOOTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Footer getFooter() {
-    return footer;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FOOTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFooter(Footer footer) {
-    this.footer = footer;
-  }
-
-
-  public Interactive action(Action action) {
-    this.action = action;
-    return this;
-  }
-
-   /**
-   * Get action
-   * @return action
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_ACTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Action getAction() {
-    return action;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ACTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAction(Action action) {
-    this.action = action;
-  }
-
-
-  /**
-   * Return true if this Interactive object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Interactive type(InteractiveType type) {
+        this.type = type;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The type of interactive message you want to send.
+     * @return type
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        required = true,
+        value = "The type of interactive message you want to send."
+    )
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public InteractiveType getType() {
+        return type;
     }
-    Interactive interactive = (Interactive) o;
-    return Objects.equals(this.type, interactive.type) &&
-        Objects.equals(this.header, interactive.header) &&
-        Objects.equals(this.body, interactive.body) &&
-        Objects.equals(this.footer, interactive.footer) &&
-        Objects.equals(this.action, interactive.action);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, header, body, footer, action);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Interactive {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    header: ").append(toIndentedString(header)).append("\n");
-    sb.append("    body: ").append(toIndentedString(body)).append("\n");
-    sb.append("    footer: ").append(toIndentedString(footer)).append("\n");
-    sb.append("    action: ").append(toIndentedString(action)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setType(InteractiveType type) {
+        this.type = type;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public Interactive header(Header header) {
+        this.header = header;
+        return this;
+    }
+
+    /**
+     * Get header
+     * @return header
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_HEADER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Header getHeader() {
+        return header;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HEADER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+
+    public Interactive body(Body body) {
+        this.body = body;
+        return this;
+    }
+
+    /**
+     * Get body
+     * @return body
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_BODY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Body getBody() {
+        return body;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BODY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public Interactive footer(Footer footer) {
+        this.footer = footer;
+        return this;
+    }
+
+    /**
+     * Get footer
+     * @return footer
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_FOOTER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Footer getFooter() {
+        return footer;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FOOTER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFooter(Footer footer) {
+        this.footer = footer;
+    }
+
+    public Interactive action(Action action) {
+        this.action = action;
+        return this;
+    }
+
+    /**
+     * Get action
+     * @return action
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_ACTION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Action getAction() {
+        return action;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACTION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    /**
+     * Return true if this Interactive object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Interactive interactive = (Interactive) o;
+        return (
+            Objects.equals(this.type, interactive.type) &&
+            Objects.equals(this.header, interactive.header) &&
+            Objects.equals(this.body, interactive.body) &&
+            Objects.equals(this.footer, interactive.footer) &&
+            Objects.equals(this.action, interactive.action)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, header, body, footer, action);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Interactive {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    header: ").append(toIndentedString(header)).append("\n");
+        sb.append("    body: ").append(toIndentedString(body)).append("\n");
+        sb.append("    footer: ").append(toIndentedString(footer)).append("\n");
+        sb.append("    action: ").append(toIndentedString(action)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

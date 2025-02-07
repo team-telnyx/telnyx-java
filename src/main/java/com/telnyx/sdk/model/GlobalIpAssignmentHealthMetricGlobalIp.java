@@ -10,135 +10,144 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * GlobalIpAssignmentHealthMetricGlobalIp
  */
-@JsonPropertyOrder({
-  GlobalIpAssignmentHealthMetricGlobalIp.JSON_PROPERTY_ID,
-  GlobalIpAssignmentHealthMetricGlobalIp.JSON_PROPERTY_IP_ADDRESS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        GlobalIpAssignmentHealthMetricGlobalIp.JSON_PROPERTY_ID,
+        GlobalIpAssignmentHealthMetricGlobalIp.JSON_PROPERTY_IP_ADDRESS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class GlobalIpAssignmentHealthMetricGlobalIp {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_IP_ADDRESS = "ip_address";
-  private String ipAddress;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public GlobalIpAssignmentHealthMetricGlobalIp() { 
-  }
+    public static final String JSON_PROPERTY_IP_ADDRESS = "ip_address";
+    private String ipAddress;
 
-  @JsonCreator
-  public GlobalIpAssignmentHealthMetricGlobalIp(
-    @JsonProperty(JSON_PROPERTY_IP_ADDRESS) String ipAddress
-  ) {
-    this();
-    this.ipAddress = ipAddress;
-  }
+    public GlobalIpAssignmentHealthMetricGlobalIp() {}
 
-  public GlobalIpAssignmentHealthMetricGlobalIp id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Global IP ID.
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "a836125b-20b6-452e-9c03-2653f09c7ed7", value = "Global IP ID.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-   /**
-   * The Global IP address.
-   * @return ipAddress
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The Global IP address.")
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getIpAddress() {
-    return ipAddress;
-  }
-
-
-
-
-  /**
-   * Return true if this GlobalIpAssignmentHealthMetric_global_ip object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @JsonCreator
+    public GlobalIpAssignmentHealthMetricGlobalIp(
+        @JsonProperty(JSON_PROPERTY_IP_ADDRESS) String ipAddress
+    ) {
+        this();
+        this.ipAddress = ipAddress;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public GlobalIpAssignmentHealthMetricGlobalIp id(UUID id) {
+        this.id = id;
+        return this;
     }
-    GlobalIpAssignmentHealthMetricGlobalIp globalIpAssignmentHealthMetricGlobalIp = (GlobalIpAssignmentHealthMetricGlobalIp) o;
-    return Objects.equals(this.id, globalIpAssignmentHealthMetricGlobalIp.id) &&
-        Objects.equals(this.ipAddress, globalIpAssignmentHealthMetricGlobalIp.ipAddress);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, ipAddress);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class GlobalIpAssignmentHealthMetricGlobalIp {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Global IP ID.
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "a836125b-20b6-452e-9c03-2653f09c7ed7",
+        value = "Global IP ID."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    /**
+     * The Global IP address.
+     * @return ipAddress
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The Global IP address.")
+    @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    /**
+     * Return true if this GlobalIpAssignmentHealthMetric_global_ip object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GlobalIpAssignmentHealthMetricGlobalIp globalIpAssignmentHealthMetricGlobalIp =
+            (GlobalIpAssignmentHealthMetricGlobalIp) o;
+        return (
+            Objects.equals(
+                this.id,
+                globalIpAssignmentHealthMetricGlobalIp.id
+            ) &&
+            Objects.equals(
+                this.ipAddress,
+                globalIpAssignmentHealthMetricGlobalIp.ipAddress
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ipAddress);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class GlobalIpAssignmentHealthMetricGlobalIp {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    ipAddress: ")
+            .append(toIndentedString(ipAddress))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

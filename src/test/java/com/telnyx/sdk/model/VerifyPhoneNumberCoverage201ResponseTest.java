@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CustomerServiceRequestPhoneNumberCoverage;
@@ -23,16 +22,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for VerifyPhoneNumberCoverage201Response
  */
 public class VerifyPhoneNumberCoverage201ResponseTest {
-    private final VerifyPhoneNumberCoverage201Response model = new VerifyPhoneNumberCoverage201Response();
+
+    private final VerifyPhoneNumberCoverage201Response model =
+        new VerifyPhoneNumberCoverage201Response();
 
     /**
      * Model tests for VerifyPhoneNumberCoverage201Response
@@ -49,5 +47,4 @@ public class VerifyPhoneNumberCoverage201ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

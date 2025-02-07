@@ -10,297 +10,299 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * WhatsAppContactAddress
  */
-@JsonPropertyOrder({
-  WhatsAppContactAddress.JSON_PROPERTY_CITY,
-  WhatsAppContactAddress.JSON_PROPERTY_COUNTRY,
-  WhatsAppContactAddress.JSON_PROPERTY_COUNTRY_CODE,
-  WhatsAppContactAddress.JSON_PROPERTY_STATE,
-  WhatsAppContactAddress.JSON_PROPERTY_STREET,
-  WhatsAppContactAddress.JSON_PROPERTY_TYPE,
-  WhatsAppContactAddress.JSON_PROPERTY_ZIP
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        WhatsAppContactAddress.JSON_PROPERTY_CITY,
+        WhatsAppContactAddress.JSON_PROPERTY_COUNTRY,
+        WhatsAppContactAddress.JSON_PROPERTY_COUNTRY_CODE,
+        WhatsAppContactAddress.JSON_PROPERTY_STATE,
+        WhatsAppContactAddress.JSON_PROPERTY_STREET,
+        WhatsAppContactAddress.JSON_PROPERTY_TYPE,
+        WhatsAppContactAddress.JSON_PROPERTY_ZIP,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class WhatsAppContactAddress {
-  public static final String JSON_PROPERTY_CITY = "city";
-  private String city;
 
-  public static final String JSON_PROPERTY_COUNTRY = "country";
-  private String country;
+    public static final String JSON_PROPERTY_CITY = "city";
+    private String city;
 
-  public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
-  private String countryCode;
+    public static final String JSON_PROPERTY_COUNTRY = "country";
+    private String country;
 
-  public static final String JSON_PROPERTY_STATE = "state";
-  private String state;
+    public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
+    private String countryCode;
 
-  public static final String JSON_PROPERTY_STREET = "street";
-  private String street;
+    public static final String JSON_PROPERTY_STATE = "state";
+    private String state;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private String type;
+    public static final String JSON_PROPERTY_STREET = "street";
+    private String street;
 
-  public static final String JSON_PROPERTY_ZIP = "zip";
-  private String zip;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private String type;
 
-  public WhatsAppContactAddress() { 
-  }
+    public static final String JSON_PROPERTY_ZIP = "zip";
+    private String zip;
 
-  public WhatsAppContactAddress city(String city) {
-    this.city = city;
-    return this;
-  }
+    public WhatsAppContactAddress() {}
 
-   /**
-   * City name
-   * @return city
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "City name")
-  @JsonProperty(JSON_PROPERTY_CITY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCity() {
-    return city;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CITY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-
-  public WhatsAppContactAddress country(String country) {
-    this.country = country;
-    return this;
-  }
-
-   /**
-   * Full country name
-   * @return country
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Full country name")
-  @JsonProperty(JSON_PROPERTY_COUNTRY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCountry() {
-    return country;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COUNTRY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
-
-  public WhatsAppContactAddress countryCode(String countryCode) {
-    this.countryCode = countryCode;
-    return this;
-  }
-
-   /**
-   * Two-letter country abbreviation
-   * @return countryCode
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Two-letter country abbreviation")
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCountryCode() {
-    return countryCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCountryCode(String countryCode) {
-    this.countryCode = countryCode;
-  }
-
-
-  public WhatsAppContactAddress state(String state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * State abbreviation
-   * @return state
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "State abbreviation")
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getState() {
-    return state;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(String state) {
-    this.state = state;
-  }
-
-
-  public WhatsAppContactAddress street(String street) {
-    this.street = street;
-    return this;
-  }
-
-   /**
-   * Street number and name
-   * @return street
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Street number and name")
-  @JsonProperty(JSON_PROPERTY_STREET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getStreet() {
-    return street;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STREET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStreet(String street) {
-    this.street = street;
-  }
-
-
-  public WhatsAppContactAddress type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Standard Values: HOME, WORK
-   * @return type
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Standard Values: HOME, WORK")
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(String type) {
-    this.type = type;
-  }
-
-
-  public WhatsAppContactAddress zip(String zip) {
-    this.zip = zip;
-    return this;
-  }
-
-   /**
-   * ZIP code
-   * @return zip
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "ZIP code")
-  @JsonProperty(JSON_PROPERTY_ZIP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getZip() {
-    return zip;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ZIP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setZip(String zip) {
-    this.zip = zip;
-  }
-
-
-  /**
-   * Return true if this WhatsAppContactAddress object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WhatsAppContactAddress city(String city) {
+        this.city = city;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * City name
+     * @return city
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "City name")
+    @JsonProperty(JSON_PROPERTY_CITY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCity() {
+        return city;
     }
-    WhatsAppContactAddress whatsAppContactAddress = (WhatsAppContactAddress) o;
-    return Objects.equals(this.city, whatsAppContactAddress.city) &&
-        Objects.equals(this.country, whatsAppContactAddress.country) &&
-        Objects.equals(this.countryCode, whatsAppContactAddress.countryCode) &&
-        Objects.equals(this.state, whatsAppContactAddress.state) &&
-        Objects.equals(this.street, whatsAppContactAddress.street) &&
-        Objects.equals(this.type, whatsAppContactAddress.type) &&
-        Objects.equals(this.zip, whatsAppContactAddress.zip);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(city, country, countryCode, state, street, type, zip);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WhatsAppContactAddress {\n");
-    sb.append("    city: ").append(toIndentedString(city)).append("\n");
-    sb.append("    country: ").append(toIndentedString(country)).append("\n");
-    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    street: ").append(toIndentedString(street)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    zip: ").append(toIndentedString(zip)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_CITY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCity(String city) {
+        this.city = city;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public WhatsAppContactAddress country(String country) {
+        this.country = country;
+        return this;
+    }
+
+    /**
+     * Full country name
+     * @return country
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "Full country name")
+    @JsonProperty(JSON_PROPERTY_COUNTRY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCountry() {
+        return country;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COUNTRY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public WhatsAppContactAddress countryCode(String countryCode) {
+        this.countryCode = countryCode;
+        return this;
+    }
+
+    /**
+     * Two-letter country abbreviation
+     * @return countryCode
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Two-letter country abbreviation"
+    )
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public WhatsAppContactAddress state(String state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
+     * State abbreviation
+     * @return state
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "State abbreviation")
+    @JsonProperty(JSON_PROPERTY_STATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getState() {
+        return state;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public WhatsAppContactAddress street(String street) {
+        this.street = street;
+        return this;
+    }
+
+    /**
+     * Street number and name
+     * @return street
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "Street number and name")
+    @JsonProperty(JSON_PROPERTY_STREET)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getStreet() {
+        return street;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STREET)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public WhatsAppContactAddress type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Standard Values: HOME, WORK
+     * @return type
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "Standard Values: HOME, WORK")
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public WhatsAppContactAddress zip(String zip) {
+        this.zip = zip;
+        return this;
+    }
+
+    /**
+     * ZIP code
+     * @return zip
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "ZIP code")
+    @JsonProperty(JSON_PROPERTY_ZIP)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getZip() {
+        return zip;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ZIP)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    /**
+     * Return true if this WhatsAppContactAddress object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WhatsAppContactAddress whatsAppContactAddress =
+            (WhatsAppContactAddress) o;
+        return (
+            Objects.equals(this.city, whatsAppContactAddress.city) &&
+            Objects.equals(this.country, whatsAppContactAddress.country) &&
+            Objects.equals(
+                this.countryCode,
+                whatsAppContactAddress.countryCode
+            ) &&
+            Objects.equals(this.state, whatsAppContactAddress.state) &&
+            Objects.equals(this.street, whatsAppContactAddress.street) &&
+            Objects.equals(this.type, whatsAppContactAddress.type) &&
+            Objects.equals(this.zip, whatsAppContactAddress.zip)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            city,
+            country,
+            countryCode,
+            state,
+            street,
+            type,
+            zip
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WhatsAppContactAddress {\n");
+        sb.append("    city: ").append(toIndentedString(city)).append("\n");
+        sb
+            .append("    country: ")
+            .append(toIndentedString(country))
+            .append("\n");
+        sb
+            .append("    countryCode: ")
+            .append(toIndentedString(countryCode))
+            .append("\n");
+        sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb.append("    street: ").append(toIndentedString(street)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    zip: ").append(toIndentedString(zip)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

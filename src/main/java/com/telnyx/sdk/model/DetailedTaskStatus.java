@@ -10,254 +10,269 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.BrandStatus;
 import com.telnyx.sdk.model.CampaignStatus;
 import com.telnyx.sdk.model.PhoneNumberStatus;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * DetailedTaskStatus
  */
-@JsonPropertyOrder({
-  DetailedTaskStatus.JSON_PROPERTY_TASK_ID,
-  DetailedTaskStatus.JSON_PROPERTY_REFERENCE_ID,
-  DetailedTaskStatus.JSON_PROPERTY_BRAND,
-  DetailedTaskStatus.JSON_PROPERTY_CAMPAIGN,
-  DetailedTaskStatus.JSON_PROPERTY_PHONE_NUMBERS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        DetailedTaskStatus.JSON_PROPERTY_TASK_ID,
+        DetailedTaskStatus.JSON_PROPERTY_REFERENCE_ID,
+        DetailedTaskStatus.JSON_PROPERTY_BRAND,
+        DetailedTaskStatus.JSON_PROPERTY_CAMPAIGN,
+        DetailedTaskStatus.JSON_PROPERTY_PHONE_NUMBERS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class DetailedTaskStatus {
-  public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  private String taskId;
 
-  public static final String JSON_PROPERTY_REFERENCE_ID = "referenceId";
-  private String referenceId;
+    public static final String JSON_PROPERTY_TASK_ID = "taskId";
+    private String taskId;
 
-  public static final String JSON_PROPERTY_BRAND = "brand";
-  private List<BrandStatus> brand = new ArrayList<>();
+    public static final String JSON_PROPERTY_REFERENCE_ID = "referenceId";
+    private String referenceId;
 
-  public static final String JSON_PROPERTY_CAMPAIGN = "campaign";
-  private List<CampaignStatus> campaign = new ArrayList<>();
+    public static final String JSON_PROPERTY_BRAND = "brand";
+    private List<BrandStatus> brand = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_PHONE_NUMBERS = "phoneNumbers";
-  private List<PhoneNumberStatus> phoneNumbers = new ArrayList<>();
+    public static final String JSON_PROPERTY_CAMPAIGN = "campaign";
+    private List<CampaignStatus> campaign = new ArrayList<>();
 
-  public DetailedTaskStatus() { 
-  }
+    public static final String JSON_PROPERTY_PHONE_NUMBERS = "phoneNumbers";
+    private List<PhoneNumberStatus> phoneNumbers = new ArrayList<>();
 
-  public DetailedTaskStatus taskId(String taskId) {
-    this.taskId = taskId;
-    return this;
-  }
+    public DetailedTaskStatus() {}
 
-   /**
-   * The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
-   * @return taskId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "4b60017a-2f50-4c90-c9e6-5f67304cbde2", required = true, value = "The ID of the task associated with bulk Sole Proprietor brand and campaign creation.")
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTaskId() {
-    return taskId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskId(String taskId) {
-    this.taskId = taskId;
-  }
-
-
-  public DetailedTaskStatus referenceId(String referenceId) {
-    this.referenceId = referenceId;
-    return this;
-  }
-
-   /**
-   * A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.
-   * @return referenceId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "4q90017a-2f50-4c90-c9e6-5f67304cbde9", required = true, value = "A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.")
-  @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getReferenceId() {
-    return referenceId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setReferenceId(String referenceId) {
-    this.referenceId = referenceId;
-  }
-
-
-  public DetailedTaskStatus brand(List<BrandStatus> brand) {
-    this.brand = brand;
-    return this;
-  }
-
-  public DetailedTaskStatus addBrandItem(BrandStatus brandItem) {
-    this.brand.add(brandItem);
-    return this;
-  }
-
-   /**
-   * The status of the individual brand submitted via bulk creation.
-   * @return brand
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The status of the individual brand submitted via bulk creation.")
-  @JsonProperty(JSON_PROPERTY_BRAND)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<BrandStatus> getBrand() {
-    return brand;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BRAND)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBrand(List<BrandStatus> brand) {
-    this.brand = brand;
-  }
-
-
-  public DetailedTaskStatus campaign(List<CampaignStatus> campaign) {
-    this.campaign = campaign;
-    return this;
-  }
-
-  public DetailedTaskStatus addCampaignItem(CampaignStatus campaignItem) {
-    this.campaign.add(campaignItem);
-    return this;
-  }
-
-   /**
-   * The status of the individual campaign submitted via bulk creation.
-   * @return campaign
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The status of the individual campaign submitted via bulk creation.")
-  @JsonProperty(JSON_PROPERTY_CAMPAIGN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<CampaignStatus> getCampaign() {
-    return campaign;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CAMPAIGN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCampaign(List<CampaignStatus> campaign) {
-    this.campaign = campaign;
-  }
-
-
-  public DetailedTaskStatus phoneNumbers(List<PhoneNumberStatus> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-    return this;
-  }
-
-  public DetailedTaskStatus addPhoneNumbersItem(PhoneNumberStatus phoneNumbersItem) {
-    this.phoneNumbers.add(phoneNumbersItem);
-    return this;
-  }
-
-   /**
-   * Get phoneNumbers
-   * @return phoneNumbers
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<PhoneNumberStatus> getPhoneNumbers() {
-    return phoneNumbers;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumbers(List<PhoneNumberStatus> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-  }
-
-
-  /**
-   * Return true if this DetailedTaskStatus object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public DetailedTaskStatus taskId(String taskId) {
+        this.taskId = taskId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
+     * @return taskId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "4b60017a-2f50-4c90-c9e6-5f67304cbde2",
+        required = true,
+        value = "The ID of the task associated with bulk Sole Proprietor brand and campaign creation."
+    )
+    @JsonProperty(JSON_PROPERTY_TASK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTaskId() {
+        return taskId;
     }
-    DetailedTaskStatus detailedTaskStatus = (DetailedTaskStatus) o;
-    return Objects.equals(this.taskId, detailedTaskStatus.taskId) &&
-        Objects.equals(this.referenceId, detailedTaskStatus.referenceId) &&
-        Objects.equals(this.brand, detailedTaskStatus.brand) &&
-        Objects.equals(this.campaign, detailedTaskStatus.campaign) &&
-        Objects.equals(this.phoneNumbers, detailedTaskStatus.phoneNumbers);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(taskId, referenceId, brand, campaign, phoneNumbers);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DetailedTaskStatus {\n");
-    sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
-    sb.append("    referenceId: ").append(toIndentedString(referenceId)).append("\n");
-    sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
-    sb.append("    campaign: ").append(toIndentedString(campaign)).append("\n");
-    sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TASK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public DetailedTaskStatus referenceId(String referenceId) {
+        this.referenceId = referenceId;
+        return this;
+    }
+
+    /**
+     * A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.
+     * @return referenceId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "4q90017a-2f50-4c90-c9e6-5f67304cbde9",
+        required = true,
+        value = "A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation."
+    )
+    @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    public DetailedTaskStatus brand(List<BrandStatus> brand) {
+        this.brand = brand;
+        return this;
+    }
+
+    public DetailedTaskStatus addBrandItem(BrandStatus brandItem) {
+        this.brand.add(brandItem);
+        return this;
+    }
+
+    /**
+     * The status of the individual brand submitted via bulk creation.
+     * @return brand
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The status of the individual brand submitted via bulk creation."
+    )
+    @JsonProperty(JSON_PROPERTY_BRAND)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<BrandStatus> getBrand() {
+        return brand;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BRAND)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBrand(List<BrandStatus> brand) {
+        this.brand = brand;
+    }
+
+    public DetailedTaskStatus campaign(List<CampaignStatus> campaign) {
+        this.campaign = campaign;
+        return this;
+    }
+
+    public DetailedTaskStatus addCampaignItem(CampaignStatus campaignItem) {
+        this.campaign.add(campaignItem);
+        return this;
+    }
+
+    /**
+     * The status of the individual campaign submitted via bulk creation.
+     * @return campaign
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The status of the individual campaign submitted via bulk creation."
+    )
+    @JsonProperty(JSON_PROPERTY_CAMPAIGN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<CampaignStatus> getCampaign() {
+        return campaign;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CAMPAIGN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCampaign(List<CampaignStatus> campaign) {
+        this.campaign = campaign;
+    }
+
+    public DetailedTaskStatus phoneNumbers(
+        List<PhoneNumberStatus> phoneNumbers
+    ) {
+        this.phoneNumbers = phoneNumbers;
+        return this;
+    }
+
+    public DetailedTaskStatus addPhoneNumbersItem(
+        PhoneNumberStatus phoneNumbersItem
+    ) {
+        this.phoneNumbers.add(phoneNumbersItem);
+        return this;
+    }
+
+    /**
+     * Get phoneNumbers
+     * @return phoneNumbers
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<PhoneNumberStatus> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumbers(List<PhoneNumberStatus> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    /**
+     * Return true if this DetailedTaskStatus object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DetailedTaskStatus detailedTaskStatus = (DetailedTaskStatus) o;
+        return (
+            Objects.equals(this.taskId, detailedTaskStatus.taskId) &&
+            Objects.equals(this.referenceId, detailedTaskStatus.referenceId) &&
+            Objects.equals(this.brand, detailedTaskStatus.brand) &&
+            Objects.equals(this.campaign, detailedTaskStatus.campaign) &&
+            Objects.equals(this.phoneNumbers, detailedTaskStatus.phoneNumbers)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskId, referenceId, brand, campaign, phoneNumbers);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class DetailedTaskStatus {\n");
+        sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
+        sb
+            .append("    referenceId: ")
+            .append(toIndentedString(referenceId))
+            .append("\n");
+        sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
+        sb
+            .append("    campaign: ")
+            .append(toIndentedString(campaign))
+            .append("\n");
+        sb
+            .append("    phoneNumbers: ")
+            .append(toIndentedString(phoneNumbers))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

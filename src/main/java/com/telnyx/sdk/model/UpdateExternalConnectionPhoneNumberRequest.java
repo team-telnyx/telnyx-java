@@ -10,105 +10,112 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * UpdateExternalConnectionPhoneNumberRequest
  */
-@JsonPropertyOrder({
-  UpdateExternalConnectionPhoneNumberRequest.JSON_PROPERTY_LOCATION_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { UpdateExternalConnectionPhoneNumberRequest.JSON_PROPERTY_LOCATION_ID }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UpdateExternalConnectionPhoneNumberRequest {
-  public static final String JSON_PROPERTY_LOCATION_ID = "location_id";
-  private UUID locationId;
 
-  public UpdateExternalConnectionPhoneNumberRequest() { 
-  }
+    public static final String JSON_PROPERTY_LOCATION_ID = "location_id";
+    private UUID locationId;
 
-  public UpdateExternalConnectionPhoneNumberRequest locationId(UUID locationId) {
-    this.locationId = locationId;
-    return this;
-  }
+    public UpdateExternalConnectionPhoneNumberRequest() {}
 
-   /**
-   * Identifies the location to assign the phone number to.
-   * @return locationId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Identifies the location to assign the phone number to.")
-  @JsonProperty(JSON_PROPERTY_LOCATION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getLocationId() {
-    return locationId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LOCATION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLocationId(UUID locationId) {
-    this.locationId = locationId;
-  }
-
-
-  /**
-   * Return true if this UpdateExternalConnectionPhoneNumberRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UpdateExternalConnectionPhoneNumberRequest locationId(
+        UUID locationId
+    ) {
+        this.locationId = locationId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the location to assign the phone number to.
+     * @return locationId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Identifies the location to assign the phone number to."
+    )
+    @JsonProperty(JSON_PROPERTY_LOCATION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getLocationId() {
+        return locationId;
     }
-    UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest = (UpdateExternalConnectionPhoneNumberRequest) o;
-    return Objects.equals(this.locationId, updateExternalConnectionPhoneNumberRequest.locationId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(locationId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UpdateExternalConnectionPhoneNumberRequest {\n");
-    sb.append("    locationId: ").append(toIndentedString(locationId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_LOCATION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLocationId(UUID locationId) {
+        this.locationId = locationId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this UpdateExternalConnectionPhoneNumberRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest =
+            (UpdateExternalConnectionPhoneNumberRequest) o;
+        return Objects.equals(
+            this.locationId,
+            updateExternalConnectionPhoneNumberRequest.locationId
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(locationId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UpdateExternalConnectionPhoneNumberRequest {\n");
+        sb
+            .append("    locationId: ")
+            .append(toIndentedString(locationId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

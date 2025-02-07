@@ -10,658 +10,726 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.RecordingDownloadUrls;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Recording
  */
-@JsonPropertyOrder({
-  Recording.JSON_PROPERTY_RECORD_TYPE,
-  Recording.JSON_PROPERTY_ID,
-  Recording.JSON_PROPERTY_CREATED_AT,
-  Recording.JSON_PROPERTY_UPDATED_AT,
-  Recording.JSON_PROPERTY_RECORDING_STARTED_AT,
-  Recording.JSON_PROPERTY_RECORDING_ENDED_AT,
-  Recording.JSON_PROPERTY_DURATION_MILLIS,
-  Recording.JSON_PROPERTY_STATUS,
-  Recording.JSON_PROPERTY_CHANNELS,
-  Recording.JSON_PROPERTY_SOURCE,
-  Recording.JSON_PROPERTY_CONFERENCE_ID,
-  Recording.JSON_PROPERTY_CALL_LEG_ID,
-  Recording.JSON_PROPERTY_CALL_SESSION_ID,
-  Recording.JSON_PROPERTY_DOWNLOAD_URLS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        Recording.JSON_PROPERTY_RECORD_TYPE,
+        Recording.JSON_PROPERTY_ID,
+        Recording.JSON_PROPERTY_CREATED_AT,
+        Recording.JSON_PROPERTY_UPDATED_AT,
+        Recording.JSON_PROPERTY_RECORDING_STARTED_AT,
+        Recording.JSON_PROPERTY_RECORDING_ENDED_AT,
+        Recording.JSON_PROPERTY_DURATION_MILLIS,
+        Recording.JSON_PROPERTY_STATUS,
+        Recording.JSON_PROPERTY_CHANNELS,
+        Recording.JSON_PROPERTY_SOURCE,
+        Recording.JSON_PROPERTY_CONFERENCE_ID,
+        Recording.JSON_PROPERTY_CALL_LEG_ID,
+        Recording.JSON_PROPERTY_CALL_SESSION_ID,
+        Recording.JSON_PROPERTY_DOWNLOAD_URLS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class Recording {
-  /**
-   * Gets or Sets recordType
-   */
-  public enum RecordTypeEnum {
-    RECORDING("recording");
 
-    private String value;
+    /**
+     * Gets or Sets recordType
+     */
+    public enum RecordTypeEnum {
+        RECORDING("recording");
 
-    RecordTypeEnum(String value) {
-      this.value = value;
+        private String value;
+
+        RecordTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static RecordTypeEnum fromValue(String value) {
+            for (RecordTypeEnum b : RecordTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private RecordTypeEnum recordType;
+
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
+
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private String createdAt;
+
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private String updatedAt;
+
+    public static final String JSON_PROPERTY_RECORDING_STARTED_AT =
+        "recording_started_at";
+    private String recordingStartedAt;
+
+    public static final String JSON_PROPERTY_RECORDING_ENDED_AT =
+        "recording_ended_at";
+    private String recordingEndedAt;
+
+    public static final String JSON_PROPERTY_DURATION_MILLIS =
+        "duration_millis";
+    private Integer durationMillis;
+
+    /**
+     * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported
+     */
+    public enum StatusEnum {
+        COMPLETED("completed");
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private StatusEnum status;
+
+    /**
+     * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
+     */
+    public enum ChannelsEnum {
+        SINGLE("single"),
+
+        DUAL("dual");
+
+        private String value;
+
+        ChannelsEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static ChannelsEnum fromValue(String value) {
+            for (ChannelsEnum b : ChannelsEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_CHANNELS = "channels";
+    private ChannelsEnum channels;
+
+    /**
+     * The kind of event that led to this recording being created
+     */
+    public enum SourceEnum {
+        CONFERENCE("conference"),
+
+        CALL("call");
+
+        private String value;
+
+        SourceEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static SourceEnum fromValue(String value) {
+            for (SourceEnum b : SourceEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_SOURCE = "source";
+    private SourceEnum source;
+
+    public static final String JSON_PROPERTY_CONFERENCE_ID = "conference_id";
+    private String conferenceId;
+
+    public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
+    private String callLegId;
+
+    public static final String JSON_PROPERTY_CALL_SESSION_ID =
+        "call_session_id";
+    private String callSessionId;
+
+    public static final String JSON_PROPERTY_DOWNLOAD_URLS = "download_urls";
+    private RecordingDownloadUrls downloadUrls;
+
+    public Recording() {}
+
+    public Recording recordType(RecordTypeEnum recordType) {
+        this.recordType = recordType;
+        return this;
+    }
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(example = "recording", required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public RecordTypeEnum getRecordType() {
+        return recordType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRecordType(RecordTypeEnum recordType) {
+        this.recordType = recordType;
+    }
+
+    public Recording id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Uniquely identifies the recording
+     * @return id
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        required = true,
+        value = "Uniquely identifies the recording"
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Recording createdAt(String createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date of when the recording was created
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "2019-01-23T18:10:02.574Z",
+        required = true,
+        value = "ISO 8601 formatted date of when the recording was created"
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Recording updatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date of when the recording was last updated
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "2019-01-23T18:10:02.574Z",
+        required = true,
+        value = "ISO 8601 formatted date of when the recording was last updated"
+    )
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Recording recordingStartedAt(String recordingStartedAt) {
+        this.recordingStartedAt = recordingStartedAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date of when the recording started
+     * @return recordingStartedAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "2019-01-23T18:10:02.574Z",
+        required = true,
+        value = "ISO 8601 formatted date of when the recording started"
+    )
+    @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getRecordingStartedAt() {
+        return recordingStartedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRecordingStartedAt(String recordingStartedAt) {
+        this.recordingStartedAt = recordingStartedAt;
+    }
+
+    public Recording recordingEndedAt(String recordingEndedAt) {
+        this.recordingEndedAt = recordingEndedAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date of when the recording ended
+     * @return recordingEndedAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "2019-01-23T18:10:02.574Z",
+        required = true,
+        value = "ISO 8601 formatted date of when the recording ended"
+    )
+    @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getRecordingEndedAt() {
+        return recordingEndedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRecordingEndedAt(String recordingEndedAt) {
+        this.recordingEndedAt = recordingEndedAt;
+    }
+
+    public Recording durationMillis(Integer durationMillis) {
+        this.durationMillis = durationMillis;
+        return this;
+    }
+
+    /**
+     * The duration of the recording in milliseconds
+     * @return durationMillis
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "60000",
+        required = true,
+        value = "The duration of the recording in milliseconds"
+    )
+    @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getDurationMillis() {
+        return durationMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setDurationMillis(Integer durationMillis) {
+        this.durationMillis = durationMillis;
+    }
+
+    public Recording status(StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported
+     * @return status
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "completed",
+        required = true,
+        value = "The status of the recording. Only resources for `completed` recordings are currently supported"
+    )
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    public Recording channels(ChannelsEnum channels) {
+        this.channels = channels;
+        return this;
+    }
+
+    /**
+     * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
+     * @return channels
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "single",
+        required = true,
+        value = "When `dual`, final audio file has the first leg on channel A, and the rest on channel B."
+    )
+    @JsonProperty(JSON_PROPERTY_CHANNELS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public ChannelsEnum getChannels() {
+        return channels;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CHANNELS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setChannels(ChannelsEnum channels) {
+        this.channels = channels;
+    }
+
+    public Recording source(SourceEnum source) {
+        this.source = source;
+        return this;
+    }
+
+    /**
+     * The kind of event that led to this recording being created
+     * @return source
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "conference",
+        required = true,
+        value = "The kind of event that led to this recording being created"
+    )
+    @JsonProperty(JSON_PROPERTY_SOURCE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public SourceEnum getSource() {
+        return source;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SOURCE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setSource(SourceEnum source) {
+        this.source = source;
+    }
+
+    public Recording conferenceId(String conferenceId) {
+        this.conferenceId = conferenceId;
+        return this;
+    }
+
+    /**
+     * If a conference recording, uniquely identifies the recorded conference
+     * @return conferenceId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        value = "If a conference recording, uniquely identifies the recorded conference"
+    )
+    @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getConferenceId() {
+        return conferenceId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConferenceId(String conferenceId) {
+        this.conferenceId = conferenceId;
+    }
+
+    public Recording callLegId(String callLegId) {
+        this.callLegId = callLegId;
+        return this;
+    }
+
+    /**
+     * If a call recording, uniquely identifies the recorded call leg
+     * @return callLegId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "11111111-5717-4562-b3fc-2c963f66afa6",
+        value = "If a call recording, uniquely identifies the recorded call leg"
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCallLegId() {
+        return callLegId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallLegId(String callLegId) {
+        this.callLegId = callLegId;
+    }
+
+    public Recording callSessionId(String callSessionId) {
+        this.callSessionId = callSessionId;
+        return this;
+    }
+
+    /**
+     * If a call recording, uniquely identifies the recorded call session
+     * @return callSessionId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "22222222-5717-4562-b3fc-2c963f66afa6",
+        value = "If a call recording, uniquely identifies the recorded call session"
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCallSessionId() {
+        return callSessionId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallSessionId(String callSessionId) {
+        this.callSessionId = callSessionId;
+    }
+
+    public Recording downloadUrls(RecordingDownloadUrls downloadUrls) {
+        this.downloadUrls = downloadUrls;
+        return this;
+    }
+
+    /**
+     * Get downloadUrls
+     * @return downloadUrls
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public RecordingDownloadUrls getDownloadUrls() {
+        return downloadUrls;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setDownloadUrls(RecordingDownloadUrls downloadUrls) {
+        this.downloadUrls = downloadUrls;
+    }
+
+    /**
+     * Return true if this Recording object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Recording recording = (Recording) o;
+        return (
+            Objects.equals(this.recordType, recording.recordType) &&
+            Objects.equals(this.id, recording.id) &&
+            Objects.equals(this.createdAt, recording.createdAt) &&
+            Objects.equals(this.updatedAt, recording.updatedAt) &&
+            Objects.equals(
+                this.recordingStartedAt,
+                recording.recordingStartedAt
+            ) &&
+            Objects.equals(this.recordingEndedAt, recording.recordingEndedAt) &&
+            Objects.equals(this.durationMillis, recording.durationMillis) &&
+            Objects.equals(this.status, recording.status) &&
+            Objects.equals(this.channels, recording.channels) &&
+            Objects.equals(this.source, recording.source) &&
+            Objects.equals(this.conferenceId, recording.conferenceId) &&
+            Objects.equals(this.callLegId, recording.callLegId) &&
+            Objects.equals(this.callSessionId, recording.callSessionId) &&
+            Objects.equals(this.downloadUrls, recording.downloadUrls)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            id,
+            createdAt,
+            updatedAt,
+            recordingStartedAt,
+            recordingEndedAt,
+            durationMillis,
+            status,
+            channels,
+            source,
+            conferenceId,
+            callLegId,
+            callSessionId,
+            downloadUrls
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Recording {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb
+            .append("    recordingStartedAt: ")
+            .append(toIndentedString(recordingStartedAt))
+            .append("\n");
+        sb
+            .append("    recordingEndedAt: ")
+            .append(toIndentedString(recordingEndedAt))
+            .append("\n");
+        sb
+            .append("    durationMillis: ")
+            .append(toIndentedString(durationMillis))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    channels: ")
+            .append(toIndentedString(channels))
+            .append("\n");
+        sb.append("    source: ").append(toIndentedString(source)).append("\n");
+        sb
+            .append("    conferenceId: ")
+            .append(toIndentedString(conferenceId))
+            .append("\n");
+        sb
+            .append("    callLegId: ")
+            .append(toIndentedString(callLegId))
+            .append("\n");
+        sb
+            .append("    callSessionId: ")
+            .append(toIndentedString(callSessionId))
+            .append("\n");
+        sb
+            .append("    downloadUrls: ")
+            .append(toIndentedString(downloadUrls))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static RecordTypeEnum fromValue(String value) {
-      for (RecordTypeEnum b : RecordTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private RecordTypeEnum recordType;
-
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private String createdAt;
-
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private String updatedAt;
-
-  public static final String JSON_PROPERTY_RECORDING_STARTED_AT = "recording_started_at";
-  private String recordingStartedAt;
-
-  public static final String JSON_PROPERTY_RECORDING_ENDED_AT = "recording_ended_at";
-  private String recordingEndedAt;
-
-  public static final String JSON_PROPERTY_DURATION_MILLIS = "duration_millis";
-  private Integer durationMillis;
-
-  /**
-   * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported
-   */
-  public enum StatusEnum {
-    COMPLETED("completed");
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  /**
-   * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
-   */
-  public enum ChannelsEnum {
-    SINGLE("single"),
-    
-    DUAL("dual");
-
-    private String value;
-
-    ChannelsEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ChannelsEnum fromValue(String value) {
-      for (ChannelsEnum b : ChannelsEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private ChannelsEnum channels;
-
-  /**
-   * The kind of event that led to this recording being created
-   */
-  public enum SourceEnum {
-    CONFERENCE("conference"),
-    
-    CALL("call");
-
-    private String value;
-
-    SourceEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static SourceEnum fromValue(String value) {
-      for (SourceEnum b : SourceEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_SOURCE = "source";
-  private SourceEnum source;
-
-  public static final String JSON_PROPERTY_CONFERENCE_ID = "conference_id";
-  private String conferenceId;
-
-  public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
-  private String callLegId;
-
-  public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
-  private String callSessionId;
-
-  public static final String JSON_PROPERTY_DOWNLOAD_URLS = "download_urls";
-  private RecordingDownloadUrls downloadUrls;
-
-  public Recording() { 
-  }
-
-  public Recording recordType(RecordTypeEnum recordType) {
-    this.recordType = recordType;
-    return this;
-  }
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "recording", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public RecordTypeEnum getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRecordType(RecordTypeEnum recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public Recording id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Uniquely identifies the recording
-   * @return id
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the recording")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public Recording createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date of when the recording was created
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording was created")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public Recording updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date of when the recording was last updated
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording was last updated")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-
-  public Recording recordingStartedAt(String recordingStartedAt) {
-    this.recordingStartedAt = recordingStartedAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date of when the recording started
-   * @return recordingStartedAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording started")
-  @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getRecordingStartedAt() {
-    return recordingStartedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORDING_STARTED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRecordingStartedAt(String recordingStartedAt) {
-    this.recordingStartedAt = recordingStartedAt;
-  }
-
-
-  public Recording recordingEndedAt(String recordingEndedAt) {
-    this.recordingEndedAt = recordingEndedAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date of when the recording ended
-   * @return recordingEndedAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the recording ended")
-  @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getRecordingEndedAt() {
-    return recordingEndedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORDING_ENDED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRecordingEndedAt(String recordingEndedAt) {
-    this.recordingEndedAt = recordingEndedAt;
-  }
-
-
-  public Recording durationMillis(Integer durationMillis) {
-    this.durationMillis = durationMillis;
-    return this;
-  }
-
-   /**
-   * The duration of the recording in milliseconds
-   * @return durationMillis
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "60000", required = true, value = "The duration of the recording in milliseconds")
-  @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getDurationMillis() {
-    return durationMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DURATION_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDurationMillis(Integer durationMillis) {
-    this.durationMillis = durationMillis;
-  }
-
-
-  public Recording status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the recording. Only resources for &#x60;completed&#x60; recordings are currently supported
-   * @return status
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "completed", required = true, value = "The status of the recording. Only resources for `completed` recordings are currently supported")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  public Recording channels(ChannelsEnum channels) {
-    this.channels = channels;
-    return this;
-  }
-
-   /**
-   * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B.
-   * @return channels
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "single", required = true, value = "When `dual`, final audio file has the first leg on channel A, and the rest on channel B.")
-  @JsonProperty(JSON_PROPERTY_CHANNELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public ChannelsEnum getChannels() {
-    return channels;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CHANNELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setChannels(ChannelsEnum channels) {
-    this.channels = channels;
-  }
-
-
-  public Recording source(SourceEnum source) {
-    this.source = source;
-    return this;
-  }
-
-   /**
-   * The kind of event that led to this recording being created
-   * @return source
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "conference", required = true, value = "The kind of event that led to this recording being created")
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public SourceEnum getSource() {
-    return source;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSource(SourceEnum source) {
-    this.source = source;
-  }
-
-
-  public Recording conferenceId(String conferenceId) {
-    this.conferenceId = conferenceId;
-    return this;
-  }
-
-   /**
-   * If a conference recording, uniquely identifies the recorded conference
-   * @return conferenceId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "If a conference recording, uniquely identifies the recorded conference")
-  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getConferenceId() {
-    return conferenceId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConferenceId(String conferenceId) {
-    this.conferenceId = conferenceId;
-  }
-
-
-  public Recording callLegId(String callLegId) {
-    this.callLegId = callLegId;
-    return this;
-  }
-
-   /**
-   * If a call recording, uniquely identifies the recorded call leg
-   * @return callLegId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "11111111-5717-4562-b3fc-2c963f66afa6", value = "If a call recording, uniquely identifies the recorded call leg")
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCallLegId() {
-    return callLegId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallLegId(String callLegId) {
-    this.callLegId = callLegId;
-  }
-
-
-  public Recording callSessionId(String callSessionId) {
-    this.callSessionId = callSessionId;
-    return this;
-  }
-
-   /**
-   * If a call recording, uniquely identifies the recorded call session
-   * @return callSessionId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "22222222-5717-4562-b3fc-2c963f66afa6", value = "If a call recording, uniquely identifies the recorded call session")
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCallSessionId() {
-    return callSessionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallSessionId(String callSessionId) {
-    this.callSessionId = callSessionId;
-  }
-
-
-  public Recording downloadUrls(RecordingDownloadUrls downloadUrls) {
-    this.downloadUrls = downloadUrls;
-    return this;
-  }
-
-   /**
-   * Get downloadUrls
-   * @return downloadUrls
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public RecordingDownloadUrls getDownloadUrls() {
-    return downloadUrls;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DOWNLOAD_URLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDownloadUrls(RecordingDownloadUrls downloadUrls) {
-    this.downloadUrls = downloadUrls;
-  }
-
-
-  /**
-   * Return true if this Recording object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Recording recording = (Recording) o;
-    return Objects.equals(this.recordType, recording.recordType) &&
-        Objects.equals(this.id, recording.id) &&
-        Objects.equals(this.createdAt, recording.createdAt) &&
-        Objects.equals(this.updatedAt, recording.updatedAt) &&
-        Objects.equals(this.recordingStartedAt, recording.recordingStartedAt) &&
-        Objects.equals(this.recordingEndedAt, recording.recordingEndedAt) &&
-        Objects.equals(this.durationMillis, recording.durationMillis) &&
-        Objects.equals(this.status, recording.status) &&
-        Objects.equals(this.channels, recording.channels) &&
-        Objects.equals(this.source, recording.source) &&
-        Objects.equals(this.conferenceId, recording.conferenceId) &&
-        Objects.equals(this.callLegId, recording.callLegId) &&
-        Objects.equals(this.callSessionId, recording.callSessionId) &&
-        Objects.equals(this.downloadUrls, recording.downloadUrls);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, id, createdAt, updatedAt, recordingStartedAt, recordingEndedAt, durationMillis, status, channels, source, conferenceId, callLegId, callSessionId, downloadUrls);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Recording {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    recordingStartedAt: ").append(toIndentedString(recordingStartedAt)).append("\n");
-    sb.append("    recordingEndedAt: ").append(toIndentedString(recordingEndedAt)).append("\n");
-    sb.append("    durationMillis: ").append(toIndentedString(durationMillis)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    channels: ").append(toIndentedString(channels)).append("\n");
-    sb.append("    source: ").append(toIndentedString(source)).append("\n");
-    sb.append("    conferenceId: ").append(toIndentedString(conferenceId)).append("\n");
-    sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
-    sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
-    sb.append("    downloadUrls: ").append(toIndentedString(downloadUrls)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

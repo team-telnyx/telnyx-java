@@ -1,57 +1,58 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.BulkRoomRecordingsDeleteResponse;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListRoomRecordings200Response;
-import java.time.LocalDate;
-import java.util.UUID;
 import com.telnyx.sdk.model.ViewRoomRecording200Response;
-
+import jakarta.ws.rs.core.GenericType;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RoomRecordingsApi {
-  private ApiClient apiClient;
 
-  public RoomRecordingsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public RoomRecordingsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public RoomRecordingsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public RoomRecordingsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Delete a room recording.
    * Synchronously delete a Room Recording.
    * @param roomRecordingId The unique identifier of a room recording. (required)
@@ -63,11 +64,11 @@ public class RoomRecordingsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public void deleteRoomRecording(UUID roomRecordingId) throws ApiException {
-    deleteRoomRecordingWithHttpInfo(roomRecordingId);
-  }
+    public void deleteRoomRecording(UUID roomRecordingId) throws ApiException {
+        deleteRoomRecordingWithHttpInfo(roomRecordingId);
+    }
 
-  /**
+    /**
    * Delete a room recording.
    * Synchronously delete a Room Recording.
    * @param roomRecordingId The unique identifier of a room recording. (required)
@@ -80,45 +81,68 @@ public class RoomRecordingsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteRoomRecordingWithHttpInfo(UUID roomRecordingId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'roomRecordingId' is set
-    if (roomRecordingId == null) {
-      throw new ApiException(400, "Missing the required parameter 'roomRecordingId' when calling deleteRoomRecording");
+    public ApiResponse<Void> deleteRoomRecordingWithHttpInfo(
+        UUID roomRecordingId
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'roomRecordingId' is set
+        if (roomRecordingId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'roomRecordingId' when calling deleteRoomRecording"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/room_recordings/{room_recording_id}".replaceAll(
+                    "\\{" + "room_recording_id" + "\\}",
+                    apiClient.escapeString(roomRecordingId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        return apiClient.invokeAPI(
+            "RoomRecordingsApi.deleteRoomRecording",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            null,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/room_recordings/{room_recording_id}"
-      .replaceAll("\\{" + "room_recording_id" + "\\}", apiClient.escapeString(roomRecordingId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    return apiClient.invokeAPI("RoomRecordingsApi.deleteRoomRecording", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, null, false);
-  }
-  /**
+    /**
    * Delete several room recordings in a bulk.
    * 
    * @param filterDateEndedAtEq ISO 8601 date for filtering room recordings ended on that date. (optional)
@@ -146,11 +170,45 @@ public class RoomRecordingsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public BulkRoomRecordingsDeleteResponse deleteRoomRecordings(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
-    return deleteRoomRecordingsWithHttpInfo(filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterDateStartedAtEq, filterDateStartedAtGte, filterDateStartedAtLte, filterRoomId, filterParticipantId, filterSessionId, filterStatus, filterType, filterDurationSecsEq, filterDurationSecsLte, filterDurationSecsGte, pageSize, pageNumber).getData();
-  }
+    public BulkRoomRecordingsDeleteResponse deleteRoomRecordings(
+        LocalDate filterDateEndedAtEq,
+        LocalDate filterDateEndedAtGte,
+        LocalDate filterDateEndedAtLte,
+        LocalDate filterDateStartedAtEq,
+        LocalDate filterDateStartedAtGte,
+        LocalDate filterDateStartedAtLte,
+        UUID filterRoomId,
+        UUID filterParticipantId,
+        UUID filterSessionId,
+        String filterStatus,
+        String filterType,
+        Integer filterDurationSecsEq,
+        Integer filterDurationSecsLte,
+        Integer filterDurationSecsGte,
+        Integer pageSize,
+        Integer pageNumber
+    ) throws ApiException {
+        return deleteRoomRecordingsWithHttpInfo(
+            filterDateEndedAtEq,
+            filterDateEndedAtGte,
+            filterDateEndedAtLte,
+            filterDateStartedAtEq,
+            filterDateStartedAtGte,
+            filterDateStartedAtLte,
+            filterRoomId,
+            filterParticipantId,
+            filterSessionId,
+            filterStatus,
+            filterType,
+            filterDurationSecsEq,
+            filterDurationSecsLte,
+            filterDurationSecsGte,
+            pageSize,
+            pageNumber
+        ).getData();
+    }
 
-  /**
+    /**
    * Delete several room recordings in a bulk.
    * 
    * @param filterDateEndedAtEq ISO 8601 date for filtering room recordings ended on that date. (optional)
@@ -178,57 +236,169 @@ public class RoomRecordingsApi {
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<BulkRoomRecordingsDeleteResponse> deleteRoomRecordingsWithHttpInfo(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/room_recordings";
+    public ApiResponse<
+        BulkRoomRecordingsDeleteResponse
+    > deleteRoomRecordingsWithHttpInfo(
+        LocalDate filterDateEndedAtEq,
+        LocalDate filterDateEndedAtGte,
+        LocalDate filterDateEndedAtLte,
+        LocalDate filterDateStartedAtEq,
+        LocalDate filterDateStartedAtGte,
+        LocalDate filterDateStartedAtLte,
+        UUID filterRoomId,
+        UUID filterParticipantId,
+        UUID filterSessionId,
+        String filterStatus,
+        String filterType,
+        Integer filterDurationSecsEq,
+        Integer filterDurationSecsLte,
+        Integer filterDurationSecsGte,
+        Integer pageSize,
+        Integer pageNumber
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/room_recordings";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][eq]", filterDateEndedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][gte]", filterDateEndedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][lte]", filterDateEndedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_started_at][eq]", filterDateStartedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_started_at][gte]", filterDateStartedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_started_at][lte]", filterDateStartedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[room_id]", filterRoomId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[participant_id]", filterParticipantId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[session_id]", filterSessionId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[type]", filterType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[duration_secs][eq]", filterDurationSecsEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[duration_secs][lte]", filterDurationSecsLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[duration_secs][gte]", filterDurationSecsGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_ended_at][eq]",
+                filterDateEndedAtEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_ended_at][gte]",
+                filterDateEndedAtGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_ended_at][lte]",
+                filterDateEndedAtLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_started_at][eq]",
+                filterDateStartedAtEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_started_at][gte]",
+                filterDateStartedAtGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_started_at][lte]",
+                filterDateStartedAtLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[room_id]", filterRoomId)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[participant_id]",
+                filterParticipantId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[session_id]",
+                filterSessionId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status]", filterStatus)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[type]", filterType)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[duration_secs][eq]",
+                filterDurationSecsEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[duration_secs][lte]",
+                filterDurationSecsLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[duration_secs][gte]",
+                filterDurationSecsGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<BulkRoomRecordingsDeleteResponse> localVarReturnType = new GenericType<BulkRoomRecordingsDeleteResponse>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("RoomRecordingsApi.deleteRoomRecordings", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<BulkRoomRecordingsDeleteResponse> localVarReturnType =
+            new GenericType<BulkRoomRecordingsDeleteResponse>() {};
+
+        return apiClient.invokeAPI(
+            "RoomRecordingsApi.deleteRoomRecordings",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * View a list of room recordings.
    * 
    * @param filterDateEndedAtEq ISO 8601 date for filtering room recordings ended on that date. (optional)
@@ -255,11 +425,45 @@ public class RoomRecordingsApi {
        <tr><td> 200 </td><td> List room recordings response. </td><td>  -  </td></tr>
      </table>
    */
-  public ListRoomRecordings200Response listRoomRecordings(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
-    return listRoomRecordingsWithHttpInfo(filterDateEndedAtEq, filterDateEndedAtGte, filterDateEndedAtLte, filterDateStartedAtEq, filterDateStartedAtGte, filterDateStartedAtLte, filterRoomId, filterParticipantId, filterSessionId, filterStatus, filterType, filterDurationSecsEq, filterDurationSecsLte, filterDurationSecsGte, pageSize, pageNumber).getData();
-  }
+    public ListRoomRecordings200Response listRoomRecordings(
+        LocalDate filterDateEndedAtEq,
+        LocalDate filterDateEndedAtGte,
+        LocalDate filterDateEndedAtLte,
+        LocalDate filterDateStartedAtEq,
+        LocalDate filterDateStartedAtGte,
+        LocalDate filterDateStartedAtLte,
+        UUID filterRoomId,
+        UUID filterParticipantId,
+        UUID filterSessionId,
+        String filterStatus,
+        String filterType,
+        Integer filterDurationSecsEq,
+        Integer filterDurationSecsLte,
+        Integer filterDurationSecsGte,
+        Integer pageSize,
+        Integer pageNumber
+    ) throws ApiException {
+        return listRoomRecordingsWithHttpInfo(
+            filterDateEndedAtEq,
+            filterDateEndedAtGte,
+            filterDateEndedAtLte,
+            filterDateStartedAtEq,
+            filterDateStartedAtGte,
+            filterDateStartedAtLte,
+            filterRoomId,
+            filterParticipantId,
+            filterSessionId,
+            filterStatus,
+            filterType,
+            filterDurationSecsEq,
+            filterDurationSecsLte,
+            filterDurationSecsGte,
+            pageSize,
+            pageNumber
+        ).getData();
+    }
 
-  /**
+    /**
    * View a list of room recordings.
    * 
    * @param filterDateEndedAtEq ISO 8601 date for filtering room recordings ended on that date. (optional)
@@ -286,57 +490,169 @@ public class RoomRecordingsApi {
        <tr><td> 200 </td><td> List room recordings response. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRoomRecordings200Response> listRoomRecordingsWithHttpInfo(LocalDate filterDateEndedAtEq, LocalDate filterDateEndedAtGte, LocalDate filterDateEndedAtLte, LocalDate filterDateStartedAtEq, LocalDate filterDateStartedAtGte, LocalDate filterDateStartedAtLte, UUID filterRoomId, UUID filterParticipantId, UUID filterSessionId, String filterStatus, String filterType, Integer filterDurationSecsEq, Integer filterDurationSecsLte, Integer filterDurationSecsGte, Integer pageSize, Integer pageNumber) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/room_recordings";
+    public ApiResponse<
+        ListRoomRecordings200Response
+    > listRoomRecordingsWithHttpInfo(
+        LocalDate filterDateEndedAtEq,
+        LocalDate filterDateEndedAtGte,
+        LocalDate filterDateEndedAtLte,
+        LocalDate filterDateStartedAtEq,
+        LocalDate filterDateStartedAtGte,
+        LocalDate filterDateStartedAtLte,
+        UUID filterRoomId,
+        UUID filterParticipantId,
+        UUID filterSessionId,
+        String filterStatus,
+        String filterType,
+        Integer filterDurationSecsEq,
+        Integer filterDurationSecsLte,
+        Integer filterDurationSecsGte,
+        Integer pageSize,
+        Integer pageNumber
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/room_recordings";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][eq]", filterDateEndedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][gte]", filterDateEndedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_ended_at][lte]", filterDateEndedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_started_at][eq]", filterDateStartedAtEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_started_at][gte]", filterDateStartedAtGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[date_started_at][lte]", filterDateStartedAtLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[room_id]", filterRoomId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[participant_id]", filterParticipantId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[session_id]", filterSessionId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[type]", filterType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[duration_secs][eq]", filterDurationSecsEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[duration_secs][lte]", filterDurationSecsLte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[duration_secs][gte]", filterDurationSecsGte));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_ended_at][eq]",
+                filterDateEndedAtEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_ended_at][gte]",
+                filterDateEndedAtGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_ended_at][lte]",
+                filterDateEndedAtLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_started_at][eq]",
+                filterDateStartedAtEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_started_at][gte]",
+                filterDateStartedAtGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[date_started_at][lte]",
+                filterDateStartedAtLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[room_id]", filterRoomId)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[participant_id]",
+                filterParticipantId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[session_id]",
+                filterSessionId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status]", filterStatus)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[type]", filterType)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[duration_secs][eq]",
+                filterDurationSecsEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[duration_secs][lte]",
+                filterDurationSecsLte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[duration_secs][gte]",
+                filterDurationSecsGte
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListRoomRecordings200Response> localVarReturnType = new GenericType<ListRoomRecordings200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("RoomRecordingsApi.listRoomRecordings", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListRoomRecordings200Response> localVarReturnType =
+            new GenericType<ListRoomRecordings200Response>() {};
+
+        return apiClient.invokeAPI(
+            "RoomRecordingsApi.listRoomRecordings",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * View a room recording.
    * 
    * @param roomRecordingId The unique identifier of a room recording. (required)
@@ -349,11 +665,12 @@ public class RoomRecordingsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ViewRoomRecording200Response viewRoomRecording(UUID roomRecordingId) throws ApiException {
-    return viewRoomRecordingWithHttpInfo(roomRecordingId).getData();
-  }
+    public ViewRoomRecording200Response viewRoomRecording(UUID roomRecordingId)
+        throws ApiException {
+        return viewRoomRecordingWithHttpInfo(roomRecordingId).getData();
+    }
 
-  /**
+    /**
    * View a room recording.
    * 
    * @param roomRecordingId The unique identifier of a room recording. (required)
@@ -366,44 +683,67 @@ public class RoomRecordingsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ViewRoomRecording200Response> viewRoomRecordingWithHttpInfo(UUID roomRecordingId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'roomRecordingId' is set
-    if (roomRecordingId == null) {
-      throw new ApiException(400, "Missing the required parameter 'roomRecordingId' when calling viewRoomRecording");
+    public ApiResponse<
+        ViewRoomRecording200Response
+    > viewRoomRecordingWithHttpInfo(UUID roomRecordingId) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'roomRecordingId' is set
+        if (roomRecordingId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'roomRecordingId' when calling viewRoomRecording"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/room_recordings/{room_recording_id}".replaceAll(
+                    "\\{" + "room_recording_id" + "\\}",
+                    apiClient.escapeString(roomRecordingId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ViewRoomRecording200Response> localVarReturnType =
+            new GenericType<ViewRoomRecording200Response>() {};
+
+        return apiClient.invokeAPI(
+            "RoomRecordingsApi.viewRoomRecording",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/room_recordings/{room_recording_id}"
-      .replaceAll("\\{" + "room_recording_id" + "\\}", apiClient.escapeString(roomRecordingId.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ViewRoomRecording200Response> localVarReturnType = new GenericType<ViewRoomRecording200Response>() {};
-
-    return apiClient.invokeAPI("RoomRecordingsApi.viewRoomRecording", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

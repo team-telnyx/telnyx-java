@@ -10,111 +10,118 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * PhoneNumbersJobDeletePhoneNumbersRequest
  */
-@JsonPropertyOrder({
-  PhoneNumbersJobDeletePhoneNumbersRequest.JSON_PROPERTY_PHONE_NUMBERS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { PhoneNumbersJobDeletePhoneNumbersRequest.JSON_PROPERTY_PHONE_NUMBERS }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PhoneNumbersJobDeletePhoneNumbersRequest {
-  public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
-  private List<String> phoneNumbers = new ArrayList<>();
 
-  public PhoneNumbersJobDeletePhoneNumbersRequest() { 
-  }
+    public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
+    private List<String> phoneNumbers = new ArrayList<>();
 
-  public PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbers(List<String> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-    return this;
-  }
+    public PhoneNumbersJobDeletePhoneNumbersRequest() {}
 
-  public PhoneNumbersJobDeletePhoneNumbersRequest addphoneNumbersItem(String phoneNumbersItem) {
-    this.phoneNumbers.add(phoneNumbersItem);
-    return this;
-  }
-
-   /**
-   * Get phoneNumbers
-   * @return phoneNumbers
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<String> getPhoneNumbers() {
-    return phoneNumbers;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumbers(List<String> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
-  }
-
-
-  /**
-   * Return true if this PhoneNumbersJobDeletePhoneNumbersRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbers(
+        List<String> phoneNumbers
+    ) {
+        this.phoneNumbers = phoneNumbers;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public PhoneNumbersJobDeletePhoneNumbersRequest addphoneNumbersItem(
+        String phoneNumbersItem
+    ) {
+        this.phoneNumbers.add(phoneNumbersItem);
+        return this;
     }
-    PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest = (PhoneNumbersJobDeletePhoneNumbersRequest) o;
-    return Objects.equals(this.phoneNumbers, phoneNumbersJobDeletePhoneNumbersRequest.phoneNumbers);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(phoneNumbers);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PhoneNumbersJobDeletePhoneNumbersRequest {\n");
-    sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Get phoneNumbers
+     * @return phoneNumbers
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<String> getPhoneNumbers() {
+        return phoneNumbers;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumbers(List<String> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    /**
+     * Return true if this PhoneNumbersJobDeletePhoneNumbersRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PhoneNumbersJobDeletePhoneNumbersRequest phoneNumbersJobDeletePhoneNumbersRequest =
+            (PhoneNumbersJobDeletePhoneNumbersRequest) o;
+        return Objects.equals(
+            this.phoneNumbers,
+            phoneNumbersJobDeletePhoneNumbersRequest.phoneNumbers
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phoneNumbers);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PhoneNumbersJobDeletePhoneNumbersRequest {\n");
+        sb
+            .append("    phoneNumbers: ")
+            .append(toIndentedString(phoneNumbers))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

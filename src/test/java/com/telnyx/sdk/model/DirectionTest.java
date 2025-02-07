@@ -10,20 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for Direction
  */
 public class DirectionTest {
+
     /**
      * Model tests for Direction
      */
@@ -31,5 +29,4 @@ public class DirectionTest {
     public void testDirection() {
         // TODO: test Direction
     }
-
 }

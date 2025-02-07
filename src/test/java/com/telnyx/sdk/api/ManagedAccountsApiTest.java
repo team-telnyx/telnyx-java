@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -20,15 +19,13 @@ import com.telnyx.sdk.model.ListManagedAccountsResponse;
 import com.telnyx.sdk.model.ManagedAccountResponse;
 import com.telnyx.sdk.model.UnprocessableManagedAccountEntity;
 import com.telnyx.sdk.model.UpdateManagedAccountRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for ManagedAccountsApi
@@ -131,5 +128,4 @@ public class ManagedAccountsApiTest {
         //ManagedAccountResponse response = api.updateManagedAccount(id, updateManagedAccountRequest);
         // TODO: test validations
     }
-
 }

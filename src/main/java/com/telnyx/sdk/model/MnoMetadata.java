@@ -10,105 +10,99 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.MnoMetadataItem;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import com.telnyx.sdk.model.MnoMetadataItem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * MnoMetadata
  */
-@JsonPropertyOrder({
-  MnoMetadata.JSON_PROPERTY_10999
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ MnoMetadata.JSON_PROPERTY_10999 })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class MnoMetadata {
-  public static final String JSON_PROPERTY_10999 = "10999";
-  private MnoMetadataItem _10999;
 
-  public MnoMetadata() { 
-  }
+    public static final String JSON_PROPERTY_10999 = "10999";
+    private MnoMetadataItem _10999;
 
-  public MnoMetadata _10999(MnoMetadataItem _10999) {
-    this._10999 = _10999;
-    return this;
-  }
+    public MnoMetadata() {}
 
-   /**
-   * Get _10999
-   * @return _10999
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_10999)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public MnoMetadataItem get10999() {
-    return _10999;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_10999)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void set10999(MnoMetadataItem _10999) {
-    this._10999 = _10999;
-  }
-
-
-  /**
-   * Return true if this MnoMetadata object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public MnoMetadata _10999(MnoMetadataItem _10999) {
+        this._10999 = _10999;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get _10999
+     * @return _10999
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_10999)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public MnoMetadataItem get10999() {
+        return _10999;
     }
-    MnoMetadata mnoMetadata = (MnoMetadata) o;
-    return Objects.equals(this._10999, mnoMetadata._10999);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(_10999);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class MnoMetadata {\n");
-    sb.append("    _10999: ").append(toIndentedString(_10999)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_10999)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void set10999(MnoMetadataItem _10999) {
+        this._10999 = _10999;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this MnoMetadata object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MnoMetadata mnoMetadata = (MnoMetadata) o;
+        return Objects.equals(this._10999, mnoMetadata._10999);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_10999);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class MnoMetadata {\n");
+        sb.append("    _10999: ").append(toIndentedString(_10999)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

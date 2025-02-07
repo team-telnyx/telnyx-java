@@ -1,112 +1,142 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListPhoneNumberBlocksBackgroundJobsResponse;
 import com.telnyx.sdk.model.PhoneNumberBlocksJob;
 import com.telnyx.sdk.model.PhoneNumberBlocksJobDeletePhoneNumberBlock;
 import com.telnyx.sdk.model.PhoneNumberBlocksJobDeletePhoneNumberBlockRequest;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PhoneNumberBlocksBackgroundJobsApi {
-  private ApiClient apiClient;
 
-  public PhoneNumberBlocksBackgroundJobsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public PhoneNumberBlocksBackgroundJobsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-
-private ApiResponse<PhoneNumberBlocksJobDeletePhoneNumberBlock> createPhoneNumberBlockDeletionJobWithHttpInfo(PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest) throws ApiException {
-    Object localVarPostBody = phoneNumberBlocksJobDeletePhoneNumberBlockRequest;
-    
-    // verify the required parameter 'phoneNumberBlocksJobDeletePhoneNumberBlockRequest' is set
-    if (phoneNumberBlocksJobDeletePhoneNumberBlockRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'phoneNumberBlocksJobDeletePhoneNumberBlockRequest' when calling createPhoneNumberBlockDeletionJob");
+    public PhoneNumberBlocksBackgroundJobsApi() {
+        this(Configuration.getDefaultApiClient());
     }
-    
-    // create path and map variables
-    String localVarPath = "/phone_number_blocks/jobs/delete_phone_number_block";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<PhoneNumberBlocksJobDeletePhoneNumberBlock> localVarReturnType = new GenericType<PhoneNumberBlocksJobDeletePhoneNumberBlock>() {};
-
-    return apiClient.invokeAPI("PhoneNumberBlocksBackgroundJobsApi.createPhoneNumberBlockDeletionJob", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-
-  public class APIcreatePhoneNumberBlockDeletionJobRequest {
-    private PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest;
-
-    private APIcreatePhoneNumberBlockDeletionJobRequest() {
+    public PhoneNumberBlocksBackgroundJobsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
 
     /**
-     * Set phoneNumberBlocksJobDeletePhoneNumberBlockRequest
-     * @param phoneNumberBlocksJobDeletePhoneNumberBlockRequest  (required)
-     * @return APIcreatePhoneNumberBlockDeletionJobRequest
+     * Get the API client
+     *
+     * @return API client
      */
-    public APIcreatePhoneNumberBlockDeletionJobRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest(PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest) {
-      this.phoneNumberBlocksJobDeletePhoneNumberBlockRequest = phoneNumberBlocksJobDeletePhoneNumberBlockRequest;
-      return this;
+    public ApiClient getApiClient() {
+        return apiClient;
     }
 
     /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    private ApiResponse<
+        PhoneNumberBlocksJobDeletePhoneNumberBlock
+    > createPhoneNumberBlockDeletionJobWithHttpInfo(
+        PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest
+    ) throws ApiException {
+        Object localVarPostBody =
+            phoneNumberBlocksJobDeletePhoneNumberBlockRequest;
+
+        // verify the required parameter 'phoneNumberBlocksJobDeletePhoneNumberBlockRequest' is set
+        if (phoneNumberBlocksJobDeletePhoneNumberBlockRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'phoneNumberBlocksJobDeletePhoneNumberBlockRequest' when calling createPhoneNumberBlockDeletionJob"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/phone_number_blocks/jobs/delete_phone_number_block";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            PhoneNumberBlocksJobDeletePhoneNumberBlock
+        > localVarReturnType = new GenericType<
+            PhoneNumberBlocksJobDeletePhoneNumberBlock
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PhoneNumberBlocksBackgroundJobsApi.createPhoneNumberBlockDeletionJob",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    public class APIcreatePhoneNumberBlockDeletionJobRequest {
+
+        private PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest;
+
+        private APIcreatePhoneNumberBlockDeletionJobRequest() {}
+
+        /**
+         * Set phoneNumberBlocksJobDeletePhoneNumberBlockRequest
+         * @param phoneNumberBlocksJobDeletePhoneNumberBlockRequest  (required)
+         * @return APIcreatePhoneNumberBlockDeletionJobRequest
+         */
+        public APIcreatePhoneNumberBlockDeletionJobRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest(
+            PhoneNumberBlocksJobDeletePhoneNumberBlockRequest phoneNumberBlocksJobDeletePhoneNumberBlockRequest
+        ) {
+            this.phoneNumberBlocksJobDeletePhoneNumberBlockRequest =
+                phoneNumberBlocksJobDeletePhoneNumberBlockRequest;
+            return this;
+        }
+
+        /**
      * Execute createPhoneNumberBlockDeletionJob request
      * @return PhoneNumberBlocksJobDeletePhoneNumberBlock
      * @throws ApiException if fails to make API call
@@ -118,12 +148,13 @@ private ApiResponse<PhoneNumberBlocksJobDeletePhoneNumberBlock> createPhoneNumbe
        </table>
      
      */
-    
-    public PhoneNumberBlocksJobDeletePhoneNumberBlock execute() throws ApiException {
-      return this.executeWithHttpInfo().getData();
-    }
 
-    /**
+        public PhoneNumberBlocksJobDeletePhoneNumberBlock execute()
+            throws ApiException {
+            return this.executeWithHttpInfo().getData();
+        }
+
+        /**
      * Execute createPhoneNumberBlockDeletionJob request with HTTP info returned
      * @return ApiResponse&lt;PhoneNumberBlocksJobDeletePhoneNumberBlock&gt;
      * @throws ApiException if fails to make API call
@@ -135,12 +166,16 @@ private ApiResponse<PhoneNumberBlocksJobDeletePhoneNumberBlock> createPhoneNumbe
        </table>
 
      */
-    public ApiResponse<PhoneNumberBlocksJobDeletePhoneNumberBlock> executeWithHttpInfo() throws ApiException {
-      return createPhoneNumberBlockDeletionJobWithHttpInfo(phoneNumberBlocksJobDeletePhoneNumberBlockRequest);
+        public ApiResponse<
+            PhoneNumberBlocksJobDeletePhoneNumberBlock
+        > executeWithHttpInfo() throws ApiException {
+            return createPhoneNumberBlockDeletionJobWithHttpInfo(
+                phoneNumberBlocksJobDeletePhoneNumberBlockRequest
+            );
+        }
     }
-  }
 
-  /**
+    /**
    * Deletes all numbers associated with a phone number block
    * Creates a new background job to delete all the phone numbers associated with the given block. We will only consider the phone number block as deleted after all phone numbers associated with it are removed, so multiple executions of this job may be necessary in case some of the phone numbers present errors during the deletion process.
    * @return createPhoneNumberBlockDeletionJobRequest
@@ -148,59 +183,85 @@ private ApiResponse<PhoneNumberBlocksJobDeletePhoneNumberBlock> createPhoneNumbe
    
    
    */
-  public APIcreatePhoneNumberBlockDeletionJobRequest createPhoneNumberBlockDeletionJob() throws ApiException {
-    return new APIcreatePhoneNumberBlockDeletionJobRequest();
-  }
-
-private ApiResponse<PhoneNumberBlocksJob> getPhoneNumberBlocksJobWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getPhoneNumberBlocksJob");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/phone_number_blocks/jobs/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<PhoneNumberBlocksJob> localVarReturnType = new GenericType<PhoneNumberBlocksJob>() {};
-
-    return apiClient.invokeAPI("PhoneNumberBlocksBackgroundJobsApi.getPhoneNumberBlocksJob", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-
-  public class APIgetPhoneNumberBlocksJobRequest {
-    private String id;
-
-    private APIgetPhoneNumberBlocksJobRequest(String id) {
-      this.id = id;
+    public APIcreatePhoneNumberBlockDeletionJobRequest createPhoneNumberBlockDeletionJob()
+        throws ApiException {
+        return new APIcreatePhoneNumberBlockDeletionJobRequest();
     }
 
-    /**
+    private ApiResponse<
+        PhoneNumberBlocksJob
+    > getPhoneNumberBlocksJobWithHttpInfo(String id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getPhoneNumberBlocksJob"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/phone_number_blocks/jobs/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<PhoneNumberBlocksJob> localVarReturnType = new GenericType<
+            PhoneNumberBlocksJob
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PhoneNumberBlocksBackgroundJobsApi.getPhoneNumberBlocksJob",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    public class APIgetPhoneNumberBlocksJobRequest {
+
+        private String id;
+
+        private APIgetPhoneNumberBlocksJobRequest(String id) {
+            this.id = id;
+        }
+
+        /**
      * Execute getPhoneNumberBlocksJob request
      * @return PhoneNumberBlocksJob
      * @throws ApiException if fails to make API call
@@ -212,12 +273,12 @@ private ApiResponse<PhoneNumberBlocksJob> getPhoneNumberBlocksJobWithHttpInfo(St
        </table>
      
      */
-    
-    public PhoneNumberBlocksJob execute() throws ApiException {
-      return this.executeWithHttpInfo().getData();
-    }
 
-    /**
+        public PhoneNumberBlocksJob execute() throws ApiException {
+            return this.executeWithHttpInfo().getData();
+        }
+
+        /**
      * Execute getPhoneNumberBlocksJob request with HTTP info returned
      * @return ApiResponse&lt;PhoneNumberBlocksJob&gt;
      * @throws ApiException if fails to make API call
@@ -229,12 +290,13 @@ private ApiResponse<PhoneNumberBlocksJob> getPhoneNumberBlocksJobWithHttpInfo(St
        </table>
 
      */
-    public ApiResponse<PhoneNumberBlocksJob> executeWithHttpInfo() throws ApiException {
-      return getPhoneNumberBlocksJobWithHttpInfo(id);
+        public ApiResponse<PhoneNumberBlocksJob> executeWithHttpInfo()
+            throws ApiException {
+            return getPhoneNumberBlocksJobWithHttpInfo(id);
+        }
     }
-  }
 
-  /**
+    /**
    * Retrieves a phone number blocks job
    * 
    * @param id Identifies the Phone Number Blocks Job. (required)
@@ -243,111 +305,155 @@ private ApiResponse<PhoneNumberBlocksJob> getPhoneNumberBlocksJobWithHttpInfo(St
    
    
    */
-  public APIgetPhoneNumberBlocksJobRequest getPhoneNumberBlocksJob(String id) throws ApiException {
-    return new APIgetPhoneNumberBlocksJobRequest(id);
-  }
-
-private ApiResponse<ListPhoneNumberBlocksBackgroundJobsResponse> listPhoneNumberBlocksJobsWithHttpInfo(String filterType, String filterStatus, Integer pageNumber, Integer pageSize, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/phone_number_blocks/jobs";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[type]", filterType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListPhoneNumberBlocksBackgroundJobsResponse> localVarReturnType = new GenericType<ListPhoneNumberBlocksBackgroundJobsResponse>() {};
-
-    return apiClient.invokeAPI("PhoneNumberBlocksBackgroundJobsApi.listPhoneNumberBlocksJobs", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-
-  public class APIlistPhoneNumberBlocksJobsRequest {
-    private String filterType;
-    private String filterStatus;
-    private Integer pageNumber;
-    private Integer pageSize;
-    private String sort;
-
-    private APIlistPhoneNumberBlocksJobsRequest() {
+    public APIgetPhoneNumberBlocksJobRequest getPhoneNumberBlocksJob(String id)
+        throws ApiException {
+        return new APIgetPhoneNumberBlocksJobRequest(id);
     }
 
-    /**
-     * Set filterType
-     * @param filterType Filter the phone number blocks jobs by type. (optional)
-     * @return APIlistPhoneNumberBlocksJobsRequest
-     */
-    public APIlistPhoneNumberBlocksJobsRequest filterType(String filterType) {
-      this.filterType = filterType;
-      return this;
+    private ApiResponse<
+        ListPhoneNumberBlocksBackgroundJobsResponse
+    > listPhoneNumberBlocksJobsWithHttpInfo(
+        String filterType,
+        String filterStatus,
+        Integer pageNumber,
+        Integer pageSize,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/phone_number_blocks/jobs";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[type]", filterType)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status]", filterStatus)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort", sort)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<
+            ListPhoneNumberBlocksBackgroundJobsResponse
+        > localVarReturnType = new GenericType<
+            ListPhoneNumberBlocksBackgroundJobsResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "PhoneNumberBlocksBackgroundJobsApi.listPhoneNumberBlocksJobs",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
 
-    /**
-     * Set filterStatus
-     * @param filterStatus Filter the phone number blocks jobs by status. (optional)
-     * @return APIlistPhoneNumberBlocksJobsRequest
-     */
-    public APIlistPhoneNumberBlocksJobsRequest filterStatus(String filterStatus) {
-      this.filterStatus = filterStatus;
-      return this;
-    }
+    public class APIlistPhoneNumberBlocksJobsRequest {
 
-    /**
-     * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @return APIlistPhoneNumberBlocksJobsRequest
-     */
-    public APIlistPhoneNumberBlocksJobsRequest pageNumber(Integer pageNumber) {
-      this.pageNumber = pageNumber;
-      return this;
-    }
+        private String filterType;
+        private String filterStatus;
+        private Integer pageNumber;
+        private Integer pageSize;
+        private String sort;
 
-    /**
-     * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return APIlistPhoneNumberBlocksJobsRequest
-     */
-    public APIlistPhoneNumberBlocksJobsRequest pageSize(Integer pageSize) {
-      this.pageSize = pageSize;
-      return this;
-    }
+        private APIlistPhoneNumberBlocksJobsRequest() {}
 
-    /**
-     * Set sort
-     * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
-     * @return APIlistPhoneNumberBlocksJobsRequest
-     */
-    public APIlistPhoneNumberBlocksJobsRequest sort(String sort) {
-      this.sort = sort;
-      return this;
-    }
+        /**
+         * Set filterType
+         * @param filterType Filter the phone number blocks jobs by type. (optional)
+         * @return APIlistPhoneNumberBlocksJobsRequest
+         */
+        public APIlistPhoneNumberBlocksJobsRequest filterType(
+            String filterType
+        ) {
+            this.filterType = filterType;
+            return this;
+        }
 
-    /**
+        /**
+         * Set filterStatus
+         * @param filterStatus Filter the phone number blocks jobs by status. (optional)
+         * @return APIlistPhoneNumberBlocksJobsRequest
+         */
+        public APIlistPhoneNumberBlocksJobsRequest filterStatus(
+            String filterStatus
+        ) {
+            this.filterStatus = filterStatus;
+            return this;
+        }
+
+        /**
+         * Set pageNumber
+         * @param pageNumber The page number to load (optional, default to 1)
+         * @return APIlistPhoneNumberBlocksJobsRequest
+         */
+        public APIlistPhoneNumberBlocksJobsRequest pageNumber(
+            Integer pageNumber
+        ) {
+            this.pageNumber = pageNumber;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize The size of the page (optional, default to 20)
+         * @return APIlistPhoneNumberBlocksJobsRequest
+         */
+        public APIlistPhoneNumberBlocksJobsRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set sort
+         * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
+         * @return APIlistPhoneNumberBlocksJobsRequest
+         */
+        public APIlistPhoneNumberBlocksJobsRequest sort(String sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        /**
      * Execute listPhoneNumberBlocksJobs request
      * @return ListPhoneNumberBlocksBackgroundJobsResponse
      * @throws ApiException if fails to make API call
@@ -359,12 +465,13 @@ private ApiResponse<ListPhoneNumberBlocksBackgroundJobsResponse> listPhoneNumber
        </table>
      
      */
-    
-    public ListPhoneNumberBlocksBackgroundJobsResponse execute() throws ApiException {
-      return this.executeWithHttpInfo().getData();
-    }
 
-    /**
+        public ListPhoneNumberBlocksBackgroundJobsResponse execute()
+            throws ApiException {
+            return this.executeWithHttpInfo().getData();
+        }
+
+        /**
      * Execute listPhoneNumberBlocksJobs request with HTTP info returned
      * @return ApiResponse&lt;ListPhoneNumberBlocksBackgroundJobsResponse&gt;
      * @throws ApiException if fails to make API call
@@ -376,12 +483,20 @@ private ApiResponse<ListPhoneNumberBlocksBackgroundJobsResponse> listPhoneNumber
        </table>
 
      */
-    public ApiResponse<ListPhoneNumberBlocksBackgroundJobsResponse> executeWithHttpInfo() throws ApiException {
-      return listPhoneNumberBlocksJobsWithHttpInfo(filterType, filterStatus, pageNumber, pageSize, sort);
+        public ApiResponse<
+            ListPhoneNumberBlocksBackgroundJobsResponse
+        > executeWithHttpInfo() throws ApiException {
+            return listPhoneNumberBlocksJobsWithHttpInfo(
+                filterType,
+                filterStatus,
+                pageNumber,
+                pageSize,
+                sort
+            );
+        }
     }
-  }
 
-  /**
+    /**
    * Lists the phone number blocks jobs
    * 
    * @return listPhoneNumberBlocksJobsRequest
@@ -389,7 +504,8 @@ private ApiResponse<ListPhoneNumberBlocksBackgroundJobsResponse> listPhoneNumber
    
    
    */
-  public APIlistPhoneNumberBlocksJobsRequest listPhoneNumberBlocksJobs() throws ApiException {
-    return new APIlistPhoneNumberBlocksJobsRequest();
-  }
+    public APIlistPhoneNumberBlocksJobsRequest listPhoneNumberBlocksJobs()
+        throws ApiException {
+        return new APIlistPhoneNumberBlocksJobsRequest();
+    }
 }
