@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ErrorResponseErrorsInner.JSON_PROPERTY_TITLE,
   ErrorResponseErrorsInner.JSON_PROPERTY_SOURCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ErrorResponseErrorsInner {
   public static final String JSON_PROPERTY_CODE = "code";
   private String code;
@@ -70,7 +70,7 @@ public class ErrorResponseErrorsInner {
    * Get code
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class ErrorResponseErrorsInner {
    * Get detail
    * @return detail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DETAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class ErrorResponseErrorsInner {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class ErrorResponseErrorsInner {
    * Get title
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class ErrorResponseErrorsInner {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

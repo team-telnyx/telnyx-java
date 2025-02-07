@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ReadCommentAllOf.JSON_PROPERTY_READ_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ReadCommentAllOf {
   public static final String JSON_PROPERTY_READ_AT = "read_at";
   private String readAt;
@@ -56,7 +56,7 @@ public class ReadCommentAllOf {
    * An ISO 8901 datetime string for when the comment was read.
    * @return readAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string for when the comment was read.")
   @JsonProperty(JSON_PROPERTY_READ_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

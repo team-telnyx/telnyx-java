@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   ResumeConferenceRecordingRequest.JSON_PROPERTY_COMMAND_ID,
   ResumeConferenceRecordingRequest.JSON_PROPERTY_RECORDING_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ResumeConferenceRecordingRequest {
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
@@ -56,7 +56,7 @@ public class ResumeConferenceRecordingRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class ResumeConferenceRecordingRequest {
    * Use this field to resume specific recording.
    * @return recordingId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6e00ab49-9487-4364-8ad6-23965965afb2", value = "Use this field to resume specific recording.")
   @JsonProperty(JSON_PROPERTY_RECORDING_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

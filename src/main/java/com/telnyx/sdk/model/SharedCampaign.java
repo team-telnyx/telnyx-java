@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   SharedCampaign.JSON_PROPERTY_STATUS,
   SharedCampaign.JSON_PROPERTY_USECASE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SharedCampaign {
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
@@ -69,7 +69,7 @@ public class SharedCampaign {
    * Alphanumeric identifier of the brand associated with this campaign.
    * @return brandId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Alphanumeric identifier of the brand associated with this campaign.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -95,7 +95,7 @@ public class SharedCampaign {
    * Alphanumeric identifier assigned by the registry for a campaign. This identifier is required by the NetNumber OSR SMS enabling process of 10DLC.
    * @return campaignId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Alphanumeric identifier assigned by the registry for a campaign. This identifier is required by the NetNumber OSR SMS enabling process of 10DLC.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -121,7 +121,7 @@ public class SharedCampaign {
    * Unix timestamp when campaign was created.
    * @return createDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unix timestamp when campaign was created.")
   @JsonProperty(JSON_PROPERTY_CREATE_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -147,7 +147,7 @@ public class SharedCampaign {
    * Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status. 
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status. ")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -173,7 +173,7 @@ public class SharedCampaign {
    * Campaign usecase. Must be of defined valid types. Use &#x60;/registry/enum/usecase&#x60; operation to retrieve usecases available for given brand.
    * @return usecase
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation to retrieve usecases available for given brand.")
   @JsonProperty(JSON_PROPERTY_USECASE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

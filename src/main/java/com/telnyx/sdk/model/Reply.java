@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Reply.JSON_PROPERTY_TITLE,
   Reply.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Reply {
   public static final String JSON_PROPERTY_TITLE = "title";
   private String title;
@@ -59,7 +59,7 @@ public class Reply {
    * Button title. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not.
    * @return title
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Button title. It cannot be an empty string and must be unique within the message. Emojis are supported, markdown is not.")
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -85,7 +85,7 @@ public class Reply {
    * Unique identifier for your button. This ID is returned in the webhook when the button is clicked by the user. You cannot have leading or trailing spaces when setting the ID.
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique identifier for your button. This ID is returned in the webhook when the button is clicked by the user. You cannot have leading or trailing spaces when setting the ID.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

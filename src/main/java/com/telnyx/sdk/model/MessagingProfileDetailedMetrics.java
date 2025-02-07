@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   MessagingProfileDetailedMetrics.JSON_PROPERTY_OVERVIEW,
   MessagingProfileDetailedMetrics.JSON_PROPERTY_DETAILED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagingProfileDetailedMetrics {
   public static final String JSON_PROPERTY_OVERVIEW = "overview";
   private MessagingProfileHighLevelMetrics overview;
@@ -60,7 +60,7 @@ public class MessagingProfileDetailedMetrics {
    * Get overview
    * @return overview
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OVERVIEW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -94,7 +94,7 @@ public class MessagingProfileDetailedMetrics {
    * Get detailed
    * @return detailed
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DETAILED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

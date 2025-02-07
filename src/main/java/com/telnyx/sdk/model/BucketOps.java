@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   BucketOps.JSON_PROPERTY_SUCCESSFUL_OPS,
   BucketOps.JSON_PROPERTY_CATEGORY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BucketOps {
   public static final String JSON_PROPERTY_BYTES_SENT = "bytes_sent";
   private Integer bytesSent;
@@ -119,7 +119,7 @@ public class BucketOps {
    * The number of bytes sent
    * @return bytesSent
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The number of bytes sent")
   @JsonProperty(JSON_PROPERTY_BYTES_SENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class BucketOps {
    * The number of bytes received
    * @return bytesReceived
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The number of bytes received")
   @JsonProperty(JSON_PROPERTY_BYTES_RECEIVED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -171,7 +171,7 @@ public class BucketOps {
    * The number of operations
    * @return ops
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The number of operations")
   @JsonProperty(JSON_PROPERTY_OPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -197,7 +197,7 @@ public class BucketOps {
    * The number of successful operations
    * @return successfulOps
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The number of successful operations")
   @JsonProperty(JSON_PROPERTY_SUCCESSFUL_OPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -223,7 +223,7 @@ public class BucketOps {
    * The category of the bucket operation
    * @return category
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "put_obj", value = "The category of the bucket operation")
   @JsonProperty(JSON_PROPERTY_CATEGORY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   PortingAdditionalDocument.JSON_PROPERTY_CREATED_AT,
   PortingAdditionalDocument.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingAdditionalDocument {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -133,7 +133,7 @@ public class PortingAdditionalDocument {
    * Uniquely identifies this additional document
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "eef3340b-8903-4466-b445-89b697315a3a", value = "Uniquely identifies this additional document")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -159,7 +159,7 @@ public class PortingAdditionalDocument {
    * Identifies the type of additional document
    * @return documentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "loa", value = "Identifies the type of additional document")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -185,7 +185,7 @@ public class PortingAdditionalDocument {
    * Identifies the associated document
    * @return documentId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Identifies the associated document")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -211,7 +211,7 @@ public class PortingAdditionalDocument {
    * The filename of the related document.
    * @return filename
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "file.txt", value = "The filename of the related document.")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -237,7 +237,7 @@ public class PortingAdditionalDocument {
    * The content type of the related document.
    * @return contentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "text/plain", value = "The content type of the related document.")
   @JsonProperty(JSON_PROPERTY_CONTENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -263,7 +263,7 @@ public class PortingAdditionalDocument {
    * Identifies the associated porting order
    * @return portingOrderId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Identifies the associated porting order")
   @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -284,7 +284,7 @@ public class PortingAdditionalDocument {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_additional_document", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -305,7 +305,7 @@ public class PortingAdditionalDocument {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -331,7 +331,7 @@ public class PortingAdditionalDocument {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

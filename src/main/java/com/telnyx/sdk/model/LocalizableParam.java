@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   LocalizableParam.JSON_PROPERTY_CURRENCY,
   LocalizableParam.JSON_PROPERTY_DATE_TIME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class LocalizableParam {
   public static final String JSON_PROPERTY_DEFAULT = "default";
   private String _default;
@@ -63,7 +63,7 @@ public class LocalizableParam {
    * Default text if localization fails
    * @return _default
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Default text if localization fails")
   @JsonProperty(JSON_PROPERTY_DEFAULT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class LocalizableParam {
    * Get currency
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class LocalizableParam {
    * Get dateTime
    * @return dateTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATE_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

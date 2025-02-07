@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreatePortingOrderComment.JSON_PROPERTY_BODY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortingOrderComment {
   public static final String JSON_PROPERTY_BODY = "body";
   private String body;
@@ -52,7 +52,7 @@ public class CreatePortingOrderComment {
    * Get body
    * @return body
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Please, let me know when the port completes", value = "")
   @JsonProperty(JSON_PROPERTY_BODY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

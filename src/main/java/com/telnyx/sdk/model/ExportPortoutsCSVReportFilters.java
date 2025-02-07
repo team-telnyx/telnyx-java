@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   ExportPortoutsCSVReportFilters.JSON_PROPERTY_CREATED_AT_LT,
   ExportPortoutsCSVReportFilters.JSON_PROPERTY_CREATED_AT_GT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ExportPortoutsCSVReportFilters {
   /**
    * Gets or Sets statusIn
@@ -127,7 +127,7 @@ public class ExportPortoutsCSVReportFilters {
    * The status of the port-outs to include in the report.
    * @return statusIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The status of the port-outs to include in the report.")
   @JsonProperty(JSON_PROPERTY_STATUS_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class ExportPortoutsCSVReportFilters {
    * The customer reference of the port-outs to include in the report.
    * @return customerReferenceIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The customer reference of the port-outs to include in the report.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class ExportPortoutsCSVReportFilters {
    * The end user name of the port-outs to include in the report.
    * @return endUserName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "McPortersen", value = "The end user name of the port-outs to include in the report.")
   @JsonProperty(JSON_PROPERTY_END_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -221,7 +221,7 @@ public class ExportPortoutsCSVReportFilters {
    * A list of phone numbers that the port-outs phone numbers must overlap with.
    * @return phoneNumbersOverlaps
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of phone numbers that the port-outs phone numbers must overlap with.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS_OVERLAPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -247,7 +247,7 @@ public class ExportPortoutsCSVReportFilters {
    * The date and time the port-out was created before.
    * @return createdAtLt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The date and time the port-out was created before.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT_LT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -273,7 +273,7 @@ public class ExportPortoutsCSVReportFilters {
    * The date and time the port-out was created after.
    * @return createdAtGt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The date and time the port-out was created after.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT_GT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

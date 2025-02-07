@@ -46,7 +46,7 @@
      AdvancedOrderResponseData.JSON_PROPERTY_STATUS,
      AdvancedOrderResponseData.JSON_PROPERTY_ORDERS
  })
- @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+ @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
  public class AdvancedOrderResponseData {
    public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
    private String countryCode = "US";
@@ -201,7 +201,7 @@
     * Get countryCode
     * @return countryCode
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -224,7 +224,7 @@
     * Get comments
     * @return comments
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_COMMENTS)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -249,7 +249,7 @@
     * maximum: 10000
     * @return quantity
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_QUANTITY)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -272,7 +272,7 @@
     * Get areaCode
     * @return areaCode
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_AREA_CODE)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -295,7 +295,7 @@
     * Get phoneNumberType
     * @return phoneNumberType
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -326,7 +326,7 @@
     * Get features
     * @return features
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_FEATURES)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -350,7 +350,7 @@
     * Get customerReference
     * @return customerReference
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -373,7 +373,7 @@
     * Get id
     * @return id
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_ID)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@
     * Get status
     * @return status
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_STATUS)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -427,7 +427,7 @@
     * Get orders
     * @return orders
     **/
-   @javax.annotation.Nullable
+   @jakarta.annotation.Nullable
    @ApiModelProperty(value = "")
    @JsonProperty(JSON_PROPERTY_ORDERS)
    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   InteractiveSection.JSON_PROPERTY_ROWS,
   InteractiveSection.JSON_PROPERTY_PRODUCT_ITEMS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InteractiveSection {
   public static final String JSON_PROPERTY_TITLE = "title";
   private String title;
@@ -65,7 +65,7 @@ public class InteractiveSection {
    * Title of the section. Required if the message has more than one section.
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Title of the section. Required if the message has more than one section.")
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -99,7 +99,7 @@ public class InteractiveSection {
    * Contains a list of rows. Limited to 10 rows across all sections. Required for List Messages.
    * @return rows
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Contains a list of rows. Limited to 10 rows across all sections. Required for List Messages.")
   @JsonProperty(JSON_PROPERTY_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -133,7 +133,7 @@ public class InteractiveSection {
    * Array of product objects. There is a minimum of 1 product per section. There is a maximum of 30 products across all sections.
    * @return productItems
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Array of product objects. There is a minimum of 1 product per section. There is a maximum of 30 products across all sections.")
   @JsonProperty(JSON_PROPERTY_PRODUCT_ITEMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

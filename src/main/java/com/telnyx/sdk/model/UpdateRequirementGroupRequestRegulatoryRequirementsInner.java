@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   UpdateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_REQUIREMENT_ID,
   UpdateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateRequirementGroupRequestRegulatoryRequirementsInner {
   public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
   private String requirementId;
@@ -56,7 +56,7 @@ public class UpdateRequirementGroupRequestRegulatoryRequirementsInner {
    * Unique identifier for the regulatory requirement
    * @return requirementId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "53970723-fbff-4f46-a975-f62be6c1a585", value = "Unique identifier for the regulatory requirement")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class UpdateRequirementGroupRequestRegulatoryRequirementsInner {
    * New value for the regulatory requirement
    * @return fieldValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "new requirement value", value = "New value for the regulatory requirement")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

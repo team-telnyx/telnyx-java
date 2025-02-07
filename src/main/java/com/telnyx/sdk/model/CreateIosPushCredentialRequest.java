@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreateIosPushCredentialRequest.JSON_PROPERTY_PRIVATE_KEY,
   CreateIosPushCredentialRequest.JSON_PROPERTY_ALIAS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateIosPushCredentialRequest {
   /**
    * Type of mobile push credential. Should be &lt;code&gt;ios&lt;/code&gt; here
@@ -97,7 +97,7 @@ public class CreateIosPushCredentialRequest {
    * Type of mobile push credential. Should be &lt;code&gt;ios&lt;/code&gt; here
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Type of mobile push credential. Should be <code>ios</code> here")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -123,7 +123,7 @@ public class CreateIosPushCredentialRequest {
    * Certificate as received from APNs
    * @return certificate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----", required = true, value = "Certificate as received from APNs")
   @JsonProperty(JSON_PROPERTY_CERTIFICATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -149,7 +149,7 @@ public class CreateIosPushCredentialRequest {
    * Corresponding private key to the certificate as received from APNs
    * @return privateKey
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----", required = true, value = "Corresponding private key to the certificate as received from APNs")
   @JsonProperty(JSON_PROPERTY_PRIVATE_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -175,7 +175,7 @@ public class CreateIosPushCredentialRequest {
    * Alias to uniquely identify the credential
    * @return alias
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "LucyIosCredential", required = true, value = "Alias to uniquely identify the credential")
   @JsonProperty(JSON_PROPERTY_ALIAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

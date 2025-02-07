@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   Upload.JSON_PROPERTY_ERROR_MESSAGE,
   Upload.JSON_PROPERTY_TN_UPLOAD_ENTRIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Upload {
   public static final String JSON_PROPERTY_TICKET_ID = "ticket_id";
   private UUID ticketId;
@@ -162,7 +162,7 @@ public class Upload {
    * Uniquely identifies the resource.
    * @return ticketId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "542c3bca-d247-42bc-8fe7-e01d16ecd761", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_TICKET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class Upload {
    * Get tenantId
    * @return tenantId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ea175aba-f47c-4702-9400-efaa42688048", value = "")
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -214,7 +214,7 @@ public class Upload {
    * Get locationId
    * @return locationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "c37e5036-1e87-42e6-86a2-b3e8dd39a2ad", value = "")
   @JsonProperty(JSON_PROPERTY_LOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -240,7 +240,7 @@ public class Upload {
    * Represents the status of the upload on Microsoft Teams.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "error", value = "Represents the status of the upload on Microsoft Teams.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -274,7 +274,7 @@ public class Upload {
    * Get availableUsages
    * @return availableUsages
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_AVAILABLE_USAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -300,7 +300,7 @@ public class Upload {
    * A code returned by Microsoft Teams if there is an error with the upload process.
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A code returned by Microsoft Teams if there is an error with the upload process.")
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -326,7 +326,7 @@ public class Upload {
    * A message set if there is an error with the upload process.
    * @return errorMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A message set if there is an error with the upload process.")
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -360,7 +360,7 @@ public class Upload {
    * Get tnUploadEntries
    * @return tnUploadEntries
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TN_UPLOAD_ENTRIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PublicCompany.JSON_PROPERTY_ISIN,
   PublicCompany.JSON_PROPERTY_DISPLAY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class PublicCompany {
   public static final String JSON_PROPERTY_SYMBOL = "symbol";
   private String symbol;
@@ -71,7 +71,7 @@ public class PublicCompany {
    * Get symbol
    * @return symbol
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SYMBOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class PublicCompany {
    * Get exchange
    * @return exchange
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_EXCHANGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class PublicCompany {
    * Get iso2
    * @return iso2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ISO2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class PublicCompany {
    * Get isin
    * @return isin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ISIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -175,7 +175,7 @@ public class PublicCompany {
    * Get displayName
    * @return displayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

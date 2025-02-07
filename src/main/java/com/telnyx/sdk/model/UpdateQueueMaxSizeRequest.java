@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateQueueMaxSizeRequest.JSON_PROPERTY_MAX_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateQueueMaxSizeRequest {
   public static final String JSON_PROPERTY_MAX_SIZE = "max_size";
   private Integer maxSize = 300;
@@ -54,7 +54,7 @@ public class UpdateQueueMaxSizeRequest {
    * maximum: 300
    * @return maxSize
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "100", required = true, value = "Maximum number of calls that can be in the queue at once")
   @JsonProperty(JSON_PROPERTY_MAX_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

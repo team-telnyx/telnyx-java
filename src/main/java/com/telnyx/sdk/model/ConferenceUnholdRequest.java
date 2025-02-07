@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ConferenceUnholdRequest.JSON_PROPERTY_CALL_CONTROL_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceUnholdRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
   private List<String> callControlIds = new ArrayList<>();
@@ -59,7 +59,7 @@ public class ConferenceUnholdRequest {
    * List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unheld.
    * @return callControlIds
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "List of unique identifiers and tokens for controlling the call. Enter each call control ID to be unheld.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

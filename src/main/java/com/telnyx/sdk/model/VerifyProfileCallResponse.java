@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   VerifyProfileCallResponse.JSON_PROPERTY_WHITELISTED_DESTINATIONS,
   VerifyProfileCallResponse.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerifyProfileCallResponse {
   public static final String JSON_PROPERTY_MESSAGING_TEMPLATE_ID = "messaging_template_id";
   private UUID messagingTemplateId;
@@ -71,7 +71,7 @@ public class VerifyProfileCallResponse {
    * The message template identifier selected from /verify_profiles/templates
    * @return messagingTemplateId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0abb5b4f-459f-445a-bfcd-488998b7572d", value = "The message template identifier selected from /verify_profiles/templates")
   @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class VerifyProfileCallResponse {
    * The name that identifies the application requesting 2fa in the verification message.
    * @return appName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
   @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class VerifyProfileCallResponse {
    * The length of the verify code to generate.
    * @return codeLength
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6", value = "The length of the verify code to generate.")
   @JsonProperty(JSON_PROPERTY_CODE_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class VerifyProfileCallResponse {
    * Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.
    * @return whitelistedDestinations
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"US\",\"CA\"]", value = "Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.")
   @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -183,7 +183,7 @@ public class VerifyProfileCallResponse {
    * For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.
    * @return defaultVerificationTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "300", value = "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   SendFaxRequest.JSON_PROPERTY_WEBHOOK_URL,
   SendFaxRequest.JSON_PROPERTY_CLIENT_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SendFaxRequest {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -140,7 +140,7 @@ public class SendFaxRequest {
    * The connection ID to send the fax with.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "234423", required = true, value = "The connection ID to send the fax with.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -166,7 +166,7 @@ public class SendFaxRequest {
    * The URL (or list of URLs) to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
    * @return mediaUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL (or list of URLs) to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class SendFaxRequest {
    * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can&#39;t be submitted together.
    * @return mediaName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -218,7 +218,7 @@ public class SendFaxRequest {
    * The phone number, in E.164 format, the fax will be sent to or SIP URI
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13127367276", required = true, value = "The phone number, in E.164 format, the fax will be sent to or SIP URI")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -244,7 +244,7 @@ public class SendFaxRequest {
    * The phone number, in E.164 format, the fax will be sent from.
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13125790015", required = true, value = "The phone number, in E.164 format, the fax will be sent from.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -270,7 +270,7 @@ public class SendFaxRequest {
    * The &#x60;from_display_name&#x60; string to be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the &#x60;from&#x60; field.
    * @return fromDisplayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Company Name", value = "The `from_display_name` string to be used as the caller id name (SIP From Display Name) presented to the destination (`to` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the `from` field.")
   @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -296,7 +296,7 @@ public class SendFaxRequest {
    * Get quality
    * @return quality
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_QUALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -322,7 +322,7 @@ public class SendFaxRequest {
    * The flag to disable the T.38 protocol.
    * @return t38Enabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The flag to disable the T.38 protocol.")
   @JsonProperty(JSON_PROPERTY_T38_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -348,7 +348,7 @@ public class SendFaxRequest {
    * The flag to enable monochrome, true black and white fax results.
    * @return monochrome
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The flag to enable monochrome, true black and white fax results.")
   @JsonProperty(JSON_PROPERTY_MONOCHROME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -374,7 +374,7 @@ public class SendFaxRequest {
    * Should fax media be stored on temporary URL. It does not support media_name, they can&#39;t be submitted together.
    * @return storeMedia
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Should fax media be stored on temporary URL. It does not support media_name, they can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -400,7 +400,7 @@ public class SendFaxRequest {
    * Should fax preview be stored on temporary URL.
    * @return storePreview
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Should fax preview be stored on temporary URL.")
   @JsonProperty(JSON_PROPERTY_STORE_PREVIEW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -426,7 +426,7 @@ public class SendFaxRequest {
    * The format for the preview file in case the &#x60;store_preview&#x60; is &#x60;true&#x60;.
    * @return previewFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The format for the preview file in case the `store_preview` is `true`.")
   @JsonProperty(JSON_PROPERTY_PREVIEW_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -452,7 +452,7 @@ public class SendFaxRequest {
    * Use this field to override the URL to which Telnyx will send subsequent webhooks for this fax.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL to which Telnyx will send subsequent webhooks for this fax.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -478,7 +478,7 @@ public class SendFaxRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

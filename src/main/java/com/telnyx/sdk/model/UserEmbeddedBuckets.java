@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UserEmbeddedBuckets.JSON_PROPERTY_BUCKETS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UserEmbeddedBuckets {
   public static final String JSON_PROPERTY_BUCKETS = "buckets";
   private List<String> buckets = new ArrayList<>();
@@ -59,7 +59,7 @@ public class UserEmbeddedBuckets {
    * Get buckets
    * @return buckets
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUCKETS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

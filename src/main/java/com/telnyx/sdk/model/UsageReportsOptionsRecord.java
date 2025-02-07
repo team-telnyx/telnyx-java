@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   UsageReportsOptionsRecord.JSON_PROPERTY_PRODUCT_METRICS,
   UsageReportsOptionsRecord.JSON_PROPERTY_RECORD_TYPES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UsageReportsOptionsRecord {
   public static final String JSON_PROPERTY_PRODUCT = "product";
   private String product;
@@ -68,7 +68,7 @@ public class UsageReportsOptionsRecord {
    * Telnyx Product
    * @return product
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wireless", value = "Telnyx Product")
   @JsonProperty(JSON_PROPERTY_PRODUCT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -102,7 +102,7 @@ public class UsageReportsOptionsRecord {
    * Telnyx Product Dimensions
    * @return productDimensions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "['mnc', 'mcc', 'sim_card_id', 'sim_group_name']", value = "Telnyx Product Dimensions")
   @JsonProperty(JSON_PROPERTY_PRODUCT_DIMENSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -136,7 +136,7 @@ public class UsageReportsOptionsRecord {
    * Telnyx Product Metrics
    * @return productMetrics
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "['uplink_data_bytes','downlink_data','downlink_data_bytes','uplink_data','data_cost']", value = "Telnyx Product Metrics")
   @JsonProperty(JSON_PROPERTY_PRODUCT_METRICS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -170,7 +170,7 @@ public class UsageReportsOptionsRecord {
    * Subproducts if applicable
    * @return recordTypes
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "null", value = "Subproducts if applicable")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

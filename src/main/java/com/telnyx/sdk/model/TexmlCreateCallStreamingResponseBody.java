@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   TexmlCreateCallStreamingResponseBody.JSON_PROPERTY_DATE_UPDATED,
   TexmlCreateCallStreamingResponseBody.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TexmlCreateCallStreamingResponseBody {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -109,7 +109,7 @@ public class TexmlCreateCallStreamingResponseBody {
    * Get accountSid
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class TexmlCreateCallStreamingResponseBody {
    * Get callSid
    * @return callSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA", value = "")
   @JsonProperty(JSON_PROPERTY_CALL_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class TexmlCreateCallStreamingResponseBody {
    * Identifier of a resource.
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "e9cea0be-7dbd-4b98-98b1-c0089d9d43b0", value = "Identifier of a resource.")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class TexmlCreateCallStreamingResponseBody {
    * The user specified name of Stream.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My stream", value = "The user specified name of Stream.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class TexmlCreateCallStreamingResponseBody {
    * The status of the streaming.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "in-progress", value = "The status of the streaming.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class TexmlCreateCallStreamingResponseBody {
    * Get dateUpdated
    * @return dateUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Fri, 11 Aug 2023 19:12:11 +0000", value = "")
   @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class TexmlCreateCallStreamingResponseBody {
    * The relative URI for this streaming resource.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls/v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA/Streams/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json", value = "The relative URI for this streaming resource.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

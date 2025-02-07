@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreateCredentialConnectionRequestRtcpSettings.JSON_PROPERTY_CAPTURE_ENABLED,
   CreateCredentialConnectionRequestRtcpSettings.JSON_PROPERTY_REPORT_FREQUENCY_SECONDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateCredentialConnectionRequestRtcpSettings {
   /**
    * RTCP port by default is rtp+1, it can also be set to rtcp-mux
@@ -94,7 +94,7 @@ public class CreateCredentialConnectionRequestRtcpSettings {
    * RTCP port by default is rtp+1, it can also be set to rtcp-mux
    * @return port
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "RTCP port by default is rtp+1, it can also be set to rtcp-mux")
   @JsonProperty(JSON_PROPERTY_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class CreateCredentialConnectionRequestRtcpSettings {
    * BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.
    * @return captureEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.")
   @JsonProperty(JSON_PROPERTY_CAPTURE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -142,7 +142,7 @@ public class CreateCredentialConnectionRequestRtcpSettings {
    * RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds.
    * @return reportFrequencySeconds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds.")
   @JsonProperty(JSON_PROPERTY_REPORT_FREQUENCY_SECONDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

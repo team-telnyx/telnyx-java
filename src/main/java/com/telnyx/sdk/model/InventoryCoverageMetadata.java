@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   InventoryCoverageMetadata.JSON_PROPERTY_TOTAL_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InventoryCoverageMetadata {
   public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
   private Integer totalResults;
@@ -52,7 +52,7 @@ public class InventoryCoverageMetadata {
    * Get totalResults
    * @return totalResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

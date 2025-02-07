@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   PreviewLoaConfigurationParamsRequest.JSON_PROPERTY_ADDRESS,
   PreviewLoaConfigurationParamsRequest.JSON_PROPERTY_CONTACT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PreviewLoaConfigurationParamsRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -72,7 +72,7 @@ public class PreviewLoaConfigurationParamsRequest {
    * The name of the LOA configuration
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "My LOA Configuration", required = true, value = "The name of the LOA configuration")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -98,7 +98,7 @@ public class PreviewLoaConfigurationParamsRequest {
    * Get logo
    * @return logo
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_LOGO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -124,7 +124,7 @@ public class PreviewLoaConfigurationParamsRequest {
    * The name of the company
    * @return companyName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Telnyx", required = true, value = "The name of the company")
   @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -150,7 +150,7 @@ public class PreviewLoaConfigurationParamsRequest {
    * Get address
    * @return address
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -176,7 +176,7 @@ public class PreviewLoaConfigurationParamsRequest {
    * Get contact
    * @return contact
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONTACT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

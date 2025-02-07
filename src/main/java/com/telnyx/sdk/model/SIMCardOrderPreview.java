@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   SIMCardOrderPreview.JSON_PROPERTY_RECORD_TYPE,
   SIMCardOrderPreview.JSON_PROPERTY_QUANTITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardOrderPreview {
   public static final String JSON_PROPERTY_TOTAL_COST = "total_cost";
   private SIMCardOrderPreviewTotalCost totalCost;
@@ -77,7 +77,7 @@ public class SIMCardOrderPreview {
    * Get totalCost
    * @return totalCost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -103,7 +103,7 @@ public class SIMCardOrderPreview {
    * Get shippingCost
    * @return shippingCost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SHIPPING_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -129,7 +129,7 @@ public class SIMCardOrderPreview {
    * Get simCardsCost
    * @return simCardsCost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SIM_CARDS_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class SIMCardOrderPreview {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sim_card_order_preview", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -171,7 +171,7 @@ public class SIMCardOrderPreview {
    * The amount of SIM cards requested in the SIM card order.
    * @return quantity
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "21", value = "The amount of SIM cards requested in the SIM card order.")
   @JsonProperty(JSON_PROPERTY_QUANTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

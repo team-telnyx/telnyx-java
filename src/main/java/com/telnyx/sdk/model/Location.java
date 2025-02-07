@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Location.JSON_PROPERTY_CODE,
   Location.JSON_PROPERTY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Location {
   public static final String JSON_PROPERTY_REGION = "region";
   private String region;
@@ -68,7 +68,7 @@ public class Location {
    * Identifies the geographical region of location.
    * @return region
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "AMER", value = "Identifies the geographical region of location.")
   @JsonProperty(JSON_PROPERTY_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -94,7 +94,7 @@ public class Location {
    * Site of location.
    * @return site
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ORD", value = "Site of location.")
   @JsonProperty(JSON_PROPERTY_SITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -120,7 +120,7 @@ public class Location {
    * Point of presence of location.
    * @return pop
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "CH1", value = "Point of presence of location.")
   @JsonProperty(JSON_PROPERTY_POP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class Location {
    * Location code.
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "chicago-il", value = "Location code.")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -172,7 +172,7 @@ public class Location {
    * Human readable name of location.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Chicago IL, US", value = "Human readable name of location.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

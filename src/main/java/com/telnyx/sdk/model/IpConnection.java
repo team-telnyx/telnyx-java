@@ -64,7 +64,7 @@ import com.telnyx.sdk.JSON;
   IpConnection.JSON_PROPERTY_INBOUND,
   IpConnection.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class IpConnection {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -210,7 +210,7 @@ public class IpConnection {
    * Identifies the type of resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -236,7 +236,7 @@ public class IpConnection {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ip_connection", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -262,7 +262,7 @@ public class IpConnection {
    * Defaults to true
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Defaults to true")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -288,7 +288,7 @@ public class IpConnection {
    * Get anchorsiteOverride
    * @return anchorsiteOverride
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -314,7 +314,7 @@ public class IpConnection {
    * Get connectionName
    * @return connectionName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "string", value = "")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -340,7 +340,7 @@ public class IpConnection {
    * One of UDP, TLS, or TCP. Applies only to connections with IP authentication or FQDN authentication.
    * @return transportProtocol
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "UDP", value = "One of UDP, TLS, or TCP. Applies only to connections with IP authentication or FQDN authentication.")
   @JsonProperty(JSON_PROPERTY_TRANSPORT_PROTOCOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -366,7 +366,7 @@ public class IpConnection {
    * When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.
    * @return defaultOnHoldComfortNoiseEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "When enabled, Telnyx will generate comfort noise when you place the call on hold. If disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_ON_HOLD_COMFORT_NOISE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -392,7 +392,7 @@ public class IpConnection {
    * Get dtmfType
    * @return dtmfType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -418,7 +418,7 @@ public class IpConnection {
    * Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios.
    * @return encodeContactHeaderEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Encode the SIP contact header sent by Telnyx to avoid issues for NAT or ALG scenarios.")
   @JsonProperty(JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -444,7 +444,7 @@ public class IpConnection {
    * Get encryptedMedia
    * @return encryptedMedia
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -478,7 +478,7 @@ public class IpConnection {
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg&#39;s settings.
    * @return onnetT38PassthroughEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are on the Telnyx network. If this is disabled, Telnyx will be able to use T38 on just one leg of the call depending on each leg's settings.")
   @JsonProperty(JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -504,7 +504,7 @@ public class IpConnection {
    * The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -530,7 +530,7 @@ public class IpConnection {
    * The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.")
   @JsonIgnore
 
@@ -564,7 +564,7 @@ public class IpConnection {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1 or v2.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -592,7 +592,7 @@ public class IpConnection {
    * maximum: 30
    * @return webhookTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "Specifies how many seconds to wait before timing out a webhook.")
   @JsonIgnore
 
@@ -626,7 +626,7 @@ public class IpConnection {
    * Get rtcpSettings
    * @return rtcpSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RTCP_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -652,7 +652,7 @@ public class IpConnection {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -678,7 +678,7 @@ public class IpConnection {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -704,7 +704,7 @@ public class IpConnection {
    * Get inbound
    * @return inbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -730,7 +730,7 @@ public class IpConnection {
    * Get outbound
    * @return outbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortingOrderStatusChangedPayload.JSON_PROPERTY_UPDATED_AT,
   WebhookPortingOrderStatusChangedPayload.JSON_PROPERTY_WEBHOOK_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortingOrderStatusChangedPayload {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -76,7 +76,7 @@ public class WebhookPortingOrderStatusChangedPayload {
    * Identifies the porting order that was moved.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting order that was moved.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -102,7 +102,7 @@ public class WebhookPortingOrderStatusChangedPayload {
    * Identifies the customer reference associated with the porting order.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my-ref-001", value = "Identifies the customer reference associated with the porting order.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -128,7 +128,7 @@ public class WebhookPortingOrderStatusChangedPayload {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -154,7 +154,7 @@ public class WebhookPortingOrderStatusChangedPayload {
    * Identifies the support key associated with the porting order.
    * @return supportKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sr_b1a2c3", value = "Identifies the support key associated with the porting order.")
   @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -180,7 +180,7 @@ public class WebhookPortingOrderStatusChangedPayload {
    * ISO 8601 formatted date indicating when the porting order was moved.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the porting order was moved.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -206,7 +206,7 @@ public class WebhookPortingOrderStatusChangedPayload {
    * The URL to send the webhook to.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/webhook", value = "The URL to send the webhook to.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

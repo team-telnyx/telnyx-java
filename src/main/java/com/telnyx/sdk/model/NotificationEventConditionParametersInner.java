@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   NotificationEventConditionParametersInner.JSON_PROPERTY_OPTIONAL,
   NotificationEventConditionParametersInner.JSON_PROPERTY_DATA_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NotificationEventConditionParametersInner {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -60,7 +60,7 @@ public class NotificationEventConditionParametersInner {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number", value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class NotificationEventConditionParametersInner {
    * Get optional
    * @return optional
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "")
   @JsonProperty(JSON_PROPERTY_OPTIONAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class NotificationEventConditionParametersInner {
    * Get dataType
    * @return dataType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "string", value = "")
   @JsonProperty(JSON_PROPERTY_DATA_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

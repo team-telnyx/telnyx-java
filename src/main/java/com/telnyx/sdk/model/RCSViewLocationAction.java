@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   RCSViewLocationAction.JSON_PROPERTY_LABEL,
   RCSViewLocationAction.JSON_PROPERTY_QUERY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSViewLocationAction {
   public static final String JSON_PROPERTY_LAT_LONG = "lat_long";
   private RCSLatLng latLong;
@@ -62,7 +62,7 @@ public class RCSViewLocationAction {
    * Get latLong
    * @return latLong
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LAT_LONG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class RCSViewLocationAction {
    * The label of the pin dropped
    * @return label
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The label of the pin dropped")
   @JsonProperty(JSON_PROPERTY_LABEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class RCSViewLocationAction {
    * query string (Android only)
    * @return query
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "query string (Android only)")
   @JsonProperty(JSON_PROPERTY_QUERY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

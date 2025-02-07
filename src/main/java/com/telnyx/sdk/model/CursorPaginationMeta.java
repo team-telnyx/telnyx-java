@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CursorPaginationMeta.JSON_PROPERTY_NEXT,
   CursorPaginationMeta.JSON_PROPERTY_PREVIOUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CursorPaginationMeta {
   public static final String JSON_PROPERTY_CURSORS = "cursors";
   private Cursor cursors;
@@ -65,7 +65,7 @@ public class CursorPaginationMeta {
    * Get cursors
    * @return cursors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CURSORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -91,7 +91,7 @@ public class CursorPaginationMeta {
    * Get totalItems
    * @return totalItems
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "50", value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_ITEMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -117,7 +117,7 @@ public class CursorPaginationMeta {
    * Path to next page.
    * @return next
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/connections/1234567890/active_calls?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Path to next page.")
   @JsonProperty(JSON_PROPERTY_NEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class CursorPaginationMeta {
    * Path to previous page.
    * @return previous
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/connections/1234567890/active_calls?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Path to previous page.")
   @JsonProperty(JSON_PROPERTY_PREVIOUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

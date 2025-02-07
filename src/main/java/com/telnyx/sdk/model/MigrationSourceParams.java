@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   MigrationSourceParams.JSON_PROPERTY_PROVIDER_AUTH,
   MigrationSourceParams.JSON_PROPERTY_BUCKET_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MigrationSourceParams {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -101,7 +101,7 @@ public class MigrationSourceParams {
    * Unique identifier for the data migration source.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier for the data migration source.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class MigrationSourceParams {
    * Cloud provider from which to migrate data.
    * @return provider
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Cloud provider from which to migrate data.")
   @JsonProperty(JSON_PROPERTY_PROVIDER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -148,7 +148,7 @@ public class MigrationSourceParams {
    * Get providerAuth
    * @return providerAuth
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PROVIDER_AUTH)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -174,7 +174,7 @@ public class MigrationSourceParams {
    * Bucket name to migrate the data from.
    * @return bucketName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Bucket name to migrate the data from.")
   @JsonProperty(JSON_PROPERTY_BUCKET_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

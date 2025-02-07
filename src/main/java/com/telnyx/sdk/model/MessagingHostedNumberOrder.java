@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   MessagingHostedNumberOrder.JSON_PROPERTY_STATUS,
   MessagingHostedNumberOrder.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagingHostedNumberOrder {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -118,7 +118,7 @@ public class MessagingHostedNumberOrder {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "messaging_hosted_number_order", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -134,7 +134,7 @@ public class MessagingHostedNumberOrder {
    * Resource unique identifier.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Resource unique identifier.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -155,7 +155,7 @@ public class MessagingHostedNumberOrder {
    * Automatically associate the number with this messaging profile ID when the order is complete.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Automatically associate the number with this messaging profile ID when the order is complete.")
   @JsonIgnore
 
@@ -189,7 +189,7 @@ public class MessagingHostedNumberOrder {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -223,7 +223,7 @@ public class MessagingHostedNumberOrder {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

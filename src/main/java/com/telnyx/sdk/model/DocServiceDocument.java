@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocument.JSON_PROPERTY_FILENAME,
   DocServiceDocument.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DocServiceDocument {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -142,7 +142,7 @@ public class DocServiceDocument {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -158,7 +158,7 @@ public class DocServiceDocument {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "document", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class DocServiceDocument {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -190,7 +190,7 @@ public class DocServiceDocument {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -206,7 +206,7 @@ public class DocServiceDocument {
    * The document&#39;s content_type.
    * @return contentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "application/pdf", value = "The document's content_type.")
   @JsonProperty(JSON_PROPERTY_CONTENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -227,7 +227,7 @@ public class DocServiceDocument {
    * Get size
    * @return size
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -248,7 +248,7 @@ public class DocServiceDocument {
    * Indicates the current document reviewing status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "Indicates the current document reviewing status")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -264,7 +264,7 @@ public class DocServiceDocument {
    * The document&#39;s SHA256 hash provided for optional verification purposes.
    * @return sha256
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c", value = "The document's SHA256 hash provided for optional verification purposes.")
   @JsonProperty(JSON_PROPERTY_SHA256)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -285,7 +285,7 @@ public class DocServiceDocument {
    * The filename of the document.
    * @return filename
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "test-document.pdf", value = "The filename of the document.")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -311,7 +311,7 @@ public class DocServiceDocument {
    * Optional reference string for customer tracking.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "Optional reference string for customer tracking.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallForwarding.JSON_PROPERTY_FORWARDS_TO,
   CallForwarding.JSON_PROPERTY_FORWARDING_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallForwarding {
   public static final String JSON_PROPERTY_CALL_FORWARDING_ENABLED = "call_forwarding_enabled";
   private Boolean callForwardingEnabled = true;
@@ -96,7 +96,7 @@ public class CallForwarding {
    * Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.
    * @return callForwardingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.")
   @JsonProperty(JSON_PROPERTY_CALL_FORWARDING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class CallForwarding {
    * The phone number to which inbound calls to this number are forwarded. Inbound calls will not be forwarded if this field is left blank. If set, must be a +E.164-formatted phone number.
    * @return forwardsTo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The phone number to which inbound calls to this number are forwarded. Inbound calls will not be forwarded if this field is left blank. If set, must be a +E.164-formatted phone number.")
   @JsonProperty(JSON_PROPERTY_FORWARDS_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class CallForwarding {
    * Call forwarding type. &#39;forwards_to&#39; must be set for this to have an effect.
    * @return forwardingType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "always", value = "Call forwarding type. 'forwards_to' must be set for this to have an effect.")
   @JsonProperty(JSON_PROPERTY_FORWARDING_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

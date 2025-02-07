@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   BucketAPIUsageResponse.JSON_PROPERTY_TOTAL,
   BucketAPIUsageResponse.JSON_PROPERTY_TIMESTAMP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BucketAPIUsageResponse {
   public static final String JSON_PROPERTY_CATEGORIES = "categories";
   private List<BucketOps> categories = null;
@@ -73,7 +73,7 @@ public class BucketAPIUsageResponse {
    * Get categories
    * @return categories
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CATEGORIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -99,7 +99,7 @@ public class BucketAPIUsageResponse {
    * Get total
    * @return total
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class BucketAPIUsageResponse {
    * The time the usage was recorded
    * @return timestamp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "The time the usage was recorded")
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

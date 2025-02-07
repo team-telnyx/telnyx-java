@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PostNumbersFeaturesRequest.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PostNumbersFeaturesRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
@@ -59,7 +59,7 @@ public class PostNumbersFeaturesRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

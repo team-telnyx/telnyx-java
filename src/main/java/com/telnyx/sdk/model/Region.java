@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Region.JSON_PROPERTY_INSERTED_AT,
   Region.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Region {
   public static final String JSON_PROPERTY_CODE = "code";
   private String code;
@@ -65,7 +65,7 @@ public class Region {
    * The unique code of the region.
    * @return code
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "dc2", required = true, value = "The unique code of the region.")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class Region {
    * The name of the region.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Washington DC, US", required = true, value = "The name of the region.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class Region {
    * Timestamp when the region was inserted.
    * @return insertedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Timestamp when the region was inserted.")
   @JsonProperty(JSON_PROPERTY_INSERTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class Region {
    * Timestamp when the region was last updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Timestamp when the region was last updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   TextAndImageArrayInner.JSON_PROPERTY_TEXT,
   TextAndImageArrayInner.JSON_PROPERTY_IMAGE_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TextAndImageArrayInner {
   /**
    * Gets or Sets type
@@ -95,7 +95,7 @@ public class TextAndImageArrayInner {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -121,7 +121,7 @@ public class TextAndImageArrayInner {
    * Get text
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -147,7 +147,7 @@ public class TextAndImageArrayInner {
    * Get imageUrl
    * @return imageUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IMAGE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

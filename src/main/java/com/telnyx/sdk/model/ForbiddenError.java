@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   ForbiddenError.JSON_PROPERTY_SOURCE,
   ForbiddenError.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ForbiddenError {
   public static final String JSON_PROPERTY_CODE = "code";
   private JsonNullable<Object> code = JsonNullable.<Object>of(null);
@@ -74,7 +74,7 @@ public class ForbiddenError {
    * Get code
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10010", value = "")
   @JsonIgnore
 
@@ -108,7 +108,7 @@ public class ForbiddenError {
    * Get title
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Authorization failed", value = "")
   @JsonIgnore
 
@@ -142,7 +142,7 @@ public class ForbiddenError {
    * Get detail
    * @return detail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "You do not have permission to perform the requested action on the specified resource or resources.", value = "")
   @JsonIgnore
 
@@ -176,7 +176,7 @@ public class ForbiddenError {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -202,7 +202,7 @@ public class ForbiddenError {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

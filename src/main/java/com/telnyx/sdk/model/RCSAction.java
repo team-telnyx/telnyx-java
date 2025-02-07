@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   RCSAction.JSON_PROPERTY_SHARE_LOCATION_ACTION,
   RCSAction.JSON_PROPERTY_COMPOSE_ACTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSAction {
   public static final String JSON_PROPERTY_TEXT = "text";
   private String text;
@@ -90,7 +90,7 @@ public class RCSAction {
    * Text that is shown in the suggested action. Maximum 25 characters.
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hello world", value = "Text that is shown in the suggested action. Maximum 25 characters.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -116,7 +116,7 @@ public class RCSAction {
    * Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters.
    * @return postbackData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters.")
   @JsonProperty(JSON_PROPERTY_POSTBACK_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -142,7 +142,7 @@ public class RCSAction {
    * Fallback URL to use if a client doesn&#39;t support a suggested action. Fallback URLs open in new browser windows. Maximum 2048 characters.
    * @return fallbackUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Fallback URL to use if a client doesn't support a suggested action. Fallback URLs open in new browser windows. Maximum 2048 characters.")
   @JsonProperty(JSON_PROPERTY_FALLBACK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -168,7 +168,7 @@ public class RCSAction {
    * Get dialAction
    * @return dialAction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DIAL_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -194,7 +194,7 @@ public class RCSAction {
    * Get viewLocationAction
    * @return viewLocationAction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VIEW_LOCATION_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -220,7 +220,7 @@ public class RCSAction {
    * Get createCalendarEventAction
    * @return createCalendarEventAction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CREATE_CALENDAR_EVENT_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -246,7 +246,7 @@ public class RCSAction {
    * Get openUrlAction
    * @return openUrlAction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OPEN_URL_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -272,7 +272,7 @@ public class RCSAction {
    * Opens the RCS app&#39;s location chooser so the user can pick a location to send back to the agent.
    * @return shareLocationAction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Opens the RCS app's location chooser so the user can pick a location to send back to the agent.")
   @JsonProperty(JSON_PROPERTY_SHARE_LOCATION_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -298,7 +298,7 @@ public class RCSAction {
    * Get composeAction
    * @return composeAction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COMPOSE_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CursorPaginationCursors.JSON_PROPERTY_BEFORE,
   CursorPaginationCursors.JSON_PROPERTY_AFTER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CursorPaginationCursors {
   public static final String JSON_PROPERTY_BEFORE = "before";
   private String before;
@@ -57,7 +57,7 @@ public class CursorPaginationCursors {
    * A cursor to use for paginating results.
    * @return before
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A cursor to use for paginating results.")
   @JsonProperty(JSON_PROPERTY_BEFORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class CursorPaginationCursors {
    * A cursor to use for paginating results.
    * @return after
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A cursor to use for paginating results.")
   @JsonProperty(JSON_PROPERTY_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

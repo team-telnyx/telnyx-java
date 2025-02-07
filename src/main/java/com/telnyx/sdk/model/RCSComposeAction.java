@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   RCSComposeAction.JSON_PROPERTY_COMPOSE_TEXT_MESSAGE,
   RCSComposeAction.JSON_PROPERTY_COMPOSE_RECORDING_MESSAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSComposeAction {
   public static final String JSON_PROPERTY_COMPOSE_TEXT_MESSAGE = "compose_text_message";
   private RCSComposeTextMessage composeTextMessage;
@@ -59,7 +59,7 @@ public class RCSComposeAction {
    * Get composeTextMessage
    * @return composeTextMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COMPOSE_TEXT_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class RCSComposeAction {
    * Get composeRecordingMessage
    * @return composeRecordingMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COMPOSE_RECORDING_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

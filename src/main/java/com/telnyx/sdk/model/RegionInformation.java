@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   RegionInformation.JSON_PROPERTY_REGION_TYPE,
   RegionInformation.JSON_PROPERTY_REGION_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegionInformation {
   /**
    * Gets or Sets regionType
@@ -95,7 +95,7 @@ public class RegionInformation {
    * Get regionType
    * @return regionType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "country_code", value = "")
   @JsonProperty(JSON_PROPERTY_REGION_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -121,7 +121,7 @@ public class RegionInformation {
    * Get regionName
    * @return regionName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "")
   @JsonProperty(JSON_PROPERTY_REGION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   DialogflowConnection.JSON_PROPERTY_ENVIRONMENT,
   DialogflowConnection.JSON_PROPERTY_SERVICE_ACCOUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DialogflowConnection {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -68,7 +68,7 @@ public class DialogflowConnection {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dialogflow_connections", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -94,7 +94,7 @@ public class DialogflowConnection {
    * Uniquely identifies a Telnyx application (Call Control).
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234541231", value = "Uniquely identifies a Telnyx application (Call Control).")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -120,7 +120,7 @@ public class DialogflowConnection {
    * The id of a configured conversation profile on your Dialogflow account. (If you use Dialogflow CX, this param is required)
    * @return conversationProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a-VMHLWzTmKjiJw5S6O0-w", value = "The id of a configured conversation profile on your Dialogflow account. (If you use Dialogflow CX, this param is required)")
   @JsonProperty(JSON_PROPERTY_CONVERSATION_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class DialogflowConnection {
    * Which Dialogflow environment will be used.
    * @return environment
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "development", value = "Which Dialogflow environment will be used.")
   @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -172,7 +172,7 @@ public class DialogflowConnection {
    * The JSON map to connect your Dialoglow account.
    * @return serviceAccount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "****", value = "The JSON map to connect your Dialoglow account.")
   @JsonProperty(JSON_PROPERTY_SERVICE_ACCOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   DocReqsRetrieveDocumentRequirements200Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DocReqsRetrieveDocumentRequirements200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private DocReqsRequirement data;
@@ -54,7 +54,7 @@ public class DocReqsRetrieveDocumentRequirements200Response {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

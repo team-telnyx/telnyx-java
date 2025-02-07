@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   VerifiedCallsDisplayProfileBusinessIdentity.JSON_PROPERTY_RECORD_TYPE,
   VerifiedCallsDisplayProfileBusinessIdentity.JSON_PROPERTY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifiedCallsDisplayProfileBusinessIdentity {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -59,7 +59,7 @@ public class VerifiedCallsDisplayProfileBusinessIdentity {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "business_identity", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class VerifiedCallsDisplayProfileBusinessIdentity {
    * The name of the business identity on the telnyx platform
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Telnyx", value = "The name of the business identity on the telnyx platform")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

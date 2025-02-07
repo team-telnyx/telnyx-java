@@ -58,7 +58,7 @@ import com.telnyx.sdk.JSON;
   CallInitiatedPayload.JSON_PROPERTY_START_TIME,
   CallInitiatedPayload.JSON_PROPERTY_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallInitiatedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -199,7 +199,7 @@ public class CallInitiatedPayload {
    * Call ID used to issue commands via Call Control API.
    * @return callControlId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -225,7 +225,7 @@ public class CallInitiatedPayload {
    * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -251,7 +251,7 @@ public class CallInitiatedPayload {
    * The list of comma-separated codecs enabled for the connection.
    * @return connectionCodecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "G722,PCMU,PCMA", value = "The list of comma-separated codecs enabled for the connection.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_CODECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -277,7 +277,7 @@ public class CallInitiatedPayload {
    * The list of comma-separated codecs offered by caller.
    * @return offeredCodecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "G722,PCMU,PCMA", value = "The list of comma-separated codecs offered by caller.")
   @JsonProperty(JSON_PROPERTY_OFFERED_CODECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -303,7 +303,7 @@ public class CallInitiatedPayload {
    * ID that is unique to the call and can be used to correlate webhook events.
    * @return callLegId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b7f5-5013ef9657c1", value = "ID that is unique to the call and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -337,7 +337,7 @@ public class CallInitiatedPayload {
    * Custom headers from sip invite
    * @return customHeaders
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers from sip invite")
   @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -371,7 +371,7 @@ public class CallInitiatedPayload {
    * User-to-User and Diversion headers from sip invite.
    * @return sipHeaders
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"1234\"},{\"name\":\"Diversion\",\"value\":\"<sip:111@192.168.1.1>\"}]", value = "User-to-User and Diversion headers from sip invite.")
   @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -397,7 +397,7 @@ public class CallInitiatedPayload {
    * SHAKEN/STIR attestation level.
    * @return shakenStirAttestation
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "A", value = "SHAKEN/STIR attestation level.")
   @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ATTESTATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -423,7 +423,7 @@ public class CallInitiatedPayload {
    * Whether attestation was successfully validated or not.
    * @return shakenStirValidated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Whether attestation was successfully validated or not.")
   @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_VALIDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -449,7 +449,7 @@ public class CallInitiatedPayload {
    * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -475,7 +475,7 @@ public class CallInitiatedPayload {
    * State received from a command.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -501,7 +501,7 @@ public class CallInitiatedPayload {
    * Caller id.
    * @return callerIdName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+35319605860", value = "Caller id.")
   @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -527,7 +527,7 @@ public class CallInitiatedPayload {
    * Call screening result.
    * @return callScreeningResult
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "spam_likely", value = "Call screening result.")
   @JsonProperty(JSON_PROPERTY_CALL_SCREENING_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -553,7 +553,7 @@ public class CallInitiatedPayload {
    * Number or SIP URI placing the call.
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+35319605860", value = "Number or SIP URI placing the call.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -579,7 +579,7 @@ public class CallInitiatedPayload {
    * Destination number or SIP URI of the call.
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13129457420", value = "Destination number or SIP URI of the call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -605,7 +605,7 @@ public class CallInitiatedPayload {
    * Whether the call is &#x60;incoming&#x60; or &#x60;outgoing&#x60;.
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "incoming", value = "Whether the call is `incoming` or `outgoing`.")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -631,7 +631,7 @@ public class CallInitiatedPayload {
    * State received from a command.
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "parked", value = "State received from a command.")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -657,7 +657,7 @@ public class CallInitiatedPayload {
    * ISO 8601 datetime of when the call started.
    * @return startTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521992Z", value = "ISO 8601 datetime of when the call started.")
   @JsonProperty(JSON_PROPERTY_START_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -691,7 +691,7 @@ public class CallInitiatedPayload {
    * Array of tags associated to number.
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"tag-01\",\"tag-02\"]", value = "Array of tags associated to number.")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

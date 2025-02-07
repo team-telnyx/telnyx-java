@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   VerifyVerificationCodeRequest.JSON_PROPERTY_VERIFICATION_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerifyVerificationCodeRequest {
   public static final String JSON_PROPERTY_VERIFICATION_CODE = "verification_code";
   private String verificationCode;
@@ -52,7 +52,7 @@ public class VerifyVerificationCodeRequest {
    * Get verificationCode
    * @return verificationCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "123456", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_VERIFICATION_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

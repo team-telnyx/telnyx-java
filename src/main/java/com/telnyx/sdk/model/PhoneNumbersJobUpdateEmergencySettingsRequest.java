@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumbersJobUpdateEmergencySettingsRequest.JSON_PROPERTY_EMERGENCY_ENABLED,
   PhoneNumbersJobUpdateEmergencySettingsRequest.JSON_PROPERTY_EMERGENCY_ADDRESS_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumbersJobUpdateEmergencySettingsRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
@@ -67,7 +67,7 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -93,7 +93,7 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
    * Indicates whether to enable emergency services on this number.
    * @return emergencyEnabled
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Indicates whether to enable emergency services on this number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -119,7 +119,7 @@ public class PhoneNumbersJobUpdateEmergencySettingsRequest {
    * Identifies the address to be used with emergency services.
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Identifies the address to be used with emergency services.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

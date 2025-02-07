@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   ConnectionRtcpSettings.JSON_PROPERTY_CAPTURE_ENABLED,
   ConnectionRtcpSettings.JSON_PROPERTY_REPORT_FREQUENCY_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConnectionRtcpSettings {
   /**
    * RTCP port by default is rtp+1, it can also be set to rtcp-mux
@@ -95,7 +95,7 @@ public class ConnectionRtcpSettings {
    * RTCP port by default is rtp+1, it can also be set to rtcp-mux
    * @return port
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "RTCP port by default is rtp+1, it can also be set to rtcp-mux")
   @JsonProperty(JSON_PROPERTY_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -121,7 +121,7 @@ public class ConnectionRtcpSettings {
    * BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.
    * @return captureEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission Control Portal.")
   @JsonProperty(JSON_PROPERTY_CAPTURE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -147,7 +147,7 @@ public class ConnectionRtcpSettings {
    * RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds.
    * @return reportFrequencySecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "RTCP reports are sent to customers based on the frequency set. Frequency is in seconds and it can be set to values from 5 to 3000 seconds.")
   @JsonProperty(JSON_PROPERTY_REPORT_FREQUENCY_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   PortingEvent.JSON_PROPERTY_CREATED_AT,
   PortingEvent.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingEvent {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -214,7 +214,7 @@ public class PortingEvent {
    * Uniquely identifies the event.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "eef3340b-8903-4466-b445-89b697315a3a", value = "Uniquely identifies the event.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -240,7 +240,7 @@ public class PortingEvent {
    * Identifies the event type
    * @return eventType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_order.deleted", value = "Identifies the event type")
   @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -266,7 +266,7 @@ public class PortingEvent {
    * Identifies the porting order associated with the event.
    * @return portingOrderId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "9471c873-e3eb-4ca1-957d-f9a451334d52", value = "Identifies the porting order associated with the event.")
   @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -300,7 +300,7 @@ public class PortingEvent {
    * Indicates the notification methods used.
    * @return availableNotificationMethods
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates the notification methods used.")
   @JsonProperty(JSON_PROPERTY_AVAILABLE_NOTIFICATION_METHODS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -326,7 +326,7 @@ public class PortingEvent {
    * The status of the payload generation.
    * @return payloadStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "created", value = "The status of the payload generation.")
   @JsonProperty(JSON_PROPERTY_PAYLOAD_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -352,7 +352,7 @@ public class PortingEvent {
    * Get payload
    * @return payload
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -373,7 +373,7 @@ public class PortingEvent {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_event", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -394,7 +394,7 @@ public class PortingEvent {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -420,7 +420,7 @@ public class PortingEvent {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

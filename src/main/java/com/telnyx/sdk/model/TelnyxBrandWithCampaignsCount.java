@@ -84,7 +84,7 @@ import com.telnyx.sdk.JSON;
   TelnyxBrandWithCampaignsCount.JSON_PROPERTY_FAILURE_REASONS,
   TelnyxBrandWithCampaignsCount.JSON_PROPERTY_ASSIGNED_CAMPAIGNS_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TelnyxBrandWithCampaignsCount {
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
@@ -252,7 +252,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Entity type behind the brand. This is the form of business establishment.
    * @return entityType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Entity type behind the brand. This is the form of business establishment.")
   @JsonProperty(JSON_PROPERTY_ENTITY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -278,7 +278,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Unique identifier assigned to the csp by the registry.
    * @return cspId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier assigned to the csp by the registry.")
   @JsonProperty(JSON_PROPERTY_CSP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -304,7 +304,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Unique identifier assigned to the brand.
    * @return brandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4b20017f-8da9-a992-a6c0-683072fb7729", value = "Unique identifier assigned to the brand.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -330,7 +330,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Unique identifier assigned to the brand by the registry.
    * @return tcrBrandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "BBRAND1", value = "Unique identifier assigned to the brand by the registry.")
   @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -356,7 +356,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Display or marketing name of the brand.
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "ABC Mobile", required = true, value = "Display or marketing name of the brand.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -382,7 +382,7 @@ public class TelnyxBrandWithCampaignsCount {
    * (Required for Non-profit/private/public) Legal company name.
    * @return companyName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ABC Inc.", value = "(Required for Non-profit/private/public) Legal company name.")
   @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -408,7 +408,7 @@ public class TelnyxBrandWithCampaignsCount {
    * First name of business contact.
    * @return firstName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "John", value = "First name of business contact.")
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -434,7 +434,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Last name of business contact.
    * @return lastName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Smith", value = "Last name of business contact.")
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -460,7 +460,7 @@ public class TelnyxBrandWithCampaignsCount {
    * (Required for Non-profit) Government assigned corporate tax ID. EIN is 9-digits in U.S.
    * @return ein
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "111111111", value = "(Required for Non-profit) Government assigned corporate tax ID. EIN is 9-digits in U.S.")
   @JsonProperty(JSON_PROPERTY_EIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -486,7 +486,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Valid phone number in e.164 international format.
    * @return phone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12024567890", value = "Valid phone number in e.164 international format.")
   @JsonProperty(JSON_PROPERTY_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -512,7 +512,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Street number and name.
    * @return street
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123", value = "Street number and name.")
   @JsonProperty(JSON_PROPERTY_STREET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -538,7 +538,7 @@ public class TelnyxBrandWithCampaignsCount {
    * City name
    * @return city
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "New York", value = "City name")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -564,7 +564,7 @@ public class TelnyxBrandWithCampaignsCount {
    * State. Must be 2 letters code for United States.
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "NY", value = "State. Must be 2 letters code for United States.")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -590,7 +590,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Postal codes. Use 5 digit zipcode for United States
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10001", value = "Postal codes. Use 5 digit zipcode for United States")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -616,7 +616,7 @@ public class TelnyxBrandWithCampaignsCount {
    * ISO2 2 characters country code. Example: US - United States
    * @return country
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "ISO2 2 characters country code. Example: US - United States")
   @JsonProperty(JSON_PROPERTY_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -642,7 +642,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Valid email address of brand support contact.
    * @return email
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Valid email address of brand support contact.")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -668,7 +668,7 @@ public class TelnyxBrandWithCampaignsCount {
    * (Required for public company) stock symbol.
    * @return stockSymbol
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ABC", value = "(Required for public company) stock symbol.")
   @JsonProperty(JSON_PROPERTY_STOCK_SYMBOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -694,7 +694,7 @@ public class TelnyxBrandWithCampaignsCount {
    * (Required for public company) stock exchange.
    * @return stockExchange
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "(Required for public company) stock exchange.")
   @JsonProperty(JSON_PROPERTY_STOCK_EXCHANGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -720,7 +720,7 @@ public class TelnyxBrandWithCampaignsCount {
    * IP address of the browser requesting to create brand identity.
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "IP address of the browser requesting to create brand identity.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -746,7 +746,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Brand website URL.
    * @return website
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://www.abcmobile.com", value = "Brand website URL.")
   @JsonProperty(JSON_PROPERTY_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -772,7 +772,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Brand relationship to the CSP
    * @return brandRelationship
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Brand relationship to the CSP")
   @JsonProperty(JSON_PROPERTY_BRAND_RELATIONSHIP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -798,7 +798,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Vertical or industry segment of the brand.
    * @return vertical
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Vertical or industry segment of the brand.")
   @JsonProperty(JSON_PROPERTY_VERTICAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -824,7 +824,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Alternate business identifier such as DUNS, LEI, or GIIN
    * @return altBusinessId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Alternate business identifier such as DUNS, LEI, or GIIN")
   @JsonProperty(JSON_PROPERTY_ALT_BUSINESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -850,7 +850,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Get altBusinessIdType
    * @return altBusinessIdType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ALT_BUSINESS_ID_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -876,7 +876,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Universal EIN of Brand, Read Only.
    * @return universalEin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Universal EIN of Brand, Read Only.")
   @JsonProperty(JSON_PROPERTY_UNIVERSAL_EIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -902,7 +902,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Unique identifier Telnyx assigned to the brand - the brandId
    * @return referenceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier Telnyx assigned to the brand - the brandId")
   @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -928,7 +928,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Get identityStatus
    * @return identityStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IDENTITY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -954,7 +954,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Get optionalAttributes
    * @return optionalAttributes
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OPTIONAL_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -980,7 +980,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Mock brand for testing purposes
    * @return mock
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Mock brand for testing purposes")
   @JsonProperty(JSON_PROPERTY_MOCK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1006,7 +1006,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Valid mobile phone number in e.164 international format.
    * @return mobilePhone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12024567890", value = "Valid mobile phone number in e.164 international format.")
   @JsonProperty(JSON_PROPERTY_MOBILE_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1032,7 +1032,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Indicates whether this brand is known to be a reseller
    * @return isReseller
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether this brand is known to be a reseller")
   @JsonProperty(JSON_PROPERTY_IS_RESELLER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1058,7 +1058,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Webhook to which brand status updates are sent.
    * @return webhookURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93", value = "Webhook to which brand status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1084,7 +1084,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Business contact email.  Required if &#x60;entityType&#x60; is &#x60;PUBLIC_PROFIT&#x60;.
    * @return businessContactEmail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "name@example.com", value = "Business contact email.  Required if `entityType` is `PUBLIC_PROFIT`.")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1110,7 +1110,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Failover webhook to which brand status updates are sent.
    * @return webhookFailoverURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Failover webhook to which brand status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1136,7 +1136,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Date and time that the brand was created at.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-08T17:57:48.801186", value = "Date and time that the brand was created at.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1162,7 +1162,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Date and time that the brand was last updated at.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-08T17:57:48.801186", value = "Date and time that the brand was last updated at.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1188,7 +1188,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Status of the brand
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Status of the brand")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1214,7 +1214,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Failure reasons for brand
    * @return failureReasons
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Failure reasons for brand")
   @JsonIgnore
 
@@ -1248,7 +1248,7 @@ public class TelnyxBrandWithCampaignsCount {
    * Number of campaigns associated with the brand
    * @return assignedCampaignsCount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "Number of campaigns associated with the brand")
   @JsonProperty(JSON_PROPERTY_ASSIGNED_CAMPAIGNS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

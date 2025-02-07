@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   AutoRespConfigCreateSchema.JSON_PROPERTY_RESP_TEXT,
   AutoRespConfigCreateSchema.JSON_PROPERTY_COUNTRY_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AutoRespConfigCreateSchema {
   /**
    * Gets or Sets op
@@ -103,7 +103,7 @@ public class AutoRespConfigCreateSchema {
    * Get op
    * @return op
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_OP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -134,7 +134,7 @@ public class AutoRespConfigCreateSchema {
    * Get keywords
    * @return keywords
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"keyword1\",\"keyword2\"]", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_KEYWORDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -160,7 +160,7 @@ public class AutoRespConfigCreateSchema {
    * Get respText
    * @return respText
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thank you for your message", value = "")
   @JsonProperty(JSON_PROPERTY_RESP_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -186,7 +186,7 @@ public class AutoRespConfigCreateSchema {
    * Get countryCode
    * @return countryCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

@@ -62,7 +62,7 @@ import com.telnyx.sdk.JSON;
   TFVerificationRequest.JSON_PROPERTY_ISV_RESELLER,
   TFVerificationRequest.JSON_PROPERTY_WEBHOOK_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TFVerificationRequest {
   public static final String JSON_PROPERTY_BUSINESS_NAME = "businessName";
   private String businessName;
@@ -139,7 +139,7 @@ public class TFVerificationRequest {
    * Name of the business; there are no specific formatting requirements
    * @return businessName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Telnyx LLC", required = true, value = "Name of the business; there are no specific formatting requirements")
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -165,7 +165,7 @@ public class TFVerificationRequest {
    * A URL, including the scheme, pointing to the corporate website
    * @return corporateWebsite
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "http://example.com", required = true, value = "A URL, including the scheme, pointing to the corporate website")
   @JsonProperty(JSON_PROPERTY_CORPORATE_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -191,7 +191,7 @@ public class TFVerificationRequest {
    * Line 1 of the business address
    * @return businessAddr1
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "600 Congress Avenue", required = true, value = "Line 1 of the business address")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ADDR1)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -217,7 +217,7 @@ public class TFVerificationRequest {
    * Line 2 of the business address
    * @return businessAddr2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "14th Floor", value = "Line 2 of the business address")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ADDR2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -243,7 +243,7 @@ public class TFVerificationRequest {
    * The city of the business address; the first letter should be capitalized
    * @return businessCity
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Austin", required = true, value = "The city of the business address; the first letter should be capitalized")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -269,7 +269,7 @@ public class TFVerificationRequest {
    * The full name of the state (not the 2 letter code) of the business address; the first letter should be capitalized
    * @return businessState
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Texas", required = true, value = "The full name of the state (not the 2 letter code) of the business address; the first letter should be capitalized")
   @JsonProperty(JSON_PROPERTY_BUSINESS_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -295,7 +295,7 @@ public class TFVerificationRequest {
    * The ZIP code of the business address
    * @return businessZip
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "78701", required = true, value = "The ZIP code of the business address")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ZIP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -321,7 +321,7 @@ public class TFVerificationRequest {
    * First name of the business contact; there are no specific requirements on formatting
    * @return businessContactFirstName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "John", required = true, value = "First name of the business contact; there are no specific requirements on formatting")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -347,7 +347,7 @@ public class TFVerificationRequest {
    * Last name of the business contact; there are no specific requirements on formatting
    * @return businessContactLastName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Doe", required = true, value = "Last name of the business contact; there are no specific requirements on formatting")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -373,7 +373,7 @@ public class TFVerificationRequest {
    * The email address of the business contact
    * @return businessContactEmail
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "email@example.com", required = true, value = "The email address of the business contact")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -399,7 +399,7 @@ public class TFVerificationRequest {
    * The phone number of the business contact in E.164 format
    * @return businessContactPhone
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18005550100", required = true, value = "The phone number of the business contact in E.164 format")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_PHONE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -425,7 +425,7 @@ public class TFVerificationRequest {
    * Estimated monthly volume of messages from the given phone numbers
    * @return messageVolume
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Estimated monthly volume of messages from the given phone numbers")
   @JsonProperty(JSON_PROPERTY_MESSAGE_VOLUME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -456,7 +456,7 @@ public class TFVerificationRequest {
    * The phone numbers to request the verification of
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[{\"phoneNumber\":\"+18773554398\"},{\"phoneNumber\":\"+18773554399\"}]", required = true, value = "The phone numbers to request the verification of")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -482,7 +482,7 @@ public class TFVerificationRequest {
    * Machine-readable use-case for the phone numbers
    * @return useCase
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Machine-readable use-case for the phone numbers")
   @JsonProperty(JSON_PROPERTY_USE_CASE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -508,7 +508,7 @@ public class TFVerificationRequest {
    * Human-readable summary of the desired use-case
    * @return useCaseSummary
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal", required = true, value = "Human-readable summary of the desired use-case")
   @JsonProperty(JSON_PROPERTY_USE_CASE_SUMMARY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -534,7 +534,7 @@ public class TFVerificationRequest {
    * An example of a message that will be sent from the given phone numbers
    * @return productionMessageContent
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Your Telnyx OTP is XXXX", required = true, value = "An example of a message that will be sent from the given phone numbers")
   @JsonProperty(JSON_PROPERTY_PRODUCTION_MESSAGE_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -560,7 +560,7 @@ public class TFVerificationRequest {
    * Human-readable description of how end users will opt into receiving messages from the given phone numbers
    * @return optInWorkflow
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset", required = true, value = "Human-readable description of how end users will opt into receiving messages from the given phone numbers")
   @JsonProperty(JSON_PROPERTY_OPT_IN_WORKFLOW)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -591,7 +591,7 @@ public class TFVerificationRequest {
    * Images showing the opt-in workflow
    * @return optInWorkflowImageURLs
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[{\"url\":\"https://telnyx.com/sign-up\"},{\"url\":\"https://telnyx.com/company/data-privacy\"}]", required = true, value = "Images showing the opt-in workflow")
   @JsonProperty(JSON_PROPERTY_OPT_IN_WORKFLOW_IMAGE_U_R_LS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -617,7 +617,7 @@ public class TFVerificationRequest {
    * Any additional information
    * @return additionalInformation
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Any additional information")
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFORMATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -643,7 +643,7 @@ public class TFVerificationRequest {
    * ISV name
    * @return isvReseller
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "ISV name")
   @JsonProperty(JSON_PROPERTY_ISV_RESELLER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -669,7 +669,7 @@ public class TFVerificationRequest {
    * URL that should receive webhooks relating to this verification request
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example-webhook.com", value = "URL that should receive webhooks relating to this verification request")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

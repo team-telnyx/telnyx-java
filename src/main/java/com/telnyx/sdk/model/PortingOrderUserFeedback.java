@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderUserFeedback.JSON_PROPERTY_USER_RATING,
   PortingOrderUserFeedback.JSON_PROPERTY_USER_COMMENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderUserFeedback {
   public static final String JSON_PROPERTY_USER_RATING = "user_rating";
   private Integer userRating;
@@ -56,7 +56,7 @@ public class PortingOrderUserFeedback {
    * Once an order is ported, cancellation is requested or the request is cancelled, the user may rate their experience
    * @return userRating
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5", value = "Once an order is ported, cancellation is requested or the request is cancelled, the user may rate their experience")
   @JsonProperty(JSON_PROPERTY_USER_RATING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class PortingOrderUserFeedback {
    * A comment related to the customer rating.
    * @return userComment
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "I loved my experience porting numbers with Telnyx", value = "A comment related to the customer rating.")
   @JsonProperty(JSON_PROPERTY_USER_COMMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

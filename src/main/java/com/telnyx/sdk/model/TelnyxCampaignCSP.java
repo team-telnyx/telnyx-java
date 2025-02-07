@@ -93,7 +93,7 @@ import com.telnyx.sdk.JSON;
   TelnyxCampaignCSP.JSON_PROPERTY_TERMS_AND_CONDITIONS_LINK,
   TelnyxCampaignCSP.JSON_PROPERTY_EMBEDDED_LINK_SAMPLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TelnyxCampaignCSP {
   public static final String JSON_PROPERTY_AFFILIATE_MARKETING = "affiliateMarketing";
   private Boolean affiliateMarketing;
@@ -354,7 +354,7 @@ public class TelnyxCampaignCSP {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does message content controlled by affiliate marketing other than the brand?  This field is deprecated.")
   @JsonProperty(JSON_PROPERTY_AFFILIATE_MARKETING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -380,7 +380,7 @@ public class TelnyxCampaignCSP {
    * Age gated content in campaign.
    * @return ageGated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Age gated content in campaign.")
   @JsonProperty(JSON_PROPERTY_AGE_GATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -406,7 +406,7 @@ public class TelnyxCampaignCSP {
    * Campaign subscription auto-renewal status.
    * @return autoRenewal
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign subscription auto-renewal status.")
   @JsonProperty(JSON_PROPERTY_AUTO_RENEWAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -432,7 +432,7 @@ public class TelnyxCampaignCSP {
    * Campaign recent billed date.
    * @return billedDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign recent billed date.")
   @JsonProperty(JSON_PROPERTY_BILLED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -458,7 +458,7 @@ public class TelnyxCampaignCSP {
    * Unique identifier assigned to the brand.
    * @return brandId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "d2ca9d69-641b-4131-83fa-5d0744f4c8a9", required = true, value = "Unique identifier assigned to the brand.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -484,7 +484,7 @@ public class TelnyxCampaignCSP {
    * Display or marketing name of the brand.
    * @return brandDisplayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ABC Mobile", value = "Display or marketing name of the brand.")
   @JsonIgnore
 
@@ -518,7 +518,7 @@ public class TelnyxCampaignCSP {
    * Unique identifier for a campaign.
    * @return campaignId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "823d6b1a-6ed6-41a3-9c50-c8ff41b682ba", required = true, value = "Unique identifier for a campaign.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -544,7 +544,7 @@ public class TelnyxCampaignCSP {
    * Unique identifier assigned to the brand by the registry.
    * @return tcrBrandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "BBRAND1", value = "Unique identifier assigned to the brand by the registry.")
   @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -570,7 +570,7 @@ public class TelnyxCampaignCSP {
    * Unique identifier assigned to the campaign by the registry.
    * @return tcrCampaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "CCAMP1", value = "Unique identifier assigned to the campaign by the registry.")
   @JsonProperty(JSON_PROPERTY_TCR_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -596,7 +596,7 @@ public class TelnyxCampaignCSP {
    * Unix timestamp when campaign was created.
    * @return createDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unix timestamp when campaign was created.")
   @JsonProperty(JSON_PROPERTY_CREATE_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -622,7 +622,7 @@ public class TelnyxCampaignCSP {
    * Alphanumeric identifier of the CSP associated with this campaign.
    * @return cspId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Alphanumeric identifier of the CSP associated with this campaign.")
   @JsonProperty(JSON_PROPERTY_CSP_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -648,7 +648,7 @@ public class TelnyxCampaignCSP {
    * Summary description of this campaign.
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Summary description of this campaign.")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -674,7 +674,7 @@ public class TelnyxCampaignCSP {
    * Get directLending
    * @return directLending
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DIRECT_LENDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -700,7 +700,7 @@ public class TelnyxCampaignCSP {
    * Does message generated by the campaign include URL link in SMS?
    * @return embeddedLink
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does message generated by the campaign include URL link in SMS?")
   @JsonProperty(JSON_PROPERTY_EMBEDDED_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -726,7 +726,7 @@ public class TelnyxCampaignCSP {
    * Does message generated by the campaign include phone number in SMS?
    * @return embeddedPhone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does message generated by the campaign include phone number in SMS?")
   @JsonProperty(JSON_PROPERTY_EMBEDDED_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -752,7 +752,7 @@ public class TelnyxCampaignCSP {
    * Subscriber help keywords. Multiple keywords are comma separated without space.
    * @return helpKeywords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subscriber help keywords. Multiple keywords are comma separated without space.")
   @JsonProperty(JSON_PROPERTY_HELP_KEYWORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -778,7 +778,7 @@ public class TelnyxCampaignCSP {
    * Help message of the campaign.
    * @return helpMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Help message of the campaign.")
   @JsonProperty(JSON_PROPERTY_HELP_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -804,7 +804,7 @@ public class TelnyxCampaignCSP {
    * Message flow description.
    * @return messageFlow
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message flow description.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_FLOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -830,7 +830,7 @@ public class TelnyxCampaignCSP {
    * Campaign created from mock brand. Mocked campaign cannot be shared with an upstream CNP.
    * @return mock
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Campaign created from mock brand. Mocked campaign cannot be shared with an upstream CNP.")
   @JsonProperty(JSON_PROPERTY_MOCK)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -856,7 +856,7 @@ public class TelnyxCampaignCSP {
    * When the campaign would be due for its next renew/bill date.
    * @return nextRenewalOrExpirationDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When the campaign would be due for its next renew/bill date.")
   @JsonProperty(JSON_PROPERTY_NEXT_RENEWAL_OR_EXPIRATION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -882,7 +882,7 @@ public class TelnyxCampaignCSP {
    * Does campaign utilize pool of phone numbers?
    * @return numberPool
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign utilize pool of phone numbers?")
   @JsonProperty(JSON_PROPERTY_NUMBER_POOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -908,7 +908,7 @@ public class TelnyxCampaignCSP {
    * Subscriber opt-in keywords. Multiple keywords are comma separated without space.
    * @return optinKeywords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subscriber opt-in keywords. Multiple keywords are comma separated without space.")
   @JsonProperty(JSON_PROPERTY_OPTIN_KEYWORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -934,7 +934,7 @@ public class TelnyxCampaignCSP {
    * Subscriber opt-in message.
    * @return optinMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subscriber opt-in message.")
   @JsonProperty(JSON_PROPERTY_OPTIN_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -960,7 +960,7 @@ public class TelnyxCampaignCSP {
    * Subscriber opt-out keywords. Multiple keywords are comma separated without space.
    * @return optoutKeywords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subscriber opt-out keywords. Multiple keywords are comma separated without space.")
   @JsonProperty(JSON_PROPERTY_OPTOUT_KEYWORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -986,7 +986,7 @@ public class TelnyxCampaignCSP {
    * Subscriber opt-out message.
    * @return optoutMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Subscriber opt-out message.")
   @JsonProperty(JSON_PROPERTY_OPTOUT_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1012,7 +1012,7 @@ public class TelnyxCampaignCSP {
    * Caller supplied campaign reference ID. If supplied, the value must be unique across all submitted campaigns. Can be used to prevent duplicate campaign registrations.
    * @return referenceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Caller supplied campaign reference ID. If supplied, the value must be unique across all submitted campaigns. Can be used to prevent duplicate campaign registrations.")
   @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1038,7 +1038,7 @@ public class TelnyxCampaignCSP {
    * Alphanumeric identifier of the reseller that you want to associate with this campaign.
    * @return resellerId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Alphanumeric identifier of the reseller that you want to associate with this campaign.")
   @JsonProperty(JSON_PROPERTY_RESELLER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1064,7 +1064,7 @@ public class TelnyxCampaignCSP {
    * Message sample. Some campaign tiers require 1 or more message samples.
    * @return sample1
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 1 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE1)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1090,7 +1090,7 @@ public class TelnyxCampaignCSP {
    * Message sample. Some campaign tiers require 2 or more message samples.
    * @return sample2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 2 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1116,7 +1116,7 @@ public class TelnyxCampaignCSP {
    * Message sample. Some campaign tiers require 3 or more message samples.
    * @return sample3
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 3 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE3)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1142,7 +1142,7 @@ public class TelnyxCampaignCSP {
    * Message sample. Some campaign tiers require 4 or more message samples.
    * @return sample4
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 4 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE4)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1168,7 +1168,7 @@ public class TelnyxCampaignCSP {
    * Message sample. Some campaign tiers require 5 or more message samples.
    * @return sample5
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 5 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE5)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1194,7 +1194,7 @@ public class TelnyxCampaignCSP {
    * Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status. 
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status. ")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1225,7 +1225,7 @@ public class TelnyxCampaignCSP {
    * Campaign sub-usecases. Must be of defined valid sub-usecase types. Use &#x60;/registry/enum/usecase&#x60; operation to retrieve list of valid sub-usecases
    * @return subUsecases
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Campaign sub-usecases. Must be of defined valid sub-usecase types. Use `/registry/enum/usecase` operation to retrieve list of valid sub-usecases")
   @JsonProperty(JSON_PROPERTY_SUB_USECASES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -1252,7 +1252,7 @@ public class TelnyxCampaignCSP {
    * Does campaign responds to help keyword(s)?
    * @return subscriberHelp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign responds to help keyword(s)?")
   @JsonProperty(JSON_PROPERTY_SUBSCRIBER_HELP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1278,7 +1278,7 @@ public class TelnyxCampaignCSP {
    * Does campaign require subscriber to opt-in before SMS is sent to subscriber?
    * @return subscriberOptin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign require subscriber to opt-in before SMS is sent to subscriber?")
   @JsonProperty(JSON_PROPERTY_SUBSCRIBER_OPTIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1304,7 +1304,7 @@ public class TelnyxCampaignCSP {
    * Does campaign support subscriber opt-out keyword(s)?
    * @return subscriberOptout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Does campaign support subscriber opt-out keyword(s)?")
   @JsonProperty(JSON_PROPERTY_SUBSCRIBER_OPTOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1330,7 +1330,7 @@ public class TelnyxCampaignCSP {
    * Is terms &amp; conditions accepted?
    * @return termsAndConditions
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Is terms & conditions accepted?")
   @JsonProperty(JSON_PROPERTY_TERMS_AND_CONDITIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -1356,7 +1356,7 @@ public class TelnyxCampaignCSP {
    * Campaign usecase. Must be of defined valid types. Use &#x60;/registry/enum/usecase&#x60; operation to retrieve usecases available for given brand.
    * @return usecase
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation to retrieve usecases available for given brand.")
   @JsonProperty(JSON_PROPERTY_USECASE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -1384,7 +1384,7 @@ public class TelnyxCampaignCSP {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Business/industry segment of this campaign (Deprecated). Must be of defined valid types. Use `/registry/enum/vertical` operation to retrieve verticals available for given brand, vertical combination.  This field is deprecated.")
   @JsonProperty(JSON_PROPERTY_VERTICAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1410,7 +1410,7 @@ public class TelnyxCampaignCSP {
    * Webhook to which campaign status updates are sent.
    * @return webhookURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/webhook", value = "Webhook to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1436,7 +1436,7 @@ public class TelnyxCampaignCSP {
    * Failover webhook to which campaign status updates are sent.
    * @return webhookFailoverURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/failover-webhook", value = "Failover webhook to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1462,7 +1462,7 @@ public class TelnyxCampaignCSP {
    * Indicates whether the campaign is registered with T-Mobile.
    * @return isTMobileRegistered
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether the campaign is registered with T-Mobile.")
   @JsonProperty(JSON_PROPERTY_IS_T_MOBILE_REGISTERED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1488,7 +1488,7 @@ public class TelnyxCampaignCSP {
    * Indicates whether the campaign is suspended with T-Mobile.
    * @return isTMobileSuspended
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether the campaign is suspended with T-Mobile.")
   @JsonProperty(JSON_PROPERTY_IS_T_MOBILE_SUSPENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1514,7 +1514,7 @@ public class TelnyxCampaignCSP {
    * Indicates whether the campaign has a T-Mobile number pool ID associated with it.
    * @return isTMobileNumberPoolingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether the campaign has a T-Mobile number pool ID associated with it.")
   @JsonProperty(JSON_PROPERTY_IS_T_MOBILE_NUMBER_POOLING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1540,7 +1540,7 @@ public class TelnyxCampaignCSP {
    * Failure reasons if campaign submission failed
    * @return failureReasons
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Failure reasons if campaign submission failed")
   @JsonIgnore
 
@@ -1574,7 +1574,7 @@ public class TelnyxCampaignCSP {
    * Campaign submission status
    * @return submissionStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Campaign submission status")
   @JsonProperty(JSON_PROPERTY_SUBMISSION_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1600,7 +1600,7 @@ public class TelnyxCampaignCSP {
    * Campaign status
    * @return campaignStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "TCR_ACCEPTED", value = "Campaign status")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1626,7 +1626,7 @@ public class TelnyxCampaignCSP {
    * Link to the campaign&#39;s privacy policy.
    * @return privacyPolicyLink
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Link to the campaign's privacy policy.")
   @JsonProperty(JSON_PROPERTY_PRIVACY_POLICY_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1652,7 +1652,7 @@ public class TelnyxCampaignCSP {
    * Link to the campaign&#39;s terms and conditions.
    * @return termsAndConditionsLink
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Link to the campaign's terms and conditions.")
   @JsonProperty(JSON_PROPERTY_TERMS_AND_CONDITIONS_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1678,7 +1678,7 @@ public class TelnyxCampaignCSP {
    * Sample of an embedded link that will be sent to subscribers.
    * @return embeddedLinkSample
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Sample of an embedded link that will be sent to subscribers.")
   @JsonProperty(JSON_PROPERTY_EMBEDDED_LINK_SAMPLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreateVerifyProfileFlashcallRequest.JSON_PROPERTY_WHITELISTED_DESTINATIONS,
   CreateVerifyProfileFlashcallRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateVerifyProfileFlashcallRequest {
   public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
   private List<String> whitelistedDestinations = null;
@@ -66,7 +66,7 @@ public class CreateVerifyProfileFlashcallRequest {
    * Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.
    * @return whitelistedDestinations
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"US\",\"CA\"]", value = "Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.")
   @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class CreateVerifyProfileFlashcallRequest {
    * For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.
    * @return defaultVerificationTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "300", value = "For every request that is initiated via this Verify profile, this sets the number of seconds before a verification request code expires. Once the verification request expires, the user cannot use the code to verify their identity.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

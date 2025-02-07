@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   SendPortingVerificationCodesRequest.JSON_PROPERTY_PHONE_NUMBERS,
   SendPortingVerificationCodesRequest.JSON_PROPERTY_VERIFICATION_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SendPortingVerificationCodesRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = null;
@@ -101,7 +101,7 @@ public class SendPortingVerificationCodesRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class SendPortingVerificationCodesRequest {
    * Get verificationMethod
    * @return verificationMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VERIFICATION_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

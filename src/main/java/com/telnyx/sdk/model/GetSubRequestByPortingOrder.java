@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   GetSubRequestByPortingOrder.JSON_PROPERTY_SUB_REQUEST_ID,
   GetSubRequestByPortingOrder.JSON_PROPERTY_PORT_REQUEST_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GetSubRequestByPortingOrder {
   public static final String JSON_PROPERTY_SUB_REQUEST_ID = "sub_request_id";
   private String subRequestId;
@@ -56,7 +56,7 @@ public class GetSubRequestByPortingOrder {
    * Identifies the Sub Request associated with the Porting Order
    * @return subRequestId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe", value = "Identifies the Sub Request associated with the Porting Order")
   @JsonProperty(JSON_PROPERTY_SUB_REQUEST_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class GetSubRequestByPortingOrder {
    * Identifies the Port Request associated with the Porting Order
    * @return portRequestId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "59b0762a-b274-4f76-ac32-4d5cf0272e66", value = "Identifies the Port Request associated with the Porting Order")
   @JsonProperty(JSON_PROPERTY_PORT_REQUEST_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

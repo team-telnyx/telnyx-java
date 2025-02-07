@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   RecursiveCluster.JSON_PROPERTY_TOTAL_NUMBER_OF_NODES,
   RecursiveCluster.JSON_PROPERTY_SUBCLUSTERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RecursiveCluster {
   public static final String JSON_PROPERTY_CLUSTER_ID = "cluster_id";
   private String clusterId;
@@ -75,7 +75,7 @@ public class RecursiveCluster {
    * Get clusterId
    * @return clusterId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CLUSTER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -101,7 +101,7 @@ public class RecursiveCluster {
    * Get clusterHeader
    * @return clusterHeader
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CLUSTER_HEADER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class RecursiveCluster {
    * Get clusterSummary
    * @return clusterSummary
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CLUSTER_SUMMARY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -161,7 +161,7 @@ public class RecursiveCluster {
    * Get nodes
    * @return nodes
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class RecursiveCluster {
    * Get totalNumberOfNodes
    * @return totalNumberOfNodes
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_NUMBER_OF_NODES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -221,7 +221,7 @@ public class RecursiveCluster {
    * Get subclusters
    * @return subclusters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SUBCLUSTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

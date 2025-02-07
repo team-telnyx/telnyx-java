@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   BrandStatus.JSON_PROPERTY_CREATED_AT,
   BrandStatus.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BrandStatus {
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   private String displayName;
@@ -72,7 +72,7 @@ public class BrandStatus {
    * The display name of the brand submitted via bulk creation.
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "John's Donuts", required = true, value = "The display name of the brand submitted via bulk creation.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -98,7 +98,7 @@ public class BrandStatus {
    * The current status of the brand.
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The current status of the brand.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -124,7 +124,7 @@ public class BrandStatus {
    * The ID of the brand created via bulk creation. This brand will only have a brandId after the brand has been created.
    * @return brandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4b20017a-2f50-4c90-c9e6-5f67304cbde9", value = "The ID of the brand created via bulk creation. This brand will only have a brandId after the brand has been created.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class BrandStatus {
    * The date and time that the brand was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-06-30T10:49:04-07:00", value = "The date and time that the brand was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class BrandStatus {
    * Errors related to a brand creation failure.
    * @return error
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Missing firstName attribute.", value = "Errors related to a brand creation failure.")
   @JsonProperty(JSON_PROPERTY_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

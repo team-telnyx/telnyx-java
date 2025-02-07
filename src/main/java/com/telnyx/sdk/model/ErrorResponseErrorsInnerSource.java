@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ErrorResponseErrorsInnerSource.JSON_PROPERTY_POINTER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ErrorResponseErrorsInnerSource {
   public static final String JSON_PROPERTY_POINTER = "pointer";
   private String pointer;
@@ -52,7 +52,7 @@ public class ErrorResponseErrorsInnerSource {
    * Get pointer
    * @return pointer
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_POINTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

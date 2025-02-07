@@ -54,7 +54,7 @@ import com.telnyx.sdk.JSON;
   SubNumberOrderRequirementGroupResponseData.JSON_PROPERTY_REGULATORY_REQUIREMENTS,
   SubNumberOrderRequirementGroupResponseData.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SubNumberOrderRequirementGroupResponseData {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -110,7 +110,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -136,7 +136,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get orderRequestId
    * @return orderRequestId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ORDER_REQUEST_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -162,7 +162,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get countryCode
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get phoneNumberType
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -214,7 +214,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get phoneNumbersCount
    * @return phoneNumbersCount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -240,7 +240,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get requirementsMet
    * @return requirementsMet
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -266,7 +266,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get isBlockSubNumberOrder
    * @return isBlockSubNumberOrder
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IS_BLOCK_SUB_NUMBER_ORDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -292,7 +292,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -318,7 +318,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get customerReference
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -344,7 +344,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -370,7 +370,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -430,7 +430,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -464,7 +464,7 @@ public class SubNumberOrderRequirementGroupResponseData {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

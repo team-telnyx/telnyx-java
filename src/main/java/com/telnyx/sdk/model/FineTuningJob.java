@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   FineTuningJob.JSON_PROPERTY_TRAINED_TOKENS,
   FineTuningJob.JSON_PROPERTY_TRAINING_FILE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class FineTuningJob {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -127,7 +127,7 @@ public class FineTuningJob {
    * The name of the fine-tuned model that is being created.
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The name of the fine-tuned model that is being created.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,7 +153,7 @@ public class FineTuningJob {
    * The Unix timestamp (in seconds) for when the fine-tuning job was created.
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The Unix timestamp (in seconds) for when the fine-tuning job was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -179,7 +179,7 @@ public class FineTuningJob {
    * The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
    * @return finishedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(required = true, value = "The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.")
   @JsonProperty(JSON_PROPERTY_FINISHED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -205,7 +205,7 @@ public class FineTuningJob {
    * Get hyperparameters
    * @return hyperparameters
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_HYPERPARAMETERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -231,7 +231,7 @@ public class FineTuningJob {
    * The base model that is being fine-tuned.
    * @return model
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The base model that is being fine-tuned.")
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -257,7 +257,7 @@ public class FineTuningJob {
    * The organization that owns the fine-tuning job.
    * @return organizationId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The organization that owns the fine-tuning job.")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -283,7 +283,7 @@ public class FineTuningJob {
    * The current status of the fine-tuning job.
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The current status of the fine-tuning job.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -309,7 +309,7 @@ public class FineTuningJob {
    * The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
    * @return trainedTokens
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(required = true, value = "The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.")
   @JsonProperty(JSON_PROPERTY_TRAINED_TOKENS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -335,7 +335,7 @@ public class FineTuningJob {
    * The storage bucket or object used for training.
    * @return trainingFile
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The storage bucket or object used for training.")
   @JsonProperty(JSON_PROPERTY_TRAINING_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

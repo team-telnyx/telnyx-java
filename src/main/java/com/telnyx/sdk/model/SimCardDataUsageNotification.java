@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   SimCardDataUsageNotification.JSON_PROPERTY_CREATED_AT,
   SimCardDataUsageNotification.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SimCardDataUsageNotification {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -84,7 +84,7 @@ public class SimCardDataUsageNotification {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "79228acc-3f08-4e70-ac68-cb5aae8b537a", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -105,7 +105,7 @@ public class SimCardDataUsageNotification {
    * The identification UUID of the related SIM card resource.
    * @return simCardId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "b34c1683-cd85-4493-b9a5-315eb4bc5e19", value = "The identification UUID of the related SIM card resource.")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -126,7 +126,7 @@ public class SimCardDataUsageNotification {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sim_card_data_usage_notification", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -147,7 +147,7 @@ public class SimCardDataUsageNotification {
    * Get threshold
    * @return threshold
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_THRESHOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -168,7 +168,7 @@ public class SimCardDataUsageNotification {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -184,7 +184,7 @@ public class SimCardDataUsageNotification {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

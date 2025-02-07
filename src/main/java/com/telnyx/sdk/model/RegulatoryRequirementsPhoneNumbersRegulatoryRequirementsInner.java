@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner.JSON_PROPERTY_ACCEPTANCE_CRITERIA,
   RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
@@ -87,7 +87,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Address matching the DID area code (street, building number, postal code, city and country)", value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -103,7 +103,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
    * Get example
    * @return example
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "600 Congress Avenue, 14th Floor, Austin, TX 78701", value = "")
   @JsonProperty(JSON_PROPERTY_EXAMPLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -140,7 +140,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
    * Get label
    * @return label
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Address matching the DID area code", value = "")
   @JsonProperty(JSON_PROPERTY_LABEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -166,7 +166,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
    * Get fieldType
    * @return fieldType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "address_id", value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
    * Get acceptanceCriteria
    * @return acceptanceCriteria
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACCEPTANCE_CRITERIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInner {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "regulatory_requirement", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

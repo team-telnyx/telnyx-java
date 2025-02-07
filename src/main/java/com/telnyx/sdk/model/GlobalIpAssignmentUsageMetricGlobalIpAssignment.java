@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpAssignmentUsageMetricGlobalIpAssignment.JSON_PROPERTY_WIREGUARD_PEER_ID,
   GlobalIpAssignmentUsageMetricGlobalIpAssignment.JSON_PROPERTY_WIREGUARD_PEER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GlobalIpAssignmentUsageMetricGlobalIpAssignment {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -62,7 +62,7 @@ public class GlobalIpAssignmentUsageMetricGlobalIpAssignment {
    * Global IP assignment ID.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a836125b-20b6-452e-9c03-2653f09c7ed7", value = "Global IP assignment ID.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class GlobalIpAssignmentUsageMetricGlobalIpAssignment {
    * Wireguard peer ID.
    * @return wireguardPeerId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "e66c496d-4a85-423b-8b2a-8e63fac20320", value = "Wireguard peer ID.")
   @JsonProperty(JSON_PROPERTY_WIREGUARD_PEER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class GlobalIpAssignmentUsageMetricGlobalIpAssignment {
    * Get wireguardPeer
    * @return wireguardPeer
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WIREGUARD_PEER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

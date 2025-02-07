@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RCSFrom.JSON_PROPERTY_CARRIER,
   RCSFrom.JSON_PROPERTY_AGENT_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSFrom {
   public static final String JSON_PROPERTY_AGENT_ID = "agent_id";
   private String agentId;
@@ -60,7 +60,7 @@ public class RCSFrom {
    * agent ID
    * @return agentId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Agent007", value = "agent ID")
   @JsonProperty(JSON_PROPERTY_AGENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class RCSFrom {
    * Get carrier
    * @return carrier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Telnyx", value = "")
   @JsonProperty(JSON_PROPERTY_CARRIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class RCSFrom {
    * Get agentName
    * @return agentName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Test Agent", value = "")
   @JsonProperty(JSON_PROPERTY_AGENT_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

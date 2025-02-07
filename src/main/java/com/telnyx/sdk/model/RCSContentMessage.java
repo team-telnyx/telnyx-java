@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   RCSContentMessage.JSON_PROPERTY_RICH_CARD,
   RCSContentMessage.JSON_PROPERTY_CONTENT_INFO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSContentMessage {
   public static final String JSON_PROPERTY_SUGGESTIONS = "suggestions";
   private List<RCSSuggestion> suggestions = null;
@@ -77,7 +77,7 @@ public class RCSContentMessage {
    * List of suggested actions and replies
    * @return suggestions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of suggested actions and replies")
   @JsonProperty(JSON_PROPERTY_SUGGESTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -103,7 +103,7 @@ public class RCSContentMessage {
    * Text (maximum 3072 characters)
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hello world!", value = "Text (maximum 3072 characters)")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -129,7 +129,7 @@ public class RCSContentMessage {
    * Get richCard
    * @return richCard
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RICH_CARD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -155,7 +155,7 @@ public class RCSContentMessage {
    * Get contentInfo
    * @return contentInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CONTENT_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

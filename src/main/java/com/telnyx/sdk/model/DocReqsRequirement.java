@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   DocReqsRequirement.JSON_PROPERTY_CREATED_AT,
   DocReqsRequirement.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DocReqsRequirement {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -173,7 +173,7 @@ public class DocReqsRequirement {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "requirement", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -194,7 +194,7 @@ public class DocReqsRequirement {
    * The 2-character (ISO 3166-1 alpha-2) country code where this requirement applies
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "FR", value = "The 2-character (ISO 3166-1 alpha-2) country code where this requirement applies")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -220,7 +220,7 @@ public class DocReqsRequirement {
    * The locality where this requirement applies
    * @return locality
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Nice", value = "The locality where this requirement applies")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -246,7 +246,7 @@ public class DocReqsRequirement {
    * Indicates the phone_number_type this requirement applies to. Leave blank if this requirement applies to all number_types.
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "local", value = "Indicates the phone_number_type this requirement applies to. Leave blank if this requirement applies to all number_types.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -272,7 +272,7 @@ public class DocReqsRequirement {
    * Indicates whether this requirement applies to ordering, porting, or both
    * @return action
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ordering", value = "Indicates whether this requirement applies to ordering, porting, or both")
   @JsonProperty(JSON_PROPERTY_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -293,7 +293,7 @@ public class DocReqsRequirement {
    * Lists the requirement types necessary to fulfill this requirement
    * @return requirementsTypes
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Lists the requirement types necessary to fulfill this requirement")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS_TYPES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -309,7 +309,7 @@ public class DocReqsRequirement {
    * Identifies the associated document
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the associated document")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -325,7 +325,7 @@ public class DocReqsRequirement {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-04-09T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -341,7 +341,7 @@ public class DocReqsRequirement {
    * ISO 8601 formatted date-time indicating when the resource was last updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-04-12T20:20:20.020Z", value = "ISO 8601 formatted date-time indicating when the resource was last updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   Phone.JSON_PROPERTY_TYPE,
   Phone.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Phone {
   public static final String JSON_PROPERTY_PHONE = "phone";
   private String phone;
@@ -61,7 +61,7 @@ public class Phone {
    * Get phone
    * @return phone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -87,7 +87,7 @@ public class Phone {
    * Standard Values: CELL, MAIN, IPHONE, HOME, WORK
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Standard Values: CELL, MAIN, IPHONE, HOME, WORK")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -113,7 +113,7 @@ public class Phone {
    * WhatsApp ID
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "WhatsApp ID")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

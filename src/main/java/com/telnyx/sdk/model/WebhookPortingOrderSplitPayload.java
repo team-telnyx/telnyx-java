@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortingOrderSplitPayload.JSON_PROPERTY_TO,
   WebhookPortingOrderSplitPayload.JSON_PROPERTY_PORTING_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortingOrderSplitPayload {
   public static final String JSON_PROPERTY_FROM = "from";
   private WebhookPortingOrderSplitPayloadFrom from;
@@ -66,7 +66,7 @@ public class WebhookPortingOrderSplitPayload {
    * Get from
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class WebhookPortingOrderSplitPayload {
    * Get to
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -126,7 +126,7 @@ public class WebhookPortingOrderSplitPayload {
    * The list of porting phone numbers that were moved to the new porting order.
    * @return portingPhoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The list of porting phone numbers that were moved to the new porting order.")
   @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

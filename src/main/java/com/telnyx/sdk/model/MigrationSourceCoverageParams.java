@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   MigrationSourceCoverageParams.JSON_PROPERTY_PROVIDER,
   MigrationSourceCoverageParams.JSON_PROPERTY_SOURCE_REGION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MigrationSourceCoverageParams {
   /**
    * Cloud provider from which to migrate data.
@@ -89,7 +89,7 @@ public class MigrationSourceCoverageParams {
    * Cloud provider from which to migrate data.
    * @return provider
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Cloud provider from which to migrate data.")
   @JsonProperty(JSON_PROPERTY_PROVIDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class MigrationSourceCoverageParams {
    * Provider region from which to migrate data.
    * @return sourceRegion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Provider region from which to migrate data.")
   @JsonProperty(JSON_PROPERTY_SOURCE_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

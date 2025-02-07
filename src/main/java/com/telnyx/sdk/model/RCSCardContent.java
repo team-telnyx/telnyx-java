@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   RCSCardContent.JSON_PROPERTY_MEDIA,
   RCSCardContent.JSON_PROPERTY_SUGGESTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSCardContent {
   public static final String JSON_PROPERTY_TITLE = "title";
   private String title;
@@ -68,7 +68,7 @@ public class RCSCardContent {
    * Title of the card (at most 200 characters)
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Elephant", value = "Title of the card (at most 200 characters)")
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -94,7 +94,7 @@ public class RCSCardContent {
    * Description of the card (at most 2000 characters)
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Description of the card (at most 2000 characters)")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -120,7 +120,7 @@ public class RCSCardContent {
    * Get media
    * @return media
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -154,7 +154,7 @@ public class RCSCardContent {
    * List of suggestions to include in the card. Maximum 10 suggestions.
    * @return suggestions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of suggestions to include in the card. Maximum 10 suggestions.")
   @JsonProperty(JSON_PROPERTY_SUGGESTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   LedgerBillingGroupReport.JSON_PROPERTY_CREATED_AT,
   LedgerBillingGroupReport.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class LedgerBillingGroupReport {
   /**
    * Identifies the type of the resource.
@@ -155,7 +155,7 @@ public class LedgerBillingGroupReport {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ledger_billing_group_report", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -181,7 +181,7 @@ public class LedgerBillingGroupReport {
    * Identifies the type of resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -207,7 +207,7 @@ public class LedgerBillingGroupReport {
    * Uniquely identifies the organization that owns the resource.
    * @return organizationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Uniquely identifies the organization that owns the resource.")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -233,7 +233,7 @@ public class LedgerBillingGroupReport {
    * Status of the ledger billing group report
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Status of the ledger billing group report")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -259,7 +259,7 @@ public class LedgerBillingGroupReport {
    * External url of the ledger billing group report, if the status is complete
    * @return reportUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "External url of the ledger billing group report, if the status is complete")
   @JsonIgnore
 
@@ -293,7 +293,7 @@ public class LedgerBillingGroupReport {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -319,7 +319,7 @@ public class LedgerBillingGroupReport {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

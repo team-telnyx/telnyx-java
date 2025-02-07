@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   SubNumberOrderPhoneNumberRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_VALUE,
   SubNumberOrderPhoneNumberRegulatoryRequirementsInner.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SubNumberOrderPhoneNumberRegulatoryRequirementsInner {
   public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
   private UUID requirementId;
@@ -65,7 +65,7 @@ public class SubNumberOrderPhoneNumberRegulatoryRequirementsInner {
    * Get requirementId
    * @return requirementId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -91,7 +91,7 @@ public class SubNumberOrderPhoneNumberRegulatoryRequirementsInner {
    * Get fieldType
    * @return fieldType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -117,7 +117,7 @@ public class SubNumberOrderPhoneNumberRegulatoryRequirementsInner {
    * Get fieldValue
    * @return fieldValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class SubNumberOrderPhoneNumberRegulatoryRequirementsInner {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

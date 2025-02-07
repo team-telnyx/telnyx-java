@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CallAIGatherToolCallEventDataPayloadToolCallFunction.JSON_PROPERTY_NAME,
   CallAIGatherToolCallEventDataPayloadToolCallFunction.JSON_PROPERTY_ARGUMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallAIGatherToolCallEventDataPayloadToolCallFunction {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -56,7 +56,7 @@ public class CallAIGatherToolCallEventDataPayloadToolCallFunction {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -82,7 +82,7 @@ public class CallAIGatherToolCallEventDataPayloadToolCallFunction {
    * Get arguments
    * @return arguments
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ARGUMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

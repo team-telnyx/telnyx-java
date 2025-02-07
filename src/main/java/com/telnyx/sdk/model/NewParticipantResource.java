@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   NewParticipantResource.JSON_PROPERTY_STATUS,
   NewParticipantResource.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NewParticipantResource {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -121,7 +121,7 @@ public class NewParticipantResource {
    * The id of the account the resource belongs to.
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "The id of the account the resource belongs to.")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -147,7 +147,7 @@ public class NewParticipantResource {
    * The identifier of this participant&#39;s call.
    * @return callSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "The identifier of this participant's call.")
   @JsonProperty(JSON_PROPERTY_CALL_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -173,7 +173,7 @@ public class NewParticipantResource {
    * Whether the participant is coaching another call.
    * @return coaching
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether the participant is coaching another call.")
   @JsonProperty(JSON_PROPERTY_COACHING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -199,7 +199,7 @@ public class NewParticipantResource {
    * The identifier of the coached participant&#39;s call.
    * @return coachingCallSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "The identifier of the coached participant's call.")
   @JsonProperty(JSON_PROPERTY_COACHING_CALL_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -225,7 +225,7 @@ public class NewParticipantResource {
    * Whether the conference ends when the participant leaves.
    * @return endConferenceOnExit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether the conference ends when the participant leaves.")
   @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -251,7 +251,7 @@ public class NewParticipantResource {
    * Whether the participant is on hold.
    * @return hold
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether the participant is on hold.")
   @JsonProperty(JSON_PROPERTY_HOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -277,7 +277,7 @@ public class NewParticipantResource {
    * Whether the participant is muted.
    * @return muted
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether the participant is muted.")
   @JsonProperty(JSON_PROPERTY_MUTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -303,7 +303,7 @@ public class NewParticipantResource {
    * The status of the participant&#39;s call in the conference.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "in-progress", value = "The status of the participant's call in the conference.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -329,7 +329,7 @@ public class NewParticipantResource {
    * The relative URI for this participant.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ.json", value = "The relative URI for this participant.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

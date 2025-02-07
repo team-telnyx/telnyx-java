@@ -67,7 +67,7 @@ import com.telnyx.sdk.JSON;
   VerificationRequestStatus.JSON_PROPERTY_VERIFICATION_STATUS,
   VerificationRequestStatus.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerificationRequestStatus {
   public static final String JSON_PROPERTY_BUSINESS_NAME = "businessName";
   private String businessName;
@@ -153,7 +153,7 @@ public class VerificationRequestStatus {
    * Get businessName
    * @return businessName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Telnyx LLC", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -179,7 +179,7 @@ public class VerificationRequestStatus {
    * Get corporateWebsite
    * @return corporateWebsite
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "http://example.com", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CORPORATE_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -205,7 +205,7 @@ public class VerificationRequestStatus {
    * Get businessAddr1
    * @return businessAddr1
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "600 Congress Avenue", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ADDR1)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -231,7 +231,7 @@ public class VerificationRequestStatus {
    * Get businessAddr2
    * @return businessAddr2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "14th Floor", value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ADDR2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -257,7 +257,7 @@ public class VerificationRequestStatus {
    * Get businessCity
    * @return businessCity
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Austin", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -283,7 +283,7 @@ public class VerificationRequestStatus {
    * Get businessState
    * @return businessState
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Texas", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -309,7 +309,7 @@ public class VerificationRequestStatus {
    * Get businessZip
    * @return businessZip
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "78701", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_ZIP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -335,7 +335,7 @@ public class VerificationRequestStatus {
    * Get businessContactFirstName
    * @return businessContactFirstName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "John", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -361,7 +361,7 @@ public class VerificationRequestStatus {
    * Get businessContactLastName
    * @return businessContactLastName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Doe", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -387,7 +387,7 @@ public class VerificationRequestStatus {
    * Get businessContactEmail
    * @return businessContactEmail
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "email@example.com", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -413,7 +413,7 @@ public class VerificationRequestStatus {
    * Get businessContactPhone
    * @return businessContactPhone
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18889809750", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_PHONE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -439,7 +439,7 @@ public class VerificationRequestStatus {
    * One of the following exact values: 10; 100; 1,000; 10,000; 100,000; 250,000; 500,000; 750,000; 1,000,000; 5,000,000; 10,000,000+
    * @return messageVolume
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "One of the following exact values: 10; 100; 1,000; 10,000; 100,000; 250,000; 500,000; 750,000; 1,000,000; 5,000,000; 10,000,000+")
   @JsonProperty(JSON_PROPERTY_MESSAGE_VOLUME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -470,7 +470,7 @@ public class VerificationRequestStatus {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[{\"phoneNumber\":\"+18773554398\"},{\"phoneNumber\":\"+18773554399\"}]", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -496,7 +496,7 @@ public class VerificationRequestStatus {
    * Get useCase
    * @return useCase
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_USE_CASE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -522,7 +522,7 @@ public class VerificationRequestStatus {
    * Get useCaseSummary
    * @return useCaseSummary
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_USE_CASE_SUMMARY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -548,7 +548,7 @@ public class VerificationRequestStatus {
    * Get productionMessageContent
    * @return productionMessageContent
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Your Telnyx OTP is XXXX", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PRODUCTION_MESSAGE_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -574,7 +574,7 @@ public class VerificationRequestStatus {
    * Get optInWorkflow
    * @return optInWorkflow
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_OPT_IN_WORKFLOW)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -605,7 +605,7 @@ public class VerificationRequestStatus {
    * Get optInWorkflowImageURLs
    * @return optInWorkflowImageURLs
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[{\"url\":\"https://telnyx.com/sign-up\"},{\"url\":\"https://telnyx.com/company/data-privacy\"}]", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_OPT_IN_WORKFLOW_IMAGE_U_R_LS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -631,7 +631,7 @@ public class VerificationRequestStatus {
    * Get additionalInformation
    * @return additionalInformation
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "This is for security purposes, blah blah blah", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFORMATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -657,7 +657,7 @@ public class VerificationRequestStatus {
    * Get isvReseller
    * @return isvReseller
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Yes", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ISV_RESELLER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -683,7 +683,7 @@ public class VerificationRequestStatus {
    * Get webhookUrl
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example-webhook.com", value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -709,7 +709,7 @@ public class VerificationRequestStatus {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "eaba9f52-164e-58e0-b002-4f668e18b7ed", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -735,7 +735,7 @@ public class VerificationRequestStatus {
    * Get verificationStatus
    * @return verificationStatus
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_VERIFICATION_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -761,7 +761,7 @@ public class VerificationRequestStatus {
    * Get reason
    * @return reason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Unfortunately, we have to cancel this request as we do not support non tollfree US numbers.", value = "")
   @JsonProperty(JSON_PROPERTY_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

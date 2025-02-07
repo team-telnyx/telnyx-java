@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   ManagedAccount.JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING,
   ManagedAccount.JSON_PROPERTY_ROLLUP_BILLING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ManagedAccount {
   /**
    * Identifies the type of the resource.
@@ -135,7 +135,7 @@ public class ManagedAccount {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "managed_account", required = true, value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -161,7 +161,7 @@ public class ManagedAccount {
    * Uniquely identifies the managed account.
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "f65ceda4-6522-4ad6-aede-98de83385123", required = true, value = "Uniquely identifies the managed account.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -187,7 +187,7 @@ public class ManagedAccount {
    * The managed account&#39;s email.
    * @return email
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "user@example.com", required = true, value = "The managed account's email.")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -213,7 +213,7 @@ public class ManagedAccount {
    * The managed account&#39;s V2 API access key
    * @return apiKey
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "KEY01236170692E74656C6E79782E636F6D_YmlnIGlyb24gaXMgZGVhZA", required = true, value = "The managed account's V2 API access key")
   @JsonProperty(JSON_PROPERTY_API_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -239,7 +239,7 @@ public class ManagedAccount {
    * The manager account&#39;s email, which serves as the V1 API user identifier
    * @return apiUser
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "managed_account@example.com", required = true, value = "The manager account's email, which serves as the V1 API user identifier")
   @JsonProperty(JSON_PROPERTY_API_USER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -265,7 +265,7 @@ public class ManagedAccount {
    * The managed account&#39;s V1 API token
    * @return apiToken
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "x6oexQNHTs-fZ7-QsDMOeg", required = true, value = "The managed account's V1 API token")
   @JsonProperty(JSON_PROPERTY_API_TOKEN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -291,7 +291,7 @@ public class ManagedAccount {
    * The organization the managed account is associated with.
    * @return organizationName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Example Company LLC", value = "The organization the managed account is associated with.")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class ManagedAccount {
    * The ID of the manager account associated with the managed account.
    * @return managerAccountId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "f65ceda4-6522-4ad6-aede-98de83385123", required = true, value = "The ID of the manager account associated with the managed account.")
   @JsonProperty(JSON_PROPERTY_MANAGER_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -343,7 +343,7 @@ public class ManagedAccount {
    * Get balance
    * @return balance
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_BALANCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -369,7 +369,7 @@ public class ManagedAccount {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", required = true, value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -395,7 +395,7 @@ public class ManagedAccount {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", required = true, value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -421,7 +421,7 @@ public class ManagedAccount {
    * Boolean value that indicates if the managed account is able to have custom pricing set for it or not. If false, uses the pricing of the manager account. Defaults to false. There may be time lag between when the value is changed and pricing changes take effect.
    * @return managedAccountAllowCustomPricing
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Boolean value that indicates if the managed account is able to have custom pricing set for it or not. If false, uses the pricing of the manager account. Defaults to false. There may be time lag between when the value is changed and pricing changes take effect.")
   @JsonProperty(JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -447,7 +447,7 @@ public class ManagedAccount {
    * Boolean value that indicates if the billing information and charges to the managed account \&quot;roll up\&quot; to the manager account. If true, the managed account will not have its own balance and will use the shared balance with the manager account. This value cannot be changed after account creation without going through Telnyx support as changes require manual updates to the account ledger. Defaults to false.
    * @return rollupBilling
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Boolean value that indicates if the billing information and charges to the managed account \"roll up\" to the manager account. If true, the managed account will not have its own balance and will use the shared balance with the manager account. This value cannot be changed after account creation without going through Telnyx support as changes require manual updates to the account ledger. Defaults to false.")
   @JsonProperty(JSON_PROPERTY_ROLLUP_BILLING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

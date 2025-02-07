@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   TranscriptionConfig.JSON_PROPERTY_MODEL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TranscriptionConfig {
   public static final String JSON_PROPERTY_MODEL = "model";
   private String model = "distil-whisper/distil-large-v2";
@@ -53,7 +53,7 @@ public class TranscriptionConfig {
    * The speech to text model to be used by the voice assistant. &#x60;distil-whisper/distil-large-v2&#x60; is lower latency but English-only. &#x60;openai/whisper-large-v3-turbo&#x60; is multi-lingual but slightly higher latency.
    * @return model
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "distil-whisper/distil-large-v2", value = "The speech to text model to be used by the voice assistant. `distil-whisper/distil-large-v2` is lower latency but English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.")
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

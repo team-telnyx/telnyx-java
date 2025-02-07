@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateNumberOrderRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   CreateNumberOrderRequest.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateNumberOrderRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<CreateNumberOrderRequestPhoneNumbersInner> phoneNumbers = null;
@@ -79,7 +79,7 @@ public class CreateNumberOrderRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -105,7 +105,7 @@ public class CreateNumberOrderRequest {
    * Identifies the connection associated with this phone number.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "346789098765567", value = "Identifies the connection associated with this phone number.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -131,7 +131,7 @@ public class CreateNumberOrderRequest {
    * Identifies the messaging profile associated with the phone number.
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "abc85f64-5717-4562-b3fc-2c9600", value = "Identifies the messaging profile associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class CreateNumberOrderRequest {
    * Identifies the billing group associated with the phone number.
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "abc85f64-5717-4562-b3fc-2c9600", value = "Identifies the billing group associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -183,7 +183,7 @@ public class CreateNumberOrderRequest {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

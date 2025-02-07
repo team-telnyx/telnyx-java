@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RCSComposeTextMessage.JSON_PROPERTY_PHONE_NUMBER,
   RCSComposeTextMessage.JSON_PROPERTY_TEXT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSComposeTextMessage {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -57,7 +57,7 @@ public class RCSComposeTextMessage {
    * phone number in +E.164 format
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13125551234", required = true, value = "phone number in +E.164 format")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class RCSComposeTextMessage {
    * Draft to go into the send message text field.
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Draft to go into the send message text field.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

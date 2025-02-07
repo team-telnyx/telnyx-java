@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   UpdateCampaign.JSON_PROPERTY_HELP_MESSAGE,
   UpdateCampaign.JSON_PROPERTY_AUTO_RENEWAL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class UpdateCampaign {
   public static final String JSON_PROPERTY_RESELLER_ID = "resellerId";
   private String resellerId;
@@ -86,7 +86,7 @@ public class UpdateCampaign {
    * Alphanumeric identifier of the reseller that you want to associate with this campaign.
    * @return resellerId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Alphanumeric identifier of the reseller that you want to associate with this campaign.")
   @JsonProperty(JSON_PROPERTY_RESELLER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class UpdateCampaign {
    * Message sample. Some campaign tiers require 1 or more message samples.
    * @return sample1
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 1 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE1)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -138,7 +138,7 @@ public class UpdateCampaign {
    * Message sample. Some campaign tiers require 2 or more message samples.
    * @return sample2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 2 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -164,7 +164,7 @@ public class UpdateCampaign {
    * Message sample. Some campaign tiers require 3 or more message samples.
    * @return sample3
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 3 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE3)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -190,7 +190,7 @@ public class UpdateCampaign {
    * Message sample. Some campaign tiers require 4 or more message samples.
    * @return sample4
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 4 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE4)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -216,7 +216,7 @@ public class UpdateCampaign {
    * Message sample. Some campaign tiers require 5 or more message samples.
    * @return sample5
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 5 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE5)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -242,7 +242,7 @@ public class UpdateCampaign {
    * Message flow description.
    * @return messageFlow
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message flow description.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_FLOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -268,7 +268,7 @@ public class UpdateCampaign {
    * Help message of the campaign.
    * @return helpMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Help message of the campaign.")
   @JsonProperty(JSON_PROPERTY_HELP_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -294,7 +294,7 @@ public class UpdateCampaign {
    * Help message of the campaign.
    * @return autoRenewal
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Help message of the campaign.")
   @JsonProperty(JSON_PROPERTY_AUTO_RENEWAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

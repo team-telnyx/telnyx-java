@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   PortoutReport.JSON_PROPERTY_CREATED_AT,
   PortoutReport.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortoutReport {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -159,7 +159,7 @@ public class PortoutReport {
    * Uniquely identifies the report.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "eef3340b-8903-4466-b445-89b697315a3a", value = "Uniquely identifies the report.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -185,7 +185,7 @@ public class PortoutReport {
    * Identifies the type of report
    * @return reportType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "export_portouts_csv", value = "Identifies the type of report")
   @JsonProperty(JSON_PROPERTY_REPORT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -211,7 +211,7 @@ public class PortoutReport {
    * The current status of the report generation.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The current status of the report generation.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -237,7 +237,7 @@ public class PortoutReport {
    * Get params
    * @return params
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PARAMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -263,7 +263,7 @@ public class PortoutReport {
    * Identifies the document that was uploaded when report was generated. This field is only populated when the report is under completed status.
    * @return documentId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Identifies the document that was uploaded when report was generated. This field is only populated when the report is under completed status.")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -284,7 +284,7 @@ public class PortoutReport {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "portout_report", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -305,7 +305,7 @@ public class PortoutReport {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -331,7 +331,7 @@ public class PortoutReport {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

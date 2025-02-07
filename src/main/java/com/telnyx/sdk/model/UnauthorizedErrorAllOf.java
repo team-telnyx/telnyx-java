@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   UnauthorizedErrorAllOf.JSON_PROPERTY_DETAIL,
   UnauthorizedErrorAllOf.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UnauthorizedErrorAllOf {
   public static final String JSON_PROPERTY_CODE = "code";
   private JsonNullable<Object> code = JsonNullable.<Object>of(null);
@@ -70,7 +70,7 @@ public class UnauthorizedErrorAllOf {
    * Get code
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10009", value = "")
   @JsonIgnore
 
@@ -104,7 +104,7 @@ public class UnauthorizedErrorAllOf {
    * Get title
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Authentication failed", value = "")
   @JsonIgnore
 
@@ -138,7 +138,7 @@ public class UnauthorizedErrorAllOf {
    * Get detail
    * @return detail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "The required authentication headers were either invalid or not included in the request.", value = "")
   @JsonIgnore
 
@@ -172,7 +172,7 @@ public class UnauthorizedErrorAllOf {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

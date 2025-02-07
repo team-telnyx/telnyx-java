@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ElevenLabsVoiceSettings.JSON_PROPERTY_API_KEY_REF
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ElevenLabsVoiceSettings {
   public static final String JSON_PROPERTY_API_KEY_REF = "api_key_ref";
   private String apiKeyRef;
@@ -52,7 +52,7 @@ public class ElevenLabsVoiceSettings {
    * The &#x60;identifier&#x60; for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this integration.
    * @return apiKeyRef
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_elevenlabs_api_key", value = "The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this integration.")
   @JsonProperty(JSON_PROPERTY_API_KEY_REF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CreatePortingPhoneNumberBlockRequest.JSON_PROPERTY_PHONE_NUMBER_RANGE,
   CreatePortingPhoneNumberBlockRequest.JSON_PROPERTY_ACTIVATION_RANGES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortingPhoneNumberBlockRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBER_RANGE = "phone_number_range";
   private CreatePortingPhoneNumberBlockRequestPhoneNumberRange phoneNumberRange;
@@ -60,7 +60,7 @@ public class CreatePortingPhoneNumberBlockRequest {
    * Get phoneNumberRange
    * @return phoneNumberRange
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_RANGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class CreatePortingPhoneNumberBlockRequest {
    * Specifies the activation ranges for this porting phone number block. The activation range must be within the block range and should not overlap with other activation ranges.
    * @return activationRanges
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Specifies the activation ranges for this porting phone number block. The activation range must be within the block range and should not overlap with other activation ranges.")
   @JsonProperty(JSON_PROPERTY_ACTIVATION_RANGES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   Video1.JSON_PROPERTY_LINK,
   Video1.JSON_PROPERTY_CAPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Video1 {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -63,7 +63,7 @@ public class Video1 {
    * The media object ID returned when the media is successfully uploaded to the media endpoint.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f043afd0-f0ae-4b9c-ab3d-696fb4c8cd68", value = "The media object ID returned when the media is successfully uploaded to the media endpoint.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class Video1 {
    * The protocol and URL of the media to be sent. Use only with HTTP/HTTPS URLs. Either id or link must be provided, not both.
    * @return link
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://www.example.com/file", value = "The protocol and URL of the media to be sent. Use only with HTTP/HTTPS URLs. Either id or link must be provided, not both.")
   @JsonProperty(JSON_PROPERTY_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class Video1 {
    * Describes the specified media.
    * @return caption
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My cool media!", value = "Describes the specified media.")
   @JsonProperty(JSON_PROPERTY_CAPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

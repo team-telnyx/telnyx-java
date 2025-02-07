@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   CallResource.JSON_PROPERTY_TO_FORMATTED,
   CallResource.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallResource {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -237,7 +237,7 @@ public class CallResource {
    * The id of the account the resource belongs to.
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "The id of the account the resource belongs to.")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -263,7 +263,7 @@ public class CallResource {
    * The value of the answering machine detection result, if this feature was enabled for the call.
    * @return answeredBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "human", value = "The value of the answering machine detection result, if this feature was enabled for the call.")
   @JsonProperty(JSON_PROPERTY_ANSWERED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -289,7 +289,7 @@ public class CallResource {
    * Caller ID, if present.
    * @return callerName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "CALLER", value = "Caller ID, if present.")
   @JsonProperty(JSON_PROPERTY_CALLER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -315,7 +315,7 @@ public class CallResource {
    * The timestamp of when the resource was created.
    * @return dateCreated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was created.")
   @JsonProperty(JSON_PROPERTY_DATE_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -341,7 +341,7 @@ public class CallResource {
    * The timestamp of when the resource was last updated.
    * @return dateUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was last updated.")
   @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -367,7 +367,7 @@ public class CallResource {
    * The direction of this call.
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "inbound", value = "The direction of this call.")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -393,7 +393,7 @@ public class CallResource {
    * The duration of this call, given in seconds.
    * @return duration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12", value = "The duration of this call, given in seconds.")
   @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -419,7 +419,7 @@ public class CallResource {
    * The end time of this call.
    * @return endTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The end time of this call.")
   @JsonProperty(JSON_PROPERTY_END_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -445,7 +445,7 @@ public class CallResource {
    * The phone number or SIP address that made this call.
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13123456789", value = "The phone number or SIP address that made this call.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -471,7 +471,7 @@ public class CallResource {
    * The from number formatted for display.
    * @return fromFormatted
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "(312) 345-6789", value = "The from number formatted for display.")
   @JsonProperty(JSON_PROPERTY_FROM_FORMATTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -497,7 +497,7 @@ public class CallResource {
    * The price of this call, the currency is specified in the price_unit field. Only populated when the call cost feature is enabled for the account.
    * @return price
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.10", value = "The price of this call, the currency is specified in the price_unit field. Only populated when the call cost feature is enabled for the account.")
   @JsonProperty(JSON_PROPERTY_PRICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -523,7 +523,7 @@ public class CallResource {
    * The unit in which the price is given.
    * @return priceUnit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "The unit in which the price is given.")
   @JsonProperty(JSON_PROPERTY_PRICE_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -549,7 +549,7 @@ public class CallResource {
    * The identifier of this call.
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA", value = "The identifier of this call.")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -575,7 +575,7 @@ public class CallResource {
    * The start time of this call.
    * @return startTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The start time of this call.")
   @JsonProperty(JSON_PROPERTY_START_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -601,7 +601,7 @@ public class CallResource {
    * The status of this call.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed'", value = "The status of this call.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -627,7 +627,7 @@ public class CallResource {
    * The phone number or SIP address that received this call.
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13987654321", value = "The phone number or SIP address that received this call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -653,7 +653,7 @@ public class CallResource {
    * The to number formatted for display.
    * @return toFormatted
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "(398) 765-4321", value = "The to number formatted for display.")
   @JsonProperty(JSON_PROPERTY_TO_FORMATTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -679,7 +679,7 @@ public class CallResource {
    * The relative URI for this call.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls/v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA.json", value = "The relative URI for this call.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

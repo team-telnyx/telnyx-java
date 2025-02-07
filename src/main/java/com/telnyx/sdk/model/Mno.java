@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Mno.JSON_PROPERTY_DISPLAY_NAME,
   Mno.JSON_PROPERTY_OSR_BITMASK_INDEX
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Mno {
   public static final String JSON_PROPERTY_NETWORK_ID = "networkId";
   private Integer networkId;
@@ -63,7 +63,7 @@ public class Mno {
    * minimum: 10000
    * @return networkId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique network identifier assigned to MNO.")
   @JsonProperty(JSON_PROPERTY_NETWORK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class Mno {
    * Display name of the mobile network operator.
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Display name of the mobile network operator.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class Mno {
    * maximum: 32
    * @return osrBitmaskIndex
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "NetNumber OSR 'campaign_id' property's 'status' attribute holds individual MNO campaign operation status. The 'status' attribute leverages bitmasking technique to store multiple MNOs' operating status. The campaign operation status is reduced to '1' or '0' value where '1' indicate an 'ACTIVE' status and '0' represents every other non-active statuses, including REVIEW, REJECT and SUSPEND. The 'osrBitmaskIndex' holds the bitmask index of the MNO. For example, T-Mobile's bitmask index is 2, which implies T-Mobile's campaign operation status is stored in bit #2, or 3rd bit when counting from right.")
   @JsonProperty(JSON_PROPERTY_OSR_BITMASK_INDEX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

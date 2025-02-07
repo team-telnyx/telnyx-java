@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS,
   CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallRequestAnsweringMachineDetectionConfig {
   public static final String JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS = "total_analysis_time_millis";
   private Integer totalAnalysisTimeMillis = 3500;
@@ -89,7 +89,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * Maximum timeout threshold for overall detection.
    * @return totalAnalysisTimeMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5000", value = "Maximum timeout threshold for overall detection.")
   @JsonProperty(JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * Silence duration threshold after a greeting message or voice for it be considered human.
    * @return afterGreetingSilenceMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1000", value = "Silence duration threshold after a greeting message or voice for it be considered human.")
   @JsonProperty(JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -141,7 +141,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * Maximum threshold for silence between words.
    * @return betweenWordsSilenceMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "Maximum threshold for silence between words.")
   @JsonProperty(JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -167,7 +167,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * Maximum threshold of a human greeting. If greeting longer than this value, considered machine.
    * @return greetingDurationMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1500", value = "Maximum threshold of a human greeting. If greeting longer than this value, considered machine.")
   @JsonProperty(JSON_PROPERTY_GREETING_DURATION_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -193,7 +193,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * If initial silence duration is greater than this value, consider it a machine.
    * @return initialSilenceMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1800", value = "If initial silence duration is greater than this value, consider it a machine.")
   @JsonProperty(JSON_PROPERTY_INITIAL_SILENCE_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -219,7 +219,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * If number of detected words is greater than this value, consder it a machine.
    * @return maximumNumberOfWords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "If number of detected words is greater than this value, consder it a machine.")
   @JsonProperty(JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -245,7 +245,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * If a single word lasts longer than this threshold, consider it a machine.
    * @return maximumWordLengthMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2000", value = "If a single word lasts longer than this threshold, consider it a machine.")
   @JsonProperty(JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -271,7 +271,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * Minimum noise threshold for any analysis.
    * @return silenceThreshold
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "512", value = "Minimum noise threshold for any analysis.")
   @JsonProperty(JSON_PROPERTY_SILENCE_THRESHOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -297,7 +297,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * If machine already detected, maximum timeout threshold to determine the end of the machine greeting.
    * @return greetingTotalAnalysisTimeMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7500", value = "If machine already detected, maximum timeout threshold to determine the end of the machine greeting.")
   @JsonProperty(JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -323,7 +323,7 @@ public class CallRequestAnsweringMachineDetectionConfig {
    * If machine already detected, maximum threshold for silence between words. If exceeded, the greeting is considered ended.
    * @return greetingSilenceDurationMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2000", value = "If machine already detected, maximum threshold for silence between words. If exceeded, the greeting is considered ended.")
   @JsonProperty(JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   ListBuckets200ResponseBucketsInner.JSON_PROPERTY_NAME,
   ListBuckets200ResponseBucketsInner.JSON_PROPERTY_CREATION_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListBuckets200ResponseBucketsInner {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -57,7 +57,7 @@ public class ListBuckets200ResponseBucketsInner {
    * The name of the bucket
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The name of the bucket")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class ListBuckets200ResponseBucketsInner {
    * The date the bucket was created
    * @return creationDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The date the bucket was created")
   @JsonProperty(JSON_PROPERTY_CREATION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

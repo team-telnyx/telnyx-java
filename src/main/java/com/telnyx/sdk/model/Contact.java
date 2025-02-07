@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   Contact.JSON_PROPERTY_PHONES,
   Contact.JSON_PROPERTY_URLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Contact {
   public static final String JSON_PROPERTY_ADDRESSES = "addresses";
   private List<WhatsAppContactAddress> addresses = null;
@@ -96,7 +96,7 @@ public class Contact {
    * Full contact address(es)
    * @return addresses
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Full contact address(es)")
   @JsonProperty(JSON_PROPERTY_ADDRESSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class Contact {
    * YYYY-MM-DD formatted string
    * @return birthday
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "YYYY-MM-DD formatted string")
   @JsonProperty(JSON_PROPERTY_BIRTHDAY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class Contact {
    * Contact email address(es)
    * @return emails
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Contact email address(es)")
   @JsonProperty(JSON_PROPERTY_EMAILS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -190,7 +190,7 @@ public class Contact {
    * 
    * @return ims
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -216,7 +216,7 @@ public class Contact {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -242,7 +242,7 @@ public class Contact {
    * Get org
    * @return org
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ORG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -276,7 +276,7 @@ public class Contact {
    * Contact phone number(s)
    * @return phones
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Contact phone number(s)")
   @JsonProperty(JSON_PROPERTY_PHONES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -310,7 +310,7 @@ public class Contact {
    * Contact URL(s)
    * @return urls
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Contact URL(s)")
   @JsonProperty(JSON_PROPERTY_URLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

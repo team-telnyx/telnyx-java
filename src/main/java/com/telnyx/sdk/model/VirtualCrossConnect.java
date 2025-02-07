@@ -58,7 +58,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnect.JSON_PROPERTY_SECONDARY_CLOUD_IP,
   VirtualCrossConnect.JSON_PROPERTY_SECONDARY_BGP_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VirtualCrossConnect {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -185,7 +185,7 @@ public class VirtualCrossConnect {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -201,7 +201,7 @@ public class VirtualCrossConnect {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "virtual_cross_connect", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -217,7 +217,7 @@ public class VirtualCrossConnect {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -233,7 +233,7 @@ public class VirtualCrossConnect {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -254,7 +254,7 @@ public class VirtualCrossConnect {
    * The id of the network associated with the interface.
    * @return networkId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The id of the network associated with the interface.")
   @JsonProperty(JSON_PROPERTY_NETWORK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -280,7 +280,7 @@ public class VirtualCrossConnect {
    * A user specified name for the interface.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "test interface", value = "A user specified name for the interface.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -306,7 +306,7 @@ public class VirtualCrossConnect {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -332,7 +332,7 @@ public class VirtualCrossConnect {
    * The Virtual Private Cloud with which you would like to establish a cross connect.
    * @return cloudProvider
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aws", value = "The Virtual Private Cloud with which you would like to establish a cross connect.")
   @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -358,7 +358,7 @@ public class VirtualCrossConnect {
    * The region where your Virtual Private Cloud hosts are located.&lt;br /&gt;&lt;br /&gt;The available regions can be found using the /virtual_cross_connect_regions endpoint.
    * @return cloudProviderRegion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "us-east-1", value = "The region where your Virtual Private Cloud hosts are located.<br /><br />The available regions can be found using the /virtual_cross_connect_regions endpoint.")
   @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -384,7 +384,7 @@ public class VirtualCrossConnect {
    * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value will be assigned by Telnyx.
    * @return bgpAsn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234", value = "The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value will be assigned by Telnyx.")
   @JsonProperty(JSON_PROPERTY_BGP_ASN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -410,7 +410,7 @@ public class VirtualCrossConnect {
    * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;The available bandwidths can be found using the /virtual_cross_connect_regions endpoint.
    * @return bandwidthMbps
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "50", value = "The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br /><br />The available bandwidths can be found using the /virtual_cross_connect_regions endpoint.")
   @JsonProperty(JSON_PROPERTY_BANDWIDTH_MBPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -431,7 +431,7 @@ public class VirtualCrossConnect {
    * Indicates whether the primary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
    * @return primaryEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the primary circuit is enabled. Setting this to `false` will disable the circuit.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -452,7 +452,7 @@ public class VirtualCrossConnect {
    * The identifier for your Virtual Private Cloud. The number will be different based upon your Cloud provider.
    * @return primaryCloudAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456789012", value = "The identifier for your Virtual Private Cloud. The number will be different based upon your Cloud provider.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_CLOUD_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -478,7 +478,7 @@ public class VirtualCrossConnect {
    * The IP address assigned to the Telnyx side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
    * @return primaryTelnyxIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "169.254.0.1", value = "The IP address assigned to the Telnyx side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_TELNYX_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -504,7 +504,7 @@ public class VirtualCrossConnect {
    * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
    * @return primaryCloudIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "169.254.0.2", value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_CLOUD_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -530,7 +530,7 @@ public class VirtualCrossConnect {
    * The authentication key for BGP peer configuration.
    * @return primaryBgpKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "yFV4wEPtPVPfDUGLWiyQzwga", value = "The authentication key for BGP peer configuration.")
   @JsonProperty(JSON_PROPERTY_PRIMARY_BGP_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -551,7 +551,7 @@ public class VirtualCrossConnect {
    * Indicates whether the secondary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
    * @return secondaryEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the secondary circuit is enabled. Setting this to `false` will disable the circuit.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -572,7 +572,7 @@ public class VirtualCrossConnect {
    * The identifier for your Virtual Private Cloud. The number will be different based upon your Cloud provider.&lt;br /&gt;&lt;br /&gt;This attribute is only necessary for GCE.
    * @return secondaryCloudAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "", value = "The identifier for your Virtual Private Cloud. The number will be different based upon your Cloud provider.<br /><br />This attribute is only necessary for GCE.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_CLOUD_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -598,7 +598,7 @@ public class VirtualCrossConnect {
    * The IP address assigned to the Telnyx side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
    * @return secondaryTelnyxIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "169.254.0.3", value = "The IP address assigned to the Telnyx side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_TELNYX_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -624,7 +624,7 @@ public class VirtualCrossConnect {
    * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
    * @return secondaryCloudIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "169.254.0.4", value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_CLOUD_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -650,7 +650,7 @@ public class VirtualCrossConnect {
    * The authentication key for BGP peer configuration.
    * @return secondaryBgpKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ge1lONeK9RcA83uuWaw9DvZy", value = "The authentication key for BGP peer configuration.")
   @JsonProperty(JSON_PROPERTY_SECONDARY_BGP_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

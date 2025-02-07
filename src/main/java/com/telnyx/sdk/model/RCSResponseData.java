@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   RCSResponseData.JSON_PROPERTY_ENCODING,
   RCSResponseData.JSON_PROPERTY_RECEIVED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSResponseData {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -98,7 +98,7 @@ public class RCSResponseData {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "message", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class RCSResponseData {
    * Get direction
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "outbound", value = "")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class RCSResponseData {
    * message ID
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4031938e-60e4-4235-a8dd-0b1c55a23e7a", value = "message ID")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class RCSResponseData {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "RCS", value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -202,7 +202,7 @@ public class RCSResponseData {
    * Get organizationId
    * @return organizationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "9f61d8e1-7687-4d6d-9cae-9ff682985983", value = "")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -228,7 +228,7 @@ public class RCSResponseData {
    * Get messagingProfileId
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4001781e-626f-4a41-a914-b1b682150f94", value = "")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -254,7 +254,7 @@ public class RCSResponseData {
    * Get from
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -288,7 +288,7 @@ public class RCSResponseData {
    * Get to
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -314,7 +314,7 @@ public class RCSResponseData {
    * Get body
    * @return body
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_BODY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -340,7 +340,7 @@ public class RCSResponseData {
    * Get encoding
    * @return encoding
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "utf-8", value = "")
   @JsonProperty(JSON_PROPERTY_ENCODING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -366,7 +366,7 @@ public class RCSResponseData {
    * Get receivedAt
    * @return receivedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECEIVED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

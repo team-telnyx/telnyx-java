@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   DynamicEmergencyAddress.JSON_PROPERTY_CREATED_AT,
   DynamicEmergencyAddress.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DynamicEmergencyAddress {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -203,7 +203,7 @@ public class DynamicEmergencyAddress {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f1", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -219,7 +219,7 @@ public class DynamicEmergencyAddress {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dynamic_emergency_address", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class DynamicEmergencyAddress {
    * Unique location reference string to be used in SIP INVITE from / p-asserted headers.
    * @return sipGeolocationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "XYZ123", value = "Unique location reference string to be used in SIP INVITE from / p-asserted headers.")
   @JsonProperty(JSON_PROPERTY_SIP_GEOLOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -251,7 +251,7 @@ public class DynamicEmergencyAddress {
    * Status of dynamic emergency address
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "Status of dynamic emergency address")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -272,7 +272,7 @@ public class DynamicEmergencyAddress {
    * Get houseNumber
    * @return houseNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "600", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_HOUSE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -298,7 +298,7 @@ public class DynamicEmergencyAddress {
    * Get houseSuffix
    * @return houseSuffix
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_HOUSE_SUFFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -324,7 +324,7 @@ public class DynamicEmergencyAddress {
    * Get streetPreDirectional
    * @return streetPreDirectional
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREET_PRE_DIRECTIONAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -350,7 +350,7 @@ public class DynamicEmergencyAddress {
    * Get streetName
    * @return streetName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Congress", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_STREET_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -376,7 +376,7 @@ public class DynamicEmergencyAddress {
    * Get streetSuffix
    * @return streetSuffix
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "St", value = "")
   @JsonProperty(JSON_PROPERTY_STREET_SUFFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -402,7 +402,7 @@ public class DynamicEmergencyAddress {
    * Get streetPostDirectional
    * @return streetPostDirectional
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREET_POST_DIRECTIONAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -428,7 +428,7 @@ public class DynamicEmergencyAddress {
    * Get extendedAddress
    * @return extendedAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -454,7 +454,7 @@ public class DynamicEmergencyAddress {
    * Get locality
    * @return locality
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Austin", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -480,7 +480,7 @@ public class DynamicEmergencyAddress {
    * Get administrativeArea
    * @return administrativeArea
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "TX", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -506,7 +506,7 @@ public class DynamicEmergencyAddress {
    * Get postalCode
    * @return postalCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "78701", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -532,7 +532,7 @@ public class DynamicEmergencyAddress {
    * Get countryCode
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -553,7 +553,7 @@ public class DynamicEmergencyAddress {
    * ISO 8601 formatted date of when the resource was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date of when the resource was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -569,7 +569,7 @@ public class DynamicEmergencyAddress {
    * ISO 8601 formatted date of when the resource was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date of when the resource was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

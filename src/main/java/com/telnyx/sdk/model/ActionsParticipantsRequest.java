@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ActionsParticipantsRequest.JSON_PROPERTY_PARTICIPANTS,
   ActionsParticipantsRequest.JSON_PROPERTY_EXCLUDE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ActionsParticipantsRequest {
   public static final String JSON_PROPERTY_PARTICIPANTS = "participants";
   private ActionsParticipantsRequestParticipants participants;
@@ -60,7 +60,7 @@ public class ActionsParticipantsRequest {
    * Get participants
    * @return participants
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PARTICIPANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -94,7 +94,7 @@ public class ActionsParticipantsRequest {
    * List of participant id to exclude from the action.
    * @return exclude
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of participant id to exclude from the action.")
   @JsonProperty(JSON_PROPERTY_EXCLUDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

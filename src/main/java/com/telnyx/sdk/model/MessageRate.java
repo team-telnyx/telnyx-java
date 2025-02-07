@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   MessageRate.JSON_PROPERTY_AMOUNT,
   MessageRate.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MessageRate {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -59,7 +59,7 @@ public class MessageRate {
    * Rate applied to the message
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.1", value = "Rate applied to the message")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class MessageRate {
    * Get currency
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

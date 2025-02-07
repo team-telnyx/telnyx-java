@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   MigrationParams.JSON_PROPERTY_ETA,
   MigrationParams.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MigrationParams {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -157,7 +157,7 @@ public class MigrationParams {
    * Unique identifier for the data migration.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier for the data migration.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -178,7 +178,7 @@ public class MigrationParams {
    * ID of the Migration Source from which to migrate data.
    * @return sourceId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "ID of the Migration Source from which to migrate data.")
   @JsonProperty(JSON_PROPERTY_SOURCE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -204,7 +204,7 @@ public class MigrationParams {
    * Bucket name to migrate the data into. Will default to the same name as the &#x60;source_bucket_name&#x60;.
    * @return targetBucketName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Bucket name to migrate the data into. Will default to the same name as the `source_bucket_name`.")
   @JsonProperty(JSON_PROPERTY_TARGET_BUCKET_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -230,7 +230,7 @@ public class MigrationParams {
    * Telnyx Cloud Storage region to migrate the data to.
    * @return targetRegion
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Telnyx Cloud Storage region to migrate the data to.")
   @JsonProperty(JSON_PROPERTY_TARGET_REGION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -256,7 +256,7 @@ public class MigrationParams {
    * If true, will continue to poll the source bucket to ensure new data is continually migrated over.
    * @return refresh
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If true, will continue to poll the source bucket to ensure new data is continually migrated over.")
   @JsonProperty(JSON_PROPERTY_REFRESH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -277,7 +277,7 @@ public class MigrationParams {
    * Time when data migration was last copied from the source.
    * @return lastCopy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "Time when data migration was last copied from the source.")
   @JsonProperty(JSON_PROPERTY_LAST_COPY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -293,7 +293,7 @@ public class MigrationParams {
    * Status of the migration.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Status of the migration.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -309,7 +309,7 @@ public class MigrationParams {
    * Total amount of data found in source bucket to migrate.
    * @return bytesToMigrate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Total amount of data found in source bucket to migrate.")
   @JsonProperty(JSON_PROPERTY_BYTES_TO_MIGRATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -325,7 +325,7 @@ public class MigrationParams {
    * Total amount of data that has been succesfully migrated.
    * @return bytesMigrated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Total amount of data that has been succesfully migrated.")
   @JsonProperty(JSON_PROPERTY_BYTES_MIGRATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -341,7 +341,7 @@ public class MigrationParams {
    * Current speed of the migration.
    * @return speed
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Current speed of the migration.")
   @JsonProperty(JSON_PROPERTY_SPEED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -357,7 +357,7 @@ public class MigrationParams {
    * Estimated time the migration will complete.
    * @return eta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "Estimated time the migration will complete.")
   @JsonProperty(JSON_PROPERTY_ETA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -373,7 +373,7 @@ public class MigrationParams {
    * Time when data migration was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "Time when data migration was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

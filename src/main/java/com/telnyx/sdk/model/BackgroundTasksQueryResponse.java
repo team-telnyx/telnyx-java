@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   BackgroundTasksQueryResponse.JSON_PROPERTY_FINISHED_AT,
   BackgroundTasksQueryResponse.JSON_PROPERTY_BUCKET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BackgroundTasksQueryResponse {
   public static final String JSON_PROPERTY_USER_ID = "user_id";
   private String userId;
@@ -78,7 +78,7 @@ public class BackgroundTasksQueryResponse {
    * Get userId
    * @return userId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -104,7 +104,7 @@ public class BackgroundTasksQueryResponse {
    * Get taskId
    * @return taskId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -130,7 +130,7 @@ public class BackgroundTasksQueryResponse {
    * Get taskName
    * @return taskName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TASK_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -156,7 +156,7 @@ public class BackgroundTasksQueryResponse {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -182,7 +182,7 @@ public class BackgroundTasksQueryResponse {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -208,7 +208,7 @@ public class BackgroundTasksQueryResponse {
    * Get finishedAt
    * @return finishedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FINISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -234,7 +234,7 @@ public class BackgroundTasksQueryResponse {
    * Get bucket
    * @return bucket
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_BUCKET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

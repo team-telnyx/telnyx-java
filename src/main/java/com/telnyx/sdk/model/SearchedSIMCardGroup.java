@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   SearchedSIMCardGroup.JSON_PROPERTY_CREATED_AT,
   SearchedSIMCardGroup.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SearchedSIMCardGroup {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -102,7 +102,7 @@ public class SearchedSIMCardGroup {
    * Identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class SearchedSIMCardGroup {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sim_card_group", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -134,7 +134,7 @@ public class SearchedSIMCardGroup {
    * Indicates whether the SIM card group is the users default group.&lt;br/&gt;The default group is created for the user and can not be removed.
    * @return _default
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the SIM card group is the users default group.<br/>The default group is created for the user and can not be removed.")
   @JsonProperty(JSON_PROPERTY_DEFAULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -155,7 +155,7 @@ public class SearchedSIMCardGroup {
    * A user friendly name for the SIM card group.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My Test Group", value = "A user friendly name for the SIM card group.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -181,7 +181,7 @@ public class SearchedSIMCardGroup {
    * Get dataLimit
    * @return dataLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -207,7 +207,7 @@ public class SearchedSIMCardGroup {
    * Get consumedData
    * @return consumedData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CONSUMED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -233,7 +233,7 @@ public class SearchedSIMCardGroup {
    * The number of SIM cards associated with the group.
    * @return simCardCount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "The number of SIM cards associated with the group.")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -259,7 +259,7 @@ public class SearchedSIMCardGroup {
    * The identification of the related Private Wireless Gateway resource.
    * @return privateWirelessGatewayId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The identification of the related Private Wireless Gateway resource.")
   @JsonProperty(JSON_PROPERTY_PRIVATE_WIRELESS_GATEWAY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -280,7 +280,7 @@ public class SearchedSIMCardGroup {
    * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -296,7 +296,7 @@ public class SearchedSIMCardGroup {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   WhatsappMessageTemplate.JSON_PROPERTY_STATUS
 })
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsappMessageTemplate {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -352,7 +352,7 @@ public class WhatsappMessageTemplate {
    * Telnyx record type
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "whatsapp_message_template", value = "Telnyx record type")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -378,7 +378,7 @@ public class WhatsappMessageTemplate {
    * The category of the message template, The possible values are provided by WhatsApp and are subject to change.
    * @return category
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "APPOINTMENT_UPDATE", value = "The category of the message template, The possible values are provided by WhatsApp and are subject to change.")
   @JsonProperty(JSON_PROPERTY_CATEGORY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -412,7 +412,7 @@ public class WhatsappMessageTemplate {
    * The components of the message template
    * @return components
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The components of the message template")
   @JsonProperty(JSON_PROPERTY_COMPONENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -438,7 +438,7 @@ public class WhatsappMessageTemplate {
    * The id of the template on WhatsApp
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "23492349423", value = "The id of the template on WhatsApp")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -464,7 +464,7 @@ public class WhatsappMessageTemplate {
    * The language of the message template, The available languages are provided by WhatsApp and are subject to change.
    * @return language
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "en_US", value = "The language of the message template, The available languages are provided by WhatsApp and are subject to change.")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -490,7 +490,7 @@ public class WhatsappMessageTemplate {
    * This name will act as an identifier grouping similar message templates together, the same name can be used to different languages.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sample_happy_hour_announcement", value = "This name will act as an identifier grouping similar message templates together, the same name can be used to different languages.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -516,7 +516,7 @@ public class WhatsappMessageTemplate {
    * Get qualityScore
    * @return qualityScore
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_QUALITY_SCORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -542,7 +542,7 @@ public class WhatsappMessageTemplate {
    * Get rejectedReason
    * @return rejectedReason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "NONE", value = "")
   @JsonProperty(JSON_PROPERTY_REJECTED_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -568,7 +568,7 @@ public class WhatsappMessageTemplate {
    * The current status of the message template, The possible values are provided by WhatsApp and are subject to change.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "APPROVED", value = "The current status of the message template, The possible values are provided by WhatsApp and are subject to change.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

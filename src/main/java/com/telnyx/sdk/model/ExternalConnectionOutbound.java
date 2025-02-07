@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   ExternalConnectionOutbound.JSON_PROPERTY_CHANNEL_LIMIT,
   ExternalConnectionOutbound.JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ExternalConnectionOutbound {
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private Integer channelLimit;
@@ -56,7 +56,7 @@ public class ExternalConnectionOutbound {
    * When set, this will limit the number of concurrent outbound calls to phone numbers associated with this connection.
    * @return channelLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "When set, this will limit the number of concurrent outbound calls to phone numbers associated with this connection.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class ExternalConnectionOutbound {
    * Identifies the associated outbound voice profile.
    * @return outboundVoiceProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "Identifies the associated outbound voice profile.")
   @JsonProperty(JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

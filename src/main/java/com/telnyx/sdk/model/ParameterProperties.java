@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ParameterProperties.JSON_PROPERTY_DESCRIPTION,
   ParameterProperties.JSON_PROPERTY_ENUM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ParameterProperties {
   public static final String JSON_PROPERTY_TYPE = "type";
   private String type;
@@ -64,7 +64,7 @@ public class ParameterProperties {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -90,7 +90,7 @@ public class ParameterProperties {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class ParameterProperties {
    * Get _enum
    * @return _enum
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ENUM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

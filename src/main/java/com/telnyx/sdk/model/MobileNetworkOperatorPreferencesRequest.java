@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   MobileNetworkOperatorPreferencesRequest.JSON_PROPERTY_MOBILE_NETWORK_OPERATOR_ID,
   MobileNetworkOperatorPreferencesRequest.JSON_PROPERTY_PRIORITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class MobileNetworkOperatorPreferencesRequest {
   public static final String JSON_PROPERTY_MOBILE_NETWORK_OPERATOR_ID = "mobile_network_operator_id";
   private UUID mobileNetworkOperatorId;
@@ -60,7 +60,7 @@ public class MobileNetworkOperatorPreferencesRequest {
    * The mobile network operator resource identification UUID.
    * @return mobileNetworkOperatorId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The mobile network operator resource identification UUID.")
   @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_OPERATOR_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class MobileNetworkOperatorPreferencesRequest {
    * It determines what is the priority of a specific network operator that should be assumed by a SIM card when connecting to a network. The highest priority is 0, the second highest is 1 and so on.
    * @return priority
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0", value = "It determines what is the priority of a specific network operator that should be assumed by a SIM card when connecting to a network. The highest priority is 0, the second highest is 1 and so on.")
   @JsonProperty(JSON_PROPERTY_PRIORITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

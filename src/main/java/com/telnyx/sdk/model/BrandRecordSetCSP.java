@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   BrandRecordSetCSP.JSON_PROPERTY_PAGE,
   BrandRecordSetCSP.JSON_PROPERTY_TOTAL_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BrandRecordSetCSP {
   public static final String JSON_PROPERTY_RECORDS = "records";
   private List<BrandBasic> records = null;
@@ -71,7 +71,7 @@ public class BrandRecordSetCSP {
    * Get records
    * @return records
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -97,7 +97,7 @@ public class BrandRecordSetCSP {
    * Get page
    * @return page
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "")
   @JsonProperty(JSON_PROPERTY_PAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class BrandRecordSetCSP {
    * Get totalRecords
    * @return totalRecords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   VerifyVerificationCodeRequestByPhoneNumber.JSON_PROPERTY_CODE,
   VerifyVerificationCodeRequestByPhoneNumber.JSON_PROPERTY_VERIFY_PROFILE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerifyVerificationCodeRequestByPhoneNumber {
   public static final String JSON_PROPERTY_CODE = "code";
   private String code;
@@ -57,7 +57,7 @@ public class VerifyVerificationCodeRequestByPhoneNumber {
    * This is the code the user submits for verification.
    * @return code
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "17686", required = true, value = "This is the code the user submits for verification.")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class VerifyVerificationCodeRequestByPhoneNumber {
    * The identifier of the associated Verify profile.
    * @return verifyProfileId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
   @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

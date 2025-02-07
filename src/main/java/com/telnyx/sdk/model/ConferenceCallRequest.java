@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   ConferenceCallRequest.JSON_PROPERTY_TO,
   ConferenceCallRequest.JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConferenceCallRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -138,7 +138,7 @@ public class ConferenceCallRequest {
    * Unique identifier and token for controlling the call
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==", required = true, value = "Unique identifier and token for controlling the call")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -164,7 +164,7 @@ public class ConferenceCallRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -190,7 +190,7 @@ public class ConferenceCallRequest {
    * Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -216,7 +216,7 @@ public class ConferenceCallRequest {
    * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number).
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18005550101", required = true, value = "The `from` number to be used as the caller id presented to the destination (`to` number).")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -242,7 +242,7 @@ public class ConferenceCallRequest {
    * Whether the participant should be put on hold immediately after joining the conference.
    * @return hold
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Whether the participant should be put on hold immediately after joining the conference.")
   @JsonProperty(JSON_PROPERTY_HOLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -268,7 +268,7 @@ public class ConferenceCallRequest {
    * The URL of a file to be played to the participant when they are put on hold after joining the conference. If media_name is also supplied, this is currently ignored. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
    * @return holdAudioUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played to the participant when they are put on hold after joining the conference. If media_name is also supplied, this is currently ignored. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\".")
   @JsonProperty(JSON_PROPERTY_HOLD_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -294,7 +294,7 @@ public class ConferenceCallRequest {
    * The media_name of a file to be played to the participant when they are put on hold after joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \&quot;start_conference_on_create\&quot; is set to \&quot;false\&quot;. This property takes effect only if \&quot;hold\&quot; is set to \&quot;true\&quot;.
    * @return holdMediaName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played to the participant when they are put on hold after joining the conference. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file. Takes effect only when \"start_conference_on_create\" is set to \"false\". This property takes effect only if \"hold\" is set to \"true\".")
   @JsonProperty(JSON_PROPERTY_HOLD_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -320,7 +320,7 @@ public class ConferenceCallRequest {
    * Whether the participant should be muted immediately after joining the conference.
    * @return mute
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Whether the participant should be muted immediately after joining the conference.")
   @JsonProperty(JSON_PROPERTY_MUTE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -346,7 +346,7 @@ public class ConferenceCallRequest {
    * Whether the conference should be started after the participant joins the conference.
    * @return startConferenceOnEnter
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Whether the conference should be started after the participant joins the conference.")
   @JsonProperty(JSON_PROPERTY_START_CONFERENCE_ON_ENTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -372,7 +372,7 @@ public class ConferenceCallRequest {
    * Sets the joining participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;.
    * @return supervisorRole
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "whisper", value = "Sets the joining participant as a supervisor for the conference. A conference can have multiple supervisors. \"barge\" means the supervisor enters the conference as a normal participant. This is the same as \"none\". \"monitor\" means the supervisor is muted but can hear all participants. \"whisper\" means that only the specified \"whisper_call_control_ids\" can hear the supervisor. Defaults to \"none\".")
   @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -398,7 +398,7 @@ public class ConferenceCallRequest {
    * The DID or SIP URI to dial out and bridge to the given call.
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out and bridge to the given call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -432,7 +432,7 @@ public class ConferenceCallRequest {
    * Array of unique call_control_ids the joining supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.
    * @return whisperCallControlIds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ\",\"v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw\"]", value = "Array of unique call_control_ids the joining supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.")
   @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

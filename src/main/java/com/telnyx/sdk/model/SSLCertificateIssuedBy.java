@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   SSLCertificateIssuedBy.JSON_PROPERTY_ORGANIZATION,
   SSLCertificateIssuedBy.JSON_PROPERTY_ORGANIZATION_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SSLCertificateIssuedBy {
   public static final String JSON_PROPERTY_COMMON_NAME = "common_name";
   private String commonName;
@@ -60,7 +60,7 @@ public class SSLCertificateIssuedBy {
    * The common name of the entity the certificate was issued by
    * @return commonName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The common name of the entity the certificate was issued by")
   @JsonProperty(JSON_PROPERTY_COMMON_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class SSLCertificateIssuedBy {
    * The organization the certificate was issued by
    * @return organization
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The organization the certificate was issued by")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class SSLCertificateIssuedBy {
    * The organizational unit the certificate was issued by
    * @return organizationUnit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The organizational unit the certificate was issued by")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

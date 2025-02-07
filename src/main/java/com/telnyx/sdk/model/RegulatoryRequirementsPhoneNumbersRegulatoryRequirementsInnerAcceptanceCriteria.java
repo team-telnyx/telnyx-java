@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_FIELD_VALUE,
   RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_FIELD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAcceptanceCriteria {
   public static final String JSON_PROPERTY_LOCALITY_LIMIT = "locality_limit";
   private String localityLimit;
@@ -60,7 +60,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAccept
    * Get localityLimit
    * @return localityLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Identical locality as the numbers desired", value = "")
   @JsonProperty(JSON_PROPERTY_LOCALITY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAccept
    * Get fieldValue
    * @return fieldValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "45f45a04-b4be-4592-95b1-9306b9db2b21", value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class RegulatoryRequirementsPhoneNumbersRegulatoryRequirementsInnerAccept
    * Get fieldType
    * @return fieldType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "address", value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

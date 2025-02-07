@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreatePortingPhoneNumberExtensionRequest.JSON_PROPERTY_EXTENSION_RANGE,
   CreatePortingPhoneNumberExtensionRequest.JSON_PROPERTY_ACTIVATION_RANGES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortingPhoneNumberExtensionRequest {
   public static final String JSON_PROPERTY_PORTING_PHONE_NUMBER_ID = "porting_phone_number_id";
   private UUID portingPhoneNumberId;
@@ -65,7 +65,7 @@ public class CreatePortingPhoneNumberExtensionRequest {
    * Identifies the porting phone number associated with this porting phone number extension.
    * @return portingPhoneNumberId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "f24151b6-3389-41d3-8747-7dd8c681e5e2", required = true, value = "Identifies the porting phone number associated with this porting phone number extension.")
   @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class CreatePortingPhoneNumberExtensionRequest {
    * Get extensionRange
    * @return extensionRange
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_EXTENSION_RANGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -122,7 +122,7 @@ public class CreatePortingPhoneNumberExtensionRequest {
    * Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges.
    * @return activationRanges
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges.")
   @JsonProperty(JSON_PROPERTY_ACTIVATION_RANGES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

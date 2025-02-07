@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CostInformation.JSON_PROPERTY_MONTHLY_COST,
   CostInformation.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CostInformation {
   public static final String JSON_PROPERTY_UPFRONT_COST = "upfront_cost";
   private String upfrontCost;
@@ -60,7 +60,7 @@ public class CostInformation {
    * Get upfrontCost
    * @return upfrontCost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3.21", value = "")
   @JsonProperty(JSON_PROPERTY_UPFRONT_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class CostInformation {
    * Get monthlyCost
    * @return monthlyCost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6.54", value = "")
   @JsonProperty(JSON_PROPERTY_MONTHLY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class CostInformation {
    * The ISO 4217 code for the currency.
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "The ISO 4217 code for the currency.")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

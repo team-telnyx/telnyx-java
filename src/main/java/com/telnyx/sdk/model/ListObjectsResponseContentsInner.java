@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ListObjectsResponseContentsInner.JSON_PROPERTY_SIZE,
   ListObjectsResponseContentsInner.JSON_PROPERTY_LAST_MODIFIED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListObjectsResponseContentsInner {
   public static final String JSON_PROPERTY_KEY = "Key";
   private String key;
@@ -62,7 +62,7 @@ public class ListObjectsResponseContentsInner {
    * Get key
    * @return key
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class ListObjectsResponseContentsInner {
    * Get size
    * @return size
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class ListObjectsResponseContentsInner {
    * Get lastModified
    * @return lastModified
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

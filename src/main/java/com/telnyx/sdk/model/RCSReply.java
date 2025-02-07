@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   RCSReply.JSON_PROPERTY_TEXT,
   RCSReply.JSON_PROPERTY_POSTBACK_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSReply {
   public static final String JSON_PROPERTY_TEXT = "text";
   private String text;
@@ -56,7 +56,7 @@ public class RCSReply {
    * Text that is shown in the suggested reply (maximum 25 characters)
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Text that is shown in the suggested reply (maximum 25 characters)")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class RCSReply {
    * Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters.
    * @return postbackData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters.")
   @JsonProperty(JSON_PROPERTY_POSTBACK_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

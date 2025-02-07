@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberMessagingSettingsRequest.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   UpdatePhoneNumberMessagingSettingsRequest.JSON_PROPERTY_MESSAGING_PRODUCT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePhoneNumberMessagingSettingsRequest {
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
@@ -56,7 +56,7 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
    * Configure the messaging profile this phone number is assigned to:  * Omit this field or set its value to &#x60;null&#x60; to keep the current value. * Set this field to &#x60;\&quot;\&quot;&#x60; to unassign the number from its messaging profile * Set this field to a quoted UUID of a messaging profile to assign this number to that messaging profile
    * @return messagingProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Configure the messaging profile this phone number is assigned to:  * Omit this field or set its value to `null` to keep the current value. * Set this field to `\"\"` to unassign the number from its messaging profile * Set this field to a quoted UUID of a messaging profile to assign this number to that messaging profile")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
    * Configure the messaging product for this number:  * Omit this field or set its value to &#x60;null&#x60; to keep the current value. * Set this field to a quoted product ID to set this phone number to that product
    * @return messagingProduct
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "P2P", value = "Configure the messaging product for this number:  * Omit this field or set its value to `null` to keep the current value. * Set this field to a quoted product ID to set this phone number to that product")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PRODUCT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

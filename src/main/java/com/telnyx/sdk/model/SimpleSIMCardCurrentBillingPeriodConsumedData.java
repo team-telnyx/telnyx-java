@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   SimpleSIMCardCurrentBillingPeriodConsumedData.JSON_PROPERTY_AMOUNT,
   SimpleSIMCardCurrentBillingPeriodConsumedData.JSON_PROPERTY_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SimpleSIMCardCurrentBillingPeriodConsumedData {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -58,7 +58,7 @@ public class SimpleSIMCardCurrentBillingPeriodConsumedData {
    * Get amount
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2049.0", value = "")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class SimpleSIMCardCurrentBillingPeriodConsumedData {
    * Get unit
    * @return unit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MB", value = "")
   @JsonProperty(JSON_PROPERTY_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

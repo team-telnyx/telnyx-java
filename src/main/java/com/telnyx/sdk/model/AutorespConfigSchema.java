@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   AutorespConfigSchema.JSON_PROPERTY_CREATED_AT,
   AutorespConfigSchema.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AutorespConfigSchema {
   /**
    * Gets or Sets op
@@ -116,7 +116,7 @@ public class AutorespConfigSchema {
    * Get op
    * @return op
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "start", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_OP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -147,7 +147,7 @@ public class AutorespConfigSchema {
    * Get keywords
    * @return keywords
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"START\",\"BEGIN\"]", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_KEYWORDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -173,7 +173,7 @@ public class AutorespConfigSchema {
    * Get respText
    * @return respText
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thank you for subscribing to our service.", value = "")
   @JsonProperty(JSON_PROPERTY_RESP_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -199,7 +199,7 @@ public class AutorespConfigSchema {
    * Get countryCode
    * @return countryCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "*", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -225,7 +225,7 @@ public class AutorespConfigSchema {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "b8f9c1c0-5b5a-4b1e-8c1c-0b5a4b1e8c1c", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -251,7 +251,7 @@ public class AutorespConfigSchema {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -277,7 +277,7 @@ public class AutorespConfigSchema {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

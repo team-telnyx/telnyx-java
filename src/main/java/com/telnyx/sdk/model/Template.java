@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   Template.JSON_PROPERTY_LANGUAGE,
   Template.JSON_PROPERTY_COMPONENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Template {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   private String namespace;
@@ -69,7 +69,7 @@ public class Template {
    * Namespace of the template. This must be the namespace associated with the WhatsApp business account that owns the phone number associated with the current WhatsApp Business API client or the message fails to send.
    * @return namespace
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Namespace of the template. This must be the namespace associated with the WhatsApp business account that owns the phone number associated with the current WhatsApp Business API client or the message fails to send.")
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -95,7 +95,7 @@ public class Template {
    * Name of the template.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Name of the template.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -121,7 +121,7 @@ public class Template {
    * Get language
    * @return language
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -155,7 +155,7 @@ public class Template {
    * Get components
    * @return components
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COMPONENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   UpdatePortingOrderRequirement.JSON_PROPERTY_FIELD_VALUE,
   UpdatePortingOrderRequirement.JSON_PROPERTY_REQUIREMENT_TYPE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePortingOrderRequirement {
   public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
   private String fieldValue;
@@ -57,7 +57,7 @@ public class UpdatePortingOrderRequirement {
    * identifies the document or provides the text value that satisfies this requirement
    * @return fieldValue
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe", required = true, value = "identifies the document or provides the text value that satisfies this requirement")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class UpdatePortingOrderRequirement {
    * Identifies the requirement type that the &#x60;field_value&#x60; fulfills
    * @return requirementTypeId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "59b0762a-b274-4f76-ac32-4d5cf0272e66", required = true, value = "Identifies the requirement type that the `field_value` fulfills")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

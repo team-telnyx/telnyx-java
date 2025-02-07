@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreateCustomerServiceRecordRequest.JSON_PROPERTY_WEBHOOK_URL,
   CreateCustomerServiceRecordRequest.JSON_PROPERTY_ADDITIONAL_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateCustomerServiceRecordRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -61,7 +61,7 @@ public class CreateCustomerServiceRecordRequest {
    * A valid US phone number in E164 format.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+1234567890", required = true, value = "A valid US phone number in E164 format.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -87,7 +87,7 @@ public class CreateCustomerServiceRecordRequest {
    * Callback URL to receive webhook notifications.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com/webhook", value = "Callback URL to receive webhook notifications.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -113,7 +113,7 @@ public class CreateCustomerServiceRecordRequest {
    * Get additionalData
    * @return additionalData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

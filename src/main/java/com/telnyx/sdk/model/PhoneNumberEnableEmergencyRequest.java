@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberEnableEmergencyRequest.JSON_PROPERTY_EMERGENCY_ENABLED,
   PhoneNumberEnableEmergencyRequest.JSON_PROPERTY_EMERGENCY_ADDRESS_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberEnableEmergencyRequest {
   public static final String JSON_PROPERTY_EMERGENCY_ENABLED = "emergency_enabled";
   private Boolean emergencyEnabled;
@@ -56,7 +56,7 @@ public class PhoneNumberEnableEmergencyRequest {
    * Indicates whether to enable emergency services on this number.
    * @return emergencyEnabled
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Indicates whether to enable emergency services on this number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -82,7 +82,7 @@ public class PhoneNumberEnableEmergencyRequest {
    * Identifies the address to be used with emergency services.
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Identifies the address to be used with emergency services.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

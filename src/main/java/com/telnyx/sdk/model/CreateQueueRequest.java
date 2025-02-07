@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateQueueRequest.JSON_PROPERTY_QUEUE_NAME,
   CreateQueueRequest.JSON_PROPERTY_MAX_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateQueueRequest {
   public static final String JSON_PROPERTY_QUEUE_NAME = "queue_name";
   private String queueName;
@@ -56,7 +56,7 @@ public class CreateQueueRequest {
    * Name of the queue to create
    * @return queueName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "support", required = true, value = "Name of the queue to create")
   @JsonProperty(JSON_PROPERTY_QUEUE_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class CreateQueueRequest {
    * maximum: 300
    * @return maxSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "Maximum number of calls that can be in the queue at once")
   @JsonProperty(JSON_PROPERTY_MAX_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

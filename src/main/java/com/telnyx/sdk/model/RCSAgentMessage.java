@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   RCSAgentMessage.JSON_PROPERTY_EXPIRE_TIME,
   RCSAgentMessage.JSON_PROPERTY_TTL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSAgentMessage {
   public static final String JSON_PROPERTY_CONTENT_MESSAGE = "content_message";
   private RCSContentMessage contentMessage;
@@ -67,7 +67,7 @@ public class RCSAgentMessage {
    * Get contentMessage
    * @return contentMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CONTENT_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class RCSAgentMessage {
    * Get event
    * @return event
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_EVENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class RCSAgentMessage {
    * Timestamp in UTC of when this message is considered expired
    * @return expireTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2024-10-02T15:01:23Z", value = "Timestamp in UTC of when this message is considered expired")
   @JsonProperty(JSON_PROPERTY_EXPIRE_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class RCSAgentMessage {
    * Duration in seconds ending with &#39;s&#39;
    * @return ttl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10.5s", value = "Duration in seconds ending with 's'")
   @JsonProperty(JSON_PROPERTY_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

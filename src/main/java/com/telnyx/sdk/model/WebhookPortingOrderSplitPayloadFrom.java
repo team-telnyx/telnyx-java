@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   WebhookPortingOrderSplitPayloadFrom.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortingOrderSplitPayloadFrom {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -54,7 +54,7 @@ public class WebhookPortingOrderSplitPayloadFrom {
    * Identifies the porting order that was split.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting order that was split.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

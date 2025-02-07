@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   EmbeddingMetadata.JSON_PROPERTY_CERTAINTY,
   EmbeddingMetadata.JSON_PROPERTY_LOADER_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class EmbeddingMetadata {
   public static final String JSON_PROPERTY_SOURCE = "source";
   private String source;
@@ -73,7 +73,7 @@ public class EmbeddingMetadata {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -99,7 +99,7 @@ public class EmbeddingMetadata {
    * Get checksum
    * @return checksum
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CHECKSUM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -125,7 +125,7 @@ public class EmbeddingMetadata {
    * Get embedding
    * @return embedding
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_EMBEDDING)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -151,7 +151,7 @@ public class EmbeddingMetadata {
    * Get filename
    * @return filename
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -177,7 +177,7 @@ public class EmbeddingMetadata {
    * Get certainty
    * @return certainty
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CERTAINTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -203,7 +203,7 @@ public class EmbeddingMetadata {
    * Get loaderMetadata
    * @return loaderMetadata
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOADER_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
