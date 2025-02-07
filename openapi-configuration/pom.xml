@@ -57,7 +57,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>2.2.0</version>
+                                    <version>3.6.3</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
@@ -324,7 +324,7 @@
                 </plugins>
             </build>
         </profile>
-        </profiles>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -419,7 +419,7 @@
         <jersey-version>2.46</jersey-version>
         <jackson-version>2.18.2</jackson-version>
         <jackson-databind-version>2.18.2</jackson-databind-version>
-        <jackson-databind-nullable-version>0.2.2</jackson-databind-nullable-version>
+        <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
         <jakarta-annotation-version>1.3.5</jakarta-annotation-version>
         <junit-version>4.13.2</junit-version>
         <spotless.version>2.17.3</spotless.version>
