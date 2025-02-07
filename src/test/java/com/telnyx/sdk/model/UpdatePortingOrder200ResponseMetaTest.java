@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for UpdatePortingOrder200ResponseMeta
  */
 public class UpdatePortingOrder200ResponseMetaTest {
-    private final UpdatePortingOrder200ResponseMeta model = new UpdatePortingOrder200ResponseMeta();
+
+    private final UpdatePortingOrder200ResponseMeta model =
+        new UpdatePortingOrder200ResponseMeta();
 
     /**
      * Model tests for UpdatePortingOrder200ResponseMeta
@@ -46,5 +44,4 @@ public class UpdatePortingOrder200ResponseMetaTest {
     public void phoneNumbersUrlTest() {
         // TODO: test phoneNumbersUrl
     }
-
 }

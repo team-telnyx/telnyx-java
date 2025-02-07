@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
@@ -25,15 +24,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for PhoneNumberDeletedDetailed
  */
 public class PhoneNumberDeletedDetailedTest {
-    private final PhoneNumberDeletedDetailed model = new PhoneNumberDeletedDetailed();
+
+    private final PhoneNumberDeletedDetailed model =
+        new PhoneNumberDeletedDetailed();
 
     /**
      * Model tests for PhoneNumberDeletedDetailed
@@ -218,5 +217,4 @@ public class PhoneNumberDeletedDetailedTest {
     public void updatedAtTest() {
         // TODO: test updatedAt
     }
-
 }

@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.UnprocessableEntityError;
@@ -23,16 +22,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreateManagedAccount422Response
  */
 public class CreateManagedAccount422ResponseTest {
-    private final CreateManagedAccount422Response model = new CreateManagedAccount422Response();
+
+    private final CreateManagedAccount422Response model =
+        new CreateManagedAccount422Response();
 
     /**
      * Model tests for CreateManagedAccount422Response
@@ -49,5 +47,4 @@ public class CreateManagedAccount422ResponseTest {
     public void errorsTest() {
         // TODO: test errors
     }
-
 }

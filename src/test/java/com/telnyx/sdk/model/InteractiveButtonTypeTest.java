@@ -10,19 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import io.swagger.annotations.ApiModel;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for InteractiveButtonType
  */
 public class InteractiveButtonTypeTest {
+
     /**
      * Model tests for InteractiveButtonType
      */
@@ -30,5 +27,4 @@ public class InteractiveButtonTypeTest {
     public void testInteractiveButtonType() {
         // TODO: test InteractiveButtonType
     }
-
 }

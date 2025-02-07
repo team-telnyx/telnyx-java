@@ -10,104 +10,109 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ClientStateUpdateRequest
  */
-@JsonPropertyOrder({
-  ClientStateUpdateRequest.JSON_PROPERTY_CLIENT_STATE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ ClientStateUpdateRequest.JSON_PROPERTY_CLIENT_STATE })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ClientStateUpdateRequest {
-  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
-  private String clientState;
 
-  public ClientStateUpdateRequest() { 
-  }
+    public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+    private String clientState;
 
-  public ClientStateUpdateRequest clientState(String clientState) {
-    this.clientState = clientState;
-    return this;
-  }
+    public ClientStateUpdateRequest() {}
 
-   /**
-   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
-   * @return clientState
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", required = true, value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getClientState() {
-    return clientState;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setClientState(String clientState) {
-    this.clientState = clientState;
-  }
-
-
-  /**
-   * Return true if this ClientStateUpdateRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ClientStateUpdateRequest clientState(String clientState) {
+        this.clientState = clientState;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+     * @return clientState
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "aGF2ZSBhIG5pY2UgZGF5ID1d",
+        required = true,
+        value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string."
+    )
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getClientState() {
+        return clientState;
     }
-    ClientStateUpdateRequest clientStateUpdateRequest = (ClientStateUpdateRequest) o;
-    return Objects.equals(this.clientState, clientStateUpdateRequest.clientState);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(clientState);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ClientStateUpdateRequest {\n");
-    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setClientState(String clientState) {
+        this.clientState = clientState;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this ClientStateUpdateRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ClientStateUpdateRequest clientStateUpdateRequest =
+            (ClientStateUpdateRequest) o;
+        return Objects.equals(
+            this.clientState,
+            clientStateUpdateRequest.clientState
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clientState);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ClientStateUpdateRequest {\n");
+        sb
+            .append("    clientState: ")
+            .append(toIndentedString(clientState))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

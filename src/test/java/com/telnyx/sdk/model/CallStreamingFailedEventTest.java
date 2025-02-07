@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallStreamingFailed;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CallStreamingFailedEvent
  */
 public class CallStreamingFailedEventTest {
-    private final CallStreamingFailedEvent model = new CallStreamingFailedEvent();
+
+    private final CallStreamingFailedEvent model =
+        new CallStreamingFailedEvent();
 
     /**
      * Model tests for CallStreamingFailedEvent
@@ -47,5 +45,4 @@ public class CallStreamingFailedEventTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

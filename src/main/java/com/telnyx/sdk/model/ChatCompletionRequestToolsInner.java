@@ -10,40 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.BucketIds;
-import com.telnyx.sdk.model.ChatCompletionToolParam;
-import com.telnyx.sdk.model.FunctionDefinition;
-import com.telnyx.sdk.model.Retrieval;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -57,15 +31,51 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.BucketIds;
+import com.telnyx.sdk.model.ChatCompletionToolParam;
+import com.telnyx.sdk.model.FunctionDefinition;
+import com.telnyx.sdk.model.Retrieval;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
-@JsonDeserialize(using=ChatCompletionRequestToolsInner.ChatCompletionRequestToolsInnerDeserializer.class)
-@JsonSerialize(using = ChatCompletionRequestToolsInner.ChatCompletionRequestToolsInnerSerializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
+@JsonDeserialize(
+    using = ChatCompletionRequestToolsInner.ChatCompletionRequestToolsInnerDeserializer.class
+)
+@JsonSerialize(
+    using = ChatCompletionRequestToolsInner.ChatCompletionRequestToolsInnerSerializer.class
+)
 public class ChatCompletionRequestToolsInner extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(ChatCompletionRequestToolsInner.class.getName());
 
-    public static class ChatCompletionRequestToolsInnerSerializer extends StdSerializer<ChatCompletionRequestToolsInner> {
-        public ChatCompletionRequestToolsInnerSerializer(Class<ChatCompletionRequestToolsInner> t) {
+    private static final Logger log = Logger.getLogger(
+        ChatCompletionRequestToolsInner.class.getName()
+    );
+
+    public static class ChatCompletionRequestToolsInnerSerializer
+        extends StdSerializer<ChatCompletionRequestToolsInner> {
+
+        public ChatCompletionRequestToolsInnerSerializer(
+            Class<ChatCompletionRequestToolsInner> t
+        ) {
             super(t);
         }
 
@@ -74,12 +84,18 @@ public class ChatCompletionRequestToolsInner extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(ChatCompletionRequestToolsInner value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            ChatCompletionRequestToolsInner value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class ChatCompletionRequestToolsInnerDeserializer extends StdDeserializer<ChatCompletionRequestToolsInner> {
+    public static class ChatCompletionRequestToolsInnerDeserializer
+        extends StdDeserializer<ChatCompletionRequestToolsInner> {
+
         public ChatCompletionRequestToolsInnerDeserializer() {
             this(ChatCompletionRequestToolsInner.class);
         }
@@ -89,46 +105,75 @@ public class ChatCompletionRequestToolsInner extends AbstractOpenApiSchema {
         }
 
         @Override
-        public ChatCompletionRequestToolsInner deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public ChatCompletionRequestToolsInner deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
             // deserialize ChatCompletionToolParam
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(ChatCompletionToolParam.class);
-                ChatCompletionRequestToolsInner ret = new ChatCompletionRequestToolsInner();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(ChatCompletionToolParam.class);
+                ChatCompletionRequestToolsInner ret =
+                    new ChatCompletionRequestToolsInner();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'ChatCompletionRequestToolsInner'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'ChatCompletionRequestToolsInner'",
+                    e
+                );
             }
 
             // deserialize Retrieval
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Retrieval.class);
-                ChatCompletionRequestToolsInner ret = new ChatCompletionRequestToolsInner();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(Retrieval.class);
+                ChatCompletionRequestToolsInner ret =
+                    new ChatCompletionRequestToolsInner();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'ChatCompletionRequestToolsInner'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'ChatCompletionRequestToolsInner'",
+                    e
+                );
             }
 
-            throw new IOException(String.format("Failed deserialization for ChatCompletionRequestToolsInner: no match found"));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for ChatCompletionRequestToolsInner: no match found"
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public ChatCompletionRequestToolsInner getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "ChatCompletionRequestToolsInner cannot be null");
+        public ChatCompletionRequestToolsInner getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "ChatCompletionRequestToolsInner cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in anyOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public ChatCompletionRequestToolsInner() {
         super("anyOf", Boolean.FALSE);
@@ -145,11 +190,15 @@ public class ChatCompletionRequestToolsInner extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("ChatCompletionToolParam", new GenericType<ChatCompletionToolParam>() {
-        });
-        schemas.put("Retrieval", new GenericType<Retrieval>() {
-        });
-        JSON.registerDescendants(ChatCompletionRequestToolsInner.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+            "ChatCompletionToolParam",
+            new GenericType<ChatCompletionToolParam>() {}
+        );
+        schemas.put("Retrieval", new GenericType<Retrieval>() {});
+        JSON.registerDescendants(
+            ChatCompletionRequestToolsInner.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -167,17 +216,31 @@ public class ChatCompletionRequestToolsInner extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(ChatCompletionToolParam.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                ChatCompletionToolParam.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(Retrieval.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                Retrieval.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be ChatCompletionToolParam, Retrieval");
+        throw new RuntimeException(
+            "Invalid instance type. Must be ChatCompletionToolParam, Retrieval"
+        );
     }
 
     /**
@@ -198,8 +261,9 @@ public class ChatCompletionRequestToolsInner extends AbstractOpenApiSchema {
      * @return The actual instance of `ChatCompletionToolParam`
      * @throws ClassCastException if the instance is not `ChatCompletionToolParam`
      */
-    public ChatCompletionToolParam getChatCompletionToolParam() throws ClassCastException {
-        return (ChatCompletionToolParam)super.getActualInstance();
+    public ChatCompletionToolParam getChatCompletionToolParam()
+        throws ClassCastException {
+        return (ChatCompletionToolParam) super.getActualInstance();
     }
 
     /**
@@ -210,8 +274,6 @@ public class ChatCompletionRequestToolsInner extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `Retrieval`
      */
     public Retrieval getRetrieval() throws ClassCastException {
-        return (Retrieval)super.getActualInstance();
+        return (Retrieval) super.getActualInstance();
     }
-
 }
-

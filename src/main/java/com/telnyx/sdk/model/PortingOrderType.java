@@ -10,55 +10,50 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A port can be either &#39;full&#39; or &#39;partial&#39;. When type is &#39;full&#39; the other attributes should be omitted.
  */
 public enum PortingOrderType {
-  
-  FULL("full"),
-  
-  PARTIAL("partial");
+    FULL("full"),
 
-  private String value;
+    PARTIAL("partial");
 
-  PortingOrderType(String value) {
-    this.value = value;
-  }
+    private String value;
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static PortingOrderType fromValue(String value) {
-    for (PortingOrderType b : PortingOrderType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    PortingOrderType(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PortingOrderType fromValue(String value) {
+        for (PortingOrderType b : PortingOrderType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

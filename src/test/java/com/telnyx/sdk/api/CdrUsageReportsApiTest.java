@@ -10,23 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import java.math.BigDecimal;
 import com.telnyx.sdk.model.CdrGetSyncUsageReportResponse;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for CdrUsageReportsApi
@@ -36,9 +33,9 @@ public class CdrUsageReportsApiTest {
     private final CdrUsageReportsApi api = new CdrUsageReportsApi();
 
     /**
-     * 
      *
-     * Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
+     *
+     * Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -53,5 +50,4 @@ public class CdrUsageReportsApiTest {
         //CdrGetSyncUsageReportResponse response = api.getUsageReportSync(aggregationType, productBreakdown, startDate, endDate, connections);
         // TODO: test validations
     }
-
 }

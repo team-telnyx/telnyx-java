@@ -10,431 +10,479 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.GatherUsingSpeakRequestVoiceSettings;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ConferenceSpeakRequest
  */
-@JsonPropertyOrder({
-  ConferenceSpeakRequest.JSON_PROPERTY_CALL_CONTROL_IDS,
-  ConferenceSpeakRequest.JSON_PROPERTY_PAYLOAD,
-  ConferenceSpeakRequest.JSON_PROPERTY_PAYLOAD_TYPE,
-  ConferenceSpeakRequest.JSON_PROPERTY_VOICE,
-  ConferenceSpeakRequest.JSON_PROPERTY_VOICE_SETTINGS,
-  ConferenceSpeakRequest.JSON_PROPERTY_LANGUAGE,
-  ConferenceSpeakRequest.JSON_PROPERTY_COMMAND_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        ConferenceSpeakRequest.JSON_PROPERTY_CALL_CONTROL_IDS,
+        ConferenceSpeakRequest.JSON_PROPERTY_PAYLOAD,
+        ConferenceSpeakRequest.JSON_PROPERTY_PAYLOAD_TYPE,
+        ConferenceSpeakRequest.JSON_PROPERTY_VOICE,
+        ConferenceSpeakRequest.JSON_PROPERTY_VOICE_SETTINGS,
+        ConferenceSpeakRequest.JSON_PROPERTY_LANGUAGE,
+        ConferenceSpeakRequest.JSON_PROPERTY_COMMAND_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ConferenceSpeakRequest {
-  public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
-  private List<String> callControlIds = null;
 
-  public static final String JSON_PROPERTY_PAYLOAD = "payload";
-  private String payload;
+    public static final String JSON_PROPERTY_CALL_CONTROL_IDS =
+        "call_control_ids";
+    private List<String> callControlIds = null;
 
-  /**
-   * The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).
-   */
-  public enum PayloadTypeEnum {
-    TEXT(String.valueOf("text")),
-    
-    SSML(String.valueOf("ssml"));
+    public static final String JSON_PROPERTY_PAYLOAD = "payload";
+    private String payload;
 
-    private String value;
+    /**
+     * The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).
+     */
+    public enum PayloadTypeEnum {
+        TEXT(String.valueOf("text")),
 
-    PayloadTypeEnum(String value) {
-      this.value = value;
+        SSML(String.valueOf("ssml"));
+
+        private String value;
+
+        PayloadTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static PayloadTypeEnum fromValue(String value) {
+            for (PayloadTypeEnum b : PayloadTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_PAYLOAD_TYPE = "payload_type";
+    private PayloadTypeEnum payloadType = PayloadTypeEnum.TEXT;
+
+    public static final String JSON_PROPERTY_VOICE = "voice";
+    private String voice;
+
+    public static final String JSON_PROPERTY_VOICE_SETTINGS = "voice_settings";
+    private GatherUsingSpeakRequestVoiceSettings voiceSettings;
+
+    /**
+     * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
+     */
+    public enum LanguageEnum {
+        ARB(String.valueOf("arb")),
+
+        CMN_CN(String.valueOf("cmn-CN")),
+
+        CY_GB(String.valueOf("cy-GB")),
+
+        DA_DK(String.valueOf("da-DK")),
+
+        DE_DE(String.valueOf("de-DE")),
+
+        EN_AU(String.valueOf("en-AU")),
+
+        EN_GB(String.valueOf("en-GB")),
+
+        EN_GB_WLS(String.valueOf("en-GB-WLS")),
+
+        EN_IN(String.valueOf("en-IN")),
+
+        EN_US(String.valueOf("en-US")),
+
+        ES_ES(String.valueOf("es-ES")),
+
+        ES_MX(String.valueOf("es-MX")),
+
+        ES_US(String.valueOf("es-US")),
+
+        FR_CA(String.valueOf("fr-CA")),
+
+        FR_FR(String.valueOf("fr-FR")),
+
+        HI_IN(String.valueOf("hi-IN")),
+
+        IS_IS(String.valueOf("is-IS")),
+
+        IT_IT(String.valueOf("it-IT")),
+
+        JA_JP(String.valueOf("ja-JP")),
+
+        KO_KR(String.valueOf("ko-KR")),
+
+        NB_NO(String.valueOf("nb-NO")),
+
+        NL_NL(String.valueOf("nl-NL")),
+
+        PL_PL(String.valueOf("pl-PL")),
+
+        PT_BR(String.valueOf("pt-BR")),
+
+        PT_PT(String.valueOf("pt-PT")),
+
+        RO_RO(String.valueOf("ro-RO")),
+
+        RU_RU(String.valueOf("ru-RU")),
+
+        SV_SE(String.valueOf("sv-SE")),
+
+        TR_TR(String.valueOf("tr-TR"));
+
+        private String value;
+
+        LanguageEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static LanguageEnum fromValue(String value) {
+            for (LanguageEnum b : LanguageEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_LANGUAGE = "language";
+    private LanguageEnum language;
+
+    public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
+    private String commandId;
+
+    public ConferenceSpeakRequest() {}
+
+    public ConferenceSpeakRequest callControlIds(List<String> callControlIds) {
+        this.callControlIds = callControlIds;
+        return this;
+    }
+
+    public ConferenceSpeakRequest addcallControlIdsItem(
+        String callControlIdsItem
+    ) {
+        if (this.callControlIds == null) {
+            this.callControlIds = new ArrayList<>();
+        }
+        this.callControlIds.add(callControlIdsItem);
+        return this;
+    }
+
+    /**
+     * Call Control IDs of participants who will hear the spoken text. When empty all participants will hear the spoken text.
+     * @return callControlIds
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Call Control IDs of participants who will hear the spoken text. When empty all participants will hear the spoken text."
+    )
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getCallControlIds() {
+        return callControlIds;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCallControlIds(List<String> callControlIds) {
+        this.callControlIds = callControlIds;
+    }
+
+    public ConferenceSpeakRequest payload(String payload) {
+        this.payload = payload;
+        return this;
+    }
+
+    /**
+     * The text or SSML to be converted into speech. There is a 3,000 character limit.
+     * @return payload
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "Say this to participants",
+        required = true,
+        value = "The text or SSML to be converted into speech. There is a 3,000 character limit."
+    )
+    @JsonProperty(JSON_PROPERTY_PAYLOAD)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPayload() {
+        return payload;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAYLOAD)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
+
+    public ConferenceSpeakRequest payloadType(PayloadTypeEnum payloadType) {
+        this.payloadType = payloadType;
+        return this;
+    }
+
+    /**
+     * The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).
+     * @return payloadType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "ssml",
+        value = "The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML)."
+    )
+    @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PayloadTypeEnum getPayloadType() {
+        return payloadType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPayloadType(PayloadTypeEnum payloadType) {
+        this.payloadType = payloadType;
+    }
+
+    public ConferenceSpeakRequest voice(String voice) {
+        this.voice = voice;
+        return this;
+    }
+
+    /**
+     * Specifies the voice used in speech synthesis.  - Define voices using the format &#x60;&lt;Provider&gt;.&lt;Model&gt;.&lt;VoiceId&gt;&#x60;. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use &#x60;AWS.Polly.&lt;VoiceId&gt;&#x60; (e.g., &#x60;AWS.Polly.Joanna&#x60;). For neural voices, which provide more realistic, human-like speech, append &#x60;-Neural&#x60; to the &#x60;VoiceId&#x60; (e.g., &#x60;AWS.Polly.Joanna-Neural&#x60;). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use &#x60;Azure.&lt;VoiceId&gt;. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use &#x60;ElevenLabs.&lt;ModelId&gt;.&lt;VoiceId&gt;&#x60; (e.g., &#x60;ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM&#x60;). The &#x60;ModelId&#x60; part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in &#x60;\&quot;voice_settings\&quot;: {\&quot;api_key_ref\&quot;: \&quot;&lt;secret_identifier&gt;\&quot;}&#x60;. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use &#x60;Telnyx.&lt;model_id&gt;.&lt;voice_id&gt;&#x60;  For service_level basic, you may define the gender of the speaker (male or female).
+     * @return voice
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "Telnyx.KokoroTTS.af",
+        required = true,
+        value = "Specifies the voice used in speech synthesis.  - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `\"voice_settings\": {\"api_key_ref\": \"<secret_identifier>\"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`  For service_level basic, you may define the gender of the speaker (male or female)."
+    )
+    @JsonProperty(JSON_PROPERTY_VOICE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getVoice() {
+        return voice;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VOICE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVoice(String voice) {
+        this.voice = voice;
+    }
+
+    public ConferenceSpeakRequest voiceSettings(
+        GatherUsingSpeakRequestVoiceSettings voiceSettings
+    ) {
+        this.voiceSettings = voiceSettings;
+        return this;
+    }
+
+    /**
+     * Get voiceSettings
+     * @return voiceSettings
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public GatherUsingSpeakRequestVoiceSettings getVoiceSettings() {
+        return voiceSettings;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVoiceSettings(
+        GatherUsingSpeakRequestVoiceSettings voiceSettings
+    ) {
+        this.voiceSettings = voiceSettings;
+    }
+
+    public ConferenceSpeakRequest language(LanguageEnum language) {
+        this.language = language;
+        return this;
+    }
+
+    /**
+     * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
+     * @return language
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "en-US",
+        value = "The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified."
+    )
+    @JsonProperty(JSON_PROPERTY_LANGUAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public LanguageEnum getLanguage() {
+        return language;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LANGUAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLanguage(LanguageEnum language) {
+        this.language = language;
+    }
+
+    public ConferenceSpeakRequest commandId(String commandId) {
+        this.commandId = commandId;
+        return this;
+    }
+
+    /**
+     * Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed.
+     * @return commandId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "891510ac-f3e4-11e8-af5b-de00688a4901",
+        value = "Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed."
+    )
+    @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCommandId() {
+        return commandId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCommandId(String commandId) {
+        this.commandId = commandId;
+    }
+
+    /**
+     * Return true if this ConferenceSpeakRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ConferenceSpeakRequest conferenceSpeakRequest =
+            (ConferenceSpeakRequest) o;
+        return (
+            Objects.equals(
+                this.callControlIds,
+                conferenceSpeakRequest.callControlIds
+            ) &&
+            Objects.equals(this.payload, conferenceSpeakRequest.payload) &&
+            Objects.equals(
+                this.payloadType,
+                conferenceSpeakRequest.payloadType
+            ) &&
+            Objects.equals(this.voice, conferenceSpeakRequest.voice) &&
+            Objects.equals(
+                this.voiceSettings,
+                conferenceSpeakRequest.voiceSettings
+            ) &&
+            Objects.equals(this.language, conferenceSpeakRequest.language) &&
+            Objects.equals(this.commandId, conferenceSpeakRequest.commandId)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            callControlIds,
+            payload,
+            payloadType,
+            voice,
+            voiceSettings,
+            language,
+            commandId
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ConferenceSpeakRequest {\n");
+        sb
+            .append("    callControlIds: ")
+            .append(toIndentedString(callControlIds))
+            .append("\n");
+        sb
+            .append("    payload: ")
+            .append(toIndentedString(payload))
+            .append("\n");
+        sb
+            .append("    payloadType: ")
+            .append(toIndentedString(payloadType))
+            .append("\n");
+        sb.append("    voice: ").append(toIndentedString(voice)).append("\n");
+        sb
+            .append("    voiceSettings: ")
+            .append(toIndentedString(voiceSettings))
+            .append("\n");
+        sb
+            .append("    language: ")
+            .append(toIndentedString(language))
+            .append("\n");
+        sb
+            .append("    commandId: ")
+            .append(toIndentedString(commandId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static PayloadTypeEnum fromValue(String value) {
-      for (PayloadTypeEnum b : PayloadTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_PAYLOAD_TYPE = "payload_type";
-  private PayloadTypeEnum payloadType = PayloadTypeEnum.TEXT;
-
-  public static final String JSON_PROPERTY_VOICE = "voice";
-  private String voice;
-
-  public static final String JSON_PROPERTY_VOICE_SETTINGS = "voice_settings";
-  private GatherUsingSpeakRequestVoiceSettings voiceSettings;
-
-  /**
-   * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
-   */
-  public enum LanguageEnum {
-    ARB(String.valueOf("arb")),
-    
-    CMN_CN(String.valueOf("cmn-CN")),
-    
-    CY_GB(String.valueOf("cy-GB")),
-    
-    DA_DK(String.valueOf("da-DK")),
-    
-    DE_DE(String.valueOf("de-DE")),
-    
-    EN_AU(String.valueOf("en-AU")),
-    
-    EN_GB(String.valueOf("en-GB")),
-    
-    EN_GB_WLS(String.valueOf("en-GB-WLS")),
-    
-    EN_IN(String.valueOf("en-IN")),
-    
-    EN_US(String.valueOf("en-US")),
-    
-    ES_ES(String.valueOf("es-ES")),
-    
-    ES_MX(String.valueOf("es-MX")),
-    
-    ES_US(String.valueOf("es-US")),
-    
-    FR_CA(String.valueOf("fr-CA")),
-    
-    FR_FR(String.valueOf("fr-FR")),
-    
-    HI_IN(String.valueOf("hi-IN")),
-    
-    IS_IS(String.valueOf("is-IS")),
-    
-    IT_IT(String.valueOf("it-IT")),
-    
-    JA_JP(String.valueOf("ja-JP")),
-    
-    KO_KR(String.valueOf("ko-KR")),
-    
-    NB_NO(String.valueOf("nb-NO")),
-    
-    NL_NL(String.valueOf("nl-NL")),
-    
-    PL_PL(String.valueOf("pl-PL")),
-    
-    PT_BR(String.valueOf("pt-BR")),
-    
-    PT_PT(String.valueOf("pt-PT")),
-    
-    RO_RO(String.valueOf("ro-RO")),
-    
-    RU_RU(String.valueOf("ru-RU")),
-    
-    SV_SE(String.valueOf("sv-SE")),
-    
-    TR_TR(String.valueOf("tr-TR"));
-
-    private String value;
-
-    LanguageEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static LanguageEnum fromValue(String value) {
-      for (LanguageEnum b : LanguageEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_LANGUAGE = "language";
-  private LanguageEnum language;
-
-  public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
-  private String commandId;
-
-  public ConferenceSpeakRequest() { 
-  }
-
-  public ConferenceSpeakRequest callControlIds(List<String> callControlIds) {
-    this.callControlIds = callControlIds;
-    return this;
-  }
-
-  public ConferenceSpeakRequest addcallControlIdsItem(String callControlIdsItem) {
-    if (this.callControlIds == null) {
-      this.callControlIds = new ArrayList<>();
-    }
-    this.callControlIds.add(callControlIdsItem);
-    return this;
-  }
-
-   /**
-   * Call Control IDs of participants who will hear the spoken text. When empty all participants will hear the spoken text.
-   * @return callControlIds
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Call Control IDs of participants who will hear the spoken text. When empty all participants will hear the spoken text.")
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getCallControlIds() {
-    return callControlIds;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_CONTROL_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallControlIds(List<String> callControlIds) {
-    this.callControlIds = callControlIds;
-  }
-
-
-  public ConferenceSpeakRequest payload(String payload) {
-    this.payload = payload;
-    return this;
-  }
-
-   /**
-   * The text or SSML to be converted into speech. There is a 3,000 character limit.
-   * @return payload
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "Say this to participants", required = true, value = "The text or SSML to be converted into speech. There is a 3,000 character limit.")
-  @JsonProperty(JSON_PROPERTY_PAYLOAD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPayload() {
-    return payload;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PAYLOAD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPayload(String payload) {
-    this.payload = payload;
-  }
-
-
-  public ConferenceSpeakRequest payloadType(PayloadTypeEnum payloadType) {
-    this.payloadType = payloadType;
-    return this;
-  }
-
-   /**
-   * The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).
-   * @return payloadType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "ssml", value = "The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).")
-  @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PayloadTypeEnum getPayloadType() {
-    return payloadType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPayloadType(PayloadTypeEnum payloadType) {
-    this.payloadType = payloadType;
-  }
-
-
-  public ConferenceSpeakRequest voice(String voice) {
-    this.voice = voice;
-    return this;
-  }
-
-   /**
-   * Specifies the voice used in speech synthesis.  - Define voices using the format &#x60;&lt;Provider&gt;.&lt;Model&gt;.&lt;VoiceId&gt;&#x60;. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use &#x60;AWS.Polly.&lt;VoiceId&gt;&#x60; (e.g., &#x60;AWS.Polly.Joanna&#x60;). For neural voices, which provide more realistic, human-like speech, append &#x60;-Neural&#x60; to the &#x60;VoiceId&#x60; (e.g., &#x60;AWS.Polly.Joanna-Neural&#x60;). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use &#x60;Azure.&lt;VoiceId&gt;. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use &#x60;ElevenLabs.&lt;ModelId&gt;.&lt;VoiceId&gt;&#x60; (e.g., &#x60;ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM&#x60;). The &#x60;ModelId&#x60; part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in &#x60;\&quot;voice_settings\&quot;: {\&quot;api_key_ref\&quot;: \&quot;&lt;secret_identifier&gt;\&quot;}&#x60;. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use &#x60;Telnyx.&lt;model_id&gt;.&lt;voice_id&gt;&#x60;  For service_level basic, you may define the gender of the speaker (male or female).
-   * @return voice
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "Telnyx.KokoroTTS.af", required = true, value = "Specifies the voice used in speech synthesis.  - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `\"voice_settings\": {\"api_key_ref\": \"<secret_identifier>\"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`  For service_level basic, you may define the gender of the speaker (male or female).")
-  @JsonProperty(JSON_PROPERTY_VOICE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getVoice() {
-    return voice;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VOICE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVoice(String voice) {
-    this.voice = voice;
-  }
-
-
-  public ConferenceSpeakRequest voiceSettings(GatherUsingSpeakRequestVoiceSettings voiceSettings) {
-    this.voiceSettings = voiceSettings;
-    return this;
-  }
-
-   /**
-   * Get voiceSettings
-   * @return voiceSettings
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public GatherUsingSpeakRequestVoiceSettings getVoiceSettings() {
-    return voiceSettings;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVoiceSettings(GatherUsingSpeakRequestVoiceSettings voiceSettings) {
-    this.voiceSettings = voiceSettings;
-  }
-
-
-  public ConferenceSpeakRequest language(LanguageEnum language) {
-    this.language = language;
-    return this;
-  }
-
-   /**
-   * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
-   * @return language
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "en-US", value = "The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.")
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public LanguageEnum getLanguage() {
-    return language;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LANGUAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLanguage(LanguageEnum language) {
-    this.language = language;
-  }
-
-
-  public ConferenceSpeakRequest commandId(String commandId) {
-    this.commandId = commandId;
-    return this;
-  }
-
-   /**
-   * Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed.
-   * @return commandId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.")
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCommandId() {
-    return commandId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCommandId(String commandId) {
-    this.commandId = commandId;
-  }
-
-
-  /**
-   * Return true if this ConferenceSpeakRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ConferenceSpeakRequest conferenceSpeakRequest = (ConferenceSpeakRequest) o;
-    return Objects.equals(this.callControlIds, conferenceSpeakRequest.callControlIds) &&
-        Objects.equals(this.payload, conferenceSpeakRequest.payload) &&
-        Objects.equals(this.payloadType, conferenceSpeakRequest.payloadType) &&
-        Objects.equals(this.voice, conferenceSpeakRequest.voice) &&
-        Objects.equals(this.voiceSettings, conferenceSpeakRequest.voiceSettings) &&
-        Objects.equals(this.language, conferenceSpeakRequest.language) &&
-        Objects.equals(this.commandId, conferenceSpeakRequest.commandId);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(callControlIds, payload, payloadType, voice, voiceSettings, language, commandId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ConferenceSpeakRequest {\n");
-    sb.append("    callControlIds: ").append(toIndentedString(callControlIds)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-    sb.append("    payloadType: ").append(toIndentedString(payloadType)).append("\n");
-    sb.append("    voice: ").append(toIndentedString(voice)).append("\n");
-    sb.append("    voiceSettings: ").append(toIndentedString(voiceSettings)).append("\n");
-    sb.append("    language: ").append(toIndentedString(language)).append("\n");
-    sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.GatherUsingAIRequestMessageHistoryInner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -31,7 +29,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for CallAIGatherPartialResultsPayload
  */
 public class CallAIGatherPartialResultsPayloadTest {
-    private final CallAIGatherPartialResultsPayload model = new CallAIGatherPartialResultsPayload();
+
+    private final CallAIGatherPartialResultsPayload model =
+        new CallAIGatherPartialResultsPayload();
 
     /**
      * Model tests for CallAIGatherPartialResultsPayload
@@ -112,5 +112,4 @@ public class CallAIGatherPartialResultsPayloadTest {
     public void partialResultsTest() {
         // TODO: test partialResults
     }
-
 }

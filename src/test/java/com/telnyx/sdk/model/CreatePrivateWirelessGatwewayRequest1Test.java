@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
@@ -24,15 +23,15 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreatePrivateWirelessGatwewayRequest1
  */
 public class CreatePrivateWirelessGatwewayRequest1Test {
-    private final CreatePrivateWirelessGatwewayRequest1 model = new CreatePrivateWirelessGatwewayRequest1();
+
+    private final CreatePrivateWirelessGatwewayRequest1 model =
+        new CreatePrivateWirelessGatwewayRequest1();
 
     /**
      * Model tests for CreatePrivateWirelessGatwewayRequest1
@@ -49,5 +48,4 @@ public class CreatePrivateWirelessGatwewayRequest1Test {
     public void privateWirelessGatewayIdTest() {
         // TODO: test privateWirelessGatewayId
     }
-
 }

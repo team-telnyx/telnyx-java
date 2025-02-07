@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.telnyx.sdk.model.TextAndImageArrayInner;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for ChatCompletionSystemMessageParamContent
  */
 public class ChatCompletionSystemMessageParamContentTest {
-    private final ChatCompletionSystemMessageParamContent model = new ChatCompletionSystemMessageParamContent();
+
+    private final ChatCompletionSystemMessageParamContent model =
+        new ChatCompletionSystemMessageParamContent();
 
     /**
      * Model tests for ChatCompletionSystemMessageParamContent
@@ -34,5 +34,4 @@ public class ChatCompletionSystemMessageParamContentTest {
     public void testChatCompletionSystemMessageParamContent() {
         // TODO: test ChatCompletionSystemMessageParamContent
     }
-
 }

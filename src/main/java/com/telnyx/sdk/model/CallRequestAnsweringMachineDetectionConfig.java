@@ -10,393 +10,508 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Optional configuration parameters to modify &#39;answering_machine_detection&#39; performance.
  */
-@ApiModel(description = "Optional configuration parameters to modify 'answering_machine_detection' performance.")
-@JsonPropertyOrder({
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_DURATION_MILLIS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_INITIAL_SILENCE_MILLIS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_SILENCE_THRESHOLD,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS,
-  CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "Optional configuration parameters to modify 'answering_machine_detection' performance."
+)
+@JsonPropertyOrder(
+    {
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_DURATION_MILLIS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_INITIAL_SILENCE_MILLIS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_SILENCE_THRESHOLD,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS,
+        CallRequestAnsweringMachineDetectionConfig.JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CallRequestAnsweringMachineDetectionConfig {
-  public static final String JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS = "total_analysis_time_millis";
-  private Integer totalAnalysisTimeMillis = 3500;
 
-  public static final String JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS = "after_greeting_silence_millis";
-  private Integer afterGreetingSilenceMillis = 800;
+    public static final String JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS =
+        "total_analysis_time_millis";
+    private Integer totalAnalysisTimeMillis = 3500;
 
-  public static final String JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS = "between_words_silence_millis";
-  private Integer betweenWordsSilenceMillis = 50;
+    public static final String JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS =
+        "after_greeting_silence_millis";
+    private Integer afterGreetingSilenceMillis = 800;
 
-  public static final String JSON_PROPERTY_GREETING_DURATION_MILLIS = "greeting_duration_millis";
-  private Integer greetingDurationMillis = 3500;
+    public static final String JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS =
+        "between_words_silence_millis";
+    private Integer betweenWordsSilenceMillis = 50;
 
-  public static final String JSON_PROPERTY_INITIAL_SILENCE_MILLIS = "initial_silence_millis";
-  private Integer initialSilenceMillis = 3500;
+    public static final String JSON_PROPERTY_GREETING_DURATION_MILLIS =
+        "greeting_duration_millis";
+    private Integer greetingDurationMillis = 3500;
 
-  public static final String JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS = "maximum_number_of_words";
-  private Integer maximumNumberOfWords = 5;
+    public static final String JSON_PROPERTY_INITIAL_SILENCE_MILLIS =
+        "initial_silence_millis";
+    private Integer initialSilenceMillis = 3500;
 
-  public static final String JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS = "maximum_word_length_millis";
-  private Integer maximumWordLengthMillis = 3500;
+    public static final String JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS =
+        "maximum_number_of_words";
+    private Integer maximumNumberOfWords = 5;
 
-  public static final String JSON_PROPERTY_SILENCE_THRESHOLD = "silence_threshold";
-  private Integer silenceThreshold = 256;
+    public static final String JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS =
+        "maximum_word_length_millis";
+    private Integer maximumWordLengthMillis = 3500;
 
-  public static final String JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS = "greeting_total_analysis_time_millis";
-  private Integer greetingTotalAnalysisTimeMillis = 5000;
+    public static final String JSON_PROPERTY_SILENCE_THRESHOLD =
+        "silence_threshold";
+    private Integer silenceThreshold = 256;
 
-  public static final String JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS = "greeting_silence_duration_millis";
-  private Integer greetingSilenceDurationMillis = 1500;
+    public static final String JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS =
+        "greeting_total_analysis_time_millis";
+    private Integer greetingTotalAnalysisTimeMillis = 5000;
 
-  public CallRequestAnsweringMachineDetectionConfig() { 
-  }
+    public static final String JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS =
+        "greeting_silence_duration_millis";
+    private Integer greetingSilenceDurationMillis = 1500;
 
-  public CallRequestAnsweringMachineDetectionConfig totalAnalysisTimeMillis(Integer totalAnalysisTimeMillis) {
-    this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
-    return this;
-  }
+    public CallRequestAnsweringMachineDetectionConfig() {}
 
-   /**
-   * Maximum timeout threshold for overall detection.
-   * @return totalAnalysisTimeMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "5000", value = "Maximum timeout threshold for overall detection.")
-  @JsonProperty(JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTotalAnalysisTimeMillis() {
-    return totalAnalysisTimeMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotalAnalysisTimeMillis(Integer totalAnalysisTimeMillis) {
-    this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig afterGreetingSilenceMillis(Integer afterGreetingSilenceMillis) {
-    this.afterGreetingSilenceMillis = afterGreetingSilenceMillis;
-    return this;
-  }
-
-   /**
-   * Silence duration threshold after a greeting message or voice for it be considered human.
-   * @return afterGreetingSilenceMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "1000", value = "Silence duration threshold after a greeting message or voice for it be considered human.")
-  @JsonProperty(JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getAfterGreetingSilenceMillis() {
-    return afterGreetingSilenceMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAfterGreetingSilenceMillis(Integer afterGreetingSilenceMillis) {
-    this.afterGreetingSilenceMillis = afterGreetingSilenceMillis;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig betweenWordsSilenceMillis(Integer betweenWordsSilenceMillis) {
-    this.betweenWordsSilenceMillis = betweenWordsSilenceMillis;
-    return this;
-  }
-
-   /**
-   * Maximum threshold for silence between words.
-   * @return betweenWordsSilenceMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "100", value = "Maximum threshold for silence between words.")
-  @JsonProperty(JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getBetweenWordsSilenceMillis() {
-    return betweenWordsSilenceMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBetweenWordsSilenceMillis(Integer betweenWordsSilenceMillis) {
-    this.betweenWordsSilenceMillis = betweenWordsSilenceMillis;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig greetingDurationMillis(Integer greetingDurationMillis) {
-    this.greetingDurationMillis = greetingDurationMillis;
-    return this;
-  }
-
-   /**
-   * Maximum threshold of a human greeting. If greeting longer than this value, considered machine.
-   * @return greetingDurationMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "1500", value = "Maximum threshold of a human greeting. If greeting longer than this value, considered machine.")
-  @JsonProperty(JSON_PROPERTY_GREETING_DURATION_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getGreetingDurationMillis() {
-    return greetingDurationMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_GREETING_DURATION_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGreetingDurationMillis(Integer greetingDurationMillis) {
-    this.greetingDurationMillis = greetingDurationMillis;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig initialSilenceMillis(Integer initialSilenceMillis) {
-    this.initialSilenceMillis = initialSilenceMillis;
-    return this;
-  }
-
-   /**
-   * If initial silence duration is greater than this value, consider it a machine.
-   * @return initialSilenceMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "1800", value = "If initial silence duration is greater than this value, consider it a machine.")
-  @JsonProperty(JSON_PROPERTY_INITIAL_SILENCE_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getInitialSilenceMillis() {
-    return initialSilenceMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INITIAL_SILENCE_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInitialSilenceMillis(Integer initialSilenceMillis) {
-    this.initialSilenceMillis = initialSilenceMillis;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig maximumNumberOfWords(Integer maximumNumberOfWords) {
-    this.maximumNumberOfWords = maximumNumberOfWords;
-    return this;
-  }
-
-   /**
-   * If number of detected words is greater than this value, consder it a machine.
-   * @return maximumNumberOfWords
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "3", value = "If number of detected words is greater than this value, consder it a machine.")
-  @JsonProperty(JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getMaximumNumberOfWords() {
-    return maximumNumberOfWords;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaximumNumberOfWords(Integer maximumNumberOfWords) {
-    this.maximumNumberOfWords = maximumNumberOfWords;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig maximumWordLengthMillis(Integer maximumWordLengthMillis) {
-    this.maximumWordLengthMillis = maximumWordLengthMillis;
-    return this;
-  }
-
-   /**
-   * If a single word lasts longer than this threshold, consider it a machine.
-   * @return maximumWordLengthMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2000", value = "If a single word lasts longer than this threshold, consider it a machine.")
-  @JsonProperty(JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getMaximumWordLengthMillis() {
-    return maximumWordLengthMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaximumWordLengthMillis(Integer maximumWordLengthMillis) {
-    this.maximumWordLengthMillis = maximumWordLengthMillis;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig silenceThreshold(Integer silenceThreshold) {
-    this.silenceThreshold = silenceThreshold;
-    return this;
-  }
-
-   /**
-   * Minimum noise threshold for any analysis.
-   * @return silenceThreshold
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "512", value = "Minimum noise threshold for any analysis.")
-  @JsonProperty(JSON_PROPERTY_SILENCE_THRESHOLD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getSilenceThreshold() {
-    return silenceThreshold;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SILENCE_THRESHOLD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSilenceThreshold(Integer silenceThreshold) {
-    this.silenceThreshold = silenceThreshold;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig greetingTotalAnalysisTimeMillis(Integer greetingTotalAnalysisTimeMillis) {
-    this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis;
-    return this;
-  }
-
-   /**
-   * If machine already detected, maximum timeout threshold to determine the end of the machine greeting.
-   * @return greetingTotalAnalysisTimeMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "7500", value = "If machine already detected, maximum timeout threshold to determine the end of the machine greeting.")
-  @JsonProperty(JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getGreetingTotalAnalysisTimeMillis() {
-    return greetingTotalAnalysisTimeMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGreetingTotalAnalysisTimeMillis(Integer greetingTotalAnalysisTimeMillis) {
-    this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis;
-  }
-
-
-  public CallRequestAnsweringMachineDetectionConfig greetingSilenceDurationMillis(Integer greetingSilenceDurationMillis) {
-    this.greetingSilenceDurationMillis = greetingSilenceDurationMillis;
-    return this;
-  }
-
-   /**
-   * If machine already detected, maximum threshold for silence between words. If exceeded, the greeting is considered ended.
-   * @return greetingSilenceDurationMillis
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2000", value = "If machine already detected, maximum threshold for silence between words. If exceeded, the greeting is considered ended.")
-  @JsonProperty(JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getGreetingSilenceDurationMillis() {
-    return greetingSilenceDurationMillis;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGreetingSilenceDurationMillis(Integer greetingSilenceDurationMillis) {
-    this.greetingSilenceDurationMillis = greetingSilenceDurationMillis;
-  }
-
-
-  /**
-   * Return true if this CallRequest_answering_machine_detection_config object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CallRequestAnsweringMachineDetectionConfig totalAnalysisTimeMillis(
+        Integer totalAnalysisTimeMillis
+    ) {
+        this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Maximum timeout threshold for overall detection.
+     * @return totalAnalysisTimeMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "5000",
+        value = "Maximum timeout threshold for overall detection."
+    )
+    @JsonProperty(JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTotalAnalysisTimeMillis() {
+        return totalAnalysisTimeMillis;
     }
-    CallRequestAnsweringMachineDetectionConfig callRequestAnsweringMachineDetectionConfig = (CallRequestAnsweringMachineDetectionConfig) o;
-    return Objects.equals(this.totalAnalysisTimeMillis, callRequestAnsweringMachineDetectionConfig.totalAnalysisTimeMillis) &&
-        Objects.equals(this.afterGreetingSilenceMillis, callRequestAnsweringMachineDetectionConfig.afterGreetingSilenceMillis) &&
-        Objects.equals(this.betweenWordsSilenceMillis, callRequestAnsweringMachineDetectionConfig.betweenWordsSilenceMillis) &&
-        Objects.equals(this.greetingDurationMillis, callRequestAnsweringMachineDetectionConfig.greetingDurationMillis) &&
-        Objects.equals(this.initialSilenceMillis, callRequestAnsweringMachineDetectionConfig.initialSilenceMillis) &&
-        Objects.equals(this.maximumNumberOfWords, callRequestAnsweringMachineDetectionConfig.maximumNumberOfWords) &&
-        Objects.equals(this.maximumWordLengthMillis, callRequestAnsweringMachineDetectionConfig.maximumWordLengthMillis) &&
-        Objects.equals(this.silenceThreshold, callRequestAnsweringMachineDetectionConfig.silenceThreshold) &&
-        Objects.equals(this.greetingTotalAnalysisTimeMillis, callRequestAnsweringMachineDetectionConfig.greetingTotalAnalysisTimeMillis) &&
-        Objects.equals(this.greetingSilenceDurationMillis, callRequestAnsweringMachineDetectionConfig.greetingSilenceDurationMillis);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(totalAnalysisTimeMillis, afterGreetingSilenceMillis, betweenWordsSilenceMillis, greetingDurationMillis, initialSilenceMillis, maximumNumberOfWords, maximumWordLengthMillis, silenceThreshold, greetingTotalAnalysisTimeMillis, greetingSilenceDurationMillis);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CallRequestAnsweringMachineDetectionConfig {\n");
-    sb.append("    totalAnalysisTimeMillis: ").append(toIndentedString(totalAnalysisTimeMillis)).append("\n");
-    sb.append("    afterGreetingSilenceMillis: ").append(toIndentedString(afterGreetingSilenceMillis)).append("\n");
-    sb.append("    betweenWordsSilenceMillis: ").append(toIndentedString(betweenWordsSilenceMillis)).append("\n");
-    sb.append("    greetingDurationMillis: ").append(toIndentedString(greetingDurationMillis)).append("\n");
-    sb.append("    initialSilenceMillis: ").append(toIndentedString(initialSilenceMillis)).append("\n");
-    sb.append("    maximumNumberOfWords: ").append(toIndentedString(maximumNumberOfWords)).append("\n");
-    sb.append("    maximumWordLengthMillis: ").append(toIndentedString(maximumWordLengthMillis)).append("\n");
-    sb.append("    silenceThreshold: ").append(toIndentedString(silenceThreshold)).append("\n");
-    sb.append("    greetingTotalAnalysisTimeMillis: ").append(toIndentedString(greetingTotalAnalysisTimeMillis)).append("\n");
-    sb.append("    greetingSilenceDurationMillis: ").append(toIndentedString(greetingSilenceDurationMillis)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TOTAL_ANALYSIS_TIME_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTotalAnalysisTimeMillis(Integer totalAnalysisTimeMillis) {
+        this.totalAnalysisTimeMillis = totalAnalysisTimeMillis;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CallRequestAnsweringMachineDetectionConfig afterGreetingSilenceMillis(
+        Integer afterGreetingSilenceMillis
+    ) {
+        this.afterGreetingSilenceMillis = afterGreetingSilenceMillis;
+        return this;
+    }
+
+    /**
+     * Silence duration threshold after a greeting message or voice for it be considered human.
+     * @return afterGreetingSilenceMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "1000",
+        value = "Silence duration threshold after a greeting message or voice for it be considered human."
+    )
+    @JsonProperty(JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getAfterGreetingSilenceMillis() {
+        return afterGreetingSilenceMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AFTER_GREETING_SILENCE_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAfterGreetingSilenceMillis(
+        Integer afterGreetingSilenceMillis
+    ) {
+        this.afterGreetingSilenceMillis = afterGreetingSilenceMillis;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig betweenWordsSilenceMillis(
+        Integer betweenWordsSilenceMillis
+    ) {
+        this.betweenWordsSilenceMillis = betweenWordsSilenceMillis;
+        return this;
+    }
+
+    /**
+     * Maximum threshold for silence between words.
+     * @return betweenWordsSilenceMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "100",
+        value = "Maximum threshold for silence between words."
+    )
+    @JsonProperty(JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getBetweenWordsSilenceMillis() {
+        return betweenWordsSilenceMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BETWEEN_WORDS_SILENCE_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBetweenWordsSilenceMillis(
+        Integer betweenWordsSilenceMillis
+    ) {
+        this.betweenWordsSilenceMillis = betweenWordsSilenceMillis;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig greetingDurationMillis(
+        Integer greetingDurationMillis
+    ) {
+        this.greetingDurationMillis = greetingDurationMillis;
+        return this;
+    }
+
+    /**
+     * Maximum threshold of a human greeting. If greeting longer than this value, considered machine.
+     * @return greetingDurationMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "1500",
+        value = "Maximum threshold of a human greeting. If greeting longer than this value, considered machine."
+    )
+    @JsonProperty(JSON_PROPERTY_GREETING_DURATION_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getGreetingDurationMillis() {
+        return greetingDurationMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GREETING_DURATION_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGreetingDurationMillis(Integer greetingDurationMillis) {
+        this.greetingDurationMillis = greetingDurationMillis;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig initialSilenceMillis(
+        Integer initialSilenceMillis
+    ) {
+        this.initialSilenceMillis = initialSilenceMillis;
+        return this;
+    }
+
+    /**
+     * If initial silence duration is greater than this value, consider it a machine.
+     * @return initialSilenceMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "1800",
+        value = "If initial silence duration is greater than this value, consider it a machine."
+    )
+    @JsonProperty(JSON_PROPERTY_INITIAL_SILENCE_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getInitialSilenceMillis() {
+        return initialSilenceMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_INITIAL_SILENCE_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setInitialSilenceMillis(Integer initialSilenceMillis) {
+        this.initialSilenceMillis = initialSilenceMillis;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig maximumNumberOfWords(
+        Integer maximumNumberOfWords
+    ) {
+        this.maximumNumberOfWords = maximumNumberOfWords;
+        return this;
+    }
+
+    /**
+     * If number of detected words is greater than this value, consder it a machine.
+     * @return maximumNumberOfWords
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "3",
+        value = "If number of detected words is greater than this value, consder it a machine."
+    )
+    @JsonProperty(JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getMaximumNumberOfWords() {
+        return maximumNumberOfWords;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MAXIMUM_NUMBER_OF_WORDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMaximumNumberOfWords(Integer maximumNumberOfWords) {
+        this.maximumNumberOfWords = maximumNumberOfWords;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig maximumWordLengthMillis(
+        Integer maximumWordLengthMillis
+    ) {
+        this.maximumWordLengthMillis = maximumWordLengthMillis;
+        return this;
+    }
+
+    /**
+     * If a single word lasts longer than this threshold, consider it a machine.
+     * @return maximumWordLengthMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2000",
+        value = "If a single word lasts longer than this threshold, consider it a machine."
+    )
+    @JsonProperty(JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getMaximumWordLengthMillis() {
+        return maximumWordLengthMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MAXIMUM_WORD_LENGTH_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMaximumWordLengthMillis(Integer maximumWordLengthMillis) {
+        this.maximumWordLengthMillis = maximumWordLengthMillis;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig silenceThreshold(
+        Integer silenceThreshold
+    ) {
+        this.silenceThreshold = silenceThreshold;
+        return this;
+    }
+
+    /**
+     * Minimum noise threshold for any analysis.
+     * @return silenceThreshold
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "512",
+        value = "Minimum noise threshold for any analysis."
+    )
+    @JsonProperty(JSON_PROPERTY_SILENCE_THRESHOLD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getSilenceThreshold() {
+        return silenceThreshold;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SILENCE_THRESHOLD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSilenceThreshold(Integer silenceThreshold) {
+        this.silenceThreshold = silenceThreshold;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig greetingTotalAnalysisTimeMillis(
+        Integer greetingTotalAnalysisTimeMillis
+    ) {
+        this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis;
+        return this;
+    }
+
+    /**
+     * If machine already detected, maximum timeout threshold to determine the end of the machine greeting.
+     * @return greetingTotalAnalysisTimeMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "7500",
+        value = "If machine already detected, maximum timeout threshold to determine the end of the machine greeting."
+    )
+    @JsonProperty(JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getGreetingTotalAnalysisTimeMillis() {
+        return greetingTotalAnalysisTimeMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GREETING_TOTAL_ANALYSIS_TIME_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGreetingTotalAnalysisTimeMillis(
+        Integer greetingTotalAnalysisTimeMillis
+    ) {
+        this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis;
+    }
+
+    public CallRequestAnsweringMachineDetectionConfig greetingSilenceDurationMillis(
+        Integer greetingSilenceDurationMillis
+    ) {
+        this.greetingSilenceDurationMillis = greetingSilenceDurationMillis;
+        return this;
+    }
+
+    /**
+     * If machine already detected, maximum threshold for silence between words. If exceeded, the greeting is considered ended.
+     * @return greetingSilenceDurationMillis
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2000",
+        value = "If machine already detected, maximum threshold for silence between words. If exceeded, the greeting is considered ended."
+    )
+    @JsonProperty(JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getGreetingSilenceDurationMillis() {
+        return greetingSilenceDurationMillis;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GREETING_SILENCE_DURATION_MILLIS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGreetingSilenceDurationMillis(
+        Integer greetingSilenceDurationMillis
+    ) {
+        this.greetingSilenceDurationMillis = greetingSilenceDurationMillis;
+    }
+
+    /**
+     * Return true if this CallRequest_answering_machine_detection_config object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CallRequestAnsweringMachineDetectionConfig callRequestAnsweringMachineDetectionConfig =
+            (CallRequestAnsweringMachineDetectionConfig) o;
+        return (
+            Objects.equals(
+                this.totalAnalysisTimeMillis,
+                callRequestAnsweringMachineDetectionConfig.totalAnalysisTimeMillis
+            ) &&
+            Objects.equals(
+                this.afterGreetingSilenceMillis,
+                callRequestAnsweringMachineDetectionConfig.afterGreetingSilenceMillis
+            ) &&
+            Objects.equals(
+                this.betweenWordsSilenceMillis,
+                callRequestAnsweringMachineDetectionConfig.betweenWordsSilenceMillis
+            ) &&
+            Objects.equals(
+                this.greetingDurationMillis,
+                callRequestAnsweringMachineDetectionConfig.greetingDurationMillis
+            ) &&
+            Objects.equals(
+                this.initialSilenceMillis,
+                callRequestAnsweringMachineDetectionConfig.initialSilenceMillis
+            ) &&
+            Objects.equals(
+                this.maximumNumberOfWords,
+                callRequestAnsweringMachineDetectionConfig.maximumNumberOfWords
+            ) &&
+            Objects.equals(
+                this.maximumWordLengthMillis,
+                callRequestAnsweringMachineDetectionConfig.maximumWordLengthMillis
+            ) &&
+            Objects.equals(
+                this.silenceThreshold,
+                callRequestAnsweringMachineDetectionConfig.silenceThreshold
+            ) &&
+            Objects.equals(
+                this.greetingTotalAnalysisTimeMillis,
+                callRequestAnsweringMachineDetectionConfig.greetingTotalAnalysisTimeMillis
+            ) &&
+            Objects.equals(
+                this.greetingSilenceDurationMillis,
+                callRequestAnsweringMachineDetectionConfig.greetingSilenceDurationMillis
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            totalAnalysisTimeMillis,
+            afterGreetingSilenceMillis,
+            betweenWordsSilenceMillis,
+            greetingDurationMillis,
+            initialSilenceMillis,
+            maximumNumberOfWords,
+            maximumWordLengthMillis,
+            silenceThreshold,
+            greetingTotalAnalysisTimeMillis,
+            greetingSilenceDurationMillis
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CallRequestAnsweringMachineDetectionConfig {\n");
+        sb
+            .append("    totalAnalysisTimeMillis: ")
+            .append(toIndentedString(totalAnalysisTimeMillis))
+            .append("\n");
+        sb
+            .append("    afterGreetingSilenceMillis: ")
+            .append(toIndentedString(afterGreetingSilenceMillis))
+            .append("\n");
+        sb
+            .append("    betweenWordsSilenceMillis: ")
+            .append(toIndentedString(betweenWordsSilenceMillis))
+            .append("\n");
+        sb
+            .append("    greetingDurationMillis: ")
+            .append(toIndentedString(greetingDurationMillis))
+            .append("\n");
+        sb
+            .append("    initialSilenceMillis: ")
+            .append(toIndentedString(initialSilenceMillis))
+            .append("\n");
+        sb
+            .append("    maximumNumberOfWords: ")
+            .append(toIndentedString(maximumNumberOfWords))
+            .append("\n");
+        sb
+            .append("    maximumWordLengthMillis: ")
+            .append(toIndentedString(maximumWordLengthMillis))
+            .append("\n");
+        sb
+            .append("    silenceThreshold: ")
+            .append(toIndentedString(silenceThreshold))
+            .append("\n");
+        sb
+            .append("    greetingTotalAnalysisTimeMillis: ")
+            .append(toIndentedString(greetingTotalAnalysisTimeMillis))
+            .append("\n");
+        sb
+            .append("    greetingSilenceDurationMillis: ")
+            .append(toIndentedString(greetingSilenceDurationMillis))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

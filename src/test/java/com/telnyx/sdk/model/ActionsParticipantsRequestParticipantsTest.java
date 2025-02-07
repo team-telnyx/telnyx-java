@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.List;
 import java.util.UUID;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for ActionsParticipantsRequestParticipants
  */
 public class ActionsParticipantsRequestParticipantsTest {
-    private final ActionsParticipantsRequestParticipants model = new ActionsParticipantsRequestParticipants();
+
+    private final ActionsParticipantsRequestParticipants model =
+        new ActionsParticipantsRequestParticipants();
 
     /**
      * Model tests for ActionsParticipantsRequestParticipants
@@ -34,5 +34,4 @@ public class ActionsParticipantsRequestParticipantsTest {
     public void testActionsParticipantsRequestParticipants() {
         // TODO: test ActionsParticipantsRequestParticipants
     }
-
 }

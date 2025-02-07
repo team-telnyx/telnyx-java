@@ -10,116 +10,119 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.UnauthorizedError;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ListCustomerServiceRequests401Response
  */
-@JsonPropertyOrder({
-  ListCustomerServiceRequests401Response.JSON_PROPERTY_ERRORS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    { ListCustomerServiceRequests401Response.JSON_PROPERTY_ERRORS }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class ListCustomerServiceRequests401Response {
-  public static final String JSON_PROPERTY_ERRORS = "errors";
-  private List<UnauthorizedError> errors = null;
 
-  public ListCustomerServiceRequests401Response() { 
-  }
+    public static final String JSON_PROPERTY_ERRORS = "errors";
+    private List<UnauthorizedError> errors = null;
 
-  public ListCustomerServiceRequests401Response errors(List<UnauthorizedError> errors) {
-    this.errors = errors;
-    return this;
-  }
+    public ListCustomerServiceRequests401Response() {}
 
-  public ListCustomerServiceRequests401Response addErrorsItem(UnauthorizedError errorsItem) {
-    if (this.errors == null) {
-      this.errors = new ArrayList<>();
+    public ListCustomerServiceRequests401Response errors(
+        List<UnauthorizedError> errors
+    ) {
+        this.errors = errors;
+        return this;
     }
-    this.errors.add(errorsItem);
-    return this;
-  }
 
-   /**
-   * Get errors
-   * @return errors
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<UnauthorizedError> getErrors() {
-    return errors;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setErrors(List<UnauthorizedError> errors) {
-    this.errors = errors;
-  }
-
-
-  /**
-   * Return true if this listCustomerServiceRequests_401_response object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ListCustomerServiceRequests401Response addErrorsItem(
+        UnauthorizedError errorsItem
+    ) {
+        if (this.errors == null) {
+            this.errors = new ArrayList<>();
+        }
+        this.errors.add(errorsItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get errors
+     * @return errors
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ERRORS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<UnauthorizedError> getErrors() {
+        return errors;
     }
-    ListCustomerServiceRequests401Response listCustomerServiceRequests401Response = (ListCustomerServiceRequests401Response) o;
-    return Objects.equals(this.errors, listCustomerServiceRequests401Response.errors);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(errors);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ListCustomerServiceRequests401Response {\n");
-    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ERRORS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setErrors(List<UnauthorizedError> errors) {
+        this.errors = errors;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this listCustomerServiceRequests_401_response object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ListCustomerServiceRequests401Response listCustomerServiceRequests401Response =
+            (ListCustomerServiceRequests401Response) o;
+        return Objects.equals(
+            this.errors,
+            listCustomerServiceRequests401Response.errors
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ListCustomerServiceRequests401Response {\n");
+        sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

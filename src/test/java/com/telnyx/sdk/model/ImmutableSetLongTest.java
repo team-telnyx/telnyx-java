@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import java.util.ArrayList;
@@ -18,14 +17,13 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for ImmutableSetLong
  */
 public class ImmutableSetLongTest {
+
     private final ImmutableSetLong model = new ImmutableSetLong();
 
     /**
@@ -35,5 +33,4 @@ public class ImmutableSetLongTest {
     public void testImmutableSetLong() {
         // TODO: test ImmutableSetLong
     }
-
 }

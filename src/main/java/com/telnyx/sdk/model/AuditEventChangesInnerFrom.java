@@ -10,31 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.math.BigDecimal;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -49,15 +28,46 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using=AuditEventChangesInnerFrom.AuditEventChangesInnerFromDeserializer.class)
-@JsonSerialize(using = AuditEventChangesInnerFrom.AuditEventChangesInnerFromSerializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(
+    using = AuditEventChangesInnerFrom.AuditEventChangesInnerFromDeserializer.class
+)
+@JsonSerialize(
+    using = AuditEventChangesInnerFrom.AuditEventChangesInnerFromSerializer.class
+)
 public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(AuditEventChangesInnerFrom.class.getName());
 
-    public static class AuditEventChangesInnerFromSerializer extends StdSerializer<AuditEventChangesInnerFrom> {
-        public AuditEventChangesInnerFromSerializer(Class<AuditEventChangesInnerFrom> t) {
+    private static final Logger log = Logger.getLogger(
+        AuditEventChangesInnerFrom.class.getName()
+    );
+
+    public static class AuditEventChangesInnerFromSerializer
+        extends StdSerializer<AuditEventChangesInnerFrom> {
+
+        public AuditEventChangesInnerFromSerializer(
+            Class<AuditEventChangesInnerFrom> t
+        ) {
             super(t);
         }
 
@@ -66,12 +76,18 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(AuditEventChangesInnerFrom value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            AuditEventChangesInnerFrom value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class AuditEventChangesInnerFromDeserializer extends StdDeserializer<AuditEventChangesInnerFrom> {
+    public static class AuditEventChangesInnerFromDeserializer
+        extends StdDeserializer<AuditEventChangesInnerFrom> {
+
         public AuditEventChangesInnerFromDeserializer() {
             this(AuditEventChangesInnerFrom.class);
         }
@@ -81,81 +97,132 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
         }
 
         @Override
-        public AuditEventChangesInnerFrom deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public AuditEventChangesInnerFrom deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
             // deserialize BigDecimal
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(BigDecimal.class);
-                AuditEventChangesInnerFrom ret = new AuditEventChangesInnerFrom();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(BigDecimal.class);
+                AuditEventChangesInnerFrom ret =
+                    new AuditEventChangesInnerFrom();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'AuditEventChangesInnerFrom'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'AuditEventChangesInnerFrom'",
+                    e
+                );
             }
 
             // deserialize Boolean
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Boolean.class);
-                AuditEventChangesInnerFrom ret = new AuditEventChangesInnerFrom();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(Boolean.class);
+                AuditEventChangesInnerFrom ret =
+                    new AuditEventChangesInnerFrom();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'AuditEventChangesInnerFrom'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'AuditEventChangesInnerFrom'",
+                    e
+                );
             }
 
             // deserialize List<String>
             try {
                 ObjectMapper mapper = (ObjectMapper) jp.getCodec(); // Get Jackson's ObjectMapper
-                deserialized = mapper.readValue(tree.traverse(mapper), new TypeReference<List<String>>() {});
+                deserialized = mapper.readValue(
+                    tree.traverse(mapper),
+                    new TypeReference<List<String>>() {}
+                );
 
-                AuditEventChangesInnerFrom ret = new AuditEventChangesInnerFrom();
+                AuditEventChangesInnerFrom ret =
+                    new AuditEventChangesInnerFrom();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'AuditEventChangesInnerFrom'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'AuditEventChangesInnerFrom'",
+                    e
+                );
             }
 
             // deserialize Object
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
-                AuditEventChangesInnerFrom ret = new AuditEventChangesInnerFrom();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(Object.class);
+                AuditEventChangesInnerFrom ret =
+                    new AuditEventChangesInnerFrom();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'AuditEventChangesInnerFrom'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'AuditEventChangesInnerFrom'",
+                    e
+                );
             }
 
             // deserialize String
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(String.class);
-                AuditEventChangesInnerFrom ret = new AuditEventChangesInnerFrom();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(String.class);
+                AuditEventChangesInnerFrom ret =
+                    new AuditEventChangesInnerFrom();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'AuditEventChangesInnerFrom'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'AuditEventChangesInnerFrom'",
+                    e
+                );
             }
 
-            throw new IOException(String.format("Failed deserialization for AuditEventChangesInnerFrom: no match found"));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for AuditEventChangesInnerFrom: no match found"
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public AuditEventChangesInnerFrom getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "AuditEventChangesInnerFrom cannot be null");
+        public AuditEventChangesInnerFrom getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "AuditEventChangesInnerFrom cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in anyOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public AuditEventChangesInnerFrom() {
         super("anyOf", Boolean.FALSE);
@@ -187,17 +254,15 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("BigDecimal", new GenericType<BigDecimal>() {
-        });
-        schemas.put("Boolean", new GenericType<Boolean>() {
-        });
-        schemas.put("List<String>", new GenericType<List<String>>() {
-        });
-        schemas.put("Object", new GenericType<Object>() {
-        });
-        schemas.put("String", new GenericType<String>() {
-        });
-        JSON.registerDescendants(AuditEventChangesInnerFrom.class, Collections.unmodifiableMap(schemas));
+        schemas.put("BigDecimal", new GenericType<BigDecimal>() {});
+        schemas.put("Boolean", new GenericType<Boolean>() {});
+        schemas.put("List<String>", new GenericType<List<String>>() {});
+        schemas.put("Object", new GenericType<Object>() {});
+        schemas.put("String", new GenericType<String>() {});
+        JSON.registerDescendants(
+            AuditEventChangesInnerFrom.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -215,39 +280,55 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(BigDecimal.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                BigDecimal.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(Boolean.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(Boolean.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
         if (instance instanceof List<?>) {
             List<?> list = (List<?>) instance;
-        
+
             // Check if all elements are Strings
-            boolean allStrings = list.stream().allMatch(item -> item instanceof String);
-        
+            boolean allStrings = list
+                .stream()
+                .allMatch(item -> item instanceof String);
+
             if (allStrings) {
                 super.setActualInstance(instance);
                 return;
             }
         }
 
-        if (JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(String.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(String.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be BigDecimal, Boolean, List<String>, Object, String");
+        throw new RuntimeException(
+            "Invalid instance type. Must be BigDecimal, Boolean, List<String>, Object, String"
+        );
     }
 
     /**
@@ -269,7 +350,7 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `BigDecimal`
      */
     public BigDecimal getBigDecimal() throws ClassCastException {
-        return (BigDecimal)super.getActualInstance();
+        return (BigDecimal) super.getActualInstance();
     }
 
     /**
@@ -280,7 +361,7 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `Boolean`
      */
     public Boolean getBoolean() throws ClassCastException {
-        return (Boolean)super.getActualInstance();
+        return (Boolean) super.getActualInstance();
     }
 
     /**
@@ -302,7 +383,7 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
                 return (List<String>) list; // Safe cast
             }
         }
-        
+
         throw new ClassCastException("Actual instance is not a List<String>");
     }
 
@@ -314,7 +395,7 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `Object`
      */
     public Object getObject() throws ClassCastException {
-        return (Object)super.getActualInstance();
+        return (Object) super.getActualInstance();
     }
 
     /**
@@ -325,8 +406,6 @@ public class AuditEventChangesInnerFrom extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `String`
      */
     public String getString() throws ClassCastException {
-        return (String)super.getActualInstance();
+        return (String) super.getActualInstance();
     }
-
 }
-

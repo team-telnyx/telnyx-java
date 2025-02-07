@@ -10,22 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static java.util.Arrays.asList;
+import static org.junit.Assert.*;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
-
 import java.io.File;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-
-import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
 
 /**
  * API tests for MessagingHostedNumberApi
@@ -39,14 +35,15 @@ public class MessagingHostedNumberApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
     /**
      * Create a messaging hosted number order
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -61,7 +58,7 @@ public class MessagingHostedNumberApiTest {
     /**
      * Delete a messaging hosted number
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -76,7 +73,7 @@ public class MessagingHostedNumberApiTest {
     /**
      * List messaging hosted number orders
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -95,7 +92,7 @@ public class MessagingHostedNumberApiTest {
     /**
      * Retrieve a messaging hosted number order
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -110,20 +107,21 @@ public class MessagingHostedNumberApiTest {
     /**
      * Upload file required for a messaging hosted number order
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void uploadFileMessagingHostedNumberOrderTest_whenUploadingValidFiles_returnsSuccess() throws ApiException {
+    public void uploadFileMessagingHostedNumberOrderTest_whenUploadingValidFiles_returnsSuccess()
+        throws ApiException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file1 = new File(classLoader.getResource("dummy1.pdf").getFile());
         File file2 = new File(classLoader.getResource("dummy2.pdf").getFile());
 
-        String messagingHostedNumberOrderId = "80017a9e-8d6d-4497-a14e-dd89ec2d6db8";
+        String messagingHostedNumberOrderId =
+            "80017a9e-8d6d-4497-a14e-dd89ec2d6db8";
     }
-
     /**
      * Upload files must be pdfs
      *

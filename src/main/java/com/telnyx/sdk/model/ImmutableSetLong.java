@@ -10,69 +10,70 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ImmutableSetLong
  */
-@JsonPropertyOrder({
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder({})
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class ImmutableSetLong extends ArrayList<Long> {
-  public ImmutableSetLong() { 
-  }
 
-  /**
-   * Return true if this ImmutableSetLong object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ImmutableSetLong() {}
+
+    /**
+     * Return true if this ImmutableSetLong object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        return super.equals(o);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode());
     }
-    return super.equals(o);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(super.hashCode());
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ImmutableSetLong {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ImmutableSetLong {\n");
+        sb
+            .append("    ")
+            .append(toIndentedString(super.toString()))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

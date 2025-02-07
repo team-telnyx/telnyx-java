@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -20,15 +19,13 @@ import com.telnyx.sdk.model.ListTagsResponse;
 import com.telnyx.sdk.model.TelephonyCredentialCreateRequest;
 import com.telnyx.sdk.model.TelephonyCredentialResponse;
 import com.telnyx.sdk.model.TelephonyCredentialUpdateRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for CredentialsApi
@@ -158,5 +155,4 @@ public class CredentialsApiTest {
         //TelephonyCredentialResponse response = api.updateTelephonyCredential(id, telephonyCredentialUpdateRequest);
         // TODO: test validations
     }
-
 }

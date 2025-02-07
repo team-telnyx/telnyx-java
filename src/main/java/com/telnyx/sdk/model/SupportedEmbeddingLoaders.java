@@ -10,55 +10,50 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Supported types of custom document loaders for embeddings.
  */
 public enum SupportedEmbeddingLoaders {
-  
-  DEFAULT("default"),
-  
-  INTERCOM("intercom");
+    DEFAULT("default"),
 
-  private String value;
+    INTERCOM("intercom");
 
-  SupportedEmbeddingLoaders(String value) {
-    this.value = value;
-  }
+    private String value;
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static SupportedEmbeddingLoaders fromValue(String value) {
-    for (SupportedEmbeddingLoaders b : SupportedEmbeddingLoaders.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    SupportedEmbeddingLoaders(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SupportedEmbeddingLoaders fromValue(String value) {
+        for (SupportedEmbeddingLoaders b : SupportedEmbeddingLoaders.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

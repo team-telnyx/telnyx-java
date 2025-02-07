@@ -10,577 +10,614 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * CdrUsageReportResponse
  */
-@JsonPropertyOrder({
-  CdrUsageReportResponse.JSON_PROPERTY_ID,
-  CdrUsageReportResponse.JSON_PROPERTY_START_TIME,
-  CdrUsageReportResponse.JSON_PROPERTY_END_TIME,
-  CdrUsageReportResponse.JSON_PROPERTY_CONNECTIONS,
-  CdrUsageReportResponse.JSON_PROPERTY_AGGREGATION_TYPE,
-  CdrUsageReportResponse.JSON_PROPERTY_STATUS,
-  CdrUsageReportResponse.JSON_PROPERTY_REPORT_URL,
-  CdrUsageReportResponse.JSON_PROPERTY_RESULT,
-  CdrUsageReportResponse.JSON_PROPERTY_CREATED_AT,
-  CdrUsageReportResponse.JSON_PROPERTY_UPDATED_AT,
-  CdrUsageReportResponse.JSON_PROPERTY_RECORD_TYPE,
-  CdrUsageReportResponse.JSON_PROPERTY_PRODUCT_BREAKDOWN
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        CdrUsageReportResponse.JSON_PROPERTY_ID,
+        CdrUsageReportResponse.JSON_PROPERTY_START_TIME,
+        CdrUsageReportResponse.JSON_PROPERTY_END_TIME,
+        CdrUsageReportResponse.JSON_PROPERTY_CONNECTIONS,
+        CdrUsageReportResponse.JSON_PROPERTY_AGGREGATION_TYPE,
+        CdrUsageReportResponse.JSON_PROPERTY_STATUS,
+        CdrUsageReportResponse.JSON_PROPERTY_REPORT_URL,
+        CdrUsageReportResponse.JSON_PROPERTY_RESULT,
+        CdrUsageReportResponse.JSON_PROPERTY_CREATED_AT,
+        CdrUsageReportResponse.JSON_PROPERTY_UPDATED_AT,
+        CdrUsageReportResponse.JSON_PROPERTY_RECORD_TYPE,
+        CdrUsageReportResponse.JSON_PROPERTY_PRODUCT_BREAKDOWN,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CdrUsageReportResponse {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_START_TIME = "start_time";
-  private OffsetDateTime startTime;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_END_TIME = "end_time";
-  private OffsetDateTime endTime;
+    public static final String JSON_PROPERTY_START_TIME = "start_time";
+    private OffsetDateTime startTime;
 
-  public static final String JSON_PROPERTY_CONNECTIONS = "connections";
-  private List<Long> connections = null;
+    public static final String JSON_PROPERTY_END_TIME = "end_time";
+    private OffsetDateTime endTime;
 
-  /**
-   * Gets or Sets aggregationType
-   */
-  public enum AggregationTypeEnum {
-    NO_AGGREGATION(String.valueOf("NO_AGGREGATION")),
-    
-    CONNECTION(String.valueOf("CONNECTION")),
-    
-    TAG(String.valueOf("TAG")),
-    
-    BILLING_GROUP(String.valueOf("BILLING_GROUP"));
+    public static final String JSON_PROPERTY_CONNECTIONS = "connections";
+    private List<Long> connections = null;
 
-    private String value;
+    /**
+     * Gets or Sets aggregationType
+     */
+    public enum AggregationTypeEnum {
+        NO_AGGREGATION(String.valueOf("NO_AGGREGATION")),
 
-    AggregationTypeEnum(String value) {
-      this.value = value;
+        CONNECTION(String.valueOf("CONNECTION")),
+
+        TAG(String.valueOf("TAG")),
+
+        BILLING_GROUP(String.valueOf("BILLING_GROUP"));
+
+        private String value;
+
+        AggregationTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static AggregationTypeEnum fromValue(String value) {
+            for (AggregationTypeEnum b : AggregationTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_AGGREGATION_TYPE =
+        "aggregation_type";
+    private AggregationTypeEnum aggregationType;
+
+    /**
+     * Gets or Sets status
+     */
+    public enum StatusEnum {
+        PENDING(String.valueOf("PENDING")),
+
+        COMPLETE(String.valueOf("COMPLETE")),
+
+        FAILED(String.valueOf("FAILED")),
+
+        EXPIRED(String.valueOf("EXPIRED"));
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private StatusEnum status;
+
+    public static final String JSON_PROPERTY_REPORT_URL = "report_url";
+    private String reportUrl;
+
+    public static final String JSON_PROPERTY_RESULT = "result";
+    private Object result;
+
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private OffsetDateTime createdAt;
+
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private OffsetDateTime updatedAt;
+
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
+
+    /**
+     * Gets or Sets productBreakdown
+     */
+    public enum ProductBreakdownEnum {
+        NO_BREAKDOWN(String.valueOf("NO_BREAKDOWN")),
+
+        DID_VS_TOLL_FREE(String.valueOf("DID_VS_TOLL_FREE")),
+
+        COUNTRY(String.valueOf("COUNTRY")),
+
+        DID_VS_TOLL_FREE_PER_COUNTRY(
+            String.valueOf("DID_VS_TOLL_FREE_PER_COUNTRY")
+        );
+
+        private String value;
+
+        ProductBreakdownEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static ProductBreakdownEnum fromValue(String value) {
+            for (ProductBreakdownEnum b : ProductBreakdownEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_PRODUCT_BREAKDOWN =
+        "product_breakdown";
+    private ProductBreakdownEnum productBreakdown;
+
+    public CdrUsageReportResponse() {}
+
+    public CdrUsageReportResponse id(UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Identifies the resource
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Identifies the resource")
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public CdrUsageReportResponse startTime(OffsetDateTime startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    /**
+     * Get startTime
+     * @return startTime
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
+    @JsonProperty(JSON_PROPERTY_START_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getStartTime() {
+        return startTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_START_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStartTime(OffsetDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public CdrUsageReportResponse endTime(OffsetDateTime endTime) {
+        this.endTime = endTime;
+        return this;
+    }
+
+    /**
+     * Get endTime
+     * @return endTime
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
+    @JsonProperty(JSON_PROPERTY_END_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getEndTime() {
+        return endTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_END_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEndTime(OffsetDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public CdrUsageReportResponse connections(List<Long> connections) {
+        this.connections = connections;
+        return this;
+    }
+
+    /**
+     * Get connections
+     * @return connections
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "[1234567890L, 9876543210L]", value = "")
+    @JsonProperty(JSON_PROPERTY_CONNECTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<Long> getConnections() {
+        return connections;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONNECTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConnections(List<Long> connections) {
+        this.connections = connections;
+    }
+
+    public CdrUsageReportResponse aggregationType(
+        AggregationTypeEnum aggregationType
+    ) {
+        this.aggregationType = aggregationType;
+        return this;
+    }
+
+    /**
+     * Get aggregationType
+     * @return aggregationType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_AGGREGATION_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AggregationTypeEnum getAggregationType() {
+        return aggregationType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AGGREGATION_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAggregationType(AggregationTypeEnum aggregationType) {
+        this.aggregationType = aggregationType;
+    }
+
+    public CdrUsageReportResponse status(StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     * @return status
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    public CdrUsageReportResponse reportUrl(String reportUrl) {
+        this.reportUrl = reportUrl;
+        return this;
+    }
+
+    /**
+     * Get reportUrl
+     * @return reportUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "http://portal.telnyx.com/downloads/report_name_8hvb45Gu.csv",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_REPORT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getReportUrl() {
+        return reportUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REPORT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setReportUrl(String reportUrl) {
+        this.reportUrl = reportUrl;
+    }
+
+    public CdrUsageReportResponse result(Object result) {
+        this.result = result;
+        return this;
+    }
+
+    /**
+     * Get result
+     * @return result
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_RESULT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Object getResult() {
+        return result;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RESULT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setResult(Object result) {
+        this.result = result;
+    }
+
+    public CdrUsageReportResponse createdAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public CdrUsageReportResponse updatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Get updatedAt
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public CdrUsageReportResponse recordType(String recordType) {
+        this.recordType = recordType;
+        return this;
+    }
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "cdr_usage_report", value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
+    }
+
+    public CdrUsageReportResponse productBreakdown(
+        ProductBreakdownEnum productBreakdown
+    ) {
+        this.productBreakdown = productBreakdown;
+        return this;
+    }
+
+    /**
+     * Get productBreakdown
+     * @return productBreakdown
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_PRODUCT_BREAKDOWN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ProductBreakdownEnum getProductBreakdown() {
+        return productBreakdown;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PRODUCT_BREAKDOWN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProductBreakdown(ProductBreakdownEnum productBreakdown) {
+        this.productBreakdown = productBreakdown;
+    }
+
+    /**
+     * Return true if this CdrUsageReportResponse object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CdrUsageReportResponse cdrUsageReportResponse =
+            (CdrUsageReportResponse) o;
+        return (
+            Objects.equals(this.id, cdrUsageReportResponse.id) &&
+            Objects.equals(this.startTime, cdrUsageReportResponse.startTime) &&
+            Objects.equals(this.endTime, cdrUsageReportResponse.endTime) &&
+            Objects.equals(
+                this.connections,
+                cdrUsageReportResponse.connections
+            ) &&
+            Objects.equals(
+                this.aggregationType,
+                cdrUsageReportResponse.aggregationType
+            ) &&
+            Objects.equals(this.status, cdrUsageReportResponse.status) &&
+            Objects.equals(this.reportUrl, cdrUsageReportResponse.reportUrl) &&
+            Objects.equals(this.result, cdrUsageReportResponse.result) &&
+            Objects.equals(this.createdAt, cdrUsageReportResponse.createdAt) &&
+            Objects.equals(this.updatedAt, cdrUsageReportResponse.updatedAt) &&
+            Objects.equals(
+                this.recordType,
+                cdrUsageReportResponse.recordType
+            ) &&
+            Objects.equals(
+                this.productBreakdown,
+                cdrUsageReportResponse.productBreakdown
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            id,
+            startTime,
+            endTime,
+            connections,
+            aggregationType,
+            status,
+            reportUrl,
+            result,
+            createdAt,
+            updatedAt,
+            recordType,
+            productBreakdown
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CdrUsageReportResponse {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    startTime: ")
+            .append(toIndentedString(startTime))
+            .append("\n");
+        sb
+            .append("    endTime: ")
+            .append(toIndentedString(endTime))
+            .append("\n");
+        sb
+            .append("    connections: ")
+            .append(toIndentedString(connections))
+            .append("\n");
+        sb
+            .append("    aggregationType: ")
+            .append(toIndentedString(aggregationType))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    reportUrl: ")
+            .append(toIndentedString(reportUrl))
+            .append("\n");
+        sb.append("    result: ").append(toIndentedString(result)).append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    productBreakdown: ")
+            .append(toIndentedString(productBreakdown))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static AggregationTypeEnum fromValue(String value) {
-      for (AggregationTypeEnum b : AggregationTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_AGGREGATION_TYPE = "aggregation_type";
-  private AggregationTypeEnum aggregationType;
-
-  /**
-   * Gets or Sets status
-   */
-  public enum StatusEnum {
-    PENDING(String.valueOf("PENDING")),
-    
-    COMPLETE(String.valueOf("COMPLETE")),
-    
-    FAILED(String.valueOf("FAILED")),
-    
-    EXPIRED(String.valueOf("EXPIRED"));
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  public static final String JSON_PROPERTY_REPORT_URL = "report_url";
-  private String reportUrl;
-
-  public static final String JSON_PROPERTY_RESULT = "result";
-  private Object result;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private OffsetDateTime createdAt;
-
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private OffsetDateTime updatedAt;
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
-
-  /**
-   * Gets or Sets productBreakdown
-   */
-  public enum ProductBreakdownEnum {
-    NO_BREAKDOWN(String.valueOf("NO_BREAKDOWN")),
-    
-    DID_VS_TOLL_FREE(String.valueOf("DID_VS_TOLL_FREE")),
-    
-    COUNTRY(String.valueOf("COUNTRY")),
-    
-    DID_VS_TOLL_FREE_PER_COUNTRY(String.valueOf("DID_VS_TOLL_FREE_PER_COUNTRY"));
-
-    private String value;
-
-    ProductBreakdownEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ProductBreakdownEnum fromValue(String value) {
-      for (ProductBreakdownEnum b : ProductBreakdownEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_PRODUCT_BREAKDOWN = "product_breakdown";
-  private ProductBreakdownEnum productBreakdown;
-
-  public CdrUsageReportResponse() { 
-  }
-
-  public CdrUsageReportResponse id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Identifies the resource
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Identifies the resource")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-  public CdrUsageReportResponse startTime(OffsetDateTime startTime) {
-    this.startTime = startTime;
-    return this;
-  }
-
-   /**
-   * Get startTime
-   * @return startTime
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
-  @JsonProperty(JSON_PROPERTY_START_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getStartTime() {
-    return startTime;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_START_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartTime(OffsetDateTime startTime) {
-    this.startTime = startTime;
-  }
-
-
-  public CdrUsageReportResponse endTime(OffsetDateTime endTime) {
-    this.endTime = endTime;
-    return this;
-  }
-
-   /**
-   * Get endTime
-   * @return endTime
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
-  @JsonProperty(JSON_PROPERTY_END_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getEndTime() {
-    return endTime;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_END_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEndTime(OffsetDateTime endTime) {
-    this.endTime = endTime;
-  }
-
-
-  public CdrUsageReportResponse connections(List<Long> connections) {
-    this.connections = connections;
-    return this;
-  }
-
-   /**
-   * Get connections
-   * @return connections
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "[1234567890L, 9876543210L]", value = "")
-  @JsonProperty(JSON_PROPERTY_CONNECTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Long> getConnections() {
-    return connections;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONNECTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConnections(List<Long> connections) {
-    this.connections = connections;
-  }
-
-
-  public CdrUsageReportResponse aggregationType(AggregationTypeEnum aggregationType) {
-    this.aggregationType = aggregationType;
-    return this;
-  }
-
-   /**
-   * Get aggregationType
-   * @return aggregationType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_AGGREGATION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public AggregationTypeEnum getAggregationType() {
-    return aggregationType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AGGREGATION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAggregationType(AggregationTypeEnum aggregationType) {
-    this.aggregationType = aggregationType;
-  }
-
-
-  public CdrUsageReportResponse status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  public CdrUsageReportResponse reportUrl(String reportUrl) {
-    this.reportUrl = reportUrl;
-    return this;
-  }
-
-   /**
-   * Get reportUrl
-   * @return reportUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "http://portal.telnyx.com/downloads/report_name_8hvb45Gu.csv", value = "")
-  @JsonProperty(JSON_PROPERTY_REPORT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getReportUrl() {
-    return reportUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REPORT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReportUrl(String reportUrl) {
-    this.reportUrl = reportUrl;
-  }
-
-
-  public CdrUsageReportResponse result(Object result) {
-    this.result = result;
-    return this;
-  }
-
-   /**
-   * Get result
-   * @return result
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_RESULT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getResult() {
-    return result;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RESULT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResult(Object result) {
-    this.result = result;
-  }
-
-
-  public CdrUsageReportResponse createdAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public CdrUsageReportResponse updatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-
-  public CdrUsageReportResponse recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "cdr_usage_report", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public CdrUsageReportResponse productBreakdown(ProductBreakdownEnum productBreakdown) {
-    this.productBreakdown = productBreakdown;
-    return this;
-  }
-
-   /**
-   * Get productBreakdown
-   * @return productBreakdown
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PRODUCT_BREAKDOWN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ProductBreakdownEnum getProductBreakdown() {
-    return productBreakdown;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRODUCT_BREAKDOWN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProductBreakdown(ProductBreakdownEnum productBreakdown) {
-    this.productBreakdown = productBreakdown;
-  }
-
-
-  /**
-   * Return true if this CdrUsageReportResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CdrUsageReportResponse cdrUsageReportResponse = (CdrUsageReportResponse) o;
-    return Objects.equals(this.id, cdrUsageReportResponse.id) &&
-        Objects.equals(this.startTime, cdrUsageReportResponse.startTime) &&
-        Objects.equals(this.endTime, cdrUsageReportResponse.endTime) &&
-        Objects.equals(this.connections, cdrUsageReportResponse.connections) &&
-        Objects.equals(this.aggregationType, cdrUsageReportResponse.aggregationType) &&
-        Objects.equals(this.status, cdrUsageReportResponse.status) &&
-        Objects.equals(this.reportUrl, cdrUsageReportResponse.reportUrl) &&
-        Objects.equals(this.result, cdrUsageReportResponse.result) &&
-        Objects.equals(this.createdAt, cdrUsageReportResponse.createdAt) &&
-        Objects.equals(this.updatedAt, cdrUsageReportResponse.updatedAt) &&
-        Objects.equals(this.recordType, cdrUsageReportResponse.recordType) &&
-        Objects.equals(this.productBreakdown, cdrUsageReportResponse.productBreakdown);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, startTime, endTime, connections, aggregationType, status, reportUrl, result, createdAt, updatedAt, recordType, productBreakdown);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CdrUsageReportResponse {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
-    sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
-    sb.append("    connections: ").append(toIndentedString(connections)).append("\n");
-    sb.append("    aggregationType: ").append(toIndentedString(aggregationType)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    reportUrl: ").append(toIndentedString(reportUrl)).append("\n");
-    sb.append("    result: ").append(toIndentedString(result)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    productBreakdown: ").append(toIndentedString(productBreakdown)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

@@ -10,233 +10,257 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.PhoneNumberRegulatoryRequirementAllOf;
 import com.telnyx.sdk.model.SubNumberOrderRegulatoryRequirement;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * PhoneNumberRegulatoryRequirement
  */
-@JsonPropertyOrder({
-  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_RECORD_TYPE,
-  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_REQUIREMENT_ID,
-  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_TYPE,
-  PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_VALUE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        PhoneNumberRegulatoryRequirement.JSON_PROPERTY_RECORD_TYPE,
+        PhoneNumberRegulatoryRequirement.JSON_PROPERTY_REQUIREMENT_ID,
+        PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_TYPE,
+        PhoneNumberRegulatoryRequirement.JSON_PROPERTY_FIELD_VALUE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class PhoneNumberRegulatoryRequirement {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
-  private UUID requirementId;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  /**
-   * Gets or Sets fieldType
-   */
-  public enum FieldTypeEnum {
-    TEXTUAL("textual"),
-    
-    DATETIME("datetime"),
-    
-    ADDRESS("address"),
-    
-    DOCUMENT("document");
+    public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
+    private UUID requirementId;
 
-    private String value;
+    /**
+     * Gets or Sets fieldType
+     */
+    public enum FieldTypeEnum {
+        TEXTUAL("textual"),
 
-    FieldTypeEnum(String value) {
-      this.value = value;
+        DATETIME("datetime"),
+
+        ADDRESS("address"),
+
+        DOCUMENT("document");
+
+        private String value;
+
+        FieldTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static FieldTypeEnum fromValue(String value) {
+            for (FieldTypeEnum b : FieldTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
+    private FieldTypeEnum fieldType;
+
+    public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
+    private String fieldValue;
+
+    public PhoneNumberRegulatoryRequirement() {}
+
+    @JsonCreator
+    public PhoneNumberRegulatoryRequirement(
+        @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType,
+        @JsonProperty(JSON_PROPERTY_FIELD_TYPE) FieldTypeEnum fieldType
+    ) {
+        this();
+        this.recordType = recordType;
+        this.fieldType = fieldType;
+    }
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "phone_number_regulatory_requirement",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    public PhoneNumberRegulatoryRequirement requirementId(UUID requirementId) {
+        this.requirementId = requirementId;
+        return this;
+    }
+
+    /**
+     * Unique id for a requirement.
+     * @return requirementId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576",
+        value = "Unique id for a requirement."
+    )
+    @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getRequirementId() {
+        return requirementId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRequirementId(UUID requirementId) {
+        this.requirementId = requirementId;
+    }
+
+    /**
+     * Get fieldType
+     * @return fieldType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "address", value = "")
+    @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public FieldTypeEnum getFieldType() {
+        return fieldType;
+    }
+
+    public PhoneNumberRegulatoryRequirement fieldValue(String fieldValue) {
+        this.fieldValue = fieldValue;
+        return this;
+    }
+
+    /**
+     * The value of the requirement, this could be an id to a resource or a string value.
+     * @return fieldValue
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "45f45a04-b4be-4592-95b1-9306b9db2b21",
+        value = "The value of the requirement, this could be an id to a resource or a string value."
+    )
+    @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFieldValue() {
+        return fieldValue;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFieldValue(String fieldValue) {
+        this.fieldValue = fieldValue;
+    }
+
+    /**
+     * Return true if this PhoneNumberRegulatoryRequirement object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PhoneNumberRegulatoryRequirement phoneNumberRegulatoryRequirement =
+            (PhoneNumberRegulatoryRequirement) o;
+        return (
+            Objects.equals(
+                this.recordType,
+                phoneNumberRegulatoryRequirement.recordType
+            ) &&
+            Objects.equals(
+                this.requirementId,
+                phoneNumberRegulatoryRequirement.requirementId
+            ) &&
+            Objects.equals(
+                this.fieldType,
+                phoneNumberRegulatoryRequirement.fieldType
+            ) &&
+            Objects.equals(
+                this.fieldValue,
+                phoneNumberRegulatoryRequirement.fieldValue
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(recordType, requirementId, fieldType, fieldValue);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PhoneNumberRegulatoryRequirement {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    requirementId: ")
+            .append(toIndentedString(requirementId))
+            .append("\n");
+        sb
+            .append("    fieldType: ")
+            .append(toIndentedString(fieldType))
+            .append("\n");
+        sb
+            .append("    fieldValue: ")
+            .append(toIndentedString(fieldValue))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static FieldTypeEnum fromValue(String value) {
-      for (FieldTypeEnum b : FieldTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
-  private FieldTypeEnum fieldType;
-
-  public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
-  private String fieldValue;
-
-  public PhoneNumberRegulatoryRequirement() { 
-  }
-
-  @JsonCreator
-  public PhoneNumberRegulatoryRequirement(
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
-    @JsonProperty(JSON_PROPERTY_FIELD_TYPE) FieldTypeEnum fieldType
-  ) {
-    this();
-    this.recordType = recordType;
-    this.fieldType = fieldType;
-  }
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "phone_number_regulatory_requirement", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-  public PhoneNumberRegulatoryRequirement requirementId(UUID requirementId) {
-    this.requirementId = requirementId;
-    return this;
-  }
-
-   /**
-   * Unique id for a requirement.
-   * @return requirementId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576", value = "Unique id for a requirement.")
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getRequirementId() {
-    return requirementId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequirementId(UUID requirementId) {
-    this.requirementId = requirementId;
-  }
-
-
-   /**
-   * Get fieldType
-   * @return fieldType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "address", value = "")
-  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public FieldTypeEnum getFieldType() {
-    return fieldType;
-  }
-
-
-
-
-  public PhoneNumberRegulatoryRequirement fieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
-    return this;
-  }
-
-   /**
-   * The value of the requirement, this could be an id to a resource or a string value.
-   * @return fieldValue
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "45f45a04-b4be-4592-95b1-9306b9db2b21", value = "The value of the requirement, this could be an id to a resource or a string value.")
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFieldValue() {
-    return fieldValue;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
-  }
-
-
-  /**
-   * Return true if this PhoneNumberRegulatoryRequirement object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PhoneNumberRegulatoryRequirement phoneNumberRegulatoryRequirement = (PhoneNumberRegulatoryRequirement) o;
-    return Objects.equals(this.recordType, phoneNumberRegulatoryRequirement.recordType) &&
-        Objects.equals(this.requirementId, phoneNumberRegulatoryRequirement.requirementId) &&
-        Objects.equals(this.fieldType, phoneNumberRegulatoryRequirement.fieldType) &&
-        Objects.equals(this.fieldValue, phoneNumberRegulatoryRequirement.fieldValue);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, requirementId, fieldType, fieldValue);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PhoneNumberRegulatoryRequirement {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    requirementId: ").append(toIndentedString(requirementId)).append("\n");
-    sb.append("    fieldType: ").append(toIndentedString(fieldType)).append("\n");
-    sb.append("    fieldValue: ").append(toIndentedString(fieldValue)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

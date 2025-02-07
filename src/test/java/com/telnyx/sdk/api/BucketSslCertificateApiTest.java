@@ -10,22 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import java.io.File;
 import com.telnyx.sdk.model.GetStorageSSLCertificates200Response;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for BucketSslCertificateApi
@@ -80,5 +77,4 @@ public class BucketSslCertificateApiTest {
         //GetStorageSSLCertificates200Response response = api.removeStorageSSLCertificate(bucketName);
         // TODO: test validations
     }
-
 }

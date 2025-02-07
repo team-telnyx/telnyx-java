@@ -1,53 +1,54 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListRegions200Response;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class WirelessRegionsApi {
-  private ApiClient apiClient;
 
-  public WirelessRegionsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public WirelessRegionsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public WirelessRegionsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public WirelessRegionsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Get all wireless regions
    * Retrieve all wireless regions for the given product.
    * @param product The product for which to list regions (e.g., &#39;public_ips&#39;, &#39;private_wireless_gateways&#39;). (required)
@@ -61,11 +62,12 @@ public class WirelessRegionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListRegions200Response wirelessRegionsGetAll(String product) throws ApiException {
-    return wirelessRegionsGetAllWithHttpInfo(product).getData();
-  }
+    public ListRegions200Response wirelessRegionsGetAll(String product)
+        throws ApiException {
+        return wirelessRegionsGetAllWithHttpInfo(product).getData();
+    }
 
-  /**
+    /**
    * Get all wireless regions
    * Retrieve all wireless regions for the given product.
    * @param product The product for which to list regions (e.g., &#39;public_ips&#39;, &#39;private_wireless_gateways&#39;). (required)
@@ -79,44 +81,67 @@ public class WirelessRegionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRegions200Response> wirelessRegionsGetAllWithHttpInfo(String product) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'product' is set
-    if (product == null) {
-      throw new ApiException(400, "Missing the required parameter 'product' when calling wirelessRegionsGetAll");
+    public ApiResponse<
+        ListRegions200Response
+    > wirelessRegionsGetAllWithHttpInfo(String product) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'product' is set
+        if (product == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'product' when calling wirelessRegionsGetAll"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/wireless/regions";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "product", product)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<ListRegions200Response> localVarReturnType =
+            new GenericType<ListRegions200Response>() {};
+
+        return apiClient.invokeAPI(
+            "WirelessRegionsApi.wirelessRegionsGetAll",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/wireless/regions";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "product", product));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListRegions200Response> localVarReturnType = new GenericType<ListRegions200Response>() {};
-
-    return apiClient.invokeAPI("WirelessRegionsApi.wirelessRegionsGetAll", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

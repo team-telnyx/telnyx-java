@@ -10,381 +10,404 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.SIMCardOrderCost;
 import com.telnyx.sdk.model.SIMCardOrderOrderAddress;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * SIMCardOrder
  */
-@JsonPropertyOrder({
-  SIMCardOrder.JSON_PROPERTY_ID,
-  SIMCardOrder.JSON_PROPERTY_RECORD_TYPE,
-  SIMCardOrder.JSON_PROPERTY_QUANTITY,
-  SIMCardOrder.JSON_PROPERTY_COST,
-  SIMCardOrder.JSON_PROPERTY_ORDER_ADDRESS,
-  SIMCardOrder.JSON_PROPERTY_TRACKING_URL,
-  SIMCardOrder.JSON_PROPERTY_STATUS,
-  SIMCardOrder.JSON_PROPERTY_CREATED_AT,
-  SIMCardOrder.JSON_PROPERTY_UPDATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        SIMCardOrder.JSON_PROPERTY_ID,
+        SIMCardOrder.JSON_PROPERTY_RECORD_TYPE,
+        SIMCardOrder.JSON_PROPERTY_QUANTITY,
+        SIMCardOrder.JSON_PROPERTY_COST,
+        SIMCardOrder.JSON_PROPERTY_ORDER_ADDRESS,
+        SIMCardOrder.JSON_PROPERTY_TRACKING_URL,
+        SIMCardOrder.JSON_PROPERTY_STATUS,
+        SIMCardOrder.JSON_PROPERTY_CREATED_AT,
+        SIMCardOrder.JSON_PROPERTY_UPDATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class SIMCardOrder {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_QUANTITY = "quantity";
-  private Integer quantity;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_COST = "cost";
-  private SIMCardOrderCost cost;
+    public static final String JSON_PROPERTY_QUANTITY = "quantity";
+    private Integer quantity;
 
-  public static final String JSON_PROPERTY_ORDER_ADDRESS = "order_address";
-  private SIMCardOrderOrderAddress orderAddress;
+    public static final String JSON_PROPERTY_COST = "cost";
+    private SIMCardOrderCost cost;
 
-  public static final String JSON_PROPERTY_TRACKING_URL = "tracking_url";
-  private String trackingUrl;
+    public static final String JSON_PROPERTY_ORDER_ADDRESS = "order_address";
+    private SIMCardOrderOrderAddress orderAddress;
 
-  /**
-   * The current status of the SIM Card order.&lt;ul&gt; &lt;li&gt;&lt;code&gt;pending&lt;/code&gt; - the order is waiting to be processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;processing&lt;/code&gt; - the order is currently being processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;ready_to_ship&lt;/code&gt; - the order is ready to be shipped to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;shipped&lt;/code&gt; - the order was shipped and is on its way to be delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;delivered&lt;/code&gt; - the order was delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;canceled&lt;/code&gt; - the order was canceled.&lt;/li&gt; &lt;/ul&gt;
-   */
-  public enum StatusEnum {
-    PENDING(String.valueOf("pending")),
-    
-    PROCESSING(String.valueOf("processing")),
-    
-    READY_TO_SHIP(String.valueOf("ready_to_ship")),
-    
-    SHIPPED(String.valueOf("shipped")),
-    
-    DELIVERED(String.valueOf("delivered")),
-    
-    CANCELED(String.valueOf("canceled"));
+    public static final String JSON_PROPERTY_TRACKING_URL = "tracking_url";
+    private String trackingUrl;
 
-    private String value;
+    /**
+     * The current status of the SIM Card order.&lt;ul&gt; &lt;li&gt;&lt;code&gt;pending&lt;/code&gt; - the order is waiting to be processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;processing&lt;/code&gt; - the order is currently being processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;ready_to_ship&lt;/code&gt; - the order is ready to be shipped to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;shipped&lt;/code&gt; - the order was shipped and is on its way to be delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;delivered&lt;/code&gt; - the order was delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;canceled&lt;/code&gt; - the order was canceled.&lt;/li&gt; &lt;/ul&gt;
+     */
+    public enum StatusEnum {
+        PENDING(String.valueOf("pending")),
 
-    StatusEnum(String value) {
-      this.value = value;
+        PROCESSING(String.valueOf("processing")),
+
+        READY_TO_SHIP(String.valueOf("ready_to_ship")),
+
+        SHIPPED(String.valueOf("shipped")),
+
+        DELIVERED(String.valueOf("delivered")),
+
+        CANCELED(String.valueOf("canceled"));
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private StatusEnum status;
+
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private String createdAt;
+
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private String updatedAt;
+
+    public SIMCardOrder() {}
+
+    @JsonCreator
+    public SIMCardOrder(
+        @JsonProperty(JSON_PROPERTY_ID) UUID id,
+        @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType,
+        @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt,
+        @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+    ) {
+        this();
+        this.id = id;
+        this.recordType = recordType;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Identifies the resource.
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
+        value = "Identifies the resource."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
+    }
+
+    /**
+     * Identifies the type of the resource.
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "sim_card_order",
+        value = "Identifies the type of the resource."
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    public SIMCardOrder quantity(Integer quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    /**
+     * The amount of SIM cards requested in the SIM card order.
+     * minimum: 1
+     * @return quantity
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "21",
+        value = "The amount of SIM cards requested in the SIM card order."
+    )
+    @JsonProperty(JSON_PROPERTY_QUANTITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUANTITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public SIMCardOrder cost(SIMCardOrderCost cost) {
+        this.cost = cost;
+        return this;
+    }
+
+    /**
+     * Get cost
+     * @return cost
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_COST)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SIMCardOrderCost getCost() {
+        return cost;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COST)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCost(SIMCardOrderCost cost) {
+        this.cost = cost;
+    }
+
+    public SIMCardOrder orderAddress(SIMCardOrderOrderAddress orderAddress) {
+        this.orderAddress = orderAddress;
+        return this;
+    }
+
+    /**
+     * Get orderAddress
+     * @return orderAddress
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ORDER_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SIMCardOrderOrderAddress getOrderAddress() {
+        return orderAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORDER_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOrderAddress(SIMCardOrderOrderAddress orderAddress) {
+        this.orderAddress = orderAddress;
+    }
+
+    public SIMCardOrder trackingUrl(String trackingUrl) {
+        this.trackingUrl = trackingUrl;
+        return this;
+    }
+
+    /**
+     * The URL used to get tracking information about the order.
+     * @return trackingUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "http://www.example.com/",
+        value = "The URL used to get tracking information about the order."
+    )
+    @JsonProperty(JSON_PROPERTY_TRACKING_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTrackingUrl() {
+        return trackingUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRACKING_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTrackingUrl(String trackingUrl) {
+        this.trackingUrl = trackingUrl;
+    }
+
+    public SIMCardOrder status(StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The current status of the SIM Card order.&lt;ul&gt; &lt;li&gt;&lt;code&gt;pending&lt;/code&gt; - the order is waiting to be processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;processing&lt;/code&gt; - the order is currently being processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;ready_to_ship&lt;/code&gt; - the order is ready to be shipped to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;shipped&lt;/code&gt; - the order was shipped and is on its way to be delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;delivered&lt;/code&gt; - the order was delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;canceled&lt;/code&gt; - the order was canceled.&lt;/li&gt; &lt;/ul&gt;
+     * @return status
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "pending",
+        value = "The current status of the SIM Card order.<ul> <li><code>pending</code> - the order is waiting to be processed.</li> <li><code>processing</code> - the order is currently being processed.</li> <li><code>ready_to_ship</code> - the order is ready to be shipped to the specified <b>address</b>.</li> <li><code>shipped</code> - the order was shipped and is on its way to be delivered to the specified <b>address</b>.</li> <li><code>delivered</code> - the order was delivered to the specified <b>address</b>.</li> <li><code>canceled</code> - the order was canceled.</li> </ul>"
+    )
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was last created.
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2018-02-02T22:25:27.521Z",
+        value = "ISO 8601 formatted date-time indicating when the resource was last created."
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was last updated.
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2018-02-02T22:25:27.521Z",
+        value = "ISO 8601 formatted date-time indicating when the resource was last updated."
+    )
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Return true if this SIMCardOrder object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SIMCardOrder siMCardOrder = (SIMCardOrder) o;
+        return (
+            Objects.equals(this.id, siMCardOrder.id) &&
+            Objects.equals(this.recordType, siMCardOrder.recordType) &&
+            Objects.equals(this.quantity, siMCardOrder.quantity) &&
+            Objects.equals(this.cost, siMCardOrder.cost) &&
+            Objects.equals(this.orderAddress, siMCardOrder.orderAddress) &&
+            Objects.equals(this.trackingUrl, siMCardOrder.trackingUrl) &&
+            Objects.equals(this.status, siMCardOrder.status) &&
+            Objects.equals(this.createdAt, siMCardOrder.createdAt) &&
+            Objects.equals(this.updatedAt, siMCardOrder.updatedAt)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            id,
+            recordType,
+            quantity,
+            cost,
+            orderAddress,
+            trackingUrl,
+            status,
+            createdAt,
+            updatedAt
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SIMCardOrder {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    quantity: ")
+            .append(toIndentedString(quantity))
+            .append("\n");
+        sb.append("    cost: ").append(toIndentedString(cost)).append("\n");
+        sb
+            .append("    orderAddress: ")
+            .append(toIndentedString(orderAddress))
+            .append("\n");
+        sb
+            .append("    trackingUrl: ")
+            .append(toIndentedString(trackingUrl))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private String createdAt;
-
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private String updatedAt;
-
-  public SIMCardOrder() { 
-  }
-
-  @JsonCreator
-  public SIMCardOrder(
-    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
-    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
-    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
-  ) {
-    this();
-    this.id = id;
-    this.recordType = recordType;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-  }
-
-   /**
-   * Identifies the resource.
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-
-
-   /**
-   * Identifies the type of the resource.
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "sim_card_order", value = "Identifies the type of the resource.")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-  public SIMCardOrder quantity(Integer quantity) {
-    this.quantity = quantity;
-    return this;
-  }
-
-   /**
-   * The amount of SIM cards requested in the SIM card order.
-   * minimum: 1
-   * @return quantity
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "21", value = "The amount of SIM cards requested in the SIM card order.")
-  @JsonProperty(JSON_PROPERTY_QUANTITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getQuantity() {
-    return quantity;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_QUANTITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQuantity(Integer quantity) {
-    this.quantity = quantity;
-  }
-
-
-  public SIMCardOrder cost(SIMCardOrderCost cost) {
-    this.cost = cost;
-    return this;
-  }
-
-   /**
-   * Get cost
-   * @return cost
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_COST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SIMCardOrderCost getCost() {
-    return cost;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCost(SIMCardOrderCost cost) {
-    this.cost = cost;
-  }
-
-
-  public SIMCardOrder orderAddress(SIMCardOrderOrderAddress orderAddress) {
-    this.orderAddress = orderAddress;
-    return this;
-  }
-
-   /**
-   * Get orderAddress
-   * @return orderAddress
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ORDER_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SIMCardOrderOrderAddress getOrderAddress() {
-    return orderAddress;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ORDER_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOrderAddress(SIMCardOrderOrderAddress orderAddress) {
-    this.orderAddress = orderAddress;
-  }
-
-
-  public SIMCardOrder trackingUrl(String trackingUrl) {
-    this.trackingUrl = trackingUrl;
-    return this;
-  }
-
-   /**
-   * The URL used to get tracking information about the order.
-   * @return trackingUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "http://www.example.com/", value = "The URL used to get tracking information about the order.")
-  @JsonProperty(JSON_PROPERTY_TRACKING_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTrackingUrl() {
-    return trackingUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRACKING_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTrackingUrl(String trackingUrl) {
-    this.trackingUrl = trackingUrl;
-  }
-
-
-  public SIMCardOrder status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The current status of the SIM Card order.&lt;ul&gt; &lt;li&gt;&lt;code&gt;pending&lt;/code&gt; - the order is waiting to be processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;processing&lt;/code&gt; - the order is currently being processed.&lt;/li&gt; &lt;li&gt;&lt;code&gt;ready_to_ship&lt;/code&gt; - the order is ready to be shipped to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;shipped&lt;/code&gt; - the order was shipped and is on its way to be delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;delivered&lt;/code&gt; - the order was delivered to the specified &lt;b&gt;address&lt;/b&gt;.&lt;/li&gt; &lt;li&gt;&lt;code&gt;canceled&lt;/code&gt; - the order was canceled.&lt;/li&gt; &lt;/ul&gt;
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "pending", value = "The current status of the SIM Card order.<ul> <li><code>pending</code> - the order is waiting to be processed.</li> <li><code>processing</code> - the order is currently being processed.</li> <li><code>ready_to_ship</code> - the order is ready to be shipped to the specified <b>address</b>.</li> <li><code>shipped</code> - the order was shipped and is on its way to be delivered to the specified <b>address</b>.</li> <li><code>delivered</code> - the order was delivered to the specified <b>address</b>.</li> <li><code>canceled</code> - the order was canceled.</li> </ul>")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-   /**
-   * ISO 8601 formatted date-time indicating when the resource was last created.
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was last created.")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-
-
-
-   /**
-   * ISO 8601 formatted date-time indicating when the resource was last updated.
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was last updated.")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-
-
-  /**
-   * Return true if this SIMCardOrder object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SIMCardOrder siMCardOrder = (SIMCardOrder) o;
-    return Objects.equals(this.id, siMCardOrder.id) &&
-        Objects.equals(this.recordType, siMCardOrder.recordType) &&
-        Objects.equals(this.quantity, siMCardOrder.quantity) &&
-        Objects.equals(this.cost, siMCardOrder.cost) &&
-        Objects.equals(this.orderAddress, siMCardOrder.orderAddress) &&
-        Objects.equals(this.trackingUrl, siMCardOrder.trackingUrl) &&
-        Objects.equals(this.status, siMCardOrder.status) &&
-        Objects.equals(this.createdAt, siMCardOrder.createdAt) &&
-        Objects.equals(this.updatedAt, siMCardOrder.updatedAt);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, recordType, quantity, cost, orderAddress, trackingUrl, status, createdAt, updatedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SIMCardOrder {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
-    sb.append("    cost: ").append(toIndentedString(cost)).append("\n");
-    sb.append("    orderAddress: ").append(toIndentedString(orderAddress)).append("\n");
-    sb.append("    trackingUrl: ").append(toIndentedString(trackingUrl)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

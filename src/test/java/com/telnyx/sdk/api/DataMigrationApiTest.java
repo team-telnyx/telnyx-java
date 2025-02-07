@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,15 +21,13 @@ import com.telnyx.sdk.model.ListMigrationSources200Response;
 import com.telnyx.sdk.model.ListMigrations200Response;
 import com.telnyx.sdk.model.MigrationParams;
 import com.telnyx.sdk.model.MigrationSourceParams;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for DataMigrationApi
@@ -72,7 +69,7 @@ public class DataMigrationApiTest {
     /**
      * Delete a Migration Source
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -87,7 +84,7 @@ public class DataMigrationApiTest {
     /**
      * Get a Migration
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -102,7 +99,7 @@ public class DataMigrationApiTest {
     /**
      * Get a Migration Source
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -117,7 +114,7 @@ public class DataMigrationApiTest {
     /**
      * List Migration Source coverage
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -131,7 +128,7 @@ public class DataMigrationApiTest {
     /**
      * List all Migration Sources
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -145,7 +142,7 @@ public class DataMigrationApiTest {
     /**
      * List all Migrations
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -159,7 +156,7 @@ public class DataMigrationApiTest {
     /**
      * Stop a Migration
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -170,5 +167,4 @@ public class DataMigrationApiTest {
         //CreateMigration200Response response = api.stopMigration(id);
         // TODO: test validations
     }
-
 }

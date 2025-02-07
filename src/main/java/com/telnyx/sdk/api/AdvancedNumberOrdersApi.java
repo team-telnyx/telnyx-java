@@ -1,54 +1,55 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.AdvancedOrderRequest;
 import com.telnyx.sdk.model.AdvancedOrderResponse;
 import com.telnyx.sdk.model.ListAdvancedOrderResponse;
-import java.util.UUID;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AdvancedNumberOrdersApi {
-  private ApiClient apiClient;
 
-  public AdvancedNumberOrdersApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public AdvancedNumberOrdersApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public AdvancedNumberOrdersApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public AdvancedNumberOrdersApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Create Advanced Order
    * 
    * @param advancedOrderRequest  (required)
@@ -60,11 +61,15 @@ public class AdvancedNumberOrdersApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public AdvancedOrderResponse createAdvancedOrderV2(AdvancedOrderRequest advancedOrderRequest) throws ApiException {
-    return createAdvancedOrderV2WithHttpInfo(advancedOrderRequest).getData();
-  }
+    public AdvancedOrderResponse createAdvancedOrderV2(
+        AdvancedOrderRequest advancedOrderRequest
+    ) throws ApiException {
+        return createAdvancedOrderV2WithHttpInfo(
+            advancedOrderRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create Advanced Order
    * 
    * @param advancedOrderRequest  (required)
@@ -76,46 +81,68 @@ public class AdvancedNumberOrdersApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AdvancedOrderResponse> createAdvancedOrderV2WithHttpInfo(AdvancedOrderRequest advancedOrderRequest) throws ApiException {
-    Object localVarPostBody = advancedOrderRequest;
-    
-    // verify the required parameter 'advancedOrderRequest' is set
-    if (advancedOrderRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'advancedOrderRequest' when calling createAdvancedOrderV2");
+    public ApiResponse<AdvancedOrderResponse> createAdvancedOrderV2WithHttpInfo(
+        AdvancedOrderRequest advancedOrderRequest
+    ) throws ApiException {
+        Object localVarPostBody = advancedOrderRequest;
+
+        // verify the required parameter 'advancedOrderRequest' is set
+        if (advancedOrderRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'advancedOrderRequest' when calling createAdvancedOrderV2"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/advanced_orders";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<AdvancedOrderResponse> localVarReturnType = new GenericType<
+            AdvancedOrderResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "AdvancedNumberOrdersApi.createAdvancedOrderV2",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/advanced_orders";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<AdvancedOrderResponse> localVarReturnType = new GenericType<AdvancedOrderResponse>() {};
-
-    return apiClient.invokeAPI("AdvancedNumberOrdersApi.createAdvancedOrderV2", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Get Advanced Order
    * 
    * @param orderId  (required)
@@ -127,11 +154,12 @@ public class AdvancedNumberOrdersApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public AdvancedOrderResponse getAdvancedOrderV2(UUID orderId) throws ApiException {
-    return getAdvancedOrderV2WithHttpInfo(orderId).getData();
-  }
+    public AdvancedOrderResponse getAdvancedOrderV2(UUID orderId)
+        throws ApiException {
+        return getAdvancedOrderV2WithHttpInfo(orderId).getData();
+    }
 
-  /**
+    /**
    * Get Advanced Order
    * 
    * @param orderId  (required)
@@ -143,47 +171,72 @@ public class AdvancedNumberOrdersApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AdvancedOrderResponse> getAdvancedOrderV2WithHttpInfo(UUID orderId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'orderId' is set
-    if (orderId == null) {
-      throw new ApiException(400, "Missing the required parameter 'orderId' when calling getAdvancedOrderV2");
+    public ApiResponse<AdvancedOrderResponse> getAdvancedOrderV2WithHttpInfo(
+        UUID orderId
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'orderId' is set
+        if (orderId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'orderId' when calling getAdvancedOrderV2"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/advanced_orders/{order_id}".replaceAll(
+                    "\\{" + "order_id" + "\\}",
+                    apiClient.escapeString(orderId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<AdvancedOrderResponse> localVarReturnType = new GenericType<
+            AdvancedOrderResponse
+        >() {};
+
+        return apiClient.invokeAPI(
+            "AdvancedNumberOrdersApi.getAdvancedOrderV2",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/advanced_orders/{order_id}"
-      .replaceAll("\\{" + "order_id" + "\\}", apiClient.escapeString(orderId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<AdvancedOrderResponse> localVarReturnType = new GenericType<AdvancedOrderResponse>() {};
-
-    return apiClient.invokeAPI("AdvancedNumberOrdersApi.getAdvancedOrderV2", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List Advanced Orders
    * 
    * @return ListAdvancedOrderResponse
@@ -194,11 +247,12 @@ public class AdvancedNumberOrdersApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public ListAdvancedOrderResponse listAdvancedOrdersV2() throws ApiException {
-    return listAdvancedOrdersV2WithHttpInfo().getData();
-  }
+    public ListAdvancedOrderResponse listAdvancedOrdersV2()
+        throws ApiException {
+        return listAdvancedOrdersV2WithHttpInfo().getData();
+    }
 
-  /**
+    /**
    * List Advanced Orders
    * 
    * @return ApiResponse&lt;ListAdvancedOrderResponse&gt;
@@ -209,38 +263,55 @@ public class AdvancedNumberOrdersApi {
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListAdvancedOrderResponse> listAdvancedOrdersV2WithHttpInfo() throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/advanced_orders";
+    public ApiResponse<
+        ListAdvancedOrderResponse
+    > listAdvancedOrdersV2WithHttpInfo() throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/advanced_orders";
 
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListAdvancedOrderResponse> localVarReturnType = new GenericType<ListAdvancedOrderResponse>() {};
+        GenericType<ListAdvancedOrderResponse> localVarReturnType =
+            new GenericType<ListAdvancedOrderResponse>() {};
 
-    return apiClient.invokeAPI("AdvancedNumberOrdersApi.listAdvancedOrdersV2", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
+        return apiClient.invokeAPI(
+            "AdvancedNumberOrdersApi.listAdvancedOrdersV2",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
 }

@@ -1,55 +1,56 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreatePublicInternetGateway202Response;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListPublicInternetGateways200Response;
 import com.telnyx.sdk.model.PublicInternetGatewayCreate;
-import java.util.UUID;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PublicInternetGatewaysApi {
-  private ApiClient apiClient;
 
-  public PublicInternetGatewaysApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public PublicInternetGatewaysApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public PublicInternetGatewaysApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public PublicInternetGatewaysApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Create a Public Internet Gateway
    * Create a new Public Internet Gateway.
    * @param publicInternetGatewayCreate  (required)
@@ -63,11 +64,15 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePublicInternetGateway202Response createPublicInternetGateway(PublicInternetGatewayCreate publicInternetGatewayCreate) throws ApiException {
-    return createPublicInternetGatewayWithHttpInfo(publicInternetGatewayCreate).getData();
-  }
+    public CreatePublicInternetGateway202Response createPublicInternetGateway(
+        PublicInternetGatewayCreate publicInternetGatewayCreate
+    ) throws ApiException {
+        return createPublicInternetGatewayWithHttpInfo(
+            publicInternetGatewayCreate
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a Public Internet Gateway
    * Create a new Public Internet Gateway.
    * @param publicInternetGatewayCreate  (required)
@@ -81,46 +86,69 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePublicInternetGateway202Response> createPublicInternetGatewayWithHttpInfo(PublicInternetGatewayCreate publicInternetGatewayCreate) throws ApiException {
-    Object localVarPostBody = publicInternetGatewayCreate;
-    
-    // verify the required parameter 'publicInternetGatewayCreate' is set
-    if (publicInternetGatewayCreate == null) {
-      throw new ApiException(400, "Missing the required parameter 'publicInternetGatewayCreate' when calling createPublicInternetGateway");
+    public ApiResponse<
+        CreatePublicInternetGateway202Response
+    > createPublicInternetGatewayWithHttpInfo(
+        PublicInternetGatewayCreate publicInternetGatewayCreate
+    ) throws ApiException {
+        Object localVarPostBody = publicInternetGatewayCreate;
+
+        // verify the required parameter 'publicInternetGatewayCreate' is set
+        if (publicInternetGatewayCreate == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'publicInternetGatewayCreate' when calling createPublicInternetGateway"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/public_internet_gateways";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreatePublicInternetGateway202Response> localVarReturnType =
+            new GenericType<CreatePublicInternetGateway202Response>() {};
+
+        return apiClient.invokeAPI(
+            "PublicInternetGatewaysApi.createPublicInternetGateway",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/public_internet_gateways";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePublicInternetGateway202Response> localVarReturnType = new GenericType<CreatePublicInternetGateway202Response>() {};
-
-    return apiClient.invokeAPI("PublicInternetGatewaysApi.createPublicInternetGateway", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Delete a Public Internet Gateway
    * Delete a Public Internet Gateway.
    * @param id Identifies the resource. (required)
@@ -133,11 +161,13 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePublicInternetGateway202Response deletePublicInternetGateway(UUID id) throws ApiException {
-    return deletePublicInternetGatewayWithHttpInfo(id).getData();
-  }
+    public CreatePublicInternetGateway202Response deletePublicInternetGateway(
+        UUID id
+    ) throws ApiException {
+        return deletePublicInternetGatewayWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Delete a Public Internet Gateway
    * Delete a Public Internet Gateway.
    * @param id Identifies the resource. (required)
@@ -150,47 +180,71 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePublicInternetGateway202Response> deletePublicInternetGatewayWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deletePublicInternetGateway");
+    public ApiResponse<
+        CreatePublicInternetGateway202Response
+    > deletePublicInternetGatewayWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deletePublicInternetGateway"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/public_internet_gateways/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreatePublicInternetGateway202Response> localVarReturnType =
+            new GenericType<CreatePublicInternetGateway202Response>() {};
+
+        return apiClient.invokeAPI(
+            "PublicInternetGatewaysApi.deletePublicInternetGateway",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/public_internet_gateways/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePublicInternetGateway202Response> localVarReturnType = new GenericType<CreatePublicInternetGateway202Response>() {};
-
-    return apiClient.invokeAPI("PublicInternetGatewaysApi.deletePublicInternetGateway", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve a Public Internet Gateway
    * Retrieve a Public Internet Gateway.
    * @param id Identifies the resource. (required)
@@ -203,11 +257,13 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreatePublicInternetGateway202Response getPublicInternetGateway(UUID id) throws ApiException {
-    return getPublicInternetGatewayWithHttpInfo(id).getData();
-  }
+    public CreatePublicInternetGateway202Response getPublicInternetGateway(
+        UUID id
+    ) throws ApiException {
+        return getPublicInternetGatewayWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a Public Internet Gateway
    * Retrieve a Public Internet Gateway.
    * @param id Identifies the resource. (required)
@@ -220,47 +276,71 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreatePublicInternetGateway202Response> getPublicInternetGatewayWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getPublicInternetGateway");
+    public ApiResponse<
+        CreatePublicInternetGateway202Response
+    > getPublicInternetGatewayWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getPublicInternetGateway"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/public_internet_gateways/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreatePublicInternetGateway202Response> localVarReturnType =
+            new GenericType<CreatePublicInternetGateway202Response>() {};
+
+        return apiClient.invokeAPI(
+            "PublicInternetGatewaysApi.getPublicInternetGateway",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/public_internet_gateways/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreatePublicInternetGateway202Response> localVarReturnType = new GenericType<CreatePublicInternetGateway202Response>() {};
-
-    return apiClient.invokeAPI("PublicInternetGatewaysApi.getPublicInternetGateway", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all Public Internet Gateways
    * List all Public Internet Gateways.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -275,11 +355,19 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListPublicInternetGateways200Response listPublicInternetGateways(Integer pageNumber, Integer pageSize, String filterNetworkId) throws ApiException {
-    return listPublicInternetGatewaysWithHttpInfo(pageNumber, pageSize, filterNetworkId).getData();
-  }
+    public ListPublicInternetGateways200Response listPublicInternetGateways(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterNetworkId
+    ) throws ApiException {
+        return listPublicInternetGatewaysWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterNetworkId
+        ).getData();
+    }
 
-  /**
+    /**
    * List all Public Internet Gateways
    * List all Public Internet Gateways.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -294,41 +382,73 @@ public class PublicInternetGatewaysApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListPublicInternetGateways200Response> listPublicInternetGatewaysWithHttpInfo(Integer pageNumber, Integer pageSize, String filterNetworkId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/public_internet_gateways";
+    public ApiResponse<
+        ListPublicInternetGateways200Response
+    > listPublicInternetGatewaysWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterNetworkId
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/public_internet_gateways";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[network_id]", filterNetworkId));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[network_id]",
+                filterNetworkId
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListPublicInternetGateways200Response> localVarReturnType = new GenericType<ListPublicInternetGateways200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("PublicInternetGatewaysApi.listPublicInternetGateways", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
+        GenericType<ListPublicInternetGateways200Response> localVarReturnType =
+            new GenericType<ListPublicInternetGateways200Response>() {};
+
+        return apiClient.invokeAPI(
+            "PublicInternetGatewaysApi.listPublicInternetGateways",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
 }

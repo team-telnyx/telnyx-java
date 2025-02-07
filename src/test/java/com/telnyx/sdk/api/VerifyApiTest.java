@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -25,21 +24,19 @@ import com.telnyx.sdk.model.ListVerificationsResponse;
 import com.telnyx.sdk.model.ListVerifyProfileMessageTemplateResponse;
 import com.telnyx.sdk.model.ListVerifyProfilesResponse;
 import com.telnyx.sdk.model.RetrieveVerificationResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateVerifyProfileRequest;
 import com.telnyx.sdk.model.VerifyProfileResponseDataWrapper;
 import com.telnyx.sdk.model.VerifyVerificationCodeRequestById;
 import com.telnyx.sdk.model.VerifyVerificationCodeRequestByPhoneNumber;
 import com.telnyx.sdk.model.VerifyVerificationCodeResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for VerifyApi
@@ -51,7 +48,7 @@ public class VerifyApiTest {
     /**
      * Trigger Flash call verification
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -66,7 +63,7 @@ public class VerifyApiTest {
     /**
      * Trigger Call verification
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -81,7 +78,7 @@ public class VerifyApiTest {
     /**
      * Trigger SMS verification
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -111,7 +108,7 @@ public class VerifyApiTest {
     /**
      * Delete Verify profile
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -176,7 +173,7 @@ public class VerifyApiTest {
     /**
      * List verifications by phone number
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -191,7 +188,7 @@ public class VerifyApiTest {
     /**
      * Retrieve verification
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -206,7 +203,7 @@ public class VerifyApiTest {
     /**
      * Update Verify profile
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -222,7 +219,7 @@ public class VerifyApiTest {
     /**
      * Verify verification code by ID
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -238,7 +235,7 @@ public class VerifyApiTest {
     /**
      * Verify verification code by phone number
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -250,5 +247,4 @@ public class VerifyApiTest {
         //VerifyVerificationCodeResponse response = api.verifyVerificationCodeByPhoneNumber(phoneNumber, verifyVerificationCodeRequestByPhoneNumber);
         // TODO: test validations
     }
-
 }

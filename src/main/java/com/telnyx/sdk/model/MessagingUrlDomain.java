@@ -10,200 +10,200 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * MessagingUrlDomain
  */
-@JsonPropertyOrder({
-  MessagingUrlDomain.JSON_PROPERTY_RECORD_TYPE,
-  MessagingUrlDomain.JSON_PROPERTY_ID,
-  MessagingUrlDomain.JSON_PROPERTY_URL_DOMAIN,
-  MessagingUrlDomain.JSON_PROPERTY_USE_CASE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        MessagingUrlDomain.JSON_PROPERTY_RECORD_TYPE,
+        MessagingUrlDomain.JSON_PROPERTY_ID,
+        MessagingUrlDomain.JSON_PROPERTY_URL_DOMAIN,
+        MessagingUrlDomain.JSON_PROPERTY_USE_CASE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class MessagingUrlDomain {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_URL_DOMAIN = "url_domain";
-  private String urlDomain;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_USE_CASE = "use_case";
-  private String useCase;
+    public static final String JSON_PROPERTY_URL_DOMAIN = "url_domain";
+    private String urlDomain;
 
-  public MessagingUrlDomain() { 
-  }
+    public static final String JSON_PROPERTY_USE_CASE = "use_case";
+    private String useCase;
 
-  public MessagingUrlDomain recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
+    public MessagingUrlDomain() {}
 
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public MessagingUrlDomain id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public MessagingUrlDomain urlDomain(String urlDomain) {
-    this.urlDomain = urlDomain;
-    return this;
-  }
-
-   /**
-   * Get urlDomain
-   * @return urlDomain
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_URL_DOMAIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUrlDomain() {
-    return urlDomain;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_URL_DOMAIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrlDomain(String urlDomain) {
-    this.urlDomain = urlDomain;
-  }
-
-
-  public MessagingUrlDomain useCase(String useCase) {
-    this.useCase = useCase;
-    return this;
-  }
-
-   /**
-   * Get useCase
-   * @return useCase
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_USE_CASE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUseCase() {
-    return useCase;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USE_CASE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUseCase(String useCase) {
-    this.useCase = useCase;
-  }
-
-
-  /**
-   * Return true if this MessagingUrlDomain object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public MessagingUrlDomain recordType(String recordType) {
+        this.recordType = recordType;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
     }
-    MessagingUrlDomain messagingUrlDomain = (MessagingUrlDomain) o;
-    return Objects.equals(this.recordType, messagingUrlDomain.recordType) &&
-        Objects.equals(this.id, messagingUrlDomain.id) &&
-        Objects.equals(this.urlDomain, messagingUrlDomain.urlDomain) &&
-        Objects.equals(this.useCase, messagingUrlDomain.useCase);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, id, urlDomain, useCase);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class MessagingUrlDomain {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    urlDomain: ").append(toIndentedString(urlDomain)).append("\n");
-    sb.append("    useCase: ").append(toIndentedString(useCase)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public MessagingUrlDomain id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Get id
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public MessagingUrlDomain urlDomain(String urlDomain) {
+        this.urlDomain = urlDomain;
+        return this;
+    }
+
+    /**
+     * Get urlDomain
+     * @return urlDomain
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_URL_DOMAIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUrlDomain() {
+        return urlDomain;
+    }
+
+    @JsonProperty(JSON_PROPERTY_URL_DOMAIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUrlDomain(String urlDomain) {
+        this.urlDomain = urlDomain;
+    }
+
+    public MessagingUrlDomain useCase(String useCase) {
+        this.useCase = useCase;
+        return this;
+    }
+
+    /**
+     * Get useCase
+     * @return useCase
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_USE_CASE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUseCase() {
+        return useCase;
+    }
+
+    @JsonProperty(JSON_PROPERTY_USE_CASE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUseCase(String useCase) {
+        this.useCase = useCase;
+    }
+
+    /**
+     * Return true if this MessagingUrlDomain object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MessagingUrlDomain messagingUrlDomain = (MessagingUrlDomain) o;
+        return (
+            Objects.equals(this.recordType, messagingUrlDomain.recordType) &&
+            Objects.equals(this.id, messagingUrlDomain.id) &&
+            Objects.equals(this.urlDomain, messagingUrlDomain.urlDomain) &&
+            Objects.equals(this.useCase, messagingUrlDomain.useCase)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(recordType, id, urlDomain, useCase);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class MessagingUrlDomain {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    urlDomain: ")
+            .append(toIndentedString(urlDomain))
+            .append("\n");
+        sb
+            .append("    useCase: ")
+            .append(toIndentedString(useCase))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

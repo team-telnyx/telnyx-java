@@ -10,19 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import io.swagger.annotations.ApiModel;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for TemplateComponentType
  */
 public class TemplateComponentTypeTest {
+
     /**
      * Model tests for TemplateComponentType
      */
@@ -30,5 +27,4 @@ public class TemplateComponentTypeTest {
     public void testTemplateComponentType() {
         // TODO: test TemplateComponentType
     }
-
 }

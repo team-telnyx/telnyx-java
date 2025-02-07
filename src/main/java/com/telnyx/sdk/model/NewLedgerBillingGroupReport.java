@@ -10,136 +10,140 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * NewLedgerBillingGroupReport
  */
-@JsonPropertyOrder({
-  NewLedgerBillingGroupReport.JSON_PROPERTY_YEAR,
-  NewLedgerBillingGroupReport.JSON_PROPERTY_MONTH
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        NewLedgerBillingGroupReport.JSON_PROPERTY_YEAR,
+        NewLedgerBillingGroupReport.JSON_PROPERTY_MONTH,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class NewLedgerBillingGroupReport {
-  public static final String JSON_PROPERTY_YEAR = "year";
-  private Integer year;
 
-  public static final String JSON_PROPERTY_MONTH = "month";
-  private Integer month;
+    public static final String JSON_PROPERTY_YEAR = "year";
+    private Integer year;
 
-  public NewLedgerBillingGroupReport() { 
-  }
+    public static final String JSON_PROPERTY_MONTH = "month";
+    private Integer month;
 
-  public NewLedgerBillingGroupReport year(Integer year) {
-    this.year = year;
-    return this;
-  }
+    public NewLedgerBillingGroupReport() {}
 
-   /**
-   * Year of the ledger billing group report
-   * @return year
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2019", value = "Year of the ledger billing group report")
-  @JsonProperty(JSON_PROPERTY_YEAR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getYear() {
-    return year;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_YEAR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setYear(Integer year) {
-    this.year = year;
-  }
-
-
-  public NewLedgerBillingGroupReport month(Integer month) {
-    this.month = month;
-    return this;
-  }
-
-   /**
-   * Month of the ledger billing group report
-   * @return month
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "10", value = "Month of the ledger billing group report")
-  @JsonProperty(JSON_PROPERTY_MONTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getMonth() {
-    return month;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MONTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMonth(Integer month) {
-    this.month = month;
-  }
-
-
-  /**
-   * Return true if this NewLedgerBillingGroupReport object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public NewLedgerBillingGroupReport year(Integer year) {
+        this.year = year;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Year of the ledger billing group report
+     * @return year
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2019",
+        value = "Year of the ledger billing group report"
+    )
+    @JsonProperty(JSON_PROPERTY_YEAR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getYear() {
+        return year;
     }
-    NewLedgerBillingGroupReport newLedgerBillingGroupReport = (NewLedgerBillingGroupReport) o;
-    return Objects.equals(this.year, newLedgerBillingGroupReport.year) &&
-        Objects.equals(this.month, newLedgerBillingGroupReport.month);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(year, month);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class NewLedgerBillingGroupReport {\n");
-    sb.append("    year: ").append(toIndentedString(year)).append("\n");
-    sb.append("    month: ").append(toIndentedString(month)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_YEAR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setYear(Integer year) {
+        this.year = year;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public NewLedgerBillingGroupReport month(Integer month) {
+        this.month = month;
+        return this;
+    }
+
+    /**
+     * Month of the ledger billing group report
+     * @return month
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "10",
+        value = "Month of the ledger billing group report"
+    )
+    @JsonProperty(JSON_PROPERTY_MONTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getMonth() {
+        return month;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MONTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    /**
+     * Return true if this NewLedgerBillingGroupReport object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NewLedgerBillingGroupReport newLedgerBillingGroupReport =
+            (NewLedgerBillingGroupReport) o;
+        return (
+            Objects.equals(this.year, newLedgerBillingGroupReport.year) &&
+            Objects.equals(this.month, newLedgerBillingGroupReport.month)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class NewLedgerBillingGroupReport {\n");
+        sb.append("    year: ").append(toIndentedString(year)).append("\n");
+        sb.append("    month: ").append(toIndentedString(month)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

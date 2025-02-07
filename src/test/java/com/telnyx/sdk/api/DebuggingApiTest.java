@@ -10,23 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListCallEventsResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for DebuggingApi
@@ -38,7 +35,7 @@ public class DebuggingApiTest {
     /**
      * List call events
      *
-     * Filters call events by given filter parameters. Events are ordered by &#x60;event_timestamp&#x60;. If filter for &#x60;call_leg_id&#x60; or &#x60;call_session_id&#x60; is not present, it only filters events from the last 24 hours.  **Note**: Only one &#x60;filter[event_timestamp]&#x60; can be passed. 
+     * Filters call events by given filter parameters. Events are ordered by &#x60;event_timestamp&#x60;. If filter for &#x60;call_leg_id&#x60; or &#x60;call_session_id&#x60; is not present, it only filters events from the last 24 hours.  **Note**: Only one &#x60;filter[event_timestamp]&#x60; can be passed.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -71,5 +68,4 @@ public class DebuggingApiTest {
         //        .execute();
         // TODO: test validations
     }
-
 }

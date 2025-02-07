@@ -10,29 +10,27 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.SearchMobileOperatorNetworksResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for MobileOperatorNetworksApi
  */
 public class MobileOperatorNetworksApiTest {
 
-    private final MobileOperatorNetworksApi api = new MobileOperatorNetworksApi();
+    private final MobileOperatorNetworksApi api =
+        new MobileOperatorNetworksApi();
 
     /**
      * List mobile operator networks
@@ -56,5 +54,4 @@ public class MobileOperatorNetworksApiTest {
         //SearchMobileOperatorNetworksResponse response = api.mobileOperatorNetworksGet(pageNumber, pageSize, filterNameStartsWith, filterNameContains, filterNameEndsWith, filterCountryCode, filterMcc, filterMnc, filterTadig);
         // TODO: test validations
     }
-
 }

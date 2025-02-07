@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
-
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -22,6 +20,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for GoogleTranscriptionLanguage
  */
 public class GoogleTranscriptionLanguageTest {
+
     /**
      * Model tests for GoogleTranscriptionLanguage
      */
@@ -29,5 +28,4 @@ public class GoogleTranscriptionLanguageTest {
     public void testGoogleTranscriptionLanguage() {
         // TODO: test GoogleTranscriptionLanguage
     }
-
 }

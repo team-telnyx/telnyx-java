@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -21,18 +20,16 @@ import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListBillingGroupsResponse;
 import com.telnyx.sdk.model.NewBillingGroup;
 import com.telnyx.sdk.model.RetrieveBillingGroupResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateBillingGroup;
 import com.telnyx.sdk.model.UpdateBillingGroupResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for BillingGroupsApi
@@ -44,7 +41,7 @@ public class BillingGroupsApiTest {
     /**
      * Create a billing group
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -59,7 +56,7 @@ public class BillingGroupsApiTest {
     /**
      * Delete a billing group
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -74,7 +71,7 @@ public class BillingGroupsApiTest {
     /**
      * List all billing groups
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -90,7 +87,7 @@ public class BillingGroupsApiTest {
     /**
      * Retrieve a billing group
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -105,7 +102,7 @@ public class BillingGroupsApiTest {
     /**
      * Update a billing group
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -117,5 +114,4 @@ public class BillingGroupsApiTest {
         //UpdateBillingGroupResponse response = api.updateBillingGroup(id, updateBillingGroup);
         // TODO: test validations
     }
-
 }

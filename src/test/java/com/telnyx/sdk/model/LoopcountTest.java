@@ -10,20 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for Loopcount
  */
 public class LoopcountTest {
+
     private final Loopcount model = new Loopcount();
 
     /**
@@ -33,5 +31,4 @@ public class LoopcountTest {
     public void testLoopcount() {
         // TODO: test Loopcount
     }
-
 }

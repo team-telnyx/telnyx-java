@@ -10,767 +10,820 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Direction;
 import com.telnyx.sdk.model.Quality;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * Fax
  */
-@JsonPropertyOrder({
-  Fax.JSON_PROPERTY_RECORD_TYPE,
-  Fax.JSON_PROPERTY_ID,
-  Fax.JSON_PROPERTY_CONNECTION_ID,
-  Fax.JSON_PROPERTY_DIRECTION,
-  Fax.JSON_PROPERTY_MEDIA_URL,
-  Fax.JSON_PROPERTY_MEDIA_NAME,
-  Fax.JSON_PROPERTY_TO,
-  Fax.JSON_PROPERTY_FROM,
-  Fax.JSON_PROPERTY_FROM_DISPLAY_NAME,
-  Fax.JSON_PROPERTY_QUALITY,
-  Fax.JSON_PROPERTY_STATUS,
-  Fax.JSON_PROPERTY_WEBHOOK_URL,
-  Fax.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
-  Fax.JSON_PROPERTY_STORE_MEDIA,
-  Fax.JSON_PROPERTY_STORED_MEDIA_URL,
-  Fax.JSON_PROPERTY_PREVIEW_URL,
-  Fax.JSON_PROPERTY_CLIENT_STATE,
-  Fax.JSON_PROPERTY_CREATED_AT,
-  Fax.JSON_PROPERTY_UPDATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        Fax.JSON_PROPERTY_RECORD_TYPE,
+        Fax.JSON_PROPERTY_ID,
+        Fax.JSON_PROPERTY_CONNECTION_ID,
+        Fax.JSON_PROPERTY_DIRECTION,
+        Fax.JSON_PROPERTY_MEDIA_URL,
+        Fax.JSON_PROPERTY_MEDIA_NAME,
+        Fax.JSON_PROPERTY_TO,
+        Fax.JSON_PROPERTY_FROM,
+        Fax.JSON_PROPERTY_FROM_DISPLAY_NAME,
+        Fax.JSON_PROPERTY_QUALITY,
+        Fax.JSON_PROPERTY_STATUS,
+        Fax.JSON_PROPERTY_WEBHOOK_URL,
+        Fax.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
+        Fax.JSON_PROPERTY_STORE_MEDIA,
+        Fax.JSON_PROPERTY_STORED_MEDIA_URL,
+        Fax.JSON_PROPERTY_PREVIEW_URL,
+        Fax.JSON_PROPERTY_CLIENT_STATE,
+        Fax.JSON_PROPERTY_CREATED_AT,
+        Fax.JSON_PROPERTY_UPDATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class Fax {
-  /**
-   * Identifies the type of the resource.
-   */
-  public enum RecordTypeEnum {
-    FAX(String.valueOf("fax"));
 
-    private String value;
+    /**
+     * Identifies the type of the resource.
+     */
+    public enum RecordTypeEnum {
+        FAX(String.valueOf("fax"));
 
-    RecordTypeEnum(String value) {
-      this.value = value;
+        private String value;
+
+        RecordTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static RecordTypeEnum fromValue(String value) {
+            for (RecordTypeEnum b : RecordTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private RecordTypeEnum recordType;
+
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
+
+    public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
+    private String connectionId;
+
+    public static final String JSON_PROPERTY_DIRECTION = "direction";
+    private Direction direction;
+
+    public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
+    private String mediaUrl;
+
+    public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
+    private String mediaName;
+
+    public static final String JSON_PROPERTY_TO = "to";
+    private String to;
+
+    public static final String JSON_PROPERTY_FROM = "from";
+    private String from;
+
+    public static final String JSON_PROPERTY_FROM_DISPLAY_NAME =
+        "from_display_name";
+    private String fromDisplayName;
+
+    public static final String JSON_PROPERTY_QUALITY = "quality";
+    private Quality quality = Quality.HIGH;
+
+    /**
+     * Status of the fax
+     */
+    public enum StatusEnum {
+        QUEUED(String.valueOf("queued")),
+
+        MEDIA_PROCESSED(String.valueOf("media.processed")),
+
+        ORIGINATED(String.valueOf("originated")),
+
+        SENDING(String.valueOf("sending")),
+
+        DELIVERED(String.valueOf("delivered")),
+
+        FAILED(String.valueOf("failed")),
+
+        INITIATED(String.valueOf("initiated")),
+
+        RECEIVING(String.valueOf("receiving")),
+
+        MEDIA_PROCESSING(String.valueOf("media.processing")),
+
+        RECEIVED(String.valueOf("received"));
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
+    }
+
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private StatusEnum status;
+
+    public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
+    private String webhookUrl;
+
+    public static final String JSON_PROPERTY_WEBHOOK_FAILOVER_URL =
+        "webhook_failover_url";
+    private String webhookFailoverUrl;
+
+    public static final String JSON_PROPERTY_STORE_MEDIA = "store_media";
+    private Boolean storeMedia;
+
+    public static final String JSON_PROPERTY_STORED_MEDIA_URL =
+        "stored_media_url";
+    private String storedMediaUrl;
+
+    public static final String JSON_PROPERTY_PREVIEW_URL = "preview_url";
+    private String previewUrl;
+
+    public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+    private String clientState;
+
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private String createdAt;
+
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private String updatedAt;
+
+    public Fax() {}
+
+    public Fax recordType(RecordTypeEnum recordType) {
+        this.recordType = recordType;
+        return this;
+    }
+
+    /**
+     * Identifies the type of the resource.
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "fax",
+        value = "Identifies the type of the resource."
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RecordTypeEnum getRecordType() {
+        return recordType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(RecordTypeEnum recordType) {
+        this.recordType = recordType;
+    }
+
+    public Fax id(UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Identifies the type of resource.
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+        value = "Identifies the type of resource."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Fax connectionId(String connectionId) {
+        this.connectionId = connectionId;
+        return this;
+    }
+
+    /**
+     * The ID of the connection used to send the fax.
+     * @return connectionId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "234423",
+        value = "The ID of the connection used to send the fax."
+    )
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getConnectionId() {
+        return connectionId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConnectionId(String connectionId) {
+        this.connectionId = connectionId;
+    }
+
+    public Fax direction(Direction direction) {
+        this.direction = direction;
+        return this;
+    }
+
+    /**
+     * Get direction
+     * @return direction
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DIRECTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Direction getDirection() {
+        return direction;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DIRECTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public Fax mediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+        return this;
+    }
+
+    /**
+     * The URL (or list of URLs) to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
+     * @return mediaUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        value = "The URL (or list of URLs) to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together."
+    )
+    @JsonProperty(JSON_PROPERTY_MEDIA_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEDIA_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
+
+    public Fax mediaName(String mediaName) {
+        this.mediaName = mediaName;
+        return this;
+    }
+
+    /**
+     * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can&#39;t be submitted together.
+     * @return mediaName
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "my_media_uploaded_to_media_storage_api",
+        value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can't be submitted together."
+    )
+    @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMediaName() {
+        return mediaName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
+    }
+
+    public Fax to(String to) {
+        this.to = to;
+        return this;
+    }
+
+    /**
+     * The phone number, in E.164 format, the fax will be sent to or SIP URI
+     * @return to
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "+13127367276",
+        value = "The phone number, in E.164 format, the fax will be sent to or SIP URI"
+    )
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTo() {
+        return to;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public Fax from(String from) {
+        this.from = from;
+        return this;
+    }
+
+    /**
+     * The phone number, in E.164 format, the fax will be sent from.
+     * @return from
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "+13125790015",
+        value = "The phone number, in E.164 format, the fax will be sent from."
+    )
+    @JsonProperty(JSON_PROPERTY_FROM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFrom() {
+        return from;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FROM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public Fax fromDisplayName(String fromDisplayName) {
+        this.fromDisplayName = fromDisplayName;
+        return this;
+    }
+
+    /**
+     * The string used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number).
+     * @return fromDisplayName
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Company Name",
+        value = "The string used as the caller id name (SIP From Display Name) presented to the destination (`to` number)."
+    )
+    @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFromDisplayName() {
+        return fromDisplayName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFromDisplayName(String fromDisplayName) {
+        this.fromDisplayName = fromDisplayName;
+    }
+
+    public Fax quality(Quality quality) {
+        this.quality = quality;
+        return this;
+    }
+
+    /**
+     * Get quality
+     * @return quality
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_QUALITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Quality getQuality() {
+        return quality;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUALITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+
+    public Fax status(StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Status of the fax
+     * @return status
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "queued", value = "Status of the fax")
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    public Fax webhookUrl(String webhookUrl) {
+        this.webhookUrl = webhookUrl;
+        return this;
+    }
+
+    /**
+     * URL that will receive fax webhooks
+     * @return webhookUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "URL that will receive fax webhooks")
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getWebhookUrl() {
+        return webhookUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWebhookUrl(String webhookUrl) {
+        this.webhookUrl = webhookUrl;
+    }
+
+    public Fax webhookFailoverUrl(String webhookFailoverUrl) {
+        this.webhookFailoverUrl = webhookFailoverUrl;
+        return this;
+    }
+
+    /**
+     * Optional failover URL that will receive fax webhooks if webhook_url doesn&#39;t return a 2XX response
+     * @return webhookFailoverUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Optional failover URL that will receive fax webhooks if webhook_url doesn't return a 2XX response"
+    )
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getWebhookFailoverUrl() {
+        return webhookFailoverUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWebhookFailoverUrl(String webhookFailoverUrl) {
+        this.webhookFailoverUrl = webhookFailoverUrl;
+    }
+
+    public Fax storeMedia(Boolean storeMedia) {
+        this.storeMedia = storeMedia;
+        return this;
+    }
+
+    /**
+     * Should fax media be stored on temporary URL. It does not support media_name.
+     * @return storeMedia
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Should fax media be stored on temporary URL. It does not support media_name."
+    )
+    @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getStoreMedia() {
+        return storeMedia;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStoreMedia(Boolean storeMedia) {
+        this.storeMedia = storeMedia;
+    }
+
+    public Fax storedMediaUrl(String storedMediaUrl) {
+        this.storedMediaUrl = storedMediaUrl;
+        return this;
+    }
+
+    /**
+     * If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes.
+     * @return storedMediaUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes."
+    )
+    @JsonProperty(JSON_PROPERTY_STORED_MEDIA_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStoredMediaUrl() {
+        return storedMediaUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STORED_MEDIA_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStoredMediaUrl(String storedMediaUrl) {
+        this.storedMediaUrl = storedMediaUrl;
+    }
+
+    public Fax previewUrl(String previewUrl) {
+        this.previewUrl = previewUrl;
+        return this;
+    }
+
+    /**
+     * If &#x60;store_preview&#x60; was set to &#x60;true&#x60;, this is a link to temporary location. Link expires after 10 minutes.
+     * @return previewUrl
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "If `store_preview` was set to `true`, this is a link to temporary location. Link expires after 10 minutes."
+    )
+    @JsonProperty(JSON_PROPERTY_PREVIEW_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPreviewUrl() {
+        return previewUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PREVIEW_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPreviewUrl(String previewUrl) {
+        this.previewUrl = previewUrl;
+    }
+
+    public Fax clientState(String clientState) {
+        this.clientState = clientState;
+        return this;
+    }
+
+    /**
+     * State received from a command.
+     * @return clientState
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "aGF2ZSBhIG5pY2UgZGF5ID1d",
+        value = "State received from a command."
+    )
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getClientState() {
+        return clientState;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setClientState(String clientState) {
+        this.clientState = clientState;
+    }
+
+    public Fax createdAt(String createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 timestamp when resource was created
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "ISO 8601 timestamp when resource was created")
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Fax updatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 timestamp when resource was updated
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "ISO 8601 timestamp when resource was updated")
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Return true if this Fax object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Fax fax = (Fax) o;
+        return (
+            Objects.equals(this.recordType, fax.recordType) &&
+            Objects.equals(this.id, fax.id) &&
+            Objects.equals(this.connectionId, fax.connectionId) &&
+            Objects.equals(this.direction, fax.direction) &&
+            Objects.equals(this.mediaUrl, fax.mediaUrl) &&
+            Objects.equals(this.mediaName, fax.mediaName) &&
+            Objects.equals(this.to, fax.to) &&
+            Objects.equals(this.from, fax.from) &&
+            Objects.equals(this.fromDisplayName, fax.fromDisplayName) &&
+            Objects.equals(this.quality, fax.quality) &&
+            Objects.equals(this.status, fax.status) &&
+            Objects.equals(this.webhookUrl, fax.webhookUrl) &&
+            Objects.equals(this.webhookFailoverUrl, fax.webhookFailoverUrl) &&
+            Objects.equals(this.storeMedia, fax.storeMedia) &&
+            Objects.equals(this.storedMediaUrl, fax.storedMediaUrl) &&
+            Objects.equals(this.previewUrl, fax.previewUrl) &&
+            Objects.equals(this.clientState, fax.clientState) &&
+            Objects.equals(this.createdAt, fax.createdAt) &&
+            Objects.equals(this.updatedAt, fax.updatedAt)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            id,
+            connectionId,
+            direction,
+            mediaUrl,
+            mediaName,
+            to,
+            from,
+            fromDisplayName,
+            quality,
+            status,
+            webhookUrl,
+            webhookFailoverUrl,
+            storeMedia,
+            storedMediaUrl,
+            previewUrl,
+            clientState,
+            createdAt,
+            updatedAt
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Fax {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    connectionId: ")
+            .append(toIndentedString(connectionId))
+            .append("\n");
+        sb
+            .append("    direction: ")
+            .append(toIndentedString(direction))
+            .append("\n");
+        sb
+            .append("    mediaUrl: ")
+            .append(toIndentedString(mediaUrl))
+            .append("\n");
+        sb
+            .append("    mediaName: ")
+            .append(toIndentedString(mediaName))
+            .append("\n");
+        sb.append("    to: ").append(toIndentedString(to)).append("\n");
+        sb.append("    from: ").append(toIndentedString(from)).append("\n");
+        sb
+            .append("    fromDisplayName: ")
+            .append(toIndentedString(fromDisplayName))
+            .append("\n");
+        sb
+            .append("    quality: ")
+            .append(toIndentedString(quality))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    webhookUrl: ")
+            .append(toIndentedString(webhookUrl))
+            .append("\n");
+        sb
+            .append("    webhookFailoverUrl: ")
+            .append(toIndentedString(webhookFailoverUrl))
+            .append("\n");
+        sb
+            .append("    storeMedia: ")
+            .append(toIndentedString(storeMedia))
+            .append("\n");
+        sb
+            .append("    storedMediaUrl: ")
+            .append(toIndentedString(storedMediaUrl))
+            .append("\n");
+        sb
+            .append("    previewUrl: ")
+            .append(toIndentedString(previewUrl))
+            .append("\n");
+        sb
+            .append("    clientState: ")
+            .append(toIndentedString(clientState))
+            .append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static RecordTypeEnum fromValue(String value) {
-      for (RecordTypeEnum b : RecordTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private RecordTypeEnum recordType;
-
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
-
-  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private String connectionId;
-
-  public static final String JSON_PROPERTY_DIRECTION = "direction";
-  private Direction direction;
-
-  public static final String JSON_PROPERTY_MEDIA_URL = "media_url";
-  private String mediaUrl;
-
-  public static final String JSON_PROPERTY_MEDIA_NAME = "media_name";
-  private String mediaName;
-
-  public static final String JSON_PROPERTY_TO = "to";
-  private String to;
-
-  public static final String JSON_PROPERTY_FROM = "from";
-  private String from;
-
-  public static final String JSON_PROPERTY_FROM_DISPLAY_NAME = "from_display_name";
-  private String fromDisplayName;
-
-  public static final String JSON_PROPERTY_QUALITY = "quality";
-  private Quality quality = Quality.HIGH;
-
-  /**
-   * Status of the fax
-   */
-  public enum StatusEnum {
-    QUEUED(String.valueOf("queued")),
-    
-    MEDIA_PROCESSED(String.valueOf("media.processed")),
-    
-    ORIGINATED(String.valueOf("originated")),
-    
-    SENDING(String.valueOf("sending")),
-    
-    DELIVERED(String.valueOf("delivered")),
-    
-    FAILED(String.valueOf("failed")),
-    
-    INITIATED(String.valueOf("initiated")),
-    
-    RECEIVING(String.valueOf("receiving")),
-    
-    MEDIA_PROCESSING(String.valueOf("media.processing")),
-    
-    RECEIVED(String.valueOf("received"));
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
-  private String webhookUrl;
-
-  public static final String JSON_PROPERTY_WEBHOOK_FAILOVER_URL = "webhook_failover_url";
-  private String webhookFailoverUrl;
-
-  public static final String JSON_PROPERTY_STORE_MEDIA = "store_media";
-  private Boolean storeMedia;
-
-  public static final String JSON_PROPERTY_STORED_MEDIA_URL = "stored_media_url";
-  private String storedMediaUrl;
-
-  public static final String JSON_PROPERTY_PREVIEW_URL = "preview_url";
-  private String previewUrl;
-
-  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
-  private String clientState;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private String createdAt;
-
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private String updatedAt;
-
-  public Fax() { 
-  }
-
-  public Fax recordType(RecordTypeEnum recordType) {
-    this.recordType = recordType;
-    return this;
-  }
-
-   /**
-   * Identifies the type of the resource.
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "fax", value = "Identifies the type of the resource.")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RecordTypeEnum getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(RecordTypeEnum recordType) {
-    this.recordType = recordType;
-  }
-
-
-  public Fax id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Identifies the type of resource.
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-  public Fax connectionId(String connectionId) {
-    this.connectionId = connectionId;
-    return this;
-  }
-
-   /**
-   * The ID of the connection used to send the fax.
-   * @return connectionId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "234423", value = "The ID of the connection used to send the fax.")
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getConnectionId() {
-    return connectionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConnectionId(String connectionId) {
-    this.connectionId = connectionId;
-  }
-
-
-  public Fax direction(Direction direction) {
-    this.direction = direction;
-    return this;
-  }
-
-   /**
-   * Get direction
-   * @return direction
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Direction getDirection() {
-    return direction;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirection(Direction direction) {
-    this.direction = direction;
-  }
-
-
-  public Fax mediaUrl(String mediaUrl) {
-    this.mediaUrl = mediaUrl;
-    return this;
-  }
-
-   /**
-   * The URL (or list of URLs) to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
-   * @return mediaUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL (or list of URLs) to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaUrl() {
-    return mediaUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaUrl(String mediaUrl) {
-    this.mediaUrl = mediaUrl;
-  }
-
-
-  public Fax mediaName(String mediaName) {
-    this.mediaName = mediaName;
-    return this;
-  }
-
-   /**
-   * The media_name used for the fax&#39;s media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can&#39;t be submitted together.
-   * @return mediaName
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name used for the fax's media. Must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. media_name and media_url/contents can't be submitted together.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMediaName() {
-    return mediaName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaName(String mediaName) {
-    this.mediaName = mediaName;
-  }
-
-
-  public Fax to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * The phone number, in E.164 format, the fax will be sent to or SIP URI
-   * @return to
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+13127367276", value = "The phone number, in E.164 format, the fax will be sent to or SIP URI")
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTo() {
-    return to;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-
-  public Fax from(String from) {
-    this.from = from;
-    return this;
-  }
-
-   /**
-   * The phone number, in E.164 format, the fax will be sent from.
-   * @return from
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+13125790015", value = "The phone number, in E.164 format, the fax will be sent from.")
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFrom() {
-    return from;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FROM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFrom(String from) {
-    this.from = from;
-  }
-
-
-  public Fax fromDisplayName(String fromDisplayName) {
-    this.fromDisplayName = fromDisplayName;
-    return this;
-  }
-
-   /**
-   * The string used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number).
-   * @return fromDisplayName
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Company Name", value = "The string used as the caller id name (SIP From Display Name) presented to the destination (`to` number).")
-  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFromDisplayName() {
-    return fromDisplayName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFromDisplayName(String fromDisplayName) {
-    this.fromDisplayName = fromDisplayName;
-  }
-
-
-  public Fax quality(Quality quality) {
-    this.quality = quality;
-    return this;
-  }
-
-   /**
-   * Get quality
-   * @return quality
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_QUALITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Quality getQuality() {
-    return quality;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_QUALITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQuality(Quality quality) {
-    this.quality = quality;
-  }
-
-
-  public Fax status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Status of the fax
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "queued", value = "Status of the fax")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  public Fax webhookUrl(String webhookUrl) {
-    this.webhookUrl = webhookUrl;
-    return this;
-  }
-
-   /**
-   * URL that will receive fax webhooks
-   * @return webhookUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "URL that will receive fax webhooks")
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getWebhookUrl() {
-    return webhookUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWebhookUrl(String webhookUrl) {
-    this.webhookUrl = webhookUrl;
-  }
-
-
-  public Fax webhookFailoverUrl(String webhookFailoverUrl) {
-    this.webhookFailoverUrl = webhookFailoverUrl;
-    return this;
-  }
-
-   /**
-   * Optional failover URL that will receive fax webhooks if webhook_url doesn&#39;t return a 2XX response
-   * @return webhookFailoverUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Optional failover URL that will receive fax webhooks if webhook_url doesn't return a 2XX response")
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getWebhookFailoverUrl() {
-    return webhookFailoverUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWebhookFailoverUrl(String webhookFailoverUrl) {
-    this.webhookFailoverUrl = webhookFailoverUrl;
-  }
-
-
-  public Fax storeMedia(Boolean storeMedia) {
-    this.storeMedia = storeMedia;
-    return this;
-  }
-
-   /**
-   * Should fax media be stored on temporary URL. It does not support media_name.
-   * @return storeMedia
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Should fax media be stored on temporary URL. It does not support media_name.")
-  @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getStoreMedia() {
-    return storeMedia;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STORE_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStoreMedia(Boolean storeMedia) {
-    this.storeMedia = storeMedia;
-  }
-
-
-  public Fax storedMediaUrl(String storedMediaUrl) {
-    this.storedMediaUrl = storedMediaUrl;
-    return this;
-  }
-
-   /**
-   * If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes.
-   * @return storedMediaUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes.")
-  @JsonProperty(JSON_PROPERTY_STORED_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getStoredMediaUrl() {
-    return storedMediaUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STORED_MEDIA_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStoredMediaUrl(String storedMediaUrl) {
-    this.storedMediaUrl = storedMediaUrl;
-  }
-
-
-  public Fax previewUrl(String previewUrl) {
-    this.previewUrl = previewUrl;
-    return this;
-  }
-
-   /**
-   * If &#x60;store_preview&#x60; was set to &#x60;true&#x60;, this is a link to temporary location. Link expires after 10 minutes.
-   * @return previewUrl
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "If `store_preview` was set to `true`, this is a link to temporary location. Link expires after 10 minutes.")
-  @JsonProperty(JSON_PROPERTY_PREVIEW_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPreviewUrl() {
-    return previewUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PREVIEW_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPreviewUrl(String previewUrl) {
-    this.previewUrl = previewUrl;
-  }
-
-
-  public Fax clientState(String clientState) {
-    this.clientState = clientState;
-    return this;
-  }
-
-   /**
-   * State received from a command.
-   * @return clientState
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getClientState() {
-    return clientState;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClientState(String clientState) {
-    this.clientState = clientState;
-  }
-
-
-  public Fax createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 timestamp when resource was created
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "ISO 8601 timestamp when resource was created")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public Fax updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 timestamp when resource was updated
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "ISO 8601 timestamp when resource was updated")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-
-  /**
-   * Return true if this Fax object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Fax fax = (Fax) o;
-    return Objects.equals(this.recordType, fax.recordType) &&
-        Objects.equals(this.id, fax.id) &&
-        Objects.equals(this.connectionId, fax.connectionId) &&
-        Objects.equals(this.direction, fax.direction) &&
-        Objects.equals(this.mediaUrl, fax.mediaUrl) &&
-        Objects.equals(this.mediaName, fax.mediaName) &&
-        Objects.equals(this.to, fax.to) &&
-        Objects.equals(this.from, fax.from) &&
-        Objects.equals(this.fromDisplayName, fax.fromDisplayName) &&
-        Objects.equals(this.quality, fax.quality) &&
-        Objects.equals(this.status, fax.status) &&
-        Objects.equals(this.webhookUrl, fax.webhookUrl) &&
-        Objects.equals(this.webhookFailoverUrl, fax.webhookFailoverUrl) &&
-        Objects.equals(this.storeMedia, fax.storeMedia) &&
-        Objects.equals(this.storedMediaUrl, fax.storedMediaUrl) &&
-        Objects.equals(this.previewUrl, fax.previewUrl) &&
-        Objects.equals(this.clientState, fax.clientState) &&
-        Objects.equals(this.createdAt, fax.createdAt) &&
-        Objects.equals(this.updatedAt, fax.updatedAt);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, id, connectionId, direction, mediaUrl, mediaName, to, from, fromDisplayName, quality, status, webhookUrl, webhookFailoverUrl, storeMedia, storedMediaUrl, previewUrl, clientState, createdAt, updatedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Fax {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
-    sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
-    sb.append("    mediaUrl: ").append(toIndentedString(mediaUrl)).append("\n");
-    sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    fromDisplayName: ").append(toIndentedString(fromDisplayName)).append("\n");
-    sb.append("    quality: ").append(toIndentedString(quality)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
-    sb.append("    webhookFailoverUrl: ").append(toIndentedString(webhookFailoverUrl)).append("\n");
-    sb.append("    storeMedia: ").append(toIndentedString(storeMedia)).append("\n");
-    sb.append("    storedMediaUrl: ").append(toIndentedString(storedMediaUrl)).append("\n");
-    sb.append("    previewUrl: ").append(toIndentedString(previewUrl)).append("\n");
-    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

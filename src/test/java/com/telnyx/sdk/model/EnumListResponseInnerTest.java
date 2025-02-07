@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -23,6 +21,7 @@ import org.junit.jupiter.api.Test;
  * Model tests for EnumListResponseInner
  */
 public class EnumListResponseInnerTest {
+
     private final EnumListResponseInner model = new EnumListResponseInner();
 
     /**
@@ -32,5 +31,4 @@ public class EnumListResponseInnerTest {
     public void testEnumListResponseInner() {
         // TODO: test EnumListResponseInner
     }
-
 }

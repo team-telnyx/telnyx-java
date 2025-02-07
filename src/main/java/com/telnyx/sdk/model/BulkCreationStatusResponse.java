@@ -10,204 +10,222 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.CampaignRegistryApiSchemasBulkCreationTaskStatus;
-import java.time.OffsetDateTime;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * BulkCreationStatusResponse
  */
-@JsonPropertyOrder({
-  BulkCreationStatusResponse.JSON_PROPERTY_TASK_ID,
-  BulkCreationStatusResponse.JSON_PROPERTY_STATUS,
-  BulkCreationStatusResponse.JSON_PROPERTY_CREATED_AT,
-  BulkCreationStatusResponse.JSON_PROPERTY_UPDATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        BulkCreationStatusResponse.JSON_PROPERTY_TASK_ID,
+        BulkCreationStatusResponse.JSON_PROPERTY_STATUS,
+        BulkCreationStatusResponse.JSON_PROPERTY_CREATED_AT,
+        BulkCreationStatusResponse.JSON_PROPERTY_UPDATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class BulkCreationStatusResponse {
-  public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  private String taskId;
 
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private CampaignRegistryApiSchemasBulkCreationTaskStatus status;
+    public static final String JSON_PROPERTY_TASK_ID = "taskId";
+    private String taskId;
 
-  public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-  private OffsetDateTime createdAt;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private CampaignRegistryApiSchemasBulkCreationTaskStatus status;
 
-  public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-  private OffsetDateTime updatedAt;
+    public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+    private OffsetDateTime createdAt;
 
-  public BulkCreationStatusResponse() { 
-  }
+    public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+    private OffsetDateTime updatedAt;
 
-  public BulkCreationStatusResponse taskId(String taskId) {
-    this.taskId = taskId;
-    return this;
-  }
+    public BulkCreationStatusResponse() {}
 
-   /**
-   * The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
-   * @return taskId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "4b60017a-2f50-4c90-c9e6-5f67304cbde2", required = true, value = "The ID of the task associated with bulk Sole Proprietor brand and campaign creation.")
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTaskId() {
-    return taskId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskId(String taskId) {
-    this.taskId = taskId;
-  }
-
-
-  public BulkCreationStatusResponse status(CampaignRegistryApiSchemasBulkCreationTaskStatus status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The current status of this task
-   * @return status
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The current status of this task")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public CampaignRegistryApiSchemasBulkCreationTaskStatus getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStatus(CampaignRegistryApiSchemasBulkCreationTaskStatus status) {
-    this.status = status;
-  }
-
-
-  public BulkCreationStatusResponse createdAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * The date and time the task was initiated
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-06-30T10:48:22-07:00", value = "The date and time the task was initiated")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public BulkCreationStatusResponse updatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * The date and time the task&#39;s status was updated
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-06-30T10:49:04-07:00", value = "The date and time the task's status was updated")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-
-  /**
-   * Return true if this BulkCreationStatusResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public BulkCreationStatusResponse taskId(String taskId) {
+        this.taskId = taskId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
+     * @return taskId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "4b60017a-2f50-4c90-c9e6-5f67304cbde2",
+        required = true,
+        value = "The ID of the task associated with bulk Sole Proprietor brand and campaign creation."
+    )
+    @JsonProperty(JSON_PROPERTY_TASK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTaskId() {
+        return taskId;
     }
-    BulkCreationStatusResponse bulkCreationStatusResponse = (BulkCreationStatusResponse) o;
-    return Objects.equals(this.taskId, bulkCreationStatusResponse.taskId) &&
-        Objects.equals(this.status, bulkCreationStatusResponse.status) &&
-        Objects.equals(this.createdAt, bulkCreationStatusResponse.createdAt) &&
-        Objects.equals(this.updatedAt, bulkCreationStatusResponse.updatedAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(taskId, status, createdAt, updatedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class BulkCreationStatusResponse {\n");
-    sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TASK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public BulkCreationStatusResponse status(
+        CampaignRegistryApiSchemasBulkCreationTaskStatus status
+    ) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The current status of this task
+     * @return status
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The current status of this task"
+    )
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public CampaignRegistryApiSchemasBulkCreationTaskStatus getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(
+        CampaignRegistryApiSchemasBulkCreationTaskStatus status
+    ) {
+        this.status = status;
+    }
+
+    public BulkCreationStatusResponse createdAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * The date and time the task was initiated
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-06-30T10:48:22-07:00",
+        value = "The date and time the task was initiated"
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public BulkCreationStatusResponse updatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * The date and time the task&#39;s status was updated
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-06-30T10:49:04-07:00",
+        value = "The date and time the task's status was updated"
+    )
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Return true if this BulkCreationStatusResponse object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BulkCreationStatusResponse bulkCreationStatusResponse =
+            (BulkCreationStatusResponse) o;
+        return (
+            Objects.equals(this.taskId, bulkCreationStatusResponse.taskId) &&
+            Objects.equals(this.status, bulkCreationStatusResponse.status) &&
+            Objects.equals(
+                this.createdAt,
+                bulkCreationStatusResponse.createdAt
+            ) &&
+            Objects.equals(this.updatedAt, bulkCreationStatusResponse.updatedAt)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskId, status, createdAt, updatedAt);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class BulkCreationStatusResponse {\n");
+        sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

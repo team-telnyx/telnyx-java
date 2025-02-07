@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SIMCardNetworkPreferenceWithOTAUpdates;
@@ -24,15 +23,15 @@ import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for DeleteSIMCardNetworkPreferenceResponse
  */
 public class DeleteSIMCardNetworkPreferenceResponseTest {
-    private final DeleteSIMCardNetworkPreferenceResponse model = new DeleteSIMCardNetworkPreferenceResponse();
+
+    private final DeleteSIMCardNetworkPreferenceResponse model =
+        new DeleteSIMCardNetworkPreferenceResponse();
 
     /**
      * Model tests for DeleteSIMCardNetworkPreferenceResponse
@@ -49,5 +48,4 @@ public class DeleteSIMCardNetworkPreferenceResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

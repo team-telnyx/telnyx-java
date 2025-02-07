@@ -1,13 +1,10 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreateCustomerServiceRecord201Response;
 import com.telnyx.sdk.model.CreateCustomerServiceRecordRequest;
 import com.telnyx.sdk.model.GetCustomerServiceRecord201Response;
@@ -17,46 +14,50 @@ import com.telnyx.sdk.model.ListCustomerServiceRecords401Response;
 import com.telnyx.sdk.model.ListCustomerServiceRecords403Response;
 import com.telnyx.sdk.model.ListCustomerServiceRecords422Response;
 import com.telnyx.sdk.model.ListCustomerServiceRecords500Response;
-import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.VerifyPhoneNumberCoverage201Response;
 import com.telnyx.sdk.model.VerifyPhoneNumberCoverageRequest;
-
+import jakarta.ws.rs.core.GenericType;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CustomerServiceRecordApi {
-  private ApiClient apiClient;
 
-  public CustomerServiceRecordApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public CustomerServiceRecordApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public CustomerServiceRecordApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public CustomerServiceRecordApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Create a customer service record
    * Create a new customer service record for the provided phone number.
    * @param createCustomerServiceRecordRequest  (required)
@@ -72,11 +73,15 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public CreateCustomerServiceRecord201Response createCustomerServiceRecord(CreateCustomerServiceRecordRequest createCustomerServiceRecordRequest) throws ApiException {
-    return createCustomerServiceRecordWithHttpInfo(createCustomerServiceRecordRequest).getData();
-  }
+    public CreateCustomerServiceRecord201Response createCustomerServiceRecord(
+        CreateCustomerServiceRecordRequest createCustomerServiceRecordRequest
+    ) throws ApiException {
+        return createCustomerServiceRecordWithHttpInfo(
+            createCustomerServiceRecordRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create a customer service record
    * Create a new customer service record for the provided phone number.
    * @param createCustomerServiceRecordRequest  (required)
@@ -92,46 +97,69 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateCustomerServiceRecord201Response> createCustomerServiceRecordWithHttpInfo(CreateCustomerServiceRecordRequest createCustomerServiceRecordRequest) throws ApiException {
-    Object localVarPostBody = createCustomerServiceRecordRequest;
-    
-    // verify the required parameter 'createCustomerServiceRecordRequest' is set
-    if (createCustomerServiceRecordRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createCustomerServiceRecordRequest' when calling createCustomerServiceRecord");
+    public ApiResponse<
+        CreateCustomerServiceRecord201Response
+    > createCustomerServiceRecordWithHttpInfo(
+        CreateCustomerServiceRecordRequest createCustomerServiceRecordRequest
+    ) throws ApiException {
+        Object localVarPostBody = createCustomerServiceRecordRequest;
+
+        // verify the required parameter 'createCustomerServiceRecordRequest' is set
+        if (createCustomerServiceRecordRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createCustomerServiceRecordRequest' when calling createCustomerServiceRecord"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/customer_service_records";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateCustomerServiceRecord201Response> localVarReturnType =
+            new GenericType<CreateCustomerServiceRecord201Response>() {};
+
+        return apiClient.invokeAPI(
+            "CustomerServiceRecordApi.createCustomerServiceRecord",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/customer_service_records";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateCustomerServiceRecord201Response> localVarReturnType = new GenericType<CreateCustomerServiceRecord201Response>() {};
-
-    return apiClient.invokeAPI("CustomerServiceRecordApi.createCustomerServiceRecord", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Get a customer service record
    * Get a specific customer service record.
    * @param customerServiceRecordId The ID of the customer service record (required)
@@ -147,11 +175,15 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public GetCustomerServiceRecord201Response getCustomerServiceRecord(String customerServiceRecordId) throws ApiException {
-    return getCustomerServiceRecordWithHttpInfo(customerServiceRecordId).getData();
-  }
+    public GetCustomerServiceRecord201Response getCustomerServiceRecord(
+        String customerServiceRecordId
+    ) throws ApiException {
+        return getCustomerServiceRecordWithHttpInfo(
+            customerServiceRecordId
+        ).getData();
+    }
 
-  /**
+    /**
    * Get a customer service record
    * Get a specific customer service record.
    * @param customerServiceRecordId The ID of the customer service record (required)
@@ -167,47 +199,72 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetCustomerServiceRecord201Response> getCustomerServiceRecordWithHttpInfo(String customerServiceRecordId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'customerServiceRecordId' is set
-    if (customerServiceRecordId == null) {
-      throw new ApiException(400, "Missing the required parameter 'customerServiceRecordId' when calling getCustomerServiceRecord");
+    public ApiResponse<
+        GetCustomerServiceRecord201Response
+    > getCustomerServiceRecordWithHttpInfo(String customerServiceRecordId)
+        throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'customerServiceRecordId' is set
+        if (customerServiceRecordId == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'customerServiceRecordId' when calling getCustomerServiceRecord"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/customer_service_records/{customer_service_record_id}".replaceAll(
+                    "\\{" + "customer_service_record_id" + "\\}",
+                    apiClient.escapeString(customerServiceRecordId.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetCustomerServiceRecord201Response> localVarReturnType =
+            new GenericType<GetCustomerServiceRecord201Response>() {};
+
+        return apiClient.invokeAPI(
+            "CustomerServiceRecordApi.getCustomerServiceRecord",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/customer_service_records/{customer_service_record_id}"
-      .replaceAll("\\{" + "customer_service_record_id" + "\\}", apiClient.escapeString(customerServiceRecordId.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetCustomerServiceRecord201Response> localVarReturnType = new GenericType<GetCustomerServiceRecord201Response>() {};
-
-    return apiClient.invokeAPI("CustomerServiceRecordApi.getCustomerServiceRecord", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List customer service records
    * List customer service records.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -231,11 +288,31 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public ListCustomerServiceRecords200Response listCustomerServiceRecords(Integer pageNumber, Integer pageSize, String sort, String filterPhoneNumberEq, List<String> filterPhoneNumberIn, String filterStatusEq, List<String> filterStatusIn, OffsetDateTime filterCreatedAtLt, OffsetDateTime filterCreatedAtGt) throws ApiException {
-    return listCustomerServiceRecordsWithHttpInfo(pageNumber, pageSize, sort, filterPhoneNumberEq, filterPhoneNumberIn, filterStatusEq, filterStatusIn, filterCreatedAtLt, filterCreatedAtGt).getData();
-  }
+    public ListCustomerServiceRecords200Response listCustomerServiceRecords(
+        Integer pageNumber,
+        Integer pageSize,
+        String sort,
+        String filterPhoneNumberEq,
+        List<String> filterPhoneNumberIn,
+        String filterStatusEq,
+        List<String> filterStatusIn,
+        OffsetDateTime filterCreatedAtLt,
+        OffsetDateTime filterCreatedAtGt
+    ) throws ApiException {
+        return listCustomerServiceRecordsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            sort,
+            filterPhoneNumberEq,
+            filterPhoneNumberIn,
+            filterStatusEq,
+            filterStatusIn,
+            filterCreatedAtLt,
+            filterCreatedAtGt
+        ).getData();
+    }
 
-  /**
+    /**
    * List customer service records
    * List customer service records.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -259,50 +336,117 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListCustomerServiceRecords200Response> listCustomerServiceRecordsWithHttpInfo(Integer pageNumber, Integer pageSize, String sort, String filterPhoneNumberEq, List<String> filterPhoneNumberIn, String filterStatusEq, List<String> filterStatusIn, OffsetDateTime filterCreatedAtLt, OffsetDateTime filterCreatedAtGt) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/customer_service_records";
+    public ApiResponse<
+        ListCustomerServiceRecords200Response
+    > listCustomerServiceRecordsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String sort,
+        String filterPhoneNumberEq,
+        List<String> filterPhoneNumberIn,
+        String filterStatusEq,
+        List<String> filterStatusIn,
+        OffsetDateTime filterCreatedAtLt,
+        OffsetDateTime filterCreatedAtGt
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/customer_service_records";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][eq]", filterPhoneNumberEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[phone_number][in][]", filterPhoneNumberIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status][eq]", filterStatusEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[status][in][]", filterStatusIn));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][lt]", filterCreatedAtLt));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][gt]", filterCreatedAtGt));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[phone_number][eq]",
+                filterPhoneNumberEq
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[phone_number][in][]",
+                filterPhoneNumberIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status][eq]", filterStatusEq)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "multi",
+                "filter[status][in][]",
+                filterStatusIn
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[created_at][lt]",
+                filterCreatedAtLt
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[created_at][gt]",
+                filterCreatedAtGt
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListCustomerServiceRecords200Response> localVarReturnType = new GenericType<ListCustomerServiceRecords200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("CustomerServiceRecordApi.listCustomerServiceRecords", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListCustomerServiceRecords200Response> localVarReturnType =
+            new GenericType<ListCustomerServiceRecords200Response>() {};
+
+        return apiClient.invokeAPI(
+            "CustomerServiceRecordApi.listCustomerServiceRecords",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Verify CSR phone number coverage
    * Verify the coverage for a list of phone numbers.
    * @param verifyPhoneNumberCoverageRequest  (required)
@@ -318,11 +462,15 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public VerifyPhoneNumberCoverage201Response verifyPhoneNumberCoverage(VerifyPhoneNumberCoverageRequest verifyPhoneNumberCoverageRequest) throws ApiException {
-    return verifyPhoneNumberCoverageWithHttpInfo(verifyPhoneNumberCoverageRequest).getData();
-  }
+    public VerifyPhoneNumberCoverage201Response verifyPhoneNumberCoverage(
+        VerifyPhoneNumberCoverageRequest verifyPhoneNumberCoverageRequest
+    ) throws ApiException {
+        return verifyPhoneNumberCoverageWithHttpInfo(
+            verifyPhoneNumberCoverageRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Verify CSR phone number coverage
    * Verify the coverage for a list of phone numbers.
    * @param verifyPhoneNumberCoverageRequest  (required)
@@ -338,43 +486,66 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<VerifyPhoneNumberCoverage201Response> verifyPhoneNumberCoverageWithHttpInfo(VerifyPhoneNumberCoverageRequest verifyPhoneNumberCoverageRequest) throws ApiException {
-    Object localVarPostBody = verifyPhoneNumberCoverageRequest;
-    
-    // verify the required parameter 'verifyPhoneNumberCoverageRequest' is set
-    if (verifyPhoneNumberCoverageRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'verifyPhoneNumberCoverageRequest' when calling verifyPhoneNumberCoverage");
+    public ApiResponse<
+        VerifyPhoneNumberCoverage201Response
+    > verifyPhoneNumberCoverageWithHttpInfo(
+        VerifyPhoneNumberCoverageRequest verifyPhoneNumberCoverageRequest
+    ) throws ApiException {
+        Object localVarPostBody = verifyPhoneNumberCoverageRequest;
+
+        // verify the required parameter 'verifyPhoneNumberCoverageRequest' is set
+        if (verifyPhoneNumberCoverageRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'verifyPhoneNumberCoverageRequest' when calling verifyPhoneNumberCoverage"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/customer_service_records/phone_number_coverages";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<VerifyPhoneNumberCoverage201Response> localVarReturnType =
+            new GenericType<VerifyPhoneNumberCoverage201Response>() {};
+
+        return apiClient.invokeAPI(
+            "CustomerServiceRecordApi.verifyPhoneNumberCoverage",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/customer_service_records/phone_number_coverages";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<VerifyPhoneNumberCoverage201Response> localVarReturnType = new GenericType<VerifyPhoneNumberCoverage201Response>() {};
-
-    return apiClient.invokeAPI("CustomerServiceRecordApi.verifyPhoneNumberCoverage", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

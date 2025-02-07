@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ManagedAccountBalance;
@@ -25,14 +24,13 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for ManagedAccount
  */
 public class ManagedAccountTest {
+
     private final ManagedAccount model = new ManagedAccount();
 
     /**
@@ -146,5 +144,4 @@ public class ManagedAccountTest {
     public void rollupBillingTest() {
         // TODO: test rollupBilling
     }
-
 }

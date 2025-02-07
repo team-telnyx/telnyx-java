@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallCostMeta;
@@ -27,14 +26,13 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CallCost
  */
 public class CallCostTest {
+
     private final CallCost model = new CallCost();
 
     /**
@@ -92,5 +90,4 @@ public class CallCostTest {
     public void payloadTest() {
         // TODO: test payload
     }
-
 }

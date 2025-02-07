@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PaginationMeta;
@@ -24,16 +23,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for PublicInternetGatewayList200Response
  */
 public class PublicInternetGatewayList200ResponseTest {
-    private final PublicInternetGatewayList200Response model = new PublicInternetGatewayList200Response();
+
+    private final PublicInternetGatewayList200Response model =
+        new PublicInternetGatewayList200Response();
 
     /**
      * Model tests for PublicInternetGatewayList200Response
@@ -58,5 +56,4 @@ public class PublicInternetGatewayList200ResponseTest {
     public void metaTest() {
         // TODO: test meta
     }
-
 }

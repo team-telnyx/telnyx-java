@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.CreatePortingOrder;
 import com.telnyx.sdk.model.CreatePortingOrderComment;
-import java.io.File;
 import com.telnyx.sdk.model.ListAllowedFocWindow;
 import com.telnyx.sdk.model.ListDraftPortingOrderWithoutPagination;
 import com.telnyx.sdk.model.ListPortingOrder;
@@ -34,17 +32,16 @@ import com.telnyx.sdk.model.ShowPortingOrder;
 import com.telnyx.sdk.model.ShowPortingOrderComment;
 import com.telnyx.sdk.model.ShowPortingOrdersActivationJob;
 import com.telnyx.sdk.model.SubRequestByPortingOrder;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdatePortingOrder;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for PortingOrderApi
@@ -370,5 +367,4 @@ public class PortingOrderApiTest {
         //PortingOrderDocumentsCreated response = api.uploadPortingOrderDocuments(id, UNKNOWN_BASE_TYPE);
         // TODO: test validations
     }
-
 }

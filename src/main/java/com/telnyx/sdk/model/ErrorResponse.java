@@ -10,115 +10,109 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.ErrorResponseErrorsInner;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ErrorResponse
  */
-@JsonPropertyOrder({
-  ErrorResponse.JSON_PROPERTY_ERRORS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ ErrorResponse.JSON_PROPERTY_ERRORS })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ErrorResponse {
-  public static final String JSON_PROPERTY_ERRORS = "errors";
-  private List<ErrorResponseErrorsInner> errors = null;
 
-  public ErrorResponse() { 
-  }
+    public static final String JSON_PROPERTY_ERRORS = "errors";
+    private List<ErrorResponseErrorsInner> errors = null;
 
-  public ErrorResponse errors(List<ErrorResponseErrorsInner> errors) {
-    this.errors = errors;
-    return this;
-  }
+    public ErrorResponse() {}
 
-  public ErrorResponse adderrorsItem(ErrorResponseErrorsInner errorsItem) {
-    if (this.errors == null) {
-      this.errors = new ArrayList<>();
+    public ErrorResponse errors(List<ErrorResponseErrorsInner> errors) {
+        this.errors = errors;
+        return this;
     }
-    this.errors.add(errorsItem);
-    return this;
-  }
 
-   /**
-   * Get errors
-   * @return errors
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<ErrorResponseErrorsInner> getErrors() {
-    return errors;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setErrors(List<ErrorResponseErrorsInner> errors) {
-    this.errors = errors;
-  }
-
-
-  /**
-   * Return true if this ErrorResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ErrorResponse adderrorsItem(ErrorResponseErrorsInner errorsItem) {
+        if (this.errors == null) {
+            this.errors = new ArrayList<>();
+        }
+        this.errors.add(errorsItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get errors
+     * @return errors
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ERRORS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<ErrorResponseErrorsInner> getErrors() {
+        return errors;
     }
-    ErrorResponse errorResponse = (ErrorResponse) o;
-    return Objects.equals(this.errors, errorResponse.errors);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(errors);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorResponse {\n");
-    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ERRORS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setErrors(List<ErrorResponseErrorsInner> errors) {
+        this.errors = errors;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this ErrorResponse object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ErrorResponse errorResponse = (ErrorResponse) o;
+        return Objects.equals(this.errors, errorResponse.errors);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ErrorResponse {\n");
+        sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

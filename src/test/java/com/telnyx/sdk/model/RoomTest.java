@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RoomSession;
@@ -23,22 +23,20 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Model tests for Room
  */
 public class RoomTest {
+
     private final Room model = new Room();
 
     /**
@@ -144,5 +142,4 @@ public class RoomTest {
     public void recordTypeTest() {
         // TODO: test recordType
     }
-
 }

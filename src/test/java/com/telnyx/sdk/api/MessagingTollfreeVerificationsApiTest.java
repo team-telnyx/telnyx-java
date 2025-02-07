@@ -10,29 +10,27 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for MessagingTollfreeVerificationsApi
  */
 public class MessagingTollfreeVerificationsApiTest {
 
-    private final MessagingTollfreeVerificationsApi api = new MessagingTollfreeVerificationsApi();
+    private final MessagingTollfreeVerificationsApi api =
+        new MessagingTollfreeVerificationsApi();
 
     /**
      * Delete Verification Request
@@ -43,10 +41,10 @@ public class MessagingTollfreeVerificationsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void deleteVerificationRequestPublicApiV2RequestsIdDeleteTest() throws ApiException {
+    public void deleteVerificationRequestPublicApiV2RequestsIdDeleteTest()
+        throws ApiException {
         //UUID id = null;
         //Object response = api.deleteVerificationRequestPublicApiV2RequestsIdDelete(id);
         // TODO: test validations
     }
-
 }

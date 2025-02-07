@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.WebhookDelivery;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for GetWebhookDelivery200Response
  */
 public class GetWebhookDelivery200ResponseTest {
-    private final GetWebhookDelivery200Response model = new GetWebhookDelivery200Response();
+
+    private final GetWebhookDelivery200Response model =
+        new GetWebhookDelivery200Response();
 
     /**
      * Model tests for GetWebhookDelivery200Response
@@ -47,5 +45,4 @@ public class GetWebhookDelivery200ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

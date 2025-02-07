@@ -10,140 +10,146 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The SIM card consumption so far in the current billing cycle.
  */
-@ApiModel(description = "The SIM card consumption so far in the current billing cycle.")
-@JsonPropertyOrder({
-  SIMCardCurrentBillingPeriodConsumedData.JSON_PROPERTY_AMOUNT,
-  SIMCardCurrentBillingPeriodConsumedData.JSON_PROPERTY_UNIT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@ApiModel(
+    description = "The SIM card consumption so far in the current billing cycle."
+)
+@JsonPropertyOrder(
+    {
+        SIMCardCurrentBillingPeriodConsumedData.JSON_PROPERTY_AMOUNT,
+        SIMCardCurrentBillingPeriodConsumedData.JSON_PROPERTY_UNIT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class SIMCardCurrentBillingPeriodConsumedData {
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private BigDecimal amount;
 
-  public static final String JSON_PROPERTY_UNIT = "unit";
-  private String unit = "MB";
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private BigDecimal amount;
 
-  public SIMCardCurrentBillingPeriodConsumedData() { 
-  }
+    public static final String JSON_PROPERTY_UNIT = "unit";
+    private String unit = "MB";
 
-  public SIMCardCurrentBillingPeriodConsumedData amount(BigDecimal amount) {
-    this.amount = amount;
-    return this;
-  }
+    public SIMCardCurrentBillingPeriodConsumedData() {}
 
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2049.0", value = "")
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAmount(BigDecimal amount) {
-    this.amount = amount;
-  }
-
-
-  public SIMCardCurrentBillingPeriodConsumedData unit(String unit) {
-    this.unit = unit;
-    return this;
-  }
-
-   /**
-   * Get unit
-   * @return unit
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "MB", value = "")
-  @JsonProperty(JSON_PROPERTY_UNIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUnit() {
-    return unit;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UNIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUnit(String unit) {
-    this.unit = unit;
-  }
-
-
-  /**
-   * Return true if this SIMCard_current_billing_period_consumed_data object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SIMCardCurrentBillingPeriodConsumedData amount(BigDecimal amount) {
+        this.amount = amount;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get amount
+     * @return amount
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2049.0", value = "")
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getAmount() {
+        return amount;
     }
-    SIMCardCurrentBillingPeriodConsumedData siMCardCurrentBillingPeriodConsumedData = (SIMCardCurrentBillingPeriodConsumedData) o;
-    return Objects.equals(this.amount, siMCardCurrentBillingPeriodConsumedData.amount) &&
-        Objects.equals(this.unit, siMCardCurrentBillingPeriodConsumedData.unit);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(amount, unit);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SIMCardCurrentBillingPeriodConsumedData {\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public SIMCardCurrentBillingPeriodConsumedData unit(String unit) {
+        this.unit = unit;
+        return this;
+    }
+
+    /**
+     * Get unit
+     * @return unit
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "MB", value = "")
+    @JsonProperty(JSON_PROPERTY_UNIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUnit() {
+        return unit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UNIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    /**
+     * Return true if this SIMCard_current_billing_period_consumed_data object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SIMCardCurrentBillingPeriodConsumedData siMCardCurrentBillingPeriodConsumedData =
+            (SIMCardCurrentBillingPeriodConsumedData) o;
+        return (
+            Objects.equals(
+                this.amount,
+                siMCardCurrentBillingPeriodConsumedData.amount
+            ) &&
+            Objects.equals(
+                this.unit,
+                siMCardCurrentBillingPeriodConsumedData.unit
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, unit);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SIMCardCurrentBillingPeriodConsumedData {\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,66 +10,61 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Message status
  */
 public enum MessageStatus {
-  
-  GW_TIMEOUT("GW_TIMEOUT"),
-  
-  DELIVERED("DELIVERED"),
-  
-  DLR_UNCONFIRMED("DLR_UNCONFIRMED"),
-  
-  DLR_TIMEOUT("DLR_TIMEOUT"),
-  
-  RECEIVED("RECEIVED"),
-  
-  GW_REJECT("GW_REJECT"),
-  
-  FAILED("FAILED");
+    GW_TIMEOUT("GW_TIMEOUT"),
 
-  private String value;
+    DELIVERED("DELIVERED"),
 
-  MessageStatus(String value) {
-    this.value = value;
-  }
+    DLR_UNCONFIRMED("DLR_UNCONFIRMED"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    DLR_TIMEOUT("DLR_TIMEOUT"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    RECEIVED("RECEIVED"),
 
-  @JsonCreator
-  public static MessageStatus fromValue(String value) {
-    for (MessageStatus b : MessageStatus.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    GW_REJECT("GW_REJECT"),
+
+    FAILED("FAILED");
+
+    private String value;
+
+    MessageStatus(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static MessageStatus fromValue(String value) {
+        for (MessageStatus b : MessageStatus.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

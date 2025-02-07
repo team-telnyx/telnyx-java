@@ -10,59 +10,54 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The verification status of an active brand
  */
 public enum BrandIdentityStatus {
-  
-  VERIFIED("VERIFIED"),
-  
-  UNVERIFIED("UNVERIFIED"),
-  
-  SELF_DECLARED("SELF_DECLARED"),
-  
-  VETTED_VERIFIED("VETTED_VERIFIED");
+    VERIFIED("VERIFIED"),
 
-  private String value;
+    UNVERIFIED("UNVERIFIED"),
 
-  BrandIdentityStatus(String value) {
-    this.value = value;
-  }
+    SELF_DECLARED("SELF_DECLARED"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    VETTED_VERIFIED("VETTED_VERIFIED");
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    private String value;
 
-  @JsonCreator
-  public static BrandIdentityStatus fromValue(String value) {
-    for (BrandIdentityStatus b : BrandIdentityStatus.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    BrandIdentityStatus(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static BrandIdentityStatus fromValue(String value) {
+        for (BrandIdentityStatus b : BrandIdentityStatus.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

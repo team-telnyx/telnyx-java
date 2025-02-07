@@ -1,56 +1,57 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetBulkSimCardAction200Response;
 import com.telnyx.sdk.model.GetSimCardAction200Response;
 import com.telnyx.sdk.model.ListBulkSIMCardActions200Response;
 import com.telnyx.sdk.model.ListSimCardActions200Response;
-import java.util.UUID;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class SimCardActionsApi {
-  private ApiClient apiClient;
 
-  public SimCardActionsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public SimCardActionsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public SimCardActionsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public SimCardActionsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Get bulk SIM card action details
    * This API fetches information about a bulk SIM card action. A bulk SIM card action contains details about a collection of individual SIM card actions.
    * @param id Identifies the resource. (required)
@@ -64,11 +65,12 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetBulkSimCardAction200Response getBulkSimCardAction(UUID id) throws ApiException {
-    return getBulkSimCardActionWithHttpInfo(id).getData();
-  }
+    public GetBulkSimCardAction200Response getBulkSimCardAction(UUID id)
+        throws ApiException {
+        return getBulkSimCardActionWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Get bulk SIM card action details
    * This API fetches information about a bulk SIM card action. A bulk SIM card action contains details about a collection of individual SIM card actions.
    * @param id Identifies the resource. (required)
@@ -82,47 +84,71 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetBulkSimCardAction200Response> getBulkSimCardActionWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getBulkSimCardAction");
+    public ApiResponse<
+        GetBulkSimCardAction200Response
+    > getBulkSimCardActionWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getBulkSimCardAction"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/bulk_sim_card_actions/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetBulkSimCardAction200Response> localVarReturnType =
+            new GenericType<GetBulkSimCardAction200Response>() {};
+
+        return apiClient.invokeAPI(
+            "SimCardActionsApi.getBulkSimCardAction",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/bulk_sim_card_actions/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetBulkSimCardAction200Response> localVarReturnType = new GenericType<GetBulkSimCardAction200Response>() {};
-
-    return apiClient.invokeAPI("SimCardActionsApi.getBulkSimCardAction", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Get SIM card action details
    * This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
    * @param id Identifies the resource. (required)
@@ -136,11 +162,12 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetSimCardAction200Response getSimCardAction(UUID id) throws ApiException {
-    return getSimCardActionWithHttpInfo(id).getData();
-  }
+    public GetSimCardAction200Response getSimCardAction(UUID id)
+        throws ApiException {
+        return getSimCardActionWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Get SIM card action details
    * This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
    * @param id Identifies the resource. (required)
@@ -154,47 +181,71 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetSimCardAction200Response> getSimCardActionWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getSimCardAction");
+    public ApiResponse<
+        GetSimCardAction200Response
+    > getSimCardActionWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getSimCardAction"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/sim_card_actions/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<GetSimCardAction200Response> localVarReturnType =
+            new GenericType<GetSimCardAction200Response>() {};
+
+        return apiClient.invokeAPI(
+            "SimCardActionsApi.getSimCardAction",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/sim_card_actions/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<GetSimCardAction200Response> localVarReturnType = new GenericType<GetSimCardAction200Response>() {};
-
-    return apiClient.invokeAPI("SimCardActionsApi.getSimCardAction", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List bulk SIM card actions
    * This API lists a paginated collection of bulk SIM card actions. A bulk SIM card action contains details about a collection of individual SIM card actions.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -210,11 +261,19 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListBulkSIMCardActions200Response listBulkSimCardActions(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
-    return listBulkSimCardActionsWithHttpInfo(pageNumber, pageSize, filterActionType).getData();
-  }
+    public ListBulkSIMCardActions200Response listBulkSimCardActions(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterActionType
+    ) throws ApiException {
+        return listBulkSimCardActionsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterActionType
+        ).getData();
+    }
 
-  /**
+    /**
    * List bulk SIM card actions
    * This API lists a paginated collection of bulk SIM card actions. A bulk SIM card action contains details about a collection of individual SIM card actions.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -230,44 +289,77 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListBulkSIMCardActions200Response> listBulkSimCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/bulk_sim_card_actions";
+    public ApiResponse<
+        ListBulkSIMCardActions200Response
+    > listBulkSimCardActionsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterActionType
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/bulk_sim_card_actions";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[action_type]", filterActionType));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[action_type]",
+                filterActionType
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListBulkSIMCardActions200Response> localVarReturnType = new GenericType<ListBulkSIMCardActions200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("SimCardActionsApi.listBulkSimCardActions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListBulkSIMCardActions200Response> localVarReturnType =
+            new GenericType<ListBulkSIMCardActions200Response>() {};
+
+        return apiClient.invokeAPI(
+            "SimCardActionsApi.listBulkSimCardActions",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * List SIM card actions
    * This API lists a paginated collection of SIM card actions. It enables exploring a collection of existing asynchronous operations using specific filters.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -286,11 +378,25 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListSimCardActions200Response listSimCardActions(Integer pageNumber, Integer pageSize, UUID filterSimCardId, String filterStatus, UUID filterBulkSimCardActionId, String filterActionType) throws ApiException {
-    return listSimCardActionsWithHttpInfo(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType).getData();
-  }
+    public ListSimCardActions200Response listSimCardActions(
+        Integer pageNumber,
+        Integer pageSize,
+        UUID filterSimCardId,
+        String filterStatus,
+        UUID filterBulkSimCardActionId,
+        String filterActionType
+    ) throws ApiException {
+        return listSimCardActionsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterSimCardId,
+            filterStatus,
+            filterBulkSimCardActionId,
+            filterActionType
+        ).getData();
+    }
 
-  /**
+    /**
    * List SIM card actions
    * This API lists a paginated collection of SIM card actions. It enables exploring a collection of existing asynchronous operations using specific filters.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -309,44 +415,93 @@ public class SimCardActionsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListSimCardActions200Response> listSimCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterSimCardId, String filterStatus, UUID filterBulkSimCardActionId, String filterActionType) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/sim_card_actions";
+    public ApiResponse<
+        ListSimCardActions200Response
+    > listSimCardActionsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        UUID filterSimCardId,
+        String filterStatus,
+        UUID filterBulkSimCardActionId,
+        String filterActionType
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/sim_card_actions";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[sim_card_id]", filterSimCardId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[bulk_sim_card_action_id]", filterBulkSimCardActionId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[action_type]", filterActionType));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[sim_card_id]",
+                filterSimCardId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "filter[status]", filterStatus)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[bulk_sim_card_action_id]",
+                filterBulkSimCardActionId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[action_type]",
+                filterActionType
+            )
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListSimCardActions200Response> localVarReturnType = new GenericType<ListSimCardActions200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("SimCardActionsApi.listSimCardActions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
+        GenericType<ListSimCardActions200Response> localVarReturnType =
+            new GenericType<ListSimCardActions200Response>() {};
+
+        return apiClient.invokeAPI(
+            "SimCardActionsApi.listSimCardActions",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -20,15 +19,13 @@ import com.telnyx.sdk.model.AddressResponse;
 import com.telnyx.sdk.model.GetAllAddressResponse;
 import com.telnyx.sdk.model.ValidateAddressRequest;
 import com.telnyx.sdk.model.ValidateAddressResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for AddressesApi
@@ -118,5 +115,4 @@ public class AddressesApiTest {
         //ValidateAddressResponse response = api.validateAddress(validateAddressRequest);
         // TODO: test validations
     }
-
 }

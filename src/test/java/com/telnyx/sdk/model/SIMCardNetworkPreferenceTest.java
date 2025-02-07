@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.MobileOperatorNetworkPreferencesResponse;
@@ -27,15 +26,15 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for SIMCardNetworkPreference
  */
 public class SIMCardNetworkPreferenceTest {
-    private final SIMCardNetworkPreference model = new SIMCardNetworkPreference();
+
+    private final SIMCardNetworkPreference model =
+        new SIMCardNetworkPreference();
 
     /**
      * Model tests for SIMCardNetworkPreference
@@ -84,5 +83,4 @@ public class SIMCardNetworkPreferenceTest {
     public void updatedAtTest() {
         // TODO: test updatedAt
     }
-
 }

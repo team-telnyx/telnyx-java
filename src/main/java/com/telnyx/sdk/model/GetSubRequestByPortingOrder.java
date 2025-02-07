@@ -10,136 +10,153 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * GetSubRequestByPortingOrder
  */
-@JsonPropertyOrder({
-  GetSubRequestByPortingOrder.JSON_PROPERTY_SUB_REQUEST_ID,
-  GetSubRequestByPortingOrder.JSON_PROPERTY_PORT_REQUEST_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        GetSubRequestByPortingOrder.JSON_PROPERTY_SUB_REQUEST_ID,
+        GetSubRequestByPortingOrder.JSON_PROPERTY_PORT_REQUEST_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class GetSubRequestByPortingOrder {
-  public static final String JSON_PROPERTY_SUB_REQUEST_ID = "sub_request_id";
-  private String subRequestId;
 
-  public static final String JSON_PROPERTY_PORT_REQUEST_ID = "port_request_id";
-  private String portRequestId;
+    public static final String JSON_PROPERTY_SUB_REQUEST_ID = "sub_request_id";
+    private String subRequestId;
 
-  public GetSubRequestByPortingOrder() { 
-  }
+    public static final String JSON_PROPERTY_PORT_REQUEST_ID =
+        "port_request_id";
+    private String portRequestId;
 
-  public GetSubRequestByPortingOrder subRequestId(String subRequestId) {
-    this.subRequestId = subRequestId;
-    return this;
-  }
+    public GetSubRequestByPortingOrder() {}
 
-   /**
-   * Identifies the Sub Request associated with the Porting Order
-   * @return subRequestId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe", value = "Identifies the Sub Request associated with the Porting Order")
-  @JsonProperty(JSON_PROPERTY_SUB_REQUEST_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSubRequestId() {
-    return subRequestId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUB_REQUEST_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSubRequestId(String subRequestId) {
-    this.subRequestId = subRequestId;
-  }
-
-
-  public GetSubRequestByPortingOrder portRequestId(String portRequestId) {
-    this.portRequestId = portRequestId;
-    return this;
-  }
-
-   /**
-   * Identifies the Port Request associated with the Porting Order
-   * @return portRequestId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "59b0762a-b274-4f76-ac32-4d5cf0272e66", value = "Identifies the Port Request associated with the Porting Order")
-  @JsonProperty(JSON_PROPERTY_PORT_REQUEST_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPortRequestId() {
-    return portRequestId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PORT_REQUEST_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPortRequestId(String portRequestId) {
-    this.portRequestId = portRequestId;
-  }
-
-
-  /**
-   * Return true if this GetSubRequestByPortingOrder object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public GetSubRequestByPortingOrder subRequestId(String subRequestId) {
+        this.subRequestId = subRequestId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the Sub Request associated with the Porting Order
+     * @return subRequestId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "9787fb5f-cbe5-4de4-b765-3303774ee9fe",
+        value = "Identifies the Sub Request associated with the Porting Order"
+    )
+    @JsonProperty(JSON_PROPERTY_SUB_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSubRequestId() {
+        return subRequestId;
     }
-    GetSubRequestByPortingOrder getSubRequestByPortingOrder = (GetSubRequestByPortingOrder) o;
-    return Objects.equals(this.subRequestId, getSubRequestByPortingOrder.subRequestId) &&
-        Objects.equals(this.portRequestId, getSubRequestByPortingOrder.portRequestId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(subRequestId, portRequestId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class GetSubRequestByPortingOrder {\n");
-    sb.append("    subRequestId: ").append(toIndentedString(subRequestId)).append("\n");
-    sb.append("    portRequestId: ").append(toIndentedString(portRequestId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_SUB_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSubRequestId(String subRequestId) {
+        this.subRequestId = subRequestId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public GetSubRequestByPortingOrder portRequestId(String portRequestId) {
+        this.portRequestId = portRequestId;
+        return this;
+    }
+
+    /**
+     * Identifies the Port Request associated with the Porting Order
+     * @return portRequestId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "59b0762a-b274-4f76-ac32-4d5cf0272e66",
+        value = "Identifies the Port Request associated with the Porting Order"
+    )
+    @JsonProperty(JSON_PROPERTY_PORT_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPortRequestId() {
+        return portRequestId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PORT_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPortRequestId(String portRequestId) {
+        this.portRequestId = portRequestId;
+    }
+
+    /**
+     * Return true if this GetSubRequestByPortingOrder object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GetSubRequestByPortingOrder getSubRequestByPortingOrder =
+            (GetSubRequestByPortingOrder) o;
+        return (
+            Objects.equals(
+                this.subRequestId,
+                getSubRequestByPortingOrder.subRequestId
+            ) &&
+            Objects.equals(
+                this.portRequestId,
+                getSubRequestByPortingOrder.portRequestId
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subRequestId, portRequestId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class GetSubRequestByPortingOrder {\n");
+        sb
+            .append("    subRequestId: ")
+            .append(toIndentedString(subRequestId))
+            .append("\n");
+        sb
+            .append("    portRequestId: ")
+            .append(toIndentedString(portRequestId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

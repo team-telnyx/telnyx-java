@@ -10,39 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.telnyx.sdk.model.GoogleTranscriptionLanguage;
-import com.telnyx.sdk.model.TelnyxTranscriptionLanguage;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -54,15 +33,46 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.GoogleTranscriptionLanguage;
+import com.telnyx.sdk.model.TelnyxTranscriptionLanguage;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using = TranscriptionStartRequestLanguage.TranscriptionStartRequestLanguageDeserializer.class)
-@JsonSerialize(using = TranscriptionStartRequestLanguage.TranscriptionStartRequestLanguageSerializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(
+    using = TranscriptionStartRequestLanguage.TranscriptionStartRequestLanguageDeserializer.class
+)
+@JsonSerialize(
+    using = TranscriptionStartRequestLanguage.TranscriptionStartRequestLanguageSerializer.class
+)
 public class TranscriptionStartRequestLanguage extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(TranscriptionStartRequestLanguage.class.getName());
 
-    public static class TranscriptionStartRequestLanguageSerializer extends StdSerializer<TranscriptionStartRequestLanguage> {
-        public TranscriptionStartRequestLanguageSerializer(Class<TranscriptionStartRequestLanguage> t) {
+    private static final Logger log = Logger.getLogger(
+        TranscriptionStartRequestLanguage.class.getName()
+    );
+
+    public static class TranscriptionStartRequestLanguageSerializer
+        extends StdSerializer<TranscriptionStartRequestLanguage> {
+
+        public TranscriptionStartRequestLanguageSerializer(
+            Class<TranscriptionStartRequestLanguage> t
+        ) {
             super(t);
         }
 
@@ -71,12 +81,18 @@ public class TranscriptionStartRequestLanguage extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(TranscriptionStartRequestLanguage value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            TranscriptionStartRequestLanguage value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class TranscriptionStartRequestLanguageDeserializer extends StdDeserializer<TranscriptionStartRequestLanguage> {
+    public static class TranscriptionStartRequestLanguageDeserializer
+        extends StdDeserializer<TranscriptionStartRequestLanguage> {
+
         public TranscriptionStartRequestLanguageDeserializer() {
             this(TranscriptionStartRequestLanguage.class);
         }
@@ -86,83 +102,180 @@ public class TranscriptionStartRequestLanguage extends AbstractOpenApiSchema {
         }
 
         @Override
-        public TranscriptionStartRequestLanguage deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public TranscriptionStartRequestLanguage deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            boolean typeCoercion = ctxt.isEnabled(
+                MapperFeature.ALLOW_COERCION_OF_SCALARS
+            );
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize GoogleTranscriptionLanguage
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (GoogleTranscriptionLanguage.class.equals(Integer.class) || GoogleTranscriptionLanguage.class.equals(Long.class) || GoogleTranscriptionLanguage.class.equals(Float.class) || GoogleTranscriptionLanguage.class.equals(Double.class) || GoogleTranscriptionLanguage.class.equals(Boolean.class) || GoogleTranscriptionLanguage.class.equals(String.class)) {
+                if (
+                    GoogleTranscriptionLanguage.class.equals(Integer.class) ||
+                    GoogleTranscriptionLanguage.class.equals(Long.class) ||
+                    GoogleTranscriptionLanguage.class.equals(Float.class) ||
+                    GoogleTranscriptionLanguage.class.equals(Double.class) ||
+                    GoogleTranscriptionLanguage.class.equals(Boolean.class) ||
+                    GoogleTranscriptionLanguage.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((GoogleTranscriptionLanguage.class.equals(Integer.class) || GoogleTranscriptionLanguage.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((GoogleTranscriptionLanguage.class.equals(Float.class) || GoogleTranscriptionLanguage.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (GoogleTranscriptionLanguage.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (GoogleTranscriptionLanguage.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                            ((GoogleTranscriptionLanguage.class.equals(
+                                            Integer.class
+                                        ) ||
+                                    GoogleTranscriptionLanguage.class.equals(
+                                            Long.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                            ((GoogleTranscriptionLanguage.class.equals(
+                                            Float.class
+                                        ) ||
+                                    GoogleTranscriptionLanguage.class.equals(
+                                            Double.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                            (GoogleTranscriptionLanguage.class.equals(
+                                        Boolean.class
+                                    ) &&
+                                (token == JsonToken.VALUE_FALSE ||
+                                    token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                            (GoogleTranscriptionLanguage.class.equals(
+                                        String.class
+                                    ) &&
+                                token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(GoogleTranscriptionLanguage.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(GoogleTranscriptionLanguage.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'GoogleTranscriptionLanguage'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'GoogleTranscriptionLanguage'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'GoogleTranscriptionLanguage'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'GoogleTranscriptionLanguage'",
+                    e
+                );
             }
 
             // deserialize TelnyxTranscriptionLanguage
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (TelnyxTranscriptionLanguage.class.equals(Integer.class) || TelnyxTranscriptionLanguage.class.equals(Long.class) || TelnyxTranscriptionLanguage.class.equals(Float.class) || TelnyxTranscriptionLanguage.class.equals(Double.class) || TelnyxTranscriptionLanguage.class.equals(Boolean.class) || TelnyxTranscriptionLanguage.class.equals(String.class)) {
+                if (
+                    TelnyxTranscriptionLanguage.class.equals(Integer.class) ||
+                    TelnyxTranscriptionLanguage.class.equals(Long.class) ||
+                    TelnyxTranscriptionLanguage.class.equals(Float.class) ||
+                    TelnyxTranscriptionLanguage.class.equals(Double.class) ||
+                    TelnyxTranscriptionLanguage.class.equals(Boolean.class) ||
+                    TelnyxTranscriptionLanguage.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((TelnyxTranscriptionLanguage.class.equals(Integer.class) || TelnyxTranscriptionLanguage.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((TelnyxTranscriptionLanguage.class.equals(Float.class) || TelnyxTranscriptionLanguage.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (TelnyxTranscriptionLanguage.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (TelnyxTranscriptionLanguage.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                            ((TelnyxTranscriptionLanguage.class.equals(
+                                            Integer.class
+                                        ) ||
+                                    TelnyxTranscriptionLanguage.class.equals(
+                                            Long.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                            ((TelnyxTranscriptionLanguage.class.equals(
+                                            Float.class
+                                        ) ||
+                                    TelnyxTranscriptionLanguage.class.equals(
+                                            Double.class
+                                        )) &&
+                                token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                            (TelnyxTranscriptionLanguage.class.equals(
+                                        Boolean.class
+                                    ) &&
+                                (token == JsonToken.VALUE_FALSE ||
+                                    token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                            (TelnyxTranscriptionLanguage.class.equals(
+                                        String.class
+                                    ) &&
+                                token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(TelnyxTranscriptionLanguage.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(TelnyxTranscriptionLanguage.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'TelnyxTranscriptionLanguage'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'TelnyxTranscriptionLanguage'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'TelnyxTranscriptionLanguage'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'TelnyxTranscriptionLanguage'",
+                    e
+                );
             }
 
             if (match == 1) {
-                TranscriptionStartRequestLanguage ret = new TranscriptionStartRequestLanguage();
+                TranscriptionStartRequestLanguage ret =
+                    new TranscriptionStartRequestLanguage();
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for TranscriptionStartRequestLanguage: %d classes match result, expected 1", match));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for TranscriptionStartRequestLanguage: %d classes match result, expected 1",
+                    match
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public TranscriptionStartRequestLanguage getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "TranscriptionStartRequestLanguage cannot be null");
+        public TranscriptionStartRequestLanguage getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "TranscriptionStartRequestLanguage cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public TranscriptionStartRequestLanguage() {
         super("oneOf", Boolean.FALSE);
@@ -179,19 +292,39 @@ public class TranscriptionStartRequestLanguage extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("GoogleTranscriptionLanguage", new GenericType<GoogleTranscriptionLanguage>() {
-        });
-        schemas.put("TelnyxTranscriptionLanguage", new GenericType<TelnyxTranscriptionLanguage>() {
-        });
-        JSON.registerDescendants(TranscriptionStartRequestLanguage.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+            "GoogleTranscriptionLanguage",
+            new GenericType<GoogleTranscriptionLanguage>() {}
+        );
+        schemas.put(
+            "TelnyxTranscriptionLanguage",
+            new GenericType<TelnyxTranscriptionLanguage>() {}
+        );
+        JSON.registerDescendants(
+            TranscriptionStartRequestLanguage.class,
+            Collections.unmodifiableMap(schemas)
+        );
         // Initialize and register the discriminator mappings.
         Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
         mappings.put("A", GoogleTranscriptionLanguage.class);
         mappings.put("B", TelnyxTranscriptionLanguage.class);
-        mappings.put("GoogleTranscriptionLanguage", GoogleTranscriptionLanguage.class);
-        mappings.put("TelnyxTranscriptionLanguage", TelnyxTranscriptionLanguage.class);
-        mappings.put("TranscriptionStartRequest_language", TranscriptionStartRequestLanguage.class);
-        JSON.registerDiscriminator(TranscriptionStartRequestLanguage.class, "transcription_engine", mappings);
+        mappings.put(
+            "GoogleTranscriptionLanguage",
+            GoogleTranscriptionLanguage.class
+        );
+        mappings.put(
+            "TelnyxTranscriptionLanguage",
+            TelnyxTranscriptionLanguage.class
+        );
+        mappings.put(
+            "TranscriptionStartRequest_language",
+            TranscriptionStartRequestLanguage.class
+        );
+        JSON.registerDiscriminator(
+            TranscriptionStartRequestLanguage.class,
+            "transcription_engine",
+            mappings
+        );
     }
 
     @Override
@@ -209,17 +342,31 @@ public class TranscriptionStartRequestLanguage extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(GoogleTranscriptionLanguage.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                GoogleTranscriptionLanguage.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(TelnyxTranscriptionLanguage.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                TelnyxTranscriptionLanguage.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be GoogleTranscriptionLanguage, TelnyxTranscriptionLanguage");
+        throw new RuntimeException(
+            "Invalid instance type. Must be GoogleTranscriptionLanguage, TelnyxTranscriptionLanguage"
+        );
     }
 
     /**
@@ -240,8 +387,9 @@ public class TranscriptionStartRequestLanguage extends AbstractOpenApiSchema {
      * @return The actual instance of `GoogleTranscriptionLanguage`
      * @throws ClassCastException if the instance is not `GoogleTranscriptionLanguage`
      */
-    public GoogleTranscriptionLanguage getGoogleTranscriptionLanguage() throws ClassCastException {
-        return (GoogleTranscriptionLanguage)super.getActualInstance();
+    public GoogleTranscriptionLanguage getGoogleTranscriptionLanguage()
+        throws ClassCastException {
+        return (GoogleTranscriptionLanguage) super.getActualInstance();
     }
 
     /**
@@ -251,9 +399,8 @@ public class TranscriptionStartRequestLanguage extends AbstractOpenApiSchema {
      * @return The actual instance of `TelnyxTranscriptionLanguage`
      * @throws ClassCastException if the instance is not `TelnyxTranscriptionLanguage`
      */
-    public TelnyxTranscriptionLanguage getTelnyxTranscriptionLanguage() throws ClassCastException {
-        return (TelnyxTranscriptionLanguage)super.getActualInstance();
+    public TelnyxTranscriptionLanguage getTelnyxTranscriptionLanguage()
+        throws ClassCastException {
+        return (TelnyxTranscriptionLanguage) super.getActualInstance();
     }
-
 }
-

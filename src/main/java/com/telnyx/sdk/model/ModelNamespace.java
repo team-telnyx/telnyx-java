@@ -10,65 +10,62 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Provide a namespace to our supported models.
  */
 public enum ModelNamespace {
-  
-  META_LLAMA_LLAMA_2_13B_CHAT_HF("meta-llama/Llama-2-13b-chat-hf"),
-  
-  MISTRALAI_MISTRAL_7B_INSTRUCT_V0_1("mistralai/Mistral-7B-Instruct-v0.1"),
-  
-  TRELIS_LLAMA_2_7B_CHAT_HF_FUNCTION_CALLING_V2("Trelis/Llama-2-7b-chat-hf-function-calling-v2"),
-  
-  OPENAI_GPT_3_5_TURBO("openai/gpt-3.5-turbo"),
-  
-  OPENAI_GPT_3_5_TURBO_16K("openai/gpt-3.5-turbo-16k"),
-  
-  OPENAI_GPT_4("openai/gpt-4"),
-  
-  OPENAI_GPT_4_32K("openai/gpt-4-32k");
+    META_LLAMA_LLAMA_2_13B_CHAT_HF("meta-llama/Llama-2-13b-chat-hf"),
 
-  private String value;
+    MISTRALAI_MISTRAL_7B_INSTRUCT_V0_1("mistralai/Mistral-7B-Instruct-v0.1"),
 
-  ModelNamespace(String value) {
-    this.value = value;
-  }
+    TRELIS_LLAMA_2_7B_CHAT_HF_FUNCTION_CALLING_V2(
+        "Trelis/Llama-2-7b-chat-hf-function-calling-v2"
+    ),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    OPENAI_GPT_3_5_TURBO("openai/gpt-3.5-turbo"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    OPENAI_GPT_3_5_TURBO_16K("openai/gpt-3.5-turbo-16k"),
 
-  @JsonCreator
-  public static ModelNamespace fromValue(String value) {
-    for (ModelNamespace b : ModelNamespace.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    OPENAI_GPT_4("openai/gpt-4"),
+
+    OPENAI_GPT_4_32K("openai/gpt-4-32k");
+
+    private String value;
+
+    ModelNamespace(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ModelNamespace fromValue(String value) {
+        for (ModelNamespace b : ModelNamespace.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

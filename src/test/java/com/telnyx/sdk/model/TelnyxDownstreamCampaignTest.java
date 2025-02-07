@@ -10,33 +10,33 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.Set;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
-
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Model tests for TelnyxDownstreamCampaign
  */
 public class TelnyxDownstreamCampaignTest {
-    private final TelnyxDownstreamCampaign model = new TelnyxDownstreamCampaign();
+
+    private final TelnyxDownstreamCampaign model =
+        new TelnyxDownstreamCampaign();
 
     /**
      * Model tests for TelnyxDownstreamCampaign
@@ -341,5 +341,4 @@ public class TelnyxDownstreamCampaignTest {
     public void updatedAtTest() {
         // TODO: test updatedAt
     }
-
 }

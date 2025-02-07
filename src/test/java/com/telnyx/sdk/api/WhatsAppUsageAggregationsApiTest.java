@@ -10,34 +10,32 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.WhatsAppUsageAggregationsResponseContainer;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for WhatsAppUsageAggregationsApi
  */
 public class WhatsAppUsageAggregationsApiTest {
 
-    private final WhatsAppUsageAggregationsApi api = new WhatsAppUsageAggregationsApi();
+    private final WhatsAppUsageAggregationsApi api =
+        new WhatsAppUsageAggregationsApi();
 
     /**
-     * 
      *
-     * Generate and fetch WhatsApp usage aggregations synchronously. This endpoint will both generate and fetch the WhatsApp aggregations over a specified time period. 
+     *
+     * Generate and fetch WhatsApp usage aggregations synchronously. This endpoint will both generate and fetch the WhatsApp aggregations over a specified time period.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -49,5 +47,4 @@ public class WhatsAppUsageAggregationsApiTest {
         //WhatsAppUsageAggregationsResponseContainer response = api.getUsageAggregationsSync(startDate, endDate);
         // TODO: test validations
     }
-
 }

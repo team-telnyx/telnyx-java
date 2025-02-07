@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,23 +21,22 @@ import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetAllPrivateWirelessGatewaysResponse;
 import com.telnyx.sdk.model.GetPrivateWirelessGatewayResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for PrivateWirelessGatewaysApi
  */
 public class PrivateWirelessGatewaysApiTest {
 
-    private final PrivateWirelessGatewaysApi api = new PrivateWirelessGatewaysApi();
+    private final PrivateWirelessGatewaysApi api =
+        new PrivateWirelessGatewaysApi();
 
     /**
      * Create a Private Wireless Gateway
@@ -105,5 +103,4 @@ public class PrivateWirelessGatewaysApiTest {
         //GetAllPrivateWirelessGatewaysResponse response = api.getPrivateWirelessGateways(pageNumber, pageSize, filterName, filterIpRange, filterRegionCode, filterCreatedAt, filterUpdatedAt);
         // TODO: test validations
     }
-
 }

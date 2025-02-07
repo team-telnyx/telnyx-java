@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for SubNumberOrderPhoneNumberRegulatoryRequirementsInner
  */
 public class SubNumberOrderPhoneNumberRegulatoryRequirementsInnerTest {
-    private final SubNumberOrderPhoneNumberRegulatoryRequirementsInner model = new SubNumberOrderPhoneNumberRegulatoryRequirementsInner();
+
+    private final SubNumberOrderPhoneNumberRegulatoryRequirementsInner model =
+        new SubNumberOrderPhoneNumberRegulatoryRequirementsInner();
 
     /**
      * Model tests for SubNumberOrderPhoneNumberRegulatoryRequirementsInner
@@ -70,5 +70,4 @@ public class SubNumberOrderPhoneNumberRegulatoryRequirementsInnerTest {
     public void statusTest() {
         // TODO: test status
     }
-
 }

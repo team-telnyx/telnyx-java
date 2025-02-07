@@ -10,170 +10,185 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.AccessControlIpIpAddressType;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * AccessControlIpCreate
  */
-@JsonPropertyOrder({
-  AccessControlIpCreate.JSON_PROPERTY_IP_ADDRESS,
-  AccessControlIpCreate.JSON_PROPERTY_IP_ADDRESS_TYPE,
-  AccessControlIpCreate.JSON_PROPERTY_DESCRIPTION
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        AccessControlIpCreate.JSON_PROPERTY_IP_ADDRESS,
+        AccessControlIpCreate.JSON_PROPERTY_IP_ADDRESS_TYPE,
+        AccessControlIpCreate.JSON_PROPERTY_DESCRIPTION,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class AccessControlIpCreate {
-  public static final String JSON_PROPERTY_IP_ADDRESS = "ip_address";
-  private String ipAddress;
 
-  public static final String JSON_PROPERTY_IP_ADDRESS_TYPE = "ip_address_type";
-  private AccessControlIpIpAddressType ipAddressType;
+    public static final String JSON_PROPERTY_IP_ADDRESS = "ip_address";
+    private String ipAddress;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
+    public static final String JSON_PROPERTY_IP_ADDRESS_TYPE =
+        "ip_address_type";
+    private AccessControlIpIpAddressType ipAddressType;
 
-  public AccessControlIpCreate() { 
-  }
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    private String description;
 
-  public AccessControlIpCreate ipAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
-    return this;
-  }
+    public AccessControlIpCreate() {}
 
-   /**
-   * The IP address for which you are saving an access control IP record. Must be a single IPv4 address. Cannot be a range of IP addresses or use CIDR notation.
-   * @return ipAddress
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "100.101.102.103", required = true, value = "The IP address for which you are saving an access control IP record. Must be a single IPv4 address. Cannot be a range of IP addresses or use CIDR notation.")
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getIpAddress() {
-    return ipAddress;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIpAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
-  }
-
-
-  public AccessControlIpCreate ipAddressType(AccessControlIpIpAddressType ipAddressType) {
-    this.ipAddressType = ipAddressType;
-    return this;
-  }
-
-   /**
-   * Get ipAddressType
-   * @return ipAddressType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public AccessControlIpIpAddressType getIpAddressType() {
-    return ipAddressType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIpAddressType(AccessControlIpIpAddressType ipAddressType) {
-    this.ipAddressType = ipAddressType;
-  }
-
-
-  public AccessControlIpCreate description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * User-supplied freeform textual description field. Maximum length of 150 characters is enforced.
-   * @return description
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Signaling IP for system1", value = "User-supplied freeform textual description field. Maximum length of 150 characters is enforced.")
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  /**
-   * Return true if this AccessControlIpCreate object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AccessControlIpCreate ipAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The IP address for which you are saving an access control IP record. Must be a single IPv4 address. Cannot be a range of IP addresses or use CIDR notation.
+     * @return ipAddress
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "100.101.102.103",
+        required = true,
+        value = "The IP address for which you are saving an access control IP record. Must be a single IPv4 address. Cannot be a range of IP addresses or use CIDR notation."
+    )
+    @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getIpAddress() {
+        return ipAddress;
     }
-    AccessControlIpCreate accessControlIpCreate = (AccessControlIpCreate) o;
-    return Objects.equals(this.ipAddress, accessControlIpCreate.ipAddress) &&
-        Objects.equals(this.ipAddressType, accessControlIpCreate.ipAddressType) &&
-        Objects.equals(this.description, accessControlIpCreate.description);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(ipAddress, ipAddressType, description);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AccessControlIpCreate {\n");
-    sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
-    sb.append("    ipAddressType: ").append(toIndentedString(ipAddressType)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public AccessControlIpCreate ipAddressType(
+        AccessControlIpIpAddressType ipAddressType
+    ) {
+        this.ipAddressType = ipAddressType;
+        return this;
+    }
+
+    /**
+     * Get ipAddressType
+     * @return ipAddressType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_IP_ADDRESS_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AccessControlIpIpAddressType getIpAddressType() {
+        return ipAddressType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IP_ADDRESS_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIpAddressType(AccessControlIpIpAddressType ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    public AccessControlIpCreate description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * User-supplied freeform textual description field. Maximum length of 150 characters is enforced.
+     * @return description
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Signaling IP for system1",
+        value = "User-supplied freeform textual description field. Maximum length of 150 characters is enforced."
+    )
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Return true if this AccessControlIpCreate object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AccessControlIpCreate accessControlIpCreate = (AccessControlIpCreate) o;
+        return (
+            Objects.equals(this.ipAddress, accessControlIpCreate.ipAddress) &&
+            Objects.equals(
+                this.ipAddressType,
+                accessControlIpCreate.ipAddressType
+            ) &&
+            Objects.equals(this.description, accessControlIpCreate.description)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ipAddress, ipAddressType, description);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AccessControlIpCreate {\n");
+        sb
+            .append("    ipAddress: ")
+            .append(toIndentedString(ipAddress))
+            .append("\n");
+        sb
+            .append("    ipAddressType: ")
+            .append(toIndentedString(ipAddressType))
+            .append("\n");
+        sb
+            .append("    description: ")
+            .append(toIndentedString(description))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

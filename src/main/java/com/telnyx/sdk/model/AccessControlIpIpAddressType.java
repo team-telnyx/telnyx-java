@@ -10,58 +10,53 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Deprecated field. This field originally indicated the type of the access control IP. If a value is specified, it must be either &#x60;media&#x60; or &#x60;signaling&#x60;. Other values are not allowed. May be left blank.
  */
 public enum AccessControlIpIpAddressType {
-  
-  EMPTY(""),
-  
-  MEDIA("media"),
-  
-  SIGNALING("signaling");
+    EMPTY(""),
 
-  private String value;
+    MEDIA("media"),
 
-  AccessControlIpIpAddressType(String value) {
-    this.value = value;
-  }
+    SIGNALING("signaling");
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    private String value;
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static AccessControlIpIpAddressType fromValue(String value) {
-    for (AccessControlIpIpAddressType b : AccessControlIpIpAddressType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    AccessControlIpIpAddressType(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AccessControlIpIpAddressType fromValue(String value) {
+        for (AccessControlIpIpAddressType b : AccessControlIpIpAddressType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

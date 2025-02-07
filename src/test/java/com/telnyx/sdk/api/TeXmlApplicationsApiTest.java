@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,15 +18,13 @@ import com.telnyx.sdk.model.CreateTexmlApplicationRequest;
 import com.telnyx.sdk.model.InlineResponse2001;
 import com.telnyx.sdk.model.InlineResponse2011;
 import com.telnyx.sdk.model.UpdateTexmlApplicationRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for TeXmlApplicationsApi
@@ -115,5 +112,4 @@ public class TeXmlApplicationsApiTest {
         //InlineResponse2011 response = api.updateTexmlApplication(id, updateTexmlApplicationRequest);
         // TODO: test validations
     }
-
 }

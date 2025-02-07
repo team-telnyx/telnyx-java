@@ -1,52 +1,52 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
-import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.WhatsAppUsageAggregationsResponseContainer;
-
+import jakarta.ws.rs.core.GenericType;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class WhatsAppUsageAggregationsApi {
-  private ApiClient apiClient;
 
-  public WhatsAppUsageAggregationsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public WhatsAppUsageAggregationsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public WhatsAppUsageAggregationsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public WhatsAppUsageAggregationsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * 
    * Generate and fetch WhatsApp usage aggregations synchronously. This endpoint will both generate and fetch the WhatsApp aggregations over a specified time period. 
    * @param startDate  (optional)
@@ -59,11 +59,17 @@ public class WhatsAppUsageAggregationsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public WhatsAppUsageAggregationsResponseContainer getUsageAggregationsSync(OffsetDateTime startDate, OffsetDateTime endDate) throws ApiException {
-    return getUsageAggregationsSyncWithHttpInfo(startDate, endDate).getData();
-  }
+    public WhatsAppUsageAggregationsResponseContainer getUsageAggregationsSync(
+        OffsetDateTime startDate,
+        OffsetDateTime endDate
+    ) throws ApiException {
+        return getUsageAggregationsSyncWithHttpInfo(
+            startDate,
+            endDate
+        ).getData();
+    }
 
-  /**
+    /**
    * 
    * Generate and fetch WhatsApp usage aggregations synchronously. This endpoint will both generate and fetch the WhatsApp aggregations over a specified time period. 
    * @param startDate  (optional)
@@ -76,40 +82,68 @@ public class WhatsAppUsageAggregationsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<WhatsAppUsageAggregationsResponseContainer> getUsageAggregationsSyncWithHttpInfo(OffsetDateTime startDate, OffsetDateTime endDate) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/whatsapp_usage_aggregations";
+    public ApiResponse<
+        WhatsAppUsageAggregationsResponseContainer
+    > getUsageAggregationsSyncWithHttpInfo(
+        OffsetDateTime startDate,
+        OffsetDateTime endDate
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/whatsapp_usage_aggregations";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "start_date", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "end_date", endDate));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "start_date", startDate)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "end_date", endDate)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<WhatsAppUsageAggregationsResponseContainer> localVarReturnType = new GenericType<WhatsAppUsageAggregationsResponseContainer>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("WhatsAppUsageAggregationsApi.getUsageAggregationsSync", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
+        GenericType<
+            WhatsAppUsageAggregationsResponseContainer
+        > localVarReturnType = new GenericType<
+            WhatsAppUsageAggregationsResponseContainer
+        >() {};
+
+        return apiClient.invokeAPI(
+            "WhatsAppUsageAggregationsApi.getUsageAggregationsSync",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
 }

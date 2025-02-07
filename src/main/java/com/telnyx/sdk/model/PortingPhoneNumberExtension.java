@@ -10,284 +10,343 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.PortingPhoneNumberExtensionActivationRangesInner;
 import com.telnyx.sdk.model.PortingPhoneNumberExtensionExtensionRange;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * PortingPhoneNumberExtension
  */
-@JsonPropertyOrder({
-  PortingPhoneNumberExtension.JSON_PROPERTY_ID,
-  PortingPhoneNumberExtension.JSON_PROPERTY_PORTING_PHONE_NUMBER_ID,
-  PortingPhoneNumberExtension.JSON_PROPERTY_EXTENSION_RANGE,
-  PortingPhoneNumberExtension.JSON_PROPERTY_ACTIVATION_RANGES,
-  PortingPhoneNumberExtension.JSON_PROPERTY_RECORD_TYPE,
-  PortingPhoneNumberExtension.JSON_PROPERTY_CREATED_AT,
-  PortingPhoneNumberExtension.JSON_PROPERTY_UPDATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        PortingPhoneNumberExtension.JSON_PROPERTY_ID,
+        PortingPhoneNumberExtension.JSON_PROPERTY_PORTING_PHONE_NUMBER_ID,
+        PortingPhoneNumberExtension.JSON_PROPERTY_EXTENSION_RANGE,
+        PortingPhoneNumberExtension.JSON_PROPERTY_ACTIVATION_RANGES,
+        PortingPhoneNumberExtension.JSON_PROPERTY_RECORD_TYPE,
+        PortingPhoneNumberExtension.JSON_PROPERTY_CREATED_AT,
+        PortingPhoneNumberExtension.JSON_PROPERTY_UPDATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PortingPhoneNumberExtension {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_PORTING_PHONE_NUMBER_ID = "porting_phone_number_id";
-  private UUID portingPhoneNumberId;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_EXTENSION_RANGE = "extension_range";
-  private PortingPhoneNumberExtensionExtensionRange extensionRange;
+    public static final String JSON_PROPERTY_PORTING_PHONE_NUMBER_ID =
+        "porting_phone_number_id";
+    private UUID portingPhoneNumberId;
 
-  public static final String JSON_PROPERTY_ACTIVATION_RANGES = "activation_ranges";
-  private List<PortingPhoneNumberExtensionActivationRangesInner> activationRanges = null;
+    public static final String JSON_PROPERTY_EXTENSION_RANGE =
+        "extension_range";
+    private PortingPhoneNumberExtensionExtensionRange extensionRange;
 
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+    public static final String JSON_PROPERTY_ACTIVATION_RANGES =
+        "activation_ranges";
+    private List<
+        PortingPhoneNumberExtensionActivationRangesInner
+    > activationRanges = null;
 
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private OffsetDateTime createdAt;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private OffsetDateTime updatedAt;
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private OffsetDateTime createdAt;
 
-  public PortingPhoneNumberExtension() { 
-  }
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private OffsetDateTime updatedAt;
 
-  @JsonCreator
-  public PortingPhoneNumberExtension(
-    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
-    @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt, 
-    @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt
-  ) {
-    this();
-    this.id = id;
-    this.recordType = recordType;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-  }
+    public PortingPhoneNumberExtension() {}
 
-   /**
-   * Uniquely identifies this porting phone number extension.
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "f24151b6-3389-41d3-8747-7dd8c681e5e2", value = "Uniquely identifies this porting phone number extension.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-
-
-  public PortingPhoneNumberExtension portingPhoneNumberId(UUID portingPhoneNumberId) {
-    this.portingPhoneNumberId = portingPhoneNumberId;
-    return this;
-  }
-
-   /**
-   * Identifies the porting phone number associated with this porting phone number extension.
-   * @return portingPhoneNumberId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "f24151b6-3389-41d3-8747-7dd8c681e5e2", value = "Identifies the porting phone number associated with this porting phone number extension.")
-  @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getPortingPhoneNumberId() {
-    return portingPhoneNumberId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPortingPhoneNumberId(UUID portingPhoneNumberId) {
-    this.portingPhoneNumberId = portingPhoneNumberId;
-  }
-
-
-  public PortingPhoneNumberExtension extensionRange(PortingPhoneNumberExtensionExtensionRange extensionRange) {
-    this.extensionRange = extensionRange;
-    return this;
-  }
-
-   /**
-   * Get extensionRange
-   * @return extensionRange
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_EXTENSION_RANGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PortingPhoneNumberExtensionExtensionRange getExtensionRange() {
-    return extensionRange;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXTENSION_RANGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExtensionRange(PortingPhoneNumberExtensionExtensionRange extensionRange) {
-    this.extensionRange = extensionRange;
-  }
-
-
-  public PortingPhoneNumberExtension activationRanges(List<PortingPhoneNumberExtensionActivationRangesInner> activationRanges) {
-    this.activationRanges = activationRanges;
-    return this;
-  }
-
-  public PortingPhoneNumberExtension addactivationRangesItem(PortingPhoneNumberExtensionActivationRangesInner activationRangesItem) {
-    if (this.activationRanges == null) {
-      this.activationRanges = new ArrayList<>();
+    @JsonCreator
+    public PortingPhoneNumberExtension(
+        @JsonProperty(JSON_PROPERTY_ID) UUID id,
+        @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType,
+        @JsonProperty(JSON_PROPERTY_CREATED_AT) OffsetDateTime createdAt,
+        @JsonProperty(JSON_PROPERTY_UPDATED_AT) OffsetDateTime updatedAt
+    ) {
+        this();
+        this.id = id;
+        this.recordType = recordType;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
-    this.activationRanges.add(activationRangesItem);
-    return this;
-  }
 
-   /**
-   * Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges.
-   * @return activationRanges
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges.")
-  @JsonProperty(JSON_PROPERTY_ACTIVATION_RANGES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PortingPhoneNumberExtensionActivationRangesInner> getActivationRanges() {
-    return activationRanges;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ACTIVATION_RANGES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setActivationRanges(List<PortingPhoneNumberExtensionActivationRangesInner> activationRanges) {
-    this.activationRanges = activationRanges;
-  }
-
-
-   /**
-   * Identifies the type of the resource.
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "porting_phone_number_extension", value = "Identifies the type of the resource.")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-   /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-
-
-
-   /**
-   * ISO 8601 formatted date indicating when the resource was last updated.
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was last updated.")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-
-
-  /**
-   * Return true if this PortingPhoneNumberExtension object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Uniquely identifies this porting phone number extension.
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "f24151b6-3389-41d3-8747-7dd8c681e5e2",
+        value = "Uniquely identifies this porting phone number extension."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public PortingPhoneNumberExtension portingPhoneNumberId(
+        UUID portingPhoneNumberId
+    ) {
+        this.portingPhoneNumberId = portingPhoneNumberId;
+        return this;
     }
-    PortingPhoneNumberExtension portingPhoneNumberExtension = (PortingPhoneNumberExtension) o;
-    return Objects.equals(this.id, portingPhoneNumberExtension.id) &&
-        Objects.equals(this.portingPhoneNumberId, portingPhoneNumberExtension.portingPhoneNumberId) &&
-        Objects.equals(this.extensionRange, portingPhoneNumberExtension.extensionRange) &&
-        Objects.equals(this.activationRanges, portingPhoneNumberExtension.activationRanges) &&
-        Objects.equals(this.recordType, portingPhoneNumberExtension.recordType) &&
-        Objects.equals(this.createdAt, portingPhoneNumberExtension.createdAt) &&
-        Objects.equals(this.updatedAt, portingPhoneNumberExtension.updatedAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, portingPhoneNumberId, extensionRange, activationRanges, recordType, createdAt, updatedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PortingPhoneNumberExtension {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    portingPhoneNumberId: ").append(toIndentedString(portingPhoneNumberId)).append("\n");
-    sb.append("    extensionRange: ").append(toIndentedString(extensionRange)).append("\n");
-    sb.append("    activationRanges: ").append(toIndentedString(activationRanges)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Identifies the porting phone number associated with this porting phone number extension.
+     * @return portingPhoneNumberId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "f24151b6-3389-41d3-8747-7dd8c681e5e2",
+        value = "Identifies the porting phone number associated with this porting phone number extension."
+    )
+    @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getPortingPhoneNumberId() {
+        return portingPhoneNumberId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPortingPhoneNumberId(UUID portingPhoneNumberId) {
+        this.portingPhoneNumberId = portingPhoneNumberId;
+    }
+
+    public PortingPhoneNumberExtension extensionRange(
+        PortingPhoneNumberExtensionExtensionRange extensionRange
+    ) {
+        this.extensionRange = extensionRange;
+        return this;
+    }
+
+    /**
+     * Get extensionRange
+     * @return extensionRange
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_EXTENSION_RANGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PortingPhoneNumberExtensionExtensionRange getExtensionRange() {
+        return extensionRange;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTENSION_RANGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExtensionRange(
+        PortingPhoneNumberExtensionExtensionRange extensionRange
+    ) {
+        this.extensionRange = extensionRange;
+    }
+
+    public PortingPhoneNumberExtension activationRanges(
+        List<PortingPhoneNumberExtensionActivationRangesInner> activationRanges
+    ) {
+        this.activationRanges = activationRanges;
+        return this;
+    }
+
+    public PortingPhoneNumberExtension addactivationRangesItem(
+        PortingPhoneNumberExtensionActivationRangesInner activationRangesItem
+    ) {
+        if (this.activationRanges == null) {
+            this.activationRanges = new ArrayList<>();
+        }
+        this.activationRanges.add(activationRangesItem);
+        return this;
+    }
+
+    /**
+     * Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges.
+     * @return activationRanges
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges."
+    )
+    @JsonProperty(JSON_PROPERTY_ACTIVATION_RANGES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<
+        PortingPhoneNumberExtensionActivationRangesInner
+    > getActivationRanges() {
+        return activationRanges;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACTIVATION_RANGES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setActivationRanges(
+        List<PortingPhoneNumberExtensionActivationRangesInner> activationRanges
+    ) {
+        this.activationRanges = activationRanges;
+    }
+
+    /**
+     * Identifies the type of the resource.
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "porting_phone_number_extension",
+        value = "Identifies the type of the resource."
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-03-19T10:07:15.527Z",
+        value = "ISO 8601 formatted date indicating when the resource was created."
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was last updated.
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-03-19T10:07:15.527Z",
+        value = "ISO 8601 formatted date indicating when the resource was last updated."
+    )
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Return true if this PortingPhoneNumberExtension object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PortingPhoneNumberExtension portingPhoneNumberExtension =
+            (PortingPhoneNumberExtension) o;
+        return (
+            Objects.equals(this.id, portingPhoneNumberExtension.id) &&
+            Objects.equals(
+                this.portingPhoneNumberId,
+                portingPhoneNumberExtension.portingPhoneNumberId
+            ) &&
+            Objects.equals(
+                this.extensionRange,
+                portingPhoneNumberExtension.extensionRange
+            ) &&
+            Objects.equals(
+                this.activationRanges,
+                portingPhoneNumberExtension.activationRanges
+            ) &&
+            Objects.equals(
+                this.recordType,
+                portingPhoneNumberExtension.recordType
+            ) &&
+            Objects.equals(
+                this.createdAt,
+                portingPhoneNumberExtension.createdAt
+            ) &&
+            Objects.equals(
+                this.updatedAt,
+                portingPhoneNumberExtension.updatedAt
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            id,
+            portingPhoneNumberId,
+            extensionRange,
+            activationRanges,
+            recordType,
+            createdAt,
+            updatedAt
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PortingPhoneNumberExtension {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    portingPhoneNumberId: ")
+            .append(toIndentedString(portingPhoneNumberId))
+            .append("\n");
+        sb
+            .append("    extensionRange: ")
+            .append(toIndentedString(extensionRange))
+            .append("\n");
+        sb
+            .append("    activationRanges: ")
+            .append(toIndentedString(activationRanges))
+            .append("\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

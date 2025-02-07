@@ -10,28 +10,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.*;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.*;
+import java.util.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
-import java.util.*;
-
-import static org.junit.Assert.*;
 
 /**
  * API tests for NumberOrderRegulatoryRequirementsApi
  */
 public class NumberOrderRegulatoryRequirementsApiTest {
 
-    private final NumberOrderRegulatoryRequirementsApi api = new NumberOrderRegulatoryRequirementsApi();
+    private final NumberOrderRegulatoryRequirementsApi api =
+        new NumberOrderRegulatoryRequirementsApi();
     private final NumberSearchApi numberSearchApi = new NumberSearchApi();
     private final NumberOrdersApi numberOrdersApi = new NumberOrdersApi();
 
@@ -41,7 +39,8 @@ public class NumberOrderRegulatoryRequirementsApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
@@ -52,9 +51,11 @@ public class NumberOrderRegulatoryRequirementsApiTest {
      */
     @Ignore
     @Test
-    public void listNumberOrderRegulatoryRequirements_whenNoFilterCriteria_returnsAllRegulatoryRequirements() throws ApiException {
-        ListNumberOrderRegulatoryRequirementsResponse response = api.listNumberOrderRegulatoryRequirements()
-                .execute();
+    public void listNumberOrderRegulatoryRequirements_whenNoFilterCriteria_returnsAllRegulatoryRequirements()
+        throws ApiException {
+        ListNumberOrderRegulatoryRequirementsResponse response = api
+            .listNumberOrderRegulatoryRequirements()
+            .execute();
 
         assertNotNull(response);
         assertFalse(response.getData().isEmpty());
@@ -69,10 +70,10 @@ public class NumberOrderRegulatoryRequirementsApiTest {
      */
     @Ignore
     @Test
-    public void retrieveNumberOrderRegulatoryRequirementTest() throws ApiException {
+    public void retrieveNumberOrderRegulatoryRequirementTest()
+        throws ApiException {
         //String requirementId = null;
         //NumberOrderRegulatoryRequirementResponse response = api.retrieveNumberOrderRegulatoryRequirement(requirementId);
         // TODO: test validations
     }
-
 }

@@ -10,162 +10,174 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.InteractiveButtonType;
 import com.telnyx.sdk.model.Reply;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Objects;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * InteractiveButton
  */
-@JsonPropertyOrder({
-  InteractiveButton.JSON_PROPERTY_TYPE,
-  InteractiveButton.JSON_PROPERTY_REPLY
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        InteractiveButton.JSON_PROPERTY_TYPE,
+        InteractiveButton.JSON_PROPERTY_REPLY,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class InteractiveButton {
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private JsonNullable<InteractiveButtonType> type = JsonNullable.<InteractiveButtonType>undefined();
 
-  public static final String JSON_PROPERTY_REPLY = "reply";
-  private Reply reply;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private JsonNullable<InteractiveButtonType> type = JsonNullable.<
+            InteractiveButtonType
+        >undefined();
 
-  public InteractiveButton() { 
-  }
+    public static final String JSON_PROPERTY_REPLY = "reply";
+    private Reply reply;
 
-  public InteractiveButton type(InteractiveButtonType type) {
-    this.type = JsonNullable.<InteractiveButtonType>of(type);
-    return this;
-  }
+    public InteractiveButton() {}
 
-   /**
-   * The only supported type is reply (for Reply Button Messages).
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The only supported type is reply (for Reply Button Messages).")
-  @JsonIgnore
+    public InteractiveButton type(InteractiveButtonType type) {
+        this.type = JsonNullable.<InteractiveButtonType>of(type);
+        return this;
+    }
 
-  public InteractiveButtonType getType() {
+    /**
+     * The only supported type is reply (for Reply Button Messages).
+     * @return type
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "The only supported type is reply (for Reply Button Messages)."
+    )
+    @JsonIgnore
+    public InteractiveButtonType getType() {
         return type.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<InteractiveButtonType> getType_JsonNullable() {
-    return type;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  public void setType_JsonNullable(JsonNullable<InteractiveButtonType> type) {
-    this.type = type;
-  }
-
-  public void setType(InteractiveButtonType type) {
-    this.type = JsonNullable.<InteractiveButtonType>of(type);
-  }
-
-
-  public InteractiveButton reply(Reply reply) {
-    this.reply = reply;
-    return this;
-  }
-
-   /**
-   * Get reply
-   * @return reply
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_REPLY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Reply getReply() {
-    return reply;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REPLY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setReply(Reply reply) {
-    this.reply = reply;
-  }
-
-
-  /**
-   * Return true if this InteractiveButton object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<InteractiveButtonType> getType_JsonNullable() {
+        return type;
     }
-    InteractiveButton interactiveButton = (InteractiveButton) o;
-    return equalsNullable(this.type, interactiveButton.type) &&
-        Objects.equals(this.reply, interactiveButton.reply);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(hashCodeNullable(type), reply);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    public void setType_JsonNullable(JsonNullable<InteractiveButtonType> type) {
+        this.type = type;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class InteractiveButton {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    reply: ").append(toIndentedString(reply)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setType(InteractiveButtonType type) {
+        this.type = JsonNullable.<InteractiveButtonType>of(type);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public InteractiveButton reply(Reply reply) {
+        this.reply = reply;
+        return this;
+    }
+
+    /**
+     * Get reply
+     * @return reply
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_REPLY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Reply getReply() {
+        return reply;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REPLY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setReply(Reply reply) {
+        this.reply = reply;
+    }
+
+    /**
+     * Return true if this InteractiveButton object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        InteractiveButton interactiveButton = (InteractiveButton) o;
+        return (
+            equalsNullable(this.type, interactiveButton.type) &&
+            Objects.equals(this.reply, interactiveButton.reply)
+        );
+    }
+
+    private static <T> boolean equalsNullable(
+        JsonNullable<T> a,
+        JsonNullable<T> b
+    ) {
+        return (
+            a == b ||
+            (a != null &&
+                b != null &&
+                a.isPresent() &&
+                b.isPresent() &&
+                Objects.deepEquals(a.get(), b.get()))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hashCodeNullable(type), reply);
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent()
+            ? Arrays.deepHashCode(new Object[] { a.get() })
+            : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class InteractiveButton {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    reply: ").append(toIndentedString(reply)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

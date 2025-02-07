@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NumberBlockOrder;
@@ -27,15 +26,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for ListNumberBlockOrdersResponse
  */
 public class ListNumberBlockOrdersResponseTest {
-    private final ListNumberBlockOrdersResponse model = new ListNumberBlockOrdersResponse();
+
+    private final ListNumberBlockOrdersResponse model =
+        new ListNumberBlockOrdersResponse();
 
     /**
      * Model tests for ListNumberBlockOrdersResponse
@@ -60,5 +59,4 @@ public class ListNumberBlockOrdersResponseTest {
     public void metaTest() {
         // TODO: test meta
     }
-
 }

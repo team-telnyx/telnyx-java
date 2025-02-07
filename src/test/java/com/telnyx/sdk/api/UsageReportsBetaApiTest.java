@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,15 +17,13 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.UsageReportsOptionsResponse;
 import com.telnyx.sdk.model.UsageReportsResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for UsageReportsBetaApi
@@ -77,5 +74,4 @@ public class UsageReportsBetaApiTest {
         //UsageReportsOptionsResponse response = api.listUsageReportsOptions(product, authorizationBearerLessThanTOKENGreaterThan);
         // TODO: test validations
     }
-
 }

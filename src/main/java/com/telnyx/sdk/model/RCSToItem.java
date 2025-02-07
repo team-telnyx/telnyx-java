@@ -10,200 +10,200 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RCSToItem
  */
-@JsonPropertyOrder({
-  RCSToItem.JSON_PROPERTY_PHONE_NUMBER,
-  RCSToItem.JSON_PROPERTY_STATUS,
-  RCSToItem.JSON_PROPERTY_CARRIER,
-  RCSToItem.JSON_PROPERTY_LINE_TYPE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        RCSToItem.JSON_PROPERTY_PHONE_NUMBER,
+        RCSToItem.JSON_PROPERTY_STATUS,
+        RCSToItem.JSON_PROPERTY_CARRIER,
+        RCSToItem.JSON_PROPERTY_LINE_TYPE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RCSToItem {
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
 
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private String status;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public static final String JSON_PROPERTY_CARRIER = "carrier";
-  private String carrier;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private String status;
 
-  public static final String JSON_PROPERTY_LINE_TYPE = "line_type";
-  private String lineType;
+    public static final String JSON_PROPERTY_CARRIER = "carrier";
+    private String carrier;
 
-  public RCSToItem() { 
-  }
+    public static final String JSON_PROPERTY_LINE_TYPE = "line_type";
+    private String lineType;
 
-  public RCSToItem phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
+    public RCSToItem() {}
 
-   /**
-   * Get phoneNumber
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+13125551234", value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public RCSToItem status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "queued", value = "")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  public RCSToItem carrier(String carrier) {
-    this.carrier = carrier;
-    return this;
-  }
-
-   /**
-   * Get carrier
-   * @return carrier
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Verizon Wireless", value = "")
-  @JsonProperty(JSON_PROPERTY_CARRIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCarrier() {
-    return carrier;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CARRIER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCarrier(String carrier) {
-    this.carrier = carrier;
-  }
-
-
-  public RCSToItem lineType(String lineType) {
-    this.lineType = lineType;
-    return this;
-  }
-
-   /**
-   * Get lineType
-   * @return lineType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Wireless", value = "")
-  @JsonProperty(JSON_PROPERTY_LINE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getLineType() {
-    return lineType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LINE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLineType(String lineType) {
-    this.lineType = lineType;
-  }
-
-
-  /**
-   * Return true if this RCSToItem object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RCSToItem phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get phoneNumber
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "+13125551234", value = "")
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-    RCSToItem rcSToItem = (RCSToItem) o;
-    return Objects.equals(this.phoneNumber, rcSToItem.phoneNumber) &&
-        Objects.equals(this.status, rcSToItem.status) &&
-        Objects.equals(this.carrier, rcSToItem.carrier) &&
-        Objects.equals(this.lineType, rcSToItem.lineType);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(phoneNumber, status, carrier, lineType);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RCSToItem {\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    carrier: ").append(toIndentedString(carrier)).append("\n");
-    sb.append("    lineType: ").append(toIndentedString(lineType)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public RCSToItem status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     * @return status
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "queued", value = "")
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public RCSToItem carrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+
+    /**
+     * Get carrier
+     * @return carrier
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "Verizon Wireless", value = "")
+    @JsonProperty(JSON_PROPERTY_CARRIER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCarrier() {
+        return carrier;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CARRIER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCarrier(String carrier) {
+        this.carrier = carrier;
+    }
+
+    public RCSToItem lineType(String lineType) {
+        this.lineType = lineType;
+        return this;
+    }
+
+    /**
+     * Get lineType
+     * @return lineType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "Wireless", value = "")
+    @JsonProperty(JSON_PROPERTY_LINE_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getLineType() {
+        return lineType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LINE_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLineType(String lineType) {
+        this.lineType = lineType;
+    }
+
+    /**
+     * Return true if this RCSToItem object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RCSToItem rcSToItem = (RCSToItem) o;
+        return (
+            Objects.equals(this.phoneNumber, rcSToItem.phoneNumber) &&
+            Objects.equals(this.status, rcSToItem.status) &&
+            Objects.equals(this.carrier, rcSToItem.carrier) &&
+            Objects.equals(this.lineType, rcSToItem.lineType)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phoneNumber, status, carrier, lineType);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RCSToItem {\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb
+            .append("    carrier: ")
+            .append(toIndentedString(carrier))
+            .append("\n");
+        sb
+            .append("    lineType: ")
+            .append(toIndentedString(lineType))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

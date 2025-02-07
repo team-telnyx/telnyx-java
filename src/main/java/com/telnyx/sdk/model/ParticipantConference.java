@@ -10,137 +10,140 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Info about the conference that the participant is in
  */
 @ApiModel(description = "Info about the conference that the participant is in")
-@JsonPropertyOrder({
-  ParticipantConference.JSON_PROPERTY_ID,
-  ParticipantConference.JSON_PROPERTY_NAME
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        ParticipantConference.JSON_PROPERTY_ID,
+        ParticipantConference.JSON_PROPERTY_NAME,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ParticipantConference {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public ParticipantConference() { 
-  }
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public ParticipantConference id(String id) {
-    this.id = id;
-    return this;
-  }
+    public ParticipantConference() {}
 
-   /**
-   * Uniquely identifies the conference
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "Uniquely identifies the conference")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public ParticipantConference name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Name of the conference
-   * @return name
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "All hands meeting", value = "Name of the conference")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  /**
-   * Return true if this Participant_conference object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ParticipantConference id(String id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Uniquely identifies the conference
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        value = "Uniquely identifies the conference"
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
     }
-    ParticipantConference participantConference = (ParticipantConference) o;
-    return Objects.equals(this.id, participantConference.id) &&
-        Objects.equals(this.name, participantConference.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ParticipantConference {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public ParticipantConference name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Name of the conference
+     * @return name
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "All hands meeting",
+        value = "Name of the conference"
+    )
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Return true if this Participant_conference object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ParticipantConference participantConference = (ParticipantConference) o;
+        return (
+            Objects.equals(this.id, participantConference.id) &&
+            Objects.equals(this.name, participantConference.name)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ParticipantConference {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

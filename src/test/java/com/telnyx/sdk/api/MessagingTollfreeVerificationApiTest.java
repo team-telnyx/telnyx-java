@@ -10,35 +10,33 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
-import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.PaginatedVerificationRequestStatus;
 import com.telnyx.sdk.model.TFVerificationRequest;
 import com.telnyx.sdk.model.TFVerificationStatus;
-import java.util.UUID;
 import com.telnyx.sdk.model.VerificationRequestEgress;
 import com.telnyx.sdk.model.VerificationRequestStatus;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for MessagingTollfreeVerificationApi
  */
 public class MessagingTollfreeVerificationApiTest {
 
-    private final MessagingTollfreeVerificationApi api = new MessagingTollfreeVerificationApi();
+    private final MessagingTollfreeVerificationApi api =
+        new MessagingTollfreeVerificationApi();
 
     /**
      * Get Verification Request
@@ -105,5 +103,4 @@ public class MessagingTollfreeVerificationApiTest {
         //VerificationRequestEgress response = api.updateVerificationRequest(id, tfVerificationRequest);
         // TODO: test validations
     }
-
 }

@@ -10,171 +10,194 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * The webhook payload for the porting_order.deleted event
  */
-@ApiModel(description = "The webhook payload for the porting_order.deleted event")
-@JsonPropertyOrder({
-  WebhookPortingOrderDeletedPayload.JSON_PROPERTY_ID,
-  WebhookPortingOrderDeletedPayload.JSON_PROPERTY_CUSTOMER_REFERENCE,
-  WebhookPortingOrderDeletedPayload.JSON_PROPERTY_DELETED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@ApiModel(
+    description = "The webhook payload for the porting_order.deleted event"
+)
+@JsonPropertyOrder(
+    {
+        WebhookPortingOrderDeletedPayload.JSON_PROPERTY_ID,
+        WebhookPortingOrderDeletedPayload.JSON_PROPERTY_CUSTOMER_REFERENCE,
+        WebhookPortingOrderDeletedPayload.JSON_PROPERTY_DELETED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class WebhookPortingOrderDeletedPayload {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
-  private String customerReference;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_DELETED_AT = "deleted_at";
-  private OffsetDateTime deletedAt;
+    public static final String JSON_PROPERTY_CUSTOMER_REFERENCE =
+        "customer_reference";
+    private String customerReference;
 
-  public WebhookPortingOrderDeletedPayload() { 
-  }
+    public static final String JSON_PROPERTY_DELETED_AT = "deleted_at";
+    private OffsetDateTime deletedAt;
 
-  public WebhookPortingOrderDeletedPayload id(UUID id) {
-    this.id = id;
-    return this;
-  }
+    public WebhookPortingOrderDeletedPayload() {}
 
-   /**
-   * Identifies the porting order that was deleted.
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting order that was deleted.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-  public WebhookPortingOrderDeletedPayload customerReference(String customerReference) {
-    this.customerReference = customerReference;
-    return this;
-  }
-
-   /**
-   * Identifies the customer reference associated with the porting order.
-   * @return customerReference
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "my-ref-001", value = "Identifies the customer reference associated with the porting order.")
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCustomerReference() {
-    return customerReference;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCustomerReference(String customerReference) {
-    this.customerReference = customerReference;
-  }
-
-
-  public WebhookPortingOrderDeletedPayload deletedAt(OffsetDateTime deletedAt) {
-    this.deletedAt = deletedAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date indicating when the porting order was deleted.
-   * @return deletedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the porting order was deleted.")
-  @JsonProperty(JSON_PROPERTY_DELETED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getDeletedAt() {
-    return deletedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DELETED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeletedAt(OffsetDateTime deletedAt) {
-    this.deletedAt = deletedAt;
-  }
-
-
-  /**
-   * Return true if this WebhookPortingOrderDeletedPayload object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WebhookPortingOrderDeletedPayload id(UUID id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the porting order that was deleted.
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c",
+        value = "Identifies the porting order that was deleted."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
     }
-    WebhookPortingOrderDeletedPayload webhookPortingOrderDeletedPayload = (WebhookPortingOrderDeletedPayload) o;
-    return Objects.equals(this.id, webhookPortingOrderDeletedPayload.id) &&
-        Objects.equals(this.customerReference, webhookPortingOrderDeletedPayload.customerReference) &&
-        Objects.equals(this.deletedAt, webhookPortingOrderDeletedPayload.deletedAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, customerReference, deletedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WebhookPortingOrderDeletedPayload {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
-    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public WebhookPortingOrderDeletedPayload customerReference(
+        String customerReference
+    ) {
+        this.customerReference = customerReference;
+        return this;
+    }
+
+    /**
+     * Identifies the customer reference associated with the porting order.
+     * @return customerReference
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "my-ref-001",
+        value = "Identifies the customer reference associated with the porting order."
+    )
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCustomerReference() {
+        return customerReference;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomerReference(String customerReference) {
+        this.customerReference = customerReference;
+    }
+
+    public WebhookPortingOrderDeletedPayload deletedAt(
+        OffsetDateTime deletedAt
+    ) {
+        this.deletedAt = deletedAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date indicating when the porting order was deleted.
+     * @return deletedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-03-19T10:07:15.527Z",
+        value = "ISO 8601 formatted date indicating when the porting order was deleted."
+    )
+    @JsonProperty(JSON_PROPERTY_DELETED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DELETED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDeletedAt(OffsetDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    /**
+     * Return true if this WebhookPortingOrderDeletedPayload object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WebhookPortingOrderDeletedPayload webhookPortingOrderDeletedPayload =
+            (WebhookPortingOrderDeletedPayload) o;
+        return (
+            Objects.equals(this.id, webhookPortingOrderDeletedPayload.id) &&
+            Objects.equals(
+                this.customerReference,
+                webhookPortingOrderDeletedPayload.customerReference
+            ) &&
+            Objects.equals(
+                this.deletedAt,
+                webhookPortingOrderDeletedPayload.deletedAt
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, customerReference, deletedAt);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WebhookPortingOrderDeletedPayload {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    customerReference: ")
+            .append(toIndentedString(customerReference))
+            .append("\n");
+        sb
+            .append("    deletedAt: ")
+            .append(toIndentedString(deletedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

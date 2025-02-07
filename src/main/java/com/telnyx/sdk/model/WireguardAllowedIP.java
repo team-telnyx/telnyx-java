@@ -10,135 +10,142 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * WireguardAllowedIP
  */
-@JsonPropertyOrder({
-  WireguardAllowedIP.JSON_PROPERTY_RECORD_TYPE,
-  WireguardAllowedIP.JSON_PROPERTY_IP_ADDRESS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        WireguardAllowedIP.JSON_PROPERTY_RECORD_TYPE,
+        WireguardAllowedIP.JSON_PROPERTY_IP_ADDRESS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class WireguardAllowedIP {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_IP_ADDRESS = "ip_address";
-  private String ipAddress;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public WireguardAllowedIP() { 
-  }
+    public static final String JSON_PROPERTY_IP_ADDRESS = "ip_address";
+    private String ipAddress;
 
-  @JsonCreator
-  public WireguardAllowedIP(
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
-  ) {
-    this();
-    this.recordType = recordType;
-  }
+    public WireguardAllowedIP() {}
 
-   /**
-   * Identifies the type of the resource.
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "wireguard_allowed_ip", value = "Identifies the type of the resource.")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-  public WireguardAllowedIP ipAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
-    return this;
-  }
-
-   /**
-   * The IP address to add to the Wireguard Interface&#39;s AllowedIP list.
-   * @return ipAddress
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "198.51.100.1", value = "The IP address to add to the Wireguard Interface's AllowedIP list.")
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getIpAddress() {
-    return ipAddress;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIpAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
-  }
-
-
-  /**
-   * Return true if this WireguardAllowedIP object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @JsonCreator
+    public WireguardAllowedIP(
+        @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+    ) {
+        this();
+        this.recordType = recordType;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the type of the resource.
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "wireguard_allowed_ip",
+        value = "Identifies the type of the resource."
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
     }
-    WireguardAllowedIP wireguardAllowedIP = (WireguardAllowedIP) o;
-    return Objects.equals(this.recordType, wireguardAllowedIP.recordType) &&
-        Objects.equals(this.ipAddress, wireguardAllowedIP.ipAddress);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, ipAddress);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WireguardAllowedIP {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public WireguardAllowedIP ipAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * The IP address to add to the Wireguard Interface&#39;s AllowedIP list.
+     * @return ipAddress
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "198.51.100.1",
+        value = "The IP address to add to the Wireguard Interface's AllowedIP list."
+    )
+    @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    /**
+     * Return true if this WireguardAllowedIP object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WireguardAllowedIP wireguardAllowedIP = (WireguardAllowedIP) o;
+        return (
+            Objects.equals(this.recordType, wireguardAllowedIP.recordType) &&
+            Objects.equals(this.ipAddress, wireguardAllowedIP.ipAddress)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(recordType, ipAddress);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WireguardAllowedIP {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    ipAddress: ")
+            .append(toIndentedString(ipAddress))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

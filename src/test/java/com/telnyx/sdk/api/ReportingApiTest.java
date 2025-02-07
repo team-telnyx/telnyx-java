@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -21,17 +20,15 @@ import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetWdrReportResponse;
 import com.telnyx.sdk.model.GetWdrReportsResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.WdrReportRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for ReportingApi
@@ -43,7 +40,7 @@ public class ReportingApiTest {
     /**
      * Create a Wireless Detail Records (WDRs) Report
      *
-     * Asynchronously create a report containing Wireless Detail Records (WDRs) for the SIM cards that consumed wireless data in the given time period. 
+     * Asynchronously create a report containing Wireless Detail Records (WDRs) for the SIM cards that consumed wireless data in the given time period.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -100,5 +97,4 @@ public class ReportingApiTest {
         //GetWdrReportsResponse response = api.getWdrReports(pageNumber, pageSize);
         // TODO: test validations
     }
-
 }

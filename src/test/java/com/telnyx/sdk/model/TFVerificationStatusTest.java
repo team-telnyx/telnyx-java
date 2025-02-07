@@ -10,11 +10,7 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
-
-
-
 
 import org.junit.Test;
 
@@ -22,6 +18,7 @@ import org.junit.Test;
  * Model tests for TFVerificationStatus
  */
 public class TFVerificationStatusTest {
+
     /**
      * Model tests for TFVerificationStatus
      */
@@ -29,5 +26,4 @@ public class TFVerificationStatusTest {
     public void testTFVerificationStatus() {
         // TODO: test TFVerificationStatus
     }
-
 }

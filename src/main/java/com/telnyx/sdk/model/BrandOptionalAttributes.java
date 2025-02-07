@@ -10,104 +10,106 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * BrandOptionalAttributes
  */
-@JsonPropertyOrder({
-  BrandOptionalAttributes.JSON_PROPERTY_TAX_EXEMPT_STATUS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ BrandOptionalAttributes.JSON_PROPERTY_TAX_EXEMPT_STATUS })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class BrandOptionalAttributes {
-  public static final String JSON_PROPERTY_TAX_EXEMPT_STATUS = "taxExemptStatus";
-  private String taxExemptStatus;
 
-  public BrandOptionalAttributes() { 
-  }
+    public static final String JSON_PROPERTY_TAX_EXEMPT_STATUS =
+        "taxExemptStatus";
+    private String taxExemptStatus;
 
-  public BrandOptionalAttributes taxExemptStatus(String taxExemptStatus) {
-    this.taxExemptStatus = taxExemptStatus;
-    return this;
-  }
+    public BrandOptionalAttributes() {}
 
-   /**
-   * The tax exempt status of the brand
-   * @return taxExemptStatus
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "The tax exempt status of the brand")
-  @JsonProperty(JSON_PROPERTY_TAX_EXEMPT_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTaxExemptStatus() {
-    return taxExemptStatus;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TAX_EXEMPT_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaxExemptStatus(String taxExemptStatus) {
-    this.taxExemptStatus = taxExemptStatus;
-  }
-
-
-  /**
-   * Return true if this BrandOptionalAttributes object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public BrandOptionalAttributes taxExemptStatus(String taxExemptStatus) {
+        this.taxExemptStatus = taxExemptStatus;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The tax exempt status of the brand
+     * @return taxExemptStatus
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "The tax exempt status of the brand")
+    @JsonProperty(JSON_PROPERTY_TAX_EXEMPT_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTaxExemptStatus() {
+        return taxExemptStatus;
     }
-    BrandOptionalAttributes brandOptionalAttributes = (BrandOptionalAttributes) o;
-    return Objects.equals(this.taxExemptStatus, brandOptionalAttributes.taxExemptStatus);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(taxExemptStatus);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class BrandOptionalAttributes {\n");
-    sb.append("    taxExemptStatus: ").append(toIndentedString(taxExemptStatus)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TAX_EXEMPT_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTaxExemptStatus(String taxExemptStatus) {
+        this.taxExemptStatus = taxExemptStatus;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this BrandOptionalAttributes object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BrandOptionalAttributes brandOptionalAttributes =
+            (BrandOptionalAttributes) o;
+        return Objects.equals(
+            this.taxExemptStatus,
+            brandOptionalAttributes.taxExemptStatus
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taxExemptStatus);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class BrandOptionalAttributes {\n");
+        sb
+            .append("    taxExemptStatus: ")
+            .append(toIndentedString(taxExemptStatus))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

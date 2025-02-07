@@ -10,43 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ButtonComponentType;
-import com.telnyx.sdk.model.ButtonSubtype;
-import com.telnyx.sdk.model.TemplateButtonComponent;
-import com.telnyx.sdk.model.TemplateButtonParameter;
-import com.telnyx.sdk.model.TemplateComponent;
-import com.telnyx.sdk.model.TemplateParameters;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -60,14 +31,48 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.ButtonComponentType;
+import com.telnyx.sdk.model.ButtonSubtype;
+import com.telnyx.sdk.model.TemplateButtonComponent;
+import com.telnyx.sdk.model.TemplateButtonParameter;
+import com.telnyx.sdk.model.TemplateComponent;
+import com.telnyx.sdk.model.TemplateParameters;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@JsonDeserialize(using=TemplateComponents.TemplateComponentsDeserializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
+@JsonDeserialize(
+    using = TemplateComponents.TemplateComponentsDeserializer.class
+)
 @JsonSerialize(using = TemplateComponents.TemplateComponentsSerializer.class)
 public class TemplateComponents extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(TemplateComponents.class.getName());
 
-    public static class TemplateComponentsSerializer extends StdSerializer<TemplateComponents> {
+    private static final Logger log = Logger.getLogger(
+        TemplateComponents.class.getName()
+    );
+
+    public static class TemplateComponentsSerializer
+        extends StdSerializer<TemplateComponents> {
+
         public TemplateComponentsSerializer(Class<TemplateComponents> t) {
             super(t);
         }
@@ -77,12 +82,18 @@ public class TemplateComponents extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(TemplateComponents value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            TemplateComponents value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class TemplateComponentsDeserializer extends StdDeserializer<TemplateComponents> {
+    public static class TemplateComponentsDeserializer
+        extends StdDeserializer<TemplateComponents> {
+
         public TemplateComponentsDeserializer() {
             this(TemplateComponents.class);
         }
@@ -92,46 +103,72 @@ public class TemplateComponents extends AbstractOpenApiSchema {
         }
 
         @Override
-        public TemplateComponents deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public TemplateComponents deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
             // deserialize TemplateButtonComponent
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(TemplateButtonComponent.class);
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(TemplateButtonComponent.class);
                 TemplateComponents ret = new TemplateComponents();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'TemplateComponents'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'TemplateComponents'",
+                    e
+                );
             }
 
             // deserialize TemplateComponent
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(TemplateComponent.class);
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(TemplateComponent.class);
                 TemplateComponents ret = new TemplateComponents();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'TemplateComponents'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'TemplateComponents'",
+                    e
+                );
             }
 
-            throw new IOException(String.format("Failed deserialization for TemplateComponents: no match found"));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for TemplateComponents: no match found"
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public TemplateComponents getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "TemplateComponents cannot be null");
+        public TemplateComponents getNullValue(DeserializationContext ctxt)
+            throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "TemplateComponents cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in anyOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public TemplateComponents() {
         super("anyOf", Boolean.FALSE);
@@ -148,11 +185,18 @@ public class TemplateComponents extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("TemplateButtonComponent", new GenericType<TemplateButtonComponent>() {
-        });
-        schemas.put("TemplateComponent", new GenericType<TemplateComponent>() {
-        });
-        JSON.registerDescendants(TemplateComponents.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+            "TemplateButtonComponent",
+            new GenericType<TemplateButtonComponent>() {}
+        );
+        schemas.put(
+            "TemplateComponent",
+            new GenericType<TemplateComponent>() {}
+        );
+        JSON.registerDescendants(
+            TemplateComponents.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -170,17 +214,31 @@ public class TemplateComponents extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(TemplateButtonComponent.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                TemplateButtonComponent.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(TemplateComponent.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                TemplateComponent.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be TemplateButtonComponent, TemplateComponent");
+        throw new RuntimeException(
+            "Invalid instance type. Must be TemplateButtonComponent, TemplateComponent"
+        );
     }
 
     /**
@@ -201,8 +259,9 @@ public class TemplateComponents extends AbstractOpenApiSchema {
      * @return The actual instance of `TemplateButtonComponent`
      * @throws ClassCastException if the instance is not `TemplateButtonComponent`
      */
-    public TemplateButtonComponent getTemplateButtonComponent() throws ClassCastException {
-        return (TemplateButtonComponent)super.getActualInstance();
+    public TemplateButtonComponent getTemplateButtonComponent()
+        throws ClassCastException {
+        return (TemplateButtonComponent) super.getActualInstance();
     }
 
     /**
@@ -213,8 +272,6 @@ public class TemplateComponents extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `TemplateComponent`
      */
     public TemplateComponent getTemplateComponent() throws ClassCastException {
-        return (TemplateComponent)super.getActualInstance();
+        return (TemplateComponent) super.getActualInstance();
     }
-
 }
-

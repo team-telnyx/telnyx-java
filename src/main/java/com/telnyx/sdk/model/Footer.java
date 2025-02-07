@@ -10,107 +10,105 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.InteractiveFooter;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The footer of the message. Emojis and markdown are supported.
  */
-@ApiModel(description = "The footer of the message. Emojis and markdown are supported.")
-@JsonPropertyOrder({
-  Footer.JSON_PROPERTY_TEXT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@ApiModel(
+    description = "The footer of the message. Emojis and markdown are supported."
+)
+@JsonPropertyOrder({ Footer.JSON_PROPERTY_TEXT })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class Footer {
-  public static final String JSON_PROPERTY_TEXT = "text";
-  private String text;
 
-  public Footer() { 
-  }
+    public static final String JSON_PROPERTY_TEXT = "text";
+    private String text;
 
-  public Footer text(String text) {
-    this.text = text;
-    return this;
-  }
+    public Footer() {}
 
-   /**
-   * The footer content. Emojis and markdown are supported. Links are supported.
-   * @return text
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The footer content. Emojis and markdown are supported. Links are supported.")
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getText() {
-    return text;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setText(String text) {
-    this.text = text;
-  }
-
-
-  /**
-   * Return true if this Footer object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Footer text(String text) {
+        this.text = text;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The footer content. Emojis and markdown are supported. Links are supported.
+     * @return text
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The footer content. Emojis and markdown are supported. Links are supported."
+    )
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getText() {
+        return text;
     }
-    Footer footer = (Footer) o;
-    return Objects.equals(this.text, footer.text);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(text);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Footer {\n");
-    sb.append("    text: ").append(toIndentedString(text)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setText(String text) {
+        this.text = text;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this Footer object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Footer footer = (Footer) o;
+        return Objects.equals(this.text, footer.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Footer {\n");
+        sb.append("    text: ").append(toIndentedString(text)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

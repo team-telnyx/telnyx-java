@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
@@ -23,15 +22,13 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for BulkSetPublicIPsRequest
  */
 public class BulkSetPublicIPsRequestTest {
+
     private final BulkSetPublicIPsRequest model = new BulkSetPublicIPsRequest();
 
     /**
@@ -49,5 +46,4 @@ public class BulkSetPublicIPsRequestTest {
     public void simCardIdsTest() {
         // TODO: test simCardIds
     }
-
 }

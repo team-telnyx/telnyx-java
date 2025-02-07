@@ -10,145 +10,147 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.AccessIPAddressResponseSchema;
 import com.telnyx.sdk.model.PaginationMeta;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * AccessIPAddressListResponseSchema
  */
-@JsonPropertyOrder({
-  AccessIPAddressListResponseSchema.JSON_PROPERTY_DATA,
-  AccessIPAddressListResponseSchema.JSON_PROPERTY_META
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        AccessIPAddressListResponseSchema.JSON_PROPERTY_DATA,
+        AccessIPAddressListResponseSchema.JSON_PROPERTY_META,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AccessIPAddressListResponseSchema {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private List<AccessIPAddressResponseSchema> data = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_META = "meta";
-  private PaginationMeta meta;
+    public static final String JSON_PROPERTY_DATA = "data";
+    private List<AccessIPAddressResponseSchema> data = new ArrayList<>();
 
-  public AccessIPAddressListResponseSchema() { 
-  }
+    public static final String JSON_PROPERTY_META = "meta";
+    private PaginationMeta meta;
 
-  public AccessIPAddressListResponseSchema data(List<AccessIPAddressResponseSchema> data) {
-    this.data = data;
-    return this;
-  }
+    public AccessIPAddressListResponseSchema() {}
 
-  public AccessIPAddressListResponseSchema adddataItem(AccessIPAddressResponseSchema dataItem) {
-    this.data.add(dataItem);
-    return this;
-  }
-
-   /**
-   * Get data
-   * @return data
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<AccessIPAddressResponseSchema> getData() {
-    return data;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setData(List<AccessIPAddressResponseSchema> data) {
-    this.data = data;
-  }
-
-
-  public AccessIPAddressListResponseSchema meta(PaginationMeta meta) {
-    this.meta = meta;
-    return this;
-  }
-
-   /**
-   * Get meta
-   * @return meta
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public PaginationMeta getMeta() {
-    return meta;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_META)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMeta(PaginationMeta meta) {
-    this.meta = meta;
-  }
-
-
-  /**
-   * Return true if this AccessIPAddressListResponseSchema object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AccessIPAddressListResponseSchema data(
+        List<AccessIPAddressResponseSchema> data
+    ) {
+        this.data = data;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public AccessIPAddressListResponseSchema adddataItem(
+        AccessIPAddressResponseSchema dataItem
+    ) {
+        this.data.add(dataItem);
+        return this;
     }
-    AccessIPAddressListResponseSchema accessIPAddressListResponseSchema = (AccessIPAddressListResponseSchema) o;
-    return Objects.equals(this.data, accessIPAddressListResponseSchema.data) &&
-        Objects.equals(this.meta, accessIPAddressListResponseSchema.meta);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(data, meta);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AccessIPAddressListResponseSchema {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Get data
+     * @return data
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<AccessIPAddressResponseSchema> getData() {
+        return data;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setData(List<AccessIPAddressResponseSchema> data) {
+        this.data = data;
+    }
+
+    public AccessIPAddressListResponseSchema meta(PaginationMeta meta) {
+        this.meta = meta;
+        return this;
+    }
+
+    /**
+     * Get meta
+     * @return meta
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_META)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public PaginationMeta getMeta() {
+        return meta;
+    }
+
+    @JsonProperty(JSON_PROPERTY_META)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setMeta(PaginationMeta meta) {
+        this.meta = meta;
+    }
+
+    /**
+     * Return true if this AccessIPAddressListResponseSchema object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AccessIPAddressListResponseSchema accessIPAddressListResponseSchema =
+            (AccessIPAddressListResponseSchema) o;
+        return (
+            Objects.equals(this.data, accessIPAddressListResponseSchema.data) &&
+            Objects.equals(this.meta, accessIPAddressListResponseSchema.meta)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data, meta);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AccessIPAddressListResponseSchema {\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

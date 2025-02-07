@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ConferenceCreated;
@@ -24,14 +23,13 @@ import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for ConferenceCreatedEvent
  */
 public class ConferenceCreatedEventTest {
+
     private final ConferenceCreatedEvent model = new ConferenceCreatedEvent();
 
     /**
@@ -49,5 +47,4 @@ public class ConferenceCreatedEventTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

@@ -10,129 +10,149 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.net.URI;
 import java.util.Arrays;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Objects;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Subresources details for a recording if available.
  */
 @ApiModel(description = "Subresources details for a recording if available.")
-@JsonPropertyOrder({
-  TexmlRecordingSubresourcesUris.JSON_PROPERTY_TRANSCRIPTIONS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { TexmlRecordingSubresourcesUris.JSON_PROPERTY_TRANSCRIPTIONS }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class TexmlRecordingSubresourcesUris {
-  public static final String JSON_PROPERTY_TRANSCRIPTIONS = "transcriptions";
-  private JsonNullable<URI> transcriptions = JsonNullable.<URI>undefined();
 
-  public TexmlRecordingSubresourcesUris() { 
-  }
+    public static final String JSON_PROPERTY_TRANSCRIPTIONS = "transcriptions";
+    private JsonNullable<URI> transcriptions = JsonNullable.<URI>undefined();
 
-  public TexmlRecordingSubresourcesUris transcriptions(URI transcriptions) {
-    this.transcriptions = JsonNullable.<URI>of(transcriptions);
-    return this;
-  }
+    public TexmlRecordingSubresourcesUris() {}
 
-   /**
-   * Get transcriptions
-   * @return transcriptions
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json", value = "")
-  @JsonIgnore
+    public TexmlRecordingSubresourcesUris transcriptions(URI transcriptions) {
+        this.transcriptions = JsonNullable.<URI>of(transcriptions);
+        return this;
+    }
 
-  public URI getTranscriptions() {
+    /**
+     * Get transcriptions
+     * @return transcriptions
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json",
+        value = ""
+    )
+    @JsonIgnore
+    public URI getTranscriptions() {
         return transcriptions.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<URI> getTranscriptions_JsonNullable() {
-    return transcriptions;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPTIONS)
-  public void setTranscriptions_JsonNullable(JsonNullable<URI> transcriptions) {
-    this.transcriptions = transcriptions;
-  }
-
-  public void setTranscriptions(URI transcriptions) {
-    this.transcriptions = JsonNullable.<URI>of(transcriptions);
-  }
-
-
-  /**
-   * Return true if this TexmlRecordingSubresourcesUris object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_TRANSCRIPTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<URI> getTranscriptions_JsonNullable() {
+        return transcriptions;
     }
-    TexmlRecordingSubresourcesUris texmlRecordingSubresourcesUris = (TexmlRecordingSubresourcesUris) o;
-    return equalsNullable(this.transcriptions, texmlRecordingSubresourcesUris.transcriptions);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(hashCodeNullable(transcriptions));
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    @JsonProperty(JSON_PROPERTY_TRANSCRIPTIONS)
+    public void setTranscriptions_JsonNullable(
+        JsonNullable<URI> transcriptions
+    ) {
+        this.transcriptions = transcriptions;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TexmlRecordingSubresourcesUris {\n");
-    sb.append("    transcriptions: ").append(toIndentedString(transcriptions)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setTranscriptions(URI transcriptions) {
+        this.transcriptions = JsonNullable.<URI>of(transcriptions);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this TexmlRecordingSubresourcesUris object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TexmlRecordingSubresourcesUris texmlRecordingSubresourcesUris =
+            (TexmlRecordingSubresourcesUris) o;
+        return equalsNullable(
+            this.transcriptions,
+            texmlRecordingSubresourcesUris.transcriptions
+        );
+    }
+
+    private static <T> boolean equalsNullable(
+        JsonNullable<T> a,
+        JsonNullable<T> b
+    ) {
+        return (
+            a == b ||
+            (a != null &&
+                b != null &&
+                a.isPresent() &&
+                b.isPresent() &&
+                Objects.deepEquals(a.get(), b.get()))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hashCodeNullable(transcriptions));
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent()
+            ? Arrays.deepHashCode(new Object[] { a.get() })
+            : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TexmlRecordingSubresourcesUris {\n");
+        sb
+            .append("    transcriptions: ")
+            .append(toIndentedString(transcriptions))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

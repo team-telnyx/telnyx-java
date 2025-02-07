@@ -1,58 +1,59 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.MdrDeleteUsageReportsResponse;
 import com.telnyx.sdk.model.MdrGetSyncUsageReportResponse;
 import com.telnyx.sdk.model.MdrGetUsageReportsByIdResponse;
 import com.telnyx.sdk.model.MdrGetUsageReportsResponse;
 import com.telnyx.sdk.model.MdrPostUsageReportRequest;
 import com.telnyx.sdk.model.MdrPostUsageReportsResponse;
+import jakarta.ws.rs.core.GenericType;
 import java.time.OffsetDateTime;
-import java.util.UUID;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class MdrUsageReportsApi {
-  private ApiClient apiClient;
 
-  public MdrUsageReportsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public MdrUsageReportsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public MdrUsageReportsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public MdrUsageReportsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Delete MDR Usage Report
    * Delete messaging usage report by id
    * @param id  (required)
@@ -64,11 +65,12 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrDeleteUsageReportsResponse deleteUsageReport(UUID id) throws ApiException {
-    return deleteUsageReportWithHttpInfo(id).getData();
-  }
+    public MdrDeleteUsageReportsResponse deleteUsageReport(UUID id)
+        throws ApiException {
+        return deleteUsageReportWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Delete MDR Usage Report
    * Delete messaging usage report by id
    * @param id  (required)
@@ -80,47 +82,71 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrDeleteUsageReportsResponse> deleteUsageReportWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteUsageReport");
+    public ApiResponse<
+        MdrDeleteUsageReportsResponse
+    > deleteUsageReportWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteUsageReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/reports/mdr_usage_reports/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<MdrDeleteUsageReportsResponse> localVarReturnType =
+            new GenericType<MdrDeleteUsageReportsResponse>() {};
+
+        return apiClient.invokeAPI(
+            "MdrUsageReportsApi.deleteUsageReport",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/reports/mdr_usage_reports/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<MdrDeleteUsageReportsResponse> localVarReturnType = new GenericType<MdrDeleteUsageReportsResponse>() {};
-
-    return apiClient.invokeAPI("MdrUsageReportsApi.deleteUsageReport", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Retrieve messaging report
    * Fetch a single messaging usage report by id
    * @param id  (required)
@@ -132,11 +158,12 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrGetUsageReportsByIdResponse getMDRUsageReport(UUID id) throws ApiException {
-    return getMDRUsageReportWithHttpInfo(id).getData();
-  }
+    public MdrGetUsageReportsByIdResponse getMDRUsageReport(UUID id)
+        throws ApiException {
+        return getMDRUsageReportWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve messaging report
    * Fetch a single messaging usage report by id
    * @param id  (required)
@@ -148,47 +175,71 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrGetUsageReportsByIdResponse> getMDRUsageReportWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getMDRUsageReport");
+    public ApiResponse<
+        MdrGetUsageReportsByIdResponse
+    > getMDRUsageReportWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getMDRUsageReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/reports/mdr_usage_reports/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<MdrGetUsageReportsByIdResponse> localVarReturnType =
+            new GenericType<MdrGetUsageReportsByIdResponse>() {};
+
+        return apiClient.invokeAPI(
+            "MdrUsageReportsApi.getMDRUsageReport",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/reports/mdr_usage_reports/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<MdrGetUsageReportsByIdResponse> localVarReturnType = new GenericType<MdrGetUsageReportsByIdResponse>() {};
-
-    return apiClient.invokeAPI("MdrUsageReportsApi.getMDRUsageReport", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Generate and fetch MDR Usage Report
    * Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
    * @param aggregationType  (required)
@@ -203,11 +254,21 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrGetSyncUsageReportResponse getMDRUsageReportSync(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
-    return getMDRUsageReportSyncWithHttpInfo(aggregationType, startDate, endDate, profiles).getData();
-  }
+    public MdrGetSyncUsageReportResponse getMDRUsageReportSync(
+        String aggregationType,
+        OffsetDateTime startDate,
+        OffsetDateTime endDate,
+        List<String> profiles
+    ) throws ApiException {
+        return getMDRUsageReportSyncWithHttpInfo(
+            aggregationType,
+            startDate,
+            endDate,
+            profiles
+        ).getData();
+    }
 
-  /**
+    /**
    * Generate and fetch MDR Usage Report
    * Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes. 
    * @param aggregationType  (required)
@@ -222,50 +283,85 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrGetSyncUsageReportResponse> getMDRUsageReportSyncWithHttpInfo(String aggregationType, OffsetDateTime startDate, OffsetDateTime endDate, List<String> profiles) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'aggregationType' is set
-    if (aggregationType == null) {
-      throw new ApiException(400, "Missing the required parameter 'aggregationType' when calling getMDRUsageReportSync");
+    public ApiResponse<
+        MdrGetSyncUsageReportResponse
+    > getMDRUsageReportSyncWithHttpInfo(
+        String aggregationType,
+        OffsetDateTime startDate,
+        OffsetDateTime endDate,
+        List<String> profiles
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'aggregationType' is set
+        if (aggregationType == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'aggregationType' when calling getMDRUsageReportSync"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/reports/mdr_usage_reports/sync";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "start_date", startDate)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "end_date", endDate)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "aggregation_type", aggregationType)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("multi", "profiles", profiles)
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<MdrGetSyncUsageReportResponse> localVarReturnType =
+            new GenericType<MdrGetSyncUsageReportResponse>() {};
+
+        return apiClient.invokeAPI(
+            "MdrUsageReportsApi.getMDRUsageReportSync",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/reports/mdr_usage_reports/sync";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "start_date", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "end_date", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "aggregation_type", aggregationType));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "profiles", profiles));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<MdrGetSyncUsageReportResponse> localVarReturnType = new GenericType<MdrGetSyncUsageReportResponse>() {};
-
-    return apiClient.invokeAPI("MdrUsageReportsApi.getMDRUsageReportSync", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Fetch all Messaging usage reports
    * Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown
    * @param pageNumber Page number (optional, default to 1)
@@ -278,11 +374,14 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrGetUsageReportsResponse getUsageReports(Integer pageNumber, Integer pageSize) throws ApiException {
-    return getUsageReportsWithHttpInfo(pageNumber, pageSize).getData();
-  }
+    public MdrGetUsageReportsResponse getUsageReports(
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return getUsageReportsWithHttpInfo(pageNumber, pageSize).getData();
+    }
 
-  /**
+    /**
    * Fetch all Messaging usage reports
    * Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown
    * @param pageNumber Page number (optional, default to 1)
@@ -295,43 +394,67 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrGetUsageReportsResponse> getUsageReportsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/reports/mdr_usage_reports";
+    public ApiResponse<MdrGetUsageReportsResponse> getUsageReportsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/reports/mdr_usage_reports";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<MdrGetUsageReportsResponse> localVarReturnType = new GenericType<MdrGetUsageReportsResponse>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("MdrUsageReportsApi.getUsageReports", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<MdrGetUsageReportsResponse> localVarReturnType =
+            new GenericType<MdrGetUsageReportsResponse>() {};
+
+        return apiClient.invokeAPI(
+            "MdrUsageReportsApi.getUsageReports",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Create MDR Usage Report
    * Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period. 
    * @param mdrPostUsageReportRequest Mdr usage report data (required)
@@ -343,11 +466,15 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public MdrPostUsageReportsResponse submitUsageReport(MdrPostUsageReportRequest mdrPostUsageReportRequest) throws ApiException {
-    return submitUsageReportWithHttpInfo(mdrPostUsageReportRequest).getData();
-  }
+    public MdrPostUsageReportsResponse submitUsageReport(
+        MdrPostUsageReportRequest mdrPostUsageReportRequest
+    ) throws ApiException {
+        return submitUsageReportWithHttpInfo(
+            mdrPostUsageReportRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Create MDR Usage Report
    * Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period. 
    * @param mdrPostUsageReportRequest Mdr usage report data (required)
@@ -359,43 +486,65 @@ public class MdrUsageReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MdrPostUsageReportsResponse> submitUsageReportWithHttpInfo(MdrPostUsageReportRequest mdrPostUsageReportRequest) throws ApiException {
-    Object localVarPostBody = mdrPostUsageReportRequest;
-    
-    // verify the required parameter 'mdrPostUsageReportRequest' is set
-    if (mdrPostUsageReportRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'mdrPostUsageReportRequest' when calling submitUsageReport");
+    public ApiResponse<
+        MdrPostUsageReportsResponse
+    > submitUsageReportWithHttpInfo(
+        MdrPostUsageReportRequest mdrPostUsageReportRequest
+    ) throws ApiException {
+        Object localVarPostBody = mdrPostUsageReportRequest;
+
+        // verify the required parameter 'mdrPostUsageReportRequest' is set
+        if (mdrPostUsageReportRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'mdrPostUsageReportRequest' when calling submitUsageReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/reports/mdr_usage_reports";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<MdrPostUsageReportsResponse> localVarReturnType =
+            new GenericType<MdrPostUsageReportsResponse>() {};
+
+        return apiClient.invokeAPI(
+            "MdrUsageReportsApi.submitUsageReport",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/reports/mdr_usage_reports";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<MdrPostUsageReportsResponse> localVarReturnType = new GenericType<MdrPostUsageReportsResponse>() {};
-
-    return apiClient.invokeAPI("MdrUsageReportsApi.submitUsageReport", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

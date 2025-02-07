@@ -10,203 +10,238 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.RegulatoryRequirement;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * PhoneNumberRegulatoryGroup
  */
-@JsonPropertyOrder({
-  PhoneNumberRegulatoryGroup.JSON_PROPERTY_RECORD_TYPE,
-  PhoneNumberRegulatoryGroup.JSON_PROPERTY_PHONE_NUMBER,
-  PhoneNumberRegulatoryGroup.JSON_PROPERTY_REGULATORY_GROUP_ID,
-  PhoneNumberRegulatoryGroup.JSON_PROPERTY_REGULATORY_REQUIREMENTS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        PhoneNumberRegulatoryGroup.JSON_PROPERTY_RECORD_TYPE,
+        PhoneNumberRegulatoryGroup.JSON_PROPERTY_PHONE_NUMBER,
+        PhoneNumberRegulatoryGroup.JSON_PROPERTY_REGULATORY_GROUP_ID,
+        PhoneNumberRegulatoryGroup.JSON_PROPERTY_REGULATORY_REQUIREMENTS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class PhoneNumberRegulatoryGroup {
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_REGULATORY_GROUP_ID = "regulatory_group_id";
-  private UUID regulatoryGroupId;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
-  private List<RegulatoryRequirement> regulatoryRequirements = null;
+    public static final String JSON_PROPERTY_REGULATORY_GROUP_ID =
+        "regulatory_group_id";
+    private UUID regulatoryGroupId;
 
-  public PhoneNumberRegulatoryGroup() { 
-  }
+    public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS =
+        "regulatory_requirements";
+    private List<RegulatoryRequirement> regulatoryRequirements = null;
 
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "phone_number_regulatory_requirement", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PhoneNumberRegulatoryGroup() {}
 
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-  public PhoneNumberRegulatoryGroup phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * Get phoneNumber
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+19705555098", value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public PhoneNumberRegulatoryGroup regulatoryGroupId(UUID regulatoryGroupId) {
-    this.regulatoryGroupId = regulatoryGroupId;
-    return this;
-  }
-
-   /**
-   * Get regulatoryGroupId
-   * @return regulatoryGroupId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "d70873cd-7c98-401a-81b6-b1ae08246995", value = "")
-  @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getRegulatoryGroupId() {
-    return regulatoryGroupId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegulatoryGroupId(UUID regulatoryGroupId) {
-    this.regulatoryGroupId = regulatoryGroupId;
-  }
-
-
-  public PhoneNumberRegulatoryGroup regulatoryRequirements(List<RegulatoryRequirement> regulatoryRequirements) {
-    this.regulatoryRequirements = regulatoryRequirements;
-    return this;
-  }
-
-  public PhoneNumberRegulatoryGroup addRegulatoryRequirementsItem(RegulatoryRequirement regulatoryRequirementsItem) {
-    if (this.regulatoryRequirements == null) {
-      this.regulatoryRequirements = new ArrayList<>();
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "phone_number_regulatory_requirement",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
     }
-    this.regulatoryRequirements.add(regulatoryRequirementsItem);
-    return this;
-  }
 
-   /**
-   * Get regulatoryRequirements
-   * @return regulatoryRequirements
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<RegulatoryRequirement> getRegulatoryRequirements() {
-    return regulatoryRequirements;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegulatoryRequirements(List<RegulatoryRequirement> regulatoryRequirements) {
-    this.regulatoryRequirements = regulatoryRequirements;
-  }
-
-
-  /**
-   * Return true if this PhoneNumberRegulatoryGroup object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PhoneNumberRegulatoryGroup phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get phoneNumber
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "+19705555098", value = "")
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-    PhoneNumberRegulatoryGroup phoneNumberRegulatoryGroup = (PhoneNumberRegulatoryGroup) o;
-    return Objects.equals(this.recordType, phoneNumberRegulatoryGroup.recordType) &&
-        Objects.equals(this.phoneNumber, phoneNumberRegulatoryGroup.phoneNumber) &&
-        Objects.equals(this.regulatoryGroupId, phoneNumberRegulatoryGroup.regulatoryGroupId) &&
-        Objects.equals(this.regulatoryRequirements, phoneNumberRegulatoryGroup.regulatoryRequirements);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(recordType, phoneNumber, regulatoryGroupId, regulatoryRequirements);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PhoneNumberRegulatoryGroup {\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    regulatoryGroupId: ").append(toIndentedString(regulatoryGroupId)).append("\n");
-    sb.append("    regulatoryRequirements: ").append(toIndentedString(regulatoryRequirements)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public PhoneNumberRegulatoryGroup regulatoryGroupId(
+        UUID regulatoryGroupId
+    ) {
+        this.regulatoryGroupId = regulatoryGroupId;
+        return this;
+    }
+
+    /**
+     * Get regulatoryGroupId
+     * @return regulatoryGroupId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "d70873cd-7c98-401a-81b6-b1ae08246995",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getRegulatoryGroupId() {
+        return regulatoryGroupId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRegulatoryGroupId(UUID regulatoryGroupId) {
+        this.regulatoryGroupId = regulatoryGroupId;
+    }
+
+    public PhoneNumberRegulatoryGroup regulatoryRequirements(
+        List<RegulatoryRequirement> regulatoryRequirements
+    ) {
+        this.regulatoryRequirements = regulatoryRequirements;
+        return this;
+    }
+
+    public PhoneNumberRegulatoryGroup addRegulatoryRequirementsItem(
+        RegulatoryRequirement regulatoryRequirementsItem
+    ) {
+        if (this.regulatoryRequirements == null) {
+            this.regulatoryRequirements = new ArrayList<>();
+        }
+        this.regulatoryRequirements.add(regulatoryRequirementsItem);
+        return this;
+    }
+
+    /**
+     * Get regulatoryRequirements
+     * @return regulatoryRequirements
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<RegulatoryRequirement> getRegulatoryRequirements() {
+        return regulatoryRequirements;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRegulatoryRequirements(
+        List<RegulatoryRequirement> regulatoryRequirements
+    ) {
+        this.regulatoryRequirements = regulatoryRequirements;
+    }
+
+    /**
+     * Return true if this PhoneNumberRegulatoryGroup object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PhoneNumberRegulatoryGroup phoneNumberRegulatoryGroup =
+            (PhoneNumberRegulatoryGroup) o;
+        return (
+            Objects.equals(
+                this.recordType,
+                phoneNumberRegulatoryGroup.recordType
+            ) &&
+            Objects.equals(
+                this.phoneNumber,
+                phoneNumberRegulatoryGroup.phoneNumber
+            ) &&
+            Objects.equals(
+                this.regulatoryGroupId,
+                phoneNumberRegulatoryGroup.regulatoryGroupId
+            ) &&
+            Objects.equals(
+                this.regulatoryRequirements,
+                phoneNumberRegulatoryGroup.regulatoryRequirements
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            recordType,
+            phoneNumber,
+            regulatoryGroupId,
+            regulatoryRequirements
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PhoneNumberRegulatoryGroup {\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    regulatoryGroupId: ")
+            .append(toIndentedString(regulatoryGroupId))
+            .append("\n");
+        sb
+            .append("    regulatoryRequirements: ")
+            .append(toIndentedString(regulatoryRequirements))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

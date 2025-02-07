@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Record;
@@ -26,16 +25,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for VirtualCrossConnectRegion
  */
 public class VirtualCrossConnectRegionTest {
-    private final VirtualCrossConnectRegion model = new VirtualCrossConnectRegion();
+
+    private final VirtualCrossConnectRegion model =
+        new VirtualCrossConnectRegion();
 
     /**
      * Model tests for VirtualCrossConnectRegion
@@ -108,5 +106,4 @@ public class VirtualCrossConnectRegionTest {
     public void bandwidthMbpsTest() {
         // TODO: test bandwidthMbps
     }
-
 }

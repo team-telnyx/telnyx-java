@@ -10,179 +10,183 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.SharedCampaign;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * SharedCampaignRecordSet
  */
-@JsonPropertyOrder({
-  SharedCampaignRecordSet.JSON_PROPERTY_PAGE,
-  SharedCampaignRecordSet.JSON_PROPERTY_RECORDS,
-  SharedCampaignRecordSet.JSON_PROPERTY_TOTAL_RECORDS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        SharedCampaignRecordSet.JSON_PROPERTY_PAGE,
+        SharedCampaignRecordSet.JSON_PROPERTY_RECORDS,
+        SharedCampaignRecordSet.JSON_PROPERTY_TOTAL_RECORDS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class SharedCampaignRecordSet {
-  public static final String JSON_PROPERTY_PAGE = "page";
-  private Integer page;
 
-  public static final String JSON_PROPERTY_RECORDS = "records";
-  private List<SharedCampaign> records = null;
+    public static final String JSON_PROPERTY_PAGE = "page";
+    private Integer page;
 
-  public static final String JSON_PROPERTY_TOTAL_RECORDS = "totalRecords";
-  private Integer totalRecords;
+    public static final String JSON_PROPERTY_RECORDS = "records";
+    private List<SharedCampaign> records = null;
 
-  public SharedCampaignRecordSet() { 
-  }
+    public static final String JSON_PROPERTY_TOTAL_RECORDS = "totalRecords";
+    private Integer totalRecords;
 
-  public SharedCampaignRecordSet page(Integer page) {
-    this.page = page;
-    return this;
-  }
+    public SharedCampaignRecordSet() {}
 
-   /**
-   * Get page
-   * @return page
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getPage() {
-    return page;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPage(Integer page) {
-    this.page = page;
-  }
-
-
-  public SharedCampaignRecordSet records(List<SharedCampaign> records) {
-    this.records = records;
-    return this;
-  }
-
-  public SharedCampaignRecordSet addrecordsItem(SharedCampaign recordsItem) {
-    if (this.records == null) {
-      this.records = new ArrayList<>();
+    public SharedCampaignRecordSet page(Integer page) {
+        this.page = page;
+        return this;
     }
-    this.records.add(recordsItem);
-    return this;
-  }
 
-   /**
-   * Get records
-   * @return records
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_RECORDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<SharedCampaign> getRecords() {
-    return records;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecords(List<SharedCampaign> records) {
-    this.records = records;
-  }
-
-
-  public SharedCampaignRecordSet totalRecords(Integer totalRecords) {
-    this.totalRecords = totalRecords;
-    return this;
-  }
-
-   /**
-   * Get totalRecords
-   * @return totalRecords
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTotalRecords() {
-    return totalRecords;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotalRecords(Integer totalRecords) {
-    this.totalRecords = totalRecords;
-  }
-
-
-  /**
-   * Return true if this SharedCampaignRecordSet object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get page
+     * @return page
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_PAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getPage() {
+        return page;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_PAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPage(Integer page) {
+        this.page = page;
     }
-    SharedCampaignRecordSet sharedCampaignRecordSet = (SharedCampaignRecordSet) o;
-    return Objects.equals(this.page, sharedCampaignRecordSet.page) &&
-        Objects.equals(this.records, sharedCampaignRecordSet.records) &&
-        Objects.equals(this.totalRecords, sharedCampaignRecordSet.totalRecords);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(page, records, totalRecords);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SharedCampaignRecordSet {\n");
-    sb.append("    page: ").append(toIndentedString(page)).append("\n");
-    sb.append("    records: ").append(toIndentedString(records)).append("\n");
-    sb.append("    totalRecords: ").append(toIndentedString(totalRecords)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public SharedCampaignRecordSet records(List<SharedCampaign> records) {
+        this.records = records;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public SharedCampaignRecordSet addrecordsItem(SharedCampaign recordsItem) {
+        if (this.records == null) {
+            this.records = new ArrayList<>();
+        }
+        this.records.add(recordsItem);
+        return this;
+    }
+
+    /**
+     * Get records
+     * @return records
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_RECORDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<SharedCampaign> getRecords() {
+        return records;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecords(List<SharedCampaign> records) {
+        this.records = records;
+    }
+
+    public SharedCampaignRecordSet totalRecords(Integer totalRecords) {
+        this.totalRecords = totalRecords;
+        return this;
+    }
+
+    /**
+     * Get totalRecords
+     * @return totalRecords
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTotalRecords() {
+        return totalRecords;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TOTAL_RECORDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTotalRecords(Integer totalRecords) {
+        this.totalRecords = totalRecords;
+    }
+
+    /**
+     * Return true if this SharedCampaignRecordSet object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SharedCampaignRecordSet sharedCampaignRecordSet =
+            (SharedCampaignRecordSet) o;
+        return (
+            Objects.equals(this.page, sharedCampaignRecordSet.page) &&
+            Objects.equals(this.records, sharedCampaignRecordSet.records) &&
+            Objects.equals(
+                this.totalRecords,
+                sharedCampaignRecordSet.totalRecords
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(page, records, totalRecords);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SharedCampaignRecordSet {\n");
+        sb.append("    page: ").append(toIndentedString(page)).append("\n");
+        sb
+            .append("    records: ")
+            .append(toIndentedString(records))
+            .append("\n");
+        sb
+            .append("    totalRecords: ")
+            .append(toIndentedString(totalRecords))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

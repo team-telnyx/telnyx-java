@@ -10,136 +10,157 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * CreatePortingPhoneNumberExtensionRequestExtensionRange
  */
-@JsonPropertyOrder({
-  CreatePortingPhoneNumberExtensionRequestExtensionRange.JSON_PROPERTY_START_AT,
-  CreatePortingPhoneNumberExtensionRequestExtensionRange.JSON_PROPERTY_END_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        CreatePortingPhoneNumberExtensionRequestExtensionRange.JSON_PROPERTY_START_AT,
+        CreatePortingPhoneNumberExtensionRequestExtensionRange.JSON_PROPERTY_END_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class CreatePortingPhoneNumberExtensionRequestExtensionRange {
-  public static final String JSON_PROPERTY_START_AT = "start_at";
-  private Integer startAt;
 
-  public static final String JSON_PROPERTY_END_AT = "end_at";
-  private Integer endAt;
+    public static final String JSON_PROPERTY_START_AT = "start_at";
+    private Integer startAt;
 
-  public CreatePortingPhoneNumberExtensionRequestExtensionRange() { 
-  }
+    public static final String JSON_PROPERTY_END_AT = "end_at";
+    private Integer endAt;
 
-  public CreatePortingPhoneNumberExtensionRequestExtensionRange startAt(Integer startAt) {
-    this.startAt = startAt;
-    return this;
-  }
+    public CreatePortingPhoneNumberExtensionRequestExtensionRange() {}
 
-   /**
-   * Specifies the start of the extension range for this porting phone number extension.
-   * @return startAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "1", required = true, value = "Specifies the start of the extension range for this porting phone number extension.")
-  @JsonProperty(JSON_PROPERTY_START_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getStartAt() {
-    return startAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_START_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStartAt(Integer startAt) {
-    this.startAt = startAt;
-  }
-
-
-  public CreatePortingPhoneNumberExtensionRequestExtensionRange endAt(Integer endAt) {
-    this.endAt = endAt;
-    return this;
-  }
-
-   /**
-   * Specifies the end of the extension range for this porting phone number extension.
-   * @return endAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "10", required = true, value = "Specifies the end of the extension range for this porting phone number extension.")
-  @JsonProperty(JSON_PROPERTY_END_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Integer getEndAt() {
-    return endAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_END_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEndAt(Integer endAt) {
-    this.endAt = endAt;
-  }
-
-
-  /**
-   * Return true if this createPortingPhoneNumberExtension_request_extension_range object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CreatePortingPhoneNumberExtensionRequestExtensionRange startAt(
+        Integer startAt
+    ) {
+        this.startAt = startAt;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Specifies the start of the extension range for this porting phone number extension.
+     * @return startAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "1",
+        required = true,
+        value = "Specifies the start of the extension range for this porting phone number extension."
+    )
+    @JsonProperty(JSON_PROPERTY_START_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getStartAt() {
+        return startAt;
     }
-    CreatePortingPhoneNumberExtensionRequestExtensionRange createPortingPhoneNumberExtensionRequestExtensionRange = (CreatePortingPhoneNumberExtensionRequestExtensionRange) o;
-    return Objects.equals(this.startAt, createPortingPhoneNumberExtensionRequestExtensionRange.startAt) &&
-        Objects.equals(this.endAt, createPortingPhoneNumberExtensionRequestExtensionRange.endAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(startAt, endAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreatePortingPhoneNumberExtensionRequestExtensionRange {\n");
-    sb.append("    startAt: ").append(toIndentedString(startAt)).append("\n");
-    sb.append("    endAt: ").append(toIndentedString(endAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_START_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStartAt(Integer startAt) {
+        this.startAt = startAt;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CreatePortingPhoneNumberExtensionRequestExtensionRange endAt(
+        Integer endAt
+    ) {
+        this.endAt = endAt;
+        return this;
+    }
+
+    /**
+     * Specifies the end of the extension range for this porting phone number extension.
+     * @return endAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "10",
+        required = true,
+        value = "Specifies the end of the extension range for this porting phone number extension."
+    )
+    @JsonProperty(JSON_PROPERTY_END_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getEndAt() {
+        return endAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_END_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEndAt(Integer endAt) {
+        this.endAt = endAt;
+    }
+
+    /**
+     * Return true if this createPortingPhoneNumberExtension_request_extension_range object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreatePortingPhoneNumberExtensionRequestExtensionRange createPortingPhoneNumberExtensionRequestExtensionRange =
+            (CreatePortingPhoneNumberExtensionRequestExtensionRange) o;
+        return (
+            Objects.equals(
+                this.startAt,
+                createPortingPhoneNumberExtensionRequestExtensionRange.startAt
+            ) &&
+            Objects.equals(
+                this.endAt,
+                createPortingPhoneNumberExtensionRequestExtensionRange.endAt
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startAt, endAt);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(
+            "class CreatePortingPhoneNumberExtensionRequestExtensionRange {\n"
+        );
+        sb
+            .append("    startAt: ")
+            .append(toIndentedString(startAt))
+            .append("\n");
+        sb.append("    endAt: ").append(toIndentedString(endAt)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
-import java.util.UUID;
 import com.telnyx.sdk.model.WireguardInterfaceCreate;
 import com.telnyx.sdk.model.WireguardInterfaceCreate202Response;
 import com.telnyx.sdk.model.WireguardInterfaceList200Response;
@@ -26,15 +24,14 @@ import com.telnyx.sdk.model.WireguardPeerCreate;
 import com.telnyx.sdk.model.WireguardPeerCreate202Response;
 import com.telnyx.sdk.model.WireguardPeerList200Response;
 import com.telnyx.sdk.model.WireguardPeerPatch;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for WireGuardInterfacesApi
@@ -232,5 +229,4 @@ public class WireGuardInterfacesApiTest {
         //WireguardPeerCreate202Response response = api.wireguardPeerUpdate(id, wireguardPeerPatch);
         // TODO: test validations
     }
-
 }

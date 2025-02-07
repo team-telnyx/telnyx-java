@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortingPhoneNumberExtension;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for CreatePortingPhoneNumberExtension201Response
  */
 public class CreatePortingPhoneNumberExtension201ResponseTest {
-    private final CreatePortingPhoneNumberExtension201Response model = new CreatePortingPhoneNumberExtension201Response();
+
+    private final CreatePortingPhoneNumberExtension201Response model =
+        new CreatePortingPhoneNumberExtension201Response();
 
     /**
      * Model tests for CreatePortingPhoneNumberExtension201Response
@@ -46,5 +46,4 @@ public class CreatePortingPhoneNumberExtension201ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

@@ -10,268 +10,300 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Currencies;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * The request body when creating a verification.
  */
 @ApiModel(description = "The request body when creating a verification.")
-@JsonPropertyOrder({
-  CreateVerificationRequestPSD2.JSON_PROPERTY_PHONE_NUMBER,
-  CreateVerificationRequestPSD2.JSON_PROPERTY_VERIFY_PROFILE_ID,
-  CreateVerificationRequestPSD2.JSON_PROPERTY_CURRENCY,
-  CreateVerificationRequestPSD2.JSON_PROPERTY_AMOUNT,
-  CreateVerificationRequestPSD2.JSON_PROPERTY_PAYEE,
-  CreateVerificationRequestPSD2.JSON_PROPERTY_TIMEOUT_SECS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        CreateVerificationRequestPSD2.JSON_PROPERTY_PHONE_NUMBER,
+        CreateVerificationRequestPSD2.JSON_PROPERTY_VERIFY_PROFILE_ID,
+        CreateVerificationRequestPSD2.JSON_PROPERTY_CURRENCY,
+        CreateVerificationRequestPSD2.JSON_PROPERTY_AMOUNT,
+        CreateVerificationRequestPSD2.JSON_PROPERTY_PAYEE,
+        CreateVerificationRequestPSD2.JSON_PROPERTY_TIMEOUT_SECS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class CreateVerificationRequestPSD2 {
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
 
-  public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
-  private UUID verifyProfileId;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public static final String JSON_PROPERTY_CURRENCY = "currency";
-  private Currencies currency;
+    public static final String JSON_PROPERTY_VERIFY_PROFILE_ID =
+        "verify_profile_id";
+    private UUID verifyProfileId;
 
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private String amount;
+    public static final String JSON_PROPERTY_CURRENCY = "currency";
+    private Currencies currency;
 
-  public static final String JSON_PROPERTY_PAYEE = "payee";
-  private String payee;
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private String amount;
 
-  public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
-  private Integer timeoutSecs;
+    public static final String JSON_PROPERTY_PAYEE = "payee";
+    private String payee;
 
-  public CreateVerificationRequestPSD2() { 
-  }
+    public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
+    private Integer timeoutSecs;
 
-  public CreateVerificationRequestPSD2 phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
+    public CreateVerificationRequestPSD2() {}
 
-   /**
-   * +E164 formatted phone number.
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+13035551234", required = true, value = "+E164 formatted phone number.")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public CreateVerificationRequestPSD2 verifyProfileId(UUID verifyProfileId) {
-    this.verifyProfileId = verifyProfileId;
-    return this;
-  }
-
-   /**
-   * The identifier of the associated Verify profile.
-   * @return verifyProfileId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", required = true, value = "The identifier of the associated Verify profile.")
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public UUID getVerifyProfileId() {
-    return verifyProfileId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVerifyProfileId(UUID verifyProfileId) {
-    this.verifyProfileId = verifyProfileId;
-  }
-
-
-  public CreateVerificationRequestPSD2 currency(Currencies currency) {
-    this.currency = currency;
-    return this;
-  }
-
-   /**
-   * Get currency
-   * @return currency
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Currencies getCurrency() {
-    return currency;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCurrency(Currencies currency) {
-    this.currency = currency;
-  }
-
-
-  public CreateVerificationRequestPSD2 amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "99.99", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAmount(String amount) {
-    this.amount = amount;
-  }
-
-
-  public CreateVerificationRequestPSD2 payee(String payee) {
-    this.payee = payee;
-    return this;
-  }
-
-   /**
-   * Get payee
-   * @return payee
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "Acme Corp Inc. LTD", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_PAYEE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPayee() {
-    return payee;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PAYEE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPayee(String payee) {
-    this.payee = payee;
-  }
-
-
-  public CreateVerificationRequestPSD2 timeoutSecs(Integer timeoutSecs) {
-    this.timeoutSecs = timeoutSecs;
-    return this;
-  }
-
-   /**
-   * The number of seconds the verification code is valid for.
-   * @return timeoutSecs
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "300", value = "The number of seconds the verification code is valid for.")
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTimeoutSecs() {
-    return timeoutSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimeoutSecs(Integer timeoutSecs) {
-    this.timeoutSecs = timeoutSecs;
-  }
-
-
-  /**
-   * Return true if this CreateVerificationRequestPSD2 object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CreateVerificationRequestPSD2 phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * +E164 formatted phone number.
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+13035551234",
+        required = true,
+        value = "+E164 formatted phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-    CreateVerificationRequestPSD2 createVerificationRequestPSD2 = (CreateVerificationRequestPSD2) o;
-    return Objects.equals(this.phoneNumber, createVerificationRequestPSD2.phoneNumber) &&
-        Objects.equals(this.verifyProfileId, createVerificationRequestPSD2.verifyProfileId) &&
-        Objects.equals(this.currency, createVerificationRequestPSD2.currency) &&
-        Objects.equals(this.amount, createVerificationRequestPSD2.amount) &&
-        Objects.equals(this.payee, createVerificationRequestPSD2.payee) &&
-        Objects.equals(this.timeoutSecs, createVerificationRequestPSD2.timeoutSecs);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(phoneNumber, verifyProfileId, currency, amount, payee, timeoutSecs);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateVerificationRequestPSD2 {\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    payee: ").append(toIndentedString(payee)).append("\n");
-    sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public CreateVerificationRequestPSD2 verifyProfileId(UUID verifyProfileId) {
+        this.verifyProfileId = verifyProfileId;
+        return this;
+    }
+
+    /**
+     * The identifier of the associated Verify profile.
+     * @return verifyProfileId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "12ade33a-21c0-473b-b055-b3c836e1c292",
+        required = true,
+        value = "The identifier of the associated Verify profile."
+    )
+    @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public UUID getVerifyProfileId() {
+        return verifyProfileId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVerifyProfileId(UUID verifyProfileId) {
+        this.verifyProfileId = verifyProfileId;
+    }
+
+    public CreateVerificationRequestPSD2 currency(Currencies currency) {
+        this.currency = currency;
+        return this;
+    }
+
+    /**
+     * Get currency
+     * @return currency
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Currencies getCurrency() {
+        return currency;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCurrency(Currencies currency) {
+        this.currency = currency;
+    }
+
+    public CreateVerificationRequestPSD2 amount(String amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Get amount
+     * @return amount
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(example = "99.99", required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getAmount() {
+        return amount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public CreateVerificationRequestPSD2 payee(String payee) {
+        this.payee = payee;
+        return this;
+    }
+
+    /**
+     * Get payee
+     * @return payee
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "Acme Corp Inc. LTD",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_PAYEE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPayee() {
+        return payee;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAYEE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPayee(String payee) {
+        this.payee = payee;
+    }
+
+    public CreateVerificationRequestPSD2 timeoutSecs(Integer timeoutSecs) {
+        this.timeoutSecs = timeoutSecs;
+        return this;
+    }
+
+    /**
+     * The number of seconds the verification code is valid for.
+     * @return timeoutSecs
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "300",
+        value = "The number of seconds the verification code is valid for."
+    )
+    @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTimeoutSecs() {
+        return timeoutSecs;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTimeoutSecs(Integer timeoutSecs) {
+        this.timeoutSecs = timeoutSecs;
+    }
+
+    /**
+     * Return true if this CreateVerificationRequestPSD2 object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateVerificationRequestPSD2 createVerificationRequestPSD2 =
+            (CreateVerificationRequestPSD2) o;
+        return (
+            Objects.equals(
+                this.phoneNumber,
+                createVerificationRequestPSD2.phoneNumber
+            ) &&
+            Objects.equals(
+                this.verifyProfileId,
+                createVerificationRequestPSD2.verifyProfileId
+            ) &&
+            Objects.equals(
+                this.currency,
+                createVerificationRequestPSD2.currency
+            ) &&
+            Objects.equals(this.amount, createVerificationRequestPSD2.amount) &&
+            Objects.equals(this.payee, createVerificationRequestPSD2.payee) &&
+            Objects.equals(
+                this.timeoutSecs,
+                createVerificationRequestPSD2.timeoutSecs
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            phoneNumber,
+            verifyProfileId,
+            currency,
+            amount,
+            payee,
+            timeoutSecs
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateVerificationRequestPSD2 {\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    verifyProfileId: ")
+            .append(toIndentedString(verifyProfileId))
+            .append("\n");
+        sb
+            .append("    currency: ")
+            .append(toIndentedString(currency))
+            .append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    payee: ").append(toIndentedString(payee)).append("\n");
+        sb
+            .append("    timeoutSecs: ")
+            .append(toIndentedString(timeoutSecs))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

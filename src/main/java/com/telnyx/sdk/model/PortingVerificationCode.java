@@ -10,296 +10,335 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
 
 /**
  * PortingVerificationCode
  */
-@JsonPropertyOrder({
-  PortingVerificationCode.JSON_PROPERTY_ID,
-  PortingVerificationCode.JSON_PROPERTY_PHONE_NUMBER,
-  PortingVerificationCode.JSON_PROPERTY_VERIFIED,
-  PortingVerificationCode.JSON_PROPERTY_PORTING_ORDER_ID,
-  PortingVerificationCode.JSON_PROPERTY_RECORD_TYPE,
-  PortingVerificationCode.JSON_PROPERTY_CREATED_AT,
-  PortingVerificationCode.JSON_PROPERTY_UPDATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        PortingVerificationCode.JSON_PROPERTY_ID,
+        PortingVerificationCode.JSON_PROPERTY_PHONE_NUMBER,
+        PortingVerificationCode.JSON_PROPERTY_VERIFIED,
+        PortingVerificationCode.JSON_PROPERTY_PORTING_ORDER_ID,
+        PortingVerificationCode.JSON_PROPERTY_RECORD_TYPE,
+        PortingVerificationCode.JSON_PROPERTY_CREATED_AT,
+        PortingVerificationCode.JSON_PROPERTY_UPDATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PortingVerificationCode {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public static final String JSON_PROPERTY_VERIFIED = "verified";
-  private Boolean verified;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
+    private String phoneNumber;
 
-  public static final String JSON_PROPERTY_PORTING_ORDER_ID = "porting_order_id";
-  private UUID portingOrderId;
+    public static final String JSON_PROPERTY_VERIFIED = "verified";
+    private Boolean verified;
 
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+    public static final String JSON_PROPERTY_PORTING_ORDER_ID =
+        "porting_order_id";
+    private UUID portingOrderId;
 
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private OffsetDateTime createdAt;
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private OffsetDateTime updatedAt;
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private OffsetDateTime createdAt;
 
-  public PortingVerificationCode() { 
-  }
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private OffsetDateTime updatedAt;
 
-  @JsonCreator
-  public PortingVerificationCode(
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
-  ) {
-    this();
-    this.recordType = recordType;
-  }
+    public PortingVerificationCode() {}
 
-  public PortingVerificationCode id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Uniquely identifies this porting verification code
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Uniquely identifies this porting verification code")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-  public PortingVerificationCode phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * E164 formatted phone number
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "+13035550987", value = "E164 formatted phone number")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public PortingVerificationCode verified(Boolean verified) {
-    this.verified = verified;
-    return this;
-  }
-
-   /**
-   * Indicates whether the verification code has been verified
-   * @return verified
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Indicates whether the verification code has been verified")
-  @JsonProperty(JSON_PROPERTY_VERIFIED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getVerified() {
-    return verified;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VERIFIED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVerified(Boolean verified) {
-    this.verified = verified;
-  }
-
-
-  public PortingVerificationCode portingOrderId(UUID portingOrderId) {
-    this.portingOrderId = portingOrderId;
-    return this;
-  }
-
-   /**
-   * Identifies the associated porting order
-   * @return portingOrderId
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "f1486bae-f067-460c-ad43-73a92848f902", value = "Identifies the associated porting order")
-  @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getPortingOrderId() {
-    return portingOrderId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPortingOrderId(UUID portingOrderId) {
-    this.portingOrderId = portingOrderId;
-  }
-
-
-   /**
-   * Identifies the type of the resource.
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "porting_verification_code", value = "Identifies the type of the resource.")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
-  public PortingVerificationCode createdAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public PortingVerificationCode updatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * ISO 8601 formatted date indicating when the resource was updated.
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public OffsetDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-
-  /**
-   * Return true if this PortingVerificationCode object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @JsonCreator
+    public PortingVerificationCode(
+        @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+    ) {
+        this();
+        this.recordType = recordType;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public PortingVerificationCode id(UUID id) {
+        this.id = id;
+        return this;
     }
-    PortingVerificationCode portingVerificationCode = (PortingVerificationCode) o;
-    return Objects.equals(this.id, portingVerificationCode.id) &&
-        Objects.equals(this.phoneNumber, portingVerificationCode.phoneNumber) &&
-        Objects.equals(this.verified, portingVerificationCode.verified) &&
-        Objects.equals(this.portingOrderId, portingVerificationCode.portingOrderId) &&
-        Objects.equals(this.recordType, portingVerificationCode.recordType) &&
-        Objects.equals(this.createdAt, portingVerificationCode.createdAt) &&
-        Objects.equals(this.updatedAt, portingVerificationCode.updatedAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, phoneNumber, verified, portingOrderId, recordType, createdAt, updatedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PortingVerificationCode {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    verified: ").append(toIndentedString(verified)).append("\n");
-    sb.append("    portingOrderId: ").append(toIndentedString(portingOrderId)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Uniquely identifies this porting verification code
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "f1486bae-f067-460c-ad43-73a92848f902",
+        value = "Uniquely identifies this porting verification code"
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public PortingVerificationCode phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * E164 formatted phone number
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "+13035550987",
+        value = "E164 formatted phone number"
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public PortingVerificationCode verified(Boolean verified) {
+        this.verified = verified;
+        return this;
+    }
+
+    /**
+     * Indicates whether the verification code has been verified
+     * @return verified
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "Indicates whether the verification code has been verified"
+    )
+    @JsonProperty(JSON_PROPERTY_VERIFIED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VERIFIED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
+
+    public PortingVerificationCode portingOrderId(UUID portingOrderId) {
+        this.portingOrderId = portingOrderId;
+        return this;
+    }
+
+    /**
+     * Identifies the associated porting order
+     * @return portingOrderId
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "f1486bae-f067-460c-ad43-73a92848f902",
+        value = "Identifies the associated porting order"
+    )
+    @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getPortingOrderId() {
+        return portingOrderId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPortingOrderId(UUID portingOrderId) {
+        this.portingOrderId = portingOrderId;
+    }
+
+    /**
+     * Identifies the type of the resource.
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "porting_verification_code",
+        value = "Identifies the type of the resource."
+    )
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    public PortingVerificationCode createdAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-03-19T10:07:15.527Z",
+        value = "ISO 8601 formatted date indicating when the resource was created."
+    )
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public PortingVerificationCode updatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "2021-03-19T10:07:15.527Z",
+        value = "ISO 8601 formatted date indicating when the resource was updated."
+    )
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Return true if this PortingVerificationCode object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PortingVerificationCode portingVerificationCode =
+            (PortingVerificationCode) o;
+        return (
+            Objects.equals(this.id, portingVerificationCode.id) &&
+            Objects.equals(
+                this.phoneNumber,
+                portingVerificationCode.phoneNumber
+            ) &&
+            Objects.equals(this.verified, portingVerificationCode.verified) &&
+            Objects.equals(
+                this.portingOrderId,
+                portingVerificationCode.portingOrderId
+            ) &&
+            Objects.equals(
+                this.recordType,
+                portingVerificationCode.recordType
+            ) &&
+            Objects.equals(this.createdAt, portingVerificationCode.createdAt) &&
+            Objects.equals(this.updatedAt, portingVerificationCode.updatedAt)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            id,
+            phoneNumber,
+            verified,
+            portingOrderId,
+            recordType,
+            createdAt,
+            updatedAt
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PortingVerificationCode {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    verified: ")
+            .append(toIndentedString(verified))
+            .append("\n");
+        sb
+            .append("    portingOrderId: ")
+            .append(toIndentedString(portingOrderId))
+            .append("\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

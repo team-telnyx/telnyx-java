@@ -10,107 +10,107 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.ConferenceRecordingResourceIndex;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * MultipleConferenceRecordingResources
  */
-@JsonPropertyOrder({
-  MultipleConferenceRecordingResources.JSON_PROPERTY_DATA
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder({ MultipleConferenceRecordingResources.JSON_PROPERTY_DATA })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class MultipleConferenceRecordingResources {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private ConferenceRecordingResourceIndex data;
 
-  public MultipleConferenceRecordingResources() { 
-  }
+    public static final String JSON_PROPERTY_DATA = "data";
+    private ConferenceRecordingResourceIndex data;
 
-  public MultipleConferenceRecordingResources data(ConferenceRecordingResourceIndex data) {
-    this.data = data;
-    return this;
-  }
+    public MultipleConferenceRecordingResources() {}
 
-   /**
-   * Get data
-   * @return data
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ConferenceRecordingResourceIndex getData() {
-    return data;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(ConferenceRecordingResourceIndex data) {
-    this.data = data;
-  }
-
-
-  /**
-   * Return true if this Multiple_conference_recording_resources object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public MultipleConferenceRecordingResources data(
+        ConferenceRecordingResourceIndex data
+    ) {
+        this.data = data;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get data
+     * @return data
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ConferenceRecordingResourceIndex getData() {
+        return data;
     }
-    MultipleConferenceRecordingResources multipleConferenceRecordingResources = (MultipleConferenceRecordingResources) o;
-    return Objects.equals(this.data, multipleConferenceRecordingResources.data);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(data);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class MultipleConferenceRecordingResources {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setData(ConferenceRecordingResourceIndex data) {
+        this.data = data;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this Multiple_conference_recording_resources object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MultipleConferenceRecordingResources multipleConferenceRecordingResources =
+            (MultipleConferenceRecordingResources) o;
+        return Objects.equals(
+            this.data,
+            multipleConferenceRecordingResources.data
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class MultipleConferenceRecordingResources {\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

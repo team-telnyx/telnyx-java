@@ -10,136 +10,154 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * PhoneNumberCampaignCreate
  */
-@JsonPropertyOrder({
-  PhoneNumberCampaignCreate.JSON_PROPERTY_PHONE_NUMBER,
-  PhoneNumberCampaignCreate.JSON_PROPERTY_CAMPAIGN_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        PhoneNumberCampaignCreate.JSON_PROPERTY_PHONE_NUMBER,
+        PhoneNumberCampaignCreate.JSON_PROPERTY_CAMPAIGN_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PhoneNumberCampaignCreate {
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
-  private String phoneNumber;
 
-  public static final String JSON_PROPERTY_CAMPAIGN_ID = "campaignId";
-  private String campaignId;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
+    private String phoneNumber;
 
-  public PhoneNumberCampaignCreate() { 
-  }
+    public static final String JSON_PROPERTY_CAMPAIGN_ID = "campaignId";
+    private String campaignId;
 
-  public PhoneNumberCampaignCreate phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
+    public PhoneNumberCampaignCreate() {}
 
-   /**
-   * The phone number you want to link to a specified campaign.
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+18005550199", required = true, value = "The phone number you want to link to a specified campaign.")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public PhoneNumberCampaignCreate campaignId(String campaignId) {
-    this.campaignId = campaignId;
-    return this;
-  }
-
-   /**
-   * The ID of the campaign you want to link to the specified phone number.
-   * @return campaignId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "4b300178-131c-d902-d54e-72d90ba1620j", required = true, value = "The ID of the campaign you want to link to the specified phone number.")
-  @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCampaignId() {
-    return campaignId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCampaignId(String campaignId) {
-    this.campaignId = campaignId;
-  }
-
-
-  /**
-   * Return true if this PhoneNumberCampaignCreate object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PhoneNumberCampaignCreate phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The phone number you want to link to a specified campaign.
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+18005550199",
+        required = true,
+        value = "The phone number you want to link to a specified campaign."
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
-    PhoneNumberCampaignCreate phoneNumberCampaignCreate = (PhoneNumberCampaignCreate) o;
-    return Objects.equals(this.phoneNumber, phoneNumberCampaignCreate.phoneNumber) &&
-        Objects.equals(this.campaignId, phoneNumberCampaignCreate.campaignId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(phoneNumber, campaignId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PhoneNumberCampaignCreate {\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    campaignId: ").append(toIndentedString(campaignId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public PhoneNumberCampaignCreate campaignId(String campaignId) {
+        this.campaignId = campaignId;
+        return this;
+    }
+
+    /**
+     * The ID of the campaign you want to link to the specified phone number.
+     * @return campaignId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "4b300178-131c-d902-d54e-72d90ba1620j",
+        required = true,
+        value = "The ID of the campaign you want to link to the specified phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
+    }
+
+    /**
+     * Return true if this PhoneNumberCampaignCreate object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PhoneNumberCampaignCreate phoneNumberCampaignCreate =
+            (PhoneNumberCampaignCreate) o;
+        return (
+            Objects.equals(
+                this.phoneNumber,
+                phoneNumberCampaignCreate.phoneNumber
+            ) &&
+            Objects.equals(
+                this.campaignId,
+                phoneNumberCampaignCreate.campaignId
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phoneNumber, campaignId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PhoneNumberCampaignCreate {\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb
+            .append("    campaignId: ")
+            .append(toIndentedString(campaignId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -22,15 +21,13 @@ import com.telnyx.sdk.model.GetGcbChannelZonesRequestResponse;
 import com.telnyx.sdk.model.GetGcbPhoneNumbersRequestResponse;
 import com.telnyx.sdk.model.ListChannelZonesByPhoneNumber;
 import com.telnyx.sdk.model.UpdateChannelZone;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for ChannelZonesApi
@@ -122,7 +119,7 @@ public class ChannelZonesApiTest {
     /**
      * Unassign a phone number from a channel zone
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -134,5 +131,4 @@ public class ChannelZonesApiTest {
         //api.unassignPhoneNumber(channelZoneId, phoneNumber);
         // TODO: test validations
     }
-
 }

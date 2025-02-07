@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,15 +17,13 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ListInboundChannels;
 import com.telnyx.sdk.model.UpdateInbouncChannels;
 import com.telnyx.sdk.model.UpdateInboundChannels;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for InboundChannelsApi
@@ -63,5 +60,4 @@ public class InboundChannelsApiTest {
         //UpdateInbouncChannels response = api.updateOutboundChannels(updateInboundChannels);
         // TODO: test validations
     }
-
 }

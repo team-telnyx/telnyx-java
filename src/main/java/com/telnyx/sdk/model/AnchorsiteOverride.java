@@ -10,71 +10,66 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * &#x60;Latency&#x60; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.
  */
 public enum AnchorsiteOverride {
-  
-  LATENCY("Latency"),
-  
-  CHICAGO_IL("Chicago, IL"),
-  
-  ASHBURN_VA("Ashburn, VA"),
-  
-  SAN_JOSE_CA("San Jose, CA"),
-  
-  SYDNEY_AUSTRALIA("Sydney, Australia"),
-  
-  AMSTERDAM_NETHERLANDS("Amsterdam, Netherlands"),
-  
-  LONDON_UK("London, UK"),
-  
-  TORONTO_CANADA("Toronto, Canada"),
-  
-  VANCOUVER_CANADA("Vancouver, Canada"),
-  
-  FRANKFURT_GERMANY("Frankfurt, Germany");
+    LATENCY("Latency"),
 
-  private String value;
+    CHICAGO_IL("Chicago, IL"),
 
-  AnchorsiteOverride(String value) {
-    this.value = value;
-  }
+    ASHBURN_VA("Ashburn, VA"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    SAN_JOSE_CA("San Jose, CA"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    SYDNEY_AUSTRALIA("Sydney, Australia"),
 
-  @JsonCreator
-  public static AnchorsiteOverride fromValue(String value) {
-    for (AnchorsiteOverride b : AnchorsiteOverride.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    AMSTERDAM_NETHERLANDS("Amsterdam, Netherlands"),
+
+    LONDON_UK("London, UK"),
+
+    TORONTO_CANADA("Toronto, Canada"),
+
+    VANCOUVER_CANADA("Vancouver, Canada"),
+
+    FRANKFURT_GERMANY("Frankfurt, Germany");
+
+    private String value;
+
+    AnchorsiteOverride(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AnchorsiteOverride fromValue(String value) {
+        for (AnchorsiteOverride b : AnchorsiteOverride.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

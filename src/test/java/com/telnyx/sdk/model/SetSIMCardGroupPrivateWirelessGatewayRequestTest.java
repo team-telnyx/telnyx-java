@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for SetSIMCardGroupPrivateWirelessGatewayRequest
  */
 public class SetSIMCardGroupPrivateWirelessGatewayRequestTest {
-    private final SetSIMCardGroupPrivateWirelessGatewayRequest model = new SetSIMCardGroupPrivateWirelessGatewayRequest();
+
+    private final SetSIMCardGroupPrivateWirelessGatewayRequest model =
+        new SetSIMCardGroupPrivateWirelessGatewayRequest();
 
     /**
      * Model tests for SetSIMCardGroupPrivateWirelessGatewayRequest
@@ -47,5 +45,4 @@ public class SetSIMCardGroupPrivateWirelessGatewayRequestTest {
     public void privateWirelessGatewayIdTest() {
         // TODO: test privateWirelessGatewayId
     }
-
 }

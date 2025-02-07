@@ -10,12 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import static org.junit.Assert.assertEquals;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
@@ -24,16 +25,13 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for Fax
  */
 public class FaxTest {
+
     private final Fax model = new Fax();
 
     /**
@@ -114,18 +112,39 @@ public class FaxTest {
     @Test
     public void statusTest() {
         //valid outbound statuses
-        assertEquals(Fax.StatusEnum.QUEUED,Fax.StatusEnum.fromValue("queued"));
-        assertEquals(Fax.StatusEnum.MEDIA_PROCESSED,Fax.StatusEnum.fromValue("media.processed"));
-        assertEquals(Fax.StatusEnum.SENDING,Fax.StatusEnum.fromValue("sending"));
-        assertEquals(Fax.StatusEnum.DELIVERED,Fax.StatusEnum.fromValue("delivered"));
-        assertEquals(Fax.StatusEnum.FAILED,Fax.StatusEnum.fromValue("failed"));
+        assertEquals(Fax.StatusEnum.QUEUED, Fax.StatusEnum.fromValue("queued"));
+        assertEquals(
+            Fax.StatusEnum.MEDIA_PROCESSED,
+            Fax.StatusEnum.fromValue("media.processed")
+        );
+        assertEquals(
+            Fax.StatusEnum.SENDING,
+            Fax.StatusEnum.fromValue("sending")
+        );
+        assertEquals(
+            Fax.StatusEnum.DELIVERED,
+            Fax.StatusEnum.fromValue("delivered")
+        );
+        assertEquals(Fax.StatusEnum.FAILED, Fax.StatusEnum.fromValue("failed"));
 
         //valid inbound statuses
-        assertEquals(Fax.StatusEnum.INITIATED,Fax.StatusEnum.fromValue("initiated"));
-        assertEquals(Fax.StatusEnum.RECEIVING,Fax.StatusEnum.fromValue("receiving"));
-        assertEquals(Fax.StatusEnum.MEDIA_PROCESSING,Fax.StatusEnum.fromValue("media.processing"));
-        assertEquals(Fax.StatusEnum.RECEIVED,Fax.StatusEnum.fromValue("received"));
-        assertEquals(Fax.StatusEnum.FAILED,Fax.StatusEnum.fromValue("failed"));
+        assertEquals(
+            Fax.StatusEnum.INITIATED,
+            Fax.StatusEnum.fromValue("initiated")
+        );
+        assertEquals(
+            Fax.StatusEnum.RECEIVING,
+            Fax.StatusEnum.fromValue("receiving")
+        );
+        assertEquals(
+            Fax.StatusEnum.MEDIA_PROCESSING,
+            Fax.StatusEnum.fromValue("media.processing")
+        );
+        assertEquals(
+            Fax.StatusEnum.RECEIVED,
+            Fax.StatusEnum.fromValue("received")
+        );
+        assertEquals(Fax.StatusEnum.FAILED, Fax.StatusEnum.fromValue("failed"));
     }
 
     /**
@@ -175,5 +194,4 @@ public class FaxTest {
     public void updatedAtTest() {
         // TODO: test updatedAt
     }
-
 }

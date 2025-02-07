@@ -10,105 +10,110 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner
  */
-@JsonPropertyOrder({
-  WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner.JSON_PROPERTY_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner.JSON_PROPERTY_ID }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner {
-  public static final String JSON_PROPERTY_ID = "id";
-  private UUID id;
 
-  public WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner() { 
-  }
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-  public WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner id(UUID id) {
-    this.id = id;
-    return this;
-  }
+    public WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner() {}
 
-   /**
-   * Identifies the porting phone number that was moved.
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting phone number that was moved.")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-  /**
-   * Return true if this WebhookPortingOrderSplitPayload_porting_phone_numbers_inner object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner id(UUID id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Identifies the porting phone number that was moved.
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c",
+        value = "Identifies the porting phone number that was moved."
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getId() {
+        return id;
     }
-    WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner webhookPortingOrderSplitPayloadPortingPhoneNumbersInner = (WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner) o;
-    return Objects.equals(this.id, webhookPortingOrderSplitPayloadPortingPhoneNumbersInner.id);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(UUID id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this WebhookPortingOrderSplitPayload_porting_phone_numbers_inner object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner webhookPortingOrderSplitPayloadPortingPhoneNumbersInner =
+            (WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner) o;
+        return Objects.equals(
+            this.id,
+            webhookPortingOrderSplitPayloadPortingPhoneNumbersInner.id
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(
+            "class WebhookPortingOrderSplitPayloadPortingPhoneNumbersInner {\n"
+        );
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

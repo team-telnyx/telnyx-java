@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortoutsIdSupportingDocumentsDocuments;
@@ -26,15 +25,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CreatePortingSupportingDocsRequest
  */
 public class CreatePortingSupportingDocsRequestTest {
-    private final CreatePortingSupportingDocsRequest model = new CreatePortingSupportingDocsRequest();
+
+    private final CreatePortingSupportingDocsRequest model =
+        new CreatePortingSupportingDocsRequest();
 
     /**
      * Model tests for CreatePortingSupportingDocsRequest
@@ -51,5 +50,4 @@ public class CreatePortingSupportingDocsRequestTest {
     public void documentsTest() {
         // TODO: test documents
     }
-
 }

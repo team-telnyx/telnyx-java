@@ -1,56 +1,57 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreateTexmlApplicationRequest;
 import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.GetAllTexmlApplicationsResponse;
 import com.telnyx.sdk.model.TexmlApplicationResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdateTexmlApplicationRequest;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class TeXmlApplicationsApi {
-  private ApiClient apiClient;
 
-  public TeXmlApplicationsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public TeXmlApplicationsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public TeXmlApplicationsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public TeXmlApplicationsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Creates a TeXML Application
    * Creates a TeXML Application.
    * @param createTexmlApplicationRequest Parameters that can be set when creating a TeXML Application (required)
@@ -66,11 +67,15 @@ public class TeXmlApplicationsApi {
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public TexmlApplicationResponse createTexmlApplication(CreateTexmlApplicationRequest createTexmlApplicationRequest) throws ApiException {
-    return createTexmlApplicationWithHttpInfo(createTexmlApplicationRequest).getData();
-  }
+    public TexmlApplicationResponse createTexmlApplication(
+        CreateTexmlApplicationRequest createTexmlApplicationRequest
+    ) throws ApiException {
+        return createTexmlApplicationWithHttpInfo(
+            createTexmlApplicationRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Creates a TeXML Application
    * Creates a TeXML Application.
    * @param createTexmlApplicationRequest Parameters that can be set when creating a TeXML Application (required)
@@ -86,46 +91,69 @@ public class TeXmlApplicationsApi {
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TexmlApplicationResponse> createTexmlApplicationWithHttpInfo(CreateTexmlApplicationRequest createTexmlApplicationRequest) throws ApiException {
-    Object localVarPostBody = createTexmlApplicationRequest;
-    
-    // verify the required parameter 'createTexmlApplicationRequest' is set
-    if (createTexmlApplicationRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createTexmlApplicationRequest' when calling createTexmlApplication");
+    public ApiResponse<
+        TexmlApplicationResponse
+    > createTexmlApplicationWithHttpInfo(
+        CreateTexmlApplicationRequest createTexmlApplicationRequest
+    ) throws ApiException {
+        Object localVarPostBody = createTexmlApplicationRequest;
+
+        // verify the required parameter 'createTexmlApplicationRequest' is set
+        if (createTexmlApplicationRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'createTexmlApplicationRequest' when calling createTexmlApplication"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/texml_applications";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<TexmlApplicationResponse> localVarReturnType =
+            new GenericType<TexmlApplicationResponse>() {};
+
+        return apiClient.invokeAPI(
+            "TeXmlApplicationsApi.createTexmlApplication",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/texml_applications";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<TexmlApplicationResponse> localVarReturnType = new GenericType<TexmlApplicationResponse>() {};
-
-    return apiClient.invokeAPI("TeXmlApplicationsApi.createTexmlApplication", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Deletes a TeXML Application
    * Deletes a TeXML Application.
    * @param id The id of the resource. (required)
@@ -141,11 +169,12 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public TexmlApplicationResponse deleteTexmlApplication(UUID id) throws ApiException {
-    return deleteTexmlApplicationWithHttpInfo(id).getData();
-  }
+    public TexmlApplicationResponse deleteTexmlApplication(UUID id)
+        throws ApiException {
+        return deleteTexmlApplicationWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Deletes a TeXML Application
    * Deletes a TeXML Application.
    * @param id The id of the resource. (required)
@@ -161,47 +190,71 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TexmlApplicationResponse> deleteTexmlApplicationWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteTexmlApplication");
+    public ApiResponse<
+        TexmlApplicationResponse
+    > deleteTexmlApplicationWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteTexmlApplication"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/texml_applications/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<TexmlApplicationResponse> localVarReturnType =
+            new GenericType<TexmlApplicationResponse>() {};
+
+        return apiClient.invokeAPI(
+            "TeXmlApplicationsApi.deleteTexmlApplication",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/texml_applications/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<TexmlApplicationResponse> localVarReturnType = new GenericType<TexmlApplicationResponse>() {};
-
-    return apiClient.invokeAPI("TeXmlApplicationsApi.deleteTexmlApplication", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * List all TeXML Applications
    * Returns a list of your TeXML Applications.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -220,11 +273,23 @@ public class TeXmlApplicationsApi {
        <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllTexmlApplicationsResponse findTexmlApplications(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
-    return findTexmlApplicationsWithHttpInfo(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundVoiceProfileId, sort).getData();
-  }
+    public GetAllTexmlApplicationsResponse findTexmlApplications(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterFriendlyNameContains,
+        String filterOutboundVoiceProfileId,
+        String sort
+    ) throws ApiException {
+        return findTexmlApplicationsWithHttpInfo(
+            pageNumber,
+            pageSize,
+            filterFriendlyNameContains,
+            filterOutboundVoiceProfileId,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * List all TeXML Applications
    * Returns a list of your TeXML Applications.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -243,46 +308,89 @@ public class TeXmlApplicationsApi {
        <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllTexmlApplicationsResponse> findTexmlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/texml_applications";
+    public ApiResponse<
+        GetAllTexmlApplicationsResponse
+    > findTexmlApplicationsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize,
+        String filterFriendlyNameContains,
+        String filterOutboundVoiceProfileId,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/texml_applications";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[friendly_name][contains]", filterFriendlyNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[friendly_name][contains]",
+                filterFriendlyNameContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[outbound_voice_profile_id]",
+                filterOutboundVoiceProfileId
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort", sort)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<GetAllTexmlApplicationsResponse> localVarReturnType = new GenericType<GetAllTexmlApplicationsResponse>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("TeXmlApplicationsApi.findTexmlApplications", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<GetAllTexmlApplicationsResponse> localVarReturnType =
+            new GenericType<GetAllTexmlApplicationsResponse>() {};
+
+        return apiClient.invokeAPI(
+            "TeXmlApplicationsApi.findTexmlApplications",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Retrieve a TeXML Application
    * Retrieves the details of an existing TeXML Application.
    * @param id The id of the resource. (required)
@@ -298,11 +406,12 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public TexmlApplicationResponse getTexmlApplication(UUID id) throws ApiException {
-    return getTexmlApplicationWithHttpInfo(id).getData();
-  }
+    public TexmlApplicationResponse getTexmlApplication(UUID id)
+        throws ApiException {
+        return getTexmlApplicationWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a TeXML Application
    * Retrieves the details of an existing TeXML Application.
    * @param id The id of the resource. (required)
@@ -318,47 +427,71 @@ public class TeXmlApplicationsApi {
        <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TexmlApplicationResponse> getTexmlApplicationWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getTexmlApplication");
+    public ApiResponse<
+        TexmlApplicationResponse
+    > getTexmlApplicationWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getTexmlApplication"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/texml_applications/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<TexmlApplicationResponse> localVarReturnType =
+            new GenericType<TexmlApplicationResponse>() {};
+
+        return apiClient.invokeAPI(
+            "TeXmlApplicationsApi.getTexmlApplication",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/texml_applications/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<TexmlApplicationResponse> localVarReturnType = new GenericType<TexmlApplicationResponse>() {};
-
-    return apiClient.invokeAPI("TeXmlApplicationsApi.getTexmlApplication", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Update a TeXML Application
    * Updates settings of an existing TeXML Application.
    * @param id The id of the resource. (required)
@@ -376,11 +509,17 @@ public class TeXmlApplicationsApi {
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public TexmlApplicationResponse updateTexmlApplication(UUID id, UpdateTexmlApplicationRequest updateTexmlApplicationRequest) throws ApiException {
-    return updateTexmlApplicationWithHttpInfo(id, updateTexmlApplicationRequest).getData();
-  }
+    public TexmlApplicationResponse updateTexmlApplication(
+        UUID id,
+        UpdateTexmlApplicationRequest updateTexmlApplicationRequest
+    ) throws ApiException {
+        return updateTexmlApplicationWithHttpInfo(
+            id,
+            updateTexmlApplicationRequest
+        ).getData();
+    }
 
-  /**
+    /**
    * Update a TeXML Application
    * Updates settings of an existing TeXML Application.
    * @param id The id of the resource. (required)
@@ -398,49 +537,78 @@ public class TeXmlApplicationsApi {
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TexmlApplicationResponse> updateTexmlApplicationWithHttpInfo(UUID id, UpdateTexmlApplicationRequest updateTexmlApplicationRequest) throws ApiException {
-    Object localVarPostBody = updateTexmlApplicationRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateTexmlApplication");
+    public ApiResponse<
+        TexmlApplicationResponse
+    > updateTexmlApplicationWithHttpInfo(
+        UUID id,
+        UpdateTexmlApplicationRequest updateTexmlApplicationRequest
+    ) throws ApiException {
+        Object localVarPostBody = updateTexmlApplicationRequest;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling updateTexmlApplication"
+            );
+        }
+
+        // verify the required parameter 'updateTexmlApplicationRequest' is set
+        if (updateTexmlApplicationRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'updateTexmlApplicationRequest' when calling updateTexmlApplication"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/texml_applications/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<TexmlApplicationResponse> localVarReturnType =
+            new GenericType<TexmlApplicationResponse>() {};
+
+        return apiClient.invokeAPI(
+            "TeXmlApplicationsApi.updateTexmlApplication",
+            localVarPath,
+            "PATCH",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // verify the required parameter 'updateTexmlApplicationRequest' is set
-    if (updateTexmlApplicationRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateTexmlApplicationRequest' when calling updateTexmlApplication");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/texml_applications/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<TexmlApplicationResponse> localVarReturnType = new GenericType<TexmlApplicationResponse>() {};
-
-    return apiClient.invokeAPI("TeXmlApplicationsApi.updateTexmlApplication", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

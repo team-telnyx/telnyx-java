@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -33,7 +32,6 @@ import com.telnyx.sdk.model.CreatePortingPhoneNumberExtension201Response;
 import com.telnyx.sdk.model.CreatePortingPhoneNumberExtensionRequest;
 import com.telnyx.sdk.model.CreatePortingReport201Response;
 import com.telnyx.sdk.model.CreatePortingReportRequest;
-import java.io.File;
 import com.telnyx.sdk.model.GetPortingOrder200Response;
 import com.telnyx.sdk.model.GetPortingOrderSubRequest200Response;
 import com.telnyx.sdk.model.ListAdditionalDocuments200Response;
@@ -51,7 +49,6 @@ import com.telnyx.sdk.model.ListPortingPhoneNumberExtensions200Response;
 import com.telnyx.sdk.model.ListPortingPhoneNumbers200Response;
 import com.telnyx.sdk.model.ListPortingReports200Response;
 import com.telnyx.sdk.model.ListVerificationCodes200Response;
-import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.PortabilityStatus;
 import com.telnyx.sdk.model.PortingOrderActivationStatus;
 import com.telnyx.sdk.model.PortingOrderType;
@@ -60,21 +57,21 @@ import com.telnyx.sdk.model.SendPortingVerificationCodesRequest;
 import com.telnyx.sdk.model.SharePortingOrder201Response;
 import com.telnyx.sdk.model.SharePortingOrderRequest;
 import com.telnyx.sdk.model.ShowPortingEvent200Response;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdatePortingOrder;
 import com.telnyx.sdk.model.UpdatePortingOrder200Response;
 import com.telnyx.sdk.model.UpdatePortingOrdersActivationJobRequest;
 import com.telnyx.sdk.model.VerifyPortingVerificationCodes200Response;
 import com.telnyx.sdk.model.VerifyPortingVerificationCodesRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.io.File;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for PortingOrdersApi
@@ -877,5 +874,4 @@ public class PortingOrdersApiTest {
         //VerifyPortingVerificationCodes200Response response = api.verifyPortingVerificationCodes(id, verifyPortingVerificationCodesRequest);
         // TODO: test validations
     }
-
 }

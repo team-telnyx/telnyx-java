@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,16 +17,14 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.SIMCardGroupActionResponse;
 import com.telnyx.sdk.model.SimCardGroupActionCollectionResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for SimCardGroupActionsApi
@@ -69,5 +66,4 @@ public class SimCardGroupActionsApiTest {
         //SimCardGroupActionCollectionResponse response = api.simCardGroupActionsGet(pageNumber, pageSize, filterSimCardGroupId, filterStatus, filterType);
         // TODO: test validations
     }
-
 }

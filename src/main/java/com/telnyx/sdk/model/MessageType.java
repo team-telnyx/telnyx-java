@@ -10,72 +10,67 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * type of the message
  */
 public enum MessageType {
-  
-  AUDIO("audio"),
-  
-  CONTACTS("contacts"),
-  
-  DOCUMENT("document"),
-  
-  IMAGE("image"),
-  
-  LOCATION("location"),
-  
-  TEMPLATE("template"),
-  
-  TEXT("text"),
-  
-  VIDEO("video"),
-  
-  VOICE("voice"),
-  
-  UNKNOWN("unknown");
+    AUDIO("audio"),
 
-  private String value;
+    CONTACTS("contacts"),
 
-  MessageType(String value) {
-    this.value = value;
-  }
+    DOCUMENT("document"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    IMAGE("image"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    LOCATION("location"),
 
-  @JsonCreator
-  public static MessageType fromValue(String value) {
-    for (MessageType b : MessageType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    TEMPLATE("template"),
+
+    TEXT("text"),
+
+    VIDEO("video"),
+
+    VOICE("voice"),
+
+    UNKNOWN("unknown");
+
+    private String value;
+
+    MessageType(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static MessageType fromValue(String value) {
+        for (MessageType b : MessageType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

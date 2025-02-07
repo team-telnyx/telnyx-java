@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>4.0.3</version>
+  <version>4.0.4</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -58,7 +58,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.telnyx.sdk:telnyx:4.0.3"
+     implementation "com.telnyx.sdk:telnyx:4.0.4"
   }
 ```
 
@@ -72,7 +72,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-4.0.3.jar`
+- `target/telnyx-4.0.4.jar`
 - `target/lib/*.jar`
 
 ## Usage

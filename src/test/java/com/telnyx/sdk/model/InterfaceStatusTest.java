@@ -10,19 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import io.swagger.annotations.ApiModel;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for InterfaceStatus
  */
 public class InterfaceStatusTest {
+
     /**
      * Model tests for InterfaceStatus
      */
@@ -30,5 +27,4 @@ public class InterfaceStatusTest {
     public void testInterfaceStatus() {
         // TODO: test InterfaceStatus
     }
-
 }

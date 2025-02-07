@@ -10,29 +10,27 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ListCustomerServiceRequestPhoneNumberCoverage;
 import com.telnyx.sdk.model.ShowCustomerServiceRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for CustomerServiceRequestApi
  */
 public class CustomerServiceRequestApiTest {
 
-    private final CustomerServiceRequestApi api = new CustomerServiceRequestApi();
+    private final CustomerServiceRequestApi api =
+        new CustomerServiceRequestApi();
 
     /**
      * Get a customer service request
@@ -63,5 +61,4 @@ public class CustomerServiceRequestApiTest {
         //ListCustomerServiceRequestPhoneNumberCoverage response = api.verifyPhoneNumberCoverage(UNKNOWN_BASE_TYPE);
         // TODO: test validations
     }
-
 }

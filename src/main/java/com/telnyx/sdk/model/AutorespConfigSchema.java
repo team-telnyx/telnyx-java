@@ -10,341 +10,362 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * AutorespConfigSchema
  */
-@JsonPropertyOrder({
-  AutorespConfigSchema.JSON_PROPERTY_OP,
-  AutorespConfigSchema.JSON_PROPERTY_KEYWORDS,
-  AutorespConfigSchema.JSON_PROPERTY_RESP_TEXT,
-  AutorespConfigSchema.JSON_PROPERTY_COUNTRY_CODE,
-  AutorespConfigSchema.JSON_PROPERTY_ID,
-  AutorespConfigSchema.JSON_PROPERTY_CREATED_AT,
-  AutorespConfigSchema.JSON_PROPERTY_UPDATED_AT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        AutorespConfigSchema.JSON_PROPERTY_OP,
+        AutorespConfigSchema.JSON_PROPERTY_KEYWORDS,
+        AutorespConfigSchema.JSON_PROPERTY_RESP_TEXT,
+        AutorespConfigSchema.JSON_PROPERTY_COUNTRY_CODE,
+        AutorespConfigSchema.JSON_PROPERTY_ID,
+        AutorespConfigSchema.JSON_PROPERTY_CREATED_AT,
+        AutorespConfigSchema.JSON_PROPERTY_UPDATED_AT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AutorespConfigSchema {
-  /**
-   * Gets or Sets op
-   */
-  public enum OpEnum {
-    START(String.valueOf("start")),
-    
-    STOP(String.valueOf("stop")),
-    
-    INFO(String.valueOf("info"));
 
-    private String value;
+    /**
+     * Gets or Sets op
+     */
+    public enum OpEnum {
+        START(String.valueOf("start")),
 
-    OpEnum(String value) {
-      this.value = value;
+        STOP(String.valueOf("stop")),
+
+        INFO(String.valueOf("info"));
+
+        private String value;
+
+        OpEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static OpEnum fromValue(String value) {
+            for (OpEnum b : OpEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_OP = "op";
+    private OpEnum op;
+
+    public static final String JSON_PROPERTY_KEYWORDS = "keywords";
+    private List<String> keywords = new ArrayList<>();
+
+    public static final String JSON_PROPERTY_RESP_TEXT = "resp_text";
+    private String respText;
+
+    public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
+    private String countryCode;
+
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
+
+    public static final String JSON_PROPERTY_CREATED_AT = "created_at";
+    private OffsetDateTime createdAt;
+
+    public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
+    private OffsetDateTime updatedAt;
+
+    public AutorespConfigSchema() {}
+
+    public AutorespConfigSchema op(OpEnum op) {
+        this.op = op;
+        return this;
+    }
+
+    /**
+     * Get op
+     * @return op
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(example = "start", required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_OP)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public OpEnum getOp() {
+        return op;
+    }
+
+    @JsonProperty(JSON_PROPERTY_OP)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setOp(OpEnum op) {
+        this.op = op;
+    }
+
+    public AutorespConfigSchema keywords(List<String> keywords) {
+        this.keywords = keywords;
+        return this;
+    }
+
+    public AutorespConfigSchema addkeywordsItem(String keywordsItem) {
+        this.keywords.add(keywordsItem);
+        return this;
+    }
+
+    /**
+     * Get keywords
+     * @return keywords
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "[\"START\",\"BEGIN\"]",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_KEYWORDS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    @JsonProperty(JSON_PROPERTY_KEYWORDS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public AutorespConfigSchema respText(String respText) {
+        this.respText = respText;
+        return this;
+    }
+
+    /**
+     * Get respText
+     * @return respText
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Thank you for subscribing to our service.",
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_RESP_TEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRespText() {
+        return respText;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RESP_TEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRespText(String respText) {
+        this.respText = respText;
+    }
+
+    public AutorespConfigSchema countryCode(String countryCode) {
+        this.countryCode = countryCode;
+        return this;
+    }
+
+    /**
+     * Get countryCode
+     * @return countryCode
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(example = "*", required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public AutorespConfigSchema id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Get id
+     * @return id
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "b8f9c1c0-5b5a-4b1e-8c1c-0b5a4b1e8c1c",
+        required = true,
+        value = ""
+    )
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public AutorespConfigSchema createdAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     * @return createdAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public AutorespConfigSchema updatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Get updatedAt
+     * @return updatedAt
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public OffsetDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Return true if this AutorespConfigSchema object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AutorespConfigSchema autorespConfigSchema = (AutorespConfigSchema) o;
+        return (
+            Objects.equals(this.op, autorespConfigSchema.op) &&
+            Objects.equals(this.keywords, autorespConfigSchema.keywords) &&
+            Objects.equals(this.respText, autorespConfigSchema.respText) &&
+            Objects.equals(
+                this.countryCode,
+                autorespConfigSchema.countryCode
+            ) &&
+            Objects.equals(this.id, autorespConfigSchema.id) &&
+            Objects.equals(this.createdAt, autorespConfigSchema.createdAt) &&
+            Objects.equals(this.updatedAt, autorespConfigSchema.updatedAt)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            op,
+            keywords,
+            respText,
+            countryCode,
+            id,
+            createdAt,
+            updatedAt
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AutorespConfigSchema {\n");
+        sb.append("    op: ").append(toIndentedString(op)).append("\n");
+        sb
+            .append("    keywords: ")
+            .append(toIndentedString(keywords))
+            .append("\n");
+        sb
+            .append("    respText: ")
+            .append(toIndentedString(respText))
+            .append("\n");
+        sb
+            .append("    countryCode: ")
+            .append(toIndentedString(countryCode))
+            .append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    createdAt: ")
+            .append(toIndentedString(createdAt))
+            .append("\n");
+        sb
+            .append("    updatedAt: ")
+            .append(toIndentedString(updatedAt))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static OpEnum fromValue(String value) {
-      for (OpEnum b : OpEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_OP = "op";
-  private OpEnum op;
-
-  public static final String JSON_PROPERTY_KEYWORDS = "keywords";
-  private List<String> keywords = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_RESP_TEXT = "resp_text";
-  private String respText;
-
-  public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
-  private String countryCode;
-
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
-
-  public static final String JSON_PROPERTY_CREATED_AT = "created_at";
-  private OffsetDateTime createdAt;
-
-  public static final String JSON_PROPERTY_UPDATED_AT = "updated_at";
-  private OffsetDateTime updatedAt;
-
-  public AutorespConfigSchema() { 
-  }
-
-  public AutorespConfigSchema op(OpEnum op) {
-    this.op = op;
-    return this;
-  }
-
-   /**
-   * Get op
-   * @return op
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "start", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_OP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public OpEnum getOp() {
-    return op;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOp(OpEnum op) {
-    this.op = op;
-  }
-
-
-  public AutorespConfigSchema keywords(List<String> keywords) {
-    this.keywords = keywords;
-    return this;
-  }
-
-  public AutorespConfigSchema addkeywordsItem(String keywordsItem) {
-    this.keywords.add(keywordsItem);
-    return this;
-  }
-
-   /**
-   * Get keywords
-   * @return keywords
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "[\"START\",\"BEGIN\"]", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_KEYWORDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<String> getKeywords() {
-    return keywords;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_KEYWORDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setKeywords(List<String> keywords) {
-    this.keywords = keywords;
-  }
-
-
-  public AutorespConfigSchema respText(String respText) {
-    this.respText = respText;
-    return this;
-  }
-
-   /**
-   * Get respText
-   * @return respText
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Thank you for subscribing to our service.", value = "")
-  @JsonProperty(JSON_PROPERTY_RESP_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRespText() {
-    return respText;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RESP_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRespText(String respText) {
-    this.respText = respText;
-  }
-
-
-  public AutorespConfigSchema countryCode(String countryCode) {
-    this.countryCode = countryCode;
-    return this;
-  }
-
-   /**
-   * Get countryCode
-   * @return countryCode
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "*", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCountryCode() {
-    return countryCode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCountryCode(String countryCode) {
-    this.countryCode = countryCode;
-  }
-
-
-  public AutorespConfigSchema id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "b8f9c1c0-5b5a-4b1e-8c1c-0b5a4b1e8c1c", required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public AutorespConfigSchema createdAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public OffsetDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCreatedAt(OffsetDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  public AutorespConfigSchema updatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public OffsetDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-
-  /**
-   * Return true if this AutorespConfigSchema object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    AutorespConfigSchema autorespConfigSchema = (AutorespConfigSchema) o;
-    return Objects.equals(this.op, autorespConfigSchema.op) &&
-        Objects.equals(this.keywords, autorespConfigSchema.keywords) &&
-        Objects.equals(this.respText, autorespConfigSchema.respText) &&
-        Objects.equals(this.countryCode, autorespConfigSchema.countryCode) &&
-        Objects.equals(this.id, autorespConfigSchema.id) &&
-        Objects.equals(this.createdAt, autorespConfigSchema.createdAt) &&
-        Objects.equals(this.updatedAt, autorespConfigSchema.updatedAt);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(op, keywords, respText, countryCode, id, createdAt, updatedAt);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AutorespConfigSchema {\n");
-    sb.append("    op: ").append(toIndentedString(op)).append("\n");
-    sb.append("    keywords: ").append(toIndentedString(keywords)).append("\n");
-    sb.append("    respText: ").append(toIndentedString(respText)).append("\n");
-    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

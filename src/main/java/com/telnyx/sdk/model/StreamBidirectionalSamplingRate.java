@@ -10,57 +10,52 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Audio sampling rate.
  */
 public enum StreamBidirectionalSamplingRate {
-  
-  NUMBER_8000(8000),
-  
-  NUMBER_16000(16000),
-  
-  NUMBER_48000(48000);
+    NUMBER_8000(8000),
 
-  private Integer value;
+    NUMBER_16000(16000),
 
-  StreamBidirectionalSamplingRate(Integer value) {
-    this.value = value;
-  }
+    NUMBER_48000(48000);
 
-  @JsonValue
-  public Integer getValue() {
-    return value;
-  }
+    private Integer value;
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static StreamBidirectionalSamplingRate fromValue(Integer value) {
-    for (StreamBidirectionalSamplingRate b : StreamBidirectionalSamplingRate.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    StreamBidirectionalSamplingRate(Integer value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public Integer getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StreamBidirectionalSamplingRate fromValue(Integer value) {
+        for (StreamBidirectionalSamplingRate b : StreamBidirectionalSamplingRate.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

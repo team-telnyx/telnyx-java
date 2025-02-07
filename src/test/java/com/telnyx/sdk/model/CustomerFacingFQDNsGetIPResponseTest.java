@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.IpItem;
@@ -24,16 +23,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CustomerFacingFQDNsGetIPResponse
  */
 public class CustomerFacingFQDNsGetIPResponseTest {
-    private final CustomerFacingFQDNsGetIPResponse model = new CustomerFacingFQDNsGetIPResponse();
+
+    private final CustomerFacingFQDNsGetIPResponse model =
+        new CustomerFacingFQDNsGetIPResponse();
 
     /**
      * Model tests for CustomerFacingFQDNsGetIPResponse
@@ -58,5 +56,4 @@ public class CustomerFacingFQDNsGetIPResponseTest {
     public void metaTest() {
         // TODO: test meta
     }
-
 }

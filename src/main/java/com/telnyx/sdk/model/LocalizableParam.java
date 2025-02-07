@@ -10,171 +10,176 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Currency;
 import com.telnyx.sdk.model.DateTimeObject;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * LocalizableParam
  */
-@JsonPropertyOrder({
-  LocalizableParam.JSON_PROPERTY_DEFAULT,
-  LocalizableParam.JSON_PROPERTY_CURRENCY,
-  LocalizableParam.JSON_PROPERTY_DATE_TIME
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        LocalizableParam.JSON_PROPERTY_DEFAULT,
+        LocalizableParam.JSON_PROPERTY_CURRENCY,
+        LocalizableParam.JSON_PROPERTY_DATE_TIME,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class LocalizableParam {
-  public static final String JSON_PROPERTY_DEFAULT = "default";
-  private String _default;
 
-  public static final String JSON_PROPERTY_CURRENCY = "currency";
-  private Currency currency;
+    public static final String JSON_PROPERTY_DEFAULT = "default";
+    private String _default;
 
-  public static final String JSON_PROPERTY_DATE_TIME = "date_time";
-  private DateTimeObject dateTime;
+    public static final String JSON_PROPERTY_CURRENCY = "currency";
+    private Currency currency;
 
-  public LocalizableParam() { 
-  }
+    public static final String JSON_PROPERTY_DATE_TIME = "date_time";
+    private DateTimeObject dateTime;
 
-  public LocalizableParam _default(String _default) {
-    this._default = _default;
-    return this;
-  }
+    public LocalizableParam() {}
 
-   /**
-   * Default text if localization fails
-   * @return _default
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Default text if localization fails")
-  @JsonProperty(JSON_PROPERTY_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getDefault() {
-    return _default;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDefault(String _default) {
-    this._default = _default;
-  }
-
-
-  public LocalizableParam currency(Currency currency) {
-    this.currency = currency;
-    return this;
-  }
-
-   /**
-   * Get currency
-   * @return currency
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Currency getCurrency() {
-    return currency;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrency(Currency currency) {
-    this.currency = currency;
-  }
-
-
-  public LocalizableParam dateTime(DateTimeObject dateTime) {
-    this.dateTime = dateTime;
-    return this;
-  }
-
-   /**
-   * Get dateTime
-   * @return dateTime
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DateTimeObject getDateTime() {
-    return dateTime;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDateTime(DateTimeObject dateTime) {
-    this.dateTime = dateTime;
-  }
-
-
-  /**
-   * Return true if this LocalizableParam object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public LocalizableParam _default(String _default) {
+        this._default = _default;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Default text if localization fails
+     * @return _default
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "Default text if localization fails"
+    )
+    @JsonProperty(JSON_PROPERTY_DEFAULT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getDefault() {
+        return _default;
     }
-    LocalizableParam localizableParam = (LocalizableParam) o;
-    return Objects.equals(this._default, localizableParam._default) &&
-        Objects.equals(this.currency, localizableParam.currency) &&
-        Objects.equals(this.dateTime, localizableParam.dateTime);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(_default, currency, dateTime);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class LocalizableParam {\n");
-    sb.append("    _default: ").append(toIndentedString(_default)).append("\n");
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_DEFAULT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setDefault(String _default) {
+        this._default = _default;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public LocalizableParam currency(Currency currency) {
+        this.currency = currency;
+        return this;
+    }
+
+    /**
+     * Get currency
+     * @return currency
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public LocalizableParam dateTime(DateTimeObject dateTime) {
+        this.dateTime = dateTime;
+        return this;
+    }
+
+    /**
+     * Get dateTime
+     * @return dateTime
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DATE_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DateTimeObject getDateTime() {
+        return dateTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DATE_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDateTime(DateTimeObject dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    /**
+     * Return true if this LocalizableParam object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        LocalizableParam localizableParam = (LocalizableParam) o;
+        return (
+            Objects.equals(this._default, localizableParam._default) &&
+            Objects.equals(this.currency, localizableParam.currency) &&
+            Objects.equals(this.dateTime, localizableParam.dateTime)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_default, currency, dateTime);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class LocalizableParam {\n");
+        sb
+            .append("    _default: ")
+            .append(toIndentedString(_default))
+            .append("\n");
+        sb
+            .append("    currency: ")
+            .append(toIndentedString(currency))
+            .append("\n");
+        sb
+            .append("    dateTime: ")
+            .append(toIndentedString(dateTime))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

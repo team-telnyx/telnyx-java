@@ -10,55 +10,50 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * When &#x60;dual&#x60;, final audio file has the first leg on channel A, and the rest on channel B. &#x60;single&#x60; mixes both tracks into a single channel.
  */
 public enum TexmlRecordingChannels {
-  
-  SINGLE("single"),
-  
-  DUAL("dual");
+    SINGLE("single"),
 
-  private String value;
+    DUAL("dual");
 
-  TexmlRecordingChannels(String value) {
-    this.value = value;
-  }
+    private String value;
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static TexmlRecordingChannels fromValue(String value) {
-    for (TexmlRecordingChannels b : TexmlRecordingChannels.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    TexmlRecordingChannels(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TexmlRecordingChannels fromValue(String value) {
+        for (TexmlRecordingChannels b : TexmlRecordingChannels.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

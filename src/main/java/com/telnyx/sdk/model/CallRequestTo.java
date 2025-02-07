@@ -10,35 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -50,14 +30,38 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 @JsonDeserialize(using = CallRequestTo.CallRequestToDeserializer.class)
 @JsonSerialize(using = CallRequestTo.CallRequestToSerializer.class)
 public class CallRequestTo extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(CallRequestTo.class.getName());
 
-    public static class CallRequestToSerializer extends StdSerializer<CallRequestTo> {
+    private static final Logger log = Logger.getLogger(
+        CallRequestTo.class.getName()
+    );
+
+    public static class CallRequestToSerializer
+        extends StdSerializer<CallRequestTo> {
+
         public CallRequestToSerializer(Class<CallRequestTo> t) {
             super(t);
         }
@@ -67,12 +71,18 @@ public class CallRequestTo extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(CallRequestTo value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            CallRequestTo value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class CallRequestToDeserializer extends StdDeserializer<CallRequestTo> {
+    public static class CallRequestToDeserializer
+        extends StdDeserializer<CallRequestTo> {
+
         public CallRequestToDeserializer() {
             this(CallRequestTo.class);
         }
@@ -82,10 +92,15 @@ public class CallRequestTo extends AbstractOpenApiSchema {
         }
 
         @Override
-        public CallRequestTo deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public CallRequestTo deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            boolean typeCoercion = ctxt.isEnabled(
+                MapperFeature.ALLOW_COERCION_OF_SCALARS
+            );
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize List<String>
@@ -95,38 +110,74 @@ public class CallRequestTo extends AbstractOpenApiSchema {
                 if (List.class.isAssignableFrom(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((Integer.class.equals(String.class) || Long.class.equals(String.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((Float.class.equals(String.class) || Double.class.equals(String.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (Boolean.class.equals(String.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (String.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((Integer.class.equals(
+                                        String.class
+                                    ) ||
+                                Long.class.equals(String.class)) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((Float.class.equals(String.class) ||
+                                Double.class.equals(String.class)) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (Boolean.class.equals(String.class) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (String.class.equals(String.class) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<List<String>>() {});
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(new TypeReference<List<String>>() {});
                     // TODO: Validate against JSON schema constraints (min, max, enum, pattern...)
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'List<String>'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'List<String>'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'List<String>'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'List<String>'",
+                    e
+                );
             }
 
             // deserialize String
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (String.class.equals(Integer.class) || String.class.equals(Long.class) || String.class.equals(Float.class) || String.class.equals(Double.class) || String.class.equals(Boolean.class) || String.class.equals(String.class)) {
+                if (
+                    String.class.equals(Integer.class) ||
+                    String.class.equals(Long.class) ||
+                    String.class.equals(Float.class) ||
+                    String.class.equals(Double.class) ||
+                    String.class.equals(Boolean.class) ||
+                    String.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((String.class.equals(Integer.class) || String.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((String.class.equals(Float.class) || String.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (String.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (String.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((String.class.equals(
+                                        Integer.class
+                                    ) ||
+                                String.class.equals(Long.class)) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((String.class.equals(Float.class) ||
+                                String.class.equals(Double.class)) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (String.class.equals(Boolean.class) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (String.class.equals(String.class) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(String.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(String.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -135,7 +186,11 @@ public class CallRequestTo extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'String'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'String'",
+                    e
+                );
             }
 
             if (match == 1) {
@@ -143,20 +198,32 @@ public class CallRequestTo extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for CallRequestTo: %d classes match result, expected 1", match));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for CallRequestTo: %d classes match result, expected 1",
+                    match
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public CallRequestTo getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "CallRequestTo cannot be null");
+        public CallRequestTo getNullValue(DeserializationContext ctxt)
+            throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "CallRequestTo cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public CallRequestTo() {
         super("oneOf", Boolean.FALSE);
@@ -173,11 +240,12 @@ public class CallRequestTo extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("List<String>", new GenericType<List<String>>() {
-        });
-        schemas.put("String", new GenericType<String>() {
-        });
-        JSON.registerDescendants(CallRequestTo.class, Collections.unmodifiableMap(schemas));
+        schemas.put("List<String>", new GenericType<List<String>>() {});
+        schemas.put("String", new GenericType<String>() {});
+        JSON.registerDescendants(
+            CallRequestTo.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -195,7 +263,10 @@ public class CallRequestTo extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (instance instanceof List<?> && ((List<?>) instance).stream().allMatch(String.class::isInstance)) {
+        if (
+            instance instanceof List<?> &&
+            ((List<?>) instance).stream().allMatch(String.class::isInstance)
+        ) {
             super.setActualInstance(instance);
             return;
         }
@@ -205,7 +276,9 @@ public class CallRequestTo extends AbstractOpenApiSchema {
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be List<String> or String");
+        throw new RuntimeException(
+            "Invalid instance type. Must be List<String> or String"
+        );
     }
 
     /**
@@ -239,8 +312,6 @@ public class CallRequestTo extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `String`
      */
     public String getString() throws ClassCastException {
-        return (String)super.getActualInstance();
+        return (String) super.getActualInstance();
     }
-
 }
-

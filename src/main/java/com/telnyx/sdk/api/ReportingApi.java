@@ -1,56 +1,57 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.CreateWdrReport201Response;
 import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetWdrReports200Response;
-import java.util.UUID;
 import com.telnyx.sdk.model.WdrReportRequest;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ReportingApi {
-  private ApiClient apiClient;
 
-  public ReportingApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public ReportingApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public ReportingApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public ReportingApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Create a Wireless Detail Records (WDRs) Report
    * Asynchronously create a report containing Wireless Detail Records (WDRs) for the SIM cards that consumed wireless data in the given time period. 
    * @param wdrReportRequest  (required)
@@ -64,11 +65,13 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateWdrReport201Response createWdrReport(WdrReportRequest wdrReportRequest) throws ApiException {
-    return createWdrReportWithHttpInfo(wdrReportRequest).getData();
-  }
+    public CreateWdrReport201Response createWdrReport(
+        WdrReportRequest wdrReportRequest
+    ) throws ApiException {
+        return createWdrReportWithHttpInfo(wdrReportRequest).getData();
+    }
 
-  /**
+    /**
    * Create a Wireless Detail Records (WDRs) Report
    * Asynchronously create a report containing Wireless Detail Records (WDRs) for the SIM cards that consumed wireless data in the given time period. 
    * @param wdrReportRequest  (required)
@@ -82,46 +85,67 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateWdrReport201Response> createWdrReportWithHttpInfo(WdrReportRequest wdrReportRequest) throws ApiException {
-    Object localVarPostBody = wdrReportRequest;
-    
-    // verify the required parameter 'wdrReportRequest' is set
-    if (wdrReportRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'wdrReportRequest' when calling createWdrReport");
+    public ApiResponse<CreateWdrReport201Response> createWdrReportWithHttpInfo(
+        WdrReportRequest wdrReportRequest
+    ) throws ApiException {
+        Object localVarPostBody = wdrReportRequest;
+
+        // verify the required parameter 'wdrReportRequest' is set
+        if (wdrReportRequest == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'wdrReportRequest' when calling createWdrReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/wireless/detail_records_reports";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "application/json" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateWdrReport201Response> localVarReturnType =
+            new GenericType<CreateWdrReport201Response>() {};
+
+        return apiClient.invokeAPI(
+            "ReportingApi.createWdrReport",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/wireless/detail_records_reports";
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateWdrReport201Response> localVarReturnType = new GenericType<CreateWdrReport201Response>() {};
-
-    return apiClient.invokeAPI("ReportingApi.createWdrReport", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Delete a Wireless Detail Record (WDR) Report
    * Deletes one specific WDR report.
    * @param id Identifies the resource. (required)
@@ -135,11 +159,12 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateWdrReport201Response deleteWdrReport(UUID id) throws ApiException {
-    return deleteWdrReportWithHttpInfo(id).getData();
-  }
+    public CreateWdrReport201Response deleteWdrReport(UUID id)
+        throws ApiException {
+        return deleteWdrReportWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Delete a Wireless Detail Record (WDR) Report
    * Deletes one specific WDR report.
    * @param id Identifies the resource. (required)
@@ -153,47 +178,71 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateWdrReport201Response> deleteWdrReportWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteWdrReport");
+    public ApiResponse<CreateWdrReport201Response> deleteWdrReportWithHttpInfo(
+        UUID id
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling deleteWdrReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/wireless/detail_records_reports/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateWdrReport201Response> localVarReturnType =
+            new GenericType<CreateWdrReport201Response>() {};
+
+        return apiClient.invokeAPI(
+            "ReportingApi.deleteWdrReport",
+            localVarPath,
+            "DELETE",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/wireless/detail_records_reports/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateWdrReport201Response> localVarReturnType = new GenericType<CreateWdrReport201Response>() {};
-
-    return apiClient.invokeAPI("ReportingApi.deleteWdrReport", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Get a Wireless Detail Record (WDR) Report
    * Returns one specific WDR report
    * @param id Identifies the resource. (required)
@@ -207,11 +256,12 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateWdrReport201Response getWdrReport(UUID id) throws ApiException {
-    return getWdrReportWithHttpInfo(id).getData();
-  }
+    public CreateWdrReport201Response getWdrReport(UUID id)
+        throws ApiException {
+        return getWdrReportWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Get a Wireless Detail Record (WDR) Report
    * Returns one specific WDR report
    * @param id Identifies the resource. (required)
@@ -225,47 +275,71 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateWdrReport201Response> getWdrReportWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getWdrReport");
+    public ApiResponse<CreateWdrReport201Response> getWdrReportWithHttpInfo(
+        UUID id
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling getWdrReport"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/wireless/detail_records_reports/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<CreateWdrReport201Response> localVarReturnType =
+            new GenericType<CreateWdrReport201Response>() {};
+
+        return apiClient.invokeAPI(
+            "ReportingApi.getWdrReport",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/wireless/detail_records_reports/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateWdrReport201Response> localVarReturnType = new GenericType<CreateWdrReport201Response>() {};
-
-    return apiClient.invokeAPI("ReportingApi.getWdrReport", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+    /**
    * Get all Wireless Detail Records (WDRs) Reports
    * Returns the WDR Reports that match the given parameters.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -280,11 +354,14 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GetWdrReports200Response getWdrReports(Integer pageNumber, Integer pageSize) throws ApiException {
-    return getWdrReportsWithHttpInfo(pageNumber, pageSize).getData();
-  }
+    public GetWdrReports200Response getWdrReports(
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        return getWdrReportsWithHttpInfo(pageNumber, pageSize).getData();
+    }
 
-  /**
+    /**
    * Get all Wireless Detail Records (WDRs) Reports
    * Returns the WDR Reports that match the given parameters.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -299,40 +376,63 @@ public class ReportingApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetWdrReports200Response> getWdrReportsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/wireless/detail_records_reports";
+    public ApiResponse<GetWdrReports200Response> getWdrReportsWithHttpInfo(
+        Integer pageNumber,
+        Integer pageSize
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/wireless/detail_records_reports";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<GetWdrReports200Response> localVarReturnType = new GenericType<GetWdrReports200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("ReportingApi.getWdrReports", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
+        GenericType<GetWdrReports200Response> localVarReturnType =
+            new GenericType<GetWdrReports200Response>() {};
+
+        return apiClient.invokeAPI(
+            "ReportingApi.getWdrReports",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
 }

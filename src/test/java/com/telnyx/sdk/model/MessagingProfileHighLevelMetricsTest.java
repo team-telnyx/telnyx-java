@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.MessagingProfileHighLevelMetricsInbound;
@@ -26,15 +25,15 @@ import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for MessagingProfileHighLevelMetrics
  */
 public class MessagingProfileHighLevelMetricsTest {
-    private final MessagingProfileHighLevelMetrics model = new MessagingProfileHighLevelMetrics();
+
+    private final MessagingProfileHighLevelMetrics model =
+        new MessagingProfileHighLevelMetrics();
 
     /**
      * Model tests for MessagingProfileHighLevelMetrics
@@ -83,5 +82,4 @@ public class MessagingProfileHighLevelMetricsTest {
     public void inboundTest() {
         // TODO: test inbound
     }
-
 }

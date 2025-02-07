@@ -10,42 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.telnyx.sdk.model.TelnyxCampaignCSP;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -55,19 +28,57 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.TelnyxCampaignCSP;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using=ResponseSubmitCampaignPublicCampaignbuilderPost.ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer.class)
-@JsonSerialize(using = ResponseSubmitCampaignPublicCampaignbuilderPost.ResponseSubmitCampaignPublicCampaignbuilderPostSerializer.class)
-public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(ResponseSubmitCampaignPublicCampaignbuilderPost.class.getName());
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(
+    using = ResponseSubmitCampaignPublicCampaignbuilderPost.ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer.class
+)
+@JsonSerialize(
+    using = ResponseSubmitCampaignPublicCampaignbuilderPost.ResponseSubmitCampaignPublicCampaignbuilderPostSerializer.class
+)
+public class ResponseSubmitCampaignPublicCampaignbuilderPost
+    extends AbstractOpenApiSchema {
 
-    public static class ResponseSubmitCampaignPublicCampaignbuilderPostSerializer extends StdSerializer<ResponseSubmitCampaignPublicCampaignbuilderPost> {
-        public ResponseSubmitCampaignPublicCampaignbuilderPostSerializer(Class<ResponseSubmitCampaignPublicCampaignbuilderPost> t) {
+    private static final Logger log = Logger.getLogger(
+        ResponseSubmitCampaignPublicCampaignbuilderPost.class.getName()
+    );
+
+    public static class ResponseSubmitCampaignPublicCampaignbuilderPostSerializer
+        extends StdSerializer<ResponseSubmitCampaignPublicCampaignbuilderPost> {
+
+        public ResponseSubmitCampaignPublicCampaignbuilderPostSerializer(
+            Class<ResponseSubmitCampaignPublicCampaignbuilderPost> t
+        ) {
             super(t);
         }
 
@@ -76,61 +87,100 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
         }
 
         @Override
-        public void serialize(ResponseSubmitCampaignPublicCampaignbuilderPost value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            ResponseSubmitCampaignPublicCampaignbuilderPost value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer extends StdDeserializer<ResponseSubmitCampaignPublicCampaignbuilderPost> {
+    public static class ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer
+        extends StdDeserializer<
+            ResponseSubmitCampaignPublicCampaignbuilderPost
+        > {
+
         public ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer() {
             this(ResponseSubmitCampaignPublicCampaignbuilderPost.class);
         }
 
-        public ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer(Class<?> vc) {
+        public ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer(
+            Class<?> vc
+        ) {
             super(vc);
         }
 
         @Override
-        public ResponseSubmitCampaignPublicCampaignbuilderPost deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public ResponseSubmitCampaignPublicCampaignbuilderPost deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
             // deserialize Object
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
-                ResponseSubmitCampaignPublicCampaignbuilderPost ret = new ResponseSubmitCampaignPublicCampaignbuilderPost();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(Object.class);
+                ResponseSubmitCampaignPublicCampaignbuilderPost ret =
+                    new ResponseSubmitCampaignPublicCampaignbuilderPost();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'ResponseSubmitCampaignPublicCampaignbuilderPost'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'ResponseSubmitCampaignPublicCampaignbuilderPost'",
+                    e
+                );
             }
 
             // deserialize TelnyxCampaignCSP
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(TelnyxCampaignCSP.class);
-                ResponseSubmitCampaignPublicCampaignbuilderPost ret = new ResponseSubmitCampaignPublicCampaignbuilderPost();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(TelnyxCampaignCSP.class);
+                ResponseSubmitCampaignPublicCampaignbuilderPost ret =
+                    new ResponseSubmitCampaignPublicCampaignbuilderPost();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'ResponseSubmitCampaignPublicCampaignbuilderPost'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'ResponseSubmitCampaignPublicCampaignbuilderPost'",
+                    e
+                );
             }
 
-            throw new IOException(String.format("Failed deserialization for ResponseSubmitCampaignPublicCampaignbuilderPost: no match found"));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for ResponseSubmitCampaignPublicCampaignbuilderPost: no match found"
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public ResponseSubmitCampaignPublicCampaignbuilderPost getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "ResponseSubmitCampaignPublicCampaignbuilderPost cannot be null");
+        public ResponseSubmitCampaignPublicCampaignbuilderPost getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "ResponseSubmitCampaignPublicCampaignbuilderPost cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in anyOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public ResponseSubmitCampaignPublicCampaignbuilderPost() {
         super("anyOf", Boolean.FALSE);
@@ -141,17 +191,23 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
         setActualInstance(o);
     }
 
-    public ResponseSubmitCampaignPublicCampaignbuilderPost(TelnyxCampaignCSP o) {
+    public ResponseSubmitCampaignPublicCampaignbuilderPost(
+        TelnyxCampaignCSP o
+    ) {
         super("anyOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
     static {
-        schemas.put("Object", new GenericType<Object>() {
-        });
-        schemas.put("TelnyxCampaignCSP", new GenericType<TelnyxCampaignCSP>() {
-        });
-        JSON.registerDescendants(ResponseSubmitCampaignPublicCampaignbuilderPost.class, Collections.unmodifiableMap(schemas));
+        schemas.put("Object", new GenericType<Object>() {});
+        schemas.put(
+            "TelnyxCampaignCSP",
+            new GenericType<TelnyxCampaignCSP>() {}
+        );
+        JSON.registerDescendants(
+            ResponseSubmitCampaignPublicCampaignbuilderPost.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -169,17 +225,27 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(TelnyxCampaignCSP.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                TelnyxCampaignCSP.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be Object, TelnyxCampaignCSP");
+        throw new RuntimeException(
+            "Invalid instance type. Must be Object, TelnyxCampaignCSP"
+        );
     }
 
     /**
@@ -201,7 +267,7 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
      * @throws ClassCastException if the instance is not `Object`
      */
     public Object getObject() throws ClassCastException {
-        return (Object)super.getActualInstance();
+        return (Object) super.getActualInstance();
     }
 
     /**
@@ -212,8 +278,6 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
      * @throws ClassCastException if the instance is not `TelnyxCampaignCSP`
      */
     public TelnyxCampaignCSP getTelnyxCampaignCSP() throws ClassCastException {
-        return (TelnyxCampaignCSP)super.getActualInstance();
+        return (TelnyxCampaignCSP) super.getActualInstance();
     }
-
 }
-

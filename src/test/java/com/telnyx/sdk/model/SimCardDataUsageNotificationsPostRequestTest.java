@@ -10,28 +10,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SimCardDataUsageNotificationsPostRequestThreshold;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for SimCardDataUsageNotificationsPostRequest
  */
 public class SimCardDataUsageNotificationsPostRequestTest {
-    private final SimCardDataUsageNotificationsPostRequest model = new SimCardDataUsageNotificationsPostRequest();
+
+    private final SimCardDataUsageNotificationsPostRequest model =
+        new SimCardDataUsageNotificationsPostRequest();
 
     /**
      * Model tests for SimCardDataUsageNotificationsPostRequest
@@ -56,5 +54,4 @@ public class SimCardDataUsageNotificationsPostRequestTest {
     public void thresholdTest() {
         // TODO: test threshold
     }
-
 }

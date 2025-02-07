@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.WebhookPortingOrderNewCommentPayloadComment;
 import java.util.Arrays;
 import java.util.UUID;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -30,7 +28,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for WebhookPortingOrderNewCommentPayload
  */
 public class WebhookPortingOrderNewCommentPayloadTest {
-    private final WebhookPortingOrderNewCommentPayload model = new WebhookPortingOrderNewCommentPayload();
+
+    private final WebhookPortingOrderNewCommentPayload model =
+        new WebhookPortingOrderNewCommentPayload();
 
     /**
      * Model tests for WebhookPortingOrderNewCommentPayload
@@ -63,5 +63,4 @@ public class WebhookPortingOrderNewCommentPayloadTest {
     public void commentTest() {
         // TODO: test comment
     }
-
 }

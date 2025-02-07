@@ -10,65 +10,60 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Defines how the recording was created.
  */
 public enum RecordingSource {
-  
-  START_CALL_RECORDING_API("StartCallRecordingAPI"),
-  
-  START_CONFERENCE_RECORDING_API("StartConferenceRecordingAPI"),
-  
-  OUTBOUND_API("OutboundAPI"),
-  
-  DIAL_VERB("DialVerb"),
-  
-  CONFERENCE("Conference"),
-  
-  RECORD_VERB("RecordVerb"),
-  
-  TRUNKING("Trunking");
+    START_CALL_RECORDING_API("StartCallRecordingAPI"),
 
-  private String value;
+    START_CONFERENCE_RECORDING_API("StartConferenceRecordingAPI"),
 
-  RecordingSource(String value) {
-    this.value = value;
-  }
+    OUTBOUND_API("OutboundAPI"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    DIAL_VERB("DialVerb"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    CONFERENCE("Conference"),
 
-  @JsonCreator
-  public static RecordingSource fromValue(String value) {
-    for (RecordingSource b : RecordingSource.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    RECORD_VERB("RecordVerb"),
+
+    TRUNKING("Trunking");
+
+    private String value;
+
+    RecordingSource(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordingSource fromValue(String value) {
+        for (RecordingSource b : RecordingSource.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

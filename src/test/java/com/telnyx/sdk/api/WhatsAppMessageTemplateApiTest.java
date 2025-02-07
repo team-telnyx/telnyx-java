@@ -10,36 +10,34 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.CreateWhatsappMessageTemplateRequestBody;
 import com.telnyx.sdk.model.Errors;
-import java.util.UUID;
 import com.telnyx.sdk.model.WhatsAppMessageTemplate1;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for WhatsAppMessageTemplateApi
  */
 public class WhatsAppMessageTemplateApiTest {
 
-    private final WhatsAppMessageTemplateApi api = new WhatsAppMessageTemplateApi();
+    private final WhatsAppMessageTemplateApi api =
+        new WhatsAppMessageTemplateApi();
 
     /**
      * Create WhatsApp Message Templates
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -71,7 +69,7 @@ public class WhatsAppMessageTemplateApiTest {
     /**
      * List WhatsApp Message Templates
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -101,5 +99,4 @@ public class WhatsAppMessageTemplateApiTest {
         //        .execute();
         // TODO: test validations
     }
-
 }

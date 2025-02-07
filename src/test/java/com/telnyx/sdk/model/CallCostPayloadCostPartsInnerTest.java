@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for CallCostPayloadCostPartsInner
  */
 public class CallCostPayloadCostPartsInnerTest {
-    private final CallCostPayloadCostPartsInner model = new CallCostPayloadCostPartsInner();
+
+    private final CallCostPayloadCostPartsInner model =
+        new CallCostPayloadCostPartsInner();
 
     /**
      * Model tests for CallCostPayloadCostPartsInner
@@ -79,5 +77,4 @@ public class CallCostPayloadCostPartsInnerTest {
     public void rateTest() {
         // TODO: test rate
     }
-
 }

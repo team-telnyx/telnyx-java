@@ -10,104 +10,107 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UnprocessableEntityErrorAllOfSource
  */
-@JsonPropertyOrder({
-  UnprocessableEntityErrorAllOfSource.JSON_PROPERTY_POINTER
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { UnprocessableEntityErrorAllOfSource.JSON_PROPERTY_POINTER }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UnprocessableEntityErrorAllOfSource {
-  public static final String JSON_PROPERTY_POINTER = "pointer";
-  private String pointer;
 
-  public UnprocessableEntityErrorAllOfSource() { 
-  }
+    public static final String JSON_PROPERTY_POINTER = "pointer";
+    private String pointer;
 
-  public UnprocessableEntityErrorAllOfSource pointer(String pointer) {
-    this.pointer = pointer;
-    return this;
-  }
+    public UnprocessableEntityErrorAllOfSource() {}
 
-   /**
-   * Get pointer
-   * @return pointer
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "/phone_numbers", value = "")
-  @JsonProperty(JSON_PROPERTY_POINTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPointer() {
-    return pointer;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_POINTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPointer(String pointer) {
-    this.pointer = pointer;
-  }
-
-
-  /**
-   * Return true if this UnprocessableEntityError_allOf_source object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UnprocessableEntityErrorAllOfSource pointer(String pointer) {
+        this.pointer = pointer;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get pointer
+     * @return pointer
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "/phone_numbers", value = "")
+    @JsonProperty(JSON_PROPERTY_POINTER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPointer() {
+        return pointer;
     }
-    UnprocessableEntityErrorAllOfSource unprocessableEntityErrorAllOfSource = (UnprocessableEntityErrorAllOfSource) o;
-    return Objects.equals(this.pointer, unprocessableEntityErrorAllOfSource.pointer);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(pointer);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UnprocessableEntityErrorAllOfSource {\n");
-    sb.append("    pointer: ").append(toIndentedString(pointer)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_POINTER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPointer(String pointer) {
+        this.pointer = pointer;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this UnprocessableEntityError_allOf_source object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UnprocessableEntityErrorAllOfSource unprocessableEntityErrorAllOfSource =
+            (UnprocessableEntityErrorAllOfSource) o;
+        return Objects.equals(
+            this.pointer,
+            unprocessableEntityErrorAllOfSource.pointer
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pointer);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UnprocessableEntityErrorAllOfSource {\n");
+        sb
+            .append("    pointer: ")
+            .append(toIndentedString(pointer))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

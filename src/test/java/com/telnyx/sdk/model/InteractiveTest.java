@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Action;
@@ -25,15 +24,13 @@ import com.telnyx.sdk.model.Header;
 import com.telnyx.sdk.model.InteractiveType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for Interactive
  */
 public class InteractiveTest {
+
     private final Interactive model = new Interactive();
 
     /**
@@ -83,5 +80,4 @@ public class InteractiveTest {
     public void actionTest() {
         // TODO: test action
     }
-
 }

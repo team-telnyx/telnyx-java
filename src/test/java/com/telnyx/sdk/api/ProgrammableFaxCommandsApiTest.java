@@ -10,52 +10,51 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.assertNotNull;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.GetFaxResponse;
 import com.telnyx.sdk.model.ListFaxesResponse;
-import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.RefreshFaxResponse;
 import com.telnyx.sdk.model.SendFaxRequest;
 import com.telnyx.sdk.model.SendFaxResponse;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertNotNull;
-
 /**
  * API tests for ProgrammableFaxCommandsApi
  */
 public class ProgrammableFaxCommandsApiTest {
 
-    private final ProgrammableFaxCommandsApi api = new ProgrammableFaxCommandsApi();
+    private final ProgrammableFaxCommandsApi api =
+        new ProgrammableFaxCommandsApi();
 
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
     /**
      * Delete a fax
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -70,7 +69,7 @@ public class ProgrammableFaxCommandsApiTest {
     /**
      * View a list of faxes
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -107,7 +106,7 @@ public class ProgrammableFaxCommandsApiTest {
     /**
      * Send a fax
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -122,7 +121,7 @@ public class ProgrammableFaxCommandsApiTest {
     /**
      * View a fax
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -133,5 +132,4 @@ public class ProgrammableFaxCommandsApiTest {
         //GetFaxResponse response = api.viewFax(id);
         // TODO: test validations
     }
-
 }

@@ -10,111 +10,108 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * UserEmbeddedBuckets
  */
-@JsonPropertyOrder({
-  UserEmbeddedBuckets.JSON_PROPERTY_BUCKETS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder({ UserEmbeddedBuckets.JSON_PROPERTY_BUCKETS })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class UserEmbeddedBuckets {
-  public static final String JSON_PROPERTY_BUCKETS = "buckets";
-  private List<String> buckets = new ArrayList<>();
 
-  public UserEmbeddedBuckets() { 
-  }
+    public static final String JSON_PROPERTY_BUCKETS = "buckets";
+    private List<String> buckets = new ArrayList<>();
 
-  public UserEmbeddedBuckets buckets(List<String> buckets) {
-    this.buckets = buckets;
-    return this;
-  }
+    public UserEmbeddedBuckets() {}
 
-  public UserEmbeddedBuckets addbucketsItem(String bucketsItem) {
-    this.buckets.add(bucketsItem);
-    return this;
-  }
-
-   /**
-   * Get buckets
-   * @return buckets
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_BUCKETS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<String> getBuckets() {
-    return buckets;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BUCKETS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBuckets(List<String> buckets) {
-    this.buckets = buckets;
-  }
-
-
-  /**
-   * Return true if this UserEmbeddedBuckets object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UserEmbeddedBuckets buckets(List<String> buckets) {
+        this.buckets = buckets;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public UserEmbeddedBuckets addbucketsItem(String bucketsItem) {
+        this.buckets.add(bucketsItem);
+        return this;
     }
-    UserEmbeddedBuckets userEmbeddedBuckets = (UserEmbeddedBuckets) o;
-    return Objects.equals(this.buckets, userEmbeddedBuckets.buckets);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(buckets);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UserEmbeddedBuckets {\n");
-    sb.append("    buckets: ").append(toIndentedString(buckets)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Get buckets
+     * @return buckets
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_BUCKETS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<String> getBuckets() {
+        return buckets;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @JsonProperty(JSON_PROPERTY_BUCKETS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBuckets(List<String> buckets) {
+        this.buckets = buckets;
+    }
+
+    /**
+     * Return true if this UserEmbeddedBuckets object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserEmbeddedBuckets userEmbeddedBuckets = (UserEmbeddedBuckets) o;
+        return Objects.equals(this.buckets, userEmbeddedBuckets.buckets);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(buckets);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UserEmbeddedBuckets {\n");
+        sb
+            .append("    buckets: ")
+            .append(toIndentedString(buckets))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

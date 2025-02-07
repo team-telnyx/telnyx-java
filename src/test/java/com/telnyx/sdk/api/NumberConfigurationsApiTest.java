@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -21,15 +20,13 @@ import com.telnyx.sdk.model.ListMessagingSettingsResponse;
 import com.telnyx.sdk.model.RetrieveBulkUpdateMessagingSettingsResponse;
 import com.telnyx.sdk.model.RetrieveMessagingSettingsResponse;
 import com.telnyx.sdk.model.UpdatePhoneNumberMessagingSettingsRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for NumberConfigurationsApi
@@ -41,13 +38,14 @@ public class NumberConfigurationsApiTest {
     /**
      * Update the messaging profile of multiple phone numbers
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void bulkUpdateMessagingSettingsOnPhoneNumbersTest() throws ApiException {
+    public void bulkUpdateMessagingSettingsOnPhoneNumbersTest()
+        throws ApiException {
         //BulkMessagingSettingsUpdatePhoneNumbersRequest bulkMessagingSettingsUpdatePhoneNumbersRequest = null;
         //RetrieveBulkUpdateMessagingSettingsResponse response = api.bulkUpdateMessagingSettingsOnPhoneNumbers(bulkMessagingSettingsUpdatePhoneNumbersRequest);
         // TODO: test validations
@@ -56,13 +54,14 @@ public class NumberConfigurationsApiTest {
     /**
      * Retrieve bulk update status
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void getBulkUpdateMessagingSettingsOnPhoneNumbersStatusTest() throws ApiException {
+    public void getBulkUpdateMessagingSettingsOnPhoneNumbersStatusTest()
+        throws ApiException {
         //String orderId = null;
         //RetrieveBulkUpdateMessagingSettingsResponse response = api.getBulkUpdateMessagingSettingsOnPhoneNumbersStatus(orderId);
         // TODO: test validations
@@ -71,7 +70,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Retrieve a phone number with messaging settings
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -86,13 +85,14 @@ public class NumberConfigurationsApiTest {
     /**
      * List phone numbers with messaging settings
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void listPhoneNumbersWithMessagingSettingsTest() throws ApiException {
+    public void listPhoneNumbersWithMessagingSettingsTest()
+        throws ApiException {
         //Integer pageNumber = null;
         //Integer pageSize = null;
         //ListMessagingSettingsResponse response = api.listPhoneNumbersWithMessagingSettings()
@@ -105,7 +105,7 @@ public class NumberConfigurationsApiTest {
     /**
      * Update the messaging profile and/or messaging product of a phone number
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -117,5 +117,4 @@ public class NumberConfigurationsApiTest {
         //RetrieveMessagingSettingsResponse response = api.updatePhoneNumberMessagingSettings(id, updatePhoneNumberMessagingSettingsRequest);
         // TODO: test validations
     }
-
 }

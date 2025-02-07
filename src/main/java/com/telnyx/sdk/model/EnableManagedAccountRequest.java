@@ -10,104 +10,113 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * EnableManagedAccountRequest
  */
-@JsonPropertyOrder({
-  EnableManagedAccountRequest.JSON_PROPERTY_REENABLE_ALL_CONNECTIONS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { EnableManagedAccountRequest.JSON_PROPERTY_REENABLE_ALL_CONNECTIONS }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class EnableManagedAccountRequest {
-  public static final String JSON_PROPERTY_REENABLE_ALL_CONNECTIONS = "reenable_all_connections";
-  private Boolean reenableAllConnections = false;
 
-  public EnableManagedAccountRequest() { 
-  }
+    public static final String JSON_PROPERTY_REENABLE_ALL_CONNECTIONS =
+        "reenable_all_connections";
+    private Boolean reenableAllConnections = false;
 
-  public EnableManagedAccountRequest reenableAllConnections(Boolean reenableAllConnections) {
-    this.reenableAllConnections = reenableAllConnections;
-    return this;
-  }
+    public EnableManagedAccountRequest() {}
 
-   /**
-   * When true, all connections owned by this managed account will automatically be re-enabled. Note: Any connections that do not pass validations will not be re-enabled.
-   * @return reenableAllConnections
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "When true, all connections owned by this managed account will automatically be re-enabled. Note: Any connections that do not pass validations will not be re-enabled.")
-  @JsonProperty(JSON_PROPERTY_REENABLE_ALL_CONNECTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getReenableAllConnections() {
-    return reenableAllConnections;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REENABLE_ALL_CONNECTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReenableAllConnections(Boolean reenableAllConnections) {
-    this.reenableAllConnections = reenableAllConnections;
-  }
-
-
-  /**
-   * Return true if this EnableManagedAccount_request object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public EnableManagedAccountRequest reenableAllConnections(
+        Boolean reenableAllConnections
+    ) {
+        this.reenableAllConnections = reenableAllConnections;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * When true, all connections owned by this managed account will automatically be re-enabled. Note: Any connections that do not pass validations will not be re-enabled.
+     * @return reenableAllConnections
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "When true, all connections owned by this managed account will automatically be re-enabled. Note: Any connections that do not pass validations will not be re-enabled."
+    )
+    @JsonProperty(JSON_PROPERTY_REENABLE_ALL_CONNECTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getReenableAllConnections() {
+        return reenableAllConnections;
     }
-    EnableManagedAccountRequest enableManagedAccountRequest = (EnableManagedAccountRequest) o;
-    return Objects.equals(this.reenableAllConnections, enableManagedAccountRequest.reenableAllConnections);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(reenableAllConnections);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class EnableManagedAccountRequest {\n");
-    sb.append("    reenableAllConnections: ").append(toIndentedString(reenableAllConnections)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_REENABLE_ALL_CONNECTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setReenableAllConnections(Boolean reenableAllConnections) {
+        this.reenableAllConnections = reenableAllConnections;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this EnableManagedAccount_request object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        EnableManagedAccountRequest enableManagedAccountRequest =
+            (EnableManagedAccountRequest) o;
+        return Objects.equals(
+            this.reenableAllConnections,
+            enableManagedAccountRequest.reenableAllConnections
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reenableAllConnections);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class EnableManagedAccountRequest {\n");
+        sb
+            .append("    reenableAllConnections: ")
+            .append(toIndentedString(reenableAllConnections))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

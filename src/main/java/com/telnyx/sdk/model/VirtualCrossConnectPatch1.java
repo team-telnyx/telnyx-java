@@ -10,265 +10,327 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * VirtualCrossConnectPatch1
  */
-@JsonPropertyOrder({
-  VirtualCrossConnectPatch1.JSON_PROPERTY_PRIMARY_ENABLED,
-  VirtualCrossConnectPatch1.JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT,
-  VirtualCrossConnectPatch1.JSON_PROPERTY_PRIMARY_CLOUD_IP,
-  VirtualCrossConnectPatch1.JSON_PROPERTY_SECONDARY_ENABLED,
-  VirtualCrossConnectPatch1.JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT,
-  VirtualCrossConnectPatch1.JSON_PROPERTY_SECONDARY_CLOUD_IP
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        VirtualCrossConnectPatch1.JSON_PROPERTY_PRIMARY_ENABLED,
+        VirtualCrossConnectPatch1.JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT,
+        VirtualCrossConnectPatch1.JSON_PROPERTY_PRIMARY_CLOUD_IP,
+        VirtualCrossConnectPatch1.JSON_PROPERTY_SECONDARY_ENABLED,
+        VirtualCrossConnectPatch1.JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT,
+        VirtualCrossConnectPatch1.JSON_PROPERTY_SECONDARY_CLOUD_IP,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class VirtualCrossConnectPatch1 {
-  public static final String JSON_PROPERTY_PRIMARY_ENABLED = "primary_enabled";
-  private Boolean primaryEnabled;
 
-  public static final String JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT = "primary_routing_announcement";
-  private Boolean primaryRoutingAnnouncement;
+    public static final String JSON_PROPERTY_PRIMARY_ENABLED =
+        "primary_enabled";
+    private Boolean primaryEnabled;
 
-  public static final String JSON_PROPERTY_PRIMARY_CLOUD_IP = "primary_cloud_ip";
-  private String primaryCloudIp;
+    public static final String JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT =
+        "primary_routing_announcement";
+    private Boolean primaryRoutingAnnouncement;
 
-  public static final String JSON_PROPERTY_SECONDARY_ENABLED = "secondary_enabled";
-  private Boolean secondaryEnabled;
+    public static final String JSON_PROPERTY_PRIMARY_CLOUD_IP =
+        "primary_cloud_ip";
+    private String primaryCloudIp;
 
-  public static final String JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT = "secondary_routing_announcement";
-  private Boolean secondaryRoutingAnnouncement;
+    public static final String JSON_PROPERTY_SECONDARY_ENABLED =
+        "secondary_enabled";
+    private Boolean secondaryEnabled;
 
-  public static final String JSON_PROPERTY_SECONDARY_CLOUD_IP = "secondary_cloud_ip";
-  private String secondaryCloudIp;
+    public static final String JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT =
+        "secondary_routing_announcement";
+    private Boolean secondaryRoutingAnnouncement;
 
-  public VirtualCrossConnectPatch1() { 
-  }
+    public static final String JSON_PROPERTY_SECONDARY_CLOUD_IP =
+        "secondary_cloud_ip";
+    private String secondaryCloudIp;
 
-  public VirtualCrossConnectPatch1 primaryEnabled(Boolean primaryEnabled) {
-    this.primaryEnabled = primaryEnabled;
-    return this;
-  }
+    public VirtualCrossConnectPatch1() {}
 
-   /**
-   * Indicates whether the primary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
-   * @return primaryEnabled
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Indicates whether the primary circuit is enabled. Setting this to `false` will disable the circuit.")
-  @JsonProperty(JSON_PROPERTY_PRIMARY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getPrimaryEnabled() {
-    return primaryEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRIMARY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrimaryEnabled(Boolean primaryEnabled) {
-    this.primaryEnabled = primaryEnabled;
-  }
-
-
-  public VirtualCrossConnectPatch1 primaryRoutingAnnouncement(Boolean primaryRoutingAnnouncement) {
-    this.primaryRoutingAnnouncement = primaryRoutingAnnouncement;
-    return this;
-  }
-
-   /**
-   * Whether the primary BGP route is being announced.
-   * @return primaryRoutingAnnouncement
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "false", value = "Whether the primary BGP route is being announced.")
-  @JsonProperty(JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getPrimaryRoutingAnnouncement() {
-    return primaryRoutingAnnouncement;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrimaryRoutingAnnouncement(Boolean primaryRoutingAnnouncement) {
-    this.primaryRoutingAnnouncement = primaryRoutingAnnouncement;
-  }
-
-
-  public VirtualCrossConnectPatch1 primaryCloudIp(String primaryCloudIp) {
-    this.primaryCloudIp = primaryCloudIp;
-    return this;
-  }
-
-   /**
-   * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value can not be patched once the VXC has bene provisioned.
-   * @return primaryCloudIp
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "169.254.0.2", value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.")
-  @JsonProperty(JSON_PROPERTY_PRIMARY_CLOUD_IP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPrimaryCloudIp() {
-    return primaryCloudIp;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRIMARY_CLOUD_IP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrimaryCloudIp(String primaryCloudIp) {
-    this.primaryCloudIp = primaryCloudIp;
-  }
-
-
-  public VirtualCrossConnectPatch1 secondaryEnabled(Boolean secondaryEnabled) {
-    this.secondaryEnabled = secondaryEnabled;
-    return this;
-  }
-
-   /**
-   * Indicates whether the secondary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
-   * @return secondaryEnabled
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Indicates whether the secondary circuit is enabled. Setting this to `false` will disable the circuit.")
-  @JsonProperty(JSON_PROPERTY_SECONDARY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getSecondaryEnabled() {
-    return secondaryEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SECONDARY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecondaryEnabled(Boolean secondaryEnabled) {
-    this.secondaryEnabled = secondaryEnabled;
-  }
-
-
-  public VirtualCrossConnectPatch1 secondaryRoutingAnnouncement(Boolean secondaryRoutingAnnouncement) {
-    this.secondaryRoutingAnnouncement = secondaryRoutingAnnouncement;
-    return this;
-  }
-
-   /**
-   * Whether the secondary BGP route is being announced.
-   * @return secondaryRoutingAnnouncement
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "false", value = "Whether the secondary BGP route is being announced.")
-  @JsonProperty(JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getSecondaryRoutingAnnouncement() {
-    return secondaryRoutingAnnouncement;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecondaryRoutingAnnouncement(Boolean secondaryRoutingAnnouncement) {
-    this.secondaryRoutingAnnouncement = secondaryRoutingAnnouncement;
-  }
-
-
-  public VirtualCrossConnectPatch1 secondaryCloudIp(String secondaryCloudIp) {
-    this.secondaryCloudIp = secondaryCloudIp;
-    return this;
-  }
-
-   /**
-   * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value can not be patched once the VXC has bene provisioned.
-   * @return secondaryCloudIp
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "169.254.0.4", value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.")
-  @JsonProperty(JSON_PROPERTY_SECONDARY_CLOUD_IP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSecondaryCloudIp() {
-    return secondaryCloudIp;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SECONDARY_CLOUD_IP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecondaryCloudIp(String secondaryCloudIp) {
-    this.secondaryCloudIp = secondaryCloudIp;
-  }
-
-
-  /**
-   * Return true if this VirtualCrossConnectPatch_1 object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public VirtualCrossConnectPatch1 primaryEnabled(Boolean primaryEnabled) {
+        this.primaryEnabled = primaryEnabled;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Indicates whether the primary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
+     * @return primaryEnabled
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "Indicates whether the primary circuit is enabled. Setting this to `false` will disable the circuit."
+    )
+    @JsonProperty(JSON_PROPERTY_PRIMARY_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getPrimaryEnabled() {
+        return primaryEnabled;
     }
-    VirtualCrossConnectPatch1 virtualCrossConnectPatch1 = (VirtualCrossConnectPatch1) o;
-    return Objects.equals(this.primaryEnabled, virtualCrossConnectPatch1.primaryEnabled) &&
-        Objects.equals(this.primaryRoutingAnnouncement, virtualCrossConnectPatch1.primaryRoutingAnnouncement) &&
-        Objects.equals(this.primaryCloudIp, virtualCrossConnectPatch1.primaryCloudIp) &&
-        Objects.equals(this.secondaryEnabled, virtualCrossConnectPatch1.secondaryEnabled) &&
-        Objects.equals(this.secondaryRoutingAnnouncement, virtualCrossConnectPatch1.secondaryRoutingAnnouncement) &&
-        Objects.equals(this.secondaryCloudIp, virtualCrossConnectPatch1.secondaryCloudIp);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(primaryEnabled, primaryRoutingAnnouncement, primaryCloudIp, secondaryEnabled, secondaryRoutingAnnouncement, secondaryCloudIp);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class VirtualCrossConnectPatch1 {\n");
-    sb.append("    primaryEnabled: ").append(toIndentedString(primaryEnabled)).append("\n");
-    sb.append("    primaryRoutingAnnouncement: ").append(toIndentedString(primaryRoutingAnnouncement)).append("\n");
-    sb.append("    primaryCloudIp: ").append(toIndentedString(primaryCloudIp)).append("\n");
-    sb.append("    secondaryEnabled: ").append(toIndentedString(secondaryEnabled)).append("\n");
-    sb.append("    secondaryRoutingAnnouncement: ").append(toIndentedString(secondaryRoutingAnnouncement)).append("\n");
-    sb.append("    secondaryCloudIp: ").append(toIndentedString(secondaryCloudIp)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_PRIMARY_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPrimaryEnabled(Boolean primaryEnabled) {
+        this.primaryEnabled = primaryEnabled;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public VirtualCrossConnectPatch1 primaryRoutingAnnouncement(
+        Boolean primaryRoutingAnnouncement
+    ) {
+        this.primaryRoutingAnnouncement = primaryRoutingAnnouncement;
+        return this;
+    }
+
+    /**
+     * Whether the primary BGP route is being announced.
+     * @return primaryRoutingAnnouncement
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "false",
+        value = "Whether the primary BGP route is being announced."
+    )
+    @JsonProperty(JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getPrimaryRoutingAnnouncement() {
+        return primaryRoutingAnnouncement;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PRIMARY_ROUTING_ANNOUNCEMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPrimaryRoutingAnnouncement(
+        Boolean primaryRoutingAnnouncement
+    ) {
+        this.primaryRoutingAnnouncement = primaryRoutingAnnouncement;
+    }
+
+    public VirtualCrossConnectPatch1 primaryCloudIp(String primaryCloudIp) {
+        this.primaryCloudIp = primaryCloudIp;
+        return this;
+    }
+
+    /**
+     * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value can not be patched once the VXC has bene provisioned.
+     * @return primaryCloudIp
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "169.254.0.2",
+        value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned."
+    )
+    @JsonProperty(JSON_PROPERTY_PRIMARY_CLOUD_IP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPrimaryCloudIp() {
+        return primaryCloudIp;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PRIMARY_CLOUD_IP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPrimaryCloudIp(String primaryCloudIp) {
+        this.primaryCloudIp = primaryCloudIp;
+    }
+
+    public VirtualCrossConnectPatch1 secondaryEnabled(
+        Boolean secondaryEnabled
+    ) {
+        this.secondaryEnabled = secondaryEnabled;
+        return this;
+    }
+
+    /**
+     * Indicates whether the secondary circuit is enabled. Setting this to &#x60;false&#x60; will disable the circuit.
+     * @return secondaryEnabled
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "Indicates whether the secondary circuit is enabled. Setting this to `false` will disable the circuit."
+    )
+    @JsonProperty(JSON_PROPERTY_SECONDARY_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getSecondaryEnabled() {
+        return secondaryEnabled;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SECONDARY_ENABLED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSecondaryEnabled(Boolean secondaryEnabled) {
+        this.secondaryEnabled = secondaryEnabled;
+    }
+
+    public VirtualCrossConnectPatch1 secondaryRoutingAnnouncement(
+        Boolean secondaryRoutingAnnouncement
+    ) {
+        this.secondaryRoutingAnnouncement = secondaryRoutingAnnouncement;
+        return this;
+    }
+
+    /**
+     * Whether the secondary BGP route is being announced.
+     * @return secondaryRoutingAnnouncement
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "false",
+        value = "Whether the secondary BGP route is being announced."
+    )
+    @JsonProperty(JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getSecondaryRoutingAnnouncement() {
+        return secondaryRoutingAnnouncement;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SECONDARY_ROUTING_ANNOUNCEMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSecondaryRoutingAnnouncement(
+        Boolean secondaryRoutingAnnouncement
+    ) {
+        this.secondaryRoutingAnnouncement = secondaryRoutingAnnouncement;
+    }
+
+    public VirtualCrossConnectPatch1 secondaryCloudIp(String secondaryCloudIp) {
+        this.secondaryCloudIp = secondaryCloudIp;
+        return this;
+    }
+
+    /**
+     * The IP address assigned for your side of the Virtual Cross Connect.&lt;br /&gt;&lt;br /&gt;If none is provided, one will be generated for you.&lt;br /&gt;&lt;br /&gt;This value can not be patched once the VXC has bene provisioned.
+     * @return secondaryCloudIp
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "169.254.0.4",
+        value = "The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned."
+    )
+    @JsonProperty(JSON_PROPERTY_SECONDARY_CLOUD_IP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSecondaryCloudIp() {
+        return secondaryCloudIp;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SECONDARY_CLOUD_IP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSecondaryCloudIp(String secondaryCloudIp) {
+        this.secondaryCloudIp = secondaryCloudIp;
+    }
+
+    /**
+     * Return true if this VirtualCrossConnectPatch_1 object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VirtualCrossConnectPatch1 virtualCrossConnectPatch1 =
+            (VirtualCrossConnectPatch1) o;
+        return (
+            Objects.equals(
+                this.primaryEnabled,
+                virtualCrossConnectPatch1.primaryEnabled
+            ) &&
+            Objects.equals(
+                this.primaryRoutingAnnouncement,
+                virtualCrossConnectPatch1.primaryRoutingAnnouncement
+            ) &&
+            Objects.equals(
+                this.primaryCloudIp,
+                virtualCrossConnectPatch1.primaryCloudIp
+            ) &&
+            Objects.equals(
+                this.secondaryEnabled,
+                virtualCrossConnectPatch1.secondaryEnabled
+            ) &&
+            Objects.equals(
+                this.secondaryRoutingAnnouncement,
+                virtualCrossConnectPatch1.secondaryRoutingAnnouncement
+            ) &&
+            Objects.equals(
+                this.secondaryCloudIp,
+                virtualCrossConnectPatch1.secondaryCloudIp
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            primaryEnabled,
+            primaryRoutingAnnouncement,
+            primaryCloudIp,
+            secondaryEnabled,
+            secondaryRoutingAnnouncement,
+            secondaryCloudIp
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class VirtualCrossConnectPatch1 {\n");
+        sb
+            .append("    primaryEnabled: ")
+            .append(toIndentedString(primaryEnabled))
+            .append("\n");
+        sb
+            .append("    primaryRoutingAnnouncement: ")
+            .append(toIndentedString(primaryRoutingAnnouncement))
+            .append("\n");
+        sb
+            .append("    primaryCloudIp: ")
+            .append(toIndentedString(primaryCloudIp))
+            .append("\n");
+        sb
+            .append("    secondaryEnabled: ")
+            .append(toIndentedString(secondaryEnabled))
+            .append("\n");
+        sb
+            .append("    secondaryRoutingAnnouncement: ")
+            .append(toIndentedString(secondaryRoutingAnnouncement))
+            .append("\n");
+        sb
+            .append("    secondaryCloudIp: ")
+            .append(toIndentedString(secondaryCloudIp))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

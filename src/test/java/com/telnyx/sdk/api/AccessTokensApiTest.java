@@ -10,25 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static junit.framework.TestCase.assertNotNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static junit.framework.TestCase.assertNotNull;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for AccessTokensApi
@@ -42,14 +38,14 @@ public class AccessTokensApiTest {
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
-//        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        //        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
-
-
 
         mapper = new JSON().getMapper();
     }
+
     /**
      * Create an Access Token.
      *
@@ -65,5 +61,4 @@ public class AccessTokensApiTest {
         String response = api.createTelephonyCredentialToken(id);
         assertNotNull(response);
     }
-
 }

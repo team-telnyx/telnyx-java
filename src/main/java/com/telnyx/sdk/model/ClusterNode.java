@@ -10,136 +10,136 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ClusterNode
  */
-@JsonPropertyOrder({
-  ClusterNode.JSON_PROPERTY_FILENAME,
-  ClusterNode.JSON_PROPERTY_TEXT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { ClusterNode.JSON_PROPERTY_FILENAME, ClusterNode.JSON_PROPERTY_TEXT }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ClusterNode {
-  public static final String JSON_PROPERTY_FILENAME = "filename";
-  private String filename;
 
-  public static final String JSON_PROPERTY_TEXT = "text";
-  private String text;
+    public static final String JSON_PROPERTY_FILENAME = "filename";
+    private String filename;
 
-  public ClusterNode() { 
-  }
+    public static final String JSON_PROPERTY_TEXT = "text";
+    private String text;
 
-  public ClusterNode filename(String filename) {
-    this.filename = filename;
-    return this;
-  }
+    public ClusterNode() {}
 
-   /**
-   * The corresponding source file of your embedded storage bucket that the node is from.
-   * @return filename
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The corresponding source file of your embedded storage bucket that the node is from.")
-  @JsonProperty(JSON_PROPERTY_FILENAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getFilename() {
-    return filename;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FILENAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFilename(String filename) {
-    this.filename = filename;
-  }
-
-
-  public ClusterNode text(String text) {
-    this.text = text;
-    return this;
-  }
-
-   /**
-   * The text of the node.
-   * @return text
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The text of the node.")
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getText() {
-    return text;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setText(String text) {
-    this.text = text;
-  }
-
-
-  /**
-   * Return true if this ClusterNode object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ClusterNode filename(String filename) {
+        this.filename = filename;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The corresponding source file of your embedded storage bucket that the node is from.
+     * @return filename
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        required = true,
+        value = "The corresponding source file of your embedded storage bucket that the node is from."
+    )
+    @JsonProperty(JSON_PROPERTY_FILENAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getFilename() {
+        return filename;
     }
-    ClusterNode clusterNode = (ClusterNode) o;
-    return Objects.equals(this.filename, clusterNode.filename) &&
-        Objects.equals(this.text, clusterNode.text);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(filename, text);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ClusterNode {\n");
-    sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
-    sb.append("    text: ").append(toIndentedString(text)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_FILENAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public ClusterNode text(String text) {
+        this.text = text;
+        return this;
+    }
+
+    /**
+     * The text of the node.
+     * @return text
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "The text of the node.")
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getText() {
+        return text;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * Return true if this ClusterNode object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ClusterNode clusterNode = (ClusterNode) o;
+        return (
+            Objects.equals(this.filename, clusterNode.filename) &&
+            Objects.equals(this.text, clusterNode.text)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filename, text);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ClusterNode {\n");
+        sb
+            .append("    filename: ")
+            .append(toIndentedString(filename))
+            .append("\n");
+        sb.append("    text: ").append(toIndentedString(text)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

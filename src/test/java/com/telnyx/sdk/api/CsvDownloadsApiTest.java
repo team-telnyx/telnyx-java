@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,15 +17,13 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.CSVDownloadResponse;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListCSVDownloadsResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for CsvDownloadsApi
@@ -38,7 +35,7 @@ public class CsvDownloadsApiTest {
     /**
      * Create a CSV download
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -52,7 +49,7 @@ public class CsvDownloadsApiTest {
     /**
      * List CSV downloads
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -71,7 +68,7 @@ public class CsvDownloadsApiTest {
     /**
      * Retrieve a CSV download
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -82,5 +79,4 @@ public class CsvDownloadsApiTest {
         //CSVDownloadResponse response = api.retrieveCsvDownload(id);
         // TODO: test validations
     }
-
 }

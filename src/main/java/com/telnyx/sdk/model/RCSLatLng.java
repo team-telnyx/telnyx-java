@@ -10,137 +10,145 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RCSLatLng
  */
-@JsonPropertyOrder({
-  RCSLatLng.JSON_PROPERTY_LATITUDE,
-  RCSLatLng.JSON_PROPERTY_LONGITUDE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { RCSLatLng.JSON_PROPERTY_LATITUDE, RCSLatLng.JSON_PROPERTY_LONGITUDE }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RCSLatLng {
-  public static final String JSON_PROPERTY_LATITUDE = "latitude";
-  private BigDecimal latitude;
 
-  public static final String JSON_PROPERTY_LONGITUDE = "longitude";
-  private BigDecimal longitude;
+    public static final String JSON_PROPERTY_LATITUDE = "latitude";
+    private BigDecimal latitude;
 
-  public RCSLatLng() { 
-  }
+    public static final String JSON_PROPERTY_LONGITUDE = "longitude";
+    private BigDecimal longitude;
 
-  public RCSLatLng latitude(BigDecimal latitude) {
-    this.latitude = latitude;
-    return this;
-  }
+    public RCSLatLng() {}
 
-   /**
-   * The latitude in degrees. It must be in the range [-90.0, +90.0].
-   * @return latitude
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "41.8", required = true, value = "The latitude in degrees. It must be in the range [-90.0, +90.0].")
-  @JsonProperty(JSON_PROPERTY_LATITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getLatitude() {
-    return latitude;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LATITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLatitude(BigDecimal latitude) {
-    this.latitude = latitude;
-  }
-
-
-  public RCSLatLng longitude(BigDecimal longitude) {
-    this.longitude = longitude;
-    return this;
-  }
-
-   /**
-   * The longitude in degrees. It must be in the range [-180.0, +180.0].
-   * @return longitude
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "-87.6", required = true, value = "The longitude in degrees. It must be in the range [-180.0, +180.0].")
-  @JsonProperty(JSON_PROPERTY_LONGITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getLongitude() {
-    return longitude;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LONGITUDE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLongitude(BigDecimal longitude) {
-    this.longitude = longitude;
-  }
-
-
-  /**
-   * Return true if this RCSLatLng object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RCSLatLng latitude(BigDecimal latitude) {
+        this.latitude = latitude;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The latitude in degrees. It must be in the range [-90.0, +90.0].
+     * @return latitude
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "41.8",
+        required = true,
+        value = "The latitude in degrees. It must be in the range [-90.0, +90.0]."
+    )
+    @JsonProperty(JSON_PROPERTY_LATITUDE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getLatitude() {
+        return latitude;
     }
-    RCSLatLng rcSLatLng = (RCSLatLng) o;
-    return Objects.equals(this.latitude, rcSLatLng.latitude) &&
-        Objects.equals(this.longitude, rcSLatLng.longitude);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(latitude, longitude);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RCSLatLng {\n");
-    sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
-    sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_LATITUDE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public RCSLatLng longitude(BigDecimal longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
+    /**
+     * The longitude in degrees. It must be in the range [-180.0, +180.0].
+     * @return longitude
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "-87.6",
+        required = true,
+        value = "The longitude in degrees. It must be in the range [-180.0, +180.0]."
+    )
+    @JsonProperty(JSON_PROPERTY_LONGITUDE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LONGITUDE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
+     * Return true if this RCSLatLng object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RCSLatLng rcSLatLng = (RCSLatLng) o;
+        return (
+            Objects.equals(this.latitude, rcSLatLng.latitude) &&
+            Objects.equals(this.longitude, rcSLatLng.longitude)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(latitude, longitude);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RCSLatLng {\n");
+        sb
+            .append("    latitude: ")
+            .append(toIndentedString(latitude))
+            .append("\n");
+        sb
+            .append("    longitude: ")
+            .append(toIndentedString(longitude))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

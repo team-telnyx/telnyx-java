@@ -10,235 +10,275 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * TranscriptionPayloadTranscriptionData
  */
-@JsonPropertyOrder({
-  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_CONFIDENCE,
-  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_IS_FINAL,
-  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPT,
-  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPTION_TRACK
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        TranscriptionPayloadTranscriptionData.JSON_PROPERTY_CONFIDENCE,
+        TranscriptionPayloadTranscriptionData.JSON_PROPERTY_IS_FINAL,
+        TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPT,
+        TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPTION_TRACK,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class TranscriptionPayloadTranscriptionData {
-  public static final String JSON_PROPERTY_CONFIDENCE = "confidence";
-  private Double confidence;
 
-  public static final String JSON_PROPERTY_IS_FINAL = "is_final";
-  private Boolean isFinal;
+    public static final String JSON_PROPERTY_CONFIDENCE = "confidence";
+    private Double confidence;
 
-  public static final String JSON_PROPERTY_TRANSCRIPT = "transcript";
-  private String transcript;
+    public static final String JSON_PROPERTY_IS_FINAL = "is_final";
+    private Boolean isFinal;
 
-  /**
-   * Indicates which leg of the call has been transcribed. This is only available when &#x60;transcription_engine&#x60; is set to &#x60;B&#x60;.
-   */
-  public enum TranscriptionTrackEnum {
-    INBOUND(String.valueOf("inbound")),
-    
-    OUTBOUND(String.valueOf("outbound"));
+    public static final String JSON_PROPERTY_TRANSCRIPT = "transcript";
+    private String transcript;
 
-    private String value;
+    /**
+     * Indicates which leg of the call has been transcribed. This is only available when &#x60;transcription_engine&#x60; is set to &#x60;B&#x60;.
+     */
+    public enum TranscriptionTrackEnum {
+        INBOUND(String.valueOf("inbound")),
 
-    TranscriptionTrackEnum(String value) {
-      this.value = value;
+        OUTBOUND(String.valueOf("outbound"));
+
+        private String value;
+
+        TranscriptionTrackEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TranscriptionTrackEnum fromValue(String value) {
+            for (TranscriptionTrackEnum b : TranscriptionTrackEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_TRANSCRIPTION_TRACK =
+        "transcription_track";
+    private TranscriptionTrackEnum transcriptionTrack;
+
+    public TranscriptionPayloadTranscriptionData() {}
+
+    public TranscriptionPayloadTranscriptionData confidence(Double confidence) {
+        this.confidence = confidence;
+        return this;
+    }
+
+    /**
+     * Speech recognition confidence level.
+     * @return confidence
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "0.977219",
+        value = "Speech recognition confidence level."
+    )
+    @JsonProperty(JSON_PROPERTY_CONFIDENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Double getConfidence() {
+        return confidence;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONFIDENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConfidence(Double confidence) {
+        this.confidence = confidence;
+    }
+
+    public TranscriptionPayloadTranscriptionData isFinal(Boolean isFinal) {
+        this.isFinal = isFinal;
+        return this;
+    }
+
+    /**
+     * When false, it means that this is an interim result.
+     * @return isFinal
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "When false, it means that this is an interim result."
+    )
+    @JsonProperty(JSON_PROPERTY_IS_FINAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getIsFinal() {
+        return isFinal;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IS_FINAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIsFinal(Boolean isFinal) {
+        this.isFinal = isFinal;
+    }
+
+    public TranscriptionPayloadTranscriptionData transcript(String transcript) {
+        this.transcript = transcript;
+        return this;
+    }
+
+    /**
+     * Recognized text.
+     * @return transcript
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "hello this is a test speech",
+        value = "Recognized text."
+    )
+    @JsonProperty(JSON_PROPERTY_TRANSCRIPT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTranscript() {
+        return transcript;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRANSCRIPT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTranscript(String transcript) {
+        this.transcript = transcript;
+    }
+
+    public TranscriptionPayloadTranscriptionData transcriptionTrack(
+        TranscriptionTrackEnum transcriptionTrack
+    ) {
+        this.transcriptionTrack = transcriptionTrack;
+        return this;
+    }
+
+    /**
+     * Indicates which leg of the call has been transcribed. This is only available when &#x60;transcription_engine&#x60; is set to &#x60;B&#x60;.
+     * @return transcriptionTrack
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "inbound",
+        value = "Indicates which leg of the call has been transcribed. This is only available when `transcription_engine` is set to `B`."
+    )
+    @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TranscriptionTrackEnum getTranscriptionTrack() {
+        return transcriptionTrack;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTranscriptionTrack(
+        TranscriptionTrackEnum transcriptionTrack
+    ) {
+        this.transcriptionTrack = transcriptionTrack;
+    }
+
+    /**
+     * Return true if this Transcription_payload_transcription_data object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TranscriptionPayloadTranscriptionData transcriptionPayloadTranscriptionData =
+            (TranscriptionPayloadTranscriptionData) o;
+        return (
+            Objects.equals(
+                this.confidence,
+                transcriptionPayloadTranscriptionData.confidence
+            ) &&
+            Objects.equals(
+                this.isFinal,
+                transcriptionPayloadTranscriptionData.isFinal
+            ) &&
+            Objects.equals(
+                this.transcript,
+                transcriptionPayloadTranscriptionData.transcript
+            ) &&
+            Objects.equals(
+                this.transcriptionTrack,
+                transcriptionPayloadTranscriptionData.transcriptionTrack
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            confidence,
+            isFinal,
+            transcript,
+            transcriptionTrack
+        );
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TranscriptionPayloadTranscriptionData {\n");
+        sb
+            .append("    confidence: ")
+            .append(toIndentedString(confidence))
+            .append("\n");
+        sb
+            .append("    isFinal: ")
+            .append(toIndentedString(isFinal))
+            .append("\n");
+        sb
+            .append("    transcript: ")
+            .append(toIndentedString(transcript))
+            .append("\n");
+        sb
+            .append("    transcriptionTrack: ")
+            .append(toIndentedString(transcriptionTrack))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static TranscriptionTrackEnum fromValue(String value) {
-      for (TranscriptionTrackEnum b : TranscriptionTrackEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_TRANSCRIPTION_TRACK = "transcription_track";
-  private TranscriptionTrackEnum transcriptionTrack;
-
-  public TranscriptionPayloadTranscriptionData() { 
-  }
-
-  public TranscriptionPayloadTranscriptionData confidence(Double confidence) {
-    this.confidence = confidence;
-    return this;
-  }
-
-   /**
-   * Speech recognition confidence level.
-   * @return confidence
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "0.977219", value = "Speech recognition confidence level.")
-  @JsonProperty(JSON_PROPERTY_CONFIDENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Double getConfidence() {
-    return confidence;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONFIDENCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConfidence(Double confidence) {
-    this.confidence = confidence;
-  }
-
-
-  public TranscriptionPayloadTranscriptionData isFinal(Boolean isFinal) {
-    this.isFinal = isFinal;
-    return this;
-  }
-
-   /**
-   * When false, it means that this is an interim result.
-   * @return isFinal
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "When false, it means that this is an interim result.")
-  @JsonProperty(JSON_PROPERTY_IS_FINAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getIsFinal() {
-    return isFinal;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IS_FINAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsFinal(Boolean isFinal) {
-    this.isFinal = isFinal;
-  }
-
-
-  public TranscriptionPayloadTranscriptionData transcript(String transcript) {
-    this.transcript = transcript;
-    return this;
-  }
-
-   /**
-   * Recognized text.
-   * @return transcript
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "hello this is a test speech", value = "Recognized text.")
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTranscript() {
-    return transcript;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTranscript(String transcript) {
-    this.transcript = transcript;
-  }
-
-
-  public TranscriptionPayloadTranscriptionData transcriptionTrack(TranscriptionTrackEnum transcriptionTrack) {
-    this.transcriptionTrack = transcriptionTrack;
-    return this;
-  }
-
-   /**
-   * Indicates which leg of the call has been transcribed. This is only available when &#x60;transcription_engine&#x60; is set to &#x60;B&#x60;.
-   * @return transcriptionTrack
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "inbound", value = "Indicates which leg of the call has been transcribed. This is only available when `transcription_engine` is set to `B`.")
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public TranscriptionTrackEnum getTranscriptionTrack() {
-    return transcriptionTrack;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTranscriptionTrack(TranscriptionTrackEnum transcriptionTrack) {
-    this.transcriptionTrack = transcriptionTrack;
-  }
-
-
-  /**
-   * Return true if this Transcription_payload_transcription_data object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TranscriptionPayloadTranscriptionData transcriptionPayloadTranscriptionData = (TranscriptionPayloadTranscriptionData) o;
-    return Objects.equals(this.confidence, transcriptionPayloadTranscriptionData.confidence) &&
-        Objects.equals(this.isFinal, transcriptionPayloadTranscriptionData.isFinal) &&
-        Objects.equals(this.transcript, transcriptionPayloadTranscriptionData.transcript) &&
-        Objects.equals(this.transcriptionTrack, transcriptionPayloadTranscriptionData.transcriptionTrack);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(confidence, isFinal, transcript, transcriptionTrack);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TranscriptionPayloadTranscriptionData {\n");
-    sb.append("    confidence: ").append(toIndentedString(confidence)).append("\n");
-    sb.append("    isFinal: ").append(toIndentedString(isFinal)).append("\n");
-    sb.append("    transcript: ").append(toIndentedString(transcript)).append("\n");
-    sb.append("    transcriptionTrack: ").append(toIndentedString(transcriptionTrack)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

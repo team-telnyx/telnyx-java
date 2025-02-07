@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for InboundMessagePayloadMediaInner
  */
 public class InboundMessagePayloadMediaInnerTest {
-    private final InboundMessagePayloadMediaInner model = new InboundMessagePayloadMediaInner();
+
+    private final InboundMessagePayloadMediaInner model =
+        new InboundMessagePayloadMediaInner();
 
     /**
      * Model tests for InboundMessagePayloadMediaInner
@@ -70,5 +68,4 @@ public class InboundMessagePayloadMediaInnerTest {
     public void hashSha256Test() {
         // TODO: test hashSha256
     }
-
 }

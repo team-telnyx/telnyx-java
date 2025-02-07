@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -23,16 +22,14 @@ import com.telnyx.sdk.model.GetAllSimCardOrderResponse;
 import com.telnyx.sdk.model.GetSimCardOrderResponse;
 import com.telnyx.sdk.model.SIMCardOrdersPreviewResponse;
 import com.telnyx.sdk.model.SimCardOrderCreate;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for SimCardOrdersApi
@@ -113,5 +110,4 @@ public class SimCardOrdersApiTest {
         //SIMCardOrdersPreviewResponse response = api.simCardOrdersPreview(createSimCardOrderPreview);
         // TODO: test validations
     }
-
 }

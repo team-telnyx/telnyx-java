@@ -10,202 +10,213 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * BulkCredentialRequest
  */
-@JsonPropertyOrder({
-  BulkCredentialRequest.JSON_PROPERTY_NAME,
-  BulkCredentialRequest.JSON_PROPERTY_TAG,
-  BulkCredentialRequest.JSON_PROPERTY_AMOUNT,
-  BulkCredentialRequest.JSON_PROPERTY_CONNECTION_ID
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    {
+        BulkCredentialRequest.JSON_PROPERTY_NAME,
+        BulkCredentialRequest.JSON_PROPERTY_TAG,
+        BulkCredentialRequest.JSON_PROPERTY_AMOUNT,
+        BulkCredentialRequest.JSON_PROPERTY_CONNECTION_ID,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class BulkCredentialRequest {
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
 
-  public static final String JSON_PROPERTY_TAG = "tag";
-  private String tag;
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private Integer amount;
+    public static final String JSON_PROPERTY_TAG = "tag";
+    private String tag;
 
-  public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
-  private String connectionId;
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private Integer amount;
 
-  public BulkCredentialRequest() { 
-  }
+    public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
+    private String connectionId;
 
-  public BulkCredentialRequest name(String name) {
-    this.name = name;
-    return this;
-  }
+    public BulkCredentialRequest() {}
 
-   /**
-   * A default name for all credentials.
-   * @return name
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Default Credentials", value = "A default name for all credentials.")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public BulkCredentialRequest tag(String tag) {
-    this.tag = tag;
-    return this;
-  }
-
-   /**
-   * Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.
-   * @return tag
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "My Credentials", required = true, value = "Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.")
-  @JsonProperty(JSON_PROPERTY_TAG)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTag() {
-    return tag;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TAG)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTag(String tag) {
-    this.tag = tag;
-  }
-
-
-  public BulkCredentialRequest amount(Integer amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Amount of credentials to be created. A single tag can hold at maximum 1000 credentials
-   * @return amount
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "100", value = "Amount of credentials to be created. A single tag can hold at maximum 1000 credentials")
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAmount(Integer amount) {
-    this.amount = amount;
-  }
-
-
-  public BulkCredentialRequest connectionId(String connectionId) {
-    this.connectionId = connectionId;
-    return this;
-  }
-
-   /**
-   * Identifies the connection this credential is associated with.
-   * @return connectionId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "1234567890", required = true, value = "Identifies the connection this credential is associated with.")
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getConnectionId() {
-    return connectionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConnectionId(String connectionId) {
-    this.connectionId = connectionId;
-  }
-
-
-  /**
-   * Return true if this BulkCredentialRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public BulkCredentialRequest name(String name) {
+        this.name = name;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * A default name for all credentials.
+     * @return name
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Default Credentials",
+        value = "A default name for all credentials."
+    )
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getName() {
+        return name;
     }
-    BulkCredentialRequest bulkCredentialRequest = (BulkCredentialRequest) o;
-    return Objects.equals(this.name, bulkCredentialRequest.name) &&
-        Objects.equals(this.tag, bulkCredentialRequest.tag) &&
-        Objects.equals(this.amount, bulkCredentialRequest.amount) &&
-        Objects.equals(this.connectionId, bulkCredentialRequest.connectionId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, tag, amount, connectionId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class BulkCredentialRequest {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setName(String name) {
+        this.name = name;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public BulkCredentialRequest tag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    /**
+     * Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.
+     * @return tag
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "My Credentials",
+        required = true,
+        value = "Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials."
+    )
+    @JsonProperty(JSON_PROPERTY_TAG)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTag() {
+        return tag;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAG)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public BulkCredentialRequest amount(Integer amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Amount of credentials to be created. A single tag can hold at maximum 1000 credentials
+     * @return amount
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "100",
+        value = "Amount of credentials to be created. A single tag can hold at maximum 1000 credentials"
+    )
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getAmount() {
+        return amount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public BulkCredentialRequest connectionId(String connectionId) {
+        this.connectionId = connectionId;
+        return this;
+    }
+
+    /**
+     * Identifies the connection this credential is associated with.
+     * @return connectionId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "1234567890",
+        required = true,
+        value = "Identifies the connection this credential is associated with."
+    )
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getConnectionId() {
+        return connectionId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setConnectionId(String connectionId) {
+        this.connectionId = connectionId;
+    }
+
+    /**
+     * Return true if this BulkCredentialRequest object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BulkCredentialRequest bulkCredentialRequest = (BulkCredentialRequest) o;
+        return (
+            Objects.equals(this.name, bulkCredentialRequest.name) &&
+            Objects.equals(this.tag, bulkCredentialRequest.tag) &&
+            Objects.equals(this.amount, bulkCredentialRequest.amount) &&
+            Objects.equals(
+                this.connectionId,
+                bulkCredentialRequest.connectionId
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, tag, amount, connectionId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class BulkCredentialRequest {\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb
+            .append("    connectionId: ")
+            .append(toIndentedString(connectionId))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,168 +10,181 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ProfileAssignmentPhoneNumbers
  */
-@JsonPropertyOrder({
-  ProfileAssignmentPhoneNumbers.JSON_PROPERTY_TASK_ID,
-  ProfileAssignmentPhoneNumbers.JSON_PROPERTY_PHONE_NUMBER,
-  ProfileAssignmentPhoneNumbers.JSON_PROPERTY_STATUS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        ProfileAssignmentPhoneNumbers.JSON_PROPERTY_TASK_ID,
+        ProfileAssignmentPhoneNumbers.JSON_PROPERTY_PHONE_NUMBER,
+        ProfileAssignmentPhoneNumbers.JSON_PROPERTY_STATUS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class ProfileAssignmentPhoneNumbers {
-  public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  private String taskId;
 
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
-  private String phoneNumber;
+    public static final String JSON_PROPERTY_TASK_ID = "taskId";
+    private String taskId;
 
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private String status;
+    public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
+    private String phoneNumber;
 
-  public ProfileAssignmentPhoneNumbers() { 
-  }
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private String status;
 
-  public ProfileAssignmentPhoneNumbers taskId(String taskId) {
-    this.taskId = taskId;
-    return this;
-  }
+    public ProfileAssignmentPhoneNumbers() {}
 
-   /**
-   * The ID of the task associated with the phone number.
-   * @return taskId
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "667a80f8-b0a9-49d0-b9ab-a7a1bcc45086", required = true, value = "The ID of the task associated with the phone number.")
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTaskId() {
-    return taskId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskId(String taskId) {
-    this.taskId = taskId;
-  }
-
-
-  public ProfileAssignmentPhoneNumbers phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * The phone number that the status is being checked for.
-   * @return phoneNumber
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "+12024567890", required = true, value = "The phone number that the status is being checked for.")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-
-  public ProfileAssignmentPhoneNumbers status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the associated phone number assignment.
-   * @return status
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(example = "pending", required = true, value = "The status of the associated phone number assignment.")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  /**
-   * Return true if this ProfileAssignmentPhoneNumbers object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ProfileAssignmentPhoneNumbers taskId(String taskId) {
+        this.taskId = taskId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The ID of the task associated with the phone number.
+     * @return taskId
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "667a80f8-b0a9-49d0-b9ab-a7a1bcc45086",
+        required = true,
+        value = "The ID of the task associated with the phone number."
+    )
+    @JsonProperty(JSON_PROPERTY_TASK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTaskId() {
+        return taskId;
     }
-    ProfileAssignmentPhoneNumbers profileAssignmentPhoneNumbers = (ProfileAssignmentPhoneNumbers) o;
-    return Objects.equals(this.taskId, profileAssignmentPhoneNumbers.taskId) &&
-        Objects.equals(this.phoneNumber, profileAssignmentPhoneNumbers.phoneNumber) &&
-        Objects.equals(this.status, profileAssignmentPhoneNumbers.status);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(taskId, phoneNumber, status);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProfileAssignmentPhoneNumbers {\n");
-    sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TASK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public ProfileAssignmentPhoneNumbers phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * The phone number that the status is being checked for.
+     * @return phoneNumber
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "+12024567890",
+        required = true,
+        value = "The phone number that the status is being checked for."
+    )
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public ProfileAssignmentPhoneNumbers status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The status of the associated phone number assignment.
+     * @return status
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(
+        example = "pending",
+        required = true,
+        value = "The status of the associated phone number assignment."
+    )
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * Return true if this ProfileAssignmentPhoneNumbers object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProfileAssignmentPhoneNumbers profileAssignmentPhoneNumbers =
+            (ProfileAssignmentPhoneNumbers) o;
+        return (
+            Objects.equals(this.taskId, profileAssignmentPhoneNumbers.taskId) &&
+            Objects.equals(
+                this.phoneNumber,
+                profileAssignmentPhoneNumbers.phoneNumber
+            ) &&
+            Objects.equals(this.status, profileAssignmentPhoneNumbers.status)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskId, phoneNumber, status);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ProfileAssignmentPhoneNumbers {\n");
+        sb.append("    taskId: ").append(toIndentedString(taskId)).append("\n");
+        sb
+            .append("    phoneNumber: ")
+            .append(toIndentedString(phoneNumber))
+            .append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

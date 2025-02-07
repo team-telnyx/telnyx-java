@@ -10,29 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,14 +27,37 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using=Location1Inner.Location1InnerDeserializer.class)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(using = Location1Inner.Location1InnerDeserializer.class)
 @JsonSerialize(using = Location1Inner.Location1InnerSerializer.class)
 public class Location1Inner extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(Location1Inner.class.getName());
 
-    public static class Location1InnerSerializer extends StdSerializer<Location1Inner> {
+    private static final Logger log = Logger.getLogger(
+        Location1Inner.class.getName()
+    );
+
+    public static class Location1InnerSerializer
+        extends StdSerializer<Location1Inner> {
+
         public Location1InnerSerializer(Class<Location1Inner> t) {
             super(t);
         }
@@ -63,12 +67,18 @@ public class Location1Inner extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(Location1Inner value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            Location1Inner value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class Location1InnerDeserializer extends StdDeserializer<Location1Inner> {
+    public static class Location1InnerDeserializer
+        extends StdDeserializer<Location1Inner> {
+
         public Location1InnerDeserializer() {
             this(Location1Inner.class);
         }
@@ -78,46 +88,72 @@ public class Location1Inner extends AbstractOpenApiSchema {
         }
 
         @Override
-        public Location1Inner deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public Location1Inner deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
             // deserialize Integer
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Integer.class);
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(Integer.class);
                 Location1Inner ret = new Location1Inner();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'Location1Inner'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'Location1Inner'",
+                    e
+                );
             }
 
             // deserialize String
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(String.class);
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(String.class);
                 Location1Inner ret = new Location1Inner();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'Location1Inner'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'Location1Inner'",
+                    e
+                );
             }
 
-            throw new IOException(String.format("Failed deserialization for Location1Inner: no match found"));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for Location1Inner: no match found"
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public Location1Inner getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "Location1Inner cannot be null");
+        public Location1Inner getNullValue(DeserializationContext ctxt)
+            throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "Location1Inner cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in anyOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public Location1Inner() {
         super("anyOf", Boolean.FALSE);
@@ -134,11 +170,12 @@ public class Location1Inner extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("Integer", new GenericType<Integer>() {
-        });
-        schemas.put("String", new GenericType<String>() {
-        });
-        JSON.registerDescendants(Location1Inner.class, Collections.unmodifiableMap(schemas));
+        schemas.put("Integer", new GenericType<Integer>() {});
+        schemas.put("String", new GenericType<String>() {});
+        JSON.registerDescendants(
+            Location1Inner.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -156,17 +193,23 @@ public class Location1Inner extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(Integer.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(Integer.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(String.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(String.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be Integer, String");
+        throw new RuntimeException(
+            "Invalid instance type. Must be Integer, String"
+        );
     }
 
     /**
@@ -188,7 +231,7 @@ public class Location1Inner extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `Integer`
      */
     public Integer getInteger() throws ClassCastException {
-        return (Integer)super.getActualInstance();
+        return (Integer) super.getActualInstance();
     }
 
     /**
@@ -199,8 +242,6 @@ public class Location1Inner extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `String`
      */
     public String getString() throws ClassCastException {
-        return (String)super.getActualInstance();
+        return (String) super.getActualInstance();
     }
-
 }
-

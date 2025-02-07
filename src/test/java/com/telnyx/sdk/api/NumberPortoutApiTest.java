@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -23,17 +22,15 @@ import com.telnyx.sdk.model.ListPortoutResponse;
 import com.telnyx.sdk.model.PortOutListSupportingDocumentsResponse;
 import com.telnyx.sdk.model.PortoutCommentResposne;
 import com.telnyx.sdk.model.PortoutResponse;
-import java.util.UUID;
 import com.telnyx.sdk.model.UpdatePortoutStatusRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for NumberPortoutApi
@@ -154,5 +151,4 @@ public class NumberPortoutApiTest {
         //PortoutResponse response = api.updatePortoutRequest(id, status, updatePortoutStatusRequest);
         // TODO: test validations
     }
-
 }

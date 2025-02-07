@@ -10,8 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -21,9 +23,6 @@ import com.telnyx.sdk.model.ListAvailablePhoneNumbersResponse;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * API tests for NumberSearchApi
@@ -38,7 +37,8 @@ public class NumberSearchApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
     }
 
@@ -49,13 +49,15 @@ public class NumberSearchApiTest {
      */
     @Ignore
     @Test
-    public void listAvailablePhoneNumbers_whenFilterCriteriaExists_returnsAvailableNumbers() throws ApiException {
-        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
-                .filterLocality("Chicago")
-                .filterAdministrativeArea("IL")
-                .filterCountryCode("US")
-                .filterLimit(2)
-                .execute();
+    public void listAvailablePhoneNumbers_whenFilterCriteriaExists_returnsAvailableNumbers()
+        throws ApiException {
+        ListAvailablePhoneNumbersResponse actualResponse = api
+            .listAvailablePhoneNumbers()
+            .filterLocality("Chicago")
+            .filterAdministrativeArea("IL")
+            .filterCountryCode("US")
+            .filterLimit(2)
+            .execute();
 
         assertNotNull(actualResponse.getData());
     }
@@ -70,12 +72,14 @@ public class NumberSearchApiTest {
      */
     @Ignore
     @Test
-    public void listAvailablePhoneNumbers_whenFilteringForUSPhoneNumbers_returnsAvailableNumbers() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringForUSPhoneNumbers_returnsAvailableNumbers()
+        throws ApiException {
         String countryCode = "US";
 
-        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
-                .filterCountryCode(countryCode)
-                .execute();
+        ListAvailablePhoneNumbersResponse actualResponse = api
+            .listAvailablePhoneNumbers()
+            .filterCountryCode(countryCode)
+            .execute();
 
         assertNotNull(actualResponse);
         assertFalse(actualResponse.getData().isEmpty());
@@ -91,12 +95,14 @@ public class NumberSearchApiTest {
      */
     @Ignore
     @Test
-    public void listAvailablePhoneNumbers_whenFilteringByAreaCode_returnsAvailableNumbers() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringByAreaCode_returnsAvailableNumbers()
+        throws ApiException {
         String areaCode = "IL";
 
-        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
-                .filterAdministrativeArea(areaCode)
-                .execute();
+        ListAvailablePhoneNumbersResponse actualResponse = api
+            .listAvailablePhoneNumbers()
+            .filterAdministrativeArea(areaCode)
+            .execute();
 
         assertNotNull(actualResponse);
         assertFalse(actualResponse.getData().isEmpty());
@@ -112,12 +118,14 @@ public class NumberSearchApiTest {
      */
     @Ignore
     @Test
-    public void listAvailablePhoneNumbers_whenFilteringForCanadaPhoneNumbers_returnsAvailableNumbers() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringForCanadaPhoneNumbers_returnsAvailableNumbers()
+        throws ApiException {
         String countryCode = "CA";
 
-        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
-                .filterCountryCode(countryCode)
-                .execute();
+        ListAvailablePhoneNumbersResponse actualResponse = api
+            .listAvailablePhoneNumbers()
+            .filterCountryCode(countryCode)
+            .execute();
 
         assertNotNull(actualResponse);
         assertFalse(actualResponse.getData().isEmpty());
@@ -133,12 +141,14 @@ public class NumberSearchApiTest {
      */
     @Ignore
     @Test
-    public void listAvailablePhoneNumbers_whenFilteringForSpainPhoneNumbers_returnsAvailableNumbers() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringForSpainPhoneNumbers_returnsAvailableNumbers()
+        throws ApiException {
         String countryCode = "ES";
 
-        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
-                .filterCountryCode(countryCode)
-                .execute();
+        ListAvailablePhoneNumbersResponse actualResponse = api
+            .listAvailablePhoneNumbers()
+            .filterCountryCode(countryCode)
+            .execute();
 
         assertNotNull(actualResponse);
         assertFalse(actualResponse.getData().isEmpty());
@@ -154,17 +164,18 @@ public class NumberSearchApiTest {
      */
     @Ignore
     @Test
-    public void listAvailablePhoneNumbers_whenFilteringByNumbersStartingWith22_returnsAvailableNumbers() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringByNumbersStartingWith22_returnsAvailableNumbers()
+        throws ApiException {
         String startsWith = "22";
 
-        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
-                .filterPhoneNumberStartsWith(startsWith)
-                .execute();
+        ListAvailablePhoneNumbersResponse actualResponse = api
+            .listAvailablePhoneNumbers()
+            .filterPhoneNumberStartsWith(startsWith)
+            .execute();
 
         assertNotNull(actualResponse);
         assertFalse(actualResponse.getData().isEmpty());
     }
-
 
     /**
      * Search for 100 available phone numbers in Chicago
@@ -176,14 +187,16 @@ public class NumberSearchApiTest {
      */
     @Ignore
     @Test
-    public void listAvailablePhoneNumbers_whenFilteringFor100PhoneNumbersInChicago_returnsAvailableNumbers() throws ApiException {
+    public void listAvailablePhoneNumbers_whenFilteringFor100PhoneNumbersInChicago_returnsAvailableNumbers()
+        throws ApiException {
         String city = "chi";
         int limit = 100;
 
-        ListAvailablePhoneNumbersResponse actualResponse = api.listAvailablePhoneNumbers()
-                    .filterLocality(city)
-                    .filterLimit(limit)
-                    .execute();
+        ListAvailablePhoneNumbersResponse actualResponse = api
+            .listAvailablePhoneNumbers()
+            .filterLocality(city)
+            .filterLimit(limit)
+            .execute();
 
         assertNotNull(actualResponse);
         assertFalse(actualResponse.getData().isEmpty());

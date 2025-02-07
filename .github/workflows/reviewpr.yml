@@ -19,4 +19,5 @@ jobs:
         with:
           telnyx_api_key: ${{ secrets.TELNYXAI_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}

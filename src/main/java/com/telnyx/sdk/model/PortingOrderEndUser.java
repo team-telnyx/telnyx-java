@@ -10,138 +10,138 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.PortingOrderEndUserAdmin;
 import com.telnyx.sdk.model.PortingOrderEndUserLocation;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * PortingOrderEndUser
  */
-@JsonPropertyOrder({
-  PortingOrderEndUser.JSON_PROPERTY_ADMIN,
-  PortingOrderEndUser.JSON_PROPERTY_LOCATION
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        PortingOrderEndUser.JSON_PROPERTY_ADMIN,
+        PortingOrderEndUser.JSON_PROPERTY_LOCATION,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class PortingOrderEndUser {
-  public static final String JSON_PROPERTY_ADMIN = "admin";
-  private PortingOrderEndUserAdmin admin;
 
-  public static final String JSON_PROPERTY_LOCATION = "location";
-  private PortingOrderEndUserLocation location;
+    public static final String JSON_PROPERTY_ADMIN = "admin";
+    private PortingOrderEndUserAdmin admin;
 
-  public PortingOrderEndUser() { 
-  }
+    public static final String JSON_PROPERTY_LOCATION = "location";
+    private PortingOrderEndUserLocation location;
 
-  public PortingOrderEndUser admin(PortingOrderEndUserAdmin admin) {
-    this.admin = admin;
-    return this;
-  }
+    public PortingOrderEndUser() {}
 
-   /**
-   * Get admin
-   * @return admin
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PortingOrderEndUserAdmin getAdmin() {
-    return admin;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAdmin(PortingOrderEndUserAdmin admin) {
-    this.admin = admin;
-  }
-
-
-  public PortingOrderEndUser location(PortingOrderEndUserLocation location) {
-    this.location = location;
-    return this;
-  }
-
-   /**
-   * Get location
-   * @return location
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_LOCATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PortingOrderEndUserLocation getLocation() {
-    return location;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LOCATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLocation(PortingOrderEndUserLocation location) {
-    this.location = location;
-  }
-
-
-  /**
-   * Return true if this PortingOrderEndUser object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public PortingOrderEndUser admin(PortingOrderEndUserAdmin admin) {
+        this.admin = admin;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get admin
+     * @return admin
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ADMIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PortingOrderEndUserAdmin getAdmin() {
+        return admin;
     }
-    PortingOrderEndUser portingOrderEndUser = (PortingOrderEndUser) o;
-    return Objects.equals(this.admin, portingOrderEndUser.admin) &&
-        Objects.equals(this.location, portingOrderEndUser.location);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(admin, location);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PortingOrderEndUser {\n");
-    sb.append("    admin: ").append(toIndentedString(admin)).append("\n");
-    sb.append("    location: ").append(toIndentedString(location)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ADMIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAdmin(PortingOrderEndUserAdmin admin) {
+        this.admin = admin;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public PortingOrderEndUser location(PortingOrderEndUserLocation location) {
+        this.location = location;
+        return this;
+    }
+
+    /**
+     * Get location
+     * @return location
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_LOCATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PortingOrderEndUserLocation getLocation() {
+        return location;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LOCATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLocation(PortingOrderEndUserLocation location) {
+        this.location = location;
+    }
+
+    /**
+     * Return true if this PortingOrderEndUser object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PortingOrderEndUser portingOrderEndUser = (PortingOrderEndUser) o;
+        return (
+            Objects.equals(this.admin, portingOrderEndUser.admin) &&
+            Objects.equals(this.location, portingOrderEndUser.location)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(admin, location);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PortingOrderEndUser {\n");
+        sb.append("    admin: ").append(toIndentedString(admin)).append("\n");
+        sb
+            .append("    location: ")
+            .append(toIndentedString(location))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.math.BigDecimal;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for AuditEventChangesInnerFrom
  */
 public class AuditEventChangesInnerFromTest {
-    private final AuditEventChangesInnerFrom model = new AuditEventChangesInnerFrom();
+
+    private final AuditEventChangesInnerFrom model =
+        new AuditEventChangesInnerFrom();
 
     /**
      * Model tests for AuditEventChangesInnerFrom
@@ -34,5 +34,4 @@ public class AuditEventChangesInnerFromTest {
     public void testAuditEventChangesInnerFrom() {
         // TODO: test AuditEventChangesInnerFrom
     }
-
 }

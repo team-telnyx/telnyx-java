@@ -1,53 +1,54 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.AudioTranscriptionResponse;
-import java.io.File;
 import com.telnyx.sdk.model.HTTPValidationError;
-
+import jakarta.ws.rs.core.GenericType;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AudioApi {
-  private ApiClient apiClient;
 
-  public AudioApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public AudioApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public AudioApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public AudioApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Transcribe speech to text
    * Transcribe speech to text. This endpoint is consistent with the [OpenAI Transcription API](https://platform.openai.com/docs/api-reference/audio/createTranscription) and may be used with the OpenAI JS or Python SDK.
    * @param model ID of the model to use. &#x60;distil-whisper/distil-large-v2&#x60; is lower latency but English-only. &#x60;openai/whisper-large-v3-turbo&#x60; is multi-lingual but slightly higher latency. (required)
@@ -64,11 +65,23 @@ public class AudioApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public AudioTranscriptionResponse audioPublicAudioTranscriptionsPost(String model, File _file, String fileUrl, String responseFormat, String timestampGranularities) throws ApiException {
-    return audioPublicAudioTranscriptionsPostWithHttpInfo(model, _file, fileUrl, responseFormat, timestampGranularities).getData();
-  }
+    public AudioTranscriptionResponse audioPublicAudioTranscriptionsPost(
+        String model,
+        File _file,
+        String fileUrl,
+        String responseFormat,
+        String timestampGranularities
+    ) throws ApiException {
+        return audioPublicAudioTranscriptionsPostWithHttpInfo(
+            model,
+            _file,
+            fileUrl,
+            responseFormat,
+            timestampGranularities
+        ).getData();
+    }
 
-  /**
+    /**
    * Transcribe speech to text
    * Transcribe speech to text. This endpoint is consistent with the [OpenAI Transcription API](https://platform.openai.com/docs/api-reference/audio/createTranscription) and may be used with the OpenAI JS or Python SDK.
    * @param model ID of the model to use. &#x60;distil-whisper/distil-large-v2&#x60; is lower latency but English-only. &#x60;openai/whisper-large-v3-turbo&#x60; is multi-lingual but slightly higher latency. (required)
@@ -85,53 +98,81 @@ public class AudioApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AudioTranscriptionResponse> audioPublicAudioTranscriptionsPostWithHttpInfo(String model, File _file, String fileUrl, String responseFormat, String timestampGranularities) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'model' is set
-    if (model == null) {
-      throw new ApiException(400, "Missing the required parameter 'model' when calling audioPublicAudioTranscriptionsPost");
+    public ApiResponse<
+        AudioTranscriptionResponse
+    > audioPublicAudioTranscriptionsPostWithHttpInfo(
+        String model,
+        File _file,
+        String fileUrl,
+        String responseFormat,
+        String timestampGranularities
+    ) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'model' is set
+        if (model == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'model' when calling audioPublicAudioTranscriptionsPost"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath = "/ai/audio/transcriptions";
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (_file != null) localVarFormParams.put("file", _file);
+        if (fileUrl != null) localVarFormParams.put("file_url", fileUrl);
+        if (model != null) localVarFormParams.put("model", model);
+        if (responseFormat != null) localVarFormParams.put(
+            "response_format",
+            responseFormat
+        );
+        if (timestampGranularities != null) localVarFormParams.put(
+            "timestamp_granularities[]",
+            timestampGranularities
+        );
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = { "multipart/form-data" };
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<AudioTranscriptionResponse> localVarReturnType =
+            new GenericType<AudioTranscriptionResponse>() {};
+
+        return apiClient.invokeAPI(
+            "AudioApi.audioPublicAudioTranscriptionsPost",
+            localVarPath,
+            "POST",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/ai/audio/transcriptions";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    if (_file != null)
-      localVarFormParams.put("file", _file);
-if (fileUrl != null)
-      localVarFormParams.put("file_url", fileUrl);
-if (model != null)
-      localVarFormParams.put("model", model);
-if (responseFormat != null)
-      localVarFormParams.put("response_format", responseFormat);
-if (timestampGranularities != null)
-      localVarFormParams.put("timestamp_granularities[]", timestampGranularities);
-
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "multipart/form-data"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<AudioTranscriptionResponse> localVarReturnType = new GenericType<AudioTranscriptionResponse>() {};
-
-    return apiClient.invokeAPI("AudioApi.audioPublicAudioTranscriptionsPost", localVarPath, "POST", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

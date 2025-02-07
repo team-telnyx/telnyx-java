@@ -10,22 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.UserBalanceResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for BillingApi
@@ -37,7 +34,7 @@ public class BillingApiTest {
     /**
      * Retrieve user balance details
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -47,5 +44,4 @@ public class BillingApiTest {
         //UserBalanceResponse response = api.getUserBalance();
         // TODO: test validations
     }
-
 }

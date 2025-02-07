@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.WireguardInterfaceRead;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for WireguardInterfaceCreate202Response
  */
 public class WireguardInterfaceCreate202ResponseTest {
-    private final WireguardInterfaceCreate202Response model = new WireguardInterfaceCreate202Response();
+
+    private final WireguardInterfaceCreate202Response model =
+        new WireguardInterfaceCreate202Response();
 
     /**
      * Model tests for WireguardInterfaceCreate202Response
@@ -47,5 +45,4 @@ public class WireguardInterfaceCreate202ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

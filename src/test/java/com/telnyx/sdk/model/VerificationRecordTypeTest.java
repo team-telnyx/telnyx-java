@@ -10,21 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
 import io.swagger.annotations.ApiModel;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for VerificationRecordType
  */
 public class VerificationRecordTypeTest {
+
     /**
      * Model tests for VerificationRecordType
      */
@@ -32,5 +30,4 @@ public class VerificationRecordTypeTest {
     public void testVerificationRecordType() {
         // TODO: test VerificationRecordType
     }
-
 }

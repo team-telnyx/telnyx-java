@@ -10,129 +10,134 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Comment;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Objects;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * CommentResponse
  */
-@JsonPropertyOrder({
-  CommentResponse.JSON_PROPERTY_DATA
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder({ CommentResponse.JSON_PROPERTY_DATA })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class CommentResponse {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private JsonNullable<Comment> data = JsonNullable.<Comment>undefined();
 
-  public CommentResponse() { 
-  }
+    public static final String JSON_PROPERTY_DATA = "data";
+    private JsonNullable<Comment> data = JsonNullable.<Comment>undefined();
 
-  public CommentResponse data(Comment data) {
-    this.data = JsonNullable.<Comment>of(data);
-    return this;
-  }
+    public CommentResponse() {}
 
-   /**
-   * Get data
-   * @return data
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonIgnore
+    public CommentResponse data(Comment data) {
+        this.data = JsonNullable.<Comment>of(data);
+        return this;
+    }
 
-  public Comment getData() {
+    /**
+     * Get data
+     * @return data
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonIgnore
+    public Comment getData() {
         return data.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Comment> getData_JsonNullable() {
-    return data;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_DATA)
-  public void setData_JsonNullable(JsonNullable<Comment> data) {
-    this.data = data;
-  }
-
-  public void setData(Comment data) {
-    this.data = JsonNullable.<Comment>of(data);
-  }
-
-
-  /**
-   * Return true if this Comment_Response object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public JsonNullable<Comment> getData_JsonNullable() {
+        return data;
     }
-    CommentResponse commentResponse = (CommentResponse) o;
-    return equalsNullable(this.data, commentResponse.data);
-  }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(hashCodeNullable(data));
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
+    @JsonProperty(JSON_PROPERTY_DATA)
+    public void setData_JsonNullable(JsonNullable<Comment> data) {
+        this.data = data;
     }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CommentResponse {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setData(Comment data) {
+        this.data = JsonNullable.<Comment>of(data);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this Comment_Response object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CommentResponse commentResponse = (CommentResponse) o;
+        return equalsNullable(this.data, commentResponse.data);
+    }
+
+    private static <T> boolean equalsNullable(
+        JsonNullable<T> a,
+        JsonNullable<T> b
+    ) {
+        return (
+            a == b ||
+            (a != null &&
+                b != null &&
+                a.isPresent() &&
+                b.isPresent() &&
+                Objects.deepEquals(a.get(), b.get()))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hashCodeNullable(data));
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent()
+            ? Arrays.deepHashCode(new Object[] { a.get() })
+            : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CommentResponse {\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

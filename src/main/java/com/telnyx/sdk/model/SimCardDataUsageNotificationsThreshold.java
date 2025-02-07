@@ -10,174 +10,181 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Data usage threshold that will trigger the notification.
  */
-@ApiModel(description = "Data usage threshold that will trigger the notification.")
-@JsonPropertyOrder({
-  SimCardDataUsageNotificationsThreshold.JSON_PROPERTY_AMOUNT,
-  SimCardDataUsageNotificationsThreshold.JSON_PROPERTY_UNIT
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@ApiModel(
+    description = "Data usage threshold that will trigger the notification."
+)
+@JsonPropertyOrder(
+    {
+        SimCardDataUsageNotificationsThreshold.JSON_PROPERTY_AMOUNT,
+        SimCardDataUsageNotificationsThreshold.JSON_PROPERTY_UNIT,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class SimCardDataUsageNotificationsThreshold {
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private BigDecimal amount;
 
-  /**
-   * Gets or Sets unit
-   */
-  public enum UnitEnum {
-    MB("MB"),
-    
-    GB("GB");
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private BigDecimal amount;
 
-    private String value;
+    /**
+     * Gets or Sets unit
+     */
+    public enum UnitEnum {
+        MB("MB"),
 
-    UnitEnum(String value) {
-      this.value = value;
+        GB("GB");
+
+        private String value;
+
+        UnitEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static UnitEnum fromValue(String value) {
+            for (UnitEnum b : UnitEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_UNIT = "unit";
+    private UnitEnum unit;
+
+    public SimCardDataUsageNotificationsThreshold() {}
+
+    public SimCardDataUsageNotificationsThreshold amount(BigDecimal amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Get amount
+     * @return amount
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "2048.1", value = "")
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public SimCardDataUsageNotificationsThreshold unit(UnitEnum unit) {
+        this.unit = unit;
+        return this;
+    }
+
+    /**
+     * Get unit
+     * @return unit
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "MB", value = "")
+    @JsonProperty(JSON_PROPERTY_UNIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UnitEnum getUnit() {
+        return unit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UNIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUnit(UnitEnum unit) {
+        this.unit = unit;
+    }
+
+    /**
+     * Return true if this _sim_card_data_usage_notifications_threshold object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SimCardDataUsageNotificationsThreshold simCardDataUsageNotificationsThreshold =
+            (SimCardDataUsageNotificationsThreshold) o;
+        return (
+            Objects.equals(
+                this.amount,
+                simCardDataUsageNotificationsThreshold.amount
+            ) &&
+            Objects.equals(
+                this.unit,
+                simCardDataUsageNotificationsThreshold.unit
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, unit);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SimCardDataUsageNotificationsThreshold {\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static UnitEnum fromValue(String value) {
-      for (UnitEnum b : UnitEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_UNIT = "unit";
-  private UnitEnum unit;
-
-  public SimCardDataUsageNotificationsThreshold() { 
-  }
-
-  public SimCardDataUsageNotificationsThreshold amount(BigDecimal amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "2048.1", value = "")
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAmount(BigDecimal amount) {
-    this.amount = amount;
-  }
-
-
-  public SimCardDataUsageNotificationsThreshold unit(UnitEnum unit) {
-    this.unit = unit;
-    return this;
-  }
-
-   /**
-   * Get unit
-   * @return unit
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "MB", value = "")
-  @JsonProperty(JSON_PROPERTY_UNIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UnitEnum getUnit() {
-    return unit;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UNIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUnit(UnitEnum unit) {
-    this.unit = unit;
-  }
-
-
-  /**
-   * Return true if this _sim_card_data_usage_notifications_threshold object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SimCardDataUsageNotificationsThreshold simCardDataUsageNotificationsThreshold = (SimCardDataUsageNotificationsThreshold) o;
-    return Objects.equals(this.amount, simCardDataUsageNotificationsThreshold.amount) &&
-        Objects.equals(this.unit, simCardDataUsageNotificationsThreshold.unit);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(amount, unit);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SimCardDataUsageNotificationsThreshold {\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

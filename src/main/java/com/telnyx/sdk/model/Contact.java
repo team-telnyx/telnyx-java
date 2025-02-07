@@ -10,376 +10,369 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.Email;
 import com.telnyx.sdk.model.Organization;
 import com.telnyx.sdk.model.Phone;
 import com.telnyx.sdk.model.Url;
 import com.telnyx.sdk.model.WhatsAppContactAddress;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Contact
  */
-@JsonPropertyOrder({
-  Contact.JSON_PROPERTY_ADDRESSES,
-  Contact.JSON_PROPERTY_BIRTHDAY,
-  Contact.JSON_PROPERTY_EMAILS,
-  Contact.JSON_PROPERTY_IMS,
-  Contact.JSON_PROPERTY_NAME,
-  Contact.JSON_PROPERTY_ORG,
-  Contact.JSON_PROPERTY_PHONES,
-  Contact.JSON_PROPERTY_URLS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        Contact.JSON_PROPERTY_ADDRESSES,
+        Contact.JSON_PROPERTY_BIRTHDAY,
+        Contact.JSON_PROPERTY_EMAILS,
+        Contact.JSON_PROPERTY_IMS,
+        Contact.JSON_PROPERTY_NAME,
+        Contact.JSON_PROPERTY_ORG,
+        Contact.JSON_PROPERTY_PHONES,
+        Contact.JSON_PROPERTY_URLS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class Contact {
-  public static final String JSON_PROPERTY_ADDRESSES = "addresses";
-  private List<WhatsAppContactAddress> addresses = null;
 
-  public static final String JSON_PROPERTY_BIRTHDAY = "birthday";
-  private String birthday;
+    public static final String JSON_PROPERTY_ADDRESSES = "addresses";
+    private List<WhatsAppContactAddress> addresses = null;
 
-  public static final String JSON_PROPERTY_EMAILS = "emails";
-  private List<Email> emails = null;
+    public static final String JSON_PROPERTY_BIRTHDAY = "birthday";
+    private String birthday;
 
-  public static final String JSON_PROPERTY_IMS = "ims";
-  private List<String> ims = null;
+    public static final String JSON_PROPERTY_EMAILS = "emails";
+    private List<Email> emails = null;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
+    public static final String JSON_PROPERTY_IMS = "ims";
+    private List<String> ims = null;
 
-  public static final String JSON_PROPERTY_ORG = "org";
-  private Organization org;
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public static final String JSON_PROPERTY_PHONES = "phones";
-  private List<Phone> phones = null;
+    public static final String JSON_PROPERTY_ORG = "org";
+    private Organization org;
 
-  public static final String JSON_PROPERTY_URLS = "urls";
-  private List<Url> urls = null;
+    public static final String JSON_PROPERTY_PHONES = "phones";
+    private List<Phone> phones = null;
 
-  public Contact() { 
-  }
+    public static final String JSON_PROPERTY_URLS = "urls";
+    private List<Url> urls = null;
 
-  public Contact addresses(List<WhatsAppContactAddress> addresses) {
-    this.addresses = addresses;
-    return this;
-  }
+    public Contact() {}
 
-  public Contact addAddressesItem(WhatsAppContactAddress addressesItem) {
-    if (this.addresses == null) {
-      this.addresses = new ArrayList<>();
+    public Contact addresses(List<WhatsAppContactAddress> addresses) {
+        this.addresses = addresses;
+        return this;
     }
-    this.addresses.add(addressesItem);
-    return this;
-  }
 
-   /**
-   * Full contact address(es)
-   * @return addresses
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Full contact address(es)")
-  @JsonProperty(JSON_PROPERTY_ADDRESSES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<WhatsAppContactAddress> getAddresses() {
-    return addresses;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ADDRESSES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAddresses(List<WhatsAppContactAddress> addresses) {
-    this.addresses = addresses;
-  }
-
-
-  public Contact birthday(String birthday) {
-    this.birthday = birthday;
-    return this;
-  }
-
-   /**
-   * YYYY-MM-DD formatted string
-   * @return birthday
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "YYYY-MM-DD formatted string")
-  @JsonProperty(JSON_PROPERTY_BIRTHDAY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBirthday() {
-    return birthday;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BIRTHDAY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBirthday(String birthday) {
-    this.birthday = birthday;
-  }
-
-
-  public Contact emails(List<Email> emails) {
-    this.emails = emails;
-    return this;
-  }
-
-  public Contact addEmailsItem(Email emailsItem) {
-    if (this.emails == null) {
-      this.emails = new ArrayList<>();
+    public Contact addAddressesItem(WhatsAppContactAddress addressesItem) {
+        if (this.addresses == null) {
+            this.addresses = new ArrayList<>();
+        }
+        this.addresses.add(addressesItem);
+        return this;
     }
-    this.emails.add(emailsItem);
-    return this;
-  }
 
-   /**
-   * Contact email address(es)
-   * @return emails
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Contact email address(es)")
-  @JsonProperty(JSON_PROPERTY_EMAILS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Email> getEmails() {
-    return emails;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EMAILS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmails(List<Email> emails) {
-    this.emails = emails;
-  }
-
-
-  public Contact ims(List<String> ims) {
-    this.ims = ims;
-    return this;
-  }
-
-  public Contact addImsItem(String imsItem) {
-    if (this.ims == null) {
-      this.ims = new ArrayList<>();
+    /**
+     * Full contact address(es)
+     * @return addresses
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Full contact address(es)")
+    @JsonProperty(JSON_PROPERTY_ADDRESSES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<WhatsAppContactAddress> getAddresses() {
+        return addresses;
     }
-    this.ims.add(imsItem);
-    return this;
-  }
 
-   /**
-   * 
-   * @return ims
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_IMS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getIms() {
-    return ims;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_IMS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIms(List<String> ims) {
-    this.ims = ims;
-  }
-
-
-  public Contact name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Get name
-   * @return name
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public Contact org(Organization org) {
-    this.org = org;
-    return this;
-  }
-
-   /**
-   * Get org
-   * @return org
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ORG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Organization getOrg() {
-    return org;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ORG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOrg(Organization org) {
-    this.org = org;
-  }
-
-
-  public Contact phones(List<Phone> phones) {
-    this.phones = phones;
-    return this;
-  }
-
-  public Contact addPhonesItem(Phone phonesItem) {
-    if (this.phones == null) {
-      this.phones = new ArrayList<>();
+    @JsonProperty(JSON_PROPERTY_ADDRESSES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAddresses(List<WhatsAppContactAddress> addresses) {
+        this.addresses = addresses;
     }
-    this.phones.add(phonesItem);
-    return this;
-  }
 
-   /**
-   * Contact phone number(s)
-   * @return phones
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Contact phone number(s)")
-  @JsonProperty(JSON_PROPERTY_PHONES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Phone> getPhones() {
-    return phones;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PHONES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPhones(List<Phone> phones) {
-    this.phones = phones;
-  }
-
-
-  public Contact urls(List<Url> urls) {
-    this.urls = urls;
-    return this;
-  }
-
-  public Contact addUrlsItem(Url urlsItem) {
-    if (this.urls == null) {
-      this.urls = new ArrayList<>();
+    public Contact birthday(String birthday) {
+        this.birthday = birthday;
+        return this;
     }
-    this.urls.add(urlsItem);
-    return this;
-  }
 
-   /**
-   * Contact URL(s)
-   * @return urls
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Contact URL(s)")
-  @JsonProperty(JSON_PROPERTY_URLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Url> getUrls() {
-    return urls;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_URLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrls(List<Url> urls) {
-    this.urls = urls;
-  }
-
-
-  /**
-   * Return true if this Contact object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * YYYY-MM-DD formatted string
+     * @return birthday
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "YYYY-MM-DD formatted string")
+    @JsonProperty(JSON_PROPERTY_BIRTHDAY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBirthday() {
+        return birthday;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @JsonProperty(JSON_PROPERTY_BIRTHDAY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
-    Contact contact = (Contact) o;
-    return Objects.equals(this.addresses, contact.addresses) &&
-        Objects.equals(this.birthday, contact.birthday) &&
-        Objects.equals(this.emails, contact.emails) &&
-        Objects.equals(this.ims, contact.ims) &&
-        Objects.equals(this.name, contact.name) &&
-        Objects.equals(this.org, contact.org) &&
-        Objects.equals(this.phones, contact.phones) &&
-        Objects.equals(this.urls, contact.urls);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(addresses, birthday, emails, ims, name, org, phones, urls);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Contact {\n");
-    sb.append("    addresses: ").append(toIndentedString(addresses)).append("\n");
-    sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
-    sb.append("    emails: ").append(toIndentedString(emails)).append("\n");
-    sb.append("    ims: ").append(toIndentedString(ims)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    org: ").append(toIndentedString(org)).append("\n");
-    sb.append("    phones: ").append(toIndentedString(phones)).append("\n");
-    sb.append("    urls: ").append(toIndentedString(urls)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public Contact emails(List<Email> emails) {
+        this.emails = emails;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public Contact addEmailsItem(Email emailsItem) {
+        if (this.emails == null) {
+            this.emails = new ArrayList<>();
+        }
+        this.emails.add(emailsItem);
+        return this;
+    }
+
+    /**
+     * Contact email address(es)
+     * @return emails
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Contact email address(es)")
+    @JsonProperty(JSON_PROPERTY_EMAILS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EMAILS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+
+    public Contact ims(List<String> ims) {
+        this.ims = ims;
+        return this;
+    }
+
+    public Contact addImsItem(String imsItem) {
+        if (this.ims == null) {
+            this.ims = new ArrayList<>();
+        }
+        this.ims.add(imsItem);
+        return this;
+    }
+
+    /**
+     *
+     * @return ims
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_IMS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getIms() {
+        return ims;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IMS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIms(List<String> ims) {
+        this.ims = ims;
+    }
+
+    public Contact name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     * @return name
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Contact org(Organization org) {
+        this.org = org;
+        return this;
+    }
+
+    /**
+     * Get org
+     * @return org
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ORG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Organization getOrg() {
+        return org;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOrg(Organization org) {
+        this.org = org;
+    }
+
+    public Contact phones(List<Phone> phones) {
+        this.phones = phones;
+        return this;
+    }
+
+    public Contact addPhonesItem(Phone phonesItem) {
+        if (this.phones == null) {
+            this.phones = new ArrayList<>();
+        }
+        this.phones.add(phonesItem);
+        return this;
+    }
+
+    /**
+     * Contact phone number(s)
+     * @return phones
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Contact phone number(s)")
+    @JsonProperty(JSON_PROPERTY_PHONES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public Contact urls(List<Url> urls) {
+        this.urls = urls;
+        return this;
+    }
+
+    public Contact addUrlsItem(Url urlsItem) {
+        if (this.urls == null) {
+            this.urls = new ArrayList<>();
+        }
+        this.urls.add(urlsItem);
+        return this;
+    }
+
+    /**
+     * Contact URL(s)
+     * @return urls
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "Contact URL(s)")
+    @JsonProperty(JSON_PROPERTY_URLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<Url> getUrls() {
+        return urls;
+    }
+
+    @JsonProperty(JSON_PROPERTY_URLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUrls(List<Url> urls) {
+        this.urls = urls;
+    }
+
+    /**
+     * Return true if this Contact object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Contact contact = (Contact) o;
+        return (
+            Objects.equals(this.addresses, contact.addresses) &&
+            Objects.equals(this.birthday, contact.birthday) &&
+            Objects.equals(this.emails, contact.emails) &&
+            Objects.equals(this.ims, contact.ims) &&
+            Objects.equals(this.name, contact.name) &&
+            Objects.equals(this.org, contact.org) &&
+            Objects.equals(this.phones, contact.phones) &&
+            Objects.equals(this.urls, contact.urls)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            addresses,
+            birthday,
+            emails,
+            ims,
+            name,
+            org,
+            phones,
+            urls
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Contact {\n");
+        sb
+            .append("    addresses: ")
+            .append(toIndentedString(addresses))
+            .append("\n");
+        sb
+            .append("    birthday: ")
+            .append(toIndentedString(birthday))
+            .append("\n");
+        sb.append("    emails: ").append(toIndentedString(emails)).append("\n");
+        sb.append("    ims: ").append(toIndentedString(ims)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    org: ").append(toIndentedString(org)).append("\n");
+        sb.append("    phones: ").append(toIndentedString(phones)).append("\n");
+        sb.append("    urls: ").append(toIndentedString(urls)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

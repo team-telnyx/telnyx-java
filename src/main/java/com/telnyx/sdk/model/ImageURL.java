@@ -10,175 +10,171 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ImageURL
  */
-@JsonPropertyOrder({
-  ImageURL.JSON_PROPERTY_URL,
-  ImageURL.JSON_PROPERTY_DETAIL
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder(
+    { ImageURL.JSON_PROPERTY_URL, ImageURL.JSON_PROPERTY_DETAIL }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class ImageURL {
-  public static final String JSON_PROPERTY_URL = "url";
-  private String url;
 
-  /**
-   * Gets or Sets detail
-   */
-  public enum DetailEnum {
-    AUTO("auto"),
-    
-    LOW("low"),
-    
-    HIGH("high");
+    public static final String JSON_PROPERTY_URL = "url";
+    private String url;
 
-    private String value;
+    /**
+     * Gets or Sets detail
+     */
+    public enum DetailEnum {
+        AUTO("auto"),
 
-    DetailEnum(String value) {
-      this.value = value;
+        LOW("low"),
+
+        HIGH("high");
+
+        private String value;
+
+        DetailEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static DetailEnum fromValue(String value) {
+            for (DetailEnum b : DetailEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException(
+                "Unexpected value '" + value + "'"
+            );
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_DETAIL = "detail";
+    private DetailEnum detail;
+
+    public ImageURL() {}
+
+    public ImageURL url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Get url
+     * @return url
+     **/
+    @jakarta.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "")
+    @JsonProperty(JSON_PROPERTY_URL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getUrl() {
+        return url;
+    }
+
+    @JsonProperty(JSON_PROPERTY_URL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public ImageURL detail(DetailEnum detail) {
+        this.detail = detail;
+        return this;
+    }
+
+    /**
+     * Get detail
+     * @return detail
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_DETAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DetailEnum getDetail() {
+        return detail;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DETAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDetail(DetailEnum detail) {
+        this.detail = detail;
+    }
+
+    /**
+     * Return true if this ImageURL object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ImageURL imageURL = (ImageURL) o;
+        return (
+            Objects.equals(this.url, imageURL.url) &&
+            Objects.equals(this.detail, imageURL.detail)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, detail);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ImageURL {\n");
+        sb.append("    url: ").append(toIndentedString(url)).append("\n");
+        sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static DetailEnum fromValue(String value) {
-      for (DetailEnum b : DetailEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        return o.toString().replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_DETAIL = "detail";
-  private DetailEnum detail;
-
-  public ImageURL() { 
-  }
-
-  public ImageURL url(String url) {
-    this.url = url;
-    return this;
-  }
-
-   /**
-   * Get url
-   * @return url
-  **/
-  @jakarta.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getUrl() {
-    return url;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-
-  public ImageURL detail(DetailEnum detail) {
-    this.detail = detail;
-    return this;
-  }
-
-   /**
-   * Get detail
-   * @return detail
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DetailEnum getDetail() {
-    return detail;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDetail(DetailEnum detail) {
-    this.detail = detail;
-  }
-
-
-  /**
-   * Return true if this ImageURL object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ImageURL imageURL = (ImageURL) o;
-    return Objects.equals(this.url, imageURL.url) &&
-        Objects.equals(this.detail, imageURL.detail);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(url, detail);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ImageURL {\n");
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
-

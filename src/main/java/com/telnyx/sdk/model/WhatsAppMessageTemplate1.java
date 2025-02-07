@@ -10,137 +10,137 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * WhatsAppMessageTemplate1
  */
-@JsonPropertyOrder({
-  WhatsAppMessageTemplate1.JSON_PROPERTY_ID,
-  WhatsAppMessageTemplate1.JSON_PROPERTY_RECORD_TYPE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@JsonPropertyOrder(
+    {
+        WhatsAppMessageTemplate1.JSON_PROPERTY_ID,
+        WhatsAppMessageTemplate1.JSON_PROPERTY_RECORD_TYPE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen"
+)
 public class WhatsAppMessageTemplate1 {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
 
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public WhatsAppMessageTemplate1() { 
-  }
+    public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
+    private String recordType;
 
-  public WhatsAppMessageTemplate1 id(String id) {
-    this.id = id;
-    return this;
-  }
+    public WhatsAppMessageTemplate1() {}
 
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "12ac836e1c292", value = "")
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public WhatsAppMessageTemplate1 recordType(String recordType) {
-    this.recordType = recordType;
-    return this;
-  }
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "whatsapp_message_template", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-
-  /**
-   * Return true if this WhatsApp_Message_Template_1 object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public WhatsAppMessageTemplate1 id(String id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get id
+     * @return id
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "12ac836e1c292", value = "")
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
     }
-    WhatsAppMessageTemplate1 whatsAppMessageTemplate1 = (WhatsAppMessageTemplate1) o;
-    return Objects.equals(this.id, whatsAppMessageTemplate1.id) &&
-        Objects.equals(this.recordType, whatsAppMessageTemplate1.recordType);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, recordType);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WhatsAppMessageTemplate1 {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public WhatsAppMessageTemplate1 recordType(String recordType) {
+        this.recordType = recordType;
+        return this;
+    }
+
+    /**
+     * Get recordType
+     * @return recordType
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "whatsapp_message_template", value = "")
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRecordType() {
+        return recordType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
+    }
+
+    /**
+     * Return true if this WhatsApp_Message_Template_1 object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WhatsAppMessageTemplate1 whatsAppMessageTemplate1 =
+            (WhatsAppMessageTemplate1) o;
+        return (
+            Objects.equals(this.id, whatsAppMessageTemplate1.id) &&
+            Objects.equals(this.recordType, whatsAppMessageTemplate1.recordType)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, recordType);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class WhatsAppMessageTemplate1 {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb
+            .append("    recordType: ")
+            .append(toIndentedString(recordType))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

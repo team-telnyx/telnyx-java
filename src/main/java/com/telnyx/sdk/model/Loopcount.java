@@ -10,33 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -48,14 +29,36 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 @JsonDeserialize(using = Loopcount.LoopcountDeserializer.class)
 @JsonSerialize(using = Loopcount.LoopcountSerializer.class)
 public class Loopcount extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(Loopcount.class.getName());
+
+    private static final Logger log = Logger.getLogger(
+        Loopcount.class.getName()
+    );
 
     public static class LoopcountSerializer extends StdSerializer<Loopcount> {
+
         public LoopcountSerializer(Class<Loopcount> t) {
             super(t);
         }
@@ -65,12 +68,18 @@ public class Loopcount extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(Loopcount value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            Loopcount value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class LoopcountDeserializer extends StdDeserializer<Loopcount> {
+    public static class LoopcountDeserializer
+        extends StdDeserializer<Loopcount> {
+
         public LoopcountDeserializer() {
             this(Loopcount.class);
         }
@@ -80,27 +89,52 @@ public class Loopcount extends AbstractOpenApiSchema {
         }
 
         @Override
-        public Loopcount deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public Loopcount deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            boolean typeCoercion = ctxt.isEnabled(
+                MapperFeature.ALLOW_COERCION_OF_SCALARS
+            );
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize Integer
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (Integer.class.equals(Integer.class) || Integer.class.equals(Long.class) || Integer.class.equals(Float.class) || Integer.class.equals(Double.class) || Integer.class.equals(Boolean.class) || Integer.class.equals(String.class)) {
+                if (
+                    Integer.class.equals(Integer.class) ||
+                    Integer.class.equals(Long.class) ||
+                    Integer.class.equals(Float.class) ||
+                    Integer.class.equals(Double.class) ||
+                    Integer.class.equals(Boolean.class) ||
+                    Integer.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((Integer.class.equals(Integer.class) || Integer.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((Integer.class.equals(Float.class) || Integer.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (Integer.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (Integer.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((Integer.class.equals(
+                                        Integer.class
+                                    ) ||
+                                Integer.class.equals(Long.class)) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((Integer.class.equals(Float.class) ||
+                                Integer.class.equals(Double.class)) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (Integer.class.equals(
+                                    Boolean.class
+                                ) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (Integer.class.equals(String.class) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(Integer.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(Integer.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -109,24 +143,46 @@ public class Loopcount extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'Integer'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'Integer'",
+                    e
+                );
             }
 
             // deserialize String
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (String.class.equals(Integer.class) || String.class.equals(Long.class) || String.class.equals(Float.class) || String.class.equals(Double.class) || String.class.equals(Boolean.class) || String.class.equals(String.class)) {
+                if (
+                    String.class.equals(Integer.class) ||
+                    String.class.equals(Long.class) ||
+                    String.class.equals(Float.class) ||
+                    String.class.equals(Double.class) ||
+                    String.class.equals(Boolean.class) ||
+                    String.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((String.class.equals(Integer.class) || String.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((String.class.equals(Float.class) || String.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (String.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (String.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((String.class.equals(
+                                        Integer.class
+                                    ) ||
+                                String.class.equals(Long.class)) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((String.class.equals(Float.class) ||
+                                String.class.equals(Double.class)) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (String.class.equals(Boolean.class) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (String.class.equals(String.class) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(String.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(String.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -135,7 +191,11 @@ public class Loopcount extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'String'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'String'",
+                    e
+                );
             }
 
             if (match == 1) {
@@ -143,20 +203,32 @@ public class Loopcount extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for Loopcount: %d classes match result, expected 1", match));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for Loopcount: %d classes match result, expected 1",
+                    match
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public Loopcount getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "Loopcount cannot be null");
+        public Loopcount getNullValue(DeserializationContext ctxt)
+            throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "Loopcount cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public Loopcount() {
         super("oneOf", Boolean.FALSE);
@@ -173,11 +245,12 @@ public class Loopcount extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("Integer", new GenericType<Integer>() {
-        });
-        schemas.put("String", new GenericType<String>() {
-        });
-        JSON.registerDescendants(Loopcount.class, Collections.unmodifiableMap(schemas));
+        schemas.put("Integer", new GenericType<Integer>() {});
+        schemas.put("String", new GenericType<String>() {});
+        JSON.registerDescendants(
+            Loopcount.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -195,17 +268,23 @@ public class Loopcount extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(Integer.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(Integer.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(String.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(String.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be Integer, String");
+        throw new RuntimeException(
+            "Invalid instance type. Must be Integer, String"
+        );
     }
 
     /**
@@ -227,7 +306,7 @@ public class Loopcount extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `Integer`
      */
     public Integer getInteger() throws ClassCastException {
-        return (Integer)super.getActualInstance();
+        return (Integer) super.getActualInstance();
     }
 
     /**
@@ -238,8 +317,6 @@ public class Loopcount extends AbstractOpenApiSchema {
      * @throws ClassCastException if the instance is not `String`
      */
     public String getString() throws ClassCastException {
-        return (String)super.getActualInstance();
+        return (String) super.getActualInstance();
     }
-
 }
-

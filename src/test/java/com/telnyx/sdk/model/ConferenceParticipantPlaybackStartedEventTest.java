@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ConferenceParticipantPlaybackStarted;
@@ -24,15 +23,15 @@ import io.swagger.annotations.ApiModelProperty;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for ConferenceParticipantPlaybackStartedEvent
  */
 public class ConferenceParticipantPlaybackStartedEventTest {
-    private final ConferenceParticipantPlaybackStartedEvent model = new ConferenceParticipantPlaybackStartedEvent();
+
+    private final ConferenceParticipantPlaybackStartedEvent model =
+        new ConferenceParticipantPlaybackStartedEvent();
 
     /**
      * Model tests for ConferenceParticipantPlaybackStartedEvent
@@ -49,5 +48,4 @@ public class ConferenceParticipantPlaybackStartedEventTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

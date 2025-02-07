@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Currency;
@@ -25,14 +24,13 @@ import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
 
 /**
  * Model tests for MessageCost
  */
 public class MessageCostTest {
+
     private final MessageCost model = new MessageCost();
 
     /**
@@ -58,5 +56,4 @@ public class MessageCostTest {
     public void currencyTest() {
         // TODO: test currency
     }
-
 }

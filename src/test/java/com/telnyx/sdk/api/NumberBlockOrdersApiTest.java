@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,15 +18,13 @@ import com.telnyx.sdk.model.CreateNumberBlockOrderRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListNumberBlockOrdersResponse;
 import com.telnyx.sdk.model.NumberBlockOrderResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for NumberBlockOrdersApi
@@ -85,5 +82,4 @@ public class NumberBlockOrdersApiTest {
         //NumberBlockOrderResponse response = api.retrieveNumberBlockOrder(numberBlockOrderId);
         // TODO: test validations
     }
-
 }

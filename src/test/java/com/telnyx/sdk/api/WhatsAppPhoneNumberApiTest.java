@@ -10,28 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
-import java.io.File;
 import com.telnyx.sdk.model.RetrieveWhatsAppPhoneNumber;
 import com.telnyx.sdk.model.RetrieveWhatsAppProfilePhoto;
 import com.telnyx.sdk.model.UpdateWhatsAppPhoneNumber;
 import com.telnyx.sdk.model.UpdateWhatsAppProfilePhoto;
 import com.telnyx.sdk.model.UpdateWhatsappPhoneNumberAboutRequest;
 import com.telnyx.sdk.model.UpdateWhatsappPhoneNumberRequest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for WhatsAppPhoneNumberApi
@@ -43,7 +40,7 @@ public class WhatsAppPhoneNumberApiTest {
     /**
      * Update a WhatsApp Phone Number webhook
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -61,7 +58,7 @@ public class WhatsAppPhoneNumberApiTest {
     /**
      * Update a WhatsApp Phone Number about text
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -79,7 +76,7 @@ public class WhatsAppPhoneNumberApiTest {
     /**
      * Update the Whatsapp Profile Photo for a given Whatsapp Phone Number
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -97,7 +94,7 @@ public class WhatsAppPhoneNumberApiTest {
     /**
      * Retrieves a WhatsApp Phone Number
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -113,7 +110,7 @@ public class WhatsAppPhoneNumberApiTest {
     /**
      * Retrieves a Whatsapp Profile Photo for a WhatsApp Phone Number
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -125,5 +122,4 @@ public class WhatsAppPhoneNumberApiTest {
         //        .execute();
         // TODO: test validations
     }
-
 }

@@ -10,25 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for DialogflowConnection
  */
 public class DialogflowConnectionTest {
+
     private final DialogflowConnection model = new DialogflowConnection();
 
     /**
@@ -78,5 +75,4 @@ public class DialogflowConnectionTest {
     public void serviceAccountTest() {
         // TODO: test serviceAccount
     }
-
 }

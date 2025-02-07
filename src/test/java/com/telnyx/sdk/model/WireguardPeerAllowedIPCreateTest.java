@@ -10,28 +10,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.WireguardPeerAllowedIP;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for WireguardPeerAllowedIPCreate
  */
 public class WireguardPeerAllowedIPCreateTest {
-    private final WireguardPeerAllowedIPCreate model = new WireguardPeerAllowedIPCreate();
+
+    private final WireguardPeerAllowedIPCreate model =
+        new WireguardPeerAllowedIPCreate();
 
     /**
      * Model tests for WireguardPeerAllowedIPCreate
@@ -80,5 +78,4 @@ public class WireguardPeerAllowedIPCreateTest {
     public void ipAddressTest() {
         // TODO: test ipAddress
     }
-
 }

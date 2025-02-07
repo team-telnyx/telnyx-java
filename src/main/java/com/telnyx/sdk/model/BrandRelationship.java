@@ -10,61 +10,56 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Brand relationship to the CSP.
  */
 public enum BrandRelationship {
-  
-  BASIC_ACCOUNT("BASIC_ACCOUNT"),
-  
-  SMALL_ACCOUNT("SMALL_ACCOUNT"),
-  
-  MEDIUM_ACCOUNT("MEDIUM_ACCOUNT"),
-  
-  LARGE_ACCOUNT("LARGE_ACCOUNT"),
-  
-  KEY_ACCOUNT("KEY_ACCOUNT");
+    BASIC_ACCOUNT("BASIC_ACCOUNT"),
 
-  private String value;
+    SMALL_ACCOUNT("SMALL_ACCOUNT"),
 
-  BrandRelationship(String value) {
-    this.value = value;
-  }
+    MEDIUM_ACCOUNT("MEDIUM_ACCOUNT"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    LARGE_ACCOUNT("LARGE_ACCOUNT"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    KEY_ACCOUNT("KEY_ACCOUNT");
 
-  @JsonCreator
-  public static BrandRelationship fromValue(String value) {
-    for (BrandRelationship b : BrandRelationship.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    private String value;
+
+    BrandRelationship(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static BrandRelationship fromValue(String value) {
+        for (BrandRelationship b : BrandRelationship.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

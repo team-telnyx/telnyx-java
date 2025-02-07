@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.OutboundCallRecording;
@@ -27,22 +27,21 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-
-
 import org.junit.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Model tests for CreateOutboundVoiceProfileRequest
  */
 public class CreateOutboundVoiceProfileRequestTest {
-    private final CreateOutboundVoiceProfileRequest model = new CreateOutboundVoiceProfileRequest();
+
+    private final CreateOutboundVoiceProfileRequest model =
+        new CreateOutboundVoiceProfileRequest();
 
     /**
      * Model tests for CreateOutboundVoiceProfileRequest
@@ -155,5 +154,4 @@ public class CreateOutboundVoiceProfileRequestTest {
     public void billingGroupIdTest() {
         // TODO: test billingGroupId
     }
-
 }

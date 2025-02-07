@@ -10,43 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.AzureConfigurationData;
-import com.telnyx.sdk.model.GCSConfigurationData;
-import com.telnyx.sdk.model.Region;
-import com.telnyx.sdk.model.S3ConfigurationData;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -58,15 +34,50 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.AzureConfigurationData;
+import com.telnyx.sdk.model.GCSConfigurationData;
+import com.telnyx.sdk.model.Region;
+import com.telnyx.sdk.model.S3ConfigurationData;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
-@JsonDeserialize(using = CustomStorageConfigurationConfiguration.CustomStorageConfigurationConfigurationDeserializer.class)
-@JsonSerialize(using = CustomStorageConfigurationConfiguration.CustomStorageConfigurationConfigurationSerializer.class)
-public class CustomStorageConfigurationConfiguration extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(CustomStorageConfigurationConfiguration.class.getName());
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
+@JsonDeserialize(
+    using = CustomStorageConfigurationConfiguration.CustomStorageConfigurationConfigurationDeserializer.class
+)
+@JsonSerialize(
+    using = CustomStorageConfigurationConfiguration.CustomStorageConfigurationConfigurationSerializer.class
+)
+public class CustomStorageConfigurationConfiguration
+    extends AbstractOpenApiSchema {
 
-    public static class CustomStorageConfigurationConfigurationSerializer extends StdSerializer<CustomStorageConfigurationConfiguration> {
-        public CustomStorageConfigurationConfigurationSerializer(Class<CustomStorageConfigurationConfiguration> t) {
+    private static final Logger log = Logger.getLogger(
+        CustomStorageConfigurationConfiguration.class.getName()
+    );
+
+    public static class CustomStorageConfigurationConfigurationSerializer
+        extends StdSerializer<CustomStorageConfigurationConfiguration> {
+
+        public CustomStorageConfigurationConfigurationSerializer(
+            Class<CustomStorageConfigurationConfiguration> t
+        ) {
             super(t);
         }
 
@@ -75,124 +86,254 @@ public class CustomStorageConfigurationConfiguration extends AbstractOpenApiSche
         }
 
         @Override
-        public void serialize(CustomStorageConfigurationConfiguration value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            CustomStorageConfigurationConfiguration value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class CustomStorageConfigurationConfigurationDeserializer extends StdDeserializer<CustomStorageConfigurationConfiguration> {
+    public static class CustomStorageConfigurationConfigurationDeserializer
+        extends StdDeserializer<CustomStorageConfigurationConfiguration> {
+
         public CustomStorageConfigurationConfigurationDeserializer() {
             this(CustomStorageConfigurationConfiguration.class);
         }
 
-        public CustomStorageConfigurationConfigurationDeserializer(Class<?> vc) {
+        public CustomStorageConfigurationConfigurationDeserializer(
+            Class<?> vc
+        ) {
             super(vc);
         }
 
         @Override
-        public CustomStorageConfigurationConfiguration deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public CustomStorageConfigurationConfiguration deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            boolean typeCoercion = ctxt.isEnabled(
+                MapperFeature.ALLOW_COERCION_OF_SCALARS
+            );
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize AzureConfigurationData
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (AzureConfigurationData.class.equals(Integer.class) || AzureConfigurationData.class.equals(Long.class) || AzureConfigurationData.class.equals(Float.class) || AzureConfigurationData.class.equals(Double.class) || AzureConfigurationData.class.equals(Boolean.class) || AzureConfigurationData.class.equals(String.class)) {
+                if (
+                    AzureConfigurationData.class.equals(Integer.class) ||
+                    AzureConfigurationData.class.equals(Long.class) ||
+                    AzureConfigurationData.class.equals(Float.class) ||
+                    AzureConfigurationData.class.equals(Double.class) ||
+                    AzureConfigurationData.class.equals(Boolean.class) ||
+                    AzureConfigurationData.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((AzureConfigurationData.class.equals(Integer.class) || AzureConfigurationData.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((AzureConfigurationData.class.equals(Float.class) || AzureConfigurationData.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (AzureConfigurationData.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (AzureConfigurationData.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((AzureConfigurationData.class.equals(
+                                        Integer.class
+                                    ) ||
+                                AzureConfigurationData.class.equals(
+                                        Long.class
+                                    )) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((AzureConfigurationData.class.equals(
+                                        Float.class
+                                    ) ||
+                                AzureConfigurationData.class.equals(
+                                        Double.class
+                                    )) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (AzureConfigurationData.class.equals(
+                                    Boolean.class
+                                ) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (AzureConfigurationData.class.equals(
+                                    String.class
+                                ) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(AzureConfigurationData.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(AzureConfigurationData.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'AzureConfigurationData'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'AzureConfigurationData'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'AzureConfigurationData'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'AzureConfigurationData'",
+                    e
+                );
             }
 
             // deserialize GCSConfigurationData
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (GCSConfigurationData.class.equals(Integer.class) || GCSConfigurationData.class.equals(Long.class) || GCSConfigurationData.class.equals(Float.class) || GCSConfigurationData.class.equals(Double.class) || GCSConfigurationData.class.equals(Boolean.class) || GCSConfigurationData.class.equals(String.class)) {
+                if (
+                    GCSConfigurationData.class.equals(Integer.class) ||
+                    GCSConfigurationData.class.equals(Long.class) ||
+                    GCSConfigurationData.class.equals(Float.class) ||
+                    GCSConfigurationData.class.equals(Double.class) ||
+                    GCSConfigurationData.class.equals(Boolean.class) ||
+                    GCSConfigurationData.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((GCSConfigurationData.class.equals(Integer.class) || GCSConfigurationData.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((GCSConfigurationData.class.equals(Float.class) || GCSConfigurationData.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (GCSConfigurationData.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (GCSConfigurationData.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((GCSConfigurationData.class.equals(
+                                        Integer.class
+                                    ) ||
+                                GCSConfigurationData.class.equals(
+                                        Long.class
+                                    )) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((GCSConfigurationData.class.equals(
+                                        Float.class
+                                    ) ||
+                                GCSConfigurationData.class.equals(
+                                        Double.class
+                                    )) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (GCSConfigurationData.class.equals(
+                                    Boolean.class
+                                ) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (GCSConfigurationData.class.equals(
+                                    String.class
+                                ) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(GCSConfigurationData.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(GCSConfigurationData.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'GCSConfigurationData'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'GCSConfigurationData'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'GCSConfigurationData'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'GCSConfigurationData'",
+                    e
+                );
             }
 
             // deserialize S3ConfigurationData
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (S3ConfigurationData.class.equals(Integer.class) || S3ConfigurationData.class.equals(Long.class) || S3ConfigurationData.class.equals(Float.class) || S3ConfigurationData.class.equals(Double.class) || S3ConfigurationData.class.equals(Boolean.class) || S3ConfigurationData.class.equals(String.class)) {
+                if (
+                    S3ConfigurationData.class.equals(Integer.class) ||
+                    S3ConfigurationData.class.equals(Long.class) ||
+                    S3ConfigurationData.class.equals(Float.class) ||
+                    S3ConfigurationData.class.equals(Double.class) ||
+                    S3ConfigurationData.class.equals(Boolean.class) ||
+                    S3ConfigurationData.class.equals(String.class)
+                ) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((S3ConfigurationData.class.equals(Integer.class) || S3ConfigurationData.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((S3ConfigurationData.class.equals(Float.class) || S3ConfigurationData.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (S3ConfigurationData.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (S3ConfigurationData.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((S3ConfigurationData.class.equals(
+                                        Integer.class
+                                    ) ||
+                                S3ConfigurationData.class.equals(Long.class)) &&
+                            token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((S3ConfigurationData.class.equals(
+                                        Float.class
+                                    ) ||
+                                S3ConfigurationData.class.equals(
+                                        Double.class
+                                    )) &&
+                            token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (S3ConfigurationData.class.equals(
+                                    Boolean.class
+                                ) &&
+                            (token == JsonToken.VALUE_FALSE ||
+                                token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (S3ConfigurationData.class.equals(
+                                    String.class
+                                ) &&
+                            token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(S3ConfigurationData.class);
+                    deserialized = tree
+                        .traverse(jp.getCodec())
+                        .readValueAs(S3ConfigurationData.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'S3ConfigurationData'");
+                    log.log(
+                        Level.FINER,
+                        "Input data matches schema 'S3ConfigurationData'"
+                    );
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'S3ConfigurationData'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match schema 'S3ConfigurationData'",
+                    e
+                );
             }
 
             if (match == 1) {
-                CustomStorageConfigurationConfiguration ret = new CustomStorageConfigurationConfiguration();
+                CustomStorageConfigurationConfiguration ret =
+                    new CustomStorageConfigurationConfiguration();
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for CustomStorageConfigurationConfiguration: %d classes match result, expected 1", match));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for CustomStorageConfigurationConfiguration: %d classes match result, expected 1",
+                    match
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public CustomStorageConfigurationConfiguration getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "CustomStorageConfigurationConfiguration cannot be null");
+        public CustomStorageConfigurationConfiguration getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "CustomStorageConfigurationConfiguration cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public CustomStorageConfigurationConfiguration() {
         super("oneOf", Boolean.FALSE);
@@ -214,13 +355,22 @@ public class CustomStorageConfigurationConfiguration extends AbstractOpenApiSche
     }
 
     static {
-        schemas.put("AzureConfigurationData", new GenericType<AzureConfigurationData>() {
-        });
-        schemas.put("GCSConfigurationData", new GenericType<GCSConfigurationData>() {
-        });
-        schemas.put("S3ConfigurationData", new GenericType<S3ConfigurationData>() {
-        });
-        JSON.registerDescendants(CustomStorageConfigurationConfiguration.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+            "AzureConfigurationData",
+            new GenericType<AzureConfigurationData>() {}
+        );
+        schemas.put(
+            "GCSConfigurationData",
+            new GenericType<GCSConfigurationData>() {}
+        );
+        schemas.put(
+            "S3ConfigurationData",
+            new GenericType<S3ConfigurationData>() {}
+        );
+        JSON.registerDescendants(
+            CustomStorageConfigurationConfiguration.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -238,22 +388,42 @@ public class CustomStorageConfigurationConfiguration extends AbstractOpenApiSche
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(AzureConfigurationData.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                AzureConfigurationData.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(GCSConfigurationData.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                GCSConfigurationData.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(S3ConfigurationData.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                S3ConfigurationData.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be AzureConfigurationData, GCSConfigurationData, S3ConfigurationData");
+        throw new RuntimeException(
+            "Invalid instance type. Must be AzureConfigurationData, GCSConfigurationData, S3ConfigurationData"
+        );
     }
 
     /**
@@ -274,8 +444,9 @@ public class CustomStorageConfigurationConfiguration extends AbstractOpenApiSche
      * @return The actual instance of `AzureConfigurationData`
      * @throws ClassCastException if the instance is not `AzureConfigurationData`
      */
-    public AzureConfigurationData getAzureConfigurationData() throws ClassCastException {
-        return (AzureConfigurationData)super.getActualInstance();
+    public AzureConfigurationData getAzureConfigurationData()
+        throws ClassCastException {
+        return (AzureConfigurationData) super.getActualInstance();
     }
 
     /**
@@ -285,8 +456,9 @@ public class CustomStorageConfigurationConfiguration extends AbstractOpenApiSche
      * @return The actual instance of `GCSConfigurationData`
      * @throws ClassCastException if the instance is not `GCSConfigurationData`
      */
-    public GCSConfigurationData getGCSConfigurationData() throws ClassCastException {
-        return (GCSConfigurationData)super.getActualInstance();
+    public GCSConfigurationData getGCSConfigurationData()
+        throws ClassCastException {
+        return (GCSConfigurationData) super.getActualInstance();
     }
 
     /**
@@ -296,9 +468,8 @@ public class CustomStorageConfigurationConfiguration extends AbstractOpenApiSche
      * @return The actual instance of `S3ConfigurationData`
      * @throws ClassCastException if the instance is not `S3ConfigurationData`
      */
-    public S3ConfigurationData getS3ConfigurationData() throws ClassCastException {
-        return (S3ConfigurationData)super.getActualInstance();
+    public S3ConfigurationData getS3ConfigurationData()
+        throws ClassCastException {
+        return (S3ConfigurationData) super.getActualInstance();
     }
-
 }
-

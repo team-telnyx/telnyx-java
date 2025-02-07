@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,16 +17,14 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.AdvancedOrderRequest;
 import com.telnyx.sdk.model.AdvancedOrderResponse;
 import com.telnyx.sdk.model.ListAdvancedOrderResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for AdvancedNumberOrdersApi
@@ -39,7 +36,7 @@ public class AdvancedNumberOrdersApiTest {
     /**
      * Create Advanced Order
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -54,7 +51,7 @@ public class AdvancedNumberOrdersApiTest {
     /**
      * Get Advanced Order
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -69,7 +66,7 @@ public class AdvancedNumberOrdersApiTest {
     /**
      * List Advanced Orders
      *
-     * 
+     *
      *
      * @throws ApiException
      *          if the Api call fails
@@ -79,5 +76,4 @@ public class AdvancedNumberOrdersApiTest {
         //ListAdvancedOrderResponse response = api.listAdvancedOrdersV2();
         // TODO: test validations
     }
-
 }

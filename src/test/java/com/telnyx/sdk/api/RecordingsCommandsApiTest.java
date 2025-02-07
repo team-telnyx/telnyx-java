@@ -10,22 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.GetRecordingResponse;
 import com.telnyx.sdk.model.ListRecordingsResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for RecordingsCommandsApi
@@ -73,5 +70,4 @@ public class RecordingsCommandsApiTest {
         //GetRecordingResponse response = api.retrieveRecording(id);
         // TODO: test validations
     }
-
 }

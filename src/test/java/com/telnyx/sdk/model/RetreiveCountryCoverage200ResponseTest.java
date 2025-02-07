@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CountryCoverage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -31,7 +29,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for RetreiveCountryCoverage200Response
  */
 public class RetreiveCountryCoverage200ResponseTest {
-    private final RetreiveCountryCoverage200Response model = new RetreiveCountryCoverage200Response();
+
+    private final RetreiveCountryCoverage200Response model =
+        new RetreiveCountryCoverage200Response();
 
     /**
      * Model tests for RetreiveCountryCoverage200Response
@@ -48,5 +48,4 @@ public class RetreiveCountryCoverage200ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

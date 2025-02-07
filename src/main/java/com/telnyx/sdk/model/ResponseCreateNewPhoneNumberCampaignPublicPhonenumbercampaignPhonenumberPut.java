@@ -10,38 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PhoneNumberCampaign;
-import java.time.OffsetDateTime;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import com.telnyx.sdk.JSON;
-
-
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -55,15 +31,54 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.JSON;
+import com.telnyx.sdk.model.PhoneNumberCampaign;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
-@JsonDeserialize(using=ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutDeserializer.class)
-@JsonSerialize(using = ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutSerializer.class)
-public class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.class.getName());
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
+@JsonDeserialize(
+    using = ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutDeserializer.class
+)
+@JsonSerialize(
+    using = ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutSerializer.class
+)
+public class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut
+    extends AbstractOpenApiSchema {
 
-    public static class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutSerializer extends StdSerializer<ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut> {
-        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutSerializer(Class<ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut> t) {
+    private static final Logger log = Logger.getLogger(
+        ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.class.getName()
+    );
+
+    public static class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutSerializer
+        extends StdSerializer<
+            ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut
+        > {
+
+        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutSerializer(
+            Class<
+                ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut
+            > t
+        ) {
             super(t);
         }
 
@@ -72,82 +87,131 @@ public class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonen
         }
 
         @Override
-        public void serialize(ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+            ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut value,
+            JsonGenerator jgen,
+            SerializerProvider provider
+        ) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutDeserializer extends StdDeserializer<ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut> {
+    public static class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutDeserializer
+        extends StdDeserializer<
+            ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut
+        > {
+
         public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutDeserializer() {
-            this(ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.class);
+            this(
+                ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.class
+            );
         }
 
-        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutDeserializer(Class<?> vc) {
+        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPutDeserializer(
+            Class<?> vc
+        ) {
             super(vc);
         }
 
         @Override
-        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut deserialize(
+            JsonParser jp,
+            DeserializationContext ctxt
+        ) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
             // deserialize Object
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
-                ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut ret = new ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(Object.class);
+                ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut ret =
+                    new ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut'",
+                    e
+                );
             }
 
             // deserialize PhoneNumberCampaign
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(PhoneNumberCampaign.class);
-                ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut ret = new ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut();
+                deserialized = tree
+                    .traverse(jp.getCodec())
+                    .readValueAs(PhoneNumberCampaign.class);
+                ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut ret =
+                    new ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut();
                 ret.setActualInstance(deserialized);
                 return ret;
             } catch (Exception e) {
                 // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut'", e);
+                log.log(
+                    Level.FINER,
+                    "Input data does not match 'ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut'",
+                    e
+                );
             }
 
-            throw new IOException(String.format("Failed deserialization for ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut: no match found"));
+            throw new IOException(
+                String.format(
+                    "Failed deserialization for ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut: no match found"
+                )
+            );
         }
 
         /**
          * Handle deserialization of the 'null' value.
          */
         @Override
-        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut cannot be null");
+        public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut getNullValue(
+            DeserializationContext ctxt
+        ) throws JsonMappingException {
+            throw new JsonMappingException(
+                ctxt.getParser(),
+                "ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut cannot be null"
+            );
         }
     }
 
     // store a list of schema names defined in anyOf
-    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+    public static final Map<String, GenericType> schemas = new HashMap<
+        String,
+        GenericType
+    >();
 
     public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut() {
         super("anyOf", Boolean.FALSE);
     }
 
-    public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut(Object o) {
+    public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut(
+        Object o
+    ) {
         super("anyOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
-    public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut(PhoneNumberCampaign o) {
+    public ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut(
+        PhoneNumberCampaign o
+    ) {
         super("anyOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
     static {
-        schemas.put("Object", new GenericType<Object>() {
-        });
-        schemas.put("PhoneNumberCampaign", new GenericType<PhoneNumberCampaign>() {
-        });
-        JSON.registerDescendants(ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.class, Collections.unmodifiableMap(schemas));
+        schemas.put("Object", new GenericType<Object>() {});
+        schemas.put(
+            "PhoneNumberCampaign",
+            new GenericType<PhoneNumberCampaign>() {}
+        );
+        JSON.registerDescendants(
+            ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.class,
+            Collections.unmodifiableMap(schemas)
+        );
     }
 
     @Override
@@ -165,17 +229,27 @@ public class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonen
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(PhoneNumberCampaign.class, instance, new HashSet<Class<?>>())) {
+        if (
+            JSON.isInstanceOf(
+                PhoneNumberCampaign.class,
+                instance,
+                new HashSet<Class<?>>()
+            )
+        ) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be Object, PhoneNumberCampaign");
+        throw new RuntimeException(
+            "Invalid instance type. Must be Object, PhoneNumberCampaign"
+        );
     }
 
     /**
@@ -197,7 +271,7 @@ public class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonen
      * @throws ClassCastException if the instance is not `Object`
      */
     public Object getObject() throws ClassCastException {
-        return (Object)super.getActualInstance();
+        return (Object) super.getActualInstance();
     }
 
     /**
@@ -207,9 +281,8 @@ public class ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonen
      * @return The actual instance of `PhoneNumberCampaign`
      * @throws ClassCastException if the instance is not `PhoneNumberCampaign`
      */
-    public PhoneNumberCampaign getPhoneNumberCampaign() throws ClassCastException {
-        return (PhoneNumberCampaign)super.getActualInstance();
+    public PhoneNumberCampaign getPhoneNumberCampaign()
+        throws ClassCastException {
+        return (PhoneNumberCampaign) super.getActualInstance();
     }
-
 }
-

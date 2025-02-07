@@ -10,61 +10,56 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Entity type behind the brand. This is the form of business establishment.
  */
 public enum EntityType {
-  
-  PRIVATE_PROFIT("PRIVATE_PROFIT"),
-  
-  PUBLIC_PROFIT("PUBLIC_PROFIT"),
-  
-  NON_PROFIT("NON_PROFIT"),
-  
-  SOLE_PROPRIETOR("SOLE_PROPRIETOR"),
-  
-  GOVERNMENT("GOVERNMENT");
+    PRIVATE_PROFIT("PRIVATE_PROFIT"),
 
-  private String value;
+    PUBLIC_PROFIT("PUBLIC_PROFIT"),
 
-  EntityType(String value) {
-    this.value = value;
-  }
+    NON_PROFIT("NON_PROFIT"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    SOLE_PROPRIETOR("SOLE_PROPRIETOR"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    GOVERNMENT("GOVERNMENT");
 
-  @JsonCreator
-  public static EntityType fromValue(String value) {
-    for (EntityType b : EntityType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    private String value;
+
+    EntityType(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static EntityType fromValue(String value) {
+        for (EntityType b : EntityType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

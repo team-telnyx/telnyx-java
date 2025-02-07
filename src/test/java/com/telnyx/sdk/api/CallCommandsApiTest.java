@@ -10,23 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static org.junit.Assert.assertNotNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.*;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
-
-import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for CallCommandsApi
@@ -42,7 +39,8 @@ public class CallCommandsApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
 
         mapper = new JSON().getMapper();
@@ -55,10 +53,16 @@ public class CallCommandsApiTest {
      */
     @Test
     @Ignore
-    public void webhook_whenCallInitiated_receivesCallInitiatedEvent() throws IOException {
-        InputStream callInitatedEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-call-initiated-event.json");
+    public void webhook_whenCallInitiated_receivesCallInitiatedEvent()
+        throws IOException {
+        InputStream callInitatedEventFixtureJson = getClass()
+            .getClassLoader()
+            .getResourceAsStream("webhook-call-initiated-event.json");
 
-        CallInitiatedEvent actualCallInitatedEvent = mapper.readValue(callInitatedEventFixtureJson, CallInitiatedEvent.class);
+        CallInitiatedEvent actualCallInitatedEvent = mapper.readValue(
+            callInitatedEventFixtureJson,
+            CallInitiatedEvent.class
+        );
 
         assertNotNull(actualCallInitatedEvent.getData());
     }
@@ -70,10 +74,16 @@ public class CallCommandsApiTest {
      */
     @Test
     @Ignore
-    public void webhook_whenCallAnswered_receivesCallAnsweredEvent() throws IOException {
-        InputStream callAnsweredEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-call-answered-event.json");
+    public void webhook_whenCallAnswered_receivesCallAnsweredEvent()
+        throws IOException {
+        InputStream callAnsweredEventFixtureJson = getClass()
+            .getClassLoader()
+            .getResourceAsStream("webhook-call-answered-event.json");
 
-        CallAnsweredEvent actualCallAnsweredEvent = mapper.readValue(callAnsweredEventFixtureJson, CallAnsweredEvent.class);
+        CallAnsweredEvent actualCallAnsweredEvent = mapper.readValue(
+            callAnsweredEventFixtureJson,
+            CallAnsweredEvent.class
+        );
 
         assertNotNull(actualCallAnsweredEvent.getData());
     }
@@ -85,10 +95,16 @@ public class CallCommandsApiTest {
      */
     @Test
     @Ignore
-    public void webhook_whenCallHangsUp_receivesCallHangupEvent() throws IOException {
-        InputStream callHangupEventFixtureJson = getClass().getClassLoader().getResourceAsStream("webhook-call-hangup-event.json");
+    public void webhook_whenCallHangsUp_receivesCallHangupEvent()
+        throws IOException {
+        InputStream callHangupEventFixtureJson = getClass()
+            .getClassLoader()
+            .getResourceAsStream("webhook-call-hangup-event.json");
 
-        CallHangupEvent actualCallHangupEvent = mapper.readValue(callHangupEventFixtureJson, CallHangupEvent.class);
+        CallHangupEvent actualCallHangupEvent = mapper.readValue(
+            callHangupEventFixtureJson,
+            CallHangupEvent.class
+        );
 
         assertNotNull(actualCallHangupEvent.getData());
     }
@@ -103,16 +119,20 @@ public class CallCommandsApiTest {
     public void callDialTest() throws ApiException {
         String connectionId = "1471919317632156796";
         String inboundCallControlId = "1473920583829348434";
-        String clientState = Base64.getEncoder().encodeToString(inboundCallControlId.getBytes());
+        String clientState = Base64.getEncoder()
+            .encodeToString(inboundCallControlId.getBytes());
 
-        CallRequestTo toNumber = new CallRequestTo(TestConfiguration.TEST_TO_NUMBER);
+        CallRequestTo toNumber = new CallRequestTo(
+            TestConfiguration.TEST_TO_NUMBER
+        );
         CallRequest outboundCallRequest = new CallRequest()
-                .from(TestConfiguration.TEST_FROM_NUMBER)
-                .to(toNumber)
-                .connectionId(connectionId)
-                .clientState(clientState);
+            .from(TestConfiguration.TEST_FROM_NUMBER)
+            .to(toNumber)
+            .connectionId(connectionId)
+            .clientState(clientState);
 
-        RetrieveCallStatusResponse actualRetrieveCallStatusResponse = api.dialCall(outboundCallRequest);
+        RetrieveCallStatusResponse actualRetrieveCallStatusResponse =
+            api.dialCall(outboundCallRequest);
 
         assertNotNull(actualRetrieveCallStatusResponse.getData());
     }
@@ -398,13 +418,18 @@ public class CallCommandsApiTest {
     @Test
     @Ignore
     public void callRecordingPauseTest() throws ApiException {
-        String callControlId = "v2:V1B_syM79kzn2MSNOzBhY7TJa98X9F1SMSE6a7Z-_PuiEKl1zbmyrA";
-        PauseRecordingRequest pauseRecordingRequest = new PauseRecordingRequest();
-        CallControlCommandResponse response = api.pauseCallRecording(callControlId, pauseRecordingRequest);
+        String callControlId =
+            "v2:V1B_syM79kzn2MSNOzBhY7TJa98X9F1SMSE6a7Z-_PuiEKl1zbmyrA";
+        PauseRecordingRequest pauseRecordingRequest =
+            new PauseRecordingRequest();
+        CallControlCommandResponse response = api.pauseCallRecording(
+            callControlId,
+            pauseRecordingRequest
+        );
         assertNotNull(response);
     }
 
-     /**
+    /**
      * Resume Recording on a call
      *
      * @throws ApiException
@@ -413,11 +438,14 @@ public class CallCommandsApiTest {
     @Test
     @Ignore
     public void callRecordingResumeTest() throws ApiException {
-        String callControlId = "v2:V1B_syM79kzn2MSNOzBhY7TJa98X9F1SMSE6a7Z-_PuiEKl1zbmyrA";
-        ResumeRecordingRequest resumeRecordingRequest = new ResumeRecordingRequest();
-        CallControlCommandResponse response = api.resumeCallRecording(callControlId, resumeRecordingRequest);
+        String callControlId =
+            "v2:V1B_syM79kzn2MSNOzBhY7TJa98X9F1SMSE6a7Z-_PuiEKl1zbmyrA";
+        ResumeRecordingRequest resumeRecordingRequest =
+            new ResumeRecordingRequest();
+        CallControlCommandResponse response = api.resumeCallRecording(
+            callControlId,
+            resumeRecordingRequest
+        );
         assertNotNull(response);
     }
-
-
 }

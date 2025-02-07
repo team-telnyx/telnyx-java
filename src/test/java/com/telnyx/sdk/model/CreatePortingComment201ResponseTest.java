@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortingOrdersComment;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,9 @@ import org.junit.jupiter.api.Test;
  * Model tests for CreatePortingComment201Response
  */
 public class CreatePortingComment201ResponseTest {
-    private final CreatePortingComment201Response model = new CreatePortingComment201Response();
+
+    private final CreatePortingComment201Response model =
+        new CreatePortingComment201Response();
 
     /**
      * Model tests for CreatePortingComment201Response
@@ -46,5 +46,4 @@ public class CreatePortingComment201ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

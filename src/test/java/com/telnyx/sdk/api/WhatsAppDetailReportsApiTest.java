@@ -10,25 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Error;
-import java.util.UUID;
 import com.telnyx.sdk.model.WhatsAppDetailReportResponse;
 import com.telnyx.sdk.model.WhatsAppGetAllDetailReportResponse;
 import com.telnyx.sdk.model.WhatsAppReportsReq;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for WhatsAppDetailReportsApi
@@ -38,7 +35,7 @@ public class WhatsAppDetailReportsApiTest {
     private final WhatsAppDetailReportsApi api = new WhatsAppDetailReportsApi();
 
     /**
-     * 
+     *
      *
      * Delete generated WhatsApp detail report by id
      *
@@ -53,7 +50,7 @@ public class WhatsAppDetailReportsApiTest {
     }
 
     /**
-     * 
+     *
      *
      * Fetch single whatsapp detail report by id.
      *
@@ -68,9 +65,9 @@ public class WhatsAppDetailReportsApiTest {
     }
 
     /**
-     * 
      *
-     * Fetch all previous requests for WhatsApp detail reports. WhatsApp detail reports are reports for pulling all WhatsApp records. 
+     *
+     * Fetch all previous requests for WhatsApp detail reports. WhatsApp detail reports are reports for pulling all WhatsApp records.
      *
      * @throws ApiException
      *          if the Api call fails
@@ -84,7 +81,7 @@ public class WhatsAppDetailReportsApiTest {
     }
 
     /**
-     * 
+     *
      *
      * Submit a request for new WhatsApp detail report. WhatsApp detail report pulls all raw WhatsApp data according to defined filters.
      *
@@ -97,5 +94,4 @@ public class WhatsAppDetailReportsApiTest {
         //WhatsAppDetailReportResponse response = api.submitRequest(whatsAppReportsReq);
         // TODO: test validations
     }
-
 }

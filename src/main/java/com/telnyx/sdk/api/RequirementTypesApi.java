@@ -1,54 +1,55 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListRequirementTypes200Response;
 import com.telnyx.sdk.model.RetrieveRequirementType200Response;
-import java.util.UUID;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RequirementTypesApi {
-  private ApiClient apiClient;
 
-  public RequirementTypesApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public RequirementTypesApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public RequirementTypesApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public RequirementTypesApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * List all requirement types
    * List all requirement types ordered by created_at descending
    * @param filterNameContains Filters requirement types to those whose name contains a certain string. (optional)
@@ -62,11 +63,17 @@ public class RequirementTypesApi {
        <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListRequirementTypes200Response listRequirementTypes(String filterNameContains, String sort) throws ApiException {
-    return listRequirementTypesWithHttpInfo(filterNameContains, sort).getData();
-  }
+    public ListRequirementTypes200Response listRequirementTypes(
+        String filterNameContains,
+        String sort
+    ) throws ApiException {
+        return listRequirementTypesWithHttpInfo(
+            filterNameContains,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * List all requirement types
    * List all requirement types ordered by created_at descending
    * @param filterNameContains Filters requirement types to those whose name contains a certain string. (optional)
@@ -80,43 +87,71 @@ public class RequirementTypesApi {
        <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRequirementTypes200Response> listRequirementTypesWithHttpInfo(String filterNameContains, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/requirement_types";
+    public ApiResponse<
+        ListRequirementTypes200Response
+    > listRequirementTypesWithHttpInfo(String filterNameContains, String sort)
+        throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/requirement_types";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[name][contains]", filterNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort[]", sort));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs(
+                "",
+                "filter[name][contains]",
+                filterNameContains
+            )
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort[]", sort)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ListRequirementTypes200Response> localVarReturnType = new GenericType<ListRequirementTypes200Response>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("RequirementTypesApi.listRequirementTypes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
+        GenericType<ListRequirementTypes200Response> localVarReturnType =
+            new GenericType<ListRequirementTypes200Response>() {};
+
+        return apiClient.invokeAPI(
+            "RequirementTypesApi.listRequirementTypes",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
+
+    /**
    * Retrieve a requirement type
    * Retrieve a requirement type by id
    * @param id Uniquely identifies the requirement_type record (required)
@@ -129,11 +164,12 @@ public class RequirementTypesApi {
        <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public RetrieveRequirementType200Response retrieveRequirementType(UUID id) throws ApiException {
-    return retrieveRequirementTypeWithHttpInfo(id).getData();
-  }
+    public RetrieveRequirementType200Response retrieveRequirementType(UUID id)
+        throws ApiException {
+        return retrieveRequirementTypeWithHttpInfo(id).getData();
+    }
 
-  /**
+    /**
    * Retrieve a requirement type
    * Retrieve a requirement type by id
    * @param id Uniquely identifies the requirement_type record (required)
@@ -146,44 +182,67 @@ public class RequirementTypesApi {
        <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RetrieveRequirementType200Response> retrieveRequirementTypeWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveRequirementType");
+    public ApiResponse<
+        RetrieveRequirementType200Response
+    > retrieveRequirementTypeWithHttpInfo(UUID id) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                400,
+                "Missing the required parameter 'id' when calling retrieveRequirementType"
+            );
+        }
+
+        // create path and map variables
+        String localVarPath =
+            "/requirement_types/{id}".replaceAll(
+                    "\\{" + "id" + "\\}",
+                    apiClient.escapeString(id.toString())
+                );
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
+
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+        GenericType<RetrieveRequirementType200Response> localVarReturnType =
+            new GenericType<RetrieveRequirementType200Response>() {};
+
+        return apiClient.invokeAPI(
+            "RequirementTypesApi.retrieveRequirementType",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
     }
-    
-    // create path and map variables
-    String localVarPath = "/requirement_types/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RetrieveRequirementType200Response> localVarReturnType = new GenericType<RetrieveRequirementType200Response>() {};
-
-    return apiClient.invokeAPI("RequirementTypesApi.retrieveRequirementType", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
 }

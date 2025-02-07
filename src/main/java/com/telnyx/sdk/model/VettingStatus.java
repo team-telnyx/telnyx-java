@@ -10,63 +10,58 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * An enumeration.
  */
 public enum VettingStatus {
-  
-  PENDING("PENDING"),
-  
-  ACTIVE("ACTIVE"),
-  
-  EXPIRED("EXPIRED"),
-  
-  ERROR("ERROR"),
-  
-  CONTACT_VENDOR("CONTACT_VENDOR"),
-  
-  SIMULATION("SIMULATION");
+    PENDING("PENDING"),
 
-  private String value;
+    ACTIVE("ACTIVE"),
 
-  VettingStatus(String value) {
-    this.value = value;
-  }
+    EXPIRED("EXPIRED"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    ERROR("ERROR"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    CONTACT_VENDOR("CONTACT_VENDOR"),
 
-  @JsonCreator
-  public static VettingStatus fromValue(String value) {
-    for (VettingStatus b : VettingStatus.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
+    SIMULATION("SIMULATION");
+
+    private String value;
+
+    VettingStatus(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-}
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static VettingStatus fromValue(String value) {
+        for (VettingStatus b : VettingStatus.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+}

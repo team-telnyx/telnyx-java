@@ -10,136 +10,149 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * AvailablePhoneNumbersMetadata
  */
-@JsonPropertyOrder({
-  AvailablePhoneNumbersMetadata.JSON_PROPERTY_TOTAL_RESULTS,
-  AvailablePhoneNumbersMetadata.JSON_PROPERTY_BEST_EFFORT_RESULTS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        AvailablePhoneNumbersMetadata.JSON_PROPERTY_TOTAL_RESULTS,
+        AvailablePhoneNumbersMetadata.JSON_PROPERTY_BEST_EFFORT_RESULTS,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class AvailablePhoneNumbersMetadata {
-  public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
-  private Integer totalResults;
 
-  public static final String JSON_PROPERTY_BEST_EFFORT_RESULTS = "best_effort_results";
-  private Integer bestEffortResults;
+    public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
+    private Integer totalResults;
 
-  public AvailablePhoneNumbersMetadata() { 
-  }
+    public static final String JSON_PROPERTY_BEST_EFFORT_RESULTS =
+        "best_effort_results";
+    private Integer bestEffortResults;
 
-  public AvailablePhoneNumbersMetadata totalResults(Integer totalResults) {
-    this.totalResults = totalResults;
-    return this;
-  }
+    public AvailablePhoneNumbersMetadata() {}
 
-   /**
-   * Get totalResults
-   * @return totalResults
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "1", value = "")
-  @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getTotalResults() {
-    return totalResults;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotalResults(Integer totalResults) {
-    this.totalResults = totalResults;
-  }
-
-
-  public AvailablePhoneNumbersMetadata bestEffortResults(Integer bestEffortResults) {
-    this.bestEffortResults = bestEffortResults;
-    return this;
-  }
-
-   /**
-   * Get bestEffortResults
-   * @return bestEffortResults
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "0", value = "")
-  @JsonProperty(JSON_PROPERTY_BEST_EFFORT_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getBestEffortResults() {
-    return bestEffortResults;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BEST_EFFORT_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBestEffortResults(Integer bestEffortResults) {
-    this.bestEffortResults = bestEffortResults;
-  }
-
-
-  /**
-   * Return true if this AvailablePhoneNumbersMetadata object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AvailablePhoneNumbersMetadata totalResults(Integer totalResults) {
+        this.totalResults = totalResults;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get totalResults
+     * @return totalResults
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "1", value = "")
+    @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTotalResults() {
+        return totalResults;
     }
-    AvailablePhoneNumbersMetadata availablePhoneNumbersMetadata = (AvailablePhoneNumbersMetadata) o;
-    return Objects.equals(this.totalResults, availablePhoneNumbersMetadata.totalResults) &&
-        Objects.equals(this.bestEffortResults, availablePhoneNumbersMetadata.bestEffortResults);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(totalResults, bestEffortResults);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AvailablePhoneNumbersMetadata {\n");
-    sb.append("    totalResults: ").append(toIndentedString(totalResults)).append("\n");
-    sb.append("    bestEffortResults: ").append(toIndentedString(bestEffortResults)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public AvailablePhoneNumbersMetadata bestEffortResults(
+        Integer bestEffortResults
+    ) {
+        this.bestEffortResults = bestEffortResults;
+        return this;
+    }
+
+    /**
+     * Get bestEffortResults
+     * @return bestEffortResults
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(example = "0", value = "")
+    @JsonProperty(JSON_PROPERTY_BEST_EFFORT_RESULTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getBestEffortResults() {
+        return bestEffortResults;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BEST_EFFORT_RESULTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBestEffortResults(Integer bestEffortResults) {
+        this.bestEffortResults = bestEffortResults;
+    }
+
+    /**
+     * Return true if this AvailablePhoneNumbersMetadata object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AvailablePhoneNumbersMetadata availablePhoneNumbersMetadata =
+            (AvailablePhoneNumbersMetadata) o;
+        return (
+            Objects.equals(
+                this.totalResults,
+                availablePhoneNumbersMetadata.totalResults
+            ) &&
+            Objects.equals(
+                this.bestEffortResults,
+                availablePhoneNumbersMetadata.bestEffortResults
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(totalResults, bestEffortResults);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AvailablePhoneNumbersMetadata {\n");
+        sb
+            .append("    totalResults: ")
+            .append(toIndentedString(totalResults))
+            .append("\n");
+        sb
+            .append("    bestEffortResults: ")
+            .append(toIndentedString(bestEffortResults))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

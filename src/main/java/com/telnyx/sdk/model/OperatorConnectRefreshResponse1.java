@@ -10,136 +10,152 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * OperatorConnectRefreshResponse1
  */
-@JsonPropertyOrder({
-  OperatorConnectRefreshResponse1.JSON_PROPERTY_SUCCESS,
-  OperatorConnectRefreshResponse1.JSON_PROPERTY_MESSAGE
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    {
+        OperatorConnectRefreshResponse1.JSON_PROPERTY_SUCCESS,
+        OperatorConnectRefreshResponse1.JSON_PROPERTY_MESSAGE,
+    }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class OperatorConnectRefreshResponse1 {
-  public static final String JSON_PROPERTY_SUCCESS = "success";
-  private Boolean success;
 
-  public static final String JSON_PROPERTY_MESSAGE = "message";
-  private String message;
+    public static final String JSON_PROPERTY_SUCCESS = "success";
+    private Boolean success;
 
-  public OperatorConnectRefreshResponse1() { 
-  }
+    public static final String JSON_PROPERTY_MESSAGE = "message";
+    private String message;
 
-  public OperatorConnectRefreshResponse1 success(Boolean success) {
-    this.success = success;
-    return this;
-  }
+    public OperatorConnectRefreshResponse1() {}
 
-   /**
-   * Describes wether or not the operation was successful
-   * @return success
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Describes wether or not the operation was successful")
-  @JsonProperty(JSON_PROPERTY_SUCCESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getSuccess() {
-    return success;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUCCESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuccess(Boolean success) {
-    this.success = success;
-  }
-
-
-  public OperatorConnectRefreshResponse1 message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * A message describing the result of the operation
-   * @return message
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(example = "Operator connect refresh started", value = "A message describing the result of the operation")
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMessage() {
-    return message;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-
-  /**
-   * Return true if this Operator_Connect_Refresh_Response_1 object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public OperatorConnectRefreshResponse1 success(Boolean success) {
+        this.success = success;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Describes wether or not the operation was successful
+     * @return success
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "true",
+        value = "Describes wether or not the operation was successful"
+    )
+    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getSuccess() {
+        return success;
     }
-    OperatorConnectRefreshResponse1 operatorConnectRefreshResponse1 = (OperatorConnectRefreshResponse1) o;
-    return Objects.equals(this.success, operatorConnectRefreshResponse1.success) &&
-        Objects.equals(this.message, operatorConnectRefreshResponse1.message);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(success, message);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class OperatorConnectRefreshResponse1 {\n");
-    sb.append("    success: ").append(toIndentedString(success)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public OperatorConnectRefreshResponse1 message(String message) {
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * A message describing the result of the operation
+     * @return message
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        example = "Operator connect refresh started",
+        value = "A message describing the result of the operation"
+    )
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMessage() {
+        return message;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * Return true if this Operator_Connect_Refresh_Response_1 object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OperatorConnectRefreshResponse1 operatorConnectRefreshResponse1 =
+            (OperatorConnectRefreshResponse1) o;
+        return (
+            Objects.equals(
+                this.success,
+                operatorConnectRefreshResponse1.success
+            ) &&
+            Objects.equals(
+                this.message,
+                operatorConnectRefreshResponse1.message
+            )
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(success, message);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class OperatorConnectRefreshResponse1 {\n");
+        sb
+            .append("    success: ")
+            .append(toIndentedString(success))
+            .append("\n");
+        sb
+            .append("    message: ")
+            .append(toIndentedString(message))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

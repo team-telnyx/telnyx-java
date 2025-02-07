@@ -10,136 +10,137 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RCSReply
  */
-@JsonPropertyOrder({
-  RCSReply.JSON_PROPERTY_TEXT,
-  RCSReply.JSON_PROPERTY_POSTBACK_DATA
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { RCSReply.JSON_PROPERTY_TEXT, RCSReply.JSON_PROPERTY_POSTBACK_DATA }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RCSReply {
-  public static final String JSON_PROPERTY_TEXT = "text";
-  private String text;
 
-  public static final String JSON_PROPERTY_POSTBACK_DATA = "postback_data";
-  private String postbackData;
+    public static final String JSON_PROPERTY_TEXT = "text";
+    private String text;
 
-  public RCSReply() { 
-  }
+    public static final String JSON_PROPERTY_POSTBACK_DATA = "postback_data";
+    private String postbackData;
 
-  public RCSReply text(String text) {
-    this.text = text;
-    return this;
-  }
+    public RCSReply() {}
 
-   /**
-   * Text that is shown in the suggested reply (maximum 25 characters)
-   * @return text
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Text that is shown in the suggested reply (maximum 25 characters)")
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getText() {
-    return text;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TEXT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setText(String text) {
-    this.text = text;
-  }
-
-
-  public RCSReply postbackData(String postbackData) {
-    this.postbackData = postbackData;
-    return this;
-  }
-
-   /**
-   * Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters.
-   * @return postbackData
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters.")
-  @JsonProperty(JSON_PROPERTY_POSTBACK_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPostbackData() {
-    return postbackData;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_POSTBACK_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPostbackData(String postbackData) {
-    this.postbackData = postbackData;
-  }
-
-
-  /**
-   * Return true if this RCSReply object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RCSReply text(String text) {
+        this.text = text;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Text that is shown in the suggested reply (maximum 25 characters)
+     * @return text
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Text that is shown in the suggested reply (maximum 25 characters)"
+    )
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getText() {
+        return text;
     }
-    RCSReply rcSReply = (RCSReply) o;
-    return Objects.equals(this.text, rcSReply.text) &&
-        Objects.equals(this.postbackData, rcSReply.postbackData);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(text, postbackData);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RCSReply {\n");
-    sb.append("    text: ").append(toIndentedString(text)).append("\n");
-    sb.append("    postbackData: ").append(toIndentedString(postbackData)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_TEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setText(String text) {
+        this.text = text;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public RCSReply postbackData(String postbackData) {
+        this.postbackData = postbackData;
+        return this;
+    }
+
+    /**
+     * Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters.
+     * @return postbackData
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(
+        value = "Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters."
+    )
+    @JsonProperty(JSON_PROPERTY_POSTBACK_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPostbackData() {
+        return postbackData;
+    }
+
+    @JsonProperty(JSON_PROPERTY_POSTBACK_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPostbackData(String postbackData) {
+        this.postbackData = postbackData;
+    }
+
+    /**
+     * Return true if this RCSReply object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RCSReply rcSReply = (RCSReply) o;
+        return (
+            Objects.equals(this.text, rcSReply.text) &&
+            Objects.equals(this.postbackData, rcSReply.postbackData)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text, postbackData);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RCSReply {\n");
+        sb.append("    text: ").append(toIndentedString(text)).append("\n");
+        sb
+            .append("    postbackData: ")
+            .append(toIndentedString(postbackData))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

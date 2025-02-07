@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,15 +18,13 @@ import com.telnyx.sdk.model.CreateFineTuningJobRequest;
 import com.telnyx.sdk.model.FineTuningJob;
 import com.telnyx.sdk.model.FineTuningJobsListData;
 import com.telnyx.sdk.model.HTTPValidationError;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for FineTuningApi
@@ -45,7 +42,8 @@ public class FineTuningApiTest {
      *          if the Api call fails
      */
     @Test
-    public void cancelNewFinetuningjobPublicFinetuningPostTest() throws ApiException {
+    public void cancelNewFinetuningjobPublicFinetuningPostTest()
+        throws ApiException {
         //String jobId = null;
         //FineTuningJob response = api.cancelNewFinetuningjobPublicFinetuningPost(jobId);
         // TODO: test validations
@@ -60,7 +58,8 @@ public class FineTuningApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createNewFinetuningjobPublicFinetuningPostTest() throws ApiException {
+    public void createNewFinetuningjobPublicFinetuningPostTest()
+        throws ApiException {
         //CreateFineTuningJobRequest createFineTuningJobRequest = null;
         //FineTuningJob response = api.createNewFinetuningjobPublicFinetuningPost(createFineTuningJobRequest);
         // TODO: test validations
@@ -89,10 +88,10 @@ public class FineTuningApiTest {
      *          if the Api call fails
      */
     @Test
-    public void getFinetuningjobPublicFinetuningJobIdGetTest() throws ApiException {
+    public void getFinetuningjobPublicFinetuningJobIdGetTest()
+        throws ApiException {
         //String jobId = null;
         //FineTuningJob response = api.getFinetuningjobPublicFinetuningJobIdGet(jobId);
         // TODO: test validations
     }
-
 }

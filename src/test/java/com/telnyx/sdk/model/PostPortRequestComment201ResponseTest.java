@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortoutComment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
-
 import org.junit.Test;
 
 /**
  * Model tests for PostPortRequestComment201Response
  */
 public class PostPortRequestComment201ResponseTest {
-    private final PostPortRequestComment201Response model = new PostPortRequestComment201Response();
+
+    private final PostPortRequestComment201Response model =
+        new PostPortRequestComment201Response();
 
     /**
      * Model tests for PostPortRequestComment201Response
@@ -47,5 +45,4 @@ public class PostPortRequestComment201ResponseTest {
     public void dataTest() {
         // TODO: test data
     }
-
 }

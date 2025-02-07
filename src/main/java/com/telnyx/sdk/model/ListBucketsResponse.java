@@ -10,117 +10,118 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.ListBucketsResponseBucketsInner;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * ListBucketsResponse
  */
-@JsonPropertyOrder({
-  ListBucketsResponse.JSON_PROPERTY_BUCKETS
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@JsonPropertyOrder({ ListBucketsResponse.JSON_PROPERTY_BUCKETS })
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.4.0"
+)
 public class ListBucketsResponse {
-  public static final String JSON_PROPERTY_BUCKETS = "Buckets";
-  private List<ListBucketsResponseBucketsInner> buckets = null;
 
-  public ListBucketsResponse() { 
-  }
+    public static final String JSON_PROPERTY_BUCKETS = "Buckets";
+    private List<ListBucketsResponseBucketsInner> buckets = null;
 
-  public ListBucketsResponse buckets(List<ListBucketsResponseBucketsInner> buckets) {
-    this.buckets = buckets;
-    return this;
-  }
+    public ListBucketsResponse() {}
 
-  public ListBucketsResponse addBucketsItem(ListBucketsResponseBucketsInner bucketsItem) {
-    if (this.buckets == null) {
-      this.buckets = new ArrayList<>();
+    public ListBucketsResponse buckets(
+        List<ListBucketsResponseBucketsInner> buckets
+    ) {
+        this.buckets = buckets;
+        return this;
     }
-    this.buckets.add(bucketsItem);
-    return this;
-  }
 
-   /**
-   * Get buckets
-   * @return buckets
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_BUCKETS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<ListBucketsResponseBucketsInner> getBuckets() {
-    return buckets;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BUCKETS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBuckets(List<ListBucketsResponseBucketsInner> buckets) {
-    this.buckets = buckets;
-  }
-
-
-  /**
-   * Return true if this ListBucketsResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ListBucketsResponse addBucketsItem(
+        ListBucketsResponseBucketsInner bucketsItem
+    ) {
+        if (this.buckets == null) {
+            this.buckets = new ArrayList<>();
+        }
+        this.buckets.add(bucketsItem);
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get buckets
+     * @return buckets
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_BUCKETS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<ListBucketsResponseBucketsInner> getBuckets() {
+        return buckets;
     }
-    ListBucketsResponse listBucketsResponse = (ListBucketsResponse) o;
-    return Objects.equals(this.buckets, listBucketsResponse.buckets);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(buckets);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ListBucketsResponse {\n");
-    sb.append("    buckets: ").append(toIndentedString(buckets)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_BUCKETS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBuckets(List<ListBucketsResponseBucketsInner> buckets) {
+        this.buckets = buckets;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    /**
+     * Return true if this ListBucketsResponse object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ListBucketsResponse listBucketsResponse = (ListBucketsResponse) o;
+        return Objects.equals(this.buckets, listBucketsResponse.buckets);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(buckets);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ListBucketsResponse {\n");
+        sb
+            .append("    buckets: ")
+            .append(toIndentedString(buckets))
+            .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -19,16 +18,14 @@ import com.telnyx.sdk.model.CreateMobileApplicationRequest;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.MobileApplicationResponse;
 import com.telnyx.sdk.model.PushCredentialResponse;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for MobileApplicationsApi
@@ -127,5 +124,4 @@ public class MobileApplicationsApiTest {
         //MobileApplicationResponse response = api.updateMobileApplicationById(mobileApplicationId, createMobileApplicationRequest);
         // TODO: test validations
     }
-
 }

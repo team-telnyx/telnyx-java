@@ -10,23 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
+
+import static java.lang.Thread.sleep;
+import static org.junit.Assert.*;
 
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.auth.HttpBearerAuth;
 import com.telnyx.sdk.model.*;
+import java.util.Collections;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.Collections;
-
-import static java.lang.Thread.sleep;
-import static org.junit.Assert.*;
 
 /**
  * API tests for CredentialConnectionsApi
@@ -44,22 +42,36 @@ public class CredentialConnectionsApiTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
 
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        HttpBearerAuth bearerAuth =
+            (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken(TestConfiguration.API_KEY);
 
         try {
             outboundVoiceProfilesApi = new OutboundVoiceProfilesApi();
-            CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest = new CreateOutboundVoiceProfileRequest().name("test-name-" + System.currentTimeMillis());
-            existingOutboundVoiceProfileId = outboundVoiceProfilesApi.createVoiceProfile(createOutboundVoiceProfileRequest).getData().getId();
-            existingCredentialConnection = api.createCredentialConnection(prepareSampleCreateCredentialConnectionRequest("existing_credential_connection_test")).getData();
+            CreateOutboundVoiceProfileRequest createOutboundVoiceProfileRequest =
+                new CreateOutboundVoiceProfileRequest()
+                    .name("test-name-" + System.currentTimeMillis());
+            existingOutboundVoiceProfileId = outboundVoiceProfilesApi
+                .createVoiceProfile(createOutboundVoiceProfileRequest)
+                .getData()
+                .getId();
+            existingCredentialConnection = api
+                .createCredentialConnection(
+                    prepareSampleCreateCredentialConnectionRequest(
+                        "existing_credential_connection_test"
+                    )
+                )
+                .getData();
         } catch (Exception e) {
             e.printStackTrace();
-            fail("Test Setup Failure - Unable to create existing connection: " + e.getMessage());
+            fail(
+                "Test Setup Failure - Unable to create existing connection: " +
+                e.getMessage()
+            );
         }
     }
 
     @After
-
     /**
      * Create a credential connection
      * <p>
@@ -70,14 +82,20 @@ public class CredentialConnectionsApiTest {
 
     @Test
     @Ignore
-    public void deleteCredentialConnection_credentialConnectionIdProvided_credentialConnectionWouldNotReturnAnymore() throws ApiException {
+    public void deleteCredentialConnection_credentialConnectionIdProvided_credentialConnectionWouldNotReturnAnymore()
+        throws ApiException {
         //when
-        CredentialConnectionResponse response = api.deleteCredentialConnection(existingCredentialConnection.getId());
+        CredentialConnectionResponse response = api.deleteCredentialConnection(
+            existingCredentialConnection.getId()
+        );
 
         //then
         assertNotNull(response);
 
-        CredentialConnectionResponse retrievedCredentialConnection = api.retrieveCredentialConnection(existingCredentialConnection.getId());
+        CredentialConnectionResponse retrievedCredentialConnection =
+            api.retrieveCredentialConnection(
+                existingCredentialConnection.getId()
+            );
         assertNull(retrievedCredentialConnection);
     }
 
@@ -90,18 +108,20 @@ public class CredentialConnectionsApiTest {
      */
     @Test
     @Ignore
-    public void listCredentialConnections_defaultParams_returnsNotNullListOfCredentialConnections() throws ApiException {
+    public void listCredentialConnections_defaultParams_returnsNotNullListOfCredentialConnections()
+        throws ApiException {
         //given
         Integer pageNumber = 1;
         Integer pageSize = 20;
         String sort = "created_at";
 
         //when
-        ListCredentialConnectionsResponse response = api.listCredentialConnections()
-                .pageNumber(pageNumber)
-                .pageSize(pageSize)
-                .sort(sort)
-                .execute();
+        ListCredentialConnectionsResponse response = api
+            .listCredentialConnections()
+            .pageNumber(pageNumber)
+            .pageSize(pageSize)
+            .sort(sort)
+            .execute();
 
         //then
         assertNotNull(response);
@@ -116,9 +136,13 @@ public class CredentialConnectionsApiTest {
      */
     @Test
     @Ignore
-    public void retrieveCredentialConnection_credentialConnectionIdProvided_returnsCredentialConnection() throws ApiException {
+    public void retrieveCredentialConnection_credentialConnectionIdProvided_returnsCredentialConnection()
+        throws ApiException {
         //when
-        CredentialConnectionResponse response = api.retrieveCredentialConnection(existingCredentialConnection.getId());
+        CredentialConnectionResponse response =
+            api.retrieveCredentialConnection(
+                existingCredentialConnection.getId()
+            );
 
         //then
         assertNotNull(response);
@@ -133,107 +157,145 @@ public class CredentialConnectionsApiTest {
      */
     @Test
     @Ignore
-    public void updateCredentialConnection_changedParams_returnsUpdatedCredentialConnection() throws ApiException {
+    public void updateCredentialConnection_changedParams_returnsUpdatedCredentialConnection()
+        throws ApiException {
         //given
-        UpdateCredentialConnectionRequest updateCredentialConnectionRequest = prepareSampleUpdateCredentialConnectionRequest();
+        UpdateCredentialConnectionRequest updateCredentialConnectionRequest =
+            prepareSampleUpdateCredentialConnectionRequest();
 
         //when
-        CredentialConnectionResponse response = api.updateCredentialConnection(existingCredentialConnection.getId(), updateCredentialConnectionRequest);
+        CredentialConnectionResponse response = api.updateCredentialConnection(
+            existingCredentialConnection.getId(),
+            updateCredentialConnectionRequest
+        );
 
         //then
         assertNotNull(response);
-        assertEquals(updateCredentialConnectionRequest.getConnectionName(), response.getData().getConnectionName());
-        assertEquals(updateCredentialConnectionRequest.getOutbound().getAniOverride(), response.getData().getOutbound().getAniOverride());
-        assertEquals(updateCredentialConnectionRequest.getOutbound().getLocalization(), response.getData().getOutbound().getLocalization());
+        assertEquals(
+            updateCredentialConnectionRequest.getConnectionName(),
+            response.getData().getConnectionName()
+        );
+        assertEquals(
+            updateCredentialConnectionRequest.getOutbound().getAniOverride(),
+            response.getData().getOutbound().getAniOverride()
+        );
+        assertEquals(
+            updateCredentialConnectionRequest.getOutbound().getLocalization(),
+            response.getData().getOutbound().getLocalization()
+        );
     }
 
-    private CreateCredentialConnectionRequest prepareSampleCreateCredentialConnectionRequest(String connectionName) {
+    private CreateCredentialConnectionRequest prepareSampleCreateCredentialConnectionRequest(
+        String connectionName
+    ) {
         return new CreateCredentialConnectionRequest()
-                .userName("MyUser" + System.currentTimeMillis())
-                .password("my123secure456password789")
-                .active(true)
-                .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
-                .connectionName(connectionName)
-                .defaultOnHoldComfortNoiseEnabled(true)
-                .dtmfType(DtmfType.RFC_2833)
-                .encodeContactHeaderEnabled(false)
-                .encryptedMedia(EncryptedMedia.SRTP)
-                .inbound(new CredentialInbound()
-                        .aniNumberFormat(CredentialInbound.AniNumberFormatEnum._E_164)
-                        .channelLimit(10)
-                        .codecs(Collections.singletonList("G722"))
-                        .dnisNumberFormat(CredentialInbound.DnisNumberFormatEnum._E164)
-                        .generateRingbackTone(true)
-                        .isupHeadersEnabled(true)
-                        .prackEnabled(true)
-                        .sipCompactHeadersEnabled(true)
-                        .timeout1xxSecs(10)
-                        .timeout2xxSecs("20")
-                )
-                .onnetT38PassthroughEnabled(false)
-                .outbound(new CredentialOutbound()
-                        .aniOverride("+15555551234")
-                        .aniOverrideType(CredentialOutbound.AniOverrideTypeEnum.ALWAYS)
-                        .callParkingEnabled(true)
-                        .channelLimit(10)
-                        .generateRingbackTone(true)
-                        .instantRingbackEnabled(true)
-                        .localization("US")
-                        .outboundVoiceProfileId(existingOutboundVoiceProfileId)
-                        .t38ReinviteSource(CredentialOutbound.T38ReinviteSourceEnum.TELNYX)
-                )
-                .rtcpSettings(new ConnectionRtcpSettings()
-                        .captureEnabled(true)
-                        .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
-                        .reportFrequencySecs(10)
-                )
-                .webhookEventFailoverUrl("https://failover.example.com")
-                .webhookEventUrl("https://example.com")
-                .webhookTimeoutSecs(25);
+            .userName("MyUser" + System.currentTimeMillis())
+            .password("my123secure456password789")
+            .active(true)
+            .anchorsiteOverride(AnchorsiteOverride.CHICAGO_IL)
+            .connectionName(connectionName)
+            .defaultOnHoldComfortNoiseEnabled(true)
+            .dtmfType(DtmfType.RFC_2833)
+            .encodeContactHeaderEnabled(false)
+            .encryptedMedia(EncryptedMedia.SRTP)
+            .inbound(
+                new CredentialInbound()
+                    .aniNumberFormat(
+                        CredentialInbound.AniNumberFormatEnum._E_164
+                    )
+                    .channelLimit(10)
+                    .codecs(Collections.singletonList("G722"))
+                    .dnisNumberFormat(
+                        CredentialInbound.DnisNumberFormatEnum._E164
+                    )
+                    .generateRingbackTone(true)
+                    .isupHeadersEnabled(true)
+                    .prackEnabled(true)
+                    .sipCompactHeadersEnabled(true)
+                    .timeout1xxSecs(10)
+                    .timeout2xxSecs("20")
+            )
+            .onnetT38PassthroughEnabled(false)
+            .outbound(
+                new CredentialOutbound()
+                    .aniOverride("+15555551234")
+                    .aniOverrideType(
+                        CredentialOutbound.AniOverrideTypeEnum.ALWAYS
+                    )
+                    .callParkingEnabled(true)
+                    .channelLimit(10)
+                    .generateRingbackTone(true)
+                    .instantRingbackEnabled(true)
+                    .localization("US")
+                    .outboundVoiceProfileId(existingOutboundVoiceProfileId)
+                    .t38ReinviteSource(
+                        CredentialOutbound.T38ReinviteSourceEnum.TELNYX
+                    )
+            )
+            .rtcpSettings(
+                new ConnectionRtcpSettings()
+                    .captureEnabled(true)
+                    .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
+                    .reportFrequencySecs(10)
+            )
+            .webhookEventFailoverUrl("https://failover.example.com")
+            .webhookEventUrl("https://example.com")
+            .webhookTimeoutSecs(25);
     }
 
     private UpdateCredentialConnectionRequest prepareSampleUpdateCredentialConnectionRequest() {
         return new UpdateCredentialConnectionRequest()
-                .userName("MyUser" + System.currentTimeMillis())
-                .password("my123secure456password789")
-                .active(true)
-                .anchorsiteOverride(AnchorsiteOverride.SAN_JOSE_CA)
-                .connectionName("credential_connections_update_test")
-                .defaultOnHoldComfortNoiseEnabled(true)
-                .dtmfType(DtmfType.RFC_2833)
-                .encodeContactHeaderEnabled(false)
-                .encryptedMedia(EncryptedMedia.SRTP)
-                .inbound(new CredentialInbound()
-                        .aniNumberFormat(CredentialInbound.AniNumberFormatEnum._E_164)
-                        .channelLimit(10)
-                        .codecs(Collections.singletonList("G722"))
-                        .dnisNumberFormat(CredentialInbound.DnisNumberFormatEnum._E164)
-                        .generateRingbackTone(true)
-                        .isupHeadersEnabled(true)
-                        .prackEnabled(true)
-                        .sipCompactHeadersEnabled(true)
-                        .timeout1xxSecs(10)
-                        .timeout2xxSecs("20")
-                )
-                .onnetT38PassthroughEnabled(false)
-                .outbound(new CredentialOutbound()
-                        .aniOverride("+15555551234")
-                        .aniOverrideType(CredentialOutbound.AniOverrideTypeEnum.ALWAYS)
-                        .callParkingEnabled(true)
-                        .channelLimit(10)
-                        .generateRingbackTone(true)
-                        .instantRingbackEnabled(true)
-                        .localization("US")
-                        .outboundVoiceProfileId(existingOutboundVoiceProfileId)
-                        .t38ReinviteSource(CredentialOutbound.T38ReinviteSourceEnum.TELNYX)
-                )
-                .rtcpSettings(new ConnectionRtcpSettings()
-                        .captureEnabled(true)
-                        .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
-                        .reportFrequencySecs(10)
-                )
-                .webhookEventFailoverUrl("https://failover.example.com")
-                .webhookEventUrl("https://example.com")
-                .webhookTimeoutSecs(25);
+            .userName("MyUser" + System.currentTimeMillis())
+            .password("my123secure456password789")
+            .active(true)
+            .anchorsiteOverride(AnchorsiteOverride.SAN_JOSE_CA)
+            .connectionName("credential_connections_update_test")
+            .defaultOnHoldComfortNoiseEnabled(true)
+            .dtmfType(DtmfType.RFC_2833)
+            .encodeContactHeaderEnabled(false)
+            .encryptedMedia(EncryptedMedia.SRTP)
+            .inbound(
+                new CredentialInbound()
+                    .aniNumberFormat(
+                        CredentialInbound.AniNumberFormatEnum._E_164
+                    )
+                    .channelLimit(10)
+                    .codecs(Collections.singletonList("G722"))
+                    .dnisNumberFormat(
+                        CredentialInbound.DnisNumberFormatEnum._E164
+                    )
+                    .generateRingbackTone(true)
+                    .isupHeadersEnabled(true)
+                    .prackEnabled(true)
+                    .sipCompactHeadersEnabled(true)
+                    .timeout1xxSecs(10)
+                    .timeout2xxSecs("20")
+            )
+            .onnetT38PassthroughEnabled(false)
+            .outbound(
+                new CredentialOutbound()
+                    .aniOverride("+15555551234")
+                    .aniOverrideType(
+                        CredentialOutbound.AniOverrideTypeEnum.ALWAYS
+                    )
+                    .callParkingEnabled(true)
+                    .channelLimit(10)
+                    .generateRingbackTone(true)
+                    .instantRingbackEnabled(true)
+                    .localization("US")
+                    .outboundVoiceProfileId(existingOutboundVoiceProfileId)
+                    .t38ReinviteSource(
+                        CredentialOutbound.T38ReinviteSourceEnum.TELNYX
+                    )
+            )
+            .rtcpSettings(
+                new ConnectionRtcpSettings()
+                    .captureEnabled(true)
+                    .port(ConnectionRtcpSettings.PortEnum.RTCP_MUX)
+                    .reportFrequencySecs(10)
+            )
+            .webhookEventFailoverUrl("https://failover.example.com")
+            .webhookEventUrl("https://example.com")
+            .webhookTimeoutSecs(25);
     }
 }

@@ -10,138 +10,132 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Map;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.JSON;
 import com.telnyx.sdk.model.RCSAction;
 import com.telnyx.sdk.model.RCSReply;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.telnyx.sdk.JSON;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RCSSuggestion
  */
-@JsonPropertyOrder({
-  RCSSuggestion.JSON_PROPERTY_REPLY,
-  RCSSuggestion.JSON_PROPERTY_ACTION
-})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@JsonPropertyOrder(
+    { RCSSuggestion.JSON_PROPERTY_REPLY, RCSSuggestion.JSON_PROPERTY_ACTION }
+)
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class RCSSuggestion {
-  public static final String JSON_PROPERTY_REPLY = "reply";
-  private RCSReply reply;
 
-  public static final String JSON_PROPERTY_ACTION = "action";
-  private RCSAction action;
+    public static final String JSON_PROPERTY_REPLY = "reply";
+    private RCSReply reply;
 
-  public RCSSuggestion() { 
-  }
+    public static final String JSON_PROPERTY_ACTION = "action";
+    private RCSAction action;
 
-  public RCSSuggestion reply(RCSReply reply) {
-    this.reply = reply;
-    return this;
-  }
+    public RCSSuggestion() {}
 
-   /**
-   * Get reply
-   * @return reply
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_REPLY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RCSReply getReply() {
-    return reply;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REPLY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReply(RCSReply reply) {
-    this.reply = reply;
-  }
-
-
-  public RCSSuggestion action(RCSAction action) {
-    this.action = action;
-    return this;
-  }
-
-   /**
-   * Get action
-   * @return action
-  **/
-  @jakarta.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_ACTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RCSAction getAction() {
-    return action;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ACTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAction(RCSAction action) {
-    this.action = action;
-  }
-
-
-  /**
-   * Return true if this RCSSuggestion object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RCSSuggestion reply(RCSReply reply) {
+        this.reply = reply;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get reply
+     * @return reply
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_REPLY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RCSReply getReply() {
+        return reply;
     }
-    RCSSuggestion rcSSuggestion = (RCSSuggestion) o;
-    return Objects.equals(this.reply, rcSSuggestion.reply) &&
-        Objects.equals(this.action, rcSSuggestion.action);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(reply, action);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RCSSuggestion {\n");
-    sb.append("    reply: ").append(toIndentedString(reply)).append("\n");
-    sb.append("    action: ").append(toIndentedString(action)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @JsonProperty(JSON_PROPERTY_REPLY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setReply(RCSReply reply) {
+        this.reply = reply;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public RCSSuggestion action(RCSAction action) {
+        this.action = action;
+        return this;
+    }
+
+    /**
+     * Get action
+     * @return action
+     **/
+    @jakarta.annotation.Nullable
+    @ApiModelProperty(value = "")
+    @JsonProperty(JSON_PROPERTY_ACTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RCSAction getAction() {
+        return action;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAction(RCSAction action) {
+        this.action = action;
+    }
+
+    /**
+     * Return true if this RCSSuggestion object is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RCSSuggestion rcSSuggestion = (RCSSuggestion) o;
+        return (
+            Objects.equals(this.reply, rcSSuggestion.reply) &&
+            Objects.equals(this.action, rcSSuggestion.action)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reply, action);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RCSSuggestion {\n");
+        sb.append("    reply: ").append(toIndentedString(reply)).append("\n");
+        sb.append("    action: ").append(toIndentedString(action)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }
-

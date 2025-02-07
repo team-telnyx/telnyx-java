@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.telnyx.sdk.api;
 
 import com.telnyx.sdk.*;
@@ -18,15 +17,13 @@ import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.ListQueueCallsResponse;
 import com.telnyx.sdk.model.QueueCallResponse;
 import com.telnyx.sdk.model.QueueResponse;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for QueueCommandsApi
@@ -82,5 +79,4 @@ public class QueueCommandsApiTest {
         //QueueResponse response = api.retrieveCallQueue(queueName);
         // TODO: test validations
     }
-
 }

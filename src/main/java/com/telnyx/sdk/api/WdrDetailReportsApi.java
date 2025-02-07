@@ -1,51 +1,52 @@
 package com.telnyx.sdk.api;
 
-import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
 import com.telnyx.sdk.ApiResponse;
 import com.telnyx.sdk.Configuration;
 import com.telnyx.sdk.Pair;
-
-import jakarta.ws.rs.core.GenericType;
-
 import com.telnyx.sdk.model.ExternalWdrGetDetailResponse;
-
+import jakarta.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.11.0"
+)
 public class WdrDetailReportsApi {
-  private ApiClient apiClient;
 
-  public WdrDetailReportsApi() {
-    this(Configuration.getDefaultApiClient());
-  }
+    private ApiClient apiClient;
 
-  public WdrDetailReportsApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public WdrDetailReportsApi() {
+        this(Configuration.getDefaultApiClient());
+    }
 
-  /**
-   * Get the API client
-   *
-   * @return API client
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public WdrDetailReportsApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
-  /**
-   * Set the API client
-   *
-   * @param apiClient an instance of API client
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    /**
+     * Get the API client
+     *
+     * @return API client
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  /**
+    /**
+     * Set the API client
+     *
+     * @param apiClient an instance of API client
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /**
    * Fetches all Wdr records
    * Fetch all Wdr records 
    * @param startDate Start date (optional)
@@ -69,11 +70,39 @@ public class WdrDetailReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalWdrGetDetailResponse getPaginatedWdrs(String startDate, String endDate, String id, String mcc, String mnc, String imsi, String simGroupName, String simGroupId, String simCardId, String phoneNumber, Integer pageNumber, Integer pageSize, String sort) throws ApiException {
-    return getPaginatedWdrsWithHttpInfo(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize, sort).getData();
-  }
+    public ExternalWdrGetDetailResponse getPaginatedWdrs(
+        String startDate,
+        String endDate,
+        String id,
+        String mcc,
+        String mnc,
+        String imsi,
+        String simGroupName,
+        String simGroupId,
+        String simCardId,
+        String phoneNumber,
+        Integer pageNumber,
+        Integer pageSize,
+        String sort
+    ) throws ApiException {
+        return getPaginatedWdrsWithHttpInfo(
+            startDate,
+            endDate,
+            id,
+            mcc,
+            mnc,
+            imsi,
+            simGroupName,
+            simGroupId,
+            simCardId,
+            phoneNumber,
+            pageNumber,
+            pageSize,
+            sort
+        ).getData();
+    }
 
-  /**
+    /**
    * Fetches all Wdr records
    * Fetch all Wdr records 
    * @param startDate Start date (optional)
@@ -97,51 +126,103 @@ public class WdrDetailReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalWdrGetDetailResponse> getPaginatedWdrsWithHttpInfo(String startDate, String endDate, String id, String mcc, String mnc, String imsi, String simGroupName, String simGroupId, String simCardId, String phoneNumber, Integer pageNumber, Integer pageSize, String sort) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/reports/wdrs";
+    public ApiResponse<
+        ExternalWdrGetDetailResponse
+    > getPaginatedWdrsWithHttpInfo(
+        String startDate,
+        String endDate,
+        String id,
+        String mcc,
+        String mnc,
+        String imsi,
+        String simGroupName,
+        String simGroupId,
+        String simCardId,
+        String phoneNumber,
+        Integer pageNumber,
+        Integer pageSize,
+        String sort
+    ) throws ApiException {
+        Object localVarPostBody = null;
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // create path and map variables
+        String localVarPath = "/reports/wdrs";
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "start_date", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "end_date", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "mcc", mcc));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "mnc", mnc));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "imsi", imsi));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sim_group_name", simGroupName));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sim_group_id", simGroupId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sim_card_id", simCardId));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "phone_number", phoneNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, String> localVarCookieParams = new HashMap<
+            String,
+            String
+        >();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "start_date", startDate)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "end_date", endDate)
+        );
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "mcc", mcc));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "mnc", mnc));
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "imsi", imsi)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sim_group_name", simGroupName)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sim_group_id", simGroupId)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sim_card_id", simCardId)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "phone_number", phoneNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[number]", pageNumber)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "page[size]", pageSize)
+        );
+        localVarQueryParams.addAll(
+            apiClient.parameterToPairs("", "sort", sort)
+        );
 
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarAccepts = { "application/json" };
+        final String localVarAccept = apiClient.selectHeaderAccept(
+            localVarAccepts
+        );
 
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
+        final String[] localVarContentTypes = {};
+        final String localVarContentType = apiClient.selectHeaderContentType(
+            localVarContentTypes
+        );
 
-    GenericType<ExternalWdrGetDetailResponse> localVarReturnType = new GenericType<ExternalWdrGetDetailResponse>() {};
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    return apiClient.invokeAPI("WdrDetailReportsApi.getPaginatedWdrs", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
+        GenericType<ExternalWdrGetDetailResponse> localVarReturnType =
+            new GenericType<ExternalWdrGetDetailResponse>() {};
+
+        return apiClient.invokeAPI(
+            "WdrDetailReportsApi.getPaginatedWdrs",
+            localVarPath,
+            "GET",
+            localVarQueryParams,
+            localVarPostBody,
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarFormParams,
+            localVarAccept,
+            localVarContentType,
+            localVarAuthNames,
+            localVarReturnType,
+            false
+        );
+    }
 }
