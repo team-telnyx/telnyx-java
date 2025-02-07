@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpLatencyMetricPercentileLatency99.JSON_PROPERTY_AMOUNT,
   GlobalIpLatencyMetricPercentileLatency99.JSON_PROPERTY_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GlobalIpLatencyMetricPercentileLatency99 {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -57,7 +57,7 @@ public class GlobalIpLatencyMetricPercentileLatency99 {
    * The 99th percentile latency.
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "The 99th percentile latency.")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class GlobalIpLatencyMetricPercentileLatency99 {
    * The unit of the 99th percentile latency.
    * @return unit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ms", value = "The unit of the 99th percentile latency.")
   @JsonProperty(JSON_PROPERTY_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

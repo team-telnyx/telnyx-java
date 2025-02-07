@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   BulkCredentialRequest.JSON_PROPERTY_AMOUNT,
   BulkCredentialRequest.JSON_PROPERTY_CONNECTION_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BulkCredentialRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -66,7 +66,7 @@ public class BulkCredentialRequest {
    * A default name for all credentials.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Default Credentials", value = "A default name for all credentials.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class BulkCredentialRequest {
    * Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.
    * @return tag
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "My Credentials", required = true, value = "Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.")
   @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -118,7 +118,7 @@ public class BulkCredentialRequest {
    * Amount of credentials to be created. A single tag can hold at maximum 1000 credentials
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "Amount of credentials to be created. A single tag can hold at maximum 1000 credentials")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class BulkCredentialRequest {
    * Identifies the connection this credential is associated with.
    * @return connectionId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1234567890", required = true, value = "Identifies the connection this credential is associated with.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

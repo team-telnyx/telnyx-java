@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   ValidateAddressResult.JSON_PROPERTY_RECORD_TYPE,
   ValidateAddressResult.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ValidateAddressResult {
   /**
    * Indicates whether an address is valid or invalid.
@@ -103,7 +103,7 @@ public class ValidateAddressResult {
    * Indicates whether an address is valid or invalid.
    * @return result
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "valid", required = true, value = "Indicates whether an address is valid or invalid.")
   @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -129,7 +129,7 @@ public class ValidateAddressResult {
    * Get suggested
    * @return suggested
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_SUGGESTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -155,7 +155,7 @@ public class ValidateAddressResult {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "address_validation", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -189,7 +189,7 @@ public class ValidateAddressResult {
    * Get errors
    * @return errors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

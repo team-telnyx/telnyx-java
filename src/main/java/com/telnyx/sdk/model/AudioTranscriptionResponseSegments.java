@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   AudioTranscriptionResponseSegments.JSON_PROPERTY_END,
   AudioTranscriptionResponseSegments.JSON_PROPERTY_TEXT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AudioTranscriptionResponseSegments {
   public static final String JSON_PROPERTY_ID = "id";
   private BigDecimal id;
@@ -65,7 +65,7 @@ public class AudioTranscriptionResponseSegments {
    * Unique identifier of the segment.
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique identifier of the segment.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class AudioTranscriptionResponseSegments {
    * Start time of the segment in seconds.
    * @return start
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Start time of the segment in seconds.")
   @JsonProperty(JSON_PROPERTY_START)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class AudioTranscriptionResponseSegments {
    * End time of the segment in seconds.
    * @return end
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "End time of the segment in seconds.")
   @JsonProperty(JSON_PROPERTY_END)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -143,7 +143,7 @@ public class AudioTranscriptionResponseSegments {
    * Text content of the segment.
    * @return text
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Text content of the segment.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

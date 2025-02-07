@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   UpdatePartnerCampaignRequest.JSON_PROPERTY_WEBHOOK_U_R_L,
   UpdatePartnerCampaignRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePartnerCampaignRequest {
   public static final String JSON_PROPERTY_WEBHOOK_U_R_L = "webhookURL";
   private String webhookURL;
@@ -56,7 +56,7 @@ public class UpdatePartnerCampaignRequest {
    * Webhook to which campaign status updates are sent.
    * @return webhookURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93", value = "Webhook to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class UpdatePartnerCampaignRequest {
    * Webhook failover to which campaign status updates are sent.
    * @return webhookFailoverURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://webhook.com/9010a453-4df8-4be6-a551-1070892888d6", value = "Webhook failover to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

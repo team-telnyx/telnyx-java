@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   RecordingStartedPayload.JSON_PROPERTY_RECORDING_ID,
   RecordingStartedPayload.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class RecordingStartedPayload {
   public static final String JSON_PROPERTY_SESSION_ID = "session_id";
   private UUID sessionId;
@@ -106,7 +106,7 @@ public class RecordingStartedPayload {
    * Session ID associated with the recording.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Session ID associated with the recording.")
   @JsonProperty(JSON_PROPERTY_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -132,7 +132,7 @@ public class RecordingStartedPayload {
    * Room ID associated with the recording.
    * @return roomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Room ID associated with the recording.")
   @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -158,7 +158,7 @@ public class RecordingStartedPayload {
    * Participant ID associated with the recording.
    * @return participantId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Participant ID associated with the recording.")
   @JsonProperty(JSON_PROPERTY_PARTICIPANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -184,7 +184,7 @@ public class RecordingStartedPayload {
    * Recording ID associated with the recording.
    * @return recordingId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Recording ID associated with the recording.")
   @JsonProperty(JSON_PROPERTY_RECORDING_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -210,7 +210,7 @@ public class RecordingStartedPayload {
    * Type of the recording.
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "audio", value = "Type of the recording.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

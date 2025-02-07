@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   CdrUsageReportResponse.JSON_PROPERTY_RECORD_TYPE,
   CdrUsageReportResponse.JSON_PROPERTY_PRODUCT_BREAKDOWN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CdrUsageReportResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -217,7 +217,7 @@ public class CdrUsageReportResponse {
    * Identifies the resource
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the resource")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -243,7 +243,7 @@ public class CdrUsageReportResponse {
    * Get startTime
    * @return startTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
   @JsonProperty(JSON_PROPERTY_START_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -269,7 +269,7 @@ public class CdrUsageReportResponse {
    * Get endTime
    * @return endTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
   @JsonProperty(JSON_PROPERTY_END_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -295,7 +295,7 @@ public class CdrUsageReportResponse {
    * Get connections
    * @return connections
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[1234567890L, 9876543210L]", value = "")
   @JsonProperty(JSON_PROPERTY_CONNECTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -321,7 +321,7 @@ public class CdrUsageReportResponse {
    * Get aggregationType
    * @return aggregationType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_AGGREGATION_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -347,7 +347,7 @@ public class CdrUsageReportResponse {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -373,7 +373,7 @@ public class CdrUsageReportResponse {
    * Get reportUrl
    * @return reportUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://portal.telnyx.com/downloads/report_name_8hvb45Gu.csv", value = "")
   @JsonProperty(JSON_PROPERTY_REPORT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -399,7 +399,7 @@ public class CdrUsageReportResponse {
    * Get result
    * @return result
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -425,7 +425,7 @@ public class CdrUsageReportResponse {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -451,7 +451,7 @@ public class CdrUsageReportResponse {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -477,7 +477,7 @@ public class CdrUsageReportResponse {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "cdr_usage_report", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -503,7 +503,7 @@ public class CdrUsageReportResponse {
    * Get productBreakdown
    * @return productBreakdown
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PRODUCT_BREAKDOWN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

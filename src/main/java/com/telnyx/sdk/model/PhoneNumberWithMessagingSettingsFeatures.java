@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberWithMessagingSettingsFeatures.JSON_PROPERTY_SMS,
   PhoneNumberWithMessagingSettingsFeatures.JSON_PROPERTY_MMS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberWithMessagingSettingsFeatures {
   public static final String JSON_PROPERTY_SMS = "sms";
   private JsonNullable<MessagingFeatureSet> sms = JsonNullable.<MessagingFeatureSet>undefined();
@@ -61,7 +61,7 @@ public class PhoneNumberWithMessagingSettingsFeatures {
    * Get sms
    * @return sms
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -95,7 +95,7 @@ public class PhoneNumberWithMessagingSettingsFeatures {
    * Get mms
    * @return mms
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 

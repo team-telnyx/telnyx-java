@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   CreateRoomRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateRoomRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateRoomRequest {
   public static final String JSON_PROPERTY_UNIQUE_NAME = "unique_name";
   private String uniqueName;
@@ -76,7 +76,7 @@ public class CreateRoomRequest {
    * The unique (within the Telnyx account scope) name of the room.
    * @return uniqueName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My room", value = "The unique (within the Telnyx account scope) name of the room.")
   @JsonProperty(JSON_PROPERTY_UNIQUE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -104,7 +104,7 @@ public class CreateRoomRequest {
    * maximum: 50
    * @return maxParticipants
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "The maximum amount of participants allowed in a room. If new participants try to join after that limit is reached, their request will be rejected.")
   @JsonProperty(JSON_PROPERTY_MAX_PARTICIPANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class CreateRoomRequest {
    * Enable or disable recording for that room.
    * @return enableRecording
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enable or disable recording for that room.")
   @JsonProperty(JSON_PROPERTY_ENABLE_RECORDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class CreateRoomRequest {
    * The URL where webhooks related to this room will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "The URL where webhooks related to this room will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class CreateRoomRequest {
    * The failover URL where webhooks related to this room will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this room will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.")
   @JsonIgnore
 
@@ -218,7 +218,7 @@ public class CreateRoomRequest {
    * maximum: 30
    * @return webhookTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "Specifies how many seconds to wait before timing out a webhook.")
   @JsonIgnore
 

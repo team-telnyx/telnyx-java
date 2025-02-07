@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   Connection.JSON_PROPERTY_WEBHOOK_API_VERSION,
   Connection.JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Connection {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -132,7 +132,7 @@ public class Connection {
    * Identifies the specific resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the specific resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -158,7 +158,7 @@ public class Connection {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ip_connection", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -184,7 +184,7 @@ public class Connection {
    * Defaults to true
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Defaults to true")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -210,7 +210,7 @@ public class Connection {
    * Get anchorsiteOverride
    * @return anchorsiteOverride
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -236,7 +236,7 @@ public class Connection {
    * Get connectionName
    * @return connectionName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "string", value = "")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -262,7 +262,7 @@ public class Connection {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -288,7 +288,7 @@ public class Connection {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -314,7 +314,7 @@ public class Connection {
    * The URL where webhooks related to this connection will be sent.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "The URL where webhooks related to this connection will be sent.")
   @JsonIgnore
 
@@ -348,7 +348,7 @@ public class Connection {
    * The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails.
    * @return webhookEventFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails.")
   @JsonIgnore
 
@@ -382,7 +382,7 @@ public class Connection {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1 or v2.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -408,7 +408,7 @@ public class Connection {
    * Identifies the associated outbound voice profile.
    * @return outboundVoiceProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "Identifies the associated outbound voice profile.")
   @JsonProperty(JSON_PROPERTY_OUTBOUND_VOICE_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

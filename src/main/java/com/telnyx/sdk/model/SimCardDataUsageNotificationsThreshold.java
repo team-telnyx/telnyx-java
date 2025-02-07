@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   SimCardDataUsageNotificationsThreshold.JSON_PROPERTY_AMOUNT,
   SimCardDataUsageNotificationsThreshold.JSON_PROPERTY_UNIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SimCardDataUsageNotificationsThreshold {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -94,7 +94,7 @@ public class SimCardDataUsageNotificationsThreshold {
    * Get amount
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2048.1", value = "")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -120,7 +120,7 @@ public class SimCardDataUsageNotificationsThreshold {
    * Get unit
    * @return unit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MB", value = "")
   @JsonProperty(JSON_PROPERTY_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   GlobalIpLatencyMetricProberLocation.JSON_PROPERTY_LAT,
   GlobalIpLatencyMetricProberLocation.JSON_PROPERTY_LON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GlobalIpLatencyMetricProberLocation {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -66,7 +66,7 @@ public class GlobalIpLatencyMetricProberLocation {
    * Location ID.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Location ID.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class GlobalIpLatencyMetricProberLocation {
    * Location name.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Amsterdam", value = "Location name.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class GlobalIpLatencyMetricProberLocation {
    * Latitude.
    * @return lat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "52.370216", value = "Latitude.")
   @JsonProperty(JSON_PROPERTY_LAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class GlobalIpLatencyMetricProberLocation {
    * Longitude.
    * @return lon
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4.895168", value = "Longitude.")
   @JsonProperty(JSON_PROPERTY_LON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

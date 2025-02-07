@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ListObjectsResponse.JSON_PROPERTY_NAME,
   ListObjectsResponse.JSON_PROPERTY_CONTENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListObjectsResponse {
   public static final String JSON_PROPERTY_NAME = "Name";
   private String name;
@@ -59,7 +59,7 @@ public class ListObjectsResponse {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class ListObjectsResponse {
    * Get contents
    * @return contents
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CONTENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

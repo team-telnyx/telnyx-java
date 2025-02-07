@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   RCSCarouselCard.JSON_PROPERTY_CARD_WIDTH,
   RCSCarouselCard.JSON_PROPERTY_CARD_CONTENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSCarouselCard {
   /**
    * The width of the cards in the carousel.
@@ -97,7 +97,7 @@ public class RCSCarouselCard {
    * The width of the cards in the carousel.
    * @return cardWidth
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "SMALL", required = true, value = "The width of the cards in the carousel.")
   @JsonProperty(JSON_PROPERTY_CARD_WIDTH)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -128,7 +128,7 @@ public class RCSCarouselCard {
    * The list of contents for each card in the carousel. A carousel can have a minimum of 2 cards and a maximum 10 cards.
    * @return cardContents
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The list of contents for each card in the carousel. A carousel can have a minimum of 2 cards and a maximum 10 cards.")
   @JsonProperty(JSON_PROPERTY_CARD_CONTENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

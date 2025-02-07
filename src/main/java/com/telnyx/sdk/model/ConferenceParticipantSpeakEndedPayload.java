@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   ConferenceParticipantSpeakEndedPayload.JSON_PROPERTY_CONFERENCE_ID,
   ConferenceParticipantSpeakEndedPayload.JSON_PROPERTY_OCCURRED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ConferenceParticipantSpeakEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -83,7 +83,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * Participant&#39;s call ID used to issue commands via Call Control API.
    * @return callControlId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Participant's call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -109,7 +109,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * ID that is unique to the call and can be used to correlate webhook events.
    * @return callLegId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b7f5-5013ef9657c1", value = "ID that is unique to the call and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * State received from a command.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * ID that is unique to the call session that started the conference.
    * @return creatorCallSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session that started the conference.")
   @JsonProperty(JSON_PROPERTY_CREATOR_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * ID of the conference the text was spoken in.
    * @return conferenceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID of the conference the text was spoken in.")
   @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class ConferenceParticipantSpeakEndedPayload {
    * ISO 8601 datetime of when the event occurred.
    * @return occurredAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 datetime of when the event occurred.")
   @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

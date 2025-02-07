@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderDocument.JSON_PROPERTY_RECORD_TYPE,
   PortingOrderDocument.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PortingOrderDocument {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -108,7 +108,7 @@ public class PortingOrderDocument {
    * Uniquely identifies the document in the porting order
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "64ffb720-04c7-455b-92d6-20fcca92e935", value = "Uniquely identifies the document in the porting order")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -134,7 +134,7 @@ public class PortingOrderDocument {
    * The type of document
    * @return documentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "loa", value = "The type of document")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -160,7 +160,7 @@ public class PortingOrderDocument {
    * Uniquely identifies a document uploaded via the &lt;code&gt;&lt;a href&#x3D;\&quot;https://developers.telnyx.com/docs/api/v2/documents/Documents#createDocument\&quot;&gt;/v2/documents&lt;/a&gt;&lt;/code&gt; endpoint.
    * @return documentId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ce74b771-d23d-4960-81ec-8741b3862146", value = "Uniquely identifies a document uploaded via the <code><a href=\"https://developers.telnyx.com/docs/api/v2/documents/Documents#createDocument\">/v2/documents</a></code> endpoint.")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -186,7 +186,7 @@ public class PortingOrderDocument {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_order_document", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -212,7 +212,7 @@ public class PortingOrderDocument {
    * ISO 8601 formatted date/time when document was associated for the porting order.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-03-19T10:07:15.527Z", value = "ISO 8601 formatted date/time when document was associated for the porting order.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

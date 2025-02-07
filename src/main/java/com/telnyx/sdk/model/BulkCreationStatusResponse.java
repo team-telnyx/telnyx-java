@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   BulkCreationStatusResponse.JSON_PROPERTY_CREATED_AT,
   BulkCreationStatusResponse.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BulkCreationStatusResponse {
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
   private String taskId;
@@ -68,7 +68,7 @@ public class BulkCreationStatusResponse {
    * The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
    * @return taskId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "4b60017a-2f50-4c90-c9e6-5f67304cbde2", required = true, value = "The ID of the task associated with bulk Sole Proprietor brand and campaign creation.")
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -94,7 +94,7 @@ public class BulkCreationStatusResponse {
    * The current status of this task
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The current status of this task")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class BulkCreationStatusResponse {
    * The date and time the task was initiated
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-06-30T10:48:22-07:00", value = "The date and time the task was initiated")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -146,7 +146,7 @@ public class BulkCreationStatusResponse {
    * The date and time the task&#39;s status was updated
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-06-30T10:49:04-07:00", value = "The date and time the task's status was updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

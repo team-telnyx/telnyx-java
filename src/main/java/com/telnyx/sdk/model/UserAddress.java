@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   UserAddress.JSON_PROPERTY_CREATED_AT,
   UserAddress.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UserAddress {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -117,7 +117,7 @@ public class UserAddress {
    * Uniquely identifies the user address.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "c3527e69-dc5a-4b3e-8f44-99d209f83c1d", value = "Uniquely identifies the user address.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class UserAddress {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "user_address", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -169,7 +169,7 @@ public class UserAddress {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -195,7 +195,7 @@ public class UserAddress {
    * The first name associated with the address. An address must have either a first last name or a business name.
    * @return firstName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Alfred", value = "The first name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -221,7 +221,7 @@ public class UserAddress {
    * The last name associated with the address. An address must have either a first last name or a business name.
    * @return lastName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Foster", value = "The last name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -247,7 +247,7 @@ public class UserAddress {
    * The business name associated with the address. An address must have either a first last name or a business name.
    * @return businessName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Toy-O'Kon", value = "The business name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -273,7 +273,7 @@ public class UserAddress {
    * The phone number associated with the address.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12125559000", value = "The phone number associated with the address.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -299,7 +299,7 @@ public class UserAddress {
    * The primary street address information about the address.
    * @return streetAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "600 Congress Avenue", value = "The primary street address information about the address.")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -325,7 +325,7 @@ public class UserAddress {
    * Additional street address information about the address such as, but not limited to, unit number or apartment number.
    * @return extendedAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "14th Floor", value = "Additional street address information about the address such as, but not limited to, unit number or apartment number.")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -351,7 +351,7 @@ public class UserAddress {
    * The locality of the address. For US addresses, this corresponds to the city of the address.
    * @return locality
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Austin", value = "The locality of the address. For US addresses, this corresponds to the city of the address.")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -377,7 +377,7 @@ public class UserAddress {
    * The locality of the address. For US addresses, this corresponds to the state of the address.
    * @return administrativeArea
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "TX", value = "The locality of the address. For US addresses, this corresponds to the state of the address.")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -403,7 +403,7 @@ public class UserAddress {
    * The neighborhood of the address. This field is not used for addresses in the US but is used for some international addresses.
    * @return neighborhood
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Ciudad de los deportes", value = "The neighborhood of the address. This field is not used for addresses in the US but is used for some international addresses.")
   @JsonProperty(JSON_PROPERTY_NEIGHBORHOOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -429,7 +429,7 @@ public class UserAddress {
    * The borough of the address. This field is not used for addresses in the US but is used for some international addresses.
    * @return borough
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Guadalajara", value = "The borough of the address. This field is not used for addresses in the US but is used for some international addresses.")
   @JsonProperty(JSON_PROPERTY_BOROUGH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -455,7 +455,7 @@ public class UserAddress {
    * The postal code of the address.
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "78701", value = "The postal code of the address.")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -481,7 +481,7 @@ public class UserAddress {
    * The two-character (ISO 3166-1 alpha-2) country code of the address.
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "The two-character (ISO 3166-1 alpha-2) country code of the address.")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -507,7 +507,7 @@ public class UserAddress {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -533,7 +533,7 @@ public class UserAddress {
    * ISO 8601 formatted date indicating when the resource was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

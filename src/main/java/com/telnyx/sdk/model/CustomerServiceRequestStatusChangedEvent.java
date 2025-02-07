@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   CustomerServiceRequestStatusChangedEvent.JSON_PROPERTY_OCCURRED_AT,
   CustomerServiceRequestStatusChangedEvent.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CustomerServiceRequestStatusChangedEvent {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -138,7 +138,7 @@ public class CustomerServiceRequestStatusChangedEvent {
    * Uniquely identifies the callback event.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "d3c462b5-8afa-4d48-9af1-4f9b1f00e7bd", value = "Uniquely identifies the callback event.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -164,7 +164,7 @@ public class CustomerServiceRequestStatusChangedEvent {
    * The type of the callback event.
    * @return eventType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "customer_service_request.status_changed", value = "The type of the callback event.")
   @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -190,7 +190,7 @@ public class CustomerServiceRequestStatusChangedEvent {
    * Get payload
    * @return payload
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -216,7 +216,7 @@ public class CustomerServiceRequestStatusChangedEvent {
    * ISO 8601 formatted date indicating when the callback event occurred.
    * @return occurredAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the callback event occurred.")
   @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -242,7 +242,7 @@ public class CustomerServiceRequestStatusChangedEvent {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "event", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

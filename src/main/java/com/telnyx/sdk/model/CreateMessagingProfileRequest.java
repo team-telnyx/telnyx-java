@@ -55,7 +55,7 @@ import com.telnyx.sdk.JSON;
   CreateMessagingProfileRequest.JSON_PROPERTY_MMS_FALL_BACK_TO_SMS,
   CreateMessagingProfileRequest.JSON_PROPERTY_MMS_TRANSCODING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateMessagingProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -145,7 +145,7 @@ public class CreateMessagingProfileRequest {
    * A user friendly name for the messaging profile.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A user friendly name for the messaging profile.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -176,7 +176,7 @@ public class CreateMessagingProfileRequest {
    * Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60; all destinations will be allowed.
    * @return whitelistedDestinations
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Destinations to which the messaging profile is allowed to send. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]` all destinations will be allowed.")
   @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -202,7 +202,7 @@ public class CreateMessagingProfileRequest {
    * Specifies whether the messaging profile is enabled or not.
    * @return enabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies whether the messaging profile is enabled or not.")
   @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -228,7 +228,7 @@ public class CreateMessagingProfileRequest {
    * The URL where webhooks related to this messaging profile will be sent.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The URL where webhooks related to this messaging profile will be sent.")
   @JsonIgnore
 
@@ -262,7 +262,7 @@ public class CreateMessagingProfileRequest {
    * The failover URL where webhooks related to this messaging profile will be sent if sending to the primary URL fails.
    * @return webhookFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The failover URL where webhooks related to this messaging profile will be sent if sending to the primary URL fails.")
   @JsonIgnore
 
@@ -296,7 +296,7 @@ public class CreateMessagingProfileRequest {
    * Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Determines which webhook format will be used, Telnyx API v1, v2, or a legacy 2010-04-01 format.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -322,7 +322,7 @@ public class CreateMessagingProfileRequest {
    * Get numberPoolSettings
    * @return numberPoolSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -356,7 +356,7 @@ public class CreateMessagingProfileRequest {
    * Get urlShortenerSettings
    * @return urlShortenerSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonIgnore
 
@@ -390,7 +390,7 @@ public class CreateMessagingProfileRequest {
    * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
    * @return alphaSender
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.")
   @JsonIgnore
 
@@ -424,7 +424,7 @@ public class CreateMessagingProfileRequest {
    * The maximum amount of money (in USD) that can be spent by this profile before midnight UTC.
    * @return dailySpendLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The maximum amount of money (in USD) that can be spent by this profile before midnight UTC.")
   @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -450,7 +450,7 @@ public class CreateMessagingProfileRequest {
    * Whether to enforce the value configured by &#x60;daily_spend_limit&#x60;.
    * @return dailySpendLimitEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Whether to enforce the value configured by `daily_spend_limit`.")
   @JsonProperty(JSON_PROPERTY_DAILY_SPEND_LIMIT_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -476,7 +476,7 @@ public class CreateMessagingProfileRequest {
    * enables SMS fallback for MMS messages.
    * @return mmsFallBackToSms
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "enables SMS fallback for MMS messages.")
   @JsonProperty(JSON_PROPERTY_MMS_FALL_BACK_TO_SMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -502,7 +502,7 @@ public class CreateMessagingProfileRequest {
    * enables automated resizing of MMS media.
    * @return mmsTranscoding
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "enables automated resizing of MMS media.")
   @JsonProperty(JSON_PROPERTY_MMS_TRANSCODING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

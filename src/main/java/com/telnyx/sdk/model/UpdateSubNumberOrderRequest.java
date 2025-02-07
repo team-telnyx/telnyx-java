@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateSubNumberOrderRequest.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateSubNumberOrderRequest {
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
   private List<UpdateRegulatoryRequirement> regulatoryRequirements = null;
@@ -63,7 +63,7 @@ public class UpdateSubNumberOrderRequest {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

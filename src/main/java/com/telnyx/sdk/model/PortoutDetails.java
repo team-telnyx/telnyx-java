@@ -64,7 +64,7 @@ import com.telnyx.sdk.JSON;
   PortoutDetails.JSON_PROPERTY_INSERTED_AT,
   PortoutDetails.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortoutDetails {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -207,7 +207,7 @@ public class PortoutDetails {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -228,7 +228,7 @@ public class PortoutDetails {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "portout", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -257,7 +257,7 @@ public class PortoutDetails {
    * Phone numbers associated with this portout
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"+35312345678\"]", value = "Phone numbers associated with this portout")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -283,7 +283,7 @@ public class PortoutDetails {
    * Name of person authorizing the porting order
    * @return authorizedName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "McPortersen", value = "Name of person authorizing the porting order")
   @JsonProperty(JSON_PROPERTY_AUTHORIZED_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -309,7 +309,7 @@ public class PortoutDetails {
    * Carrier the number will be ported out to
    * @return carrierName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "test", value = "Carrier the number will be ported out to")
   @JsonProperty(JSON_PROPERTY_CARRIER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -335,7 +335,7 @@ public class PortoutDetails {
    * The current carrier
    * @return currentCarrier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "telnyx", value = "The current carrier")
   @JsonProperty(JSON_PROPERTY_CURRENT_CARRIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -361,7 +361,7 @@ public class PortoutDetails {
    * Person name or company name requesting the port
    * @return endUserName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "McPortersen", value = "Person name or company name requesting the port")
   @JsonProperty(JSON_PROPERTY_END_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -387,7 +387,7 @@ public class PortoutDetails {
    * City or municipality of billing address
    * @return city
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Chicago", value = "City or municipality of billing address")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -413,7 +413,7 @@ public class PortoutDetails {
    * State, province, or similar of billing address
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "IL", value = "State, province, or similar of billing address")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -439,7 +439,7 @@ public class PortoutDetails {
    * Postal Code of billing address
    * @return zip
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "00000", value = "Postal Code of billing address")
   @JsonProperty(JSON_PROPERTY_ZIP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -473,7 +473,7 @@ public class PortoutDetails {
    * The Local Service Request
    * @return lsr
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"https://example.com/files/lsr.pdf\"]", value = "The Local Service Request")
   @JsonProperty(JSON_PROPERTY_LSR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -499,7 +499,7 @@ public class PortoutDetails {
    * Port order number assigned by the carrier the number will be ported out to
    * @return pon
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "00000000", value = "Port order number assigned by the carrier the number will be ported out to")
   @JsonProperty(JSON_PROPERTY_PON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -525,7 +525,7 @@ public class PortoutDetails {
    * The reason why the order is being rejected by the user. If the order is authorized, this field can be left null
    * @return reason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The reason why the order is being rejected by the user. If the order is authorized, this field can be left null")
   @JsonProperty(JSON_PROPERTY_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -551,7 +551,7 @@ public class PortoutDetails {
    * The rejection code for one of the valid rejections to reject a port out order
    * @return rejectionCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1002", value = "The rejection code for one of the valid rejections to reject a port out order")
   @JsonProperty(JSON_PROPERTY_REJECTION_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -577,7 +577,7 @@ public class PortoutDetails {
    * First line of billing address (street address)
    * @return serviceAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "000 Example Street", value = "First line of billing address (street address)")
   @JsonProperty(JSON_PROPERTY_SERVICE_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -603,7 +603,7 @@ public class PortoutDetails {
    * ISO 8601 formatted Date/Time of the FOC date
    * @return focDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted Date/Time of the FOC date")
   @JsonProperty(JSON_PROPERTY_FOC_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -629,7 +629,7 @@ public class PortoutDetails {
    * ISO 8601 formatted Date/Time of the user requested FOC date
    * @return requestedFocDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted Date/Time of the user requested FOC date")
   @JsonProperty(JSON_PROPERTY_REQUESTED_FOC_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -655,7 +655,7 @@ public class PortoutDetails {
    * New service provider spid
    * @return spid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "New service provider spid")
   @JsonProperty(JSON_PROPERTY_SPID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -681,7 +681,7 @@ public class PortoutDetails {
    * A key to reference this port out request when contacting Telnyx customer support
    * @return supportKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "PO_764725", value = "A key to reference this port out request when contacting Telnyx customer support")
   @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -707,7 +707,7 @@ public class PortoutDetails {
    * Status of portout request
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "rejected", value = "Status of portout request")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -733,7 +733,7 @@ public class PortoutDetails {
    * Is true when the number is already ported
    * @return alreadyPorted
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Is true when the number is already ported")
   @JsonProperty(JSON_PROPERTY_ALREADY_PORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -759,7 +759,7 @@ public class PortoutDetails {
    * Identifies the user (or organization) who requested the port out
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7865816a-ee85-4e50-b19e-52983dcc6d4a", value = "Identifies the user (or organization) who requested the port out")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -785,7 +785,7 @@ public class PortoutDetails {
    * Telnyx partner providing network coverage
    * @return vendor
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0e66ed3b-37e6-4fed-93d6-a30ce2493661", value = "Telnyx partner providing network coverage")
   @JsonProperty(JSON_PROPERTY_VENDOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -811,7 +811,7 @@ public class PortoutDetails {
    * ISO 8601 formatted date of when the portout was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date of when the portout was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -837,7 +837,7 @@ public class PortoutDetails {
    * ISO 8601 formatted date of when the portout was created
    * @return insertedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date of when the portout was created")
   @JsonProperty(JSON_PROPERTY_INSERTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -863,7 +863,7 @@ public class PortoutDetails {
    * ISO 8601 formatted date of when the portout was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date of when the portout was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

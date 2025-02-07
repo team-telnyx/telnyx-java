@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   GatherUsingAIRequestMessageHistoryInner.JSON_PROPERTY_CONTENT,
   GatherUsingAIRequestMessageHistoryInner.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GatherUsingAIRequestMessageHistoryInner {
   public static final String JSON_PROPERTY_CONTENT = "content";
   private String content;
@@ -91,7 +91,7 @@ public class GatherUsingAIRequestMessageHistoryInner {
    * The content of the message
    * @return content
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hello, I'm 29 and I live in Paris.", value = "The content of the message")
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -117,7 +117,7 @@ public class GatherUsingAIRequestMessageHistoryInner {
    * The role of the message sender
    * @return role
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "user", value = "The role of the message sender")
   @JsonProperty(JSON_PROPERTY_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   BridgeRequest.JSON_PROPERTY_RECORD_TRIM,
   BridgeRequest.JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BridgeRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -401,7 +401,7 @@ public class BridgeRequest {
    * The Call Control ID of the call you want to bridge with, can&#39;t be used together with queue parameter or video_room_id parameter.
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", required = true, value = "The Call Control ID of the call you want to bridge with, can't be used together with queue parameter or video_room_id parameter.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -427,7 +427,7 @@ public class BridgeRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -453,7 +453,7 @@ public class BridgeRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -479,7 +479,7 @@ public class BridgeRequest {
    * The name of the queue you want to bridge with, can&#39;t be used together with call_control_id parameter or video_room_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.
    * @return queue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "support", value = "The name of the queue you want to bridge with, can't be used together with call_control_id parameter or video_room_id parameter. Bridging with a queue means bridging with the first call in the queue. The call will always be removed from the queue regardless of whether bridging succeeds. Returns an error when the queue is empty.")
   @JsonProperty(JSON_PROPERTY_QUEUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -505,7 +505,7 @@ public class BridgeRequest {
    * The ID of the video room you want to bridge with, can&#39;t be used together with call_control_id parameter or queue parameter.
    * @return videoRoomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "The ID of the video room you want to bridge with, can't be used together with call_control_id parameter or queue parameter.")
   @JsonProperty(JSON_PROPERTY_VIDEO_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -531,7 +531,7 @@ public class BridgeRequest {
    * The additional parameter that will be passed to the video conference. It is a text field and the user can decide how to use it. For example, you can set the participant name or pass JSON text. It can be used only with video_room_id parameter.
    * @return videoRoomContext
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Alice", value = "The additional parameter that will be passed to the video conference. It is a text field and the user can decide how to use it. For example, you can set the participant name or pass JSON text. It can be used only with video_room_id parameter.")
   @JsonProperty(JSON_PROPERTY_VIDEO_ROOM_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -557,7 +557,7 @@ public class BridgeRequest {
    * Specifies behavior after the bridge ends (i.e. the opposite leg either hangs up or is transferred). If supplied with the value &#x60;self&#x60;, the current leg will be parked after unbridge. If not set, the default behavior is to hang up the leg.
    * @return parkAfterUnbridge
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "self", value = "Specifies behavior after the bridge ends (i.e. the opposite leg either hangs up or is transferred). If supplied with the value `self`, the current leg will be parked after unbridge. If not set, the default behavior is to hang up the leg.")
   @JsonProperty(JSON_PROPERTY_PARK_AFTER_UNBRIDGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -583,7 +583,7 @@ public class BridgeRequest {
    * Specifies whether to play a ringtone if the call you want to bridge with has not yet been answered.
    * @return playRingtone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether to play a ringtone if the call you want to bridge with has not yet been answered.")
   @JsonProperty(JSON_PROPERTY_PLAY_RINGTONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -609,7 +609,7 @@ public class BridgeRequest {
    * Specifies which country ringtone to play when &#x60;play_ringtone&#x60; is set to &#x60;true&#x60;. If not set, the US ringtone will be played.
    * @return ringtone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pl", value = "Specifies which country ringtone to play when `play_ringtone` is set to `true`. If not set, the US ringtone will be played.")
   @JsonProperty(JSON_PROPERTY_RINGTONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -635,7 +635,7 @@ public class BridgeRequest {
    * Start recording automatically after an event. Disabled by default.
    * @return record
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "record-from-answer", value = "Start recording automatically after an event. Disabled by default.")
   @JsonProperty(JSON_PROPERTY_RECORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -661,7 +661,7 @@ public class BridgeRequest {
    * Defines which channel should be recorded (&#39;single&#39; or &#39;dual&#39;) when &#x60;record&#x60; is specified.
    * @return recordChannels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "single", value = "Defines which channel should be recorded ('single' or 'dual') when `record` is specified.")
   @JsonProperty(JSON_PROPERTY_RECORD_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -687,7 +687,7 @@ public class BridgeRequest {
    * Defines the format of the recording (&#39;wav&#39; or &#39;mp3&#39;) when &#x60;record&#x60; is specified.
    * @return recordFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wav", value = "Defines the format of the recording ('wav' or 'mp3') when `record` is specified.")
   @JsonProperty(JSON_PROPERTY_RECORD_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -713,7 +713,7 @@ public class BridgeRequest {
    * Defines the maximum length for the recording in seconds when &#x60;record&#x60; is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
    * @return recordMaxLength
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1000", value = "Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).")
   @JsonProperty(JSON_PROPERTY_RECORD_MAX_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -739,7 +739,7 @@ public class BridgeRequest {
    * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when &#x60;record&#x60; is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).
    * @return recordTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).")
   @JsonProperty(JSON_PROPERTY_RECORD_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -765,7 +765,7 @@ public class BridgeRequest {
    * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
    * @return recordTrack
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "outbound", value = "The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).")
   @JsonProperty(JSON_PROPERTY_RECORD_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -791,7 +791,7 @@ public class BridgeRequest {
    * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
    * @return recordTrim
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "trim-silence", value = "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.")
   @JsonProperty(JSON_PROPERTY_RECORD_TRIM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -817,7 +817,7 @@ public class BridgeRequest {
    * The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix.
    * @return recordCustomFileName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_recording_file_name", value = "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.")
   @JsonProperty(JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

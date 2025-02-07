@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
   UpdateVerifiedCallsDisplayProfileRequest.JSON_PROPERTY_CALL_REASONS,
   UpdateVerifiedCallsDisplayProfileRequest.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdateVerifiedCallsDisplayProfileRequest {
   public static final String JSON_PROPERTY_CALL_REASONS = "call_reasons";
   private String callReasons = null;
@@ -55,7 +55,7 @@ public class UpdateVerifiedCallsDisplayProfileRequest {
    * Get callReasons
    * @return callReasons
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALL_REASONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -81,7 +81,7 @@ public class UpdateVerifiedCallsDisplayProfileRequest {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

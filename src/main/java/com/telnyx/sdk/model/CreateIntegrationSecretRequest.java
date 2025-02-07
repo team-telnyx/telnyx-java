@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateIntegrationSecretRequest.JSON_PROPERTY_IDENTIFIER,
   CreateIntegrationSecretRequest.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateIntegrationSecretRequest {
   public static final String JSON_PROPERTY_IDENTIFIER = "identifier";
   private String identifier;
@@ -56,7 +56,7 @@ public class CreateIntegrationSecretRequest {
    * The unique identifier of the secret.
    * @return identifier
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The unique identifier of the secret.")
   @JsonProperty(JSON_PROPERTY_IDENTIFIER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -82,7 +82,7 @@ public class CreateIntegrationSecretRequest {
    * The value of the secret.
    * @return value
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The value of the secret.")
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

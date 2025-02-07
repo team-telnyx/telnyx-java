@@ -60,7 +60,7 @@ import com.telnyx.sdk.JSON;
   SoleProprietorData.JSON_PROPERTY_VERTICAL,
   SoleProprietorData.JSON_PROPERTY_WEBSITE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SoleProprietorData {
   public static final String JSON_PROPERTY_CITY = "city";
   private String city;
@@ -131,7 +131,7 @@ public class SoleProprietorData {
    * City name
    * @return city
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "New York", value = "City name")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class SoleProprietorData {
    * (Required for Non-profit/private/public) Legal company name.
    * @return companyName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ABC Inc.", value = "(Required for Non-profit/private/public) Legal company name.")
   @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -183,7 +183,7 @@ public class SoleProprietorData {
    * ISO2 2 characters country code. Example: US - United States
    * @return country
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "ISO2 2 characters country code. Example: US - United States")
   @JsonProperty(JSON_PROPERTY_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -209,7 +209,7 @@ public class SoleProprietorData {
    * A brief description about the campaign.
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "This campaign belongs to Brand X and will be used for marketing.", required = true, value = "A brief description about the campaign.")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -235,7 +235,7 @@ public class SoleProprietorData {
    * Display name, marketing name, or DBA name of the brand.
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "ABC Mobile", required = true, value = "Display name, marketing name, or DBA name of the brand.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -261,7 +261,7 @@ public class SoleProprietorData {
    * Valid email address of brand support contact.
    * @return email
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Valid email address of brand support contact.")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -287,7 +287,7 @@ public class SoleProprietorData {
    * Entity type behind the brand. This is the form of business establishment.
    * @return entityType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Entity type behind the brand. This is the form of business establishment.")
   @JsonProperty(JSON_PROPERTY_ENTITY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -313,7 +313,7 @@ public class SoleProprietorData {
    * First name of business contact.
    * @return firstName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "John", value = "First name of business contact.")
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -339,7 +339,7 @@ public class SoleProprietorData {
    * Last name of business contact.
    * @return lastName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Smith", value = "Last name of business contact.")
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -365,7 +365,7 @@ public class SoleProprietorData {
    * Valid phone number in e.164 international format.
    * @return phone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12024567890", value = "Valid phone number in e.164 international format.")
   @JsonProperty(JSON_PROPERTY_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class SoleProprietorData {
    * The phone numbers that will be assigned to the Sole Proprietor&#39;s campaign (Max of 5).
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"+12193849584\",\"+13129872456\"]", required = true, value = "The phone numbers that will be assigned to the Sole Proprietor's campaign (Max of 5).")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -422,7 +422,7 @@ public class SoleProprietorData {
    * Postal codes. Use 5 digit zipcode for United States
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10001", value = "Postal codes. Use 5 digit zipcode for United States")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -448,7 +448,7 @@ public class SoleProprietorData {
    * A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.
    * @return referenceId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "4q90017a-2f50-4c90-c9e6-5f67304cbde9", required = true, value = "A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.")
   @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -479,7 +479,7 @@ public class SoleProprietorData {
    * The sample_messages that will be assigned to the Sole Proprietor&#39;s campaign (Max of 5).
    * @return sampleMessages
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"Sample message 1\",\"Sample message 2\"]", required = true, value = "The sample_messages that will be assigned to the Sole Proprietor's campaign (Max of 5).")
   @JsonProperty(JSON_PROPERTY_SAMPLE_MESSAGES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -505,7 +505,7 @@ public class SoleProprietorData {
    * State. Must be 2 letters code for United States.
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "NY", value = "State. Must be 2 letters code for United States.")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -531,7 +531,7 @@ public class SoleProprietorData {
    * Street number and name.
    * @return street
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123", value = "Street number and name.")
   @JsonProperty(JSON_PROPERTY_STREET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -562,7 +562,7 @@ public class SoleProprietorData {
    * The sub use cases that will be assigned to the Sole Proprietor&#39;s campaign (Max of 5).
    * @return subUsecases
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"MARKETING\",\"2FA\"]", required = true, value = "The sub use cases that will be assigned to the Sole Proprietor's campaign (Max of 5).")
   @JsonProperty(JSON_PROPERTY_SUB_USECASES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -588,7 +588,7 @@ public class SoleProprietorData {
    * Vertical or industry segment of the brand.
    * @return vertical
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Vertical or industry segment of the brand.")
   @JsonProperty(JSON_PROPERTY_VERTICAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -614,7 +614,7 @@ public class SoleProprietorData {
    * Brand website URL.
    * @return website
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://www.abcmobile.com", value = "Brand website URL.")
   @JsonProperty(JSON_PROPERTY_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

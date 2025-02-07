@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PhoneNumberBlocksJobDeletePhoneNumberBlockRequest.JSON_PROPERTY_PHONE_NUMBER_BLOCK_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberBlocksJobDeletePhoneNumberBlockRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBER_BLOCK_ID = "phone_number_block_id";
   private String phoneNumberBlockId;
@@ -52,7 +52,7 @@ public class PhoneNumberBlocksJobDeletePhoneNumberBlockRequest {
    * Get phoneNumberBlockId
    * @return phoneNumberBlockId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_BLOCK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

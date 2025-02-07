@@ -69,7 +69,7 @@ import com.telnyx.sdk.JSON;
   AnswerRequest.JSON_PROPERTY_RECORD_TRIM,
   AnswerRequest.JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AnswerRequest {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private UUID billingGroupId;
@@ -436,7 +436,7 @@ public class AnswerRequest {
    * Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f5586561-8ff0-4291-a0ac-84fe544797bd", value = "Use this field to set the Billing Group ID for the call. Must be a valid and existing Billing Group ID.")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -462,7 +462,7 @@ public class AnswerRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -488,7 +488,7 @@ public class AnswerRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -522,7 +522,7 @@ public class AnswerRequest {
    * Custom headers to be added to the SIP INVITE response.
    * @return customHeaders
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers to be added to the SIP INVITE response.")
   @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -548,7 +548,7 @@ public class AnswerRequest {
    * The list of comma-separated codecs in a preferred order for the forked media to be received.
    * @return preferredCodecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "G722,PCMU,PCMA,G729,OPUS,VP8,H264", value = "The list of comma-separated codecs in a preferred order for the forked media to be received.")
   @JsonProperty(JSON_PROPERTY_PREFERRED_CODECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -582,7 +582,7 @@ public class AnswerRequest {
    * SIP headers to be added to the SIP INVITE response. Currently only User-to-User header is supported.
    * @return sipHeaders
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"value\"}]", value = "SIP headers to be added to the SIP INVITE response. Currently only User-to-User header is supported.")
   @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -608,7 +608,7 @@ public class AnswerRequest {
    * Get soundModifications
    * @return soundModifications
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -634,7 +634,7 @@ public class AnswerRequest {
    * The destination WebSocket address where the stream is going to be delivered.
    * @return streamUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
   @JsonProperty(JSON_PROPERTY_STREAM_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -660,7 +660,7 @@ public class AnswerRequest {
    * Specifies which track should be streamed.
    * @return streamTrack
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "both_tracks", value = "Specifies which track should be streamed.")
   @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -686,7 +686,7 @@ public class AnswerRequest {
    * Get streamBidirectionalMode
    * @return streamBidirectionalMode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -712,7 +712,7 @@ public class AnswerRequest {
    * Get streamBidirectionalCodec
    * @return streamBidirectionalCodec
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -738,7 +738,7 @@ public class AnswerRequest {
    * Get streamBidirectionalTargetLegs
    * @return streamBidirectionalTargetLegs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -764,7 +764,7 @@ public class AnswerRequest {
    * Generate silence RTP packets when no transmission available.
    * @return sendSilenceWhenIdle
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Generate silence RTP packets when no transmission available.")
   @JsonProperty(JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -790,7 +790,7 @@ public class AnswerRequest {
    * Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -816,7 +816,7 @@ public class AnswerRequest {
    * HTTP request type used for &#x60;webhook_url&#x60;.
    * @return webhookUrlMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `webhook_url`.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -842,7 +842,7 @@ public class AnswerRequest {
    * Enable transcription upon call answer. The default value is false.
    * @return transcription
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enable transcription upon call answer. The default value is false.")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -868,7 +868,7 @@ public class AnswerRequest {
    * Get transcriptionConfig
    * @return transcriptionConfig
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_CONFIG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -894,7 +894,7 @@ public class AnswerRequest {
    * Start recording automatically after an event. Disabled by default.
    * @return record
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "record-from-answer", value = "Start recording automatically after an event. Disabled by default.")
   @JsonProperty(JSON_PROPERTY_RECORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -920,7 +920,7 @@ public class AnswerRequest {
    * Defines which channel should be recorded (&#39;single&#39; or &#39;dual&#39;) when &#x60;record&#x60; is specified.
    * @return recordChannels
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "single", value = "Defines which channel should be recorded ('single' or 'dual') when `record` is specified.")
   @JsonProperty(JSON_PROPERTY_RECORD_CHANNELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -946,7 +946,7 @@ public class AnswerRequest {
    * Defines the format of the recording (&#39;wav&#39; or &#39;mp3&#39;) when &#x60;record&#x60; is specified.
    * @return recordFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wav", value = "Defines the format of the recording ('wav' or 'mp3') when `record` is specified.")
   @JsonProperty(JSON_PROPERTY_RECORD_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -972,7 +972,7 @@ public class AnswerRequest {
    * Defines the maximum length for the recording in seconds when &#x60;record&#x60; is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
    * @return recordMaxLength
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1000", value = "Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).")
   @JsonProperty(JSON_PROPERTY_RECORD_MAX_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -998,7 +998,7 @@ public class AnswerRequest {
    * The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when &#x60;record&#x60; is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).
    * @return recordTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).")
   @JsonProperty(JSON_PROPERTY_RECORD_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1024,7 +1024,7 @@ public class AnswerRequest {
    * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
    * @return recordTrack
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "outbound", value = "The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).")
   @JsonProperty(JSON_PROPERTY_RECORD_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1050,7 +1050,7 @@ public class AnswerRequest {
    * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
    * @return recordTrim
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "trim-silence", value = "When set to `trim-silence`, silence will be removed from the beginning and end of the recording.")
   @JsonProperty(JSON_PROPERTY_RECORD_TRIM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1076,7 +1076,7 @@ public class AnswerRequest {
    * The custom recording file name to be used instead of the default &#x60;call_leg_id&#x60;. Telnyx will still add a Unix timestamp suffix.
    * @return recordCustomFileName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_recording_file_name", value = "The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.")
   @JsonProperty(JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   UpdateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   UpdateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateCallControlApplicationRequest {
   public static final String JSON_PROPERTY_APPLICATION_NAME = "application_name";
   private String applicationName;
@@ -213,7 +213,7 @@ public class UpdateCallControlApplicationRequest {
    * A user-assigned name to help manage the application.
    * @return applicationName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "call-router", required = true, value = "A user-assigned name to help manage the application.")
   @JsonProperty(JSON_PROPERTY_APPLICATION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -239,7 +239,7 @@ public class UpdateCallControlApplicationRequest {
    * The URL where webhooks related to this connection will be sent. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventUrl
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "https://example.com", required = true, value = "The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_EVENT_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -265,7 +265,7 @@ public class UpdateCallControlApplicationRequest {
    * Specifies whether the connection can be used.
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies whether the connection can be used.")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -291,7 +291,7 @@ public class UpdateCallControlApplicationRequest {
    * &lt;code&gt;Latency&lt;/code&gt; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media. 
    * @return anchorsiteOverride
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "\"Amsterdam, Netherlands\"", value = "<code>Latency</code> directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media. ")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class UpdateCallControlApplicationRequest {
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.
    * @return dtmfType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Inband", value = "Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.")
   @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -343,7 +343,7 @@ public class UpdateCallControlApplicationRequest {
    * Specifies whether calls to phone numbers associated with this connection should hangup after timing out.
    * @return firstCommandTimeout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether calls to phone numbers associated with this connection should hangup after timing out.")
   @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -369,7 +369,7 @@ public class UpdateCallControlApplicationRequest {
    * Specifies how many seconds to wait before timing out a dial command.
    * @return firstCommandTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "Specifies how many seconds to wait before timing out a dial command.")
   @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -395,7 +395,7 @@ public class UpdateCallControlApplicationRequest {
    * Get inbound
    * @return inbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -421,7 +421,7 @@ public class UpdateCallControlApplicationRequest {
    * Get outbound
    * @return outbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -447,7 +447,7 @@ public class UpdateCallControlApplicationRequest {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    * @return webhookApiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1 or v2.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -473,7 +473,7 @@ public class UpdateCallControlApplicationRequest {
    * The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as &#39;https&#39;.
    * @return webhookEventFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://failover.example.com", value = "The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.")
   @JsonIgnore
 
@@ -509,7 +509,7 @@ public class UpdateCallControlApplicationRequest {
    * maximum: 30
    * @return webhookTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "Specifies how many seconds to wait before timing out a webhook.")
   @JsonIgnore
 

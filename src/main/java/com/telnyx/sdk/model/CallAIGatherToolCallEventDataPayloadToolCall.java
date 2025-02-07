@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallAIGatherToolCallEventDataPayloadToolCall.JSON_PROPERTY_TYPE,
   CallAIGatherToolCallEventDataPayloadToolCall.JSON_PROPERTY_FUNCTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallAIGatherToolCallEventDataPayloadToolCall {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -94,7 +94,7 @@ public class CallAIGatherToolCallEventDataPayloadToolCall {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class CallAIGatherToolCallEventDataPayloadToolCall {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -146,7 +146,7 @@ public class CallAIGatherToolCallEventDataPayloadToolCall {
    * Get function
    * @return function
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_FUNCTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

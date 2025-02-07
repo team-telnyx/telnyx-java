@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   ClusteringRequestInfo.JSON_PROPERTY_MIN_CLUSTER_SIZE,
   ClusteringRequestInfo.JSON_PROPERTY_MIN_SUBCLUSTER_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ClusteringRequestInfo {
   public static final String JSON_PROPERTY_TASK_ID = "task_id";
   private String taskId;
@@ -78,7 +78,7 @@ public class ClusteringRequestInfo {
    * Get taskId
    * @return taskId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -104,7 +104,7 @@ public class ClusteringRequestInfo {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -130,7 +130,7 @@ public class ClusteringRequestInfo {
    * Get bucket
    * @return bucket
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUCKET)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -156,7 +156,7 @@ public class ClusteringRequestInfo {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -182,7 +182,7 @@ public class ClusteringRequestInfo {
    * Get finishedAt
    * @return finishedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_FINISHED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -208,7 +208,7 @@ public class ClusteringRequestInfo {
    * Get minClusterSize
    * @return minClusterSize
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MIN_CLUSTER_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -234,7 +234,7 @@ public class ClusteringRequestInfo {
    * Get minSubclusterSize
    * @return minSubclusterSize
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MIN_SUBCLUSTER_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

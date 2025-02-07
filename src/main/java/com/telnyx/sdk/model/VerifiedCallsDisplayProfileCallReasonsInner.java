@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   VerifiedCallsDisplayProfileCallReasonsInner.JSON_PROPERTY_DISPLAY_PROFILE_ID,
   VerifiedCallsDisplayProfileCallReasonsInner.JSON_PROPERTY_DELETE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class VerifiedCallsDisplayProfileCallReasonsInner {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -132,7 +132,7 @@ public class VerifiedCallsDisplayProfileCallReasonsInner {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class VerifiedCallsDisplayProfileCallReasonsInner {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "c6feda4e-6501-4db9-a21f-665e5b4ce2ba", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -169,7 +169,7 @@ public class VerifiedCallsDisplayProfileCallReasonsInner {
    * The Call Reason text to be displayed to the call recipient
    * @return reason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Your order was completed", value = "The Call Reason text to be displayed to the call recipient")
   @JsonProperty(JSON_PROPERTY_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -190,7 +190,7 @@ public class VerifiedCallsDisplayProfileCallReasonsInner {
    * The approval status of this individual call reason in Google
    * @return googleVerificationStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The approval status of this individual call reason in Google")
   @JsonProperty(JSON_PROPERTY_GOOGLE_VERIFICATION_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -206,7 +206,7 @@ public class VerifiedCallsDisplayProfileCallReasonsInner {
    * Additional information about the decision, if available.
    * @return googleApprovalInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Additional information about the decision, if available.")
   @JsonProperty(JSON_PROPERTY_GOOGLE_APPROVAL_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -222,7 +222,7 @@ public class VerifiedCallsDisplayProfileCallReasonsInner {
    * Get displayProfileId
    * @return displayProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "c6feda4e-6501-4db9-a21f-665e5b4ce2ba", value = "")
   @JsonProperty(JSON_PROPERTY_DISPLAY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -243,7 +243,7 @@ public class VerifiedCallsDisplayProfileCallReasonsInner {
    * Marks the Phone Number to be removed from the Display Profile
    * @return delete
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Marks the Phone Number to be removed from the Display Profile")
   @JsonProperty(JSON_PROPERTY_DELETE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

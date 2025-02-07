@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CreateIpRequest.JSON_PROPERTY_IP_ADDRESS,
   CreateIpRequest.JSON_PROPERTY_PORT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateIpRequest {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -60,7 +60,7 @@ public class CreateIpRequest {
    * ID of the IP Connection to which this IP should be attached.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ID of the IP Connection to which this IP should be attached.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class CreateIpRequest {
    * IP adddress represented by this resource.
    * @return ipAddress
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "192.168.0.0", required = true, value = "IP adddress represented by this resource.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -112,7 +112,7 @@ public class CreateIpRequest {
    * Port to use when connecting to this IP.
    * @return port
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5060", value = "Port to use when connecting to this IP.")
   @JsonProperty(JSON_PROPERTY_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

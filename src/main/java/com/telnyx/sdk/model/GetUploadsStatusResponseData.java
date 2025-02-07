@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   GetUploadsStatusResponseData.JSON_PROPERTY_PENDING_NUMBERS_COUNT,
   GetUploadsStatusResponseData.JSON_PROPERTY_PENDING_ORDERS_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GetUploadsStatusResponseData {
   public static final String JSON_PROPERTY_PENDING_NUMBERS_COUNT = "pending_numbers_count";
   private Integer pendingNumbersCount;
@@ -56,7 +56,7 @@ public class GetUploadsStatusResponseData {
    * The count of phone numbers that are pending assignment to the external connection.
    * @return pendingNumbersCount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The count of phone numbers that are pending assignment to the external connection.")
   @JsonProperty(JSON_PROPERTY_PENDING_NUMBERS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class GetUploadsStatusResponseData {
    * The count of number uploads that have not yet been uploaded to Microsoft.
    * @return pendingOrdersCount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The count of number uploads that have not yet been uploaded to Microsoft.")
   @JsonProperty(JSON_PROPERTY_PENDING_ORDERS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   VideoRegion.JSON_PROPERTY_MAX_ROWS,
   VideoRegion.JSON_PROPERTY_VIDEO_SOURCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VideoRegion {
   public static final String JSON_PROPERTY_X_POS = "x_pos";
   private JsonNullable<Integer> xPos = JsonNullable.<Integer>of(0);
@@ -87,7 +87,7 @@ public class VideoRegion {
    * X axis value (in pixels) of the region&#39;s upper left corner relative to the upper left corner of the whole room composition viewport.
    * @return xPos
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "X axis value (in pixels) of the region's upper left corner relative to the upper left corner of the whole room composition viewport.")
   @JsonIgnore
 
@@ -121,7 +121,7 @@ public class VideoRegion {
    * Y axis value (in pixels) of the region&#39;s upper left corner relative to the upper left corner of the whole room composition viewport.
    * @return yPos
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100", value = "Y axis value (in pixels) of the region's upper left corner relative to the upper left corner of the whole room composition viewport.")
   @JsonIgnore
 
@@ -157,7 +157,7 @@ public class VideoRegion {
    * maximum: 99
    * @return zPos
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Regions with higher z_pos values are stacked on top of regions with lower z_pos values")
   @JsonIgnore
 
@@ -192,7 +192,7 @@ public class VideoRegion {
    * minimum: 16
    * @return height
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "360", value = "Height of the video region")
   @JsonIgnore
 
@@ -227,7 +227,7 @@ public class VideoRegion {
    * minimum: 16
    * @return width
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "480", value = "Width of the video region")
   @JsonIgnore
 
@@ -263,7 +263,7 @@ public class VideoRegion {
    * maximum: 1000
    * @return maxColumns
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "Maximum number of columns of the region's placement grid. By default, the region has as many columns as needed to layout all the specified video sources.")
   @JsonIgnore
 
@@ -299,7 +299,7 @@ public class VideoRegion {
    * maximum: 1000
    * @return maxRows
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "Maximum number of rows of the region's placement grid. By default, the region has as many rows as needed to layout all the specified video sources.")
   @JsonIgnore
 
@@ -341,7 +341,7 @@ public class VideoRegion {
    * Array of video recording ids to be composed in the region. Can be \&quot;*\&quot; to specify all video recordings in the session
    * @return videoSources
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Array of video recording ids to be composed in the region. Can be \"*\" to specify all video recordings in the session")
   @JsonProperty(JSON_PROPERTY_VIDEO_SOURCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

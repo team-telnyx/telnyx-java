@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   BucketIds.JSON_PROPERTY_BUCKET_IDS,
   BucketIds.JSON_PROPERTY_MAX_NUM_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BucketIds {
   public static final String JSON_PROPERTY_BUCKET_IDS = "bucket_ids";
   private List<String> bucketIds = new ArrayList<>();
@@ -63,7 +63,7 @@ public class BucketIds {
    * Get bucketIds
    * @return bucketIds
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BUCKET_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class BucketIds {
    * The maximum number of results to retrieve as context for the language model.
    * @return maxNumResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The maximum number of results to retrieve as context for the language model.")
   @JsonProperty(JSON_PROPERTY_MAX_NUM_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

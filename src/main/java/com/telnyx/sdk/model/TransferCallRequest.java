@@ -62,7 +62,7 @@ import com.telnyx.sdk.JSON;
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL,
   TransferCallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TransferCallRequest {
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
@@ -292,7 +292,7 @@ public class TransferCallRequest {
    * The DID or SIP URI to dial out to.
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18005550100 or sip:username@sip.telnyx.com", required = true, value = "The DID or SIP URI to dial out to.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -318,7 +318,7 @@ public class TransferCallRequest {
    * The &#x60;from&#x60; number to be used as the caller id presented to the destination (&#x60;to&#x60; number). The number should be in +E164 format. This attribute will default to the &#x60;to&#x60; number of the original call if omitted.
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+18005550101", value = "The `from` number to be used as the caller id presented to the destination (`to` number). The number should be in +E164 format. This attribute will default to the `to` number of the original call if omitted.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -344,7 +344,7 @@ public class TransferCallRequest {
    * The &#x60;from_display_name&#x60; string to be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;to&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the &#x60;from&#x60; field.
    * @return fromDisplayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Company Name", value = "The `from_display_name` string to be used as the caller id name (SIP From Display Name) presented to the destination (`to` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and -_~!.+ special characters. If ommited, the display name will be the same as the number in the `from` field.")
   @JsonProperty(JSON_PROPERTY_FROM_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -370,7 +370,7 @@ public class TransferCallRequest {
    * The URL of a file to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.
    * @return audioUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/message.wav", value = "The URL of a file to be played back when the transfer destination answers before bridging the call. The URL can point to either a WAV or MP3 file. media_name and audio_url cannot be used together in one request.")
   @JsonProperty(JSON_PROPERTY_AUDIO_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class TransferCallRequest {
    * If set to false, early media will not be passed to the originating leg.
    * @return earlyMedia
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "If set to false, early media will not be passed to the originating leg.")
   @JsonProperty(JSON_PROPERTY_EARLY_MEDIA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -422,7 +422,7 @@ public class TransferCallRequest {
    * The media_name of a file to be played back when the transfer destination answers before bridging the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
    * @return mediaName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my_media_uploaded_to_media_storage_api", value = "The media_name of a file to be played back when the transfer destination answers before bridging the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.")
   @JsonProperty(JSON_PROPERTY_MEDIA_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -448,7 +448,7 @@ public class TransferCallRequest {
    * The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;timeout&#x60; will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
    * @return timeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60", value = "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -476,7 +476,7 @@ public class TransferCallRequest {
    * maximum: 14400
    * @return timeLimitSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "600", value = "Sets the maximum duration of a Call Control Leg in seconds. If the time limit is reached, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `time_limit` will be sent. For example, by setting a time limit of 120 seconds, a Call Leg will be automatically terminated two minutes after being answered. The default time limit is 14400 seconds or 4 hours and this is also the maximum allowed call length.")
   @JsonProperty(JSON_PROPERTY_TIME_LIMIT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -502,7 +502,7 @@ public class TransferCallRequest {
    * Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#39;greeting_end&#39; or &#39;detect_words&#39; is used and a &#39;machine&#39; is detected, you will receive another &#39;call.machine.greeting.ended&#39; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#39;call.machine.greeting.ended&#39; if a beep is detected.
    * @return answeringMachineDetection
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will receive another 'call.machine.greeting.ended' webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive 'call.machine.greeting.ended' if a beep is detected.")
   @JsonProperty(JSON_PROPERTY_ANSWERING_MACHINE_DETECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -528,7 +528,7 @@ public class TransferCallRequest {
    * Get answeringMachineDetectionConfig
    * @return answeringMachineDetectionConfig
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANSWERING_MACHINE_DETECTION_CONFIG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -562,7 +562,7 @@ public class TransferCallRequest {
    * Custom headers to be added to the SIP INVITE.
    * @return customHeaders
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers to be added to the SIP INVITE.")
   @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -588,7 +588,7 @@ public class TransferCallRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -614,7 +614,7 @@ public class TransferCallRequest {
    * Use this field to add state to every subsequent webhook for the new leg. It must be a valid Base-64 encoded string.
    * @return targetLegClientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook for the new leg. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_TARGET_LEG_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -640,7 +640,7 @@ public class TransferCallRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -666,7 +666,7 @@ public class TransferCallRequest {
    * Defines whether media should be encrypted on the new call leg.
    * @return mediaEncryption
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defines whether media should be encrypted on the new call leg.")
   @JsonProperty(JSON_PROPERTY_MEDIA_ENCRYPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -692,7 +692,7 @@ public class TransferCallRequest {
    * SIP Authentication username used for SIP challenges.
    * @return sipAuthUsername
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "username", value = "SIP Authentication username used for SIP challenges.")
   @JsonProperty(JSON_PROPERTY_SIP_AUTH_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -718,7 +718,7 @@ public class TransferCallRequest {
    * SIP Authentication password used for SIP challenges.
    * @return sipAuthPassword
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "password", value = "SIP Authentication password used for SIP challenges.")
   @JsonProperty(JSON_PROPERTY_SIP_AUTH_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -752,7 +752,7 @@ public class TransferCallRequest {
    * SIP headers to be added to the SIP INVITE. Currently only User-to-User header is supported.
    * @return sipHeaders
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"value\"}]", value = "SIP headers to be added to the SIP INVITE. Currently only User-to-User header is supported.")
   @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -778,7 +778,7 @@ public class TransferCallRequest {
    * Defines SIP transport protocol to be used on the call.
    * @return sipTransportProtocol
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defines SIP transport protocol to be used on the call.")
   @JsonProperty(JSON_PROPERTY_SIP_TRANSPORT_PROTOCOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -804,7 +804,7 @@ public class TransferCallRequest {
    * Get soundModifications
    * @return soundModifications
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SOUND_MODIFICATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -830,7 +830,7 @@ public class TransferCallRequest {
    * Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com/server-b/", value = "Use this field to override the URL for which Telnyx will send subsequent webhooks to for this call.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -856,7 +856,7 @@ public class TransferCallRequest {
    * HTTP request type used for &#x60;webhook_url&#x60;.
    * @return webhookUrlMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "GET", value = "HTTP request type used for `webhook_url`.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

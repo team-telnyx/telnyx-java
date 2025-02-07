@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallCostMetaMeta.JSON_PROPERTY_ATTEMPT,
   CallCostMetaMeta.JSON_PROPERTY_DELIVERED_TO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallCostMetaMeta {
   public static final String JSON_PROPERTY_ATTEMPT = "attempt";
   private Integer attempt;
@@ -59,7 +59,7 @@ public class CallCostMetaMeta {
    * minimum: 1
    * @return attempt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "The number of attempts made to deliver the webhook")
   @JsonProperty(JSON_PROPERTY_ATTEMPT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class CallCostMetaMeta {
    * The URL where webhook was sent
    * @return deliveredTo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "The URL where webhook was sent")
   @JsonProperty(JSON_PROPERTY_DELIVERED_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

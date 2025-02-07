@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ConferenceSpeakEndedPayload.JSON_PROPERTY_CONFERENCE_ID,
   ConferenceSpeakEndedPayload.JSON_PROPERTY_OCCURRED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ConferenceSpeakEndedPayload {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -67,7 +67,7 @@ public class ConferenceSpeakEndedPayload {
    * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class ConferenceSpeakEndedPayload {
    * ID that is unique to the call session that started the conference.
    * @return creatorCallSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session that started the conference.")
   @JsonProperty(JSON_PROPERTY_CREATOR_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class ConferenceSpeakEndedPayload {
    * ID of the conference the text was spoken in.
    * @return conferenceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID of the conference the text was spoken in.")
   @JsonProperty(JSON_PROPERTY_CONFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class ConferenceSpeakEndedPayload {
    * ISO 8601 datetime of when the event occurred.
    * @return occurredAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 datetime of when the event occurred.")
   @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

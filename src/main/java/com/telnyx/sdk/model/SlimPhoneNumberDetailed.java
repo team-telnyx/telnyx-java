@@ -55,7 +55,7 @@ import com.telnyx.sdk.JSON;
   SlimPhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   SlimPhoneNumberDetailed.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SlimPhoneNumberDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -350,7 +350,7 @@ public class SlimPhoneNumberDetailed {
    * Uniquely identifies the resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -371,7 +371,7 @@ public class SlimPhoneNumberDetailed {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number_slim", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -387,7 +387,7 @@ public class SlimPhoneNumberDetailed {
    * The +E.164-formatted phone number associated with this record.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The +E.164-formatted phone number associated with this record.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -403,7 +403,7 @@ public class SlimPhoneNumberDetailed {
    * The ISO 3166-1 alpha-2 country code of the phone number.
    * @return countryIsoAlpha2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "The ISO 3166-1 alpha-2 country code of the phone number.")
   @JsonProperty(JSON_PROPERTY_COUNTRY_ISO_ALPHA2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -419,7 +419,7 @@ public class SlimPhoneNumberDetailed {
    * The phone number&#39;s current status.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The phone number's current status.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -440,7 +440,7 @@ public class SlimPhoneNumberDetailed {
    * If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, Telnyx will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.
    * @return externalPin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If someone attempts to port your phone number away from Telnyx and your phone number has an external PIN set, Telnyx will attempt to verify that you provided the correct external PIN to the winning carrier. Note that not all carriers cooperate with this security mechanism.")
   @JsonProperty(JSON_PROPERTY_EXTERNAL_PIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -466,7 +466,7 @@ public class SlimPhoneNumberDetailed {
    * Identifies the connection associated with the phone number.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the connection associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -492,7 +492,7 @@ public class SlimPhoneNumberDetailed {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -518,7 +518,7 @@ public class SlimPhoneNumberDetailed {
    * Identifies the billing group associated with the phone number.
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the billing group associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -539,7 +539,7 @@ public class SlimPhoneNumberDetailed {
    * Indicates whether emergency services are enabled for this number.
    * @return emergencyEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether emergency services are enabled for this number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -555,7 +555,7 @@ public class SlimPhoneNumberDetailed {
    * Identifies the emergency address associated with the phone number.
    * @return emergencyAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the emergency address associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -576,7 +576,7 @@ public class SlimPhoneNumberDetailed {
    * Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.
    * @return emergencyStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.")
   @JsonProperty(JSON_PROPERTY_EMERGENCY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -597,7 +597,7 @@ public class SlimPhoneNumberDetailed {
    * Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.
    * @return callForwardingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.")
   @JsonProperty(JSON_PROPERTY_CALL_FORWARDING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -613,7 +613,7 @@ public class SlimPhoneNumberDetailed {
    * Indicates whether a CNAM listing is enabled for this number.
    * @return cnamListingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether a CNAM listing is enabled for this number.")
   @JsonProperty(JSON_PROPERTY_CNAM_LISTING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -629,7 +629,7 @@ public class SlimPhoneNumberDetailed {
    * Indicates whether caller ID is enabled for this number.
    * @return callerIdNameEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether caller ID is enabled for this number.")
   @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -645,7 +645,7 @@ public class SlimPhoneNumberDetailed {
    * Indicates whether call recording is enabled for this number.
    * @return callRecordingEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether call recording is enabled for this number.")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -661,7 +661,7 @@ public class SlimPhoneNumberDetailed {
    * Indicates whether T38 Fax Gateway for inbound calls to this number.
    * @return t38FaxGatewayEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether T38 Fax Gateway for inbound calls to this number.")
   @JsonProperty(JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -677,7 +677,7 @@ public class SlimPhoneNumberDetailed {
    * ISO 8601 formatted date indicating when the resource was purchased.
    * @return purchasedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was purchased.")
   @JsonProperty(JSON_PROPERTY_PURCHASED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -693,7 +693,7 @@ public class SlimPhoneNumberDetailed {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -709,7 +709,7 @@ public class SlimPhoneNumberDetailed {
    * The phone number&#39;s type. Note: For numbers purchased prior to July 2023 or when fetching a number&#39;s details immediately after a purchase completes, the legacy values &#x60;tollfree&#x60;, &#x60;shortcode&#x60; or &#x60;longcode&#x60; may be returned instead.
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The phone number's type. Note: For numbers purchased prior to July 2023 or when fetching a number's details immediately after a purchase completes, the legacy values `tollfree`, `shortcode` or `longcode` may be returned instead.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -730,7 +730,7 @@ public class SlimPhoneNumberDetailed {
    * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
    * @return inboundCallScreening
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.")
   @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

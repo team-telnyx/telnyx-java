@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberCampaign.JSON_PROPERTY_CREATED_AT,
   PhoneNumberCampaign.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberCampaign {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
   private String phoneNumber;
@@ -134,7 +134,7 @@ public class PhoneNumberCampaign {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+18005550199", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -160,7 +160,7 @@ public class PhoneNumberCampaign {
    * Brand ID. Empty if the number is associated to a shared campaign.
    * @return brandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7ba705b7-22af-493f-addc-ac04b7ca071c", value = "Brand ID. Empty if the number is associated to a shared campaign.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -186,7 +186,7 @@ public class PhoneNumberCampaign {
    * TCR&#39;s alphanumeric ID for the brand.
    * @return tcrBrandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "BBRAND1", value = "TCR's alphanumeric ID for the brand.")
   @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -212,7 +212,7 @@ public class PhoneNumberCampaign {
    * For shared campaigns, this is the TCR campaign ID, otherwise it is the campaign ID 
    * @return campaignId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "For shared campaigns, this is the TCR campaign ID, otherwise it is the campaign ID ")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -238,7 +238,7 @@ public class PhoneNumberCampaign {
    * TCR&#39;s alphanumeric ID for the campaign.
    * @return tcrCampaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "CCAMPA1", value = "TCR's alphanumeric ID for the campaign.")
   @JsonProperty(JSON_PROPERTY_TCR_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -264,7 +264,7 @@ public class PhoneNumberCampaign {
    * Campaign ID. Empty if the number is associated to a shared campaign.
    * @return telnyxCampaignId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3008dd9f-66d7-40e0-bf23-bf2d8d1a96ba", value = "Campaign ID. Empty if the number is associated to a shared campaign.")
   @JsonProperty(JSON_PROPERTY_TELNYX_CAMPAIGN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -290,7 +290,7 @@ public class PhoneNumberCampaign {
    * The assignment status of the number.
    * @return assignmentStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ASSIGNED", value = "The assignment status of the number.")
   @JsonProperty(JSON_PROPERTY_ASSIGNMENT_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -316,7 +316,7 @@ public class PhoneNumberCampaign {
    * Extra info about a failure to assign/unassign a number. Relevant only if the assignmentStatus is either FAILED_ASSIGNMENT or FAILED_UNASSIGNMENT
    * @return failureReasons
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Extra info about a failure to assign/unassign a number. Relevant only if the assignmentStatus is either FAILED_ASSIGNMENT or FAILED_UNASSIGNMENT")
   @JsonIgnore
 
@@ -350,7 +350,7 @@ public class PhoneNumberCampaign {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -376,7 +376,7 @@ public class PhoneNumberCampaign {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

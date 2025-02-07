@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   AudioTranscriptionResponse.JSON_PROPERTY_DURATION,
   AudioTranscriptionResponse.JSON_PROPERTY_SEGMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AudioTranscriptionResponse {
   public static final String JSON_PROPERTY_TEXT = "text";
   private String text;
@@ -64,7 +64,7 @@ public class AudioTranscriptionResponse {
    * The transcribed text for the audio file.
    * @return text
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The transcribed text for the audio file.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -90,7 +90,7 @@ public class AudioTranscriptionResponse {
    * The duration of the audio file in seconds. This is only included if &#x60;response_format&#x60; is set to &#x60;verbose_json&#x60;.
    * @return duration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The duration of the audio file in seconds. This is only included if `response_format` is set to `verbose_json`.")
   @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class AudioTranscriptionResponse {
    * Segments of the transcribed text and their corresponding details. This is only included if &#x60;response_format&#x60; is set to &#x60;verbose_json&#x60;.
    * @return segments
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Segments of the transcribed text and their corresponding details. This is only included if `response_format` is set to `verbose_json`.")
   @JsonProperty(JSON_PROPERTY_SEGMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

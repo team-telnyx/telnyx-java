@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   WhatsappMessageTemplateComponentsInner.JSON_PROPERTY_TEXT,
   WhatsappMessageTemplateComponentsInner.JSON_PROPERTY_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsappMessageTemplateComponentsInner {
   public static final String JSON_PROPERTY_TYPE = "type";
   private String type;
@@ -61,7 +61,7 @@ public class WhatsappMessageTemplateComponentsInner {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "text", value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -87,7 +87,7 @@ public class WhatsappMessageTemplateComponentsInner {
    * Get text
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hello, {{1}}! Your appointment with {{2}} has been updated.", value = "")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -113,7 +113,7 @@ public class WhatsappMessageTemplateComponentsInner {
    * Get format
    * @return format
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "VIDEO", value = "")
   @JsonProperty(JSON_PROPERTY_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RCSLatLng.JSON_PROPERTY_LATITUDE,
   RCSLatLng.JSON_PROPERTY_LONGITUDE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSLatLng {
   public static final String JSON_PROPERTY_LATITUDE = "latitude";
   private BigDecimal latitude;
@@ -57,7 +57,7 @@ public class RCSLatLng {
    * The latitude in degrees. It must be in the range [-90.0, +90.0].
    * @return latitude
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "41.8", required = true, value = "The latitude in degrees. It must be in the range [-90.0, +90.0].")
   @JsonProperty(JSON_PROPERTY_LATITUDE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class RCSLatLng {
    * The longitude in degrees. It must be in the range [-180.0, +180.0].
    * @return longitude
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "-87.6", required = true, value = "The longitude in degrees. It must be in the range [-180.0, +180.0].")
   @JsonProperty(JSON_PROPERTY_LONGITUDE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

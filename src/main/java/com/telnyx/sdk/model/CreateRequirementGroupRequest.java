@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateRequirementGroupRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   CreateRequirementGroupRequest.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateRequirementGroupRequest {
   public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
   private String countryCode;
@@ -147,7 +147,7 @@ public class CreateRequirementGroupRequest {
    * ISO alpha 2 country code
    * @return countryCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "ISO alpha 2 country code")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -173,7 +173,7 @@ public class CreateRequirementGroupRequest {
    * Get phoneNumberType
    * @return phoneNumberType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "local", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -199,7 +199,7 @@ public class CreateRequirementGroupRequest {
    * Get action
    * @return action
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "ordering", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ACTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -225,7 +225,7 @@ public class CreateRequirementGroupRequest {
    * Get customerReference
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My Requirement Group", value = "")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -259,7 +259,7 @@ public class CreateRequirementGroupRequest {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

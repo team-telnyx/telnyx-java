@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_NAME,
   CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_REGION_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePrivateWirelessGatewayRequest {
   public static final String JSON_PROPERTY_NETWORK_ID = "network_id";
   private UUID networkId;
@@ -61,7 +61,7 @@ public class CreatePrivateWirelessGatewayRequest {
    * The identification of the related network resource.
    * @return networkId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", required = true, value = "The identification of the related network resource.")
   @JsonProperty(JSON_PROPERTY_NETWORK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -87,7 +87,7 @@ public class CreatePrivateWirelessGatewayRequest {
    * The private wireless gateway name.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "My private wireless gateway", required = true, value = "The private wireless gateway name.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -113,7 +113,7 @@ public class CreatePrivateWirelessGatewayRequest {
    * The code of the region where the private wireless gateway will be assigned. A list of available regions can be found at the regions endpoint
    * @return regionCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dc2", value = "The code of the region where the private wireless gateway will be assigned. A list of available regions can be found at the regions endpoint")
   @JsonProperty(JSON_PROPERTY_REGION_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

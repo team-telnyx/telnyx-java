@@ -56,7 +56,7 @@ import com.telnyx.sdk.JSON;
   SimCardUsageDetailRecord.JSON_PROPERTY_DATA_COST,
   SimCardUsageDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SimCardUsageDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -127,7 +127,7 @@ public class SimCardUsageDetailRecord {
    * Unique identifier for this SIM Card Usage
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Unique identifier for this SIM Card Usage")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class SimCardUsageDetailRecord {
    * Event creation time
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Event creation time")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class SimCardUsageDetailRecord {
    * Event close time
    * @return closedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Event close time")
   @JsonProperty(JSON_PROPERTY_CLOSED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class SimCardUsageDetailRecord {
    * Ip address that generated the event
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100.64.1.2", value = "Ip address that generated the event")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -231,7 +231,7 @@ public class SimCardUsageDetailRecord {
    * Number of megabytes downloaded
    * @return downlinkData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.1240", value = "Number of megabytes downloaded")
   @JsonProperty(JSON_PROPERTY_DOWNLINK_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -257,7 +257,7 @@ public class SimCardUsageDetailRecord {
    * International Mobile Subscriber Identity
    * @return imsi
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "311210393720093", value = "International Mobile Subscriber Identity")
   @JsonProperty(JSON_PROPERTY_IMSI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -283,7 +283,7 @@ public class SimCardUsageDetailRecord {
    * Mobile country code
    * @return mcc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "204", value = "Mobile country code")
   @JsonProperty(JSON_PROPERTY_MCC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -309,7 +309,7 @@ public class SimCardUsageDetailRecord {
    * Mobile network code
    * @return mnc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "69", value = "Mobile network code")
   @JsonProperty(JSON_PROPERTY_MNC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -335,7 +335,7 @@ public class SimCardUsageDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -361,7 +361,7 @@ public class SimCardUsageDetailRecord {
    * Unit of wireless link consumption
    * @return dataUnit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MB", value = "Unit of wireless link consumption")
   @JsonProperty(JSON_PROPERTY_DATA_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -387,7 +387,7 @@ public class SimCardUsageDetailRecord {
    * Currency amount per billing unit used to calculate the Telnyx billing cost
    * @return dataRate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.06000", value = "Currency amount per billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_DATA_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -413,7 +413,7 @@ public class SimCardUsageDetailRecord {
    * Sim group name for sim card
    * @return simGroupName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "SIMBillingInfo test - otheraccount", value = "Sim group name for sim card")
   @JsonProperty(JSON_PROPERTY_SIM_GROUP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -439,7 +439,7 @@ public class SimCardUsageDetailRecord {
    * Unique identifier for SIM card
    * @return simCardId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7aa66686-b39f-456d-8edc-5b6cffb1432a", value = "Unique identifier for SIM card")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -465,7 +465,7 @@ public class SimCardUsageDetailRecord {
    * Unique identifier for SIM group
    * @return simGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6c07e2e9-cbc0-49ba-ac0d-c59b59646bb1", value = "Unique identifier for SIM group")
   @JsonProperty(JSON_PROPERTY_SIM_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -491,7 +491,7 @@ public class SimCardUsageDetailRecord {
    * User-provided tags
    * @return simCardTags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "mytag", value = "User-provided tags")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -517,7 +517,7 @@ public class SimCardUsageDetailRecord {
    * Telephone number associated to SIM card
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+15188490209", value = "Telephone number associated to SIM card")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -543,7 +543,7 @@ public class SimCardUsageDetailRecord {
    * Number of megabytes uploaded
    * @return uplinkData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.7653", value = "Number of megabytes uploaded")
   @JsonProperty(JSON_PROPERTY_UPLINK_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -569,7 +569,7 @@ public class SimCardUsageDetailRecord {
    * Data cost
    * @return dataCost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.0292830", value = "Data cost")
   @JsonProperty(JSON_PROPERTY_DATA_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -595,7 +595,7 @@ public class SimCardUsageDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "sim_card_usage", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

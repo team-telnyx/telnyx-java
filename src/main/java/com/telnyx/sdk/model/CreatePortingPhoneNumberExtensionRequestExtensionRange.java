@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreatePortingPhoneNumberExtensionRequestExtensionRange.JSON_PROPERTY_START_AT,
   CreatePortingPhoneNumberExtensionRequestExtensionRange.JSON_PROPERTY_END_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortingPhoneNumberExtensionRequestExtensionRange {
   public static final String JSON_PROPERTY_START_AT = "start_at";
   private Integer startAt;
@@ -56,7 +56,7 @@ public class CreatePortingPhoneNumberExtensionRequestExtensionRange {
    * Specifies the start of the extension range for this porting phone number extension.
    * @return startAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1", required = true, value = "Specifies the start of the extension range for this porting phone number extension.")
   @JsonProperty(JSON_PROPERTY_START_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -82,7 +82,7 @@ public class CreatePortingPhoneNumberExtensionRequestExtensionRange {
    * Specifies the end of the extension range for this porting phone number extension.
    * @return endAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "10", required = true, value = "Specifies the end of the extension range for this porting phone number extension.")
   @JsonProperty(JSON_PROPERTY_END_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

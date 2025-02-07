@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   ProfileAssignmentPhoneNumbers.JSON_PROPERTY_PHONE_NUMBER,
   ProfileAssignmentPhoneNumbers.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ProfileAssignmentPhoneNumbers {
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
   private String taskId;
@@ -60,7 +60,7 @@ public class ProfileAssignmentPhoneNumbers {
    * The ID of the task associated with the phone number.
    * @return taskId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "667a80f8-b0a9-49d0-b9ab-a7a1bcc45086", required = true, value = "The ID of the task associated with the phone number.")
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -86,7 +86,7 @@ public class ProfileAssignmentPhoneNumbers {
    * The phone number that the status is being checked for.
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+12024567890", required = true, value = "The phone number that the status is being checked for.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -112,7 +112,7 @@ public class ProfileAssignmentPhoneNumbers {
    * The status of the associated phone number assignment.
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "pending", required = true, value = "The status of the associated phone number assignment.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

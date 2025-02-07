@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocumentAllOfSize.JSON_PROPERTY_UNIT,
   DocServiceDocumentAllOfSize.JSON_PROPERTY_AMOUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DocServiceDocumentAllOfSize {
   public static final String JSON_PROPERTY_UNIT = "unit";
   private String unit;
@@ -62,7 +62,7 @@ public class DocServiceDocumentAllOfSize {
    * Identifies the unit
    * @return unit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "bytes", value = "Identifies the unit")
   @JsonProperty(JSON_PROPERTY_UNIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -78,7 +78,7 @@ public class DocServiceDocumentAllOfSize {
    * The number of bytes
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123456", value = "The number of bytes")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

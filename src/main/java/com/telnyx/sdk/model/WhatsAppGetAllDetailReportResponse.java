@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppGetAllDetailReportResponse.JSON_PROPERTY_DATA,
   WhatsAppGetAllDetailReportResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsAppGetAllDetailReportResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<WhatsAppDetailRecordReport> data = null;
@@ -69,7 +69,7 @@ public class WhatsAppGetAllDetailReportResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -95,7 +95,7 @@ public class WhatsAppGetAllDetailReportResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

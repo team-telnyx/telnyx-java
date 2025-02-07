@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   AuditEventChangesInner.JSON_PROPERTY_TO,
   AuditEventChangesInner.JSON_PROPERTY_FROM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AuditEventChangesInner {
   public static final String JSON_PROPERTY_FIELD = "field";
   private String field;
@@ -62,7 +62,7 @@ public class AuditEventChangesInner {
    * The name of the field that was changed. May use the dot notation to indicate nested fields.
    * @return field
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "nested.field.name", value = "The name of the field that was changed. May use the dot notation to indicate nested fields.")
   @JsonProperty(JSON_PROPERTY_FIELD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class AuditEventChangesInner {
    * Get to
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class AuditEventChangesInner {
    * Get from
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

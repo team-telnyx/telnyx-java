@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortoutNewCommentPayload.JSON_PROPERTY_USER_ID,
   WebhookPortoutNewCommentPayload.JSON_PROPERTY_COMMENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortoutNewCommentPayload {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -66,7 +66,7 @@ public class WebhookPortoutNewCommentPayload {
    * Identifies the comment that was added to the port-out order.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the comment that was added to the port-out order.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class WebhookPortoutNewCommentPayload {
    * Identifies the port-out order that the comment was added to.
    * @return portoutId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "d26109e5-0605-4671-a235-d3c649cc8406", value = "Identifies the port-out order that the comment was added to.")
   @JsonProperty(JSON_PROPERTY_PORTOUT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class WebhookPortoutNewCommentPayload {
    * Identifies the user that added the comment.
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1c45c968-c2e0-4559-b1dd-db073962fc61", value = "Identifies the user that added the comment.")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class WebhookPortoutNewCommentPayload {
    * The body of the comment.
    * @return comment
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "This is a comment.", value = "The body of the comment.")
   @JsonProperty(JSON_PROPERTY_COMMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

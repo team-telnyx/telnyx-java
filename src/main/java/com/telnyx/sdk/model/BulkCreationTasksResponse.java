@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   BulkCreationTasksResponse.JSON_PROPERTY_META,
   BulkCreationTasksResponse.JSON_PROPERTY_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BulkCreationTasksResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private CampaignRegistryApiSchemasBulkCreationMeta meta;
@@ -62,7 +62,7 @@ public class BulkCreationTasksResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -93,7 +93,7 @@ public class BulkCreationTasksResponse {
    * Get records
    * @return records
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

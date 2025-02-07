@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   VerifiedNumberResponse.JSON_PROPERTY_RECORD_TYPE,
   VerifiedNumberResponse.JSON_PROPERTY_VERIFIED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerifiedNumberResponse {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -61,7 +61,7 @@ public class VerifiedNumberResponse {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+15551234567", value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -87,7 +87,7 @@ public class VerifiedNumberResponse {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -113,7 +113,7 @@ public class VerifiedNumberResponse {
    * Get verifiedAt
    * @return verifiedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
   @JsonProperty(JSON_PROPERTY_VERIFIED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

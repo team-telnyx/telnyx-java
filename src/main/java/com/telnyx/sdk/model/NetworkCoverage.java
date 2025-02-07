@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   NetworkCoverage.JSON_PROPERTY_LOCATION,
   NetworkCoverage.JSON_PROPERTY_AVAILABLE_SERVICES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NetworkCoverage {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -67,7 +67,7 @@ public class NetworkCoverage {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "network_coverage", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class NetworkCoverage {
    * Get location
    * @return location
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class NetworkCoverage {
    * List of interface types supported in this region.
    * @return availableServices
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of interface types supported in this region.")
   @JsonProperty(JSON_PROPERTY_AVAILABLE_SERVICES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

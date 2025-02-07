@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   MnoMetadata.JSON_PROPERTY_10999
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MnoMetadata {
   public static final String JSON_PROPERTY_10999 = "10999";
   private MnoMetadataItem _10999;
@@ -53,7 +53,7 @@ public class MnoMetadata {
    * Get _10999
    * @return _10999
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_10999)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

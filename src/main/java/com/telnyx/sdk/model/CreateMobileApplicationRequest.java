@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CreateMobileApplicationRequest.JSON_PROPERTY_APPLICATION_NAME,
   CreateMobileApplicationRequest.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateMobileApplicationRequest {
   public static final String JSON_PROPERTY_APPLICATION_NAME = "application_name";
   private String applicationName;
@@ -57,7 +57,7 @@ public class CreateMobileApplicationRequest {
    * Name of the appplication to be created
    * @return applicationName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "FlashEmergency", required = true, value = "Name of the appplication to be created")
   @JsonProperty(JSON_PROPERTY_APPLICATION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class CreateMobileApplicationRequest {
    * Type of application to be created (IOS or Android)
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "android", required = true, value = "Type of application to be created (IOS or Android)")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

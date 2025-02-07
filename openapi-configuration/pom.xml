@@ -5,7 +5,7 @@
     <artifactId>telnyx</artifactId>
     <packaging>jar</packaging>
     <name>telnyx</name>
-    <version>4.0.0</version>
+    <version>4.0.3</version>
     <url>https://github.com/team-telnyx/telnyx-java/</url>
     <description>Telnyx Java SDK</description>
     <scm>

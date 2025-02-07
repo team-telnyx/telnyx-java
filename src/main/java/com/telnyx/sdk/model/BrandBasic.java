@@ -53,7 +53,7 @@ import com.telnyx.sdk.JSON;
   BrandBasic.JSON_PROPERTY_UPDATED_AT,
   BrandBasic.JSON_PROPERTY_ASSIGNED_CAMPAINGS_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BrandBasic {
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
@@ -143,7 +143,7 @@ public class BrandBasic {
    * Unique identifier assigned to the brand.
    * @return brandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "4b206179-f731-8ab7-f19c-34e19d22ide9", value = "Unique identifier assigned to the brand.")
   @JsonProperty(JSON_PROPERTY_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -169,7 +169,7 @@ public class BrandBasic {
    * Unique identifier assigned to the brand by the registry.
    * @return tcrBrandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "BBRAND1", value = "Unique identifier assigned to the brand by the registry.")
   @JsonProperty(JSON_PROPERTY_TCR_BRAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -195,7 +195,7 @@ public class BrandBasic {
    * Get entityType
    * @return entityType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ENTITY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -221,7 +221,7 @@ public class BrandBasic {
    * Get identityStatus
    * @return identityStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IDENTITY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -247,7 +247,7 @@ public class BrandBasic {
    * (Required for Non-profit/private/public) Legal company name.
    * @return companyName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Example Company Inc.", value = "(Required for Non-profit/private/public) Legal company name.")
   @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -273,7 +273,7 @@ public class BrandBasic {
    * Display or marketing name of the brand.
    * @return displayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Example Company", value = "Display or marketing name of the brand.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -299,7 +299,7 @@ public class BrandBasic {
    * Valid email address of brand support contact.
    * @return email
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "examplename@examplecompany.com", value = "Valid email address of brand support contact.")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -325,7 +325,7 @@ public class BrandBasic {
    * Brand website URL.
    * @return website
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "www.examplecompany.com", value = "Brand website URL.")
   @JsonProperty(JSON_PROPERTY_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -351,7 +351,7 @@ public class BrandBasic {
    * Failure reasons for brand
    * @return failureReasons
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Failure reasons for brand")
   @JsonIgnore
 
@@ -385,7 +385,7 @@ public class BrandBasic {
    * Status of the brand
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Status of the brand")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -411,7 +411,7 @@ public class BrandBasic {
    * Date and time that the brand was created at.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-08T17:57:48.801186", value = "Date and time that the brand was created at.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -437,7 +437,7 @@ public class BrandBasic {
    * Date and time that the brand was last updated at.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-08T17:57:48.801186", value = "Date and time that the brand was last updated at.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -463,7 +463,7 @@ public class BrandBasic {
    * Number of campaigns associated with the brand
    * @return assignedCampaingsCount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2", value = "Number of campaigns associated with the brand")
   @JsonProperty(JSON_PROPERTY_ASSIGNED_CAMPAINGS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

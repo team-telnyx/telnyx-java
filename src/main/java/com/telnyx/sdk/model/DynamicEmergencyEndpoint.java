@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   DynamicEmergencyEndpoint.JSON_PROPERTY_CREATED_AT,
   DynamicEmergencyEndpoint.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DynamicEmergencyEndpoint {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -134,7 +134,7 @@ public class DynamicEmergencyEndpoint {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class DynamicEmergencyEndpoint {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dynamic_emergency_endpoint", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -171,7 +171,7 @@ public class DynamicEmergencyEndpoint {
    * An id of a currently active dynamic emergency location.
    * @return dynamicEmergencyAddressId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", required = true, value = "An id of a currently active dynamic emergency location.")
   @JsonProperty(JSON_PROPERTY_DYNAMIC_EMERGENCY_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -192,7 +192,7 @@ public class DynamicEmergencyEndpoint {
    * Status of dynamic emergency address
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "Status of dynamic emergency address")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -208,7 +208,7 @@ public class DynamicEmergencyEndpoint {
    * Get sipFromId
    * @return sipFromId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "FXDFWEDF", value = "")
   @JsonProperty(JSON_PROPERTY_SIP_FROM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -229,7 +229,7 @@ public class DynamicEmergencyEndpoint {
    * Get callbackNumber
    * @return callbackNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13125550000", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CALLBACK_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -255,7 +255,7 @@ public class DynamicEmergencyEndpoint {
    * Get callerName
    * @return callerName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Jane Doe Desk Phone", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CALLER_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -276,7 +276,7 @@ public class DynamicEmergencyEndpoint {
    * ISO 8601 formatted date of when the resource was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date of when the resource was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -292,7 +292,7 @@ public class DynamicEmergencyEndpoint {
    * ISO 8601 formatted date of when the resource was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date of when the resource was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   MdrDetailResponse.JSON_PROPERTY_MESSAGE_TYPE,
   MdrDetailResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MdrDetailResponse {
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private OffsetDateTime createdAt;
@@ -223,7 +223,7 @@ public class MdrDetailResponse {
    * Message sent time
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "Message sent time")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -249,7 +249,7 @@ public class MdrDetailResponse {
    * Configured profile name. New profiles can be created and configured on Telnyx portal
    * @return profileName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "configured-profile-name", value = "Configured profile name. New profiles can be created and configured on Telnyx portal")
   @JsonProperty(JSON_PROPERTY_PROFILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -275,7 +275,7 @@ public class MdrDetailResponse {
    * Direction of message - inbound or outbound.
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "outbound", value = "Direction of message - inbound or outbound.")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -301,7 +301,7 @@ public class MdrDetailResponse {
    * Number of parts this message has. Max number of character is 160. If message contains more characters then that it will be broken down in multiple parts
    * @return parts
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2", value = "Number of parts this message has. Max number of character is 160. If message contains more characters then that it will be broken down in multiple parts")
   @JsonProperty(JSON_PROPERTY_PARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -327,7 +327,7 @@ public class MdrDetailResponse {
    * Message status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "DELIVERED", value = "Message status")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -353,7 +353,7 @@ public class MdrDetailResponse {
    * The destination number for a call, or the callee
    * @return cld
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+1555123456", value = "The destination number for a call, or the callee")
   @JsonProperty(JSON_PROPERTY_CLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -379,7 +379,7 @@ public class MdrDetailResponse {
    * The number associated with the person initiating the call, or the caller
    * @return cli
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+1555123456", value = "The number associated with the person initiating the call, or the caller")
   @JsonProperty(JSON_PROPERTY_CLI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -405,7 +405,7 @@ public class MdrDetailResponse {
    * Rate applied to the message
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.05", value = "Rate applied to the message")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -431,7 +431,7 @@ public class MdrDetailResponse {
    * Final cost. Cost is calculated as rate * parts
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.1", value = "Final cost. Cost is calculated as rate * parts")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -457,7 +457,7 @@ public class MdrDetailResponse {
    * Currency of the rate and cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Currency of the rate and cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -483,7 +483,7 @@ public class MdrDetailResponse {
    * Id of message detail record
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "99b637f3-07fd-45ac-b9ca-b87208c24650", value = "Id of message detail record")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -509,7 +509,7 @@ public class MdrDetailResponse {
    * Type of message
    * @return messageType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "SMS", value = "Type of message")
   @JsonProperty(JSON_PROPERTY_MESSAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -535,7 +535,7 @@ public class MdrDetailResponse {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "mdr_report", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   RCSSuggestion.JSON_PROPERTY_REPLY,
   RCSSuggestion.JSON_PROPERTY_ACTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSSuggestion {
   public static final String JSON_PROPERTY_REPLY = "reply";
   private RCSReply reply;
@@ -58,7 +58,7 @@ public class RCSSuggestion {
    * Get reply
    * @return reply
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REPLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class RCSSuggestion {
    * Get action
    * @return action
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

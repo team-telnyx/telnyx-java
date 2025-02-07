@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateFineTuningJobRequestHyperparameters.JSON_PROPERTY_N_EPOCHS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateFineTuningJobRequestHyperparameters {
   public static final String JSON_PROPERTY_N_EPOCHS = "n_epochs";
   private Integer nEpochs = 3;
@@ -55,7 +55,7 @@ public class CreateFineTuningJobRequestHyperparameters {
    * maximum: 10
    * @return nEpochs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset. 'auto' decides the optimal number of epochs based on the size of the dataset. If setting the number manually, we support any number between 1 and 50 epochs.")
   @JsonProperty(JSON_PROPERTY_N_EPOCHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

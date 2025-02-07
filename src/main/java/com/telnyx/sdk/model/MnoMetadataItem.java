@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   MnoMetadataItem.JSON_PROPERTY_REQ_SUBSCRIBER_OPTIN,
   MnoMetadataItem.JSON_PROPERTY_MIN_MSG_SAMPLES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MnoMetadataItem {
   public static final String JSON_PROPERTY_QUALIFY = "qualify";
   private Boolean qualify;
@@ -88,7 +88,7 @@ public class MnoMetadataItem {
    * Get qualify
    * @return qualify
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_QUALIFY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -114,7 +114,7 @@ public class MnoMetadataItem {
    * Get mno
    * @return mno
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MNO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -140,7 +140,7 @@ public class MnoMetadataItem {
    * Get noEmbeddedLink
    * @return noEmbeddedLink
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_NO_EMBEDDED_LINK)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -166,7 +166,7 @@ public class MnoMetadataItem {
    * Get reqSubscriberHelp
    * @return reqSubscriberHelp
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_REQ_SUBSCRIBER_HELP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -192,7 +192,7 @@ public class MnoMetadataItem {
    * Get reqSubscriberOptout
    * @return reqSubscriberOptout
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_REQ_SUBSCRIBER_OPTOUT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -218,7 +218,7 @@ public class MnoMetadataItem {
    * Get mnoReview
    * @return mnoReview
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MNO_REVIEW)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -244,7 +244,7 @@ public class MnoMetadataItem {
    * Get noEmbeddedPhone
    * @return noEmbeddedPhone
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_NO_EMBEDDED_PHONE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -270,7 +270,7 @@ public class MnoMetadataItem {
    * Get mnoSupport
    * @return mnoSupport
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MNO_SUPPORT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -296,7 +296,7 @@ public class MnoMetadataItem {
    * Get reqSubscriberOptin
    * @return reqSubscriberOptin
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_REQ_SUBSCRIBER_OPTIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -322,7 +322,7 @@ public class MnoMetadataItem {
    * Get minMsgSamples
    * @return minMsgSamples
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MIN_MSG_SAMPLES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

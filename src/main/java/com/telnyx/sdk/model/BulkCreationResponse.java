@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   BulkCreationResponse.JSON_PROPERTY_BRAND_COUNT,
   BulkCreationResponse.JSON_PROPERTY_TASK_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BulkCreationResponse {
   public static final String JSON_PROPERTY_BRAND_COUNT = "brandCount";
   private Integer brandCount;
@@ -58,7 +58,7 @@ public class BulkCreationResponse {
    * The total number of brands to be created.
    * @return brandCount
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "10", required = true, value = "The total number of brands to be created.")
   @JsonProperty(JSON_PROPERTY_BRAND_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class BulkCreationResponse {
    * The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
    * @return taskId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "667a80f8-b0a9-49d0-b9ab-a7a1bcc45086", required = true, value = "The ID of the task associated with bulk Sole Proprietor brand and campaign creation.")
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

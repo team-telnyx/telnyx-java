@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   OperatorConnectRefreshResponse1.JSON_PROPERTY_SUCCESS,
   OperatorConnectRefreshResponse1.JSON_PROPERTY_MESSAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OperatorConnectRefreshResponse1 {
   public static final String JSON_PROPERTY_SUCCESS = "success";
   private Boolean success;
@@ -56,7 +56,7 @@ public class OperatorConnectRefreshResponse1 {
    * Describes wether or not the operation was successful
    * @return success
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Describes wether or not the operation was successful")
   @JsonProperty(JSON_PROPERTY_SUCCESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class OperatorConnectRefreshResponse1 {
    * A message describing the result of the operation
    * @return message
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Operator connect refresh started", value = "A message describing the result of the operation")
   @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

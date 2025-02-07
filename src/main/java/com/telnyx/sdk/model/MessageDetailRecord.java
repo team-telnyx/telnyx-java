@@ -68,7 +68,7 @@ import com.telnyx.sdk.JSON;
   MessageDetailRecord.JSON_PROPERTY_PARTS,
   MessageDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessageDetailRecord {
   public static final String JSON_PROPERTY_UUID = "uuid";
   private String uuid;
@@ -292,7 +292,7 @@ public class MessageDetailRecord {
    * Unique identifier of the message
    * @return uuid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Unique identifier of the message")
   @JsonProperty(JSON_PROPERTY_UUID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -318,7 +318,7 @@ public class MessageDetailRecord {
    * Identifier of the Telnyx account who owns the message
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Identifier of the Telnyx account who owns the message")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -344,7 +344,7 @@ public class MessageDetailRecord {
    * Message completion time
    * @return completedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Message completion time")
   @JsonProperty(JSON_PROPERTY_COMPLETED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -370,7 +370,7 @@ public class MessageDetailRecord {
    * Message creation time
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Message creation time")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class MessageDetailRecord {
    * Message updated time
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Message updated time")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -422,7 +422,7 @@ public class MessageDetailRecord {
    * Time when the message was sent
    * @return sentAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Time when the message was sent")
   @JsonProperty(JSON_PROPERTY_SENT_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -448,7 +448,7 @@ public class MessageDetailRecord {
    * Country-specific carrier used to send or receive the message
    * @return carrier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "T-Mobile USA", value = "Country-specific carrier used to send or receive the message")
   @JsonProperty(JSON_PROPERTY_CARRIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -474,7 +474,7 @@ public class MessageDetailRecord {
    * Fee charged by certain carriers in order to deliver certain message types. Telnyx passes this fee on to the customer according to our pricing table
    * @return carrierFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.003", value = "Fee charged by certain carriers in order to deliver certain message types. Telnyx passes this fee on to the customer according to our pricing table")
   @JsonProperty(JSON_PROPERTY_CARRIER_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -500,7 +500,7 @@ public class MessageDetailRecord {
    * The recipient of the message (to parameter in the Messaging API)
    * @return cld
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+1555123456", value = "The recipient of the message (to parameter in the Messaging API)")
   @JsonProperty(JSON_PROPERTY_CLD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -526,7 +526,7 @@ public class MessageDetailRecord {
    * The sender of the message (from parameter in the Messaging API). For Alphanumeric ID messages, this is the sender ID value
    * @return cli
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+1555123456", value = "The sender of the message (from parameter in the Messaging API). For Alphanumeric ID messages, this is the sender ID value")
   @JsonProperty(JSON_PROPERTY_CLI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -552,7 +552,7 @@ public class MessageDetailRecord {
    * Two-letter representation of the country of the cld property using the ISO 3166-1 alpha-2 format
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "Two-letter representation of the country of the cld property using the ISO 3166-1 alpha-2 format")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -578,7 +578,7 @@ public class MessageDetailRecord {
    * Final webhook delivery status
    * @return deliveryStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "success: webhook succeeded", value = "Final webhook delivery status")
   @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -604,7 +604,7 @@ public class MessageDetailRecord {
    * Failover customer-provided URL which Telnyx posts delivery status webhooks to
    * @return deliveryStatusFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://api.example.com/sms/telnyx/inbound", value = "Failover customer-provided URL which Telnyx posts delivery status webhooks to")
   @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS_FAILOVER_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -630,7 +630,7 @@ public class MessageDetailRecord {
    * Primary customer-provided URL which Telnyx posts delivery status webhooks to
    * @return deliveryStatusWebhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://api.example.com/sms/telnyx/inbound", value = "Primary customer-provided URL which Telnyx posts delivery status webhooks to")
   @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -656,7 +656,7 @@ public class MessageDetailRecord {
    * Logical direction of the message from the Telnyx customer&#39;s perspective. It&#39;s inbound when the Telnyx customer receives the message, or outbound otherwise
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "outbound", value = "Logical direction of the message from the Telnyx customer's perspective. It's inbound when the Telnyx customer receives the message, or outbound otherwise")
   @JsonProperty(JSON_PROPERTY_DIRECTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -682,7 +682,7 @@ public class MessageDetailRecord {
    * Indicates whether this is a Free-To-End-User (FTEU) short code message
    * @return fteu
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Indicates whether this is a Free-To-End-User (FTEU) short code message")
   @JsonProperty(JSON_PROPERTY_FTEU)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -708,7 +708,7 @@ public class MessageDetailRecord {
    * Mobile country code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID
    * @return mcc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "204", value = "Mobile country code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID")
   @JsonProperty(JSON_PROPERTY_MCC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -734,7 +734,7 @@ public class MessageDetailRecord {
    * Mobile network code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID
    * @return mnc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "01", value = "Mobile network code. Only available for certain products, such as Global Outbound-Only from Alphanumeric Sender ID")
   @JsonProperty(JSON_PROPERTY_MNC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -760,7 +760,7 @@ public class MessageDetailRecord {
    * Describes the Messaging service used to send the message. Available services are: Short Message Service (SMS), Multimedia Messaging Service (MMS), and Rich Communication Services (RCS)
    * @return messageType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "SMS", value = "Describes the Messaging service used to send the message. Available services are: Short Message Service (SMS), Multimedia Messaging Service (MMS), and Rich Communication Services (RCS)")
   @JsonProperty(JSON_PROPERTY_MESSAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -786,7 +786,7 @@ public class MessageDetailRecord {
    * Indicates whether both sender and recipient numbers are Telnyx-managed
    * @return onNet
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether both sender and recipient numbers are Telnyx-managed")
   @JsonProperty(JSON_PROPERTY_ON_NET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -812,7 +812,7 @@ public class MessageDetailRecord {
    * Unique identifier of the Messaging Profile used to send or receive the message
    * @return profileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "30ef55db-c4a2-4c4a-9804-a68077973d07", value = "Unique identifier of the Messaging Profile used to send or receive the message")
   @JsonProperty(JSON_PROPERTY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -838,7 +838,7 @@ public class MessageDetailRecord {
    * Name of the Messaging Profile used to send or receive the message
    * @return profileName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My Messaging Profile", value = "Name of the Messaging Profile used to send or receive the message")
   @JsonProperty(JSON_PROPERTY_PROFILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -864,7 +864,7 @@ public class MessageDetailRecord {
    * Two-letter representation of the country of the cli property using the ISO 3166-1 alpha-2 format
    * @return sourceCountryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "Two-letter representation of the country of the cli property using the ISO 3166-1 alpha-2 format")
   @JsonProperty(JSON_PROPERTY_SOURCE_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -890,7 +890,7 @@ public class MessageDetailRecord {
    * Final status of the message after the delivery attempt
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "delivered", value = "Final status of the message after the delivery attempt")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -916,7 +916,7 @@ public class MessageDetailRecord {
    * Comma-separated tags assigned to the Telnyx number associated with the message
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "tag1,tag2,tag3", value = "Comma-separated tags assigned to the Telnyx number associated with the message")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -942,7 +942,7 @@ public class MessageDetailRecord {
    * Currency amount per billing unit used to calculate the Telnyx billing cost
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.003", value = "Currency amount per billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -968,7 +968,7 @@ public class MessageDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -994,7 +994,7 @@ public class MessageDetailRecord {
    * Amount, in the user currency, for the Telnyx billing cost
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.003", value = "Amount, in the user currency, for the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1028,7 +1028,7 @@ public class MessageDetailRecord {
    * Telnyx API error codes returned by the Telnyx gateway
    * @return errors
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Telnyx API error codes returned by the Telnyx gateway")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1054,7 +1054,7 @@ public class MessageDetailRecord {
    * Number of message parts. The message is broken down in multiple parts when its length surpasses the limit of 160 characters
    * @return parts
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2", value = "Number of message parts. The message is broken down in multiple parts when its length surpasses the limit of 160 characters")
   @JsonProperty(JSON_PROPERTY_PARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -1080,7 +1080,7 @@ public class MessageDetailRecord {
    * Identifies the record schema
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "message_detail_record", required = true, value = "Identifies the record schema")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ListBuckets200Response.JSON_PROPERTY_BUCKETS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListBuckets200Response {
   public static final String JSON_PROPERTY_BUCKETS = "buckets";
   private List<ListBuckets200ResponseBucketsInner> buckets = null;
@@ -63,7 +63,7 @@ public class ListBuckets200Response {
    * Get buckets
    * @return buckets
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_BUCKETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

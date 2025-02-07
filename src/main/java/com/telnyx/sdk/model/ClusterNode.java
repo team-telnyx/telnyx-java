@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   ClusterNode.JSON_PROPERTY_FILENAME,
   ClusterNode.JSON_PROPERTY_TEXT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ClusterNode {
   public static final String JSON_PROPERTY_FILENAME = "filename";
   private String filename;
@@ -56,7 +56,7 @@ public class ClusterNode {
    * The corresponding source file of your embedded storage bucket that the node is from.
    * @return filename
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The corresponding source file of your embedded storage bucket that the node is from.")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -82,7 +82,7 @@ public class ClusterNode {
    * The text of the node.
    * @return text
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The text of the node.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

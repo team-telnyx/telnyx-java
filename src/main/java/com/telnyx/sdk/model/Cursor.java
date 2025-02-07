@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   Cursor.JSON_PROPERTY_AFTER,
   Cursor.JSON_PROPERTY_BEFORE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Cursor {
   public static final String JSON_PROPERTY_AFTER = "after";
   private String after;
@@ -56,7 +56,7 @@ public class Cursor {
    * Opaque identifier of next page.
    * @return after
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Opaque identifier of next page.")
   @JsonProperty(JSON_PROPERTY_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class Cursor {
    * Opaque identifier of previous page.
    * @return before
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=", value = "Opaque identifier of previous page.")
   @JsonProperty(JSON_PROPERTY_BEFORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

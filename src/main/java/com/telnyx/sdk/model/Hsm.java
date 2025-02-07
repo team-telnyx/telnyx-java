@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   Hsm.JSON_PROPERTY_LANGUAGE,
   Hsm.JSON_PROPERTY_LOCALIZABLE_PARAMS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Hsm {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   private String namespace;
@@ -70,7 +70,7 @@ public class Hsm {
    * The namespace that will be used
    * @return namespace
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The namespace that will be used")
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -96,7 +96,7 @@ public class Hsm {
    * The element name that indicates which template to use within the namespace
    * @return elementName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The element name that indicates which template to use within the namespace")
   @JsonProperty(JSON_PROPERTY_ELEMENT_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -122,7 +122,7 @@ public class Hsm {
    * Get language
    * @return language
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,7 +153,7 @@ public class Hsm {
    * This field is an array of values to apply to variables in the template
    * @return localizableParams
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "This field is an array of values to apply to variables in the template")
   @JsonProperty(JSON_PROPERTY_LOCALIZABLE_PARAMS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

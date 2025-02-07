@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   AuthenticationProviderCreate.JSON_PROPERTY_SETTINGS,
   AuthenticationProviderCreate.JSON_PROPERTY_SETTINGS_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AuthenticationProviderCreate {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -70,7 +70,7 @@ public class AuthenticationProviderCreate {
    * The name associated with the authentication provider.
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Okta", required = true, value = "The name associated with the authentication provider.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -96,7 +96,7 @@ public class AuthenticationProviderCreate {
    * The short name associated with the authentication provider. This must be unique and URL-friendly, as it&#39;s going to be part of the login URL.
    * @return shortName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "myorg", required = true, value = "The short name associated with the authentication provider. This must be unique and URL-friendly, as it's going to be part of the login URL.")
   @JsonProperty(JSON_PROPERTY_SHORT_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -122,7 +122,7 @@ public class AuthenticationProviderCreate {
    * The active status of the authentication provider
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "The active status of the authentication provider")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class AuthenticationProviderCreate {
    * Get settings
    * @return settings
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -174,7 +174,7 @@ public class AuthenticationProviderCreate {
    * The URL for the identity provider metadata file to populate the settings automatically. If the settings attribute is provided, that will be used instead.
    * @return settingsUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://myorg.myidp.com/saml/metadata", value = "The URL for the identity provider metadata file to populate the settings automatically. If the settings attribute is provided, that will be used instead.")
   @JsonProperty(JSON_PROPERTY_SETTINGS_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

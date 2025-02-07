@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   RoomRecording.JSON_PROPERTY_COMPLETED_AT,
   RoomRecording.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RoomRecording {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -191,7 +191,7 @@ public class RoomRecording {
    * A unique identifier for the room recording.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "A unique identifier for the room recording.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -217,7 +217,7 @@ public class RoomRecording {
    * Identify the room associated with the room recording.
    * @return roomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777b0", value = "Identify the room associated with the room recording.")
   @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -243,7 +243,7 @@ public class RoomRecording {
    * Identify the room session associated with the room recording.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777b0", value = "Identify the room session associated with the room recording.")
   @JsonProperty(JSON_PROPERTY_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -269,7 +269,7 @@ public class RoomRecording {
    * Identify the room participant associated with the room recording.
    * @return participantId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777b0", value = "Identify the room participant associated with the room recording.")
   @JsonProperty(JSON_PROPERTY_PARTICIPANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -295,7 +295,7 @@ public class RoomRecording {
    * Shows the room recording status.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "Shows the room recording status.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -321,7 +321,7 @@ public class RoomRecording {
    * Shows the room recording type.
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "audio", value = "Shows the room recording type.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -347,7 +347,7 @@ public class RoomRecording {
    * Shows the room recording size in MB.
    * @return sizeMb
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10.5", value = "Shows the room recording size in MB.")
   @JsonProperty(JSON_PROPERTY_SIZE_MB)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -373,7 +373,7 @@ public class RoomRecording {
    * Url to download the recording.
    * @return downloadUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com", value = "Url to download the recording.")
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -399,7 +399,7 @@ public class RoomRecording {
    * Shows the codec used for the room recording.
    * @return codec
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "opus", value = "Shows the codec used for the room recording.")
   @JsonProperty(JSON_PROPERTY_CODEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -425,7 +425,7 @@ public class RoomRecording {
    * Shows the room recording duration in seconds.
    * @return durationSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "67", value = "Shows the room recording duration in seconds.")
   @JsonProperty(JSON_PROPERTY_DURATION_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -451,7 +451,7 @@ public class RoomRecording {
    * ISO 8601 timestamp when the room recording was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", value = "ISO 8601 timestamp when the room recording was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -477,7 +477,7 @@ public class RoomRecording {
    * ISO 8601 timestamp when the room recording was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", value = "ISO 8601 timestamp when the room recording was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -503,7 +503,7 @@ public class RoomRecording {
    * ISO 8601 timestamp when the room recording has ended.
    * @return endedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", value = "ISO 8601 timestamp when the room recording has ended.")
   @JsonProperty(JSON_PROPERTY_ENDED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -529,7 +529,7 @@ public class RoomRecording {
    * ISO 8601 timestamp when the room recording has stated.
    * @return startedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", value = "ISO 8601 timestamp when the room recording has stated.")
   @JsonProperty(JSON_PROPERTY_STARTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -555,7 +555,7 @@ public class RoomRecording {
    * ISO 8601 timestamp when the room recording has completed.
    * @return completedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", value = "ISO 8601 timestamp when the room recording has completed.")
   @JsonProperty(JSON_PROPERTY_COMPLETED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -576,7 +576,7 @@ public class RoomRecording {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "room_recording", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

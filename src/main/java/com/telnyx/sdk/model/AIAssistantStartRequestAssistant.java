@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   AIAssistantStartRequestAssistant.JSON_PROPERTY_ID,
   AIAssistantStartRequestAssistant.JSON_PROPERTY_OPENAI_API_KEY_REF
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AIAssistantStartRequestAssistant {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -57,7 +57,7 @@ public class AIAssistantStartRequestAssistant {
    * The identifier of the AI assistant to use
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The identifier of the AI assistant to use")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class AIAssistantStartRequestAssistant {
    * Reference to the OpenAI API key. Required only when using OpenAI models
    * @return openaiApiKeyRef
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Reference to the OpenAI API key. Required only when using OpenAI models")
   @JsonProperty(JSON_PROPERTY_OPENAI_API_KEY_REF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

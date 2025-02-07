@@ -53,7 +53,7 @@ import com.telnyx.sdk.JSON;
   AuditLog.JSON_PROPERTY_CHANGE_TYPE,
   AuditLog.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AuditLog {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -136,7 +136,7 @@ public class AuditLog {
    * Unique identifier for the audit log entry.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "550e8400-e29b-41d4-a716-446655440000", value = "Unique identifier for the audit log entry.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -162,7 +162,7 @@ public class AuditLog {
    * Unique identifier for the user who made the change.
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "550e8400-e29b-41d4-a716-446655440001", value = "Unique identifier for the user who made the change.")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class AuditLog {
    * The type of the resource being audited.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "audit_event", value = "The type of the resource being audited.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -214,7 +214,7 @@ public class AuditLog {
    * Unique identifier for the resource that was changed.
    * @return resourceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "550e8400-e29b-41d4-a716-446655440002", value = "Unique identifier for the resource that was changed.")
   @JsonProperty(JSON_PROPERTY_RESOURCE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -240,7 +240,7 @@ public class AuditLog {
    * An alternate identifier for a resource which may be considered unique enough to identify the resource but is not the primary identifier for the resource. For example, this field could be used to store the phone number value for a phone number when the primary database identifier is a separate distinct value.
    * @return alternateResourceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+14155551234", value = "An alternate identifier for a resource which may be considered unique enough to identify the resource but is not the primary identifier for the resource. For example, this field could be used to store the phone number value for a phone number when the primary database identifier is a separate distinct value.")
   @JsonIgnore
 
@@ -274,7 +274,7 @@ public class AuditLog {
    * Indicates if the change was made by Telnyx on your behalf, the organization owner, a member of your organization, or in the case of managed accounts, the account manager.
    * @return changeMadeBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "organization_owner", value = "Indicates if the change was made by Telnyx on your behalf, the organization owner, a member of your organization, or in the case of managed accounts, the account manager.")
   @JsonProperty(JSON_PROPERTY_CHANGE_MADE_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -312,7 +312,7 @@ public class AuditLog {
    * Details of the changes made to the resource.
    * @return changes
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"field\":\"field.name\",\"to\":\"old value\",\"from\":\"new value\"}]", value = "Details of the changes made to the resource.")
   @JsonIgnore
 
@@ -346,7 +346,7 @@ public class AuditLog {
    * Unique identifier for the organization that owns the resource.
    * @return organizationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "550e8400-e29b-41d4-a716-446655440003", value = "Unique identifier for the organization that owns the resource.")
   @JsonProperty(JSON_PROPERTY_ORGANIZATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -372,7 +372,7 @@ public class AuditLog {
    * The type of change that occurred.
    * @return changeType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "update", value = "The type of change that occurred.")
   @JsonProperty(JSON_PROPERTY_CHANGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -398,7 +398,7 @@ public class AuditLog {
    * ISO 8601 formatted date indicating when the change occurred.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2023-01-01T00:00Z", value = "ISO 8601 formatted date indicating when the change occurred.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

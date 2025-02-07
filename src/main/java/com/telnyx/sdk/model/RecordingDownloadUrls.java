@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   RecordingDownloadUrls.JSON_PROPERTY_MP3,
   RecordingDownloadUrls.JSON_PROPERTY_WAV
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RecordingDownloadUrls {
   public static final String JSON_PROPERTY_MP3 = "mp3";
   private String mp3;
@@ -58,7 +58,7 @@ public class RecordingDownloadUrls {
    * Link to download the recording in mp3 format
    * @return mp3
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Link to download the recording in mp3 format")
   @JsonProperty(JSON_PROPERTY_MP3)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class RecordingDownloadUrls {
    * Link to download the recording in wav format
    * @return wav
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Link to download the recording in wav format")
   @JsonProperty(JSON_PROPERTY_WAV)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

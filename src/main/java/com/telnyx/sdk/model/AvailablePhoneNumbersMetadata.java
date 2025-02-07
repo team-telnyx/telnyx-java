@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   AvailablePhoneNumbersMetadata.JSON_PROPERTY_TOTAL_RESULTS,
   AvailablePhoneNumbersMetadata.JSON_PROPERTY_BEST_EFFORT_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AvailablePhoneNumbersMetadata {
   public static final String JSON_PROPERTY_TOTAL_RESULTS = "total_results";
   private Integer totalResults;
@@ -56,7 +56,7 @@ public class AvailablePhoneNumbersMetadata {
    * Get totalResults
    * @return totalResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class AvailablePhoneNumbersMetadata {
    * Get bestEffortResults
    * @return bestEffortResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0", value = "")
   @JsonProperty(JSON_PROPERTY_BEST_EFFORT_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

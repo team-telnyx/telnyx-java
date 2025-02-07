@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   ExtVettingProvider.JSON_PROPERTY_VETTING_CLASSES,
   ExtVettingProvider.JSON_PROPERTY_VETTING_INSTRUCTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ExtVettingProvider {
   public static final String JSON_PROPERTY_EVP_ID = "evpId";
   private String evpId;
@@ -72,7 +72,7 @@ public class ExtVettingProvider {
    * Get evpId
    * @return evpId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_EVP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -98,7 +98,7 @@ public class ExtVettingProvider {
    * Get displayName
    * @return displayName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class ExtVettingProvider {
    * Get tcrBillable
    * @return tcrBillable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TCR_BILLABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -158,7 +158,7 @@ public class ExtVettingProvider {
    * Get vettingClasses
    * @return vettingClasses
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VETTING_CLASSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -184,7 +184,7 @@ public class ExtVettingProvider {
    * Get vettingInstruction
    * @return vettingInstruction
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VETTING_INSTRUCTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

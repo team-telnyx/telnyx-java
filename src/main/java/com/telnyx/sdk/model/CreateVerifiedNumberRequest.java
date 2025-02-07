@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateVerifiedNumberRequest.JSON_PROPERTY_PHONE_NUMBER,
   CreateVerifiedNumberRequest.JSON_PROPERTY_VERIFICATION_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateVerifiedNumberRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -91,7 +91,7 @@ public class CreateVerifiedNumberRequest {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+15551234567", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class CreateVerifiedNumberRequest {
    * Verification method.
    * @return verificationMethod
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "sms", required = true, value = "Verification method.")
   @JsonProperty(JSON_PROPERTY_VERIFICATION_METHOD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

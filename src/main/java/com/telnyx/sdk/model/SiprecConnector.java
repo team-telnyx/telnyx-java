@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   SiprecConnector.JSON_PROPERTY_CREATED_AT,
   SiprecConnector.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SiprecConnector {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -76,7 +76,7 @@ public class SiprecConnector {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "siprec_connector", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -102,7 +102,7 @@ public class SiprecConnector {
    * Name for the siprec connector resource.
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "siprec-connector", value = "Name for the siprec connector resource.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -128,7 +128,7 @@ public class SiprecConnector {
    * Hostname/IPv4 address of SIPREC SRS to be used
    * @return host
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "siprec.telnyx.com", value = "Hostname/IPv4 address of SIPREC SRS to be used")
   @JsonProperty(JSON_PROPERTY_HOST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -154,7 +154,7 @@ public class SiprecConnector {
    * Port for SIPREC SRS to be used
    * @return port
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5060", value = "Port for SIPREC SRS to be used")
   @JsonProperty(JSON_PROPERTY_PORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -180,7 +180,7 @@ public class SiprecConnector {
    * Sip subdomain to route the call when using Telnyx SRS Not required if non-Telnyx SRS is used.
    * @return appSubdomain
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my-app-domain", value = "Sip subdomain to route the call when using Telnyx SRS Not required if non-Telnyx SRS is used.")
   @JsonProperty(JSON_PROPERTY_APP_SUBDOMAIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -206,7 +206,7 @@ public class SiprecConnector {
    * ISO 8601 formatted date of when the resource was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2024-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the resource was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -232,7 +232,7 @@ public class SiprecConnector {
    * ISO 8601 formatted date of when the resource was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2024-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the resource was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

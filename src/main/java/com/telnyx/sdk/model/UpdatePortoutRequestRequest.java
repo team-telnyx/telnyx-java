@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdatePortoutRequestRequest.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UpdatePortoutRequestRequest {
   public static final String JSON_PROPERTY_REASON = "reason";
   private String reason;
@@ -53,7 +53,7 @@ public class UpdatePortoutRequestRequest {
    * Provide a reason if rejecting the port out request
    * @return reason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "I do not recognize this transaction", value = "Provide a reason if rejecting the port out request")
   @JsonProperty(JSON_PROPERTY_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   DialogflowConfig.JSON_PROPERTY_ANALYZE_SENTIMENT,
   DialogflowConfig.JSON_PROPERTY_PARTIAL_AUTOMATED_AGENT_REPLY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DialogflowConfig {
   public static final String JSON_PROPERTY_ANALYZE_SENTIMENT = "analyze_sentiment";
   private Boolean analyzeSentiment = false;
@@ -56,7 +56,7 @@ public class DialogflowConfig {
    * Enable sentiment analysis from Dialogflow.
    * @return analyzeSentiment
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enable sentiment analysis from Dialogflow.")
   @JsonProperty(JSON_PROPERTY_ANALYZE_SENTIMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class DialogflowConfig {
    * Enable partial automated agent reply from Dialogflow.
    * @return partialAutomatedAgentReply
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enable partial automated agent reply from Dialogflow.")
   @JsonProperty(JSON_PROPERTY_PARTIAL_AUTOMATED_AGENT_REPLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

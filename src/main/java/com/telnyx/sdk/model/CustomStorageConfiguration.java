@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CustomStorageConfiguration.JSON_PROPERTY_BACKEND,
   CustomStorageConfiguration.JSON_PROPERTY_CONFIGURATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CustomStorageConfiguration {
   /**
    * Gets or Sets backend
@@ -94,7 +94,7 @@ public class CustomStorageConfiguration {
    * Get backend
    * @return backend
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "gcs", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BACKEND)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -120,7 +120,7 @@ public class CustomStorageConfiguration {
    * Get _configuration
    * @return _configuration
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

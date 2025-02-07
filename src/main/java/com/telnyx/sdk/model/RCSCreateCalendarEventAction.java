@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   RCSCreateCalendarEventAction.JSON_PROPERTY_TITLE,
   RCSCreateCalendarEventAction.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSCreateCalendarEventAction {
   public static final String JSON_PROPERTY_START_TIME = "start_time";
   private OffsetDateTime startTime;
@@ -66,7 +66,7 @@ public class RCSCreateCalendarEventAction {
    * Get startTime
    * @return startTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2024-10-02T15:01:23Z", value = "")
   @JsonProperty(JSON_PROPERTY_START_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -92,7 +92,7 @@ public class RCSCreateCalendarEventAction {
    * Get endTime
    * @return endTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2024-10-02T15:02:31Z", value = "")
   @JsonProperty(JSON_PROPERTY_END_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class RCSCreateCalendarEventAction {
    * Event title. Maximum 100 characters.
    * @return title
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Event title. Maximum 100 characters.")
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class RCSCreateCalendarEventAction {
    * Event description. Maximum 500 characters.
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Event description. Maximum 500 characters.")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

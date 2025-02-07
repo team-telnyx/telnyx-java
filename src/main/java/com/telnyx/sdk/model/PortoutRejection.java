@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   PortoutRejection.JSON_PROPERTY_DESCRIPTION,
   PortoutRejection.JSON_PROPERTY_REASON_REQUIRED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortoutRejection {
   public static final String JSON_PROPERTY_CODE = "code";
   private Integer code;
@@ -60,7 +60,7 @@ public class PortoutRejection {
    * Get code
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1002", value = "")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class PortoutRejection {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Invalid PIN", value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class PortoutRejection {
    * Get reasonRequired
    * @return reasonRequired
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "")
   @JsonProperty(JSON_PROPERTY_REASON_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

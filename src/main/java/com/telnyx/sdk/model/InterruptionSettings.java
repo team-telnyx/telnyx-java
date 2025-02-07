@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   InterruptionSettings.JSON_PROPERTY_ENABLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InterruptionSettings {
   public static final String JSON_PROPERTY_ENABLE = "enable";
   private Boolean enable = true;
@@ -53,7 +53,7 @@ public class InterruptionSettings {
    * When true, allows users to interrupt the assistant while speaking
    * @return enable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When true, allows users to interrupt the assistant while speaking")
   @JsonProperty(JSON_PROPERTY_ENABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

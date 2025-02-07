@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateAssistantRequest.JSON_PROPERTY_INSTRUCTIONS,
   CreateAssistantRequest.JSON_PROPERTY_TOOLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateAssistantRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -71,7 +71,7 @@ public class CreateAssistantRequest {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -97,7 +97,7 @@ public class CreateAssistantRequest {
    * Get model
    * @return model
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -123,7 +123,7 @@ public class CreateAssistantRequest {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class CreateAssistantRequest {
    * Get instructions
    * @return instructions
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_INSTRUCTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -183,7 +183,7 @@ public class CreateAssistantRequest {
    * The &#x60;function&#x60; tool type follows the same schema as the [OpenAI Assistants API](https://platform.openai.com/docs/api-reference/assistants/createAssistant). The &#x60;retrieval&#x60; tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.
    * @return tools
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The `function` tool type follows the same schema as the [OpenAI Assistants API](https://platform.openai.com/docs/api-reference/assistants/createAssistant). The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation.")
   @JsonProperty(JSON_PROPERTY_TOOLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

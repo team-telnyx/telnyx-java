@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CreateDocumentRequestOneOf1.JSON_PROPERTY_FILENAME,
   CreateDocumentRequestOneOf1.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateDocumentRequestOneOf1 {
   public static final String JSON_PROPERTY_FILE = "file";
   private byte[] _file;
@@ -60,7 +60,7 @@ public class CreateDocumentRequestOneOf1 {
    * The Base64 encoded contents of the file you are uploading.
    * @return _file
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[B@5f303ecd", required = true, value = "The Base64 encoded contents of the file you are uploading.")
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -86,7 +86,7 @@ public class CreateDocumentRequestOneOf1 {
    * The filename of the document.
    * @return filename
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "test-document.pdf", value = "The filename of the document.")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class CreateDocumentRequestOneOf1 {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   Dca.JSON_PROPERTY_ID,
   Dca.JSON_PROPERTY_DISPLAY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class Dca {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -58,7 +58,7 @@ public class Dca {
    * Unique identifier of the direct connect aggregator
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Unique identifier of the direct connect aggregator")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class Dca {
    * Display name of the direct connect aggregator.
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Display name of the direct connect aggregator.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

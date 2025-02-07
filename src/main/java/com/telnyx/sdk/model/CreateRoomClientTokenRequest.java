@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateRoomClientTokenRequest.JSON_PROPERTY_TOKEN_TTL_SECS,
   CreateRoomClientTokenRequest.JSON_PROPERTY_REFRESH_TOKEN_TTL_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateRoomClientTokenRequest {
   public static final String JSON_PROPERTY_TOKEN_TTL_SECS = "token_ttl_secs";
   private Integer tokenTtlSecs = 600;
@@ -58,7 +58,7 @@ public class CreateRoomClientTokenRequest {
    * maximum: 3600
    * @return tokenTtlSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "600", value = "The time to live in seconds of the Client Token, after that time the Client Token is invalid and can't be used to join a Room.")
   @JsonProperty(JSON_PROPERTY_TOKEN_TTL_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -86,7 +86,7 @@ public class CreateRoomClientTokenRequest {
    * maximum: 86400
    * @return refreshTokenTtlSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3600", value = "The time to live in seconds of the Refresh Token, after that time the Refresh Token is invalid and can't be used to refresh Client Token.")
   @JsonProperty(JSON_PROPERTY_REFRESH_TOKEN_TTL_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

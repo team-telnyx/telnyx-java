@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   InteractiveHeader.JSON_PROPERTY_IMAGE,
   InteractiveHeader.JSON_PROPERTY_DOCUMENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InteractiveHeader {
   public static final String JSON_PROPERTY_TYPE = "type";
   private String type;
@@ -72,7 +72,7 @@ public class InteractiveHeader {
    * The header type you would like to use.
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The header type you would like to use.")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -98,7 +98,7 @@ public class InteractiveHeader {
    * Text for the header. Formatting allows emojis, but not markdown.
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Text for the header. Formatting allows emojis, but not markdown.")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class InteractiveHeader {
    * Get video
    * @return video
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VIDEO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -150,7 +150,7 @@ public class InteractiveHeader {
    * Get image
    * @return image
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IMAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -176,7 +176,7 @@ public class InteractiveHeader {
    * Get document
    * @return document
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOCUMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

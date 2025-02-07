@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   SharePortingOrderRequest.JSON_PROPERTY_EXPIRES_IN_SECONDS,
   SharePortingOrderRequest.JSON_PROPERTY_PERMISSIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SharePortingOrderRequest {
   public static final String JSON_PROPERTY_EXPIRES_IN_SECONDS = "expires_in_seconds";
   private Integer expiresInSeconds;
@@ -93,7 +93,7 @@ public class SharePortingOrderRequest {
    * maximum: 172800
    * @return expiresInSeconds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The number of seconds the token will be valid for")
   @JsonProperty(JSON_PROPERTY_EXPIRES_IN_SECONDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -119,7 +119,7 @@ public class SharePortingOrderRequest {
    * The permissions the token will have
    * @return permissions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The permissions the token will have")
   @JsonProperty(JSON_PROPERTY_PERMISSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

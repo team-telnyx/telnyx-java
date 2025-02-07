@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   CreateFineTuningJobRequest.JSON_PROPERTY_SUFFIX,
   CreateFineTuningJobRequest.JSON_PROPERTY_HYPERPARAMETERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateFineTuningJobRequest {
   public static final String JSON_PROPERTY_MODEL = "model";
   private String model;
@@ -65,7 +65,7 @@ public class CreateFineTuningJobRequest {
    * The base model that is being fine-tuned.
    * @return model
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The base model that is being fine-tuned.")
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class CreateFineTuningJobRequest {
    * The storage bucket or object used for training.
    * @return trainingFile
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The storage bucket or object used for training.")
   @JsonProperty(JSON_PROPERTY_TRAINING_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class CreateFineTuningJobRequest {
    * Optional suffix to append to the fine tuned model&#39;s name.
    * @return suffix
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Optional suffix to append to the fine tuned model's name.")
   @JsonProperty(JSON_PROPERTY_SUFFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class CreateFineTuningJobRequest {
    * Get hyperparameters
    * @return hyperparameters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_HYPERPARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

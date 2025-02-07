@@ -61,7 +61,7 @@ import com.telnyx.sdk.JSON;
   CreateBrand.JSON_PROPERTY_WEBHOOK_U_R_L,
   CreateBrand.JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateBrand {
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
@@ -147,7 +147,7 @@ public class CreateBrand {
    * Entity type behind the brand. This is the form of business establishment.
    * @return entityType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Entity type behind the brand. This is the form of business establishment.")
   @JsonProperty(JSON_PROPERTY_ENTITY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -173,7 +173,7 @@ public class CreateBrand {
    * Display name, marketing name, or DBA name of the brand.
    * @return displayName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "ABC Mobile", required = true, value = "Display name, marketing name, or DBA name of the brand.")
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -199,7 +199,7 @@ public class CreateBrand {
    * (Required for Non-profit/private/public) Legal company name.
    * @return companyName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ABC Inc.", value = "(Required for Non-profit/private/public) Legal company name.")
   @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -225,7 +225,7 @@ public class CreateBrand {
    * First name of business contact.
    * @return firstName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "John", value = "First name of business contact.")
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -251,7 +251,7 @@ public class CreateBrand {
    * Last name of business contact.
    * @return lastName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Smith", value = "Last name of business contact.")
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -277,7 +277,7 @@ public class CreateBrand {
    * (Required for Non-profit) Government assigned corporate tax ID. EIN is 9-digits in U.S.
    * @return ein
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "111111111", value = "(Required for Non-profit) Government assigned corporate tax ID. EIN is 9-digits in U.S.")
   @JsonProperty(JSON_PROPERTY_EIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -303,7 +303,7 @@ public class CreateBrand {
    * Valid phone number in e.164 international format.
    * @return phone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12024567890", value = "Valid phone number in e.164 international format.")
   @JsonProperty(JSON_PROPERTY_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -329,7 +329,7 @@ public class CreateBrand {
    * Street number and name.
    * @return street
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123", value = "Street number and name.")
   @JsonProperty(JSON_PROPERTY_STREET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -355,7 +355,7 @@ public class CreateBrand {
    * City name
    * @return city
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "New York", value = "City name")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -381,7 +381,7 @@ public class CreateBrand {
    * State. Must be 2 letters code for United States.
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "NY", value = "State. Must be 2 letters code for United States.")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -407,7 +407,7 @@ public class CreateBrand {
    * Postal codes. Use 5 digit zipcode for United States
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10001", value = "Postal codes. Use 5 digit zipcode for United States")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -433,7 +433,7 @@ public class CreateBrand {
    * ISO2 2 characters country code. Example: US - United States
    * @return country
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "ISO2 2 characters country code. Example: US - United States")
   @JsonProperty(JSON_PROPERTY_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -459,7 +459,7 @@ public class CreateBrand {
    * Valid email address of brand support contact.
    * @return email
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Valid email address of brand support contact.")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -485,7 +485,7 @@ public class CreateBrand {
    * (Required for public company) stock symbol.
    * @return stockSymbol
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ABC", value = "(Required for public company) stock symbol.")
   @JsonProperty(JSON_PROPERTY_STOCK_SYMBOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -511,7 +511,7 @@ public class CreateBrand {
    * (Required for public company) stock exchange.
    * @return stockExchange
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "(Required for public company) stock exchange.")
   @JsonProperty(JSON_PROPERTY_STOCK_EXCHANGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -537,7 +537,7 @@ public class CreateBrand {
    * IP address of the browser requesting to create brand identity.
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "IP address of the browser requesting to create brand identity.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -563,7 +563,7 @@ public class CreateBrand {
    * Brand website URL.
    * @return website
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://www.abcmobile.com", value = "Brand website URL.")
   @JsonProperty(JSON_PROPERTY_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -589,7 +589,7 @@ public class CreateBrand {
    * Vertical or industry segment of the brand.
    * @return vertical
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Vertical or industry segment of the brand.")
   @JsonProperty(JSON_PROPERTY_VERTICAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -615,7 +615,7 @@ public class CreateBrand {
    * Get isReseller
    * @return isReseller
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IS_RESELLER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -641,7 +641,7 @@ public class CreateBrand {
    * Mock brand for testing purposes. Defaults to false.
    * @return mock
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Mock brand for testing purposes. Defaults to false.")
   @JsonProperty(JSON_PROPERTY_MOCK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -667,7 +667,7 @@ public class CreateBrand {
    * Valid mobile phone number in e.164 international format.
    * @return mobilePhone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12024567890", value = "Valid mobile phone number in e.164 international format.")
   @JsonProperty(JSON_PROPERTY_MOBILE_PHONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -693,7 +693,7 @@ public class CreateBrand {
    * Business contact email.  Required if &#x60;entityType&#x60; is &#x60;PUBLIC_PROFIT&#x60;.
    * @return businessContactEmail
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "name@example.com", value = "Business contact email.  Required if `entityType` is `PUBLIC_PROFIT`.")
   @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -719,7 +719,7 @@ public class CreateBrand {
    * Webhook URL for brand status updates.
    * @return webhookURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93", value = "Webhook URL for brand status updates.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -745,7 +745,7 @@ public class CreateBrand {
    * Webhook failover URL for brand status updates.
    * @return webhookFailoverURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://webhook.com/9010a453-4df8-4be6-a551-1070892888d6", value = "Webhook failover URL for brand status updates.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

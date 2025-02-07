@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PresignedObjectUrlParams.JSON_PROPERTY_TTL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PresignedObjectUrlParams {
   public static final String JSON_PROPERTY_TTL = "ttl";
   private Integer ttl;
@@ -54,7 +54,7 @@ public class PresignedObjectUrlParams {
    * maximum: 604800
    * @return ttl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60", value = "The time to live of the token in seconds")
   @JsonProperty(JSON_PROPERTY_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

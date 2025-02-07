@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppReportsReq.JSON_PROPERTY_START_DATE,
   WhatsAppReportsReq.JSON_PROPERTY_END_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsAppReportsReq {
   public static final String JSON_PROPERTY_START_DATE = "start_date";
   private OffsetDateTime startDate;
@@ -58,7 +58,7 @@ public class WhatsAppReportsReq {
    * Get startDate
    * @return startDate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2021-05-01T00:00-06:00", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -84,7 +84,7 @@ public class WhatsAppReportsReq {
    * Get endDate
    * @return endDate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2021-05-01T00:00-06:00", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

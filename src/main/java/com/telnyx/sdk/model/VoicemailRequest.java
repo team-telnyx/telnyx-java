@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   VoicemailRequest.JSON_PROPERTY_PIN,
   VoicemailRequest.JSON_PROPERTY_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VoicemailRequest {
   public static final String JSON_PROPERTY_PIN = "pin";
   private String pin;
@@ -56,7 +56,7 @@ public class VoicemailRequest {
    * The pin used for voicemail
    * @return pin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234", value = "The pin used for voicemail")
   @JsonProperty(JSON_PROPERTY_PIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class VoicemailRequest {
    * Whether voicemail is enabled.
    * @return enabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Whether voicemail is enabled.")
   @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

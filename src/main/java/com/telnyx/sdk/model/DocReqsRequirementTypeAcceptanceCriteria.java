@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_CASE_SENSITIVE,
   DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_REGEX
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DocReqsRequirementTypeAcceptanceCriteria {
   public static final String JSON_PROPERTY_TIME_LIMIT = "time_limit";
   private String timeLimit;
@@ -83,7 +83,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies time-based acceptance criteria
    * @return timeLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Current and not expired", value = "Specifies time-based acceptance criteria")
   @JsonProperty(JSON_PROPERTY_TIME_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -109,7 +109,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies geography-based acceptance criteria
    * @return localityLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Issued by the same country that the phone number belongs to", value = "Specifies geography-based acceptance criteria")
   @JsonProperty(JSON_PROPERTY_LOCALITY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies the list of strictly possible values for the requirement. Ignored when empty
    * @return acceptableValues
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies the list of strictly possible values for the requirement. Ignored when empty")
   @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -169,7 +169,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Maximum length allowed for the value
    * @return maxLength
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "20", value = "Maximum length allowed for the value")
   @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -195,7 +195,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Minimum length allowed for the value
    * @return minLength
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "16", value = "Minimum length allowed for the value")
   @JsonProperty(JSON_PROPERTY_MIN_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -221,7 +221,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies the allowed characters as a string
    * @return acceptableCharacters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "abcdef0123456789", value = "Specifies the allowed characters as a string")
   @JsonProperty(JSON_PROPERTY_ACCEPTABLE_CHARACTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -247,7 +247,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * Specifies whether string matching should be case sensitive
    * @return caseSensitive
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether string matching should be case sensitive")
   @JsonProperty(JSON_PROPERTY_CASE_SENSITIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -273,7 +273,7 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
    * A regular expression pattern that the value must match
    * @return regex
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "^[A-Z0-9]+$", value = "A regular expression pattern that the value must match")
   @JsonProperty(JSON_PROPERTY_REGEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

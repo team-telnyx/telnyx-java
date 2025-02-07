@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   Queue.JSON_PROPERTY_MAX_SIZE,
   Queue.JSON_PROPERTY_AVERAGE_WAIT_TIME_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Queue {
   /**
    * Gets or Sets recordType
@@ -113,7 +113,7 @@ public class Queue {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "queue", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -139,7 +139,7 @@ public class Queue {
    * Uniquely identifies the queue
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the queue")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -165,7 +165,7 @@ public class Queue {
    * Name of the queue
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "support", required = true, value = "Name of the queue")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -191,7 +191,7 @@ public class Queue {
    * ISO 8601 formatted date of when the queue was created
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the queue was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -217,7 +217,7 @@ public class Queue {
    * ISO 8601 formatted date of when the queue was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the queue was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -243,7 +243,7 @@ public class Queue {
    * The number of calls currently in the queue
    * @return currentSize
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "20", required = true, value = "The number of calls currently in the queue")
   @JsonProperty(JSON_PROPERTY_CURRENT_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -271,7 +271,7 @@ public class Queue {
    * maximum: 300
    * @return maxSize
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "100", required = true, value = "Maximum number of calls that can be in the queue at once")
   @JsonProperty(JSON_PROPERTY_MAX_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -297,7 +297,7 @@ public class Queue {
    * The average time that the calls currently in the queue have spent waiting, given in seconds.
    * @return averageWaitTimeSecs
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "175", required = true, value = "The average time that the calls currently in the queue have spent waiting, given in seconds.")
   @JsonProperty(JSON_PROPERTY_AVERAGE_WAIT_TIME_SECS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

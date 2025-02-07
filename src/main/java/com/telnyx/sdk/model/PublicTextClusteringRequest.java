@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   PublicTextClusteringRequest.JSON_PROPERTY_MIN_CLUSTER_SIZE,
   PublicTextClusteringRequest.JSON_PROPERTY_MIN_SUBCLUSTER_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PublicTextClusteringRequest {
   public static final String JSON_PROPERTY_BUCKET = "bucket";
   private String bucket;
@@ -70,7 +70,7 @@ public class PublicTextClusteringRequest {
    * The embedded storage bucket to compute the clusters from. The bucket must already be [embedded](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding).
    * @return bucket
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The embedded storage bucket to compute the clusters from. The bucket must already be [embedded](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding).")
   @JsonProperty(JSON_PROPERTY_BUCKET)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -96,7 +96,7 @@ public class PublicTextClusteringRequest {
    * Prefix to filter whcih files in the buckets are included.
    * @return prefix
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Prefix to filter whcih files in the buckets are included.")
   @JsonProperty(JSON_PROPERTY_PREFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class PublicTextClusteringRequest {
    * Array of files to filter which are included.
    * @return files
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Array of files to filter which are included.")
   @JsonProperty(JSON_PROPERTY_FILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class PublicTextClusteringRequest {
    * Smallest number of related text chunks to qualify as a cluster. Top-level clusters should be thought of as identifying broad themes in your data.
    * @return minClusterSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Smallest number of related text chunks to qualify as a cluster. Top-level clusters should be thought of as identifying broad themes in your data.")
   @JsonProperty(JSON_PROPERTY_MIN_CLUSTER_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class PublicTextClusteringRequest {
    * Smallest number of related text chunks to qualify as a sub-cluster. Sub-clusters should be thought of as identifying more specific topics within a broader theme.
    * @return minSubclusterSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Smallest number of related text chunks to qualify as a sub-cluster. Sub-clusters should be thought of as identifying more specific topics within a broader theme.")
   @JsonProperty(JSON_PROPERTY_MIN_SUBCLUSTER_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

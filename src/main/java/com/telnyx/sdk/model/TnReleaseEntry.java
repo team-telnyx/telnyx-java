@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   TnReleaseEntry.JSON_PROPERTY_PHONE_NUMBER,
   TnReleaseEntry.JSON_PROPERTY_NUMBER_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TnReleaseEntry {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -56,7 +56,7 @@ public class TnReleaseEntry {
    * Phone number in E164 format.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone number in E164 format.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class TnReleaseEntry {
    * Phone number ID from the Telnyx API.
    * @return numberId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone number ID from the Telnyx API.")
   @JsonProperty(JSON_PROPERTY_NUMBER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

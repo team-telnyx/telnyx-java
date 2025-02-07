@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   NumberHealthMetrics.JSON_PROPERTY_SUCCESS_RATIO,
   NumberHealthMetrics.JSON_PROPERTY_SPAM_RATIO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberHealthMetrics {
   public static final String JSON_PROPERTY_MESSAGE_COUNT = "message_count";
   private Integer messageCount;
@@ -65,7 +65,7 @@ public class NumberHealthMetrics {
    * The number of messages analyzed for the health metrics.
    * @return messageCount
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The number of messages analyzed for the health metrics.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class NumberHealthMetrics {
    * The ratio of messages received to the number of messages sent.
    * @return inboundOutboundRatio
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ratio of messages received to the number of messages sent.")
   @JsonProperty(JSON_PROPERTY_INBOUND_OUTBOUND_RATIO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class NumberHealthMetrics {
    * The ratio of messages sucessfully delivered to the number of messages attempted.
    * @return successRatio
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ratio of messages sucessfully delivered to the number of messages attempted.")
   @JsonProperty(JSON_PROPERTY_SUCCESS_RATIO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -143,7 +143,7 @@ public class NumberHealthMetrics {
    * The ratio of messages blocked for spam to the number of messages attempted.
    * @return spamRatio
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ratio of messages blocked for spam to the number of messages attempted.")
   @JsonProperty(JSON_PROPERTY_SPAM_RATIO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

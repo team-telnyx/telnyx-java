@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   RCSMessage.JSON_PROPERTY_TYPE,
   RCSMessage.JSON_PROPERTY_AGENT_MESSAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSMessage {
   public static final String JSON_PROPERTY_AGENT_ID = "agent_id";
   private String agentId;
@@ -102,7 +102,7 @@ public class RCSMessage {
    * RCS Agent ID
    * @return agentId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Agent007", required = true, value = "RCS Agent ID")
   @JsonProperty(JSON_PROPERTY_AGENT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -128,7 +128,7 @@ public class RCSMessage {
    * Phone number in +E.164 format
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+13125551234", required = true, value = "Phone number in +E.164 format")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -154,7 +154,7 @@ public class RCSMessage {
    * A valid messaging profile ID
    * @return messagingProfileId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "A valid messaging profile ID")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -180,7 +180,7 @@ public class RCSMessage {
    * Message type - must be set to \&quot;RCS\&quot;
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "RCS", value = "Message type - must be set to \"RCS\"")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -206,7 +206,7 @@ public class RCSMessage {
    * Get agentMessage
    * @return agentMessage
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_AGENT_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

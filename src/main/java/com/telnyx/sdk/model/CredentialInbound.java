@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   CredentialInbound.JSON_PROPERTY_TIMEOUT2XX_SECS,
   CredentialInbound.JSON_PROPERTY_SHAKEN_STIR_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CredentialInbound {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
@@ -172,7 +172,7 @@ public class CredentialInbound {
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
    * @return aniNumberFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This setting allows you to set the format with which the caller's number (ANI) is sent for inbound phone calls.")
   @JsonProperty(JSON_PROPERTY_ANI_NUMBER_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -198,7 +198,7 @@ public class CredentialInbound {
    * Get dnisNumberFormat
    * @return dnisNumberFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DNIS_NUMBER_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -232,7 +232,7 @@ public class CredentialInbound {
    * Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.
    * @return codecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.")
   @JsonProperty(JSON_PROPERTY_CODECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -258,7 +258,7 @@ public class CredentialInbound {
    * When set, this will limit the total number of inbound calls to phone numbers associated with this connection.
    * @return channelLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When set, this will limit the total number of inbound calls to phone numbers associated with this connection.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -284,7 +284,7 @@ public class CredentialInbound {
    * Generate ringback tone through 183 session progress message with early media.
    * @return generateRingbackTone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Generate ringback tone through 183 session progress message with early media.")
   @JsonProperty(JSON_PROPERTY_GENERATE_RINGBACK_TONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -310,7 +310,7 @@ public class CredentialInbound {
    * When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.)
    * @return isupHeadersEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.)")
   @JsonProperty(JSON_PROPERTY_ISUP_HEADERS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -336,7 +336,7 @@ public class CredentialInbound {
    * Enable PRACK messages as defined in RFC3262.
    * @return prackEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Enable PRACK messages as defined in RFC3262.")
   @JsonProperty(JSON_PROPERTY_PRACK_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -362,7 +362,7 @@ public class CredentialInbound {
    * Defaults to true.
    * @return sipCompactHeadersEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defaults to true.")
   @JsonProperty(JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -390,7 +390,7 @@ public class CredentialInbound {
    * maximum: 120
    * @return timeout1xxSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Time(sec) before aborting if connection is not made.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT1XX_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -416,7 +416,7 @@ public class CredentialInbound {
    * Time(sec) before aborting if call is unanswered (min: 1, max: 600).
    * @return timeout2xxSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Time(sec) before aborting if call is unanswered (min: 1, max: 600).")
   @JsonProperty(JSON_PROPERTY_TIMEOUT2XX_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -442,7 +442,7 @@ public class CredentialInbound {
    * When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.
    * @return shakenStirEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.")
   @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
