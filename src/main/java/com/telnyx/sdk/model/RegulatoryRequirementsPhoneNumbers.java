@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirementsPhoneNumbers.JSON_PROPERTY_RECORD_TYPE,
   RegulatoryRequirementsPhoneNumbers.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirementsPhoneNumbers {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -79,7 +79,7 @@ public class RegulatoryRequirementsPhoneNumbers {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+41215471644", value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -95,7 +95,7 @@ public class RegulatoryRequirementsPhoneNumbers {
    * Get phoneNumberType
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "local", value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -124,7 +124,7 @@ public class RegulatoryRequirementsPhoneNumbers {
    * Get regionInformation
    * @return regionInformation
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class RegulatoryRequirementsPhoneNumbers {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number_regulatory_requirements", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class RegulatoryRequirementsPhoneNumbers {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

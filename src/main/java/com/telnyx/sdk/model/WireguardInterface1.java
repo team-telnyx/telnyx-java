@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   WireguardInterface1.JSON_PROPERTY_ENDPOINT,
   WireguardInterface1.JSON_PROPERTY_PUBLIC_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WireguardInterface1 {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -68,7 +68,7 @@ public class WireguardInterface1 {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wireguard_interface", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class WireguardInterface1 {
    * The Telnyx WireGuard peers &#x60;Peer.endpoint&#x60; value.
    * @return endpoint
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "203.0.113.0:51871", value = "The Telnyx WireGuard peers `Peer.endpoint` value.")
   @JsonProperty(JSON_PROPERTY_ENDPOINT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -100,7 +100,7 @@ public class WireguardInterface1 {
    * The Telnyx WireGuard peers &#x60;Peer.PublicKey&#x60;.
    * @return publicKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=", value = "The Telnyx WireGuard peers `Peer.PublicKey`.")
   @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

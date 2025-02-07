@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   TexmlUpdateSiprecSessionResponseBody.JSON_PROPERTY_URI,
   TexmlUpdateSiprecSessionResponseBody.JSON_PROPERTY_ERROR_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TexmlUpdateSiprecSessionResponseBody {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -111,7 +111,7 @@ public class TexmlUpdateSiprecSessionResponseBody {
    * The id of the account the resource belongs to.
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "The id of the account the resource belongs to.")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -137,7 +137,7 @@ public class TexmlUpdateSiprecSessionResponseBody {
    * The id of the call the resource belongs to.
    * @return callSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "The id of the call the resource belongs to.")
   @JsonProperty(JSON_PROPERTY_CALL_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -163,7 +163,7 @@ public class TexmlUpdateSiprecSessionResponseBody {
    * The SID of the siprec session.
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18123", value = "The SID of the siprec session.")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -189,7 +189,7 @@ public class TexmlUpdateSiprecSessionResponseBody {
    * The date and time the siprec session was last updated.
    * @return dateUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Fri, 11 Aug 2023 19:12:11 +0000", value = "The date and time the siprec session was last updated.")
   @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -215,7 +215,7 @@ public class TexmlUpdateSiprecSessionResponseBody {
    * The status of the siprec session.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "in-progress", value = "The status of the siprec session.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -241,7 +241,7 @@ public class TexmlUpdateSiprecSessionResponseBody {
    * The URI of the siprec session.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://api.telnyx.com/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18123/Calls/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-ai/Siprec/61bf923e-5e4d-4595-a110-56190ea18123", value = "The URI of the siprec session.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -267,7 +267,7 @@ public class TexmlUpdateSiprecSessionResponseBody {
    * The error code of the siprec session.
    * @return errorCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The error code of the siprec session.")
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

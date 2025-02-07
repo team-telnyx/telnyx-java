@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortingOrderDeletedPayload.JSON_PROPERTY_CUSTOMER_REFERENCE,
   WebhookPortingOrderDeletedPayload.JSON_PROPERTY_DELETED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortingOrderDeletedPayload {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -63,7 +63,7 @@ public class WebhookPortingOrderDeletedPayload {
    * Identifies the porting order that was deleted.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting order that was deleted.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class WebhookPortingOrderDeletedPayload {
    * Identifies the customer reference associated with the porting order.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my-ref-001", value = "Identifies the customer reference associated with the porting order.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class WebhookPortingOrderDeletedPayload {
    * ISO 8601 formatted date indicating when the porting order was deleted.
    * @return deletedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the porting order was deleted.")
   @JsonProperty(JSON_PROPERTY_DELETED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

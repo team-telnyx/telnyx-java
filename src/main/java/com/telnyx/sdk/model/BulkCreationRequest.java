@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   BulkCreationRequest.JSON_PROPERTY_BRANDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class BulkCreationRequest {
   public static final String JSON_PROPERTY_BRANDS = "brands";
   private List<SoleProprietorData> brands = new ArrayList<>();
@@ -62,7 +62,7 @@ public class BulkCreationRequest {
    * Get brands
    * @return brands
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_BRANDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

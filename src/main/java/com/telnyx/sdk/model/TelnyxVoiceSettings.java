@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   TelnyxVoiceSettings.JSON_PROPERTY_VOICE_SPEED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TelnyxVoiceSettings {
   public static final String JSON_PROPERTY_VOICE_SPEED = "voice_speed";
   private Float voiceSpeed = 1f;
@@ -54,7 +54,7 @@ public class TelnyxVoiceSettings {
    * maximum: 2
    * @return voiceSpeed
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "The voice speed to be used for the voice. The voice speed must be between 0.1 and 2.0. Default value is 1.0.")
   @JsonProperty(JSON_PROPERTY_VOICE_SPEED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

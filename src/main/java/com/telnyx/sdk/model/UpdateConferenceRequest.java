@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   UpdateConferenceRequest.JSON_PROPERTY_SUPERVISOR_ROLE,
   UpdateConferenceRequest.JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateConferenceRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -105,7 +105,7 @@ public class UpdateConferenceRequest {
    * Unique identifier and token for controlling the call
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==", required = true, value = "Unique identifier and token for controlling the call")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -131,7 +131,7 @@ public class UpdateConferenceRequest {
    * Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class UpdateConferenceRequest {
    * Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;.
    * @return supervisorRole
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "whisper", required = true, value = "Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \"barge\" means the supervisor enters the conference as a normal participant. This is the same as \"none\". \"monitor\" means the supervisor is muted but can hear all participants. \"whisper\" means that only the specified \"whisper_call_control_ids\" can hear the supervisor. Defaults to \"none\".")
   @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -191,7 +191,7 @@ public class UpdateConferenceRequest {
    * Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.
    * @return whisperCallControlIds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ\",\"v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw\"]", value = "Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.")
   @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

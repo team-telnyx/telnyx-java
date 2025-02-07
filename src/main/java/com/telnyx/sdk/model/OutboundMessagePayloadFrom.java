@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayloadFrom.JSON_PROPERTY_CARRIER,
   OutboundMessagePayloadFrom.JSON_PROPERTY_LINE_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OutboundMessagePayloadFrom {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -103,7 +103,7 @@ public class OutboundMessagePayloadFrom {
    * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -129,7 +129,7 @@ public class OutboundMessagePayloadFrom {
    * The carrier of the receiver.
    * @return carrier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The carrier of the receiver.")
   @JsonProperty(JSON_PROPERTY_CARRIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -155,7 +155,7 @@ public class OutboundMessagePayloadFrom {
    * The line-type of the receiver.
    * @return lineType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The line-type of the receiver.")
   @JsonProperty(JSON_PROPERTY_LINE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

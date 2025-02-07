@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocumentAllOf.JSON_PROPERTY_FILENAME,
   DocServiceDocumentAllOf.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DocServiceDocumentAllOf {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -124,7 +124,7 @@ public class DocServiceDocumentAllOf {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "document", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -140,7 +140,7 @@ public class DocServiceDocumentAllOf {
    * The document&#39;s content_type.
    * @return contentType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "application/pdf", value = "The document's content_type.")
   @JsonProperty(JSON_PROPERTY_CONTENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class DocServiceDocumentAllOf {
    * Get size
    * @return size
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class DocServiceDocumentAllOf {
    * Indicates the current document reviewing status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "Indicates the current document reviewing status")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -198,7 +198,7 @@ public class DocServiceDocumentAllOf {
    * The document&#39;s SHA256 hash provided for optional verification purposes.
    * @return sha256
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c", value = "The document's SHA256 hash provided for optional verification purposes.")
   @JsonProperty(JSON_PROPERTY_SHA256)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -219,7 +219,7 @@ public class DocServiceDocumentAllOf {
    * The filename of the document.
    * @return filename
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "test-document.pdf", value = "The filename of the document.")
   @JsonProperty(JSON_PROPERTY_FILENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -245,7 +245,7 @@ public class DocServiceDocumentAllOf {
    * Optional reference string for customer tracking.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "Optional reference string for customer tracking.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

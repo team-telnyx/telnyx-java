@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   VirtualCrossConnectCoverage.JSON_PROPERTY_CLOUD_PROVIDER_REGION,
   VirtualCrossConnectCoverage.JSON_PROPERTY_AVAILABLE_BANDWIDTH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VirtualCrossConnectCoverage {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -112,7 +112,7 @@ public class VirtualCrossConnectCoverage {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "virtual_cross_connects_coverage", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -133,7 +133,7 @@ public class VirtualCrossConnectCoverage {
    * Get location
    * @return location
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -159,7 +159,7 @@ public class VirtualCrossConnectCoverage {
    * The Virtual Private Cloud with which you would like to establish a cross connect.
    * @return cloudProvider
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aws", value = "The Virtual Private Cloud with which you would like to establish a cross connect.")
   @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -185,7 +185,7 @@ public class VirtualCrossConnectCoverage {
    * The region where your Virtual Private Cloud hosts are located. Should be identical to how the cloud provider names region, i.e. us-east-1 for AWS but Frankfurt for Azure
    * @return cloudProviderRegion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "us-east-1", value = "The region where your Virtual Private Cloud hosts are located. Should be identical to how the cloud provider names region, i.e. us-east-1 for AWS but Frankfurt for Azure")
   @JsonProperty(JSON_PROPERTY_CLOUD_PROVIDER_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -219,7 +219,7 @@ public class VirtualCrossConnectCoverage {
    * The available throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.
    * @return availableBandwidth
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[50,100,200,500]", value = "The available throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.")
   @JsonProperty(JSON_PROPERTY_AVAILABLE_BANDWIDTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

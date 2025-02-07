@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   RCSStandaloneCard.JSON_PROPERTY_THUMBNAIL_IMAGE_ALIGNMENT,
   RCSStandaloneCard.JSON_PROPERTY_CARD_CONTENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSStandaloneCard {
   /**
    * Orientation of the card.
@@ -136,7 +136,7 @@ public class RCSStandaloneCard {
    * Orientation of the card.
    * @return cardOrientation
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "HORIZONTAL", required = true, value = "Orientation of the card.")
   @JsonProperty(JSON_PROPERTY_CARD_ORIENTATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -162,7 +162,7 @@ public class RCSStandaloneCard {
    * Image preview alignment for standalone cards with horizontal layout.
    * @return thumbnailImageAlignment
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "LEFT", required = true, value = "Image preview alignment for standalone cards with horizontal layout.")
   @JsonProperty(JSON_PROPERTY_THUMBNAIL_IMAGE_ALIGNMENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -188,7 +188,7 @@ public class RCSStandaloneCard {
    * Get cardContent
    * @return cardContent
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CARD_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

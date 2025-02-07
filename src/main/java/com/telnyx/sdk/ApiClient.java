@@ -1,15 +1,15 @@
 package com.telnyx.sdk;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.Form;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
@@ -66,7 +66,7 @@ import com.telnyx.sdk.auth.ApiKeyAuth;
 /**
  * <p>ApiClient class.</p>
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -152,7 +152,7 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * <p>Getter for the field <code>httpClient</code>.</p>
    *
-   * @return a {@link javax.ws.rs.client.Client} object.
+   * @return a {@link jakarta.ws.rs.client.Client} object.
    */
   public Client getHttpClient() {
     return httpClient;
@@ -161,7 +161,7 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * <p>Setter for the field <code>httpClient</code>.</p>
    *
-   * @param httpClient a {@link javax.ws.rs.client.Client} object.
+   * @param httpClient a {@link jakarta.ws.rs.client.Client} object.
    * @return a {@link org.openapitools.client.ApiClient} object.
    */
   public ApiClient setHttpClient(Client httpClient) {
@@ -886,7 +886,7 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * <p>Prepare the file for download from the response.</p>
    *
-   * @param response a {@link javax.ws.rs.core.Response} object.
+   * @param response a {@link jakarta.ws.rs.core.Response} object.
    * @return a {@link java.io.File} object.
    * @throws java.io.IOException if any.
    */
@@ -1152,7 +1152,7 @@ public class ApiClient extends JavaTimeFormatter {
    * To completely disable certificate validation (at your own risk), you can
    * override this method and invoke disableCertificateValidation(clientBuilder).
    *
-   * @param clientBuilder a {@link javax.ws.rs.client.ClientBuilder} object.
+   * @param clientBuilder a {@link jakarta.ws.rs.client.ClientBuilder} object.
    */
   protected void customizeClientBuilder(ClientBuilder clientBuilder) {
     // No-op extension point
@@ -1164,7 +1164,7 @@ public class ApiClient extends JavaTimeFormatter {
    * Please note that trusting all certificates is extremely risky.
    * This may be useful in a development environment with self-signed certificates.
    *
-   * @param clientBuilder a {@link javax.ws.rs.client.ClientBuilder} object.
+   * @param clientBuilder a {@link jakarta.ws.rs.client.ClientBuilder} object.
    * @throws java.security.KeyManagementException if any.
    * @throws java.security.NoSuchAlgorithmException if any.
    */
@@ -1191,7 +1191,7 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * <p>Build the response headers.</p>
    *
-   * @param response a {@link javax.ws.rs.core.Response} object.
+   * @param response a {@link jakarta.ws.rs.core.Response} object.
    * @return a {@link java.util.Map} of response headers.
    */
   protected Map<String, List<String>> buildResponseHeaders(Response response) {

@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdatePortingOrdersActivationJobRequest.JSON_PROPERTY_ACTIVATE_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePortingOrdersActivationJobRequest {
   public static final String JSON_PROPERTY_ACTIVATE_AT = "activate_at";
   private OffsetDateTime activateAt;
@@ -53,7 +53,7 @@ public class UpdatePortingOrdersActivationJobRequest {
    * The desired activation time. The activation time should be between any of the activation windows.
    * @return activateAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-01T00:00Z", value = "The desired activation time. The activation time should be between any of the activation windows.")
   @JsonProperty(JSON_PROPERTY_ACTIVATE_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE,
   CreateAndroidPushCredentialRequest.JSON_PROPERTY_ALIAS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateAndroidPushCredentialRequest {
   /**
    * Type of mobile push credential. Should be &lt;code&gt;android&lt;/code&gt; here
@@ -93,7 +93,7 @@ public class CreateAndroidPushCredentialRequest {
    * Type of mobile push credential. Should be &lt;code&gt;android&lt;/code&gt; here
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Type of mobile push credential. Should be <code>android</code> here")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -119,7 +119,7 @@ public class CreateAndroidPushCredentialRequest {
    * Private key file in JSON format
    * @return projectAccountJsonFile
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "{\"private_key\":\"BBBB0J56jd8kda:APA91vjb11BCjvxx3Jxja...\",\"client_email\":\"account@customer.org\"}", required = true, value = "Private key file in JSON format")
   @JsonProperty(JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -145,7 +145,7 @@ public class CreateAndroidPushCredentialRequest {
    * Alias to uniquely identify the credential
    * @return alias
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "LucyAndroidCredential", required = true, value = "Alias to uniquely identify the credential")
   @JsonProperty(JSON_PROPERTY_ALIAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

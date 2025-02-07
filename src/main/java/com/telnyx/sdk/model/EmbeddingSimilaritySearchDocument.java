@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   EmbeddingSimilaritySearchDocument.JSON_PROPERTY_DISTANCE,
   EmbeddingSimilaritySearchDocument.JSON_PROPERTY_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class EmbeddingSimilaritySearchDocument {
   public static final String JSON_PROPERTY_DOCUMENT_CHUNK = "document_chunk";
   private String documentChunk;
@@ -63,7 +63,7 @@ public class EmbeddingSimilaritySearchDocument {
    * Get documentChunk
    * @return documentChunk
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DOCUMENT_CHUNK)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class EmbeddingSimilaritySearchDocument {
    * Get distance
    * @return distance
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DISTANCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -115,7 +115,7 @@ public class EmbeddingSimilaritySearchDocument {
    * Get metadata
    * @return metadata
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

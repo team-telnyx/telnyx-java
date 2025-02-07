@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   CreateNumberOrderRequestPhoneNumbersInner.JSON_PROPERTY_REQUIREMENT_GROUP_ID,
   CreateNumberOrderRequestPhoneNumbersInner.JSON_PROPERTY_BUNDLE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateNumberOrderRequestPhoneNumbersInner {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -60,7 +60,7 @@ public class CreateNumberOrderRequestPhoneNumbersInner {
    * e164_phone_number
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+19705555098", required = true, value = "e164_phone_number")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -86,7 +86,7 @@ public class CreateNumberOrderRequestPhoneNumbersInner {
    * ID of requirement group to use to satisfy number requirements
    * @return requirementGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dbbd94ee-9079-488f-80ba-f566b247fd7", value = "ID of requirement group to use to satisfy number requirements")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class CreateNumberOrderRequestPhoneNumbersInner {
    * ID of bundle to associate the number to
    * @return bundleId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "bc8e4d67-33a0-4cbb-af74-7b58f05bd494", value = "ID of bundle to associate the number to")
   @JsonProperty(JSON_PROPERTY_BUNDLE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

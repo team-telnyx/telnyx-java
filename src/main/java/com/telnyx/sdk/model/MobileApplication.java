@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   MobileApplication.JSON_PROPERTY_CREATED_AT,
   MobileApplication.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MobileApplication {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -73,7 +73,7 @@ public class MobileApplication {
    * ID of the appplication that was created
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", required = true, value = "ID of the appplication that was created")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -99,7 +99,7 @@ public class MobileApplication {
    * Name of the appplication to be created
    * @return applicationName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "FlashEmergency", required = true, value = "Name of the appplication to be created")
   @JsonProperty(JSON_PROPERTY_APPLICATION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -125,7 +125,7 @@ public class MobileApplication {
    * Type of application to be created (IOS or Android)
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "android", required = true, value = "Type of application to be created (IOS or Android)")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -146,7 +146,7 @@ public class MobileApplication {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "mobile_application", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -167,7 +167,7 @@ public class MobileApplication {
    * ISO 8601 timestamp when the room was created.
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", required = true, value = "ISO 8601 timestamp when the room was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -193,7 +193,7 @@ public class MobileApplication {
    * ISO 8601 timestamp when the room was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2021-03-26T17:51:59.588408Z", required = true, value = "ISO 8601 timestamp when the room was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

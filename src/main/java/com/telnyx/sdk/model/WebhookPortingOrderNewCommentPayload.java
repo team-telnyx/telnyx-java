@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_SUPPORT_KEY,
   WebhookPortingOrderNewCommentPayload.JSON_PROPERTY_COMMENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortingOrderNewCommentPayload {
   public static final String JSON_PROPERTY_PORTING_ORDER_ID = "porting_order_id";
   private UUID portingOrderId;
@@ -63,7 +63,7 @@ public class WebhookPortingOrderNewCommentPayload {
    * Identifies the porting order that the comment was added to.
    * @return portingOrderId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the porting order that the comment was added to.")
   @JsonProperty(JSON_PROPERTY_PORTING_ORDER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class WebhookPortingOrderNewCommentPayload {
    * Identifies the support key associated with the porting order.
    * @return supportKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sr_b1a2c3", value = "Identifies the support key associated with the porting order.")
   @JsonProperty(JSON_PROPERTY_SUPPORT_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class WebhookPortingOrderNewCommentPayload {
    * Get comment
    * @return comment
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COMMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

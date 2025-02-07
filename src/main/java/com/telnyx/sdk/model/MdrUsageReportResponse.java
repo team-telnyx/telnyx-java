@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   MdrUsageReportResponse.JSON_PROPERTY_PROFILES,
   MdrUsageReportResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MdrUsageReportResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -177,7 +177,7 @@ public class MdrUsageReportResponse {
    * Identifies the resource
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the resource")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -203,7 +203,7 @@ public class MdrUsageReportResponse {
    * Get startDate
    * @return startDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "")
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -229,7 +229,7 @@ public class MdrUsageReportResponse {
    * Get endDate
    * @return endDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "")
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -263,7 +263,7 @@ public class MdrUsageReportResponse {
    * Get connections
    * @return connections
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CONNECTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -289,7 +289,7 @@ public class MdrUsageReportResponse {
    * Get aggregationType
    * @return aggregationType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_AGGREGATION_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -315,7 +315,7 @@ public class MdrUsageReportResponse {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -341,7 +341,7 @@ public class MdrUsageReportResponse {
    * Get reportUrl
    * @return reportUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://portal.telnyx.com/downloads/report_name_8hvb45Gu.csv", value = "")
   @JsonProperty(JSON_PROPERTY_REPORT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -375,7 +375,7 @@ public class MdrUsageReportResponse {
    * Get result
    * @return result
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -401,7 +401,7 @@ public class MdrUsageReportResponse {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -427,7 +427,7 @@ public class MdrUsageReportResponse {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -453,7 +453,7 @@ public class MdrUsageReportResponse {
    * Get profiles
    * @return profiles
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "My profile", value = "")
   @JsonProperty(JSON_PROPERTY_PROFILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -479,7 +479,7 @@ public class MdrUsageReportResponse {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "mdr_usage_report", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

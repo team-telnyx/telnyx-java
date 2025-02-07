@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   GcbPhoneNumber.JSON_PROPERTY_PHONE_NUMBER,
   GcbPhoneNumber.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GcbPhoneNumber {
   /**
    * Gets or Sets recordType
@@ -101,7 +101,7 @@ public class GcbPhoneNumber {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "channel_zone_phone_number", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -127,7 +127,7 @@ public class GcbPhoneNumber {
    * Get channelZoneId
    * @return channelZoneId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "1653e6a1-4bfd-4857-97c6-6a51e1c34477", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CHANNEL_ZONE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,7 +153,7 @@ public class GcbPhoneNumber {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3da3c749-bb7d-4ad6-acae-ca0d415ae08b", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class GcbPhoneNumber {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+15554441234", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -205,7 +205,7 @@ public class GcbPhoneNumber {
    * ISO 8601 formatted date of when the phone number was created
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "ISO 8601 formatted date of when the phone number was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

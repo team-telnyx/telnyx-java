@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   RCSRichCard.JSON_PROPERTY_CAROUSEL_CARD,
   RCSRichCard.JSON_PROPERTY_STANDALONE_CARD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSRichCard {
   public static final String JSON_PROPERTY_CAROUSEL_CARD = "carousel_card";
   private RCSCarouselCard carouselCard;
@@ -58,7 +58,7 @@ public class RCSRichCard {
    * Get carouselCard
    * @return carouselCard
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CAROUSEL_CARD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class RCSRichCard {
    * Get standaloneCard
    * @return standaloneCard
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STANDALONE_CARD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

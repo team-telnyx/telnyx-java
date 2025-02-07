@@ -55,7 +55,7 @@ import com.telnyx.sdk.JSON;
   ExternalWdrDetailRecordDto.JSON_PROPERTY_UPLINK_DATA,
   ExternalWdrDetailRecordDto.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ExternalWdrDetailRecordDto {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -114,7 +114,7 @@ public class ExternalWdrDetailRecordDto {
    * WDR id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "WDR id")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -140,7 +140,7 @@ public class ExternalWdrDetailRecordDto {
    * Record created time
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00-06:00", value = "Record created time")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -166,7 +166,7 @@ public class ExternalWdrDetailRecordDto {
    * Get cost
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -192,7 +192,7 @@ public class ExternalWdrDetailRecordDto {
    * Mobile country code.
    * @return mcc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "204", value = "Mobile country code.")
   @JsonProperty(JSON_PROPERTY_MCC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -218,7 +218,7 @@ public class ExternalWdrDetailRecordDto {
    * Mobile network code.
    * @return mnc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "01", value = "Mobile network code.")
   @JsonProperty(JSON_PROPERTY_MNC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -244,7 +244,7 @@ public class ExternalWdrDetailRecordDto {
    * Get downlinkData
    * @return downlinkData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOWNLINK_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -270,7 +270,7 @@ public class ExternalWdrDetailRecordDto {
    * Session duration in seconds.
    * @return durationSeconds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "Session duration in seconds.")
   @JsonProperty(JSON_PROPERTY_DURATION_SECONDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -296,7 +296,7 @@ public class ExternalWdrDetailRecordDto {
    * International mobile subscriber identity.
    * @return imsi
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123", value = "International mobile subscriber identity.")
   @JsonProperty(JSON_PROPERTY_IMSI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -322,7 +322,7 @@ public class ExternalWdrDetailRecordDto {
    * Get rate
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -348,7 +348,7 @@ public class ExternalWdrDetailRecordDto {
    * Defined sim group name
    * @return simGroupName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "sim name", value = "Defined sim group name")
   @JsonProperty(JSON_PROPERTY_SIM_GROUP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -374,7 +374,7 @@ public class ExternalWdrDetailRecordDto {
    * Sim group unique identifier
    * @return simGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f05a189f-7c46-4531-ac56-1460dc465a42", value = "Sim group unique identifier")
   @JsonProperty(JSON_PROPERTY_SIM_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -400,7 +400,7 @@ public class ExternalWdrDetailRecordDto {
    * Sim card unique identifier
    * @return simCardId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "877f80a6-e5b2-4687-9a04-88076265720f", value = "Sim card unique identifier")
   @JsonProperty(JSON_PROPERTY_SIM_CARD_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -426,7 +426,7 @@ public class ExternalWdrDetailRecordDto {
    * Phone number
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12345678910", value = "Phone number")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -452,7 +452,7 @@ public class ExternalWdrDetailRecordDto {
    * Get uplinkData
    * @return uplinkData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_UPLINK_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -478,7 +478,7 @@ public class ExternalWdrDetailRecordDto {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wdr", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_REQUIREMENT_ID,
   CreateRequirementGroupRequestRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateRequirementGroupRequestRegulatoryRequirementsInner {
   public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
   private String requirementId;
@@ -56,7 +56,7 @@ public class CreateRequirementGroupRequestRegulatoryRequirementsInner {
    * Get requirementId
    * @return requirementId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class CreateRequirementGroupRequestRegulatoryRequirementsInner {
    * Get fieldValue
    * @return fieldValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   TelephonyCredentialUpdateRequest.JSON_PROPERTY_CONNECTION_ID,
   TelephonyCredentialUpdateRequest.JSON_PROPERTY_EXPIRES_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TelephonyCredentialUpdateRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -64,7 +64,7 @@ public class TelephonyCredentialUpdateRequest {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -90,7 +90,7 @@ public class TelephonyCredentialUpdateRequest {
    * Tags a credential. A single tag can hold at maximum 1000 credentials.
    * @return tag
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "some_tag", value = "Tags a credential. A single tag can hold at maximum 1000 credentials.")
   @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -116,7 +116,7 @@ public class TelephonyCredentialUpdateRequest {
    * Identifies the Credential Connection this credential is associated with.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "987654321", value = "Identifies the Credential Connection this credential is associated with.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -142,7 +142,7 @@ public class TelephonyCredentialUpdateRequest {
    * ISO-8601 formatted date indicating when the credential will expire.
    * @return expiresAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO-8601 formatted date indicating when the credential will expire.")
   @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

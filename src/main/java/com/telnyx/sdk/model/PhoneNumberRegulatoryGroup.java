@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberRegulatoryGroup.JSON_PROPERTY_REGULATORY_GROUP_ID,
   PhoneNumberRegulatoryGroup.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PhoneNumberRegulatoryGroup {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -64,7 +64,7 @@ public class PhoneNumberRegulatoryGroup {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number_regulatory_requirement", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class PhoneNumberRegulatoryGroup {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+19705555098", value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -111,7 +111,7 @@ public class PhoneNumberRegulatoryGroup {
    * Get regulatoryGroupId
    * @return regulatoryGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "d70873cd-7c98-401a-81b6-b1ae08246995", value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -145,7 +145,7 @@ public class PhoneNumberRegulatoryGroup {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

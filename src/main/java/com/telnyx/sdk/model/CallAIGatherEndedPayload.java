@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   CallAIGatherEndedPayload.JSON_PROPERTY_RESULT,
   CallAIGatherEndedPayload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallAIGatherEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -126,7 +126,7 @@ public class CallAIGatherEndedPayload {
    * Call ID used to issue commands via Call Control API.
    * @return callControlId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -152,7 +152,7 @@ public class CallAIGatherEndedPayload {
    * Telnyx connection ID used in the call.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Telnyx connection ID used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -178,7 +178,7 @@ public class CallAIGatherEndedPayload {
    * ID that is unique to the call and can be used to correlate webhook events.
    * @return callLegId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-7af4-4bcb-b7f5-5013ef9657c1", value = "ID that is unique to the call and can be used to correlate webhook events.")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -204,7 +204,7 @@ public class CallAIGatherEndedPayload {
    * ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
    * @return callSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "428c31b6-abf3-3bc1-b7f4-5013ef9657c1", value = "ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -230,7 +230,7 @@ public class CallAIGatherEndedPayload {
    * State received from a command.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -256,7 +256,7 @@ public class CallAIGatherEndedPayload {
    * Number or SIP URI placing the call.
    * @return from
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+35319605860", value = "Number or SIP URI placing the call.")
   @JsonProperty(JSON_PROPERTY_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -282,7 +282,7 @@ public class CallAIGatherEndedPayload {
    * Destination number or SIP URI of the call.
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13129457420", value = "Destination number or SIP URI of the call.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -316,7 +316,7 @@ public class CallAIGatherEndedPayload {
    * The history of the messages exchanged during the AI gather
    * @return messageHistory
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The history of the messages exchanged during the AI gather")
   @JsonProperty(JSON_PROPERTY_MESSAGE_HISTORY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -342,7 +342,7 @@ public class CallAIGatherEndedPayload {
    * The result of the AI gather, its type depends of the &#x60;parameters&#x60; provided in the command
    * @return result
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "{\"age\":29,\"city\":\"Paris\"}", value = "The result of the AI gather, its type depends of the `parameters` provided in the command")
   @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -368,7 +368,7 @@ public class CallAIGatherEndedPayload {
    * Reflects how command ended.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "valid", value = "Reflects how command ended.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

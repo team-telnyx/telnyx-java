@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreatePortingPhoneNumberBlockRequestActivationRangesInner.JSON_PROPERTY_START_AT,
   CreatePortingPhoneNumberBlockRequestActivationRangesInner.JSON_PROPERTY_END_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortingPhoneNumberBlockRequestActivationRangesInner {
   public static final String JSON_PROPERTY_START_AT = "start_at";
   private String startAt;
@@ -56,7 +56,7 @@ public class CreatePortingPhoneNumberBlockRequestActivationRangesInner {
    * Specifies the start of the activation range. Must be greater or equal the start of the extension range.
    * @return startAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+4930244999901", required = true, value = "Specifies the start of the activation range. Must be greater or equal the start of the extension range.")
   @JsonProperty(JSON_PROPERTY_START_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -82,7 +82,7 @@ public class CreatePortingPhoneNumberBlockRequestActivationRangesInner {
    * Specifies the end of the activation range. It must be no more than the end of the extension range.
    * @return endAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "+4930244999910", required = true, value = "Specifies the end of the activation range. It must be no more than the end of the extension range.")
   @JsonProperty(JSON_PROPERTY_END_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

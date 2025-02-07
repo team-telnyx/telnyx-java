@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   PortingPhoneNumberBlockPhoneNumberRange.JSON_PROPERTY_START_AT,
   PortingPhoneNumberBlockPhoneNumberRange.JSON_PROPERTY_END_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingPhoneNumberBlockPhoneNumberRange {
   public static final String JSON_PROPERTY_START_AT = "start_at";
   private String startAt;
@@ -57,7 +57,7 @@ public class PortingPhoneNumberBlockPhoneNumberRange {
    * Specifies the start of the phone number range for this porting phone number block.
    * @return startAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+4930244999901", value = "Specifies the start of the phone number range for this porting phone number block.")
   @JsonProperty(JSON_PROPERTY_START_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class PortingPhoneNumberBlockPhoneNumberRange {
    * Specifies the end of the phone number range for this porting phone number block.
    * @return endAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+4930244999910", value = "Specifies the end of the phone number range for this porting phone number block.")
   @JsonProperty(JSON_PROPERTY_END_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

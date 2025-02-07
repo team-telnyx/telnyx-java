@@ -49,7 +49,7 @@ import com.telnyx.sdk.JSON;
   VerifyDetailRecord.JSON_PROPERTY_CURRENCY,
   VerifyDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerifyDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -146,7 +146,7 @@ public class VerifyDetailRecord {
    * Unique ID of the verification
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0add777f-1549-46f7-84e9-ad7350f6aa97", value = "Unique ID of the verification")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -172,7 +172,7 @@ public class VerifyDetailRecord {
    * Get verifyProfileId
    * @return verifyProfileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "49000176-1ab2-8bc1-352e-4009f6c37f82", value = "")
   @JsonProperty(JSON_PROPERTY_VERIFY_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -198,7 +198,7 @@ public class VerifyDetailRecord {
    * Get deliveryStatus
    * @return deliveryStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "")
   @JsonProperty(JSON_PROPERTY_DELIVERY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -224,7 +224,7 @@ public class VerifyDetailRecord {
    * Get verificationStatus
    * @return verificationStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "")
   @JsonProperty(JSON_PROPERTY_VERIFICATION_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -250,7 +250,7 @@ public class VerifyDetailRecord {
    * E.164 formatted phone number
    * @return destinationPhoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13124515883", value = "E.164 formatted phone number")
   @JsonProperty(JSON_PROPERTY_DESTINATION_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -276,7 +276,7 @@ public class VerifyDetailRecord {
    * Depending on the type of verification, the &#x60;verify_channel_id&#x60; points to one of the following channel ids; --- verify_channel_type | verify_channel_id ------------------- | ----------------- sms, psd2           | messaging_id call, flashcall     | call_control_id whatsapp            | messaging_whatsapp_id --- 
    * @return verifyChannelType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Depending on the type of verification, the `verify_channel_id` points to one of the following channel ids; --- verify_channel_type | verify_channel_id ------------------- | ----------------- sms, psd2           | messaging_id call, flashcall     | call_control_id whatsapp            | messaging_whatsapp_id --- ")
   @JsonProperty(JSON_PROPERTY_VERIFY_CHANNEL_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -302,7 +302,7 @@ public class VerifyDetailRecord {
    * Get verifyChannelId
    * @return verifyChannelId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5b7a8365-91f3-420a-befc-498d1efd6c20", value = "")
   @JsonProperty(JSON_PROPERTY_VERIFY_CHANNEL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -328,7 +328,7 @@ public class VerifyDetailRecord {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-07-08T00:00:41.000000+00:00", value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -354,7 +354,7 @@ public class VerifyDetailRecord {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-07-08T00:00:41.000000+00:00", value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -380,7 +380,7 @@ public class VerifyDetailRecord {
    * Currency amount per billing unit used to calculate the Telnyx billing costs
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.002", value = "Currency amount per billing unit used to calculate the Telnyx billing costs")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -406,7 +406,7 @@ public class VerifyDetailRecord {
    * Billing unit used to calculate the Telnyx billing costs
    * @return rateMeasuredIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "number of occurrences", value = "Billing unit used to calculate the Telnyx billing costs")
   @JsonProperty(JSON_PROPERTY_RATE_MEASURED_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -432,7 +432,7 @@ public class VerifyDetailRecord {
    * Currency amount for Verify Usage Fee
    * @return verifyUsageFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.002", value = "Currency amount for Verify Usage Fee")
   @JsonProperty(JSON_PROPERTY_VERIFY_USAGE_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -458,7 +458,7 @@ public class VerifyDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing costs
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing costs")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -484,7 +484,7 @@ public class VerifyDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "verification_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

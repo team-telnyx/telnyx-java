@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   MobileOperatorNetworksGet200Response.JSON_PROPERTY_DATA,
   MobileOperatorNetworksGet200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MobileOperatorNetworksGet200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<MobileOperatorNetwork> data = null;
@@ -69,7 +69,7 @@ public class MobileOperatorNetworksGet200Response {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -95,7 +95,7 @@ public class MobileOperatorNetworksGet200Response {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

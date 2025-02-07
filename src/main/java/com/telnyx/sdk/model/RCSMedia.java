@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   RCSMedia.JSON_PROPERTY_HEIGHT,
   RCSMedia.JSON_PROPERTY_CONTENT_INFO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSMedia {
   /**
    * The height of the media within a rich card with a vertical layout. For a standalone card with horizontal layout, height is not customizable, and this field is ignored.
@@ -97,7 +97,7 @@ public class RCSMedia {
    * The height of the media within a rich card with a vertical layout. For a standalone card with horizontal layout, height is not customizable, and this field is ignored.
    * @return height
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MEDIUM", value = "The height of the media within a rich card with a vertical layout. For a standalone card with horizontal layout, height is not customizable, and this field is ignored.")
   @JsonProperty(JSON_PROPERTY_HEIGHT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class RCSMedia {
    * Get contentInfo
    * @return contentInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CONTENT_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

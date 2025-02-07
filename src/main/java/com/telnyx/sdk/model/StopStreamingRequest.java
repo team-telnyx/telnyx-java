@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   StopStreamingRequest.JSON_PROPERTY_COMMAND_ID,
   StopStreamingRequest.JSON_PROPERTY_STREAM_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StopStreamingRequest {
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -61,7 +61,7 @@ public class StopStreamingRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -87,7 +87,7 @@ public class StopStreamingRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -113,7 +113,7 @@ public class StopStreamingRequest {
    * Identifies the stream. If the &#x60;stream_id&#x60; is not provided the command stops all streams associated with a given &#x60;call_control_id&#x60;.
    * @return streamId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1edb94f9-7ef0-4150-b502-e0ebadfd9491", value = "Identifies the stream. If the `stream_id` is not provided the command stops all streams associated with a given `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_STREAM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

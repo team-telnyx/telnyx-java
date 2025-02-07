@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   GatherUsingSpeakRequest.JSON_PROPERTY_CLIENT_STATE,
   GatherUsingSpeakRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GatherUsingSpeakRequest {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private String payload;
@@ -272,7 +272,7 @@ public class GatherUsingSpeakRequest {
    * The text or SSML to be converted into speech. There is a 3,000 character limit.
    * @return payload
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Say this on the call", required = true, value = "The text or SSML to be converted into speech. There is a 3,000 character limit.")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -298,7 +298,7 @@ public class GatherUsingSpeakRequest {
    * The text or SSML to be converted into speech when digits don&#39;t match the &#x60;valid_digits&#x60; parameter or the number of digits is not between &#x60;min&#x60; and &#x60;max&#x60;. There is a 3,000 character limit.
    * @return invalidPayload
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Say this on the call", value = "The text or SSML to be converted into speech when digits don't match the `valid_digits` parameter or the number of digits is not between `min` and `max`. There is a 3,000 character limit.")
   @JsonProperty(JSON_PROPERTY_INVALID_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -324,7 +324,7 @@ public class GatherUsingSpeakRequest {
    * The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).
    * @return payloadType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ssml", value = "The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).")
   @JsonProperty(JSON_PROPERTY_PAYLOAD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -350,7 +350,7 @@ public class GatherUsingSpeakRequest {
    * This parameter impacts speech quality, language options and payload types. When using &#x60;basic&#x60;, only the &#x60;en-US&#x60; language and payload type &#x60;text&#x60; are allowed.
    * @return serviceLevel
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "premium", value = "This parameter impacts speech quality, language options and payload types. When using `basic`, only the `en-US` language and payload type `text` are allowed.")
   @JsonProperty(JSON_PROPERTY_SERVICE_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -376,7 +376,7 @@ public class GatherUsingSpeakRequest {
    * Specifies the voice used in speech synthesis.  - Define voices using the format &#x60;&lt;Provider&gt;.&lt;Model&gt;.&lt;VoiceId&gt;&#x60;. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use &#x60;AWS.Polly.&lt;VoiceId&gt;&#x60; (e.g., &#x60;AWS.Polly.Joanna&#x60;). For neural voices, which provide more realistic, human-like speech, append &#x60;-Neural&#x60; to the &#x60;VoiceId&#x60; (e.g., &#x60;AWS.Polly.Joanna-Neural&#x60;). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use &#x60;Azure.&lt;VoiceId&gt;. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use &#x60;ElevenLabs.&lt;ModelId&gt;.&lt;VoiceId&gt;&#x60; (e.g., &#x60;ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM&#x60;). The &#x60;ModelId&#x60; part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in &#x60;\&quot;voice_settings\&quot;: {\&quot;api_key_ref\&quot;: \&quot;&lt;secret_identifier&gt;\&quot;}&#x60;. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use &#x60;Telnyx.&lt;model_id&gt;.&lt;voice_id&gt;&#x60;  For service_level basic, you may define the gender of the speaker (male or female).
    * @return voice
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Telnyx.KokoroTTS.af", required = true, value = "Specifies the voice used in speech synthesis.  - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider will give default values for voice_id and model_id.   **Supported Providers:** - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `\"voice_settings\": {\"api_key_ref\": \"<secret_identifier>\"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`  For service_level basic, you may define the gender of the speaker (male or female).")
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -402,7 +402,7 @@ public class GatherUsingSpeakRequest {
    * Get voiceSettings
    * @return voiceSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -428,7 +428,7 @@ public class GatherUsingSpeakRequest {
    * The language you want spoken. This parameter is ignored when a &#x60;Polly.*&#x60; voice is specified.
    * @return language
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "en-US", value = "The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -454,7 +454,7 @@ public class GatherUsingSpeakRequest {
    * The minimum number of digits to fetch. This parameter has a minimum value of 1.
    * @return minimumDigits
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "The minimum number of digits to fetch. This parameter has a minimum value of 1.")
   @JsonProperty(JSON_PROPERTY_MINIMUM_DIGITS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -480,7 +480,7 @@ public class GatherUsingSpeakRequest {
    * The maximum number of digits to fetch. This parameter has a maximum value of 128.
    * @return maximumDigits
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "The maximum number of digits to fetch. This parameter has a maximum value of 128.")
   @JsonProperty(JSON_PROPERTY_MAXIMUM_DIGITS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -506,7 +506,7 @@ public class GatherUsingSpeakRequest {
    * The maximum number of times that a file should be played back if there is no input from the user on the call.
    * @return maximumTries
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "The maximum number of times that a file should be played back if there is no input from the user on the call.")
   @JsonProperty(JSON_PROPERTY_MAXIMUM_TRIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -532,7 +532,7 @@ public class GatherUsingSpeakRequest {
    * The number of milliseconds to wait for a DTMF response after speak ends before a replaying the sound file.
    * @return timeoutMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "60000", value = "The number of milliseconds to wait for a DTMF response after speak ends before a replaying the sound file.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -558,7 +558,7 @@ public class GatherUsingSpeakRequest {
    * The digit used to terminate input if fewer than &#x60;maximum_digits&#x60; digits have been gathered.
    * @return terminatingDigit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "#", value = "The digit used to terminate input if fewer than `maximum_digits` digits have been gathered.")
   @JsonProperty(JSON_PROPERTY_TERMINATING_DIGIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -584,7 +584,7 @@ public class GatherUsingSpeakRequest {
    * A list of all digits accepted as valid.
    * @return validDigits
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "123", value = "A list of all digits accepted as valid.")
   @JsonProperty(JSON_PROPERTY_VALID_DIGITS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -610,7 +610,7 @@ public class GatherUsingSpeakRequest {
    * The number of milliseconds to wait for input between digits.
    * @return interDigitTimeoutMillis
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10000", value = "The number of milliseconds to wait for input between digits.")
   @JsonProperty(JSON_PROPERTY_INTER_DIGIT_TIMEOUT_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -636,7 +636,7 @@ public class GatherUsingSpeakRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -662,7 +662,7 @@ public class GatherUsingSpeakRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

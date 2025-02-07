@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   OrderExternalVetting.JSON_PROPERTY_EVP_ID,
   OrderExternalVetting.JSON_PROPERTY_VETTING_CLASS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OrderExternalVetting {
   public static final String JSON_PROPERTY_EVP_ID = "evpId";
   private String evpId;
@@ -56,7 +56,7 @@ public class OrderExternalVetting {
    * External vetting provider ID for the brand.
    * @return evpId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "External vetting provider ID for the brand.")
   @JsonProperty(JSON_PROPERTY_EVP_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -82,7 +82,7 @@ public class OrderExternalVetting {
    * Identifies the vetting classification.
    * @return vettingClass
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Identifies the vetting classification.")
   @JsonProperty(JSON_PROPERTY_VETTING_CLASS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

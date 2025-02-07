@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   UpdateTexmlApplicationRequest.JSON_PROPERTY_INBOUND,
   UpdateTexmlApplicationRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateTexmlApplicationRequest {
   public static final String JSON_PROPERTY_FRIENDLY_NAME = "friendly_name";
   private String friendlyName;
@@ -174,7 +174,7 @@ public class UpdateTexmlApplicationRequest {
    * A user-assigned name to help manage the application.
    * @return friendlyName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "call-router", required = true, value = "A user-assigned name to help manage the application.")
   @JsonProperty(JSON_PROPERTY_FRIENDLY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -200,7 +200,7 @@ public class UpdateTexmlApplicationRequest {
    * Specifies whether the connection can be used.
    * @return active
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Specifies whether the connection can be used.")
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -226,7 +226,7 @@ public class UpdateTexmlApplicationRequest {
    * Get anchorsiteOverride
    * @return anchorsiteOverride
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ANCHORSITE_OVERRIDE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -252,7 +252,7 @@ public class UpdateTexmlApplicationRequest {
    * Get dtmfType
    * @return dtmfType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DTMF_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -278,7 +278,7 @@ public class UpdateTexmlApplicationRequest {
    * Specifies whether calls to phone numbers associated with this connection should hangup after timing out.
    * @return firstCommandTimeout
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Specifies whether calls to phone numbers associated with this connection should hangup after timing out.")
   @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -304,7 +304,7 @@ public class UpdateTexmlApplicationRequest {
    * Specifies how many seconds to wait before timing out a dial command.
    * @return firstCommandTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "Specifies how many seconds to wait before timing out a dial command.")
   @JsonProperty(JSON_PROPERTY_FIRST_COMMAND_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -330,7 +330,7 @@ public class UpdateTexmlApplicationRequest {
    * URL to which Telnyx will deliver your XML Translator webhooks.
    * @return voiceUrl
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "https://example.com", required = true, value = "URL to which Telnyx will deliver your XML Translator webhooks.")
   @JsonProperty(JSON_PROPERTY_VOICE_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -356,7 +356,7 @@ public class UpdateTexmlApplicationRequest {
    * URL to which Telnyx will deliver your XML Translator webhooks if we get an error response from your voice_url.
    * @return voiceFallbackUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://fallback.example.com", value = "URL to which Telnyx will deliver your XML Translator webhooks if we get an error response from your voice_url.")
   @JsonProperty(JSON_PROPERTY_VOICE_FALLBACK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -382,7 +382,7 @@ public class UpdateTexmlApplicationRequest {
    * HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either &#39;get&#39; or &#39;post&#39;.
    * @return voiceMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "get", value = "HTTP request method Telnyx will use to interact with your XML Translator webhooks. Either 'get' or 'post'.")
   @JsonProperty(JSON_PROPERTY_VOICE_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -408,7 +408,7 @@ public class UpdateTexmlApplicationRequest {
    * URL for Telnyx to send requests to containing information about call progress events.
    * @return statusCallback
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://example.com", value = "URL for Telnyx to send requests to containing information about call progress events.")
   @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -434,7 +434,7 @@ public class UpdateTexmlApplicationRequest {
    * HTTP request method Telnyx should use when requesting the status_callback URL.
    * @return statusCallbackMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "get", value = "HTTP request method Telnyx should use when requesting the status_callback URL.")
   @JsonProperty(JSON_PROPERTY_STATUS_CALLBACK_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -460,7 +460,7 @@ public class UpdateTexmlApplicationRequest {
    * Get inbound
    * @return inbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -486,7 +486,7 @@ public class UpdateTexmlApplicationRequest {
    * Get outbound
    * @return outbound
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_OUTBOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

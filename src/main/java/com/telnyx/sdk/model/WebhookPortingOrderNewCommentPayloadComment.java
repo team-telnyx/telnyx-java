@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortingOrderNewCommentPayloadComment.JSON_PROPERTY_USER_TYPE,
   WebhookPortingOrderNewCommentPayloadComment.JSON_PROPERTY_INSERTED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortingOrderNewCommentPayloadComment {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -108,7 +108,7 @@ public class WebhookPortingOrderNewCommentPayloadComment {
    * Identifies the comment.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the comment.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -134,7 +134,7 @@ public class WebhookPortingOrderNewCommentPayloadComment {
    * The body of the comment.
    * @return body
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "This is a comment.", value = "The body of the comment.")
   @JsonProperty(JSON_PROPERTY_BODY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -160,7 +160,7 @@ public class WebhookPortingOrderNewCommentPayloadComment {
    * Identifies the user that create the comment.
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the user that create the comment.")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -186,7 +186,7 @@ public class WebhookPortingOrderNewCommentPayloadComment {
    * Identifies the type of the user that created the comment.
    * @return userType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "user", value = "Identifies the type of the user that created the comment.")
   @JsonProperty(JSON_PROPERTY_USER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -212,7 +212,7 @@ public class WebhookPortingOrderNewCommentPayloadComment {
    * ISO 8601 formatted date indicating when the comment was created.
    * @return insertedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the comment was created.")
   @JsonProperty(JSON_PROPERTY_INSERTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

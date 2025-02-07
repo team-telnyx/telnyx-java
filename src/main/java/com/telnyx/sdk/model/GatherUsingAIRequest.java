@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   GatherUsingAIRequest.JSON_PROPERTY_COMMAND_ID,
   GatherUsingAIRequest.JSON_PROPERTY_INTERRUPTION_SETTINGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GatherUsingAIRequest {
   public static final String JSON_PROPERTY_PARAMETERS = "parameters";
   private Object parameters;
@@ -99,7 +99,7 @@ public class GatherUsingAIRequest {
    * The parameters described as a JSON Schema object that needs to be gathered by the voice assistant. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format
    * @return parameters
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "{\"properties\":{\"age\":{\"description\":\"The age of the customer.\",\"type\":\"integer\"},\"location\":{\"description\":\"The location of the customer.\",\"type\":\"string\"}},\"required\":[\"age\",\"location\"],\"type\":\"object\"}", required = true, value = "The parameters described as a JSON Schema object that needs to be gathered by the voice assistant. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format")
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -125,7 +125,7 @@ public class GatherUsingAIRequest {
    * Get assistant
    * @return assistant
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ASSISTANT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -151,7 +151,7 @@ public class GatherUsingAIRequest {
    * Get transcription
    * @return transcription
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -177,7 +177,7 @@ public class GatherUsingAIRequest {
    * The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and AWS voices.   **Supported Providers:** - **AWS:** Use &#x60;AWS.Polly.&lt;VoiceId&gt;&#x60; (e.g., &#x60;AWS.Polly.Joanna&#x60;). For neural voices, which provide more realistic, human-like speech, append &#x60;-Neural&#x60; to the &#x60;VoiceId&#x60; (e.g., &#x60;AWS.Polly.Joanna-Neural&#x60;). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use &#x60;Azure.&lt;VoiceId&gt;. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use &#x60;ElevenLabs.&lt;ModelId&gt;.&lt;VoiceId&gt;&#x60; (e.g., &#x60;ElevenLabs.BaseModel.John&#x60;). The &#x60;ModelId&#x60; part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration secret under &#x60;\&quot;voice_settings\&quot;: {\&quot;api_key_ref\&quot;: \&quot;&lt;secret_id&gt;\&quot;}&#x60;. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use &#x60;Telnyx.&lt;model_id&gt;.&lt;voice_id&gt;&#x60;
    * @return voice
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Telnyx.KokoroTTS.af", value = "The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and AWS voices.   **Supported Providers:** - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility. - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-AvaMultilingualNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).) - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration secret under `\"voice_settings\": {\"api_key_ref\": \"<secret_id>\"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).  - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`")
   @JsonProperty(JSON_PROPERTY_VOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -203,7 +203,7 @@ public class GatherUsingAIRequest {
    * Get voiceSettings
    * @return voiceSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VOICE_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -229,7 +229,7 @@ public class GatherUsingAIRequest {
    * Text that will be played when the gathering starts, if none then nothing will be played when the gathering starts. The greeting can be text for any voice or SSML for &#x60;AWS.Polly.&lt;voice_id&gt;&#x60; voices. There is a 3,000 character limit.
    * @return greeting
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Hello, can you tell me your age and where you live?", value = "Text that will be played when the gathering starts, if none then nothing will be played when the gathering starts. The greeting can be text for any voice or SSML for `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.")
   @JsonProperty(JSON_PROPERTY_GREETING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -255,7 +255,7 @@ public class GatherUsingAIRequest {
    * Default is &#x60;false&#x60;. If set to &#x60;true&#x60;, the voice assistant will send partial results via the &#x60;call.ai_gather.partial_results&#x60; [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) in real time as individual fields are gathered. If set to &#x60;false&#x60;, the voice assistant will only send the final result via the &#x60;call.ai_gather.ended&#x60; callback.
    * @return sendPartialResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Default is `false`. If set to `true`, the voice assistant will send partial results via the `call.ai_gather.partial_results` [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) in real time as individual fields are gathered. If set to `false`, the voice assistant will only send the final result via the `call.ai_gather.ended` callback.")
   @JsonProperty(JSON_PROPERTY_SEND_PARTIAL_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -289,7 +289,7 @@ public class GatherUsingAIRequest {
    * The message history you want the voice assistant to be aware of, this can be useful to keep the context of the conversation, or to pass additional information to the voice assistant.
    * @return messageHistory
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The message history you want the voice assistant to be aware of, this can be useful to keep the context of the conversation, or to pass additional information to the voice assistant.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_HISTORY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -315,7 +315,7 @@ public class GatherUsingAIRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -341,7 +341,7 @@ public class GatherUsingAIRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -367,7 +367,7 @@ public class GatherUsingAIRequest {
    * Get interruptionSettings
    * @return interruptionSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INTERRUPTION_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

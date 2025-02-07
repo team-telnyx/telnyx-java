@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   PassThroughFee.JSON_PROPERTY_AMOUNT,
   PassThroughFee.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PassThroughFee {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -59,7 +59,7 @@ public class PassThroughFee {
    * Normalized carrier pass through fee
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.1", value = "Normalized carrier pass through fee")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -85,7 +85,7 @@ public class PassThroughFee {
    * Get currency
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CampaignCost.JSON_PROPERTY_UP_FRONT_COST,
   CampaignCost.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CampaignCost {
   public static final String JSON_PROPERTY_CAMPAIGN_USECASE = "campaignUsecase";
   private String campaignUsecase;
@@ -64,7 +64,7 @@ public class CampaignCost {
    * Get campaignUsecase
    * @return campaignUsecase
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN_USECASE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -90,7 +90,7 @@ public class CampaignCost {
    * Get monthlyCost
    * @return monthlyCost
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_MONTHLY_COST)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -116,7 +116,7 @@ public class CampaignCost {
    * Get upFrontCost
    * @return upFrontCost
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_UP_FRONT_COST)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -142,7 +142,7 @@ public class CampaignCost {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

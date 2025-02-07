@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   MediaStorageDetailRecord.JSON_PROPERTY_CURRENCY,
   MediaStorageDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MediaStorageDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -109,7 +109,7 @@ public class MediaStorageDetailRecord {
    * Unique identifier for the Media Storage Event
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Unique identifier for the Media Storage Event")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class MediaStorageDetailRecord {
    * Event creation time
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Event creation time")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class MediaStorageDetailRecord {
    * Asset id
    * @return assetId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a46f4764-4ce4-4391-804c-02f00bc4ff9b", value = "Asset id")
   @JsonProperty(JSON_PROPERTY_ASSET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class MediaStorageDetailRecord {
    * User id
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "User id")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class MediaStorageDetailRecord {
    * Organization owner id
    * @return orgId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Organization owner id")
   @JsonProperty(JSON_PROPERTY_ORG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class MediaStorageDetailRecord {
    * Type of action performed against the Media Storage API
    * @return actionType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "upload", value = "Type of action performed against the Media Storage API")
   @JsonProperty(JSON_PROPERTY_ACTION_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class MediaStorageDetailRecord {
    * Link channel type
    * @return linkChannelType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "message", value = "Link channel type")
   @JsonProperty(JSON_PROPERTY_LINK_CHANNEL_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -291,7 +291,7 @@ public class MediaStorageDetailRecord {
    * Link channel id
    * @return linkChannelId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2065f482-64b9-4680-a3a9-c6d3142efdf7", value = "Link channel id")
   @JsonProperty(JSON_PROPERTY_LINK_CHANNEL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -317,7 +317,7 @@ public class MediaStorageDetailRecord {
    * Request status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "failed", value = "Request status")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -343,7 +343,7 @@ public class MediaStorageDetailRecord {
    * Webhook id
    * @return webhookId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "b46f4764-4ce4-4391-804c-02f00bc4ff9b", value = "Webhook id")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -369,7 +369,7 @@ public class MediaStorageDetailRecord {
    * Currency amount per billing unit used to calculate the Telnyx billing cost
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.0001", value = "Currency amount per billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -395,7 +395,7 @@ public class MediaStorageDetailRecord {
    * Billing unit used to calculate the Telnyx billing cost
    * @return rateMeasuredIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "events", value = "Billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_RATE_MEASURED_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -421,7 +421,7 @@ public class MediaStorageDetailRecord {
    * Currency amount for Telnyx billing cost
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.004", value = "Currency amount for Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -447,7 +447,7 @@ public class MediaStorageDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -473,7 +473,7 @@ public class MediaStorageDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "media_storage", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

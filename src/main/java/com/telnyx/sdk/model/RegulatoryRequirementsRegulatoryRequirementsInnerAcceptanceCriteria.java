@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_MAX_LENGTH,
   RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_MIN_LENGTH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria {
   public static final String JSON_PROPERTY_LOCALITY_LIMIT = "locality_limit";
   private String localityLimit;
@@ -82,7 +82,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get localityLimit
    * @return localityLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Identical locality as the numbers desired", value = "")
   @JsonProperty(JSON_PROPERTY_LOCALITY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -108,7 +108,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get timeLimit
    * @return timeLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Less than 5 months old", value = "")
   @JsonProperty(JSON_PROPERTY_TIME_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -134,7 +134,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get regex
    * @return regex
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "regex field value must match", value = "")
   @JsonProperty(JSON_PROPERTY_REGEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -160,7 +160,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get caseSensitive
    * @return caseSensitive
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Whether field value is case sensitive", value = "")
   @JsonProperty(JSON_PROPERTY_CASE_SENSITIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -186,7 +186,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get acceptableCharacters
    * @return acceptableCharacters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Characters that can be included in field value", value = "")
   @JsonProperty(JSON_PROPERTY_ACCEPTABLE_CHARACTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -220,7 +220,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get acceptableValues
    * @return acceptableValues
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -246,7 +246,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get maxLength
    * @return maxLength
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10", value = "")
   @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -272,7 +272,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
    * Get minLength
    * @return minLength
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "5", value = "")
   @JsonProperty(JSON_PROPERTY_MIN_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   GetUserTags200ResponseData.JSON_PROPERTY_OUTBOUND_PROFILE_TAGS,
   GetUserTags200ResponseData.JSON_PROPERTY_NUMBER_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GetUserTags200ResponseData {
   public static final String JSON_PROPERTY_OUTBOUND_PROFILE_TAGS = "outbound_profile_tags";
   private List<String> outboundProfileTags = null;
@@ -66,7 +66,7 @@ public class GetUserTags200ResponseData {
    * A list of your tags on the given resource type. NOTE: The casing of the tags returned will not necessarily match the casing of the tags when they were added to a resource. This is because the tags will have the casing of the first time they were used within the Telnyx system regardless of source.
    * @return outboundProfileTags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of your tags on the given resource type. NOTE: The casing of the tags returned will not necessarily match the casing of the tags when they were added to a resource. This is because the tags will have the casing of the first time they were used within the Telnyx system regardless of source.")
   @JsonProperty(JSON_PROPERTY_OUTBOUND_PROFILE_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -100,7 +100,7 @@ public class GetUserTags200ResponseData {
    * A list of your tags on the given resource type. NOTE: The casing of the tags returned will not necessarily match the casing of the tags when they were added to a resource. This is because the tags will have the casing of the first time they were used within the Telnyx system regardless of source.
    * @return numberTags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A list of your tags on the given resource type. NOTE: The casing of the tags returned will not necessarily match the casing of the tags when they were added to a resource. This is because the tags will have the casing of the first time they were used within the Telnyx system regardless of source.")
   @JsonProperty(JSON_PROPERTY_NUMBER_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PaginationMeta.JSON_PROPERTY_PAGE_NUMBER,
   PaginationMeta.JSON_PROPERTY_PAGE_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PaginationMeta {
   public static final String JSON_PROPERTY_TOTAL_PAGES = "total_pages";
   private Integer totalPages;
@@ -64,7 +64,7 @@ public class PaginationMeta {
    * Get totalPages
    * @return totalPages
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -90,7 +90,7 @@ public class PaginationMeta {
    * Get totalResults
    * @return totalResults
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "55", value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -116,7 +116,7 @@ public class PaginationMeta {
    * Get pageNumber
    * @return pageNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2", value = "")
   @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -142,7 +142,7 @@ public class PaginationMeta {
    * Get pageSize
    * @return pageSize
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "25", value = "")
   @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

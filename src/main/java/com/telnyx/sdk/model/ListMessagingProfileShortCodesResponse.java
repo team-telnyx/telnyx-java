@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListMessagingProfileShortCodesResponse.JSON_PROPERTY_DATA,
   ListMessagingProfileShortCodesResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListMessagingProfileShortCodesResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<ShortCode> data = null;
@@ -68,7 +68,7 @@ public class ListMessagingProfileShortCodesResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -94,7 +94,7 @@ public class ListMessagingProfileShortCodesResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

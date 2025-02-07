@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   MessagingProfileDetailedMetric.JSON_PROPERTY_TIMESTAMP,
   MessagingProfileDetailedMetric.JSON_PROPERTY_METRICS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagingProfileDetailedMetric {
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
   private String timestamp;
@@ -62,7 +62,7 @@ public class MessagingProfileDetailedMetric {
    * The timestamp of the aggregated data.
    * @return timestamp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", value = "The timestamp of the aggregated data.")
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -91,7 +91,7 @@ public class MessagingProfileDetailedMetric {
    * Get metrics
    * @return metrics
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_METRICS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

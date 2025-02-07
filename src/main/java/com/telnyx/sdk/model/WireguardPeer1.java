@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   WireguardPeer1.JSON_PROPERTY_WIREGUARD_INTERFACE_ID,
   WireguardPeer1.JSON_PROPERTY_PRIVATE_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WireguardPeer1 {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -73,7 +73,7 @@ public class WireguardPeer1 {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wireguard_peer", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class WireguardPeer1 {
    * ISO 8601 formatted date-time indicating when peer sent traffic last time.
    * @return lastSeen
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when peer sent traffic last time.")
   @JsonProperty(JSON_PROPERTY_LAST_SEEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -110,7 +110,7 @@ public class WireguardPeer1 {
    * The id of the wireguard interface associated with the peer.
    * @return wireguardInterfaceId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The id of the wireguard interface associated with the peer.")
   @JsonProperty(JSON_PROPERTY_WIREGUARD_INTERFACE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -131,7 +131,7 @@ public class WireguardPeer1 {
    * Your WireGuard &#x60;Interface.PrivateKey&#x60;.&lt;br /&gt;&lt;br /&gt;This attribute is only ever utlised if, on POST, you do NOT provide your own &#x60;public_key&#x60;. In which case, a new Public and Private key pair will be generated for you. When your &#x60;private_key&#x60; is returned, you must save this immediately as we do not save it within Telnyx. If you lose your Private Key, it can not be recovered.
    * @return privateKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=", value = "Your WireGuard `Interface.PrivateKey`.<br /><br />This attribute is only ever utlised if, on POST, you do NOT provide your own `public_key`. In which case, a new Public and Private key pair will be generated for you. When your `private_key` is returned, you must save this immediately as we do not save it within Telnyx. If you lose your Private Key, it can not be recovered.")
   @JsonProperty(JSON_PROPERTY_PRIVATE_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

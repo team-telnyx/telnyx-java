@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   ReservedPhoneNumber.JSON_PROPERTY_UPDATED_AT,
   ReservedPhoneNumber.JSON_PROPERTY_EXPIRED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ReservedPhoneNumber {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -127,7 +127,7 @@ public class ReservedPhoneNumber {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class ReservedPhoneNumber {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "reserved_phone_number", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -164,7 +164,7 @@ public class ReservedPhoneNumber {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+19705555098", value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -185,7 +185,7 @@ public class ReservedPhoneNumber {
    * The status of the phone number&#39;s reservation.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "success", value = "The status of the phone number's reservation.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -201,7 +201,7 @@ public class ReservedPhoneNumber {
    * An ISO 8901 datetime string denoting when the individual number reservation was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string denoting when the individual number reservation was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -217,7 +217,7 @@ public class ReservedPhoneNumber {
    * An ISO 8901 datetime string for when the the individual number reservation was updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string for when the the individual number reservation was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -233,7 +233,7 @@ public class ReservedPhoneNumber {
    * An ISO 8901 datetime string for when the individual number reservation is going to expire
    * @return expiredAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string for when the individual number reservation is going to expire")
   @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

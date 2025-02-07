@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   SubNumberOrderPhoneNumber.JSON_PROPERTY_BUNDLE_ID,
   SubNumberOrderPhoneNumber.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SubNumberOrderPhoneNumber {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -92,7 +92,7 @@ public class SubNumberOrderPhoneNumber {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class SubNumberOrderPhoneNumber {
    * Get phoneNumber
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class SubNumberOrderPhoneNumber {
    * Get countryCode
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -170,7 +170,7 @@ public class SubNumberOrderPhoneNumber {
    * Get phoneNumberType
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -196,7 +196,7 @@ public class SubNumberOrderPhoneNumber {
    * Get requirementsMet
    * @return requirementsMet
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -222,7 +222,7 @@ public class SubNumberOrderPhoneNumber {
    * Get requirementsStatus
    * @return requirementsStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -248,7 +248,7 @@ public class SubNumberOrderPhoneNumber {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -274,7 +274,7 @@ public class SubNumberOrderPhoneNumber {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -300,7 +300,7 @@ public class SubNumberOrderPhoneNumber {
    * Get bundleId
    * @return bundleId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_BUNDLE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -334,7 +334,7 @@ public class SubNumberOrderPhoneNumber {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

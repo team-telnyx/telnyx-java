@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderMessaging.JSON_PROPERTY_MESSAGING_PORT_STATUS,
   PortingOrderMessaging.JSON_PROPERTY_MESSAGING_PORT_COMPLETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderMessaging {
   public static final String JSON_PROPERTY_MESSAGING_CAPABLE = "messaging_capable";
   private Boolean messagingCapable;
@@ -110,7 +110,7 @@ public class PortingOrderMessaging {
    * Indicates whether the porting order can also port messaging capabilities.
    * @return messagingCapable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the porting order can also port messaging capabilities.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_CAPABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -136,7 +136,7 @@ public class PortingOrderMessaging {
    * Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.
    * @return enableMessaging
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.")
   @JsonProperty(JSON_PROPERTY_ENABLE_MESSAGING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -162,7 +162,7 @@ public class PortingOrderMessaging {
    * The current status of the messaging porting.
    * @return messagingPortStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "The current status of the messaging porting.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PORT_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class PortingOrderMessaging {
    * Indicates whether the messaging porting has been completed.
    * @return messagingPortCompleted
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Indicates whether the messaging porting has been completed.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PORT_COMPLETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

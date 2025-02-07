@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   Portability.JSON_PROPERTY_CITY,
   Portability.JSON_PROPERTY_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Portability {
   public static final String JSON_PROPERTY_LRN = "lrn";
   private String lrn;
@@ -137,7 +137,7 @@ public class Portability {
    * Local Routing Number, if assigned to the requested phone number
    * @return lrn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2245701999", value = "Local Routing Number, if assigned to the requested phone number")
   @JsonProperty(JSON_PROPERTY_LRN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -163,7 +163,7 @@ public class Portability {
    * Indicates whether or not the requested phone number has been ported
    * @return portedStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Y", value = "Indicates whether or not the requested phone number has been ported")
   @JsonProperty(JSON_PROPERTY_PORTED_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -189,7 +189,7 @@ public class Portability {
    * ISO-formatted date when the requested phone number has been ported
    * @return portedDate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2017-10-20", value = "ISO-formatted date when the requested phone number has been ported")
   @JsonProperty(JSON_PROPERTY_PORTED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -215,7 +215,7 @@ public class Portability {
    * Operating Company Name (OCN) as per the Local Exchange Routing Guide (LERG) database
    * @return ocn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "073H", value = "Operating Company Name (OCN) as per the Local Exchange Routing Guide (LERG) database")
   @JsonProperty(JSON_PROPERTY_OCN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -241,7 +241,7 @@ public class Portability {
    * Type of number
    * @return lineType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "voip", value = "Type of number")
   @JsonProperty(JSON_PROPERTY_LINE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -267,7 +267,7 @@ public class Portability {
    * SPID (Service Provider ID)
    * @return spid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "073H", value = "SPID (Service Provider ID)")
   @JsonProperty(JSON_PROPERTY_SPID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -293,7 +293,7 @@ public class Portability {
    * Service provider name
    * @return spidCarrierName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Telnyx/4", value = "Service provider name")
   @JsonProperty(JSON_PROPERTY_SPID_CARRIER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -319,7 +319,7 @@ public class Portability {
    * Service provider type
    * @return spidCarrierType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "Service provider type")
   @JsonProperty(JSON_PROPERTY_SPID_CARRIER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -345,7 +345,7 @@ public class Portability {
    * Alternative SPID (Service Provider ID). Often used when a carrier is using a number from another carrier
    * @return altspid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "073H", value = "Alternative SPID (Service Provider ID). Often used when a carrier is using a number from another carrier")
   @JsonProperty(JSON_PROPERTY_ALTSPID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -371,7 +371,7 @@ public class Portability {
    * Alternative service provider name
    * @return altspidCarrierName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Telnyx/4", value = "Alternative service provider name")
   @JsonProperty(JSON_PROPERTY_ALTSPID_CARRIER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -397,7 +397,7 @@ public class Portability {
    * Alternative service provider type
    * @return altspidCarrierType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3", value = "Alternative service provider type")
   @JsonProperty(JSON_PROPERTY_ALTSPID_CARRIER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -423,7 +423,7 @@ public class Portability {
    * City name extracted from the locality in the Local Exchange Routing Guide (LERG) database
    * @return city
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "WAUKEGAN", value = "City name extracted from the locality in the Local Exchange Routing Guide (LERG) database")
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -449,7 +449,7 @@ public class Portability {
    * Get state
    * @return state
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Illinois", value = "")
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PresignedObjectUrl.JSON_PROPERTY_CONTENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PresignedObjectUrl {
   public static final String JSON_PROPERTY_CONTENT = "content";
   private PresignedObjectUrlContent content;
@@ -53,7 +53,7 @@ public class PresignedObjectUrl {
    * Get content
    * @return content
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

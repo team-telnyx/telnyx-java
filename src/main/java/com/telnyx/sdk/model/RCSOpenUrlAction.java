@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   RCSOpenUrlAction.JSON_PROPERTY_WEBVIEW_VIEW_MODE,
   RCSOpenUrlAction.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSOpenUrlAction {
   public static final String JSON_PROPERTY_URL = "url";
   private String url;
@@ -141,7 +141,7 @@ public class RCSOpenUrlAction {
    * Get url
    * @return url
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "http://example.com", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -167,7 +167,7 @@ public class RCSOpenUrlAction {
    * URL open application, browser or webview.
    * @return application
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "BROWSER", required = true, value = "URL open application, browser or webview.")
   @JsonProperty(JSON_PROPERTY_APPLICATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -193,7 +193,7 @@ public class RCSOpenUrlAction {
    * Get webviewViewMode
    * @return webviewViewMode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "HALF", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_WEBVIEW_VIEW_MODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -219,7 +219,7 @@ public class RCSOpenUrlAction {
    * Accessbility description for webview.
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Accessbility description for webview.")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayloadCost.JSON_PROPERTY_AMOUNT,
   OutboundMessagePayloadCost.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OutboundMessagePayloadCost {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private BigDecimal amount;
@@ -57,7 +57,7 @@ public class OutboundMessagePayloadCost {
    * The amount deducted from your account.
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The amount deducted from your account.")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class OutboundMessagePayloadCost {
    * The ISO 4217 currency identifier.
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The ISO 4217 currency identifier.")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   Participant.JSON_PROPERTY_MUTED,
   Participant.JSON_PROPERTY_ON_HOLD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Participant {
   /**
    * Gets or Sets recordType
@@ -173,7 +173,7 @@ public class Participant {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "participant", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -199,7 +199,7 @@ public class Participant {
    * Uniquely identifies the participant
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the participant")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -225,7 +225,7 @@ public class Participant {
    * Uniquely identifies the call leg associated with the participant
    * @return callLegId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", required = true, value = "Uniquely identifies the call leg associated with the participant")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -251,7 +251,7 @@ public class Participant {
    * Call Control ID associated with the partiipant of the conference
    * @return callControlId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "v2:v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ", required = true, value = "Call Control ID associated with the partiipant of the conference")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -277,7 +277,7 @@ public class Participant {
    * Get conference
    * @return conference
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CONFERENCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -308,7 +308,7 @@ public class Participant {
    * Array of unique call_control_ids the participant can whisper to..
    * @return whisperCallControlIds
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "[\"v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ\",\"v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw\"]", required = true, value = "Array of unique call_control_ids the participant can whisper to..")
   @JsonProperty(JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -334,7 +334,7 @@ public class Participant {
    * ISO 8601 formatted date of when the participant was created
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the participant was created")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -360,7 +360,7 @@ public class Participant {
    * ISO 8601 formatted date of when the participant was last updated
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "2019-01-23T18:10:02.574Z", required = true, value = "ISO 8601 formatted date of when the participant was last updated")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -386,7 +386,7 @@ public class Participant {
    * Whether the conference will end and all remaining participants be hung up after the participant leaves the conference.
    * @return endConferenceOnExit
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the conference will end and all remaining participants be hung up after the participant leaves the conference.")
   @JsonProperty(JSON_PROPERTY_END_CONFERENCE_ON_EXIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -412,7 +412,7 @@ public class Participant {
    * Whether the conference will end after the participant leaves the conference.
    * @return softEndConferenceOnExit
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the conference will end after the participant leaves the conference.")
   @JsonProperty(JSON_PROPERTY_SOFT_END_CONFERENCE_ON_EXIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -438,7 +438,7 @@ public class Participant {
    * The status of the participant with respect to the lifecycle within the conference
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "joining", required = true, value = "The status of the participant with respect to the lifecycle within the conference")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -464,7 +464,7 @@ public class Participant {
    * Whether the participant is muted.
    * @return muted
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the participant is muted.")
   @JsonProperty(JSON_PROPERTY_MUTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -490,7 +490,7 @@ public class Participant {
    * Whether the participant is put on_hold.
    * @return onHold
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "true", required = true, value = "Whether the participant is put on_hold.")
   @JsonProperty(JSON_PROPERTY_ON_HOLD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

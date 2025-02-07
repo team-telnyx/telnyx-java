@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CreateExternalConnectionUploadRequest.JSON_PROPERTY_LOCATION_ID,
   CreateExternalConnectionUploadRequest.JSON_PROPERTY_CIVIC_ADDRESS_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateExternalConnectionUploadRequest {
   public static final String JSON_PROPERTY_NUMBER_IDS = "number_ids";
   private List<String> numberIds = null;
@@ -149,7 +149,7 @@ public class CreateExternalConnectionUploadRequest {
    * Get numberIds
    * @return numberIds
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NUMBER_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -175,7 +175,7 @@ public class CreateExternalConnectionUploadRequest {
    * The use case of the upload request. NOTE: &#x60;calling_user_assignment&#x60; is not supported for toll free numbers.
    * @return usage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The use case of the upload request. NOTE: `calling_user_assignment` is not supported for toll free numbers.")
   @JsonProperty(JSON_PROPERTY_USAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -209,7 +209,7 @@ public class CreateExternalConnectionUploadRequest {
    * Get additionalUsages
    * @return additionalUsages
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_USAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class CreateExternalConnectionUploadRequest {
    * Identifies the location to assign all phone numbers to.
    * @return locationId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the location to assign all phone numbers to.")
   @JsonProperty(JSON_PROPERTY_LOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -261,7 +261,7 @@ public class CreateExternalConnectionUploadRequest {
    * Identifies the civic address to assign all phone numbers to.
    * @return civicAddressId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Identifies the civic address to assign all phone numbers to.")
   @JsonProperty(JSON_PROPERTY_CIVIC_ADDRESS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

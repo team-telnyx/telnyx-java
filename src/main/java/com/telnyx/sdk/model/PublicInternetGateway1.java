@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   PublicInternetGateway1.JSON_PROPERTY_RECORD_TYPE,
   PublicInternetGateway1.JSON_PROPERTY_PUBLIC_IP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PublicInternetGateway1 {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -62,7 +62,7 @@ public class PublicInternetGateway1 {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "public_internet_gateway", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -78,7 +78,7 @@ public class PublicInternetGateway1 {
    * The publically accessible ip for this interface.
    * @return publicIp
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "127.0.0.1", value = "The publically accessible ip for this interface.")
   @JsonProperty(JSON_PROPERTY_PUBLIC_IP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

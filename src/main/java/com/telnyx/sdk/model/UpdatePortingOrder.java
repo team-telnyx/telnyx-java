@@ -57,7 +57,7 @@ import com.telnyx.sdk.JSON;
   UpdatePortingOrder.JSON_PROPERTY_CUSTOMER_REFERENCE,
   UpdatePortingOrder.JSON_PROPERTY_MESSAGING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePortingOrder {
   public static final String JSON_PROPERTY_MISC = "misc";
   private PortingOrderMisc misc;
@@ -104,7 +104,7 @@ public class UpdatePortingOrder {
    * Get misc
    * @return misc
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_MISC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class UpdatePortingOrder {
    * Get endUser
    * @return endUser
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_END_USER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class UpdatePortingOrder {
    * Get documents
    * @return documents
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOCUMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class UpdatePortingOrder {
    * Get activationSettings
    * @return activationSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ACTIVATION_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -208,7 +208,7 @@ public class UpdatePortingOrder {
    * Get phoneNumberConfiguration
    * @return phoneNumberConfiguration
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -234,7 +234,7 @@ public class UpdatePortingOrder {
    * If present, we will read the current values from the specified Requirement Group into the Documents and Requirements for this Porting Order. Note that any future changes in the Requirement Group would have no impact on this Porting Order. We will return an error if a specified Requirement Group conflicts with documents or requirements in the same request.
    * @return requirementGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "de748d99-06fa-4d90-9f9a-f4b62696bada", value = "If present, we will read the current values from the specified Requirement Group into the Documents and Requirements for this Porting Order. Note that any future changes in the Requirement Group would have no impact on this Porting Order. We will return an error if a specified Requirement Group conflicts with documents or requirements in the same request.")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -268,7 +268,7 @@ public class UpdatePortingOrder {
    * List of requirements for porting numbers. 
    * @return requirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of requirements for porting numbers. ")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -294,7 +294,7 @@ public class UpdatePortingOrder {
    * Get userFeedback
    * @return userFeedback
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_USER_FEEDBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -320,7 +320,7 @@ public class UpdatePortingOrder {
    * Get webhookUrl
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -346,7 +346,7 @@ public class UpdatePortingOrder {
    * Get customerReference
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -372,7 +372,7 @@ public class UpdatePortingOrder {
    * Get messaging
    * @return messaging
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_MESSAGING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

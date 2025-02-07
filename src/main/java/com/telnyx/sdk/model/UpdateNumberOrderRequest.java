@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   UpdateNumberOrderRequest.JSON_PROPERTY_REGULATORY_REQUIREMENTS,
   UpdateNumberOrderRequest.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateNumberOrderRequest {
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
   private List<UpdateRegulatoryRequirement> regulatoryRequirements = null;
@@ -67,7 +67,7 @@ public class UpdateNumberOrderRequest {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class UpdateNumberOrderRequest {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

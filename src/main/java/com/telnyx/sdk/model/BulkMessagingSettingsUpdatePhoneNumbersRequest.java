@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   BulkMessagingSettingsUpdatePhoneNumbersRequest.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   BulkMessagingSettingsUpdatePhoneNumbersRequest.JSON_PROPERTY_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BulkMessagingSettingsUpdatePhoneNumbersRequest {
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
@@ -58,7 +58,7 @@ public class BulkMessagingSettingsUpdatePhoneNumbersRequest {
    * Configure the messaging profile these phone numbers are assigned to:  * Set this field to &#x60;\&quot;\&quot;&#x60; to unassign each number from their respective messaging profile * Set this field to a quoted UUID of a messaging profile to assign these numbers to that messaging profile
    * @return messagingProfileId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "Configure the messaging profile these phone numbers are assigned to:  * Set this field to `\"\"` to unassign each number from their respective messaging profile * Set this field to a quoted UUID of a messaging profile to assign these numbers to that messaging profile")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -89,7 +89,7 @@ public class BulkMessagingSettingsUpdatePhoneNumbersRequest {
    * The list of phone numbers to update.
    * @return numbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The list of phone numbers to update.")
   @JsonProperty(JSON_PROPERTY_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

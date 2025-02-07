@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   UrlShortenerSettings.JSON_PROPERTY_REPLACE_BLACKLIST_ONLY,
   UrlShortenerSettings.JSON_PROPERTY_SEND_WEBHOOKS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UrlShortenerSettings {
   public static final String JSON_PROPERTY_DOMAIN = "domain";
   private String domain;
@@ -65,7 +65,7 @@ public class UrlShortenerSettings {
    * One of the domains provided by the Telnyx URL shortener service. 
    * @return domain
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "acct.fyi", required = true, value = "One of the domains provided by the Telnyx URL shortener service. ")
   @JsonProperty(JSON_PROPERTY_DOMAIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -91,7 +91,7 @@ public class UrlShortenerSettings {
    * Optional prefix that can be used to identify your brand, and will appear in the Telnyx generated URLs after the domain name. 
    * @return prefix
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "", value = "Optional prefix that can be used to identify your brand, and will appear in the Telnyx generated URLs after the domain name. ")
   @JsonProperty(JSON_PROPERTY_PREFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -117,7 +117,7 @@ public class UrlShortenerSettings {
    * Use the link replacement tool only for links that are specifically blacklisted by Telnyx. 
    * @return replaceBlacklistOnly
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Use the link replacement tool only for links that are specifically blacklisted by Telnyx. ")
   @JsonProperty(JSON_PROPERTY_REPLACE_BLACKLIST_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class UrlShortenerSettings {
    * Receive webhooks for when your replaced links are clicked. Webhooks are sent to the webhooks on the messaging profile. 
    * @return sendWebhooks
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Receive webhooks for when your replaced links are clicked. Webhooks are sent to the webhooks on the messaging profile. ")
   @JsonProperty(JSON_PROPERTY_SEND_WEBHOOKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

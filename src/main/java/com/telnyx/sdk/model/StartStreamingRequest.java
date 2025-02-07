@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   StartStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
   StartStreamingRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StartStreamingRequest {
   public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
   private String streamUrl;
@@ -125,7 +125,7 @@ public class StartStreamingRequest {
    * The destination WebSocket address where the stream is going to be delivered.
    * @return streamUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "wss://www.example.com/websocket", value = "The destination WebSocket address where the stream is going to be delivered.")
   @JsonProperty(JSON_PROPERTY_STREAM_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -151,7 +151,7 @@ public class StartStreamingRequest {
    * Specifies which track should be streamed.
    * @return streamTrack
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "both_tracks", value = "Specifies which track should be streamed.")
   @JsonProperty(JSON_PROPERTY_STREAM_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -177,7 +177,7 @@ public class StartStreamingRequest {
    * Get streamBidirectionalMode
    * @return streamBidirectionalMode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -203,7 +203,7 @@ public class StartStreamingRequest {
    * Get streamBidirectionalCodec
    * @return streamBidirectionalCodec
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -229,7 +229,7 @@ public class StartStreamingRequest {
    * Get streamBidirectionalTargetLegs
    * @return streamBidirectionalTargetLegs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -255,7 +255,7 @@ public class StartStreamingRequest {
    * Enables Dialogflow for the current call. The default value is false.
    * @return enableDialogflow
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Enables Dialogflow for the current call. The default value is false.")
   @JsonProperty(JSON_PROPERTY_ENABLE_DIALOGFLOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -281,7 +281,7 @@ public class StartStreamingRequest {
    * Get dialogflowConfig
    * @return dialogflowConfig
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DIALOGFLOW_CONFIG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -307,7 +307,7 @@ public class StartStreamingRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -333,7 +333,7 @@ public class StartStreamingRequest {
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
    * @return commandId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
   @JsonProperty(JSON_PROPERTY_COMMAND_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   NumberLookupRecord.JSON_PROPERTY_CALLER_NAME,
   NumberLookupRecord.JSON_PROPERTY_PORTABILITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberLookupRecord {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -83,7 +83,7 @@ public class NumberLookupRecord {
    * Identifies the type of record
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "number_lookup", value = "Identifies the type of record")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -109,7 +109,7 @@ public class NumberLookupRecord {
    * Region code that matches the specific country calling code
    * @return countryCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "US", value = "Region code that matches the specific country calling code")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class NumberLookupRecord {
    * Hyphen-separated national number, preceded by the national destination code (NDC), with a 0 prefix, if an NDC is found
    * @return nationalFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "(0312) 945-7420", value = "Hyphen-separated national number, preceded by the national destination code (NDC), with a 0 prefix, if an NDC is found")
   @JsonProperty(JSON_PROPERTY_NATIONAL_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class NumberLookupRecord {
    * E164-formatted phone number
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13129457420", value = "E164-formatted phone number")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class NumberLookupRecord {
    * Unused
    * @return fraud
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unused")
   @JsonProperty(JSON_PROPERTY_FRAUD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class NumberLookupRecord {
    * Get carrier
    * @return carrier
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CARRIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class NumberLookupRecord {
    * Get callerName
    * @return callerName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALLER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class NumberLookupRecord {
    * Get portability
    * @return portability
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PORTABILITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

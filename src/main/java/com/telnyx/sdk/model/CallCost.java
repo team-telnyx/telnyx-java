@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   CallCost.JSON_PROPERTY_META,
   CallCost.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CallCost {
   /**
    * Identifies the type of resource.
@@ -144,7 +144,7 @@ public class CallCost {
    * Identifies the type of resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "event", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -170,7 +170,7 @@ public class CallCost {
    * The type of the event being delivered
    * @return eventType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "call.cost", value = "The type of the event being delivered")
   @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -196,7 +196,7 @@ public class CallCost {
    * Uniquely identifies a webhook
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Uniquely identifies a webhook")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -222,7 +222,7 @@ public class CallCost {
    * ISO 8601 datetime of when the event occurred.
    * @return occurredAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521992Z", value = "ISO 8601 datetime of when the event occurred.")
   @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -248,7 +248,7 @@ public class CallCost {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -274,7 +274,7 @@ public class CallCost {
    * Get payload
    * @return payload
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

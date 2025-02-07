@@ -54,7 +54,7 @@ import com.telnyx.sdk.JSON;
   CreateWhatsAppMessageRequest.JSON_PROPERTY_PREVIEW_URL,
   CreateWhatsAppMessageRequest.JSON_PROPERTY_TEMPLATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateWhatsAppMessageRequest {
   public static final String JSON_PROPERTY_WHATSAPP_USER_ID = "whatsapp_user_id";
   private String whatsappUserId;
@@ -101,7 +101,7 @@ public class CreateWhatsAppMessageRequest {
    * The sender&#39;s WhatsApp ID.
    * @return whatsappUserId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The sender's WhatsApp ID.")
   @JsonProperty(JSON_PROPERTY_WHATSAPP_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -127,7 +127,7 @@ public class CreateWhatsAppMessageRequest {
    * The WhatsApp ID (phone number) returned from contacts endpoint.
    * @return to
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The WhatsApp ID (phone number) returned from contacts endpoint.")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -153,7 +153,7 @@ public class CreateWhatsAppMessageRequest {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class CreateWhatsAppMessageRequest {
    * Get text
    * @return text
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class CreateWhatsAppMessageRequest {
    * Get audio
    * @return audio
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_AUDIO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -231,7 +231,7 @@ public class CreateWhatsAppMessageRequest {
    * Get image
    * @return image
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IMAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -257,7 +257,7 @@ public class CreateWhatsAppMessageRequest {
    * Get document
    * @return document
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DOCUMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -283,7 +283,7 @@ public class CreateWhatsAppMessageRequest {
    * Get video
    * @return video
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_VIDEO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -309,7 +309,7 @@ public class CreateWhatsAppMessageRequest {
    * Get location
    * @return location
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -335,7 +335,7 @@ public class CreateWhatsAppMessageRequest {
    * Specifying preview_url in the request is optional when not including a URL in your message. To include a URL preview, set preview_url to true in the message body and make sure the URL begins with http:// or https://.
    * @return previewUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifying preview_url in the request is optional when not including a URL in your message. To include a URL preview, set preview_url to true in the message body and make sure the URL begins with http:// or https://.")
   @JsonProperty(JSON_PROPERTY_PREVIEW_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -361,7 +361,7 @@ public class CreateWhatsAppMessageRequest {
    * Get template
    * @return template
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TEMPLATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

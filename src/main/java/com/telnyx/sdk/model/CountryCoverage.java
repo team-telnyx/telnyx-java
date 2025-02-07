@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   CountryCoverage.JSON_PROPERTY_INVENTORY_COVERAGE,
   CountryCoverage.JSON_PROPERTY_SHARED_COST
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CountryCoverage {
   public static final String JSON_PROPERTY_CODE = "code";
   private String code;
@@ -107,7 +107,7 @@ public class CountryCoverage {
    * Country ISO code
    * @return code
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Country ISO code")
   @JsonProperty(JSON_PROPERTY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -133,7 +133,7 @@ public class CountryCoverage {
    * Get numbers
    * @return numbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -167,7 +167,7 @@ public class CountryCoverage {
    * Set of features supported
    * @return features
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Set of features supported")
   @JsonProperty(JSON_PROPERTY_FEATURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -201,7 +201,7 @@ public class CountryCoverage {
    * Phone number type
    * @return phoneNumberType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone number type")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -227,7 +227,7 @@ public class CountryCoverage {
    * Supports reservable
    * @return reservable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Supports reservable")
   @JsonProperty(JSON_PROPERTY_RESERVABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -253,7 +253,7 @@ public class CountryCoverage {
    * Supports quickship
    * @return quickship
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Supports quickship")
   @JsonProperty(JSON_PROPERTY_QUICKSHIP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -279,7 +279,7 @@ public class CountryCoverage {
    * Get internationalSms
    * @return internationalSms
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INTERNATIONAL_SMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -305,7 +305,7 @@ public class CountryCoverage {
    * Get p2p
    * @return p2p
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_P2P)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -331,7 +331,7 @@ public class CountryCoverage {
    * Get local
    * @return local
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOCAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -357,7 +357,7 @@ public class CountryCoverage {
    * Get tollFree
    * @return tollFree
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TOLL_FREE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -383,7 +383,7 @@ public class CountryCoverage {
    * Get mobile
    * @return mobile
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_MOBILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -409,7 +409,7 @@ public class CountryCoverage {
    * Get national
    * @return national
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NATIONAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -435,7 +435,7 @@ public class CountryCoverage {
    * Indicates whether country can be queried with inventory coverage endpoint
    * @return inventoryCoverage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Indicates whether country can be queried with inventory coverage endpoint")
   @JsonProperty(JSON_PROPERTY_INVENTORY_COVERAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -461,7 +461,7 @@ public class CountryCoverage {
    * Get sharedCost
    * @return sharedCost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SHARED_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

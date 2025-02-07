@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPT,
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPTION_TRACK
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TranscriptionPayloadTranscriptionData {
   public static final String JSON_PROPERTY_CONFIDENCE = "confidence";
   private Double confidence;
@@ -99,7 +99,7 @@ public class TranscriptionPayloadTranscriptionData {
    * Speech recognition confidence level.
    * @return confidence
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.977219", value = "Speech recognition confidence level.")
   @JsonProperty(JSON_PROPERTY_CONFIDENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class TranscriptionPayloadTranscriptionData {
    * When false, it means that this is an interim result.
    * @return isFinal
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "When false, it means that this is an interim result.")
   @JsonProperty(JSON_PROPERTY_IS_FINAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -151,7 +151,7 @@ public class TranscriptionPayloadTranscriptionData {
    * Recognized text.
    * @return transcript
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "hello this is a test speech", value = "Recognized text.")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -177,7 +177,7 @@ public class TranscriptionPayloadTranscriptionData {
    * Indicates which leg of the call has been transcribed. This is only available when &#x60;transcription_engine&#x60; is set to &#x60;B&#x60;.
    * @return transcriptionTrack
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "inbound", value = "Indicates which leg of the call has been transcribed. This is only available when `transcription_engine` is set to `B`.")
   @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

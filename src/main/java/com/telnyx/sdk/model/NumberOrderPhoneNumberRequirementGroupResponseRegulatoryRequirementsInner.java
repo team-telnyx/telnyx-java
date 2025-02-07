@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_TYPE,
   NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirementsInner.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirementsInner {
   public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
   private UUID requirementId;
@@ -65,7 +65,7 @@ public class NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirement
    * Get requirementId
    * @return requirementId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -91,7 +91,7 @@ public class NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirement
    * Get fieldValue
    * @return fieldValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234567890", value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -117,7 +117,7 @@ public class NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirement
    * Get fieldType
    * @return fieldType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "textual", value = "")
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -143,7 +143,7 @@ public class NumberOrderPhoneNumberRequirementGroupResponseRegulatoryRequirement
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending-approval", value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

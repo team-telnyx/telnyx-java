@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   UpdateCampaignRequest.JSON_PROPERTY_WEBHOOK_U_R_L,
   UpdateCampaignRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateCampaignRequest {
   public static final String JSON_PROPERTY_RESELLER_ID = "resellerId";
   private String resellerId;
@@ -92,7 +92,7 @@ public class UpdateCampaignRequest {
    * Alphanumeric identifier of the reseller that you want to associate with this campaign.
    * @return resellerId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Alphanumeric identifier of the reseller that you want to associate with this campaign.")
   @JsonProperty(JSON_PROPERTY_RESELLER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -118,7 +118,7 @@ public class UpdateCampaignRequest {
    * Message sample. Some campaign tiers require 1 or more message samples.
    * @return sample1
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 1 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE1)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -144,7 +144,7 @@ public class UpdateCampaignRequest {
    * Message sample. Some campaign tiers require 2 or more message samples.
    * @return sample2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 2 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -170,7 +170,7 @@ public class UpdateCampaignRequest {
    * Message sample. Some campaign tiers require 3 or more message samples.
    * @return sample3
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 3 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE3)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -196,7 +196,7 @@ public class UpdateCampaignRequest {
    * Message sample. Some campaign tiers require 4 or more message samples.
    * @return sample4
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 4 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE4)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -222,7 +222,7 @@ public class UpdateCampaignRequest {
    * Message sample. Some campaign tiers require 5 or more message samples.
    * @return sample5
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message sample. Some campaign tiers require 5 or more message samples.")
   @JsonProperty(JSON_PROPERTY_SAMPLE5)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -248,7 +248,7 @@ public class UpdateCampaignRequest {
    * Message flow description.
    * @return messageFlow
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Message flow description.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_FLOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -274,7 +274,7 @@ public class UpdateCampaignRequest {
    * Help message of the campaign.
    * @return helpMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Help message of the campaign.")
   @JsonProperty(JSON_PROPERTY_HELP_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -300,7 +300,7 @@ public class UpdateCampaignRequest {
    * Help message of the campaign.
    * @return autoRenewal
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Help message of the campaign.")
   @JsonProperty(JSON_PROPERTY_AUTO_RENEWAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -326,7 +326,7 @@ public class UpdateCampaignRequest {
    * Webhook to which campaign status updates are sent.
    * @return webhookURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Webhook to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -352,7 +352,7 @@ public class UpdateCampaignRequest {
    * Webhook failover to which campaign status updates are sent.
    * @return webhookFailoverURL
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Webhook failover to which campaign status updates are sent.")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

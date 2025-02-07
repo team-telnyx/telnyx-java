@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   SSLCertificate.JSON_PROPERTY_VALID_TO,
   SSLCertificate.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SSLCertificate {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -75,7 +75,7 @@ public class SSLCertificate {
    * Unique identifier for the SSL certificate
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Unique identifier for the SSL certificate")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -101,7 +101,7 @@ public class SSLCertificate {
    * Get issuedTo
    * @return issuedTo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ISSUED_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -127,7 +127,7 @@ public class SSLCertificate {
    * Get issuedBy
    * @return issuedBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ISSUED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -153,7 +153,7 @@ public class SSLCertificate {
    * The time the certificate is valid from
    * @return validFrom
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "The time the certificate is valid from")
   @JsonProperty(JSON_PROPERTY_VALID_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -179,7 +179,7 @@ public class SSLCertificate {
    * The time the certificate is valid to
    * @return validTo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "The time the certificate is valid to")
   @JsonProperty(JSON_PROPERTY_VALID_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -205,7 +205,7 @@ public class SSLCertificate {
    * Time when SSL certificate was uploaded
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-01-01T00:00Z", value = "Time when SSL certificate was uploaded")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

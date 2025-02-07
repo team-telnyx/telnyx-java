@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   DetailedTaskStatus.JSON_PROPERTY_CAMPAIGN,
   DetailedTaskStatus.JSON_PROPERTY_PHONE_NUMBERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DetailedTaskStatus {
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
   private String taskId;
@@ -75,7 +75,7 @@ public class DetailedTaskStatus {
    * The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
    * @return taskId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "4b60017a-2f50-4c90-c9e6-5f67304cbde2", required = true, value = "The ID of the task associated with bulk Sole Proprietor brand and campaign creation.")
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -101,7 +101,7 @@ public class DetailedTaskStatus {
    * A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.
    * @return referenceId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "4q90017a-2f50-4c90-c9e6-5f67304cbde9", required = true, value = "A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.")
   @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -132,7 +132,7 @@ public class DetailedTaskStatus {
    * The status of the individual brand submitted via bulk creation.
    * @return brand
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The status of the individual brand submitted via bulk creation.")
   @JsonProperty(JSON_PROPERTY_BRAND)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -163,7 +163,7 @@ public class DetailedTaskStatus {
    * The status of the individual campaign submitted via bulk creation.
    * @return campaign
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The status of the individual campaign submitted via bulk creation.")
   @JsonProperty(JSON_PROPERTY_CAMPAIGN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -194,7 +194,7 @@ public class DetailedTaskStatus {
    * Get phoneNumbers
    * @return phoneNumbers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

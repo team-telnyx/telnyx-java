@@ -48,7 +48,7 @@ import com.telnyx.sdk.JSON;
   UserAddressCreate.JSON_PROPERTY_COUNTRY_CODE,
   UserAddressCreate.JSON_PROPERTY_SKIP_ADDRESS_VERIFICATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UserAddressCreate {
   public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
   private String customerReference;
@@ -104,7 +104,7 @@ public class UserAddressCreate {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class UserAddressCreate {
    * The first name associated with the address. An address must have either a first last name or a business name.
    * @return firstName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Alfred", required = true, value = "The first name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -156,7 +156,7 @@ public class UserAddressCreate {
    * The last name associated with the address. An address must have either a first last name or a business name.
    * @return lastName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Foster", required = true, value = "The last name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -182,7 +182,7 @@ public class UserAddressCreate {
    * The business name associated with the address. An address must have either a first last name or a business name.
    * @return businessName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Toy-O'Kon", required = true, value = "The business name associated with the address. An address must have either a first last name or a business name.")
   @JsonProperty(JSON_PROPERTY_BUSINESS_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -208,7 +208,7 @@ public class UserAddressCreate {
    * The phone number associated with the address.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+12125559000", value = "The phone number associated with the address.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -234,7 +234,7 @@ public class UserAddressCreate {
    * The primary street address information about the address.
    * @return streetAddress
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "600 Congress Avenue", required = true, value = "The primary street address information about the address.")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -260,7 +260,7 @@ public class UserAddressCreate {
    * Additional street address information about the address such as, but not limited to, unit number or apartment number.
    * @return extendedAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "14th Floor", value = "Additional street address information about the address such as, but not limited to, unit number or apartment number.")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -286,7 +286,7 @@ public class UserAddressCreate {
    * The locality of the address. For US addresses, this corresponds to the city of the address.
    * @return locality
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "Austin", required = true, value = "The locality of the address. For US addresses, this corresponds to the city of the address.")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -312,7 +312,7 @@ public class UserAddressCreate {
    * The locality of the address. For US addresses, this corresponds to the state of the address.
    * @return administrativeArea
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "TX", value = "The locality of the address. For US addresses, this corresponds to the state of the address.")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -338,7 +338,7 @@ public class UserAddressCreate {
    * The neighborhood of the address. This field is not used for addresses in the US but is used for some international addresses.
    * @return neighborhood
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Ciudad de los deportes", value = "The neighborhood of the address. This field is not used for addresses in the US but is used for some international addresses.")
   @JsonProperty(JSON_PROPERTY_NEIGHBORHOOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -364,7 +364,7 @@ public class UserAddressCreate {
    * The borough of the address. This field is not used for addresses in the US but is used for some international addresses.
    * @return borough
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Guadalajara", value = "The borough of the address. This field is not used for addresses in the US but is used for some international addresses.")
   @JsonProperty(JSON_PROPERTY_BOROUGH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -390,7 +390,7 @@ public class UserAddressCreate {
    * The postal code of the address.
    * @return postalCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "78701", value = "The postal code of the address.")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -416,7 +416,7 @@ public class UserAddressCreate {
    * The two-character (ISO 3166-1 alpha-2) country code of the address.
    * @return countryCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "US", required = true, value = "The two-character (ISO 3166-1 alpha-2) country code of the address.")
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -442,7 +442,7 @@ public class UserAddressCreate {
    * An optional boolean value specifying if verification of the address should be skipped or not. UserAddresses are generally used for shipping addresses, and failure to validate your shipping address will likely result in a failure to deliver SIM cards or other items ordered from Telnyx. Do not use this parameter unless you are sure that the address is correct even though it cannot be validated. If this is set to any value other than true, verification of the address will be attempted, and the user address will not be allowed if verification fails. If verification fails but suggested values are available that might make the address correct, they will be present in the response as well. If this value is set to true, then the verification will not be attempted. Defaults to false (verification will be performed).
    * @return skipAddressVerification
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "An optional boolean value specifying if verification of the address should be skipped or not. UserAddresses are generally used for shipping addresses, and failure to validate your shipping address will likely result in a failure to deliver SIM cards or other items ordered from Telnyx. Do not use this parameter unless you are sure that the address is correct even though it cannot be validated. If this is set to any value other than true, verification of the address will be attempted, and the user address will not be allowed if verification fails. If verification fails but suggested values are available that might make the address correct, they will be present in the response as well. If this value is set to true, then the verification will not be attempted. Defaults to false (verification will be performed).")
   @JsonProperty(JSON_PROPERTY_SKIP_ADDRESS_VERIFICATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

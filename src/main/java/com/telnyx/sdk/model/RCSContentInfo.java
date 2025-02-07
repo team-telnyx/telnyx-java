@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RCSContentInfo.JSON_PROPERTY_THUMBNAIL_URL,
   RCSContentInfo.JSON_PROPERTY_FORCE_REFRESH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RCSContentInfo {
   public static final String JSON_PROPERTY_FILE_URL = "file_url";
   private String fileUrl;
@@ -60,7 +60,7 @@ public class RCSContentInfo {
    * Publicly reachable URL of the file.
    * @return fileUrl
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "https://example.com/elephant.jpg", required = true, value = "Publicly reachable URL of the file.")
   @JsonProperty(JSON_PROPERTY_FILE_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -86,7 +86,7 @@ public class RCSContentInfo {
    * Publicly reachable URL of the thumbnail. Maximum size of 100 kB.
    * @return thumbnailUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Publicly reachable URL of the thumbnail. Maximum size of 100 kB.")
   @JsonProperty(JSON_PROPERTY_THUMBNAIL_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class RCSContentInfo {
    * If set the URL content will not be cached.
    * @return forceRefresh
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "If set the URL content will not be cached.")
   @JsonProperty(JSON_PROPERTY_FORCE_REFRESH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

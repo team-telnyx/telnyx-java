@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   Currency.JSON_PROPERTY_AMOUNT1000,
   Currency.JSON_PROPERTY_FALLBACK_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Currency {
   public static final String JSON_PROPERTY_CURRENCY_CODE = "currency_code";
   private String currencyCode;
@@ -62,7 +62,7 @@ public class Currency {
    * Get currencyCode
    * @return currencyCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CURRENCY_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -88,7 +88,7 @@ public class Currency {
    * Get amount1000
    * @return amount1000
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_AMOUNT1000)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -114,7 +114,7 @@ public class Currency {
    * Get fallbackValue
    * @return fallbackValue
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FALLBACK_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

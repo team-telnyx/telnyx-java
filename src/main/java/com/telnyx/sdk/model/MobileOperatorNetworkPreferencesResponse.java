@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   MobileOperatorNetworkPreferencesResponse.JSON_PROPERTY_MOBILE_OPERATOR_NETWORK_NAME,
   MobileOperatorNetworkPreferencesResponse.JSON_PROPERTY_PRIORITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MobileOperatorNetworkPreferencesResponse {
   public static final String JSON_PROPERTY_MOBILE_OPERATOR_NETWORK_ID = "mobile_operator_network_id";
   private UUID mobileOperatorNetworkId;
@@ -63,7 +63,7 @@ public class MobileOperatorNetworkPreferencesResponse {
    * The mobile operator network resource identification UUID.
    * @return mobileOperatorNetworkId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The mobile operator network resource identification UUID.")
   @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -89,7 +89,7 @@ public class MobileOperatorNetworkPreferencesResponse {
    * The mobile operator network resource name.
    * @return mobileOperatorNetworkName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "AT&T Mobility (USACG)", value = "The mobile operator network resource name.")
   @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORK_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -115,7 +115,7 @@ public class MobileOperatorNetworkPreferencesResponse {
    * It determines what is the priority of a specific operator network that should be assumed by a SIM card when connecting to a network. The highest priority is 0, the second highest is 1 and so on.
    * @return priority
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0", value = "It determines what is the priority of a specific operator network that should be assumed by a SIM card when connecting to a network. The highest priority is 0, the second highest is 1 and so on.")
   @JsonProperty(JSON_PROPERTY_PRIORITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

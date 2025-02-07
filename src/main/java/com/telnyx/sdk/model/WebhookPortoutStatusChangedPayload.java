@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortoutStatusChangedPayload.JSON_PROPERTY_REJECTION_REASON,
   WebhookPortoutStatusChangedPayload.JSON_PROPERTY_ATTEMPTED_PIN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortoutStatusChangedPayload {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -131,7 +131,7 @@ public class WebhookPortoutStatusChangedPayload {
    * Identifies the port out that was moved.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the port out that was moved.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -157,7 +157,7 @@ public class WebhookPortoutStatusChangedPayload {
    * The new status of the port out.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "authorized", value = "The new status of the port out.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -191,7 +191,7 @@ public class WebhookPortoutStatusChangedPayload {
    * Phone numbers associated with this port-out order
    * @return phoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[\"+35312345678\"]", value = "Phone numbers associated with this port-out order")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -217,7 +217,7 @@ public class WebhookPortoutStatusChangedPayload {
    * Carrier the number will be ported out to
    * @return carrierName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Testing Carrier", value = "Carrier the number will be ported out to")
   @JsonProperty(JSON_PROPERTY_CARRIER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -243,7 +243,7 @@ public class WebhookPortoutStatusChangedPayload {
    * The new carrier SPID.
    * @return spid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "987H", value = "The new carrier SPID.")
   @JsonProperty(JSON_PROPERTY_SPID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -269,7 +269,7 @@ public class WebhookPortoutStatusChangedPayload {
    * Identifies the user that the port-out order belongs to.
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "96dfa9e4-c753-4fd3-97cd-42d66f26cf0c", value = "Identifies the user that the port-out order belongs to.")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -295,7 +295,7 @@ public class WebhookPortoutStatusChangedPayload {
    * The name of the port-out&#39;s end user.
    * @return subscriberName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "John Doe", value = "The name of the port-out's end user.")
   @JsonProperty(JSON_PROPERTY_SUBSCRIBER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -321,7 +321,7 @@ public class WebhookPortoutStatusChangedPayload {
    * The reason why the order is being rejected by the user. If the order is authorized, this field can be left null
    * @return rejectionReason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The reason why the order is being rejected by the user. If the order is authorized, this field can be left null")
   @JsonProperty(JSON_PROPERTY_REJECTION_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -347,7 +347,7 @@ public class WebhookPortoutStatusChangedPayload {
    * The PIN that was attempted to be used to authorize the port out.
    * @return attemptedPin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1234", value = "The PIN that was attempted to be used to authorize the port out.")
   @JsonProperty(JSON_PROPERTY_ATTEMPTED_PIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

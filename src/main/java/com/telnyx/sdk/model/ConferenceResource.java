@@ -46,7 +46,7 @@ import com.telnyx.sdk.JSON;
   ConferenceResource.JSON_PROPERTY_SUBRESOURCE_URIS,
   ConferenceResource.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceResource {
   public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
   private String accountSid;
@@ -172,7 +172,7 @@ public class ConferenceResource {
    * The id of the account the resource belongs to.
    * @return accountSid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "The id of the account the resource belongs to.")
   @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -198,7 +198,7 @@ public class ConferenceResource {
    * The version of the API that was used to make the request.
    * @return apiVersion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v2/texml", value = "The version of the API that was used to make the request.")
   @JsonProperty(JSON_PROPERTY_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -224,7 +224,7 @@ public class ConferenceResource {
    * Caller ID, if present.
    * @return callSidEndingConference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "Caller ID, if present.")
   @JsonProperty(JSON_PROPERTY_CALL_SID_ENDING_CONFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -250,7 +250,7 @@ public class ConferenceResource {
    * The timestamp of when the resource was created.
    * @return dateCreated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was created.")
   @JsonProperty(JSON_PROPERTY_DATE_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -276,7 +276,7 @@ public class ConferenceResource {
    * The timestamp of when the resource was last updated.
    * @return dateUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was last updated.")
   @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -302,7 +302,7 @@ public class ConferenceResource {
    * A string that you assigned to describe this conference room.
    * @return friendlyName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "weekly_review_call", value = "A string that you assigned to describe this conference room.")
   @JsonProperty(JSON_PROPERTY_FRIENDLY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -328,7 +328,7 @@ public class ConferenceResource {
    * The reason why a conference ended. When a conference is in progress, will be null.
    * @return reasonConferenceEnded
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "time-exceeded", value = "The reason why a conference ended. When a conference is in progress, will be null.")
   @JsonProperty(JSON_PROPERTY_REASON_CONFERENCE_ENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -354,7 +354,7 @@ public class ConferenceResource {
    * A string representing the region where the conference is hosted.
    * @return region
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "dc2", value = "A string representing the region where the conference is hosted.")
   @JsonProperty(JSON_PROPERTY_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -380,7 +380,7 @@ public class ConferenceResource {
    * The unique identifier of the conference.
    * @return sid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "cd5a70f4-759b-4d5e-9c06-88c00f16f3c1", value = "The unique identifier of the conference.")
   @JsonProperty(JSON_PROPERTY_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -406,7 +406,7 @@ public class ConferenceResource {
    * The status of this conference.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "in-progress", value = "The status of this conference.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -432,7 +432,7 @@ public class ConferenceResource {
    * A list of related resources identified by their relative URIs.
    * @return subresourceUris
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "{\"participants\":\"/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants.json\",\"recordings\":\"/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Recordings.json\"}", value = "A list of related resources identified by their relative URIs.")
   @JsonProperty(JSON_PROPERTY_SUBRESOURCE_URIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -458,7 +458,7 @@ public class ConferenceResource {
    * The relative URI for this conference.
    * @return uri
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1.json", value = "The relative URI for this conference.")
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

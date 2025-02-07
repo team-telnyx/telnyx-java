@@ -52,7 +52,7 @@ import com.telnyx.sdk.JSON;
   CreateInboundFqdnRequest.JSON_PROPERTY_TIMEOUT1XX_SECS,
   CreateInboundFqdnRequest.JSON_PROPERTY_TIMEOUT2XX_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateInboundFqdnRequest {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
@@ -292,7 +292,7 @@ public class CreateInboundFqdnRequest {
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
    * @return aniNumberFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This setting allows you to set the format with which the caller's number (ANI) is sent for inbound phone calls.")
   @JsonProperty(JSON_PROPERTY_ANI_NUMBER_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -316,7 +316,7 @@ public class CreateInboundFqdnRequest {
    * Get dnisNumberFormat
    * @return dnisNumberFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_DNIS_NUMBER_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -348,7 +348,7 @@ public class CreateInboundFqdnRequest {
    * Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.
    * @return codecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defines the list of codecs that Telnyx will send for inbound calls to a specific number on your portal account, in priority order. This only works when the Connection the number is assigned to uses Media Handling mode: default. OPUS and H.264 codecs are available only when using TCP or TLS transport for SIP.")
   @JsonProperty(JSON_PROPERTY_CODECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -372,7 +372,7 @@ public class CreateInboundFqdnRequest {
    * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed.
    * @return defaultRoutingMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed.")
   @JsonProperty(JSON_PROPERTY_DEFAULT_ROUTING_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -396,7 +396,7 @@ public class CreateInboundFqdnRequest {
    * When set, this will limit the total number of inbound calls to phone numbers associated with this connection.
    * @return channelLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When set, this will limit the total number of inbound calls to phone numbers associated with this connection.")
   @JsonProperty(JSON_PROPERTY_CHANNEL_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -420,7 +420,7 @@ public class CreateInboundFqdnRequest {
    * Generate ringback tone through 183 session progress message with early media.
    * @return generateRingbackTone
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Generate ringback tone through 183 session progress message with early media.")
   @JsonProperty(JSON_PROPERTY_GENERATE_RINGBACK_TONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -444,7 +444,7 @@ public class CreateInboundFqdnRequest {
    * When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.)
    * @return isupHeadersEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "When set, inbound phone calls will receive ISUP parameters via SIP headers. (Only when available and only when using TCP or TLS transport.)")
   @JsonProperty(JSON_PROPERTY_ISUP_HEADERS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -468,7 +468,7 @@ public class CreateInboundFqdnRequest {
    * Enable PRACK messages as defined in RFC3262.
    * @return prackEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Enable PRACK messages as defined in RFC3262.")
   @JsonProperty(JSON_PROPERTY_PRACK_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -492,7 +492,7 @@ public class CreateInboundFqdnRequest {
    * By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
    * @return privacyZoneEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.")
   @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -516,7 +516,7 @@ public class CreateInboundFqdnRequest {
    * Defaults to true.
    * @return sipCompactHeadersEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Defaults to true.")
   @JsonProperty(JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -540,7 +540,7 @@ public class CreateInboundFqdnRequest {
    * Selects which &#x60;sip_region&#x60; to receive inbound calls from. If null, the default region (US) will be used.
    * @return sipRegion
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Selects which `sip_region` to receive inbound calls from. If null, the default region (US) will be used.")
   @JsonProperty(JSON_PROPERTY_SIP_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -564,7 +564,7 @@ public class CreateInboundFqdnRequest {
    * Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \&quot;example.sip.telnyx.com\&quot; can be called from any SIP endpoint by using the SIP URI \&quot;sip:@example.sip.telnyx.com\&quot; where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls.
    * @return sipSubdomain
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the same way a phone number is used, from a SIP endpoint. Example: the subdomain \"example.sip.telnyx.com\" can be called from any SIP endpoint by using the SIP URI \"sip:@example.sip.telnyx.com\" where the user part can be any alphanumeric value. Please note TLS encrypted calls are not allowed for subdomain calls.")
   @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -588,7 +588,7 @@ public class CreateInboundFqdnRequest {
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
    * @return sipSubdomainReceiveSettings
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "This option can be enabled to receive calls from: \"Anyone\" (any SIP endpoint in the public Internet) or \"Only my connections\" (any connection assigned to the same Telnyx user).")
   @JsonProperty(JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -614,7 +614,7 @@ public class CreateInboundFqdnRequest {
    * maximum: 120
    * @return timeout1xxSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Time(sec) before aborting if connection is not made.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT1XX_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -638,7 +638,7 @@ public class CreateInboundFqdnRequest {
    * Time(sec) before aborting if call is unanswered (min: 1, max: 600).
    * @return timeout2xxSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Time(sec) before aborting if call is unanswered (min: 1, max: 600).")
   @JsonProperty(JSON_PROPERTY_TIMEOUT2XX_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

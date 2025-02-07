@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   ListTagsResponseData.JSON_PROPERTY_TAG,
   ListTagsResponseData.JSON_PROPERTY_AMOUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListTagsResponseData {
   public static final String JSON_PROPERTY_TAG = "tag";
   private String tag;
@@ -57,7 +57,7 @@ public class ListTagsResponseData {
    * Get tag
    * @return tag
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "a_tag", value = "")
   @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class ListTagsResponseData {
    * Get amount
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1", value = "")
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

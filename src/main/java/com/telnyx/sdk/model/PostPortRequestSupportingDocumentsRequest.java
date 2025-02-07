@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PostPortRequestSupportingDocumentsRequest.JSON_PROPERTY_DOCUMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PostPortRequestSupportingDocumentsRequest {
   public static final String JSON_PROPERTY_DOCUMENTS = "documents";
   private List<PostPortRequestSupportingDocumentsRequestDocumentsInner> documents = null;
@@ -63,7 +63,7 @@ public class PostPortRequestSupportingDocumentsRequest {
    * List of supporting documents parameters
    * @return documents
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "List of supporting documents parameters")
   @JsonProperty(JSON_PROPERTY_DOCUMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

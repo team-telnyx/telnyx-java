@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateAdditionalDocumentsRequest.JSON_PROPERTY_ADDITIONAL_DOCUMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateAdditionalDocumentsRequest {
   public static final String JSON_PROPERTY_ADDITIONAL_DOCUMENTS = "additional_documents";
   private List<CreateAdditionalDocumentsRequestAdditionalDocumentsInner> additionalDocuments = null;
@@ -63,7 +63,7 @@ public class CreateAdditionalDocumentsRequest {
    * Get additionalDocuments
    * @return additionalDocuments
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_DOCUMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   SIMCardActionStatus.JSON_PROPERTY_VALUE,
   SIMCardActionStatus.JSON_PROPERTY_REASON
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardActionStatus {
   /**
    * The current status of the SIM card action.
@@ -100,7 +100,7 @@ public class SIMCardActionStatus {
    * The current status of the SIM card action.
    * @return value
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "completed", value = "The current status of the SIM card action.")
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -116,7 +116,7 @@ public class SIMCardActionStatus {
    * It describes why the SIM card action is in the current status. This will be &lt;code&gt;null&lt;/code&gt; for self-explanatory statuses, such as &lt;code&gt;in-progress&lt;/code&gt; and &lt;code&gt;completed&lt;/code&gt; but will include further information on statuses like &lt;code&gt;interrupted&lt;/code&gt; and &lt;code&gt;failed&lt;/code&gt;.
    * @return reason
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "The data limit was exceeded.", value = "It describes why the SIM card action is in the current status. This will be <code>null</code> for self-explanatory statuses, such as <code>in-progress</code> and <code>completed</code> but will include further information on statuses like <code>interrupted</code> and <code>failed</code>.")
   @JsonProperty(JSON_PROPERTY_REASON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

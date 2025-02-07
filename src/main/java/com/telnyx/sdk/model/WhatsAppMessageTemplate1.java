@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppMessageTemplate1.JSON_PROPERTY_ID,
   WhatsAppMessageTemplate1.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WhatsAppMessageTemplate1 {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -57,7 +57,7 @@ public class WhatsAppMessageTemplate1 {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ac836e1c292", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class WhatsAppMessageTemplate1 {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "whatsapp_message_template", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

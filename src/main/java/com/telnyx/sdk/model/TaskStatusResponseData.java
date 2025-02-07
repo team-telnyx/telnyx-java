@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   TaskStatusResponseData.JSON_PROPERTY_CREATED_AT,
   TaskStatusResponseData.JSON_PROPERTY_FINISHED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TaskStatusResponseData {
   public static final String JSON_PROPERTY_TASK_ID = "task_id";
   private UUID taskId;
@@ -70,7 +70,7 @@ public class TaskStatusResponseData {
    * Get taskId
    * @return taskId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class TaskStatusResponseData {
    * Get taskName
    * @return taskName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TASK_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class TaskStatusResponseData {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class TaskStatusResponseData {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class TaskStatusResponseData {
    * Get finishedAt
    * @return finishedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FINISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

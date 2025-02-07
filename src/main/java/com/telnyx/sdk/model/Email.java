@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   Email.JSON_PROPERTY_EMAIL,
   Email.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Email {
   public static final String JSON_PROPERTY_EMAIL = "email";
   private String email;
@@ -57,7 +57,7 @@ public class Email {
    * Get email
    * @return email
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -83,7 +83,7 @@ public class Email {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

@@ -40,7 +40,7 @@ import com.telnyx.sdk.JSON;
   StartSiprecRequest.JSON_PROPERTY_SESSION_TIMEOUT_SECS,
   StartSiprecRequest.JSON_PROPERTY_CLIENT_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StartSiprecRequest {
   public static final String JSON_PROPERTY_CONNECTOR_NAME = "connector_name";
   private String connectorName;
@@ -109,7 +109,7 @@ public class StartSiprecRequest {
    * Name of configured SIPREC connector to be used.
    * @return connectorName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "my-siprec-connector", value = "Name of configured SIPREC connector to be used.")
   @JsonProperty(JSON_PROPERTY_CONNECTOR_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class StartSiprecRequest {
    * Specifies which track should be sent on siprec session.
    * @return siprecTrack
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "outbound_track", value = "Specifies which track should be sent on siprec session.")
   @JsonProperty(JSON_PROPERTY_SIPREC_TRACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class StartSiprecRequest {
    * When set, custom parameters will be added as metadata (recording.session.ExtensionParameters). Otherwise, they’ll be added to sip headers.
    * @return includeMetadataCustomHeaders
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "When set, custom parameters will be added as metadata (recording.session.ExtensionParameters). Otherwise, they’ll be added to sip headers.")
   @JsonProperty(JSON_PROPERTY_INCLUDE_METADATA_CUSTOM_HEADERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class StartSiprecRequest {
    * Controls whether to encrypt media sent to your SRS using SRTP and TLS. When set you need to configure SRS port in your connector to 5061.
    * @return secure
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Controls whether to encrypt media sent to your SRS using SRTP and TLS. When set you need to configure SRS port in your connector to 5061.")
   @JsonProperty(JSON_PROPERTY_SECURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class StartSiprecRequest {
    * Sets &#x60;Session-Expires&#x60; header to the INVITE. A reinvite is sent every half the value set. Usefull for session keep alive. Minimum value is 90, set to 0 to disable.
    * @return sessionTimeoutSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "900", value = "Sets `Session-Expires` header to the INVITE. A reinvite is sent every half the value set. Usefull for session keep alive. Minimum value is 90, set to 0 to disable.")
   @JsonProperty(JSON_PROPERTY_SESSION_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class StartSiprecRequest {
    * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
    * @return clientState
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
   @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

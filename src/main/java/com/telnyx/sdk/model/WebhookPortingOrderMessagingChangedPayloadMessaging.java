@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   WebhookPortingOrderMessagingChangedPayloadMessaging.JSON_PROPERTY_MESSAGING_PORT_STATUS,
   WebhookPortingOrderMessagingChangedPayloadMessaging.JSON_PROPERTY_MESSAGING_PORT_COMPLETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookPortingOrderMessagingChangedPayloadMessaging {
   public static final String JSON_PROPERTY_MESSAGING_CAPABLE = "messaging_capable";
   private Boolean messagingCapable;
@@ -110,7 +110,7 @@ public class WebhookPortingOrderMessagingChangedPayloadMessaging {
    * Indicates whether the porting order is messaging capable.
    * @return messagingCapable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the porting order is messaging capable.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_CAPABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -136,7 +136,7 @@ public class WebhookPortingOrderMessagingChangedPayloadMessaging {
    * Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.
    * @return enableMessaging
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.")
   @JsonProperty(JSON_PROPERTY_ENABLE_MESSAGING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -162,7 +162,7 @@ public class WebhookPortingOrderMessagingChangedPayloadMessaging {
    * Indicates the messaging port status of the porting order.
    * @return messagingPortStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ported", value = "Indicates the messaging port status of the porting order.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PORT_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class WebhookPortingOrderMessagingChangedPayloadMessaging {
    * Indicates whether the messaging port is completed.
    * @return messagingPortCompleted
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether the messaging port is completed.")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PORT_COMPLETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

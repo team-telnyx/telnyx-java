@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   CountryCoverageLocal.JSON_PROPERTY_INTERNATIONAL_SMS,
   CountryCoverageLocal.JSON_PROPERTY_P2P
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CountryCoverageLocal {
   public static final String JSON_PROPERTY_FEATURES = "features";
   private List<String> features = null;
@@ -78,7 +78,7 @@ public class CountryCoverageLocal {
    * Get features
    * @return features
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FEATURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -104,7 +104,7 @@ public class CountryCoverageLocal {
    * Get reservable
    * @return reservable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RESERVABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -130,7 +130,7 @@ public class CountryCoverageLocal {
    * Get quickship
    * @return quickship
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_QUICKSHIP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -156,7 +156,7 @@ public class CountryCoverageLocal {
    * Get internationalSms
    * @return internationalSms
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_INTERNATIONAL_SMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -182,7 +182,7 @@ public class CountryCoverageLocal {
    * Get p2p
    * @return p2p
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_P2P)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

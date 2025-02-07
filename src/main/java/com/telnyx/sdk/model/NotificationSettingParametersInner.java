@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   NotificationSettingParametersInner.JSON_PROPERTY_NAME,
   NotificationSettingParametersInner.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NotificationSettingParametersInner {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -56,7 +56,7 @@ public class NotificationSettingParametersInner {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "phone_number", value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class NotificationSettingParametersInner {
    * Get value
    * @return value
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13125550000", value = "")
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

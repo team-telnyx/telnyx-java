@@ -51,7 +51,7 @@ import com.telnyx.sdk.JSON;
   AmdDetailRecord.JSON_PROPERTY_CURRENCY,
   AmdDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AmdDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -146,7 +146,7 @@ public class AmdDetailRecord {
    * Feature invocation id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Feature invocation id")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -172,7 +172,7 @@ public class AmdDetailRecord {
    * Feature invocation time
    * @return invokedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-07-01T00:00Z", value = "Feature invocation time")
   @JsonProperty(JSON_PROPERTY_INVOKED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -198,7 +198,7 @@ public class AmdDetailRecord {
    * Feature name
    * @return feature
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Feature name")
   @JsonProperty(JSON_PROPERTY_FEATURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -224,7 +224,7 @@ public class AmdDetailRecord {
    * User-provided tags
    * @return tags
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "tag1,tag2", value = "User-provided tags")
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -250,7 +250,7 @@ public class AmdDetailRecord {
    * Billing Group id
    * @return billingGroupId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "01977831-abdd-4894-84f3-244385621424", value = "Billing Group id")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -276,7 +276,7 @@ public class AmdDetailRecord {
    * Name of the Billing Group specified in billing_group_id
    * @return billingGroupName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Billing group name", value = "Name of the Billing Group specified in billing_group_id")
   @JsonProperty(JSON_PROPERTY_BILLING_GROUP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -302,7 +302,7 @@ public class AmdDetailRecord {
    * Connection id
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1684947189014463919", value = "Connection id")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -328,7 +328,7 @@ public class AmdDetailRecord {
    * Connection name
    * @return connectionName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Name of the connection with id specified in connection_id field", value = "Connection name")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -354,7 +354,7 @@ public class AmdDetailRecord {
    * Telnyx UUID that identifies the related call leg
    * @return callLegId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Telnyx UUID that identifies the related call leg")
   @JsonProperty(JSON_PROPERTY_CALL_LEG_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -380,7 +380,7 @@ public class AmdDetailRecord {
    * Telnyx UUID that identifies the related call session
    * @return callSessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "3ca7bd3d-7d82-4e07-9df4-009123068320", value = "Telnyx UUID that identifies the related call session")
   @JsonProperty(JSON_PROPERTY_CALL_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -406,7 +406,7 @@ public class AmdDetailRecord {
    * Indicates whether Telnyx billing charges might be applicable
    * @return isTelnyxBillable
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether Telnyx billing charges might be applicable")
   @JsonProperty(JSON_PROPERTY_IS_TELNYX_BILLABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -432,7 +432,7 @@ public class AmdDetailRecord {
    * Currency amount per billing unit used to calculate the Telnyx billing cost
    * @return rate
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.002", value = "Currency amount per billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_RATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -458,7 +458,7 @@ public class AmdDetailRecord {
    * Billing unit used to calculate the Telnyx billing cost
    * @return rateMeasuredIn
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "invocations", value = "Billing unit used to calculate the Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_RATE_MEASURED_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -484,7 +484,7 @@ public class AmdDetailRecord {
    * Currency amount for Telnyx billing cost
    * @return cost
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0.004", value = "Currency amount for Telnyx billing cost")
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -510,7 +510,7 @@ public class AmdDetailRecord {
    * Telnyx account currency used to describe monetary values, including billing cost
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "Telnyx account currency used to describe monetary values, including billing cost")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -536,7 +536,7 @@ public class AmdDetailRecord {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "amd_detail_record", required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

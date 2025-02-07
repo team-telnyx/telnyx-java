@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   CreateNumberOrderDocumentRequest.JSON_PROPERTY_REQUIREMENT_TYPE,
   CreateNumberOrderDocumentRequest.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateNumberOrderDocumentRequest {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -125,7 +125,7 @@ public class CreateNumberOrderDocumentRequest {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "387d1e31-a218-4375-8151-103f2d5e2d2c", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -141,7 +141,7 @@ public class CreateNumberOrderDocumentRequest {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "number_order_document", value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -162,7 +162,7 @@ public class CreateNumberOrderDocumentRequest {
    * The id of the file to associate as a number order document.
    * @return fileId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1e3c5822-0362-4702-8e46-5a129f0d3976", value = "The id of the file to associate as a number order document.")
   @JsonProperty(JSON_PROPERTY_FILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class CreateNumberOrderDocumentRequest {
    * Unique id for a requirement.
    * @return requirementsId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "36aaf27d-986b-493c-bd1b-de16af2e4292", value = "Unique id for a requirement.")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -214,7 +214,7 @@ public class CreateNumberOrderDocumentRequest {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -235,7 +235,7 @@ public class CreateNumberOrderDocumentRequest {
    * Get requirementType
    * @return requirementType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -251,7 +251,7 @@ public class CreateNumberOrderDocumentRequest {
    * An ISO 8901 datetime string denoting when the number order document was uploaded.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string denoting when the number order document was uploaded.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

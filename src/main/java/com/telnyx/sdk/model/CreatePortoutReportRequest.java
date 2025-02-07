@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CreatePortoutReportRequest.JSON_PROPERTY_REPORT_TYPE,
   CreatePortoutReportRequest.JSON_PROPERTY_PARAMS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortoutReportRequest {
   /**
    * Identifies the type of report
@@ -91,7 +91,7 @@ public class CreatePortoutReportRequest {
    * Identifies the type of report
    * @return reportType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(example = "export_portouts_csv", required = true, value = "Identifies the type of report")
   @JsonProperty(JSON_PROPERTY_REPORT_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -117,7 +117,7 @@ public class CreatePortoutReportRequest {
    * Get params
    * @return params
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PARAMS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

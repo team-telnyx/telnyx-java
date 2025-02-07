@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
   WdrReportRequest.JSON_PROPERTY_START_TIME,
   WdrReportRequest.JSON_PROPERTY_END_TIME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WdrReportRequest {
   public static final String JSON_PROPERTY_START_TIME = "start_time";
   private String startTime;
@@ -56,7 +56,7 @@ public class WdrReportRequest {
    * ISO 8601 formatted date-time indicating the start time.
    * @return startTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating the start time.")
   @JsonProperty(JSON_PROPERTY_START_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -82,7 +82,7 @@ public class WdrReportRequest {
    * ISO 8601 formatted date-time indicating the end time.
    * @return endTime
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating the end time.")
   @JsonProperty(JSON_PROPERTY_END_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

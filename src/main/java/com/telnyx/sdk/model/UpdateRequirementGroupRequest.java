@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   UpdateRequirementGroupRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   UpdateRequirementGroupRequest.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateRequirementGroupRequest {
   public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
   private String customerReference;
@@ -59,7 +59,7 @@ public class UpdateRequirementGroupRequest {
    * Reference for the customer
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0002", value = "Reference for the customer")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class UpdateRequirementGroupRequest {
    * Get regulatoryRequirements
    * @return regulatoryRequirements
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

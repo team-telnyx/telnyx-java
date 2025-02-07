@@ -53,7 +53,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_CALL_RECORDING,
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberWithVoiceSettings {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -188,7 +188,7 @@ public class PhoneNumberWithVoiceSettings {
    * Identifies the type of resource.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1293384261075731499", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -204,7 +204,7 @@ public class PhoneNumberWithVoiceSettings {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "voice_settings", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -220,7 +220,7 @@ public class PhoneNumberWithVoiceSettings {
    * The phone number in +E164 format.
    * @return phoneNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13035551234", value = "The phone number in +E164 format.")
   @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -241,7 +241,7 @@ public class PhoneNumberWithVoiceSettings {
    * Identifies the connection associated with this phone number.
    * @return connectionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1d0e6cb8-8668-462e-94c6-49ae0f0ed48b", value = "Identifies the connection associated with this phone number.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -267,7 +267,7 @@ public class PhoneNumberWithVoiceSettings {
    * A customer reference string for customer look ups.
    * @return customerReference
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "MY REF 001", value = "A customer reference string for customer look ups.")
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -293,7 +293,7 @@ public class PhoneNumberWithVoiceSettings {
    * Controls whether a tech prefix is enabled for this phone number.
    * @return techPrefixEnabled
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "false", value = "Controls whether a tech prefix is enabled for this phone number.")
   @JsonProperty(JSON_PROPERTY_TECH_PREFIX_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -319,7 +319,7 @@ public class PhoneNumberWithVoiceSettings {
    * This field allows you to rewrite the destination number of an inbound call before the call is routed to you. The value of this field may be any alphanumeric value, and the value will replace the number originally dialed.
    * @return translatedNumber
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "+13035559999", value = "This field allows you to rewrite the destination number of an inbound call before the call is routed to you. The value of this field may be any alphanumeric value, and the value will replace the number originally dialed.")
   @JsonProperty(JSON_PROPERTY_TRANSLATED_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -345,7 +345,7 @@ public class PhoneNumberWithVoiceSettings {
    * Get callForwarding
    * @return callForwarding
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALL_FORWARDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -371,7 +371,7 @@ public class PhoneNumberWithVoiceSettings {
    * Get cnamListing
    * @return cnamListing
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CNAM_LISTING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -397,7 +397,7 @@ public class PhoneNumberWithVoiceSettings {
    * Get emergency
    * @return emergency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_EMERGENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -423,7 +423,7 @@ public class PhoneNumberWithVoiceSettings {
    * Controls whether a number is billed per minute or uses your concurrent channels.
    * @return usagePaymentMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pay-per-minute", value = "Controls whether a number is billed per minute or uses your concurrent channels.")
   @JsonProperty(JSON_PROPERTY_USAGE_PAYMENT_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -449,7 +449,7 @@ public class PhoneNumberWithVoiceSettings {
    * Get mediaFeatures
    * @return mediaFeatures
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_MEDIA_FEATURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -475,7 +475,7 @@ public class PhoneNumberWithVoiceSettings {
    * Get callRecording
    * @return callRecording
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALL_RECORDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -501,7 +501,7 @@ public class PhoneNumberWithVoiceSettings {
    * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
    * @return inboundCallScreening
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.")
   @JsonProperty(JSON_PROPERTY_INBOUND_CALL_SCREENING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

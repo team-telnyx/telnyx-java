@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   AccessControlIpUpdate.JSON_PROPERTY_IP_ADDRESS_TYPE,
   AccessControlIpUpdate.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AccessControlIpUpdate {
   public static final String JSON_PROPERTY_IP_ADDRESS = "ip_address";
   private String ipAddress;
@@ -62,7 +62,7 @@ public class AccessControlIpUpdate {
    * The IP address for which you are saving an access control IP record. Must be a single IPv4 address. Cannot be a range of IP addresses or use CIDR notation.
    * @return ipAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100.101.102.103", value = "The IP address for which you are saving an access control IP record. Must be a single IPv4 address. Cannot be a range of IP addresses or use CIDR notation.")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -88,7 +88,7 @@ public class AccessControlIpUpdate {
    * Get ipAddressType
    * @return ipAddressType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -114,7 +114,7 @@ public class AccessControlIpUpdate {
    * User-supplied freeform textual description field. Maximum length of 150 characters is enforced.
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Signaling IP for system1", value = "User-supplied freeform textual description field. Maximum length of 150 characters is enforced.")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

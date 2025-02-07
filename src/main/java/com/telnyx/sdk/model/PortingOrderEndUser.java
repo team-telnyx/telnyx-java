@@ -38,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderEndUser.JSON_PROPERTY_ADMIN,
   PortingOrderEndUser.JSON_PROPERTY_LOCATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderEndUser {
   public static final String JSON_PROPERTY_ADMIN = "admin";
   private PortingOrderEndUserAdmin admin;
@@ -58,7 +58,7 @@ public class PortingOrderEndUser {
    * Get admin
    * @return admin
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -84,7 +84,7 @@ public class PortingOrderEndUser {
    * Get location
    * @return location
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

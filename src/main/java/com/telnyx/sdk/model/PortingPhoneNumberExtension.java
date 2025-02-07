@@ -47,7 +47,7 @@ import com.telnyx.sdk.JSON;
   PortingPhoneNumberExtension.JSON_PROPERTY_CREATED_AT,
   PortingPhoneNumberExtension.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingPhoneNumberExtension {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -91,7 +91,7 @@ public class PortingPhoneNumberExtension {
    * Uniquely identifies this porting phone number extension.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f24151b6-3389-41d3-8747-7dd8c681e5e2", value = "Uniquely identifies this porting phone number extension.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -112,7 +112,7 @@ public class PortingPhoneNumberExtension {
    * Identifies the porting phone number associated with this porting phone number extension.
    * @return portingPhoneNumberId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "f24151b6-3389-41d3-8747-7dd8c681e5e2", value = "Identifies the porting phone number associated with this porting phone number extension.")
   @JsonProperty(JSON_PROPERTY_PORTING_PHONE_NUMBER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -138,7 +138,7 @@ public class PortingPhoneNumberExtension {
    * Get extensionRange
    * @return extensionRange
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_EXTENSION_RANGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -172,7 +172,7 @@ public class PortingPhoneNumberExtension {
    * Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges.
    * @return activationRanges
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Specifies the activation ranges for this porting phone number extension. The activation range must be within the extension range and should not overlap with other activation ranges.")
   @JsonProperty(JSON_PROPERTY_ACTIVATION_RANGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -193,7 +193,7 @@ public class PortingPhoneNumberExtension {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "porting_phone_number_extension", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -209,7 +209,7 @@ public class PortingPhoneNumberExtension {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -225,7 +225,7 @@ public class PortingPhoneNumberExtension {
    * ISO 8601 formatted date indicating when the resource was last updated.
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2021-03-19T10:07:15.527Z", value = "ISO 8601 formatted date indicating when the resource was last updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

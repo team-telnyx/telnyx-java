@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   Release.JSON_PROPERTY_TELEPHONE_NUMBERS,
   Release.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Release {
   public static final String JSON_PROPERTY_TICKET_ID = "ticket_id";
   private UUID ticketId;
@@ -121,7 +121,7 @@ public class Release {
    * Uniquely identifies the resource.
    * @return ticketId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "542c3bca-d247-42bc-8fe7-e01d16ecd761", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_TICKET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -147,7 +147,7 @@ public class Release {
    * Get tenantId
    * @return tenantId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ea175aba-f47c-4702-9400-efaa42688048", value = "")
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -173,7 +173,7 @@ public class Release {
    * Represents the status of the release on Microsoft Teams.
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "pending", value = "Represents the status of the release on Microsoft Teams.")
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -199,7 +199,7 @@ public class Release {
    * A message set if there is an error with the upload process.
    * @return errorMessage
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "A message set if there is an error with the upload process.")
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -233,7 +233,7 @@ public class Release {
    * Get telephoneNumbers
    * @return telephoneNumbers
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_TELEPHONE_NUMBERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -259,7 +259,7 @@ public class Release {
    * ISO 8601 formatted date indicating when the resource was created.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PhoneNumberBundleStatusChangeRequest.JSON_PROPERTY_BUNDLE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberBundleStatusChangeRequest {
   public static final String JSON_PROPERTY_BUNDLE_ID = "bundle_id";
   private String bundleId;
@@ -52,7 +52,7 @@ public class PhoneNumberBundleStatusChangeRequest {
    * The new bundle_id setting for the number. If you are assigning the number to a bundle, this is the unique ID of the bundle you wish to use. If you are removing the number from a bundle, this must be null. You cannot assign a number from one bundle to another directly. You must first remove it from a bundle, and then assign it to a new bundle.
    * @return bundleId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The new bundle_id setting for the number. If you are assigning the number to a bundle, this is the unique ID of the bundle you wish to use. If you are removing the number from a bundle, this must be null. You cannot assign a number from one bundle to another directly. You must first remove it from a bundle, and then assign it to a new bundle.")
   @JsonProperty(JSON_PROPERTY_BUNDLE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

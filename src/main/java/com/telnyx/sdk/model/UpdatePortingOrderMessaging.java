@@ -35,7 +35,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdatePortingOrderMessaging.JSON_PROPERTY_ENABLE_MESSAGING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePortingOrderMessaging {
   public static final String JSON_PROPERTY_ENABLE_MESSAGING = "enable_messaging";
   private Boolean enableMessaging;
@@ -52,7 +52,7 @@ public class UpdatePortingOrderMessaging {
    * Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.
    * @return enableMessaging
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "true", value = "Indicates whether Telnyx will port messaging capabilities from the losing carrier. If false, any messaging capabilities will stay with their current provider.")
   @JsonProperty(JSON_PROPERTY_ENABLE_MESSAGING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

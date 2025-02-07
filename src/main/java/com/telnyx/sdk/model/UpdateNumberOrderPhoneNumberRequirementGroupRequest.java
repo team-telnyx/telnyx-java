@@ -36,7 +36,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateNumberOrderPhoneNumberRequirementGroupRequest.JSON_PROPERTY_REQUIREMENT_GROUP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateNumberOrderPhoneNumberRequirementGroupRequest {
   public static final String JSON_PROPERTY_REQUIREMENT_GROUP_ID = "requirement_group_id";
   private UUID requirementGroupId;
@@ -53,7 +53,7 @@ public class UpdateNumberOrderPhoneNumberRequirementGroupRequest {
    * The ID of the requirement group to associate
    * @return requirementGroupId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "The ID of the requirement group to associate")
   @JsonProperty(JSON_PROPERTY_REQUIREMENT_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

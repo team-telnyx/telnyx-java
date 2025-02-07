@@ -50,7 +50,7 @@ import com.telnyx.sdk.JSON;
   VerifyProfileResponse.JSON_PROPERTY_FLASHCALL,
   VerifyProfileResponse.JSON_PROPERTY_LANGUAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerifyProfileResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -97,7 +97,7 @@ public class VerifyProfileResponse {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "12ade33a-21c0-473b-b055-b3c836e1c292", value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -123,7 +123,7 @@ public class VerifyProfileResponse {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "Test Profile", value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -149,7 +149,7 @@ public class VerifyProfileResponse {
    * Get webhookUrl
    * @return webhookUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/webhook", value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -175,7 +175,7 @@ public class VerifyProfileResponse {
    * Get webhookFailoverUrl
    * @return webhookFailoverUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "http://example.com/webhook/failover", value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -201,7 +201,7 @@ public class VerifyProfileResponse {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -227,7 +227,7 @@ public class VerifyProfileResponse {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -253,7 +253,7 @@ public class VerifyProfileResponse {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "2020-09-14T17:03:32.965812", value = "")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -279,7 +279,7 @@ public class VerifyProfileResponse {
    * Get sms
    * @return sms
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_SMS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -305,7 +305,7 @@ public class VerifyProfileResponse {
    * Get call
    * @return call
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_CALL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -331,7 +331,7 @@ public class VerifyProfileResponse {
    * Get flashcall
    * @return flashcall
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FLASHCALL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -357,7 +357,7 @@ public class VerifyProfileResponse {
    * Get language
    * @return language
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "en-US", value = "")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

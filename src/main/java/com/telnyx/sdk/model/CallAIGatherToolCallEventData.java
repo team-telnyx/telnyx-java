@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   CallAIGatherToolCallEventData.JSON_PROPERTY_OCCURRED_AT,
   CallAIGatherToolCallEventData.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallAIGatherToolCallEventData {
   /**
    * Gets or Sets recordType
@@ -137,7 +137,7 @@ public class CallAIGatherToolCallEventData {
    * Get recordType
    * @return recordType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -163,7 +163,7 @@ public class CallAIGatherToolCallEventData {
    * Get eventType
    * @return eventType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -189,7 +189,7 @@ public class CallAIGatherToolCallEventData {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -215,7 +215,7 @@ public class CallAIGatherToolCallEventData {
    * Get occurredAt
    * @return occurredAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
@@ -241,7 +241,7 @@ public class CallAIGatherToolCallEventData {
    * Get payload
    * @return payload
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

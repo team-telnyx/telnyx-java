@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   UserBalance.JSON_PROPERTY_AVAILABLE_CREDIT,
   UserBalance.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UserBalance {
   public static final String JSON_PROPERTY_PENDING = "pending";
   private BigDecimal pending;
@@ -106,7 +106,7 @@ public class UserBalance {
    * The account’s pending amount.
    * @return pending
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10.00", value = "The account’s pending amount.")
   @JsonProperty(JSON_PROPERTY_PENDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -132,7 +132,7 @@ public class UserBalance {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "balance", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -158,7 +158,7 @@ public class UserBalance {
    * The account&#39;s current balance.
    * @return balance
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "300.00", value = "The account's current balance.")
   @JsonProperty(JSON_PROPERTY_BALANCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -184,7 +184,7 @@ public class UserBalance {
    * The account&#39;s credit limit.
    * @return creditLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "100.00", value = "The account's credit limit.")
   @JsonProperty(JSON_PROPERTY_CREDIT_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -210,7 +210,7 @@ public class UserBalance {
    * Available amount to spend (balance + credit limit)
    * @return availableCredit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "400.00", value = "Available amount to spend (balance + credit limit)")
   @JsonProperty(JSON_PROPERTY_AVAILABLE_CREDIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -236,7 +236,7 @@ public class UserBalance {
    * The ISO 4217 currency identifier.
    * @return currency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "USD", value = "The ISO 4217 currency identifier.")
   @JsonProperty(JSON_PROPERTY_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

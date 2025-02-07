@@ -45,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CompositionCompletedPayload.JSON_PROPERTY_SESSION_ID,
   CompositionCompletedPayload.JSON_PROPERTY_SIZE_MB
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CompositionCompletedPayload {
   public static final String JSON_PROPERTY_COMPOSITION_ID = "composition_id";
   private UUID compositionId;
@@ -83,7 +83,7 @@ public class CompositionCompletedPayload {
    * Composition ID that identifies the room composition.
    * @return compositionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Composition ID that identifies the room composition.")
   @JsonProperty(JSON_PROPERTY_COMPOSITION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -109,7 +109,7 @@ public class CompositionCompletedPayload {
    * Url to download the room composition.
    * @return downloadUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "https://www.example.com", value = "Url to download the room composition.")
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -135,7 +135,7 @@ public class CompositionCompletedPayload {
    * Room composition duration in seconds.
    * @return durationSecs
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "67", value = "Room composition duration in seconds.")
   @JsonProperty(JSON_PROPERTY_DURATION_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -161,7 +161,7 @@ public class CompositionCompletedPayload {
    * Format of the room composition.
    * @return format
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "mp4", value = "Format of the room composition.")
   @JsonProperty(JSON_PROPERTY_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -187,7 +187,7 @@ public class CompositionCompletedPayload {
    * Format of the room composition.
    * @return resolution
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "1280x720", value = "Format of the room composition.")
   @JsonProperty(JSON_PROPERTY_RESOLUTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +213,7 @@ public class CompositionCompletedPayload {
    * Room ID associated with the room composition.
    * @return roomId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0", value = "Room ID associated with the room composition.")
   @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -239,7 +239,7 @@ public class CompositionCompletedPayload {
    * Session ID associated with the room composition.
    * @return sessionId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Session ID associated with the room composition.")
   @JsonProperty(JSON_PROPERTY_SESSION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -265,7 +265,7 @@ public class CompositionCompletedPayload {
    * Room composition size in MB.
    * @return sizeMb
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "10.5", value = "Room composition size in MB.")
   @JsonProperty(JSON_PROPERTY_SIZE_MB)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

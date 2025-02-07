@@ -43,7 +43,7 @@ import com.telnyx.sdk.JSON;
   InteractiveButton.JSON_PROPERTY_TYPE,
   InteractiveButton.JSON_PROPERTY_REPLY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InteractiveButton {
   public static final String JSON_PROPERTY_TYPE = "type";
   private JsonNullable<InteractiveButtonType> type = JsonNullable.<InteractiveButtonType>undefined();
@@ -63,7 +63,7 @@ public class InteractiveButton {
    * The only supported type is reply (for Reply Button Messages).
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The only supported type is reply (for Reply Button Messages).")
   @JsonIgnore
 
@@ -97,7 +97,7 @@ public class InteractiveButton {
    * Get reply
    * @return reply
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_REPLY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)

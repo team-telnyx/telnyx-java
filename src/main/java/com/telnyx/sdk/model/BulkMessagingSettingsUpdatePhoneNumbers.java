@@ -42,7 +42,7 @@ import com.telnyx.sdk.JSON;
   BulkMessagingSettingsUpdatePhoneNumbers.JSON_PROPERTY_PENDING,
   BulkMessagingSettingsUpdatePhoneNumbers.JSON_PROPERTY_FAILED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BulkMessagingSettingsUpdatePhoneNumbers {
   /**
    * Identifies the type of the resource.
@@ -109,7 +109,7 @@ public class BulkMessagingSettingsUpdatePhoneNumbers {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "messaging_numbers_bulk_update", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -125,7 +125,7 @@ public class BulkMessagingSettingsUpdatePhoneNumbers {
    * Order ID to verify bulk update status.
    * @return orderId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Order ID to verify bulk update status.")
   @JsonProperty(JSON_PROPERTY_ORDER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -154,7 +154,7 @@ public class BulkMessagingSettingsUpdatePhoneNumbers {
    * Phoned numbers updated successfully.
    * @return success
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phoned numbers updated successfully.")
   @JsonProperty(JSON_PROPERTY_SUCCESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -188,7 +188,7 @@ public class BulkMessagingSettingsUpdatePhoneNumbers {
    * Phone numbers pending to be updated.
    * @return pending
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone numbers pending to be updated.")
   @JsonProperty(JSON_PROPERTY_PENDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -222,7 +222,7 @@ public class BulkMessagingSettingsUpdatePhoneNumbers {
    * Phone numbers that failed to update.
    * @return failed
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Phone numbers that failed to update.")
   @JsonProperty(JSON_PROPERTY_FAILED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

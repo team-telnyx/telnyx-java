@@ -39,7 +39,7 @@ import com.telnyx.sdk.JSON;
   UsageReportsResponse.JSON_PROPERTY_META,
   UsageReportsResponse.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UsageReportsResponse {
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationData meta;
@@ -59,7 +59,7 @@ public class UsageReportsResponse {
    * Get meta
    * @return meta
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -93,7 +93,7 @@ public class UsageReportsResponse {
    * Get data
    * @return data
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "[{\"product\":\"messaging\",\"cost\":0.012,\"parts\":12,\"count\":8,\"customer_carrier_fee\":0,\"product_name\":\"long_code\",\"country_iso\":\"LC\",\"direction\":\"outbound\"},{\"product\":\"messaging\",\"cost\":0.021,\"parts\":21,\"count\":12,\"customer_carrier_fee\":0,\"product_name\":\"long_code\",\"country_iso\":\"MP\",\"direction\":\"outbound\"}]", value = "")
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

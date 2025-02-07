@@ -37,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RegionOut.JSON_PROPERTY_REGION_CODE,
   RegionOut.JSON_PROPERTY_REGION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegionOut {
   public static final String JSON_PROPERTY_REGION_CODE = "region_code";
   private String regionCode;
@@ -57,7 +57,7 @@ public class RegionOut {
    * The region interface is deployed to.
    * @return regionCode
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "ashburn-va", value = "The region interface is deployed to.")
   @JsonProperty(JSON_PROPERTY_REGION_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -83,7 +83,7 @@ public class RegionOut {
    * Get region
    * @return region
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)

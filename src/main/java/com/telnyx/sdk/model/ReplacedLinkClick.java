@@ -41,7 +41,7 @@ import com.telnyx.sdk.JSON;
   ReplacedLinkClick.JSON_PROPERTY_MESSAGE_ID,
   ReplacedLinkClick.JSON_PROPERTY_TIME_CLICKED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ReplacedLinkClick {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -70,7 +70,7 @@ public class ReplacedLinkClick {
    * Identifies the type of the resource.
    * @return recordType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "link_clicked", value = "Identifies the type of the resource.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -96,7 +96,7 @@ public class ReplacedLinkClick {
    * The original link that was sent in the message.
    * @return url
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(example = "link_clicked", value = "The original link that was sent in the message.")
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -122,7 +122,7 @@ public class ReplacedLinkClick {
    * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
    * @return to
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).")
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -148,7 +148,7 @@ public class ReplacedLinkClick {
    * The message ID associated with the clicked link.
    * @return messageId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "The message ID associated with the clicked link.")
   @JsonProperty(JSON_PROPERTY_MESSAGE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -174,7 +174,7 @@ public class ReplacedLinkClick {
    * ISO 8601 formatted date indicating when the message request was received.
    * @return timeClicked
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the message request was received.")
   @JsonProperty(JSON_PROPERTY_TIME_CLICKED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
