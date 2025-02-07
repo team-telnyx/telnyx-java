@@ -9,6 +9,7 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.ConnectionResponse;
+import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.ListConnectionsResponse;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConnectionsApi {
   private ApiClient apiClient;
 
@@ -155,9 +156,9 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of connections. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
      
      */
@@ -174,9 +175,9 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of connections. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
        </table>
 
      */
@@ -206,9 +207,10 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a connection. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ConnectionResponse retrieveConnection(String id) throws ApiException {
@@ -225,9 +227,10 @@ private ApiResponse<ListConnectionsResponse> listConnectionsWithHttpInfo(Integer
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a connection. </td><td>  -  </td></tr>
+       <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ConnectionResponse> retrieveConnectionWithHttpInfo(String id) throws ApiException {

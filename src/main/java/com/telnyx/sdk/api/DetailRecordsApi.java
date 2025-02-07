@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DetailRecordsApi {
   private ApiClient apiClient;
 
@@ -47,7 +47,7 @@ public class DetailRecordsApi {
 
   /**
    * Search detail records
-   * Search for any detail record across the Telnyx Platform. Examples and additional information found [here](/docs/v2/debugging/detail-record-search).
+   * Search for any detail record across the Telnyx Platform
    * @param filterRecordType Filter by the given record type. (required)
    * @param filterDateRange Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. (optional)
    * @param filter Filter records on a given record attribute and value. &lt;br/&gt;Example: filter[status]&#x3D;delivered (optional)
@@ -62,13 +62,13 @@ public class DetailRecordsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public DetailRecordsSearchResponse detailRecordsSearch(String filterRecordType, String filterDateRange, Map<String, Object> filter, Integer pageNumber, Integer pageSize, List<String> sort) throws ApiException {
-    return detailRecordsSearchWithHttpInfo(filterRecordType, filterDateRange, filter, pageNumber, pageSize, sort).getData();
+  public DetailRecordsSearchResponse searchDetailRecords(String filterRecordType, String filterDateRange, Map<String, Object> filter, Integer pageNumber, Integer pageSize, List<String> sort) throws ApiException {
+    return searchDetailRecordsWithHttpInfo(filterRecordType, filterDateRange, filter, pageNumber, pageSize, sort).getData();
   }
 
   /**
    * Search detail records
-   * Search for any detail record across the Telnyx Platform. Examples and additional information found [here](/docs/v2/debugging/detail-record-search).
+   * Search for any detail record across the Telnyx Platform
    * @param filterRecordType Filter by the given record type. (required)
    * @param filterDateRange Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. (optional)
    * @param filter Filter records on a given record attribute and value. &lt;br/&gt;Example: filter[status]&#x3D;delivered (optional)
@@ -83,12 +83,12 @@ public class DetailRecordsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DetailRecordsSearchResponse> detailRecordsSearchWithHttpInfo(String filterRecordType, String filterDateRange, Map<String, Object> filter, Integer pageNumber, Integer pageSize, List<String> sort) throws ApiException {
+  public ApiResponse<DetailRecordsSearchResponse> searchDetailRecordsWithHttpInfo(String filterRecordType, String filterDateRange, Map<String, Object> filter, Integer pageNumber, Integer pageSize, List<String> sort) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filterRecordType' is set
     if (filterRecordType == null) {
-      throw new ApiException(400, "Missing the required parameter 'filterRecordType' when calling detailRecordsSearch");
+      throw new ApiException(400, "Missing the required parameter 'filterRecordType' when calling searchDetailRecords");
     }
     
     // create path and map variables
@@ -124,7 +124,7 @@ public class DetailRecordsApi {
 
     GenericType<DetailRecordsSearchResponse> localVarReturnType = new GenericType<DetailRecordsSearchResponse>() {};
 
-    return apiClient.invokeAPI("DetailRecordsApi.detailRecordsSearch", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("DetailRecordsApi.searchDetailRecords", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

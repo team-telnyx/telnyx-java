@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -52,7 +53,7 @@ import com.telnyx.sdk.JSON;
   Address.JSON_PROPERTY_CREATED_AT,
   Address.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Address {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -306,7 +307,7 @@ public class Address {
    * @return streetAddress
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "311 W Superior Street", value = "The primary street address information about the address.")
+  @ApiModelProperty(example = "600 Congress Avenue", value = "The primary street address information about the address.")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -332,7 +333,7 @@ public class Address {
    * @return extendedAddress
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "#504", value = "Additional street address information about the address such as, but not limited to, unit number or apartment number.")
+  @ApiModelProperty(example = "14th Floor", value = "Additional street address information about the address such as, but not limited to, unit number or apartment number.")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -358,7 +359,7 @@ public class Address {
    * @return locality
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Chicago", value = "The locality of the address. For US addresses, this corresponds to the city of the address.")
+  @ApiModelProperty(example = "Austin", value = "The locality of the address. For US addresses, this corresponds to the city of the address.")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -384,7 +385,7 @@ public class Address {
    * @return administrativeArea
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "IL", value = "The locality of the address. For US addresses, this corresponds to the state of the address.")
+  @ApiModelProperty(example = "TX", value = "The locality of the address. For US addresses, this corresponds to the state of the address.")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -462,7 +463,7 @@ public class Address {
    * @return postalCode
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "60654", value = "The postal code of the address.")
+  @ApiModelProperty(example = "78701", value = "The postal code of the address.")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

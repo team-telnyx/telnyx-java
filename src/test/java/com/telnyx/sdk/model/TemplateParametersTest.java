@@ -26,9 +26,9 @@ import com.telnyx.sdk.model.Video;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
+
+import org.junit.Test;
 
 /**
  * Model tests for TemplateParameters

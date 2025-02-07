@@ -8,9 +8,9 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.DocReqsRetrieveDocumentRequirements200Response;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListRequirements200Response;
+import com.telnyx.sdk.model.RetrieveDocumentRequirements200Response;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RequirementsApi {
   private ApiClient apiClient;
 
@@ -49,76 +49,6 @@ public class RequirementsApi {
   }
 
   /**
-   * Retrieve a document requirement
-   * Retrieve a document requirement record
-   * @param id Uniquely identifies the requirement_type record (required)
-   * @return DocReqsRetrieveDocumentRequirements200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public DocReqsRetrieveDocumentRequirements200Response docReqsRetrieveDocumentRequirements(UUID id) throws ApiException {
-    return docReqsRetrieveDocumentRequirementsWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a document requirement
-   * Retrieve a document requirement record
-   * @param id Uniquely identifies the requirement_type record (required)
-   * @return ApiResponse&lt;DocReqsRetrieveDocumentRequirements200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<DocReqsRetrieveDocumentRequirements200Response> docReqsRetrieveDocumentRequirementsWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling docReqsRetrieveDocumentRequirements");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/requirements/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<DocReqsRetrieveDocumentRequirements200Response> localVarReturnType = new GenericType<DocReqsRetrieveDocumentRequirements200Response>() {};
-
-    return apiClient.invokeAPI("RequirementsApi.docReqsRetrieveDocumentRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
    * List all requirements
    * List all requirements with filtering, sorting, and pagination
    * @param filterCountryCode Filters results to those applying to a 2-character (ISO 3166-1 alpha-2) country code (optional)
@@ -133,7 +63,7 @@ public class RequirementsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ListRequirements200Response listRequirements(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -155,7 +85,7 @@ public class RequirementsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListRequirements200Response> listRequirementsWithHttpInfo(String filterCountryCode, String filterPhoneNumberType, String filterAction, String sort, Integer pageNumber, Integer pageSize) throws ApiException {
@@ -195,6 +125,76 @@ public class RequirementsApi {
     GenericType<ListRequirements200Response> localVarReturnType = new GenericType<ListRequirements200Response>() {};
 
     return apiClient.invokeAPI("RequirementsApi.listRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Retrieve a document requirement
+   * Retrieve a document requirement record
+   * @param id Uniquely identifies the requirement_type record (required)
+   * @return RetrieveDocumentRequirements200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public RetrieveDocumentRequirements200Response retrieveDocumentRequirements(UUID id) throws ApiException {
+    return retrieveDocumentRequirementsWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Retrieve a document requirement
+   * Retrieve a document requirement record
+   * @param id Uniquely identifies the requirement_type record (required)
+   * @return ApiResponse&lt;RetrieveDocumentRequirements200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<RetrieveDocumentRequirements200Response> retrieveDocumentRequirementsWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveDocumentRequirements");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/requirements/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<RetrieveDocumentRequirements200Response> localVarReturnType = new GenericType<RetrieveDocumentRequirements200Response>() {};
+
+    return apiClient.invokeAPI("RequirementsApi.retrieveDocumentRequirements", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

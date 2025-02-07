@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderEndUserLocation.JSON_PROPERTY_POSTAL_CODE,
   PortingOrderEndUserLocation.JSON_PROPERTY_COUNTRY_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderEndUserLocation {
   public static final String JSON_PROPERTY_STREET_ADDRESS = "street_address";
   private String streetAddress;
@@ -72,7 +73,7 @@ public class PortingOrderEndUserLocation {
    * @return streetAddress
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "311 W. Superior St", value = "First line of billing address")
+  @ApiModelProperty(example = "600 Congress Avenue", value = "First line of billing address")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -98,7 +99,7 @@ public class PortingOrderEndUserLocation {
    * @return extendedAddress
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Suite 504", value = "Second line of billing address")
+  @ApiModelProperty(example = "14th Floor", value = "Second line of billing address")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -124,7 +125,7 @@ public class PortingOrderEndUserLocation {
    * @return locality
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Chicago", value = "City or municipality of billing address")
+  @ApiModelProperty(example = "Austin", value = "City or municipality of billing address")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -150,7 +151,7 @@ public class PortingOrderEndUserLocation {
    * @return administrativeArea
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "IL", value = "State, province, or similar of billing address")
+  @ApiModelProperty(example = "TX", value = "State, province, or similar of billing address")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -176,7 +177,7 @@ public class PortingOrderEndUserLocation {
    * @return postalCode
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "60654", value = "Postal Code of billing address")
+  @ApiModelProperty(example = "78701", value = "Postal Code of billing address")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

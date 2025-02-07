@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.PhoneNumbersJobPhoneNumber;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -38,17 +40,18 @@ import com.telnyx.sdk.JSON;
   NumberOrder.JSON_PROPERTY_ID,
   NumberOrder.JSON_PROPERTY_RECORD_TYPE,
   NumberOrder.JSON_PROPERTY_PHONE_NUMBERS_COUNT,
-  NumberOrder.JSON_PROPERTY_SUB_NUMBER_ORDER_IDS,
   NumberOrder.JSON_PROPERTY_CONNECTION_ID,
   NumberOrder.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   NumberOrder.JSON_PROPERTY_BILLING_GROUP_ID,
+  NumberOrder.JSON_PROPERTY_PHONE_NUMBERS,
+  NumberOrder.JSON_PROPERTY_SUB_NUMBER_ORDERS_IDS,
   NumberOrder.JSON_PROPERTY_STATUS,
   NumberOrder.JSON_PROPERTY_CUSTOMER_REFERENCE,
   NumberOrder.JSON_PROPERTY_CREATED_AT,
   NumberOrder.JSON_PROPERTY_UPDATED_AT,
   NumberOrder.JSON_PROPERTY_REQUIREMENTS_MET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberOrder {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -59,9 +62,6 @@ public class NumberOrder {
   public static final String JSON_PROPERTY_PHONE_NUMBERS_COUNT = "phone_numbers_count";
   private Integer phoneNumbersCount;
 
-  public static final String JSON_PROPERTY_SUB_NUMBER_ORDER_IDS = "sub_number_order_ids";
-  private List<String> subNumberOrderIds = null;
-
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
 
@@ -71,15 +71,21 @@ public class NumberOrder {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
 
+  public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
+  private List<PhoneNumbersJobPhoneNumber> phoneNumbers = null;
+
+  public static final String JSON_PROPERTY_SUB_NUMBER_ORDERS_IDS = "sub_number_orders_ids";
+  private List<String> subNumberOrdersIds = null;
+
   /**
    * The status of the order.
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    SUCCESS("success"),
+    SUCCESS(String.valueOf("success")),
     
-    FAILURE("failure");
+    FAILURE(String.valueOf("failure"));
 
     private String value;
 
@@ -194,40 +200,6 @@ public class NumberOrder {
 
 
 
-  public NumberOrder subNumberOrderIds(List<String> subNumberOrderIds) {
-    this.subNumberOrderIds = subNumberOrderIds;
-    return this;
-  }
-
-  public NumberOrder addSubNumberOrderIdsItem(String subNumberOrderIdsItem) {
-    if (this.subNumberOrderIds == null) {
-      this.subNumberOrderIds = new ArrayList<>();
-    }
-    this.subNumberOrderIds.add(subNumberOrderIdsItem);
-    return this;
-  }
-
-   /**
-   * Get subNumberOrderIds
-   * @return subNumberOrderIds
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDER_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getSubNumberOrderIds() {
-    return subNumberOrderIds;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDER_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSubNumberOrderIds(List<String> subNumberOrderIds) {
-    this.subNumberOrderIds = subNumberOrderIds;
-  }
-
-
   public NumberOrder connectionId(String connectionId) {
     this.connectionId = connectionId;
     return this;
@@ -303,6 +275,74 @@ public class NumberOrder {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBillingGroupId(String billingGroupId) {
     this.billingGroupId = billingGroupId;
+  }
+
+
+  public NumberOrder phoneNumbers(List<PhoneNumbersJobPhoneNumber> phoneNumbers) {
+    this.phoneNumbers = phoneNumbers;
+    return this;
+  }
+
+  public NumberOrder addphoneNumbersItem(PhoneNumbersJobPhoneNumber phoneNumbersItem) {
+    if (this.phoneNumbers == null) {
+      this.phoneNumbers = new ArrayList<>();
+    }
+    this.phoneNumbers.add(phoneNumbersItem);
+    return this;
+  }
+
+   /**
+   * Get phoneNumbers
+   * @return phoneNumbers
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PhoneNumbersJobPhoneNumber> getPhoneNumbers() {
+    return phoneNumbers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PHONE_NUMBERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPhoneNumbers(List<PhoneNumbersJobPhoneNumber> phoneNumbers) {
+    this.phoneNumbers = phoneNumbers;
+  }
+
+
+  public NumberOrder subNumberOrdersIds(List<String> subNumberOrdersIds) {
+    this.subNumberOrdersIds = subNumberOrdersIds;
+    return this;
+  }
+
+  public NumberOrder addsubNumberOrdersIdsItem(String subNumberOrdersIdsItem) {
+    if (this.subNumberOrdersIds == null) {
+      this.subNumberOrdersIds = new ArrayList<>();
+    }
+    this.subNumberOrdersIds.add(subNumberOrdersIdsItem);
+    return this;
+  }
+
+   /**
+   * Get subNumberOrdersIds
+   * @return subNumberOrdersIds
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDERS_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getSubNumberOrdersIds() {
+    return subNumberOrdersIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUB_NUMBER_ORDERS_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubNumberOrdersIds(List<String> subNumberOrdersIds) {
+    this.subNumberOrdersIds = subNumberOrdersIds;
   }
 
 
@@ -411,10 +451,11 @@ public class NumberOrder {
     return Objects.equals(this.id, numberOrder.id) &&
         Objects.equals(this.recordType, numberOrder.recordType) &&
         Objects.equals(this.phoneNumbersCount, numberOrder.phoneNumbersCount) &&
-        Objects.equals(this.subNumberOrderIds, numberOrder.subNumberOrderIds) &&
         Objects.equals(this.connectionId, numberOrder.connectionId) &&
         Objects.equals(this.messagingProfileId, numberOrder.messagingProfileId) &&
         Objects.equals(this.billingGroupId, numberOrder.billingGroupId) &&
+        Objects.equals(this.phoneNumbers, numberOrder.phoneNumbers) &&
+        Objects.equals(this.subNumberOrdersIds, numberOrder.subNumberOrdersIds) &&
         Objects.equals(this.status, numberOrder.status) &&
         Objects.equals(this.customerReference, numberOrder.customerReference) &&
         Objects.equals(this.createdAt, numberOrder.createdAt) &&
@@ -424,7 +465,7 @@ public class NumberOrder {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumbersCount, subNumberOrderIds, connectionId, messagingProfileId, billingGroupId, status, customerReference, createdAt, updatedAt, requirementsMet);
+    return Objects.hash(id, recordType, phoneNumbersCount, connectionId, messagingProfileId, billingGroupId, phoneNumbers, subNumberOrdersIds, status, customerReference, createdAt, updatedAt, requirementsMet);
   }
 
   @Override
@@ -434,10 +475,11 @@ public class NumberOrder {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    phoneNumbersCount: ").append(toIndentedString(phoneNumbersCount)).append("\n");
-    sb.append("    subNumberOrderIds: ").append(toIndentedString(subNumberOrderIds)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    messagingProfileId: ").append(toIndentedString(messagingProfileId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
+    sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
+    sb.append("    subNumberOrdersIds: ").append(toIndentedString(subNumberOrdersIds)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");

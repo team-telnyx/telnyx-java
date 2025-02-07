@@ -15,9 +15,10 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -29,8 +30,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Setting for how costs for outbound profile are calculated.
  */
 public enum UsagePaymentMethod {
-  
-  TARIFF("tariff"),
   
   RATE_DECK("rate-deck");
 

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.CustomSipHeader;
+import com.telnyx.sdk.model.SipHeader;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -34,15 +40,25 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CallInitiatedPayload.JSON_PROPERTY_CALL_CONTROL_ID,
   CallInitiatedPayload.JSON_PROPERTY_CONNECTION_ID,
+  CallInitiatedPayload.JSON_PROPERTY_CONNECTION_CODECS,
+  CallInitiatedPayload.JSON_PROPERTY_OFFERED_CODECS,
   CallInitiatedPayload.JSON_PROPERTY_CALL_LEG_ID,
+  CallInitiatedPayload.JSON_PROPERTY_CUSTOM_HEADERS,
+  CallInitiatedPayload.JSON_PROPERTY_SIP_HEADERS,
+  CallInitiatedPayload.JSON_PROPERTY_SHAKEN_STIR_ATTESTATION,
+  CallInitiatedPayload.JSON_PROPERTY_SHAKEN_STIR_VALIDATED,
   CallInitiatedPayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallInitiatedPayload.JSON_PROPERTY_CLIENT_STATE,
+  CallInitiatedPayload.JSON_PROPERTY_CALLER_ID_NAME,
+  CallInitiatedPayload.JSON_PROPERTY_CALL_SCREENING_RESULT,
   CallInitiatedPayload.JSON_PROPERTY_FROM,
   CallInitiatedPayload.JSON_PROPERTY_TO,
   CallInitiatedPayload.JSON_PROPERTY_DIRECTION,
-  CallInitiatedPayload.JSON_PROPERTY_STATE
+  CallInitiatedPayload.JSON_PROPERTY_STATE,
+  CallInitiatedPayload.JSON_PROPERTY_START_TIME,
+  CallInitiatedPayload.JSON_PROPERTY_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallInitiatedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -50,14 +66,38 @@ public class CallInitiatedPayload {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
 
+  public static final String JSON_PROPERTY_CONNECTION_CODECS = "connection_codecs";
+  private String connectionCodecs;
+
+  public static final String JSON_PROPERTY_OFFERED_CODECS = "offered_codecs";
+  private String offeredCodecs;
+
   public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
   private String callLegId;
+
+  public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
+  private List<CustomSipHeader> customHeaders = null;
+
+  public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
+  private List<SipHeader> sipHeaders = null;
+
+  public static final String JSON_PROPERTY_SHAKEN_STIR_ATTESTATION = "shaken_stir_attestation";
+  private String shakenStirAttestation;
+
+  public static final String JSON_PROPERTY_SHAKEN_STIR_VALIDATED = "shaken_stir_validated";
+  private Boolean shakenStirValidated;
 
   public static final String JSON_PROPERTY_CALL_SESSION_ID = "call_session_id";
   private String callSessionId;
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
+
+  public static final String JSON_PROPERTY_CALLER_ID_NAME = "caller_id_name";
+  private String callerIdName;
+
+  public static final String JSON_PROPERTY_CALL_SCREENING_RESULT = "call_screening_result";
+  private String callScreeningResult;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -69,9 +109,9 @@ public class CallInitiatedPayload {
    * Whether the call is &#x60;incoming&#x60; or &#x60;outgoing&#x60;.
    */
   public enum DirectionEnum {
-    INCOMING("incoming"),
+    INCOMING(String.valueOf("incoming")),
     
-    OUTGOING("outgoing");
+    OUTGOING(String.valueOf("outgoing"));
 
     private String value;
 
@@ -107,9 +147,9 @@ public class CallInitiatedPayload {
    * State received from a command.
    */
   public enum StateEnum {
-    PARKED("parked"),
+    PARKED(String.valueOf("parked")),
     
-    BRIDGING("bridging");
+    BRIDGING(String.valueOf("bridging"));
 
     private String value;
 
@@ -141,6 +181,12 @@ public class CallInitiatedPayload {
   public static final String JSON_PROPERTY_STATE = "state";
   private StateEnum state;
 
+  public static final String JSON_PROPERTY_START_TIME = "start_time";
+  private OffsetDateTime startTime;
+
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  private List<String> tags = null;
+
   public CallInitiatedPayload() { 
   }
 
@@ -154,7 +200,7 @@ public class CallInitiatedPayload {
    * @return callControlId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -196,6 +242,58 @@ public class CallInitiatedPayload {
   }
 
 
+  public CallInitiatedPayload connectionCodecs(String connectionCodecs) {
+    this.connectionCodecs = connectionCodecs;
+    return this;
+  }
+
+   /**
+   * The list of comma-separated codecs enabled for the connection.
+   * @return connectionCodecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "G722,PCMU,PCMA", value = "The list of comma-separated codecs enabled for the connection.")
+  @JsonProperty(JSON_PROPERTY_CONNECTION_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getConnectionCodecs() {
+    return connectionCodecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONNECTION_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConnectionCodecs(String connectionCodecs) {
+    this.connectionCodecs = connectionCodecs;
+  }
+
+
+  public CallInitiatedPayload offeredCodecs(String offeredCodecs) {
+    this.offeredCodecs = offeredCodecs;
+    return this;
+  }
+
+   /**
+   * The list of comma-separated codecs offered by caller.
+   * @return offeredCodecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "G722,PCMU,PCMA", value = "The list of comma-separated codecs offered by caller.")
+  @JsonProperty(JSON_PROPERTY_OFFERED_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getOfferedCodecs() {
+    return offeredCodecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OFFERED_CODECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOfferedCodecs(String offeredCodecs) {
+    this.offeredCodecs = offeredCodecs;
+  }
+
+
   public CallInitiatedPayload callLegId(String callLegId) {
     this.callLegId = callLegId;
     return this;
@@ -219,6 +317,126 @@ public class CallInitiatedPayload {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCallLegId(String callLegId) {
     this.callLegId = callLegId;
+  }
+
+
+  public CallInitiatedPayload customHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+    return this;
+  }
+
+  public CallInitiatedPayload addcustomHeadersItem(CustomSipHeader customHeadersItem) {
+    if (this.customHeaders == null) {
+      this.customHeaders = new ArrayList<>();
+    }
+    this.customHeaders.add(customHeadersItem);
+    return this;
+  }
+
+   /**
+   * Custom headers from sip invite
+   * @return customHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers from sip invite")
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<CustomSipHeader> getCustomHeaders() {
+    return customHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+  }
+
+
+  public CallInitiatedPayload sipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+    return this;
+  }
+
+  public CallInitiatedPayload addsipHeadersItem(SipHeader sipHeadersItem) {
+    if (this.sipHeaders == null) {
+      this.sipHeaders = new ArrayList<>();
+    }
+    this.sipHeaders.add(sipHeadersItem);
+    return this;
+  }
+
+   /**
+   * User-to-User and Diversion headers from sip invite.
+   * @return sipHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"1234\"},{\"name\":\"Diversion\",\"value\":\"<sip:111@192.168.1.1>\"}]", value = "User-to-User and Diversion headers from sip invite.")
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SipHeader> getSipHeaders() {
+    return sipHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+  }
+
+
+  public CallInitiatedPayload shakenStirAttestation(String shakenStirAttestation) {
+    this.shakenStirAttestation = shakenStirAttestation;
+    return this;
+  }
+
+   /**
+   * SHAKEN/STIR attestation level.
+   * @return shakenStirAttestation
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "A", value = "SHAKEN/STIR attestation level.")
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ATTESTATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getShakenStirAttestation() {
+    return shakenStirAttestation;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ATTESTATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setShakenStirAttestation(String shakenStirAttestation) {
+    this.shakenStirAttestation = shakenStirAttestation;
+  }
+
+
+  public CallInitiatedPayload shakenStirValidated(Boolean shakenStirValidated) {
+    this.shakenStirValidated = shakenStirValidated;
+    return this;
+  }
+
+   /**
+   * Whether attestation was successfully validated or not.
+   * @return shakenStirValidated
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Whether attestation was successfully validated or not.")
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_VALIDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getShakenStirValidated() {
+    return shakenStirValidated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_VALIDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setShakenStirValidated(Boolean shakenStirValidated) {
+    this.shakenStirValidated = shakenStirValidated;
   }
 
 
@@ -271,6 +489,58 @@ public class CallInitiatedPayload {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClientState(String clientState) {
     this.clientState = clientState;
+  }
+
+
+  public CallInitiatedPayload callerIdName(String callerIdName) {
+    this.callerIdName = callerIdName;
+    return this;
+  }
+
+   /**
+   * Caller id.
+   * @return callerIdName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "+35319605860", value = "Caller id.")
+  @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCallerIdName() {
+    return callerIdName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallerIdName(String callerIdName) {
+    this.callerIdName = callerIdName;
+  }
+
+
+  public CallInitiatedPayload callScreeningResult(String callScreeningResult) {
+    this.callScreeningResult = callScreeningResult;
+    return this;
+  }
+
+   /**
+   * Call screening result.
+   * @return callScreeningResult
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "spam_likely", value = "Call screening result.")
+  @JsonProperty(JSON_PROPERTY_CALL_SCREENING_RESULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCallScreeningResult() {
+    return callScreeningResult;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALL_SCREENING_RESULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallScreeningResult(String callScreeningResult) {
+    this.callScreeningResult = callScreeningResult;
   }
 
 
@@ -378,6 +648,66 @@ public class CallInitiatedPayload {
   }
 
 
+  public CallInitiatedPayload startTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+    return this;
+  }
+
+   /**
+   * ISO 8601 datetime of when the call started.
+   * @return startTime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521992Z", value = "ISO 8601 datetime of when the call started.")
+  @JsonProperty(JSON_PROPERTY_START_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getStartTime() {
+    return startTime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStartTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+  }
+
+
+  public CallInitiatedPayload tags(List<String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public CallInitiatedPayload addtagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+   /**
+   * Array of tags associated to number.
+   * @return tags
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"tag-01\",\"tag-02\"]", value = "Array of tags associated to number.")
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(List<String> tags) {
+    this.tags = tags;
+  }
+
+
   /**
    * Return true if this CallInitiated_payload object is equal to o.
    */
@@ -392,18 +722,28 @@ public class CallInitiatedPayload {
     CallInitiatedPayload callInitiatedPayload = (CallInitiatedPayload) o;
     return Objects.equals(this.callControlId, callInitiatedPayload.callControlId) &&
         Objects.equals(this.connectionId, callInitiatedPayload.connectionId) &&
+        Objects.equals(this.connectionCodecs, callInitiatedPayload.connectionCodecs) &&
+        Objects.equals(this.offeredCodecs, callInitiatedPayload.offeredCodecs) &&
         Objects.equals(this.callLegId, callInitiatedPayload.callLegId) &&
+        Objects.equals(this.customHeaders, callInitiatedPayload.customHeaders) &&
+        Objects.equals(this.sipHeaders, callInitiatedPayload.sipHeaders) &&
+        Objects.equals(this.shakenStirAttestation, callInitiatedPayload.shakenStirAttestation) &&
+        Objects.equals(this.shakenStirValidated, callInitiatedPayload.shakenStirValidated) &&
         Objects.equals(this.callSessionId, callInitiatedPayload.callSessionId) &&
         Objects.equals(this.clientState, callInitiatedPayload.clientState) &&
+        Objects.equals(this.callerIdName, callInitiatedPayload.callerIdName) &&
+        Objects.equals(this.callScreeningResult, callInitiatedPayload.callScreeningResult) &&
         Objects.equals(this.from, callInitiatedPayload.from) &&
         Objects.equals(this.to, callInitiatedPayload.to) &&
         Objects.equals(this.direction, callInitiatedPayload.direction) &&
-        Objects.equals(this.state, callInitiatedPayload.state);
+        Objects.equals(this.state, callInitiatedPayload.state) &&
+        Objects.equals(this.startTime, callInitiatedPayload.startTime) &&
+        Objects.equals(this.tags, callInitiatedPayload.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, direction, state);
+    return Objects.hash(callControlId, connectionId, connectionCodecs, offeredCodecs, callLegId, customHeaders, sipHeaders, shakenStirAttestation, shakenStirValidated, callSessionId, clientState, callerIdName, callScreeningResult, from, to, direction, state, startTime, tags);
   }
 
   @Override
@@ -412,13 +752,23 @@ public class CallInitiatedPayload {
     sb.append("class CallInitiatedPayload {\n");
     sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
+    sb.append("    connectionCodecs: ").append(toIndentedString(connectionCodecs)).append("\n");
+    sb.append("    offeredCodecs: ").append(toIndentedString(offeredCodecs)).append("\n");
     sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
+    sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+    sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
+    sb.append("    shakenStirAttestation: ").append(toIndentedString(shakenStirAttestation)).append("\n");
+    sb.append("    shakenStirValidated: ").append(toIndentedString(shakenStirValidated)).append("\n");
     sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    callerIdName: ").append(toIndentedString(callerIdName)).append("\n");
+    sb.append("    callScreeningResult: ").append(toIndentedString(callScreeningResult)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("}");
     return sb.toString();
   }

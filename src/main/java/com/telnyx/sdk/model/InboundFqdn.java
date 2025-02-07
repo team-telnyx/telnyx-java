@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,31 +43,34 @@ import com.telnyx.sdk.JSON;
   InboundFqdn.JSON_PROPERTY_DNIS_NUMBER_FORMAT,
   InboundFqdn.JSON_PROPERTY_CODECS,
   InboundFqdn.JSON_PROPERTY_DEFAULT_ROUTING_METHOD,
+  InboundFqdn.JSON_PROPERTY_DEFAULT_PRIMARY_FQDN_ID,
+  InboundFqdn.JSON_PROPERTY_DEFAULT_SECONDARY_FQDN_ID,
+  InboundFqdn.JSON_PROPERTY_DEFAULT_TERTIARY_FQDN_ID,
   InboundFqdn.JSON_PROPERTY_CHANNEL_LIMIT,
   InboundFqdn.JSON_PROPERTY_GENERATE_RINGBACK_TONE,
   InboundFqdn.JSON_PROPERTY_ISUP_HEADERS_ENABLED,
   InboundFqdn.JSON_PROPERTY_PRACK_ENABLED,
-  InboundFqdn.JSON_PROPERTY_PRIVACY_ZONE_ENABLED,
   InboundFqdn.JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED,
   InboundFqdn.JSON_PROPERTY_SIP_REGION,
   InboundFqdn.JSON_PROPERTY_SIP_SUBDOMAIN,
   InboundFqdn.JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS,
   InboundFqdn.JSON_PROPERTY_TIMEOUT1XX_SECS,
-  InboundFqdn.JSON_PROPERTY_TIMEOUT2XX_SECS
+  InboundFqdn.JSON_PROPERTY_TIMEOUT2XX_SECS,
+  InboundFqdn.JSON_PROPERTY_SHAKEN_STIR_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InboundFqdn {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
    */
   public enum AniNumberFormatEnum {
-    _E_164("+E.164"),
+    _E_164(String.valueOf("+E.164")),
     
-    E_164("E.164"),
+    E_164(String.valueOf("E.164")),
     
-    _E_164_NATIONAL("+E.164-national"),
+    _E_164_NATIONAL(String.valueOf("+E.164-national")),
     
-    E_164_NATIONAL("E.164-national");
+    E_164_NATIONAL(String.valueOf("E.164-national"));
 
     private String value;
 
@@ -102,13 +106,13 @@ public class InboundFqdn {
    * Gets or Sets dnisNumberFormat
    */
   public enum DnisNumberFormatEnum {
-    _E164("+e164"),
+    _E164(String.valueOf("+e164")),
     
-    E164("e164"),
+    E164(String.valueOf("e164")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SIP_USERNAME("sip_username");
+    SIP_USERNAME(String.valueOf("sip_username"));
 
     private String value;
 
@@ -147,9 +151,9 @@ public class InboundFqdn {
    * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or null, other values are not allowed.
    */
   public enum DefaultRoutingMethodEnum {
-    SEQUENTIAL("sequential"),
+    SEQUENTIAL(String.valueOf("sequential")),
     
-    ROUND_ROBIN("round-robin");
+    ROUND_ROBIN(String.valueOf("round-robin"));
 
     private String value;
 
@@ -179,7 +183,16 @@ public class InboundFqdn {
   }
 
   public static final String JSON_PROPERTY_DEFAULT_ROUTING_METHOD = "default_routing_method";
-  private JsonNullable<DefaultRoutingMethodEnum> defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>undefined();
+  private JsonNullable<DefaultRoutingMethodEnum> defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>of(DefaultRoutingMethodEnum.SEQUENTIAL);
+
+  public static final String JSON_PROPERTY_DEFAULT_PRIMARY_FQDN_ID = "default_primary_fqdn_id";
+  private JsonNullable<String> defaultPrimaryFqdnId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_DEFAULT_SECONDARY_FQDN_ID = "default_secondary_fqdn_id";
+  private JsonNullable<String> defaultSecondaryFqdnId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_DEFAULT_TERTIARY_FQDN_ID = "default_tertiary_fqdn_id";
+  private JsonNullable<String> defaultTertiaryFqdnId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private JsonNullable<Integer> channelLimit = JsonNullable.<Integer>undefined();
@@ -193,9 +206,6 @@ public class InboundFqdn {
   public static final String JSON_PROPERTY_PRACK_ENABLED = "prack_enabled";
   private Boolean prackEnabled = false;
 
-  public static final String JSON_PROPERTY_PRIVACY_ZONE_ENABLED = "privacy_zone_enabled";
-  private Boolean privacyZoneEnabled = false;
-
   public static final String JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED = "sip_compact_headers_enabled";
   private Boolean sipCompactHeadersEnabled = true;
 
@@ -203,11 +213,11 @@ public class InboundFqdn {
    * Selects which &#x60;sip_region&#x60; to receive inbound calls from. If null, the default region (US) will be used.
    */
   public enum SipRegionEnum {
-    US("US"),
+    US(String.valueOf("US")),
     
-    EUROPE("Europe"),
+    EUROPE(String.valueOf("Europe")),
     
-    AUSTRALIA("Australia");
+    AUSTRALIA(String.valueOf("Australia"));
 
     private String value;
 
@@ -246,9 +256,9 @@ public class InboundFqdn {
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
    */
   public enum SipSubdomainReceiveSettingsEnum {
-    ONLY_MY_CONNECTIONS("only_my_connections"),
+    ONLY_MY_CONNECTIONS(String.valueOf("only_my_connections")),
     
-    FROM_ANYONE("from_anyone");
+    FROM_ANYONE(String.valueOf("from_anyone"));
 
     private String value;
 
@@ -285,6 +295,9 @@ public class InboundFqdn {
 
   public static final String JSON_PROPERTY_TIMEOUT2XX_SECS = "timeout_2xx_secs";
   private Integer timeout2xxSecs = 90;
+
+  public static final String JSON_PROPERTY_SHAKEN_STIR_ENABLED = "shaken_stir_enabled";
+  private Boolean shakenStirEnabled = false;
 
   public InboundFqdn() { 
   }
@@ -346,9 +359,9 @@ public class InboundFqdn {
     return this;
   }
 
-  public InboundFqdn addCodecsItem(String codecsItem) {
+  public InboundFqdn addcodecsItem(String codecsItem) {
     if (this.codecs == null) {
-      this.codecs = new ArrayList<>();
+      this.codecs = new ArrayList<>(Arrays.asList("G722", "G711U", "G711A", "G729", "OPUS", "H.264"));
     }
     this.codecs.add(codecsItem);
     return this;
@@ -406,6 +419,108 @@ public class InboundFqdn {
 
   public void setDefaultRoutingMethod(DefaultRoutingMethodEnum defaultRoutingMethod) {
     this.defaultRoutingMethod = JsonNullable.<DefaultRoutingMethodEnum>of(defaultRoutingMethod);
+  }
+
+
+  public InboundFqdn defaultPrimaryFqdnId(String defaultPrimaryFqdnId) {
+    this.defaultPrimaryFqdnId = JsonNullable.<String>of(defaultPrimaryFqdnId);
+    return this;
+  }
+
+   /**
+   * The default primary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection.
+   * @return defaultPrimaryFqdnId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The default primary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection.")
+  @JsonIgnore
+
+  public String getDefaultPrimaryFqdnId() {
+        return defaultPrimaryFqdnId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_DEFAULT_PRIMARY_FQDN_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getDefaultPrimaryFqdnId_JsonNullable() {
+    return defaultPrimaryFqdnId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_DEFAULT_PRIMARY_FQDN_ID)
+  public void setDefaultPrimaryFqdnId_JsonNullable(JsonNullable<String> defaultPrimaryFqdnId) {
+    this.defaultPrimaryFqdnId = defaultPrimaryFqdnId;
+  }
+
+  public void setDefaultPrimaryFqdnId(String defaultPrimaryFqdnId) {
+    this.defaultPrimaryFqdnId = JsonNullable.<String>of(defaultPrimaryFqdnId);
+  }
+
+
+  public InboundFqdn defaultSecondaryFqdnId(String defaultSecondaryFqdnId) {
+    this.defaultSecondaryFqdnId = JsonNullable.<String>of(defaultSecondaryFqdnId);
+    return this;
+  }
+
+   /**
+   * The default secondary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection.
+   * @return defaultSecondaryFqdnId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The default secondary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection.")
+  @JsonIgnore
+
+  public String getDefaultSecondaryFqdnId() {
+        return defaultSecondaryFqdnId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_DEFAULT_SECONDARY_FQDN_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getDefaultSecondaryFqdnId_JsonNullable() {
+    return defaultSecondaryFqdnId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_DEFAULT_SECONDARY_FQDN_ID)
+  public void setDefaultSecondaryFqdnId_JsonNullable(JsonNullable<String> defaultSecondaryFqdnId) {
+    this.defaultSecondaryFqdnId = defaultSecondaryFqdnId;
+  }
+
+  public void setDefaultSecondaryFqdnId(String defaultSecondaryFqdnId) {
+    this.defaultSecondaryFqdnId = JsonNullable.<String>of(defaultSecondaryFqdnId);
+  }
+
+
+  public InboundFqdn defaultTertiaryFqdnId(String defaultTertiaryFqdnId) {
+    this.defaultTertiaryFqdnId = JsonNullable.<String>of(defaultTertiaryFqdnId);
+    return this;
+  }
+
+   /**
+   * The default tertiary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection.
+   * @return defaultTertiaryFqdnId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The default tertiary FQDN to use for the number. Only settable if the connection is of FQDN type. Value must be the ID of an FQDN set on the connection.")
+  @JsonIgnore
+
+  public String getDefaultTertiaryFqdnId() {
+        return defaultTertiaryFqdnId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_DEFAULT_TERTIARY_FQDN_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getDefaultTertiaryFqdnId_JsonNullable() {
+    return defaultTertiaryFqdnId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_DEFAULT_TERTIARY_FQDN_ID)
+  public void setDefaultTertiaryFqdnId_JsonNullable(JsonNullable<String> defaultTertiaryFqdnId) {
+    this.defaultTertiaryFqdnId = defaultTertiaryFqdnId;
+  }
+
+  public void setDefaultTertiaryFqdnId(String defaultTertiaryFqdnId) {
+    this.defaultTertiaryFqdnId = JsonNullable.<String>of(defaultTertiaryFqdnId);
   }
 
 
@@ -518,32 +633,6 @@ public class InboundFqdn {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrackEnabled(Boolean prackEnabled) {
     this.prackEnabled = prackEnabled;
-  }
-
-
-  public InboundFqdn privacyZoneEnabled(Boolean privacyZoneEnabled) {
-    this.privacyZoneEnabled = privacyZoneEnabled;
-    return this;
-  }
-
-   /**
-   * By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
-   * @return privacyZoneEnabled
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.")
-  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getPrivacyZoneEnabled() {
-    return privacyZoneEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrivacyZoneEnabled(Boolean privacyZoneEnabled) {
-    this.privacyZoneEnabled = privacyZoneEnabled;
   }
 
 
@@ -694,6 +783,8 @@ public class InboundFqdn {
 
    /**
    * Time(sec) before aborting if call is unanswered (min: 1, max: 600).
+   * minimum: 1
+   * maximum: 600
    * @return timeout2xxSecs
   **/
   @javax.annotation.Nullable
@@ -713,6 +804,32 @@ public class InboundFqdn {
   }
 
 
+  public InboundFqdn shakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+    return this;
+  }
+
+   /**
+   * When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.
+   * @return shakenStirEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.")
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getShakenStirEnabled() {
+    return shakenStirEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setShakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+  }
+
+
   /**
    * Return true if this InboundFqdn object is equal to o.
    */
@@ -729,17 +846,20 @@ public class InboundFqdn {
         Objects.equals(this.dnisNumberFormat, inboundFqdn.dnisNumberFormat) &&
         Objects.equals(this.codecs, inboundFqdn.codecs) &&
         equalsNullable(this.defaultRoutingMethod, inboundFqdn.defaultRoutingMethod) &&
+        equalsNullable(this.defaultPrimaryFqdnId, inboundFqdn.defaultPrimaryFqdnId) &&
+        equalsNullable(this.defaultSecondaryFqdnId, inboundFqdn.defaultSecondaryFqdnId) &&
+        equalsNullable(this.defaultTertiaryFqdnId, inboundFqdn.defaultTertiaryFqdnId) &&
         equalsNullable(this.channelLimit, inboundFqdn.channelLimit) &&
         Objects.equals(this.generateRingbackTone, inboundFqdn.generateRingbackTone) &&
         Objects.equals(this.isupHeadersEnabled, inboundFqdn.isupHeadersEnabled) &&
         Objects.equals(this.prackEnabled, inboundFqdn.prackEnabled) &&
-        Objects.equals(this.privacyZoneEnabled, inboundFqdn.privacyZoneEnabled) &&
         Objects.equals(this.sipCompactHeadersEnabled, inboundFqdn.sipCompactHeadersEnabled) &&
         Objects.equals(this.sipRegion, inboundFqdn.sipRegion) &&
         equalsNullable(this.sipSubdomain, inboundFqdn.sipSubdomain) &&
         Objects.equals(this.sipSubdomainReceiveSettings, inboundFqdn.sipSubdomainReceiveSettings) &&
         Objects.equals(this.timeout1xxSecs, inboundFqdn.timeout1xxSecs) &&
-        Objects.equals(this.timeout2xxSecs, inboundFqdn.timeout2xxSecs);
+        Objects.equals(this.timeout2xxSecs, inboundFqdn.timeout2xxSecs) &&
+        Objects.equals(this.shakenStirEnabled, inboundFqdn.shakenStirEnabled);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -748,7 +868,7 @@ public class InboundFqdn {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, hashCodeNullable(defaultRoutingMethod), hashCodeNullable(channelLimit), generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, hashCodeNullable(sipSubdomain), sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs);
+    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, hashCodeNullable(defaultRoutingMethod), hashCodeNullable(defaultPrimaryFqdnId), hashCodeNullable(defaultSecondaryFqdnId), hashCodeNullable(defaultTertiaryFqdnId), hashCodeNullable(channelLimit), generateRingbackTone, isupHeadersEnabled, prackEnabled, sipCompactHeadersEnabled, sipRegion, hashCodeNullable(sipSubdomain), sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs, shakenStirEnabled);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -766,17 +886,20 @@ public class InboundFqdn {
     sb.append("    dnisNumberFormat: ").append(toIndentedString(dnisNumberFormat)).append("\n");
     sb.append("    codecs: ").append(toIndentedString(codecs)).append("\n");
     sb.append("    defaultRoutingMethod: ").append(toIndentedString(defaultRoutingMethod)).append("\n");
+    sb.append("    defaultPrimaryFqdnId: ").append(toIndentedString(defaultPrimaryFqdnId)).append("\n");
+    sb.append("    defaultSecondaryFqdnId: ").append(toIndentedString(defaultSecondaryFqdnId)).append("\n");
+    sb.append("    defaultTertiaryFqdnId: ").append(toIndentedString(defaultTertiaryFqdnId)).append("\n");
     sb.append("    channelLimit: ").append(toIndentedString(channelLimit)).append("\n");
     sb.append("    generateRingbackTone: ").append(toIndentedString(generateRingbackTone)).append("\n");
     sb.append("    isupHeadersEnabled: ").append(toIndentedString(isupHeadersEnabled)).append("\n");
     sb.append("    prackEnabled: ").append(toIndentedString(prackEnabled)).append("\n");
-    sb.append("    privacyZoneEnabled: ").append(toIndentedString(privacyZoneEnabled)).append("\n");
     sb.append("    sipCompactHeadersEnabled: ").append(toIndentedString(sipCompactHeadersEnabled)).append("\n");
     sb.append("    sipRegion: ").append(toIndentedString(sipRegion)).append("\n");
     sb.append("    sipSubdomain: ").append(toIndentedString(sipSubdomain)).append("\n");
     sb.append("    sipSubdomainReceiveSettings: ").append(toIndentedString(sipSubdomainReceiveSettings)).append("\n");
     sb.append("    timeout1xxSecs: ").append(toIndentedString(timeout1xxSecs)).append("\n");
     sb.append("    timeout2xxSecs: ").append(toIndentedString(timeout2xxSecs)).append("\n");
+    sb.append("    shakenStirEnabled: ").append(toIndentedString(shakenStirEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

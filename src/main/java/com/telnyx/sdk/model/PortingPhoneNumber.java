@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,8 +26,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortabilityStatus;
 import com.telnyx.sdk.model.PortingOrderActivationStatus;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -45,27 +46,27 @@ import com.telnyx.sdk.JSON;
   PortingPhoneNumber.JSON_PROPERTY_REQUIREMENTS_STATUS,
   PortingPhoneNumber.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingPhoneNumber {
   /**
    * The current status of the porting order
    */
   public enum PortingOrderStatusEnum {
-    DRAFT("draft"),
+    DRAFT(String.valueOf("draft")),
     
-    IN_PROCESS("in-process"),
+    IN_PROCESS(String.valueOf("in-process")),
     
-    SUBMITTED("submitted"),
+    SUBMITTED(String.valueOf("submitted")),
     
-    EXCEPTION("exception"),
+    EXCEPTION(String.valueOf("exception")),
     
-    FOC_DATE_CONFIRMED("foc-date-confirmed"),
+    FOC_DATE_CONFIRMED(String.valueOf("foc-date-confirmed")),
     
-    CANCEL_PENDING("cancel-pending"),
+    CANCEL_PENDING(String.valueOf("cancel-pending")),
     
-    PORTED("ported"),
+    PORTED(String.valueOf("ported")),
     
-    CANCELLED("cancelled");
+    CANCELLED(String.valueOf("cancelled"));
 
     private String value;
 
@@ -101,17 +102,17 @@ public class PortingPhoneNumber {
    * The type of the phone number
    */
   public enum PhoneNumberTypeEnum {
-    LANDLINE("landline"),
+    LANDLINE(String.valueOf("landline")),
     
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    TOLL_FREE("toll_free");
+    TOLL_FREE(String.valueOf("toll_free"));
 
     private String value;
 
@@ -162,13 +163,13 @@ public class PortingPhoneNumber {
    * The current status of the requirements in a INTL porting order
    */
   public enum RequirementsStatusEnum {
-    REQUIREMENT_INFO_PENDING("requirement-info-pending"),
+    REQUIREMENT_INFO_PENDING(String.valueOf("requirement-info-pending")),
     
-    REQUIREMENT_INFO_UNDER_REVIEW("requirement-info-under-review"),
+    REQUIREMENT_INFO_UNDER_REVIEW(String.valueOf("requirement-info-under-review")),
     
-    REQUIREMENT_INFO_EXCEPTION("requirement-info-exception"),
+    REQUIREMENT_INFO_EXCEPTION(String.valueOf("requirement-info-exception")),
     
-    APPROVED("approved");
+    APPROVED(String.valueOf("approved"));
 
     private String value;
 

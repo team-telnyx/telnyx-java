@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -35,7 +36,7 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberMessagingSettingsRequest.JSON_PROPERTY_MESSAGING_PROFILE_ID,
   UpdatePhoneNumberMessagingSettingsRequest.JSON_PROPERTY_MESSAGING_PRODUCT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePhoneNumberMessagingSettingsRequest {
   public static final String JSON_PROPERTY_MESSAGING_PROFILE_ID = "messaging_profile_id";
   private String messagingProfileId;
@@ -52,11 +53,11 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
   }
 
    /**
-   * Unique identifier for a messaging profile.
+   * Configure the messaging profile this phone number is assigned to:  * Omit this field or set its value to &#x60;null&#x60; to keep the current value. * Set this field to &#x60;\&quot;\&quot;&#x60; to unassign the number from its messaging profile * Set this field to a quoted UUID of a messaging profile to assign this number to that messaging profile
    * @return messagingProfileId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Unique identifier for a messaging profile.")
+  @ApiModelProperty(value = "Configure the messaging profile this phone number is assigned to:  * Omit this field or set its value to `null` to keep the current value. * Set this field to `\"\"` to unassign the number from its messaging profile * Set this field to a quoted UUID of a messaging profile to assign this number to that messaging profile")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PROFILE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -78,11 +79,11 @@ public class UpdatePhoneNumberMessagingSettingsRequest {
   }
 
    /**
-   * The requested messaging product the number should be on
+   * Configure the messaging product for this number:  * Omit this field or set its value to &#x60;null&#x60; to keep the current value. * Set this field to a quoted product ID to set this phone number to that product
    * @return messagingProduct
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "P2P", value = "The requested messaging product the number should be on")
+  @ApiModelProperty(example = "P2P", value = "Configure the messaging product for this number:  * Omit this field or set its value to `null` to keep the current value. * Set this field to a quoted product ID to set this phone number to that product")
   @JsonProperty(JSON_PROPERTY_MESSAGING_PRODUCT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

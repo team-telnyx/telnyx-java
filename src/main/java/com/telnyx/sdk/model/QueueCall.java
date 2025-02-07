@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,13 +45,13 @@ import com.telnyx.sdk.JSON;
   QueueCall.JSON_PROPERTY_QUEUE_POSITION,
   QueueCall.JSON_PROPERTY_QUEUE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class QueueCall {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    QUEUE_CALL("queue_call");
+    QUEUE_CALL(String.valueOf("queue_call"));
 
     private String value;
 
@@ -203,7 +204,7 @@ public class QueueCall {
    * @return callControlId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", required = true, value = "Unique identifier and token for controlling the call.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", required = true, value = "Unique identifier and token for controlling the call.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -225,11 +226,11 @@ public class QueueCall {
   }
 
    /**
-   * Telnyx connection ID used in the call.
+   * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", required = true, value = "Telnyx connection ID used in the call.")
+  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", required = true, value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

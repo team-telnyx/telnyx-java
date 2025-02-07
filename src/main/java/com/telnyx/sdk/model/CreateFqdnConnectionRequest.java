@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,8 +30,9 @@ import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.FqdnConnectionTransportProtocol;
 import com.telnyx.sdk.model.InboundFqdn;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.OutboundFqdn;
+import com.telnyx.sdk.model.WebhookApiVersion;
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -50,15 +53,19 @@ import com.telnyx.sdk.JSON;
   CreateFqdnConnectionRequest.JSON_PROPERTY_DTMF_TYPE,
   CreateFqdnConnectionRequest.JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED,
   CreateFqdnConnectionRequest.JSON_PROPERTY_ENCRYPTED_MEDIA,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_MICROSOFT_TEAMS_SBC,
   CreateFqdnConnectionRequest.JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID,
   CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_URL,
   CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_API_VERSION,
   CreateFqdnConnectionRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS,
   CreateFqdnConnectionRequest.JSON_PROPERTY_RTCP_SETTINGS,
-  CreateFqdnConnectionRequest.JSON_PROPERTY_INBOUND
+  CreateFqdnConnectionRequest.JSON_PROPERTY_INBOUND,
+  CreateFqdnConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateFqdnConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active = true;
@@ -84,8 +91,17 @@ public class CreateFqdnConnectionRequest {
   public static final String JSON_PROPERTY_ENCRYPTED_MEDIA = "encrypted_media";
   private JsonNullable<EncryptedMedia> encryptedMedia = JsonNullable.<EncryptedMedia>undefined();
 
+  public static final String JSON_PROPERTY_MICROSOFT_TEAMS_SBC = "microsoft_teams_sbc";
+  private Boolean microsoftTeamsSbc = false;
+
   public static final String JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED = "onnet_t38_passthrough_enabled";
   private Boolean onnetT38PassthroughEnabled = false;
+
+  public static final String JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID = "ios_push_credential_id";
+  private JsonNullable<String> iosPushCredentialId = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID = "android_push_credential_id";
+  private JsonNullable<String> androidPushCredentialId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_URL = "webhook_event_url";
   private String webhookEventUrl;
@@ -93,43 +109,8 @@ public class CreateFqdnConnectionRequest {
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL = "webhook_event_failover_url";
   private JsonNullable<String> webhookEventFailoverUrl = JsonNullable.<String>of("");
 
-  /**
-   * Determines which webhook format will be used, Telnyx API v1 or v2.
-   */
-  public enum WebhookApiVersionEnum {
-    _1("1"),
-    
-    _2("2");
-
-    private String value;
-
-    WebhookApiVersionEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static WebhookApiVersionEnum fromValue(String value) {
-      for (WebhookApiVersionEnum b : WebhookApiVersionEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_WEBHOOK_API_VERSION = "webhook_api_version";
-  private WebhookApiVersionEnum webhookApiVersion = WebhookApiVersionEnum._1;
+  private WebhookApiVersion webhookApiVersion = WebhookApiVersion._1;
 
   public static final String JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS = "webhook_timeout_secs";
   private JsonNullable<Integer> webhookTimeoutSecs = JsonNullable.<Integer>undefined();
@@ -139,6 +120,9 @@ public class CreateFqdnConnectionRequest {
 
   public static final String JSON_PROPERTY_INBOUND = "inbound";
   private InboundFqdn inbound;
+
+  public static final String JSON_PROPERTY_OUTBOUND = "outbound";
+  private OutboundFqdn outbound;
 
   public CreateFqdnConnectionRequest() { 
   }
@@ -201,11 +185,11 @@ public class CreateFqdnConnectionRequest {
   }
 
    /**
-   * Get connectionName
+   * A user-assigned name to help manage the connection.
    * @return connectionName
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "office-connection", required = true, value = "A user-assigned name to help manage the connection.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -359,6 +343,32 @@ public class CreateFqdnConnectionRequest {
   }
 
 
+  public CreateFqdnConnectionRequest microsoftTeamsSbc(Boolean microsoftTeamsSbc) {
+    this.microsoftTeamsSbc = microsoftTeamsSbc;
+    return this;
+  }
+
+   /**
+   * When enabled, the connection will be created for Microsoft Teams Direct Routing. A *.mstsbc.telnyx.tech FQDN will be created for the connection automatically.
+   * @return microsoftTeamsSbc
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "When enabled, the connection will be created for Microsoft Teams Direct Routing. A *.mstsbc.telnyx.tech FQDN will be created for the connection automatically.")
+  @JsonProperty(JSON_PROPERTY_MICROSOFT_TEAMS_SBC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getMicrosoftTeamsSbc() {
+    return microsoftTeamsSbc;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MICROSOFT_TEAMS_SBC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMicrosoftTeamsSbc(Boolean microsoftTeamsSbc) {
+    this.microsoftTeamsSbc = microsoftTeamsSbc;
+  }
+
+
   public CreateFqdnConnectionRequest onnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
     return this;
@@ -382,6 +392,74 @@ public class CreateFqdnConnectionRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOnnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
+  }
+
+
+  public CreateFqdnConnectionRequest iosPushCredentialId(String iosPushCredentialId) {
+    this.iosPushCredentialId = JsonNullable.<String>of(iosPushCredentialId);
+    return this;
+  }
+
+   /**
+   * The uuid of the push credential for Ios
+   * @return iosPushCredentialId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "ec0c8e5d-439e-4620-a0c1-9d9c8d02a836", value = "The uuid of the push credential for Ios")
+  @JsonIgnore
+
+  public String getIosPushCredentialId() {
+        return iosPushCredentialId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getIosPushCredentialId_JsonNullable() {
+    return iosPushCredentialId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_IOS_PUSH_CREDENTIAL_ID)
+  public void setIosPushCredentialId_JsonNullable(JsonNullable<String> iosPushCredentialId) {
+    this.iosPushCredentialId = iosPushCredentialId;
+  }
+
+  public void setIosPushCredentialId(String iosPushCredentialId) {
+    this.iosPushCredentialId = JsonNullable.<String>of(iosPushCredentialId);
+  }
+
+
+  public CreateFqdnConnectionRequest androidPushCredentialId(String androidPushCredentialId) {
+    this.androidPushCredentialId = JsonNullable.<String>of(androidPushCredentialId);
+    return this;
+  }
+
+   /**
+   * The uuid of the push credential for Android
+   * @return androidPushCredentialId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "06b09dfd-7154-4980-8b75-cebf7a9d4f8e", value = "The uuid of the push credential for Android")
+  @JsonIgnore
+
+  public String getAndroidPushCredentialId() {
+        return androidPushCredentialId.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getAndroidPushCredentialId_JsonNullable() {
+    return androidPushCredentialId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ANDROID_PUSH_CREDENTIAL_ID)
+  public void setAndroidPushCredentialId_JsonNullable(JsonNullable<String> androidPushCredentialId) {
+    this.androidPushCredentialId = androidPushCredentialId;
+  }
+
+  public void setAndroidPushCredentialId(String androidPushCredentialId) {
+    this.androidPushCredentialId = JsonNullable.<String>of(androidPushCredentialId);
   }
 
 
@@ -445,28 +523,28 @@ public class CreateFqdnConnectionRequest {
   }
 
 
-  public CreateFqdnConnectionRequest webhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
+  public CreateFqdnConnectionRequest webhookApiVersion(WebhookApiVersion webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
     return this;
   }
 
    /**
-   * Determines which webhook format will be used, Telnyx API v1 or v2.
+   * Get webhookApiVersion
    * @return webhookApiVersion
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1 or v2.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WebhookApiVersionEnum getWebhookApiVersion() {
+  public WebhookApiVersion getWebhookApiVersion() {
     return webhookApiVersion;
   }
 
 
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
+  public void setWebhookApiVersion(WebhookApiVersion webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
 
@@ -559,6 +637,32 @@ public class CreateFqdnConnectionRequest {
   }
 
 
+  public CreateFqdnConnectionRequest outbound(OutboundFqdn outbound) {
+    this.outbound = outbound;
+    return this;
+  }
+
+   /**
+   * Get outbound
+   * @return outbound
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OutboundFqdn getOutbound() {
+    return outbound;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutbound(OutboundFqdn outbound) {
+    this.outbound = outbound;
+  }
+
+
   /**
    * Return true if this CreateFqdnConnectionRequest object is equal to o.
    */
@@ -579,13 +683,17 @@ public class CreateFqdnConnectionRequest {
         Objects.equals(this.dtmfType, createFqdnConnectionRequest.dtmfType) &&
         Objects.equals(this.encodeContactHeaderEnabled, createFqdnConnectionRequest.encodeContactHeaderEnabled) &&
         equalsNullable(this.encryptedMedia, createFqdnConnectionRequest.encryptedMedia) &&
+        Objects.equals(this.microsoftTeamsSbc, createFqdnConnectionRequest.microsoftTeamsSbc) &&
         Objects.equals(this.onnetT38PassthroughEnabled, createFqdnConnectionRequest.onnetT38PassthroughEnabled) &&
+        equalsNullable(this.iosPushCredentialId, createFqdnConnectionRequest.iosPushCredentialId) &&
+        equalsNullable(this.androidPushCredentialId, createFqdnConnectionRequest.androidPushCredentialId) &&
         Objects.equals(this.webhookEventUrl, createFqdnConnectionRequest.webhookEventUrl) &&
         equalsNullable(this.webhookEventFailoverUrl, createFqdnConnectionRequest.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, createFqdnConnectionRequest.webhookApiVersion) &&
         equalsNullable(this.webhookTimeoutSecs, createFqdnConnectionRequest.webhookTimeoutSecs) &&
         Objects.equals(this.rtcpSettings, createFqdnConnectionRequest.rtcpSettings) &&
-        Objects.equals(this.inbound, createFqdnConnectionRequest.inbound);
+        Objects.equals(this.inbound, createFqdnConnectionRequest.inbound) &&
+        Objects.equals(this.outbound, createFqdnConnectionRequest.outbound);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -594,7 +702,7 @@ public class CreateFqdnConnectionRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound);
+    return Objects.hash(active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), microsoftTeamsSbc, onnetT38PassthroughEnabled, hashCodeNullable(iosPushCredentialId), hashCodeNullable(androidPushCredentialId), webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, inbound, outbound);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -616,13 +724,17 @@ public class CreateFqdnConnectionRequest {
     sb.append("    dtmfType: ").append(toIndentedString(dtmfType)).append("\n");
     sb.append("    encodeContactHeaderEnabled: ").append(toIndentedString(encodeContactHeaderEnabled)).append("\n");
     sb.append("    encryptedMedia: ").append(toIndentedString(encryptedMedia)).append("\n");
+    sb.append("    microsoftTeamsSbc: ").append(toIndentedString(microsoftTeamsSbc)).append("\n");
     sb.append("    onnetT38PassthroughEnabled: ").append(toIndentedString(onnetT38PassthroughEnabled)).append("\n");
+    sb.append("    iosPushCredentialId: ").append(toIndentedString(iosPushCredentialId)).append("\n");
+    sb.append("    androidPushCredentialId: ").append(toIndentedString(androidPushCredentialId)).append("\n");
     sb.append("    webhookEventUrl: ").append(toIndentedString(webhookEventUrl)).append("\n");
     sb.append("    webhookEventFailoverUrl: ").append(toIndentedString(webhookEventFailoverUrl)).append("\n");
     sb.append("    webhookApiVersion: ").append(toIndentedString(webhookApiVersion)).append("\n");
     sb.append("    webhookTimeoutSecs: ").append(toIndentedString(webhookTimeoutSecs)).append("\n");
     sb.append("    rtcpSettings: ").append(toIndentedString(rtcpSettings)).append("\n");
     sb.append("    inbound: ").append(toIndentedString(inbound)).append("\n");
+    sb.append("    outbound: ").append(toIndentedString(outbound)).append("\n");
     sb.append("}");
     return sb.toString();
   }

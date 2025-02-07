@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallStreamingFailedPayloadStreamParams;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -44,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CallStreamingFailedPayload.JSON_PROPERTY_STREAM_PARAMS,
   CallStreamingFailedPayload.JSON_PROPERTY_STREAM_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallStreamingFailedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -74,9 +75,9 @@ public class CallStreamingFailedPayload {
    * The type of stream connection the stream is performing.
    */
   public enum StreamTypeEnum {
-    WEBSOCKET("websocket"),
+    WEBSOCKET(String.valueOf("websocket")),
     
-    DIALOGFLOW("dialogflow");
+    DIALOGFLOW(String.valueOf("dialogflow"));
 
     private String value;
 

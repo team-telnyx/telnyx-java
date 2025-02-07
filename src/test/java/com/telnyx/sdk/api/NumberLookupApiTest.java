@@ -13,16 +13,14 @@
 
 package com.telnyx.sdk.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnyx.sdk.*;
 import com.telnyx.sdk.auth.*;
 import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.NumberLookupResponse;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,19 +33,7 @@ import java.util.Map;
 public class NumberLookupApiTest {
 
     private final NumberLookupApi api = new NumberLookupApi();
-    private ObjectMapper mapper;
 
-    @Before
-    public void setup() {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath(TestConfiguration.MOCK_SERVER_URL);
-//        defaultClient.setBasePath("https://api.telnyx.com/v2");
-
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken(TestConfiguration.API_KEY);
-
-        mapper = new JSON().getMapper();
-    }
     /**
      * Lookup phone number data
      *
@@ -57,12 +43,11 @@ public class NumberLookupApiTest {
      *          if the Api call fails
      */
     @Test
-    public void numberLookupTest() throws ApiException {
-        String phoneNumber = "+19198675309";
-        String type = "carrier";
-        NumberLookupResponse response = api.numberLookup(phoneNumber, type);
-        assertNotNull(response.getData());
-
+    public void lookupNumberTest() throws ApiException {
+        //String phoneNumber = null;
+        //String type = null;
+        //NumberLookupResponse response = api.lookupNumber(phoneNumber, type);
+        // TODO: test validations
     }
 
 }

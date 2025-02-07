@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Direction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -44,9 +45,10 @@ import com.telnyx.sdk.JSON;
   FaxDeliveredPayload.JSON_PROPERTY_FROM,
   FaxDeliveredPayload.JSON_PROPERTY_USER_ID,
   FaxDeliveredPayload.JSON_PROPERTY_PAGE_COUNT,
-  FaxDeliveredPayload.JSON_PROPERTY_STATUS
+  FaxDeliveredPayload.JSON_PROPERTY_STATUS,
+  FaxDeliveredPayload.JSON_PROPERTY_CLIENT_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class FaxDeliveredPayload {
   public static final String JSON_PROPERTY_CALL_DURATION_SECS = "call_duration_secs";
   private Integer callDurationSecs;
@@ -82,7 +84,7 @@ public class FaxDeliveredPayload {
    * The status of the fax.
    */
   public enum StatusEnum {
-    DELIVERED("delivered");
+    DELIVERED(String.valueOf("delivered"));
 
     private String value;
 
@@ -113,6 +115,9 @@ public class FaxDeliveredPayload {
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
 
   public FaxDeliveredPayload() { 
   }
@@ -403,6 +408,32 @@ public class FaxDeliveredPayload {
   }
 
 
+  public FaxDeliveredPayload clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * State received from a command.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
   /**
    * Return true if this FaxDelivered_payload object is equal to o.
    */
@@ -425,12 +456,13 @@ public class FaxDeliveredPayload {
         Objects.equals(this.from, faxDeliveredPayload.from) &&
         Objects.equals(this.userId, faxDeliveredPayload.userId) &&
         Objects.equals(this.pageCount, faxDeliveredPayload.pageCount) &&
-        Objects.equals(this.status, faxDeliveredPayload.status);
+        Objects.equals(this.status, faxDeliveredPayload.status) &&
+        Objects.equals(this.clientState, faxDeliveredPayload.clientState);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callDurationSecs, connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, pageCount, status);
+    return Objects.hash(callDurationSecs, connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, pageCount, status, clientState);
   }
 
   @Override
@@ -448,6 +480,7 @@ public class FaxDeliveredPayload {
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    pageCount: ").append(toIndentedString(pageCount)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("}");
     return sb.toString();
   }

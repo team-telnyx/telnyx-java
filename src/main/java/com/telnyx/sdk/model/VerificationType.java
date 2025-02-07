@@ -15,9 +15,10 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -30,15 +31,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum VerificationType {
   
-  SMS_VERIFICATION("sms_verification"),
+  SMS("sms"),
   
-  PSD2_VERIFICATION("psd2_verification"),
+  CALL("call"),
   
-  WHATSAPP_VERIFICATION("whatsapp_verification"),
-  
-  CALL_VERIFICATION("call_verification"),
-  
-  FLASHCALL_VERIFICATION("flashcall_verification");
+  FLASHCALL("flashcall");
 
   private String value;
 

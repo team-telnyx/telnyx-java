@@ -9,8 +9,10 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreateFqdnConnectionRequest;
+import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.FQDNConnectionResponse;
 import com.telnyx.sdk.model.ListFQDNConnectionsResponse;
+import java.util.UUID;
 import com.telnyx.sdk.model.UpdateFqdnConnectionRequest;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class FqdnConnectionsApi {
   private ApiClient apiClient;
 
@@ -58,7 +60,10 @@ public class FqdnConnectionsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public FQDNConnectionResponse createFqdnConnection(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
@@ -75,7 +80,10 @@ public class FqdnConnectionsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<FQDNConnectionResponse> createFqdnConnectionWithHttpInfo(CreateFqdnConnectionRequest createFqdnConnectionRequest) throws ApiException {
@@ -120,7 +128,7 @@ public class FqdnConnectionsApi {
   /**
    * Delete an FQDN connection
    * Deletes an FQDN connection.
-   * @param id FQDN Connection ID (required)
+   * @param id The id of the resource. (required)
    * @return FQDNConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -128,18 +136,19 @@ public class FqdnConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public FQDNConnectionResponse deleteFqdnConnection(String id) throws ApiException {
+  public FQDNConnectionResponse deleteFqdnConnection(UUID id) throws ApiException {
     return deleteFqdnConnectionWithHttpInfo(id).getData();
   }
 
   /**
    * Delete an FQDN connection
    * Deletes an FQDN connection.
-   * @param id FQDN Connection ID (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;FQDNConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -147,11 +156,12 @@ public class FqdnConnectionsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FQDNConnectionResponse> deleteFqdnConnectionWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<FQDNConnectionResponse> deleteFqdnConnectionWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -192,7 +202,7 @@ public class FqdnConnectionsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String sort) throws ApiException {
+private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterFqdn, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -207,6 +217,8 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_name][contains]", filterConnectionNameContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[fqdn]", filterFqdn));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -235,6 +247,8 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
     private Integer pageNumber;
     private Integer pageSize;
     private String filterConnectionNameContains;
+    private String filterFqdn;
+    private String filterOutboundVoiceProfileId;
     private String sort;
 
     private APIlistFqdnConnectionsRequest() {
@@ -271,6 +285,26 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
     }
 
     /**
+     * Set filterFqdn
+     * @param filterFqdn If present, connections with an &#x60;fqdn&#x60; that equals the given value will be returned. Matching is case-sensitive, and the full string must match. (optional)
+     * @return APIlistFqdnConnectionsRequest
+     */
+    public APIlistFqdnConnectionsRequest filterFqdn(String filterFqdn) {
+      this.filterFqdn = filterFqdn;
+      return this;
+    }
+
+    /**
+     * Set filterOutboundVoiceProfileId
+     * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * @return APIlistFqdnConnectionsRequest
+     */
+    public APIlistFqdnConnectionsRequest filterOutboundVoiceProfileId(String filterOutboundVoiceProfileId) {
+      this.filterOutboundVoiceProfileId = filterOutboundVoiceProfileId;
+      return this;
+    }
+
+    /**
      * Set sort
      * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
      * @return APIlistFqdnConnectionsRequest
@@ -288,9 +322,10 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
      
      */
@@ -307,14 +342,15 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of FQDN connections. </td><td>  -  </td></tr>
-         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+         <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
          <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-         <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+         <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+         <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        </table>
 
      */
     public ApiResponse<ListFQDNConnectionsResponse> executeWithHttpInfo() throws ApiException {
-      return listFqdnConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, sort);
+      return listFqdnConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterFqdn, filterOutboundVoiceProfileId, sort);
     }
   }
 
@@ -332,7 +368,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
   /**
    * Retrieve an FQDN connection
    * Retrieves the details of an existing FQDN connection.
-   * @param id FQDN Connection ID (required)
+   * @param id The id of the resource. (required)
    * @return FQDNConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -340,18 +376,19 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public FQDNConnectionResponse retrieveFqdnConnection(String id) throws ApiException {
+  public FQDNConnectionResponse retrieveFqdnConnection(UUID id) throws ApiException {
     return retrieveFqdnConnectionWithHttpInfo(id).getData();
   }
 
   /**
    * Retrieve an FQDN connection
    * Retrieves the details of an existing FQDN connection.
-   * @param id FQDN Connection ID (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;FQDNConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -359,11 +396,12 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FQDNConnectionResponse> retrieveFqdnConnectionWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<FQDNConnectionResponse> retrieveFqdnConnectionWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -406,7 +444,7 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
   /**
    * Update an FQDN connection
    * Updates settings of an existing FQDN connection.
-   * @param id FQDN Connection ID (required)
+   * @param id The id of the resource. (required)
    * @param updateFqdnConnectionRequest Parameters that can be updated in a FQDN connection (required)
    * @return FQDNConnectionResponse
    * @throws ApiException if fails to make API call
@@ -415,18 +453,19 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public FQDNConnectionResponse updateFqdnConnection(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
+  public FQDNConnectionResponse updateFqdnConnection(UUID id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
     return updateFqdnConnectionWithHttpInfo(id, updateFqdnConnectionRequest).getData();
   }
 
   /**
    * Update an FQDN connection
    * Updates settings of an existing FQDN connection.
-   * @param id FQDN Connection ID (required)
+   * @param id The id of the resource. (required)
    * @param updateFqdnConnectionRequest Parameters that can be updated in a FQDN connection (required)
    * @return ApiResponse&lt;FQDNConnectionResponse&gt;
    * @throws ApiException if fails to make API call
@@ -435,11 +474,12 @@ private ApiResponse<ListFQDNConnectionsResponse> listFqdnConnectionsWithHttpInfo
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about an FQDN connection. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
+       <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<FQDNConnectionResponse> updateFqdnConnectionWithHttpInfo(String id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
+  public ApiResponse<FQDNConnectionResponse> updateFqdnConnectionWithHttpInfo(UUID id, UpdateFqdnConnectionRequest updateFqdnConnectionRequest) throws ApiException {
     Object localVarPostBody = updateFqdnConnectionRequest;
     
     // verify the required parameter 'id' is set

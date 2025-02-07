@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,8 +30,9 @@ import com.telnyx.sdk.model.DtmfType;
 import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.FqdnConnectionTransportProtocol;
 import com.telnyx.sdk.model.InboundFqdn;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.OutboundFqdn;
+import com.telnyx.sdk.model.WebhookApiVersion;
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -52,7 +55,21 @@ import com.telnyx.sdk.JSON;
   FqdnConnection.JSON_PROPERTY_DTMF_TYPE,
   FqdnConnection.JSON_PROPERTY_ENCODE_CONTACT_HEADER_ENABLED,
   FqdnConnection.JSON_PROPERTY_ENCRYPTED_MEDIA,
+  FqdnConnection.JSON_PROPERTY_MICROSOFT_TEAMS_SBC,
   FqdnConnection.JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED,
+  FqdnConnection.JSON_PROPERTY_USER_NAME,
+  FqdnConnection.JSON_PROPERTY_PASSWORD,
+  FqdnConnection.JSON_PROPERTY_RTP_PASS_CODECS_ON_STREAM_CHANGE,
+  FqdnConnection.JSON_PROPERTY_ADJUST_DTMF_TIMESTAMP,
+  FqdnConnection.JSON_PROPERTY_IGNORE_DTMF_DURATION,
+  FqdnConnection.JSON_PROPERTY_IGNORE_MARK_BIT,
+  FqdnConnection.JSON_PROPERTY_CALL_COST_ENABLED,
+  FqdnConnection.JSON_PROPERTY_NOISE_SUPPRESSION,
+  FqdnConnection.JSON_PROPERTY_SEND_NORMALIZED_TIMESTAMPS,
+  FqdnConnection.JSON_PROPERTY_THIRD_PARTY_CONTROL_ENABLED,
+  FqdnConnection.JSON_PROPERTY_TXT_NAME,
+  FqdnConnection.JSON_PROPERTY_TXT_VALUE,
+  FqdnConnection.JSON_PROPERTY_TXT_TTL,
   FqdnConnection.JSON_PROPERTY_WEBHOOK_EVENT_URL,
   FqdnConnection.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   FqdnConnection.JSON_PROPERTY_WEBHOOK_API_VERSION,
@@ -60,9 +77,10 @@ import com.telnyx.sdk.JSON;
   FqdnConnection.JSON_PROPERTY_RTCP_SETTINGS,
   FqdnConnection.JSON_PROPERTY_CREATED_AT,
   FqdnConnection.JSON_PROPERTY_UPDATED_AT,
-  FqdnConnection.JSON_PROPERTY_INBOUND
+  FqdnConnection.JSON_PROPERTY_INBOUND,
+  FqdnConnection.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class FqdnConnection {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -94,8 +112,50 @@ public class FqdnConnection {
   public static final String JSON_PROPERTY_ENCRYPTED_MEDIA = "encrypted_media";
   private JsonNullable<EncryptedMedia> encryptedMedia = JsonNullable.<EncryptedMedia>undefined();
 
+  public static final String JSON_PROPERTY_MICROSOFT_TEAMS_SBC = "microsoft_teams_sbc";
+  private Boolean microsoftTeamsSbc = false;
+
   public static final String JSON_PROPERTY_ONNET_T38_PASSTHROUGH_ENABLED = "onnet_t38_passthrough_enabled";
   private Boolean onnetT38PassthroughEnabled = false;
+
+  public static final String JSON_PROPERTY_USER_NAME = "user_name";
+  private String userName;
+
+  public static final String JSON_PROPERTY_PASSWORD = "password";
+  private String password;
+
+  public static final String JSON_PROPERTY_RTP_PASS_CODECS_ON_STREAM_CHANGE = "rtp_pass_codecs_on_stream_change";
+  private Boolean rtpPassCodecsOnStreamChange;
+
+  public static final String JSON_PROPERTY_ADJUST_DTMF_TIMESTAMP = "adjust_dtmf_timestamp";
+  private Boolean adjustDtmfTimestamp;
+
+  public static final String JSON_PROPERTY_IGNORE_DTMF_DURATION = "ignore_dtmf_duration";
+  private Boolean ignoreDtmfDuration;
+
+  public static final String JSON_PROPERTY_IGNORE_MARK_BIT = "ignore_mark_bit";
+  private Boolean ignoreMarkBit;
+
+  public static final String JSON_PROPERTY_CALL_COST_ENABLED = "call_cost_enabled";
+  private Boolean callCostEnabled;
+
+  public static final String JSON_PROPERTY_NOISE_SUPPRESSION = "noise_suppression";
+  private Boolean noiseSuppression;
+
+  public static final String JSON_PROPERTY_SEND_NORMALIZED_TIMESTAMPS = "send_normalized_timestamps";
+  private Boolean sendNormalizedTimestamps;
+
+  public static final String JSON_PROPERTY_THIRD_PARTY_CONTROL_ENABLED = "third_party_control_enabled";
+  private Boolean thirdPartyControlEnabled;
+
+  public static final String JSON_PROPERTY_TXT_NAME = "txt_name";
+  private String txtName;
+
+  public static final String JSON_PROPERTY_TXT_VALUE = "txt_value";
+  private String txtValue;
+
+  public static final String JSON_PROPERTY_TXT_TTL = "txt_ttl";
+  private Integer txtTtl;
 
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_URL = "webhook_event_url";
   private String webhookEventUrl;
@@ -103,43 +163,8 @@ public class FqdnConnection {
   public static final String JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL = "webhook_event_failover_url";
   private JsonNullable<String> webhookEventFailoverUrl = JsonNullable.<String>of("");
 
-  /**
-   * Determines which webhook format will be used, Telnyx API v1 or v2.
-   */
-  public enum WebhookApiVersionEnum {
-    _1("1"),
-    
-    _2("2");
-
-    private String value;
-
-    WebhookApiVersionEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static WebhookApiVersionEnum fromValue(String value) {
-      for (WebhookApiVersionEnum b : WebhookApiVersionEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_WEBHOOK_API_VERSION = "webhook_api_version";
-  private WebhookApiVersionEnum webhookApiVersion = WebhookApiVersionEnum._1;
+  private WebhookApiVersion webhookApiVersion = WebhookApiVersion._1;
 
   public static final String JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS = "webhook_timeout_secs";
   private JsonNullable<Integer> webhookTimeoutSecs = JsonNullable.<Integer>undefined();
@@ -156,7 +181,20 @@ public class FqdnConnection {
   public static final String JSON_PROPERTY_INBOUND = "inbound";
   private InboundFqdn inbound;
 
+  public static final String JSON_PROPERTY_OUTBOUND = "outbound";
+  private OutboundFqdn outbound;
+
   public FqdnConnection() { 
+  }
+
+  @JsonCreator
+  public FqdnConnection(
+    @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
+  ) {
+    this();
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public FqdnConnection id(String id) {
@@ -269,11 +307,11 @@ public class FqdnConnection {
   }
 
    /**
-   * Get connectionName
+   * A user-assigned name to help manage the connection.
    * @return connectionName
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "office-connection", required = true, value = "A user-assigned name to help manage the connection.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -427,6 +465,32 @@ public class FqdnConnection {
   }
 
 
+  public FqdnConnection microsoftTeamsSbc(Boolean microsoftTeamsSbc) {
+    this.microsoftTeamsSbc = microsoftTeamsSbc;
+    return this;
+  }
+
+   /**
+   * The connection is enabled for Microsoft Teams Direct Routing.
+   * @return microsoftTeamsSbc
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The connection is enabled for Microsoft Teams Direct Routing.")
+  @JsonProperty(JSON_PROPERTY_MICROSOFT_TEAMS_SBC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getMicrosoftTeamsSbc() {
+    return microsoftTeamsSbc;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MICROSOFT_TEAMS_SBC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMicrosoftTeamsSbc(Boolean microsoftTeamsSbc) {
+    this.microsoftTeamsSbc = microsoftTeamsSbc;
+  }
+
+
   public FqdnConnection onnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
     return this;
@@ -450,6 +514,344 @@ public class FqdnConnection {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOnnetT38PassthroughEnabled(Boolean onnetT38PassthroughEnabled) {
     this.onnetT38PassthroughEnabled = onnetT38PassthroughEnabled;
+  }
+
+
+  public FqdnConnection userName(String userName) {
+    this.userName = userName;
+    return this;
+  }
+
+   /**
+   * The username for the FQDN connection.
+   * @return userName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The username for the FQDN connection.")
+  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUserName() {
+    return userName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+
+  public FqdnConnection password(String password) {
+    this.password = password;
+    return this;
+  }
+
+   /**
+   * The password for the FQDN connection.
+   * @return password
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The password for the FQDN connection.")
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+
+  public FqdnConnection rtpPassCodecsOnStreamChange(Boolean rtpPassCodecsOnStreamChange) {
+    this.rtpPassCodecsOnStreamChange = rtpPassCodecsOnStreamChange;
+    return this;
+  }
+
+   /**
+   * Defines if codecs should be passed on stream change.
+   * @return rtpPassCodecsOnStreamChange
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Defines if codecs should be passed on stream change.")
+  @JsonProperty(JSON_PROPERTY_RTP_PASS_CODECS_ON_STREAM_CHANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRtpPassCodecsOnStreamChange() {
+    return rtpPassCodecsOnStreamChange;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RTP_PASS_CODECS_ON_STREAM_CHANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRtpPassCodecsOnStreamChange(Boolean rtpPassCodecsOnStreamChange) {
+    this.rtpPassCodecsOnStreamChange = rtpPassCodecsOnStreamChange;
+  }
+
+
+  public FqdnConnection adjustDtmfTimestamp(Boolean adjustDtmfTimestamp) {
+    this.adjustDtmfTimestamp = adjustDtmfTimestamp;
+    return this;
+  }
+
+   /**
+   * Indicates whether DTMF timestamp adjustment is enabled.
+   * @return adjustDtmfTimestamp
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether DTMF timestamp adjustment is enabled.")
+  @JsonProperty(JSON_PROPERTY_ADJUST_DTMF_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getAdjustDtmfTimestamp() {
+    return adjustDtmfTimestamp;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ADJUST_DTMF_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAdjustDtmfTimestamp(Boolean adjustDtmfTimestamp) {
+    this.adjustDtmfTimestamp = adjustDtmfTimestamp;
+  }
+
+
+  public FqdnConnection ignoreDtmfDuration(Boolean ignoreDtmfDuration) {
+    this.ignoreDtmfDuration = ignoreDtmfDuration;
+    return this;
+  }
+
+   /**
+   * Indicates whether DTMF duration should be ignored.
+   * @return ignoreDtmfDuration
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether DTMF duration should be ignored.")
+  @JsonProperty(JSON_PROPERTY_IGNORE_DTMF_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIgnoreDtmfDuration() {
+    return ignoreDtmfDuration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IGNORE_DTMF_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIgnoreDtmfDuration(Boolean ignoreDtmfDuration) {
+    this.ignoreDtmfDuration = ignoreDtmfDuration;
+  }
+
+
+  public FqdnConnection ignoreMarkBit(Boolean ignoreMarkBit) {
+    this.ignoreMarkBit = ignoreMarkBit;
+    return this;
+  }
+
+   /**
+   * Indicates whether the mark bit should be ignored.
+   * @return ignoreMarkBit
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether the mark bit should be ignored.")
+  @JsonProperty(JSON_PROPERTY_IGNORE_MARK_BIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIgnoreMarkBit() {
+    return ignoreMarkBit;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IGNORE_MARK_BIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIgnoreMarkBit(Boolean ignoreMarkBit) {
+    this.ignoreMarkBit = ignoreMarkBit;
+  }
+
+
+  public FqdnConnection callCostEnabled(Boolean callCostEnabled) {
+    this.callCostEnabled = callCostEnabled;
+    return this;
+  }
+
+   /**
+   * Indicates whether call cost calculation is enabled.
+   * @return callCostEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether call cost calculation is enabled.")
+  @JsonProperty(JSON_PROPERTY_CALL_COST_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCallCostEnabled() {
+    return callCostEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALL_COST_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallCostEnabled(Boolean callCostEnabled) {
+    this.callCostEnabled = callCostEnabled;
+  }
+
+
+  public FqdnConnection noiseSuppression(Boolean noiseSuppression) {
+    this.noiseSuppression = noiseSuppression;
+    return this;
+  }
+
+   /**
+   * Indicates whether noise suppression is enabled.
+   * @return noiseSuppression
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether noise suppression is enabled.")
+  @JsonProperty(JSON_PROPERTY_NOISE_SUPPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getNoiseSuppression() {
+    return noiseSuppression;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NOISE_SUPPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNoiseSuppression(Boolean noiseSuppression) {
+    this.noiseSuppression = noiseSuppression;
+  }
+
+
+  public FqdnConnection sendNormalizedTimestamps(Boolean sendNormalizedTimestamps) {
+    this.sendNormalizedTimestamps = sendNormalizedTimestamps;
+    return this;
+  }
+
+   /**
+   * Indicates whether normalized timestamps should be sent.
+   * @return sendNormalizedTimestamps
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether normalized timestamps should be sent.")
+  @JsonProperty(JSON_PROPERTY_SEND_NORMALIZED_TIMESTAMPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSendNormalizedTimestamps() {
+    return sendNormalizedTimestamps;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SEND_NORMALIZED_TIMESTAMPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSendNormalizedTimestamps(Boolean sendNormalizedTimestamps) {
+    this.sendNormalizedTimestamps = sendNormalizedTimestamps;
+  }
+
+
+  public FqdnConnection thirdPartyControlEnabled(Boolean thirdPartyControlEnabled) {
+    this.thirdPartyControlEnabled = thirdPartyControlEnabled;
+    return this;
+  }
+
+   /**
+   * Indicates whether third-party control is enabled.
+   * @return thirdPartyControlEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether third-party control is enabled.")
+  @JsonProperty(JSON_PROPERTY_THIRD_PARTY_CONTROL_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getThirdPartyControlEnabled() {
+    return thirdPartyControlEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_THIRD_PARTY_CONTROL_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setThirdPartyControlEnabled(Boolean thirdPartyControlEnabled) {
+    this.thirdPartyControlEnabled = thirdPartyControlEnabled;
+  }
+
+
+  public FqdnConnection txtName(String txtName) {
+    this.txtName = txtName;
+    return this;
+  }
+
+   /**
+   * The name for the TXT record associated with the FQDN connection.
+   * @return txtName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The name for the TXT record associated with the FQDN connection.")
+  @JsonProperty(JSON_PROPERTY_TXT_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTxtName() {
+    return txtName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TXT_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTxtName(String txtName) {
+    this.txtName = txtName;
+  }
+
+
+  public FqdnConnection txtValue(String txtValue) {
+    this.txtValue = txtValue;
+    return this;
+  }
+
+   /**
+   * The value for the TXT record associated with the FQDN connection.
+   * @return txtValue
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The value for the TXT record associated with the FQDN connection.")
+  @JsonProperty(JSON_PROPERTY_TXT_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTxtValue() {
+    return txtValue;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TXT_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTxtValue(String txtValue) {
+    this.txtValue = txtValue;
+  }
+
+
+  public FqdnConnection txtTtl(Integer txtTtl) {
+    this.txtTtl = txtTtl;
+    return this;
+  }
+
+   /**
+   * The time to live for the TXT record associated with the FQDN connection.
+   * @return txtTtl
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The time to live for the TXT record associated with the FQDN connection.")
+  @JsonProperty(JSON_PROPERTY_TXT_TTL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTxtTtl() {
+    return txtTtl;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TXT_TTL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTxtTtl(Integer txtTtl) {
+    this.txtTtl = txtTtl;
   }
 
 
@@ -513,28 +915,28 @@ public class FqdnConnection {
   }
 
 
-  public FqdnConnection webhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
+  public FqdnConnection webhookApiVersion(WebhookApiVersion webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
     return this;
   }
 
    /**
-   * Determines which webhook format will be used, Telnyx API v1 or v2.
+   * Get webhookApiVersion
    * @return webhookApiVersion
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1", value = "Determines which webhook format will be used, Telnyx API v1 or v2.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public WebhookApiVersionEnum getWebhookApiVersion() {
+  public WebhookApiVersion getWebhookApiVersion() {
     return webhookApiVersion;
   }
 
 
   @JsonProperty(JSON_PROPERTY_WEBHOOK_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWebhookApiVersion(WebhookApiVersionEnum webhookApiVersion) {
+  public void setWebhookApiVersion(WebhookApiVersion webhookApiVersion) {
     this.webhookApiVersion = webhookApiVersion;
   }
 
@@ -601,17 +1003,12 @@ public class FqdnConnection {
   }
 
 
-  public FqdnConnection createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
    /**
-   * ISO 8601 formatted date indicating when the resource was created.
+   * ISO 8601 formatted date-time indicating when the resource was created.
    * @return createdAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was created.")
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was created.")
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -620,24 +1017,14 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
 
-
-  public FqdnConnection updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
 
    /**
-   * ISO 8601 formatted date indicating when the resource was updated.
+   * ISO 8601 formatted date-time indicating when the resource was updated.
    * @return updatedAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date indicating when the resource was updated.")
+  @ApiModelProperty(example = "2018-02-02T22:25:27.521Z", value = "ISO 8601 formatted date-time indicating when the resource was updated.")
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -646,11 +1033,6 @@ public class FqdnConnection {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
 
 
   public FqdnConnection inbound(InboundFqdn inbound) {
@@ -679,6 +1061,32 @@ public class FqdnConnection {
   }
 
 
+  public FqdnConnection outbound(OutboundFqdn outbound) {
+    this.outbound = outbound;
+    return this;
+  }
+
+   /**
+   * Get outbound
+   * @return outbound
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OutboundFqdn getOutbound() {
+    return outbound;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTBOUND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutbound(OutboundFqdn outbound) {
+    this.outbound = outbound;
+  }
+
+
   /**
    * Return true if this FqdnConnection object is equal to o.
    */
@@ -701,7 +1109,21 @@ public class FqdnConnection {
         Objects.equals(this.dtmfType, fqdnConnection.dtmfType) &&
         Objects.equals(this.encodeContactHeaderEnabled, fqdnConnection.encodeContactHeaderEnabled) &&
         equalsNullable(this.encryptedMedia, fqdnConnection.encryptedMedia) &&
+        Objects.equals(this.microsoftTeamsSbc, fqdnConnection.microsoftTeamsSbc) &&
         Objects.equals(this.onnetT38PassthroughEnabled, fqdnConnection.onnetT38PassthroughEnabled) &&
+        Objects.equals(this.userName, fqdnConnection.userName) &&
+        Objects.equals(this.password, fqdnConnection.password) &&
+        Objects.equals(this.rtpPassCodecsOnStreamChange, fqdnConnection.rtpPassCodecsOnStreamChange) &&
+        Objects.equals(this.adjustDtmfTimestamp, fqdnConnection.adjustDtmfTimestamp) &&
+        Objects.equals(this.ignoreDtmfDuration, fqdnConnection.ignoreDtmfDuration) &&
+        Objects.equals(this.ignoreMarkBit, fqdnConnection.ignoreMarkBit) &&
+        Objects.equals(this.callCostEnabled, fqdnConnection.callCostEnabled) &&
+        Objects.equals(this.noiseSuppression, fqdnConnection.noiseSuppression) &&
+        Objects.equals(this.sendNormalizedTimestamps, fqdnConnection.sendNormalizedTimestamps) &&
+        Objects.equals(this.thirdPartyControlEnabled, fqdnConnection.thirdPartyControlEnabled) &&
+        Objects.equals(this.txtName, fqdnConnection.txtName) &&
+        Objects.equals(this.txtValue, fqdnConnection.txtValue) &&
+        Objects.equals(this.txtTtl, fqdnConnection.txtTtl) &&
         Objects.equals(this.webhookEventUrl, fqdnConnection.webhookEventUrl) &&
         equalsNullable(this.webhookEventFailoverUrl, fqdnConnection.webhookEventFailoverUrl) &&
         Objects.equals(this.webhookApiVersion, fqdnConnection.webhookApiVersion) &&
@@ -709,7 +1131,8 @@ public class FqdnConnection {
         Objects.equals(this.rtcpSettings, fqdnConnection.rtcpSettings) &&
         Objects.equals(this.createdAt, fqdnConnection.createdAt) &&
         Objects.equals(this.updatedAt, fqdnConnection.updatedAt) &&
-        Objects.equals(this.inbound, fqdnConnection.inbound);
+        Objects.equals(this.inbound, fqdnConnection.inbound) &&
+        Objects.equals(this.outbound, fqdnConnection.outbound);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -718,7 +1141,7 @@ public class FqdnConnection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), onnetT38PassthroughEnabled, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, createdAt, updatedAt, inbound);
+    return Objects.hash(id, recordType, active, anchorsiteOverride, connectionName, transportProtocol, defaultOnHoldComfortNoiseEnabled, dtmfType, encodeContactHeaderEnabled, hashCodeNullable(encryptedMedia), microsoftTeamsSbc, onnetT38PassthroughEnabled, userName, password, rtpPassCodecsOnStreamChange, adjustDtmfTimestamp, ignoreDtmfDuration, ignoreMarkBit, callCostEnabled, noiseSuppression, sendNormalizedTimestamps, thirdPartyControlEnabled, txtName, txtValue, txtTtl, webhookEventUrl, hashCodeNullable(webhookEventFailoverUrl), webhookApiVersion, hashCodeNullable(webhookTimeoutSecs), rtcpSettings, createdAt, updatedAt, inbound, outbound);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -742,7 +1165,21 @@ public class FqdnConnection {
     sb.append("    dtmfType: ").append(toIndentedString(dtmfType)).append("\n");
     sb.append("    encodeContactHeaderEnabled: ").append(toIndentedString(encodeContactHeaderEnabled)).append("\n");
     sb.append("    encryptedMedia: ").append(toIndentedString(encryptedMedia)).append("\n");
+    sb.append("    microsoftTeamsSbc: ").append(toIndentedString(microsoftTeamsSbc)).append("\n");
     sb.append("    onnetT38PassthroughEnabled: ").append(toIndentedString(onnetT38PassthroughEnabled)).append("\n");
+    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    rtpPassCodecsOnStreamChange: ").append(toIndentedString(rtpPassCodecsOnStreamChange)).append("\n");
+    sb.append("    adjustDtmfTimestamp: ").append(toIndentedString(adjustDtmfTimestamp)).append("\n");
+    sb.append("    ignoreDtmfDuration: ").append(toIndentedString(ignoreDtmfDuration)).append("\n");
+    sb.append("    ignoreMarkBit: ").append(toIndentedString(ignoreMarkBit)).append("\n");
+    sb.append("    callCostEnabled: ").append(toIndentedString(callCostEnabled)).append("\n");
+    sb.append("    noiseSuppression: ").append(toIndentedString(noiseSuppression)).append("\n");
+    sb.append("    sendNormalizedTimestamps: ").append(toIndentedString(sendNormalizedTimestamps)).append("\n");
+    sb.append("    thirdPartyControlEnabled: ").append(toIndentedString(thirdPartyControlEnabled)).append("\n");
+    sb.append("    txtName: ").append(toIndentedString(txtName)).append("\n");
+    sb.append("    txtValue: ").append(toIndentedString(txtValue)).append("\n");
+    sb.append("    txtTtl: ").append(toIndentedString(txtTtl)).append("\n");
     sb.append("    webhookEventUrl: ").append(toIndentedString(webhookEventUrl)).append("\n");
     sb.append("    webhookEventFailoverUrl: ").append(toIndentedString(webhookEventFailoverUrl)).append("\n");
     sb.append("    webhookApiVersion: ").append(toIndentedString(webhookApiVersion)).append("\n");
@@ -751,6 +1188,7 @@ public class FqdnConnection {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    inbound: ").append(toIndentedString(inbound)).append("\n");
+    sb.append("    outbound: ").append(toIndentedString(outbound)).append("\n");
     sb.append("}");
     return sb.toString();
   }

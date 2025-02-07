@@ -15,9 +15,10 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,23 +33,13 @@ public enum VerificationStatus {
   
   PENDING("pending"),
   
-  SMS_DELIVERY_FAILED("sms_delivery_failed"),
-  
   ACCEPTED("accepted"),
+  
+  INVALID("invalid"),
   
   EXPIRED("expired"),
   
-  NOT_ENOUGH_CREDIT("not_enough_credit"),
-  
-  NETWORK_ERROR("network_error"),
-  
-  NUMBER_UNREACHABLE("number_unreachable"),
-  
-  INTERNAL_ERROR("internal_error"),
-  
-  INVALID_DESTINATION("invalid_destination"),
-  
-  TIMED_OUT("timed_out");
+  ERROR("error");
 
   private String value;
 

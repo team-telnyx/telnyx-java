@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.ValidateAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -40,15 +42,15 @@ import com.telnyx.sdk.JSON;
   ValidateAddressResult.JSON_PROPERTY_RECORD_TYPE,
   ValidateAddressResult.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ValidateAddressResult {
   /**
    * Indicates whether an address is valid or invalid.
    */
   public enum ResultEnum {
-    VALID("valid"),
+    VALID(String.valueOf("valid")),
     
-    INVALID("invalid");
+    INVALID(String.valueOf("invalid"));
 
     private String value;
 
@@ -81,7 +83,7 @@ public class ValidateAddressResult {
   private ResultEnum result;
 
   public static final String JSON_PROPERTY_SUGGESTED = "suggested";
-  private String suggested;
+  private ValidateAddress suggested;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -118,7 +120,7 @@ public class ValidateAddressResult {
   }
 
 
-  public ValidateAddressResult suggested(String suggested) {
+  public ValidateAddressResult suggested(ValidateAddress suggested) {
     this.suggested = suggested;
     return this;
   }
@@ -132,14 +134,14 @@ public class ValidateAddressResult {
   @JsonProperty(JSON_PROPERTY_SUGGESTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getSuggested() {
+  public ValidateAddress getSuggested() {
     return suggested;
   }
 
 
   @JsonProperty(JSON_PROPERTY_SUGGESTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuggested(String suggested) {
+  public void setSuggested(ValidateAddress suggested) {
     this.suggested = suggested;
   }
 
@@ -175,7 +177,7 @@ public class ValidateAddressResult {
     return this;
   }
 
-  public ValidateAddressResult addErrorsItem(Error errorsItem) {
+  public ValidateAddressResult adderrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }

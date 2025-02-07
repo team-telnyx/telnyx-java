@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagingProfilesApi {
   private ApiClient apiClient;
 
@@ -194,11 +194,17 @@ public class MessagingProfilesApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListMessagingProfileMetricsResponse> listMessagingProfileMetricsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID id, String timeFrame) throws ApiException {
+private ApiResponse<RetrieveMessagingProfileMetricsResponse> getMessagingProfileMetricsWithHttpInfo(UUID id, String timeFrame) throws ApiException {
     Object localVarPostBody = null;
     
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getMessagingProfileMetrics");
+    }
+    
     // create path and map variables
-    String localVarPath = "/messaging_profile_metrics";
+    String localVarPath = "/messaging_profiles/{id}/metrics"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -206,9 +212,6 @@ private ApiResponse<ListMessagingProfileMetricsResponse> listMessagingProfileMet
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "time_frame", timeFrame));
 
     
@@ -226,347 +229,79 @@ private ApiResponse<ListMessagingProfileMetricsResponse> listMessagingProfileMet
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListMessagingProfileMetricsResponse> localVarReturnType = new GenericType<ListMessagingProfileMetricsResponse>() {};
+    GenericType<RetrieveMessagingProfileMetricsResponse> localVarReturnType = new GenericType<RetrieveMessagingProfileMetricsResponse>() {};
 
-    return apiClient.invokeAPI("MessagingProfilesApi.listMessagingProfileMetrics", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("MessagingProfilesApi.getMessagingProfileMetrics", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-  public class APIlistMessagingProfileMetricsRequest {
-    private Integer pageNumber;
-    private Integer pageSize;
+  public class APIgetMessagingProfileMetricsRequest {
     private UUID id;
     private String timeFrame;
 
-    private APIlistMessagingProfileMetricsRequest() {
-    }
-
-    /**
-     * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @return APIlistMessagingProfileMetricsRequest
-     */
-    public APIlistMessagingProfileMetricsRequest pageNumber(Integer pageNumber) {
-      this.pageNumber = pageNumber;
-      return this;
-    }
-
-    /**
-     * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return APIlistMessagingProfileMetricsRequest
-     */
-    public APIlistMessagingProfileMetricsRequest pageSize(Integer pageSize) {
-      this.pageSize = pageSize;
-      return this;
-    }
-
-    /**
-     * Set id
-     * @param id The id of the messaging profile(s) to retrieve (optional)
-     * @return APIlistMessagingProfileMetricsRequest
-     */
-    public APIlistMessagingProfileMetricsRequest id(UUID id) {
+    private APIgetMessagingProfileMetricsRequest(UUID id) {
       this.id = id;
-      return this;
     }
 
     /**
      * Set timeFrame
      * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @return APIlistMessagingProfileMetricsRequest
+     * @return APIgetMessagingProfileMetricsRequest
      */
-    public APIlistMessagingProfileMetricsRequest timeFrame(String timeFrame) {
+    public APIgetMessagingProfileMetricsRequest timeFrame(String timeFrame) {
       this.timeFrame = timeFrame;
       return this;
     }
 
     /**
-     * Execute listMessagingProfileMetrics request
-     * @return ListMessagingProfileMetricsResponse
+     * Execute getMessagingProfileMetrics request
+     * @return RetrieveMessagingProfileMetricsResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+         <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
      
      */
     
-    public ListMessagingProfileMetricsResponse execute() throws ApiException {
+    public RetrieveMessagingProfileMetricsResponse execute() throws ApiException {
       return this.executeWithHttpInfo().getData();
     }
 
     /**
-     * Execute listMessagingProfileMetrics request with HTTP info returned
-     * @return ApiResponse&lt;ListMessagingProfileMetricsResponse&gt;
+     * Execute getMessagingProfileMetrics request with HTTP info returned
+     * @return ApiResponse&lt;RetrieveMessagingProfileMetricsResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
        <table summary="Response Details" border="1">
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+         <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
          <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
        </table>
 
      */
-    public ApiResponse<ListMessagingProfileMetricsResponse> executeWithHttpInfo() throws ApiException {
-      return listMessagingProfileMetricsWithHttpInfo(pageNumber, pageSize, id, timeFrame);
+    public ApiResponse<RetrieveMessagingProfileMetricsResponse> executeWithHttpInfo() throws ApiException {
+      return getMessagingProfileMetricsWithHttpInfo(id, timeFrame);
     }
   }
 
   /**
-   * List messaging profile metrics
-   * 
-   * @return listMessagingProfileMetricsRequest
-   * @throws ApiException if fails to make API call
-   
-   
-   */
-  public APIlistMessagingProfileMetricsRequest listMessagingProfileMetrics() throws ApiException {
-    return new APIlistMessagingProfileMetricsRequest();
-  }
-
-private ApiResponse<ListMessagingProfilePhoneNumbersResponse> listMessagingProfilePhoneNumbersWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listMessagingProfilePhoneNumbers");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/messaging_profiles/{id}/phone_numbers"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListMessagingProfilePhoneNumbersResponse> localVarReturnType = new GenericType<ListMessagingProfilePhoneNumbersResponse>() {};
-
-    return apiClient.invokeAPI("MessagingProfilesApi.listMessagingProfilePhoneNumbers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-
-  public class APIlistMessagingProfilePhoneNumbersRequest {
-    private UUID id;
-    private Integer pageNumber;
-    private Integer pageSize;
-
-    private APIlistMessagingProfilePhoneNumbersRequest(UUID id) {
-      this.id = id;
-    }
-
-    /**
-     * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @return APIlistMessagingProfilePhoneNumbersRequest
-     */
-    public APIlistMessagingProfilePhoneNumbersRequest pageNumber(Integer pageNumber) {
-      this.pageNumber = pageNumber;
-      return this;
-    }
-
-    /**
-     * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return APIlistMessagingProfilePhoneNumbersRequest
-     */
-    public APIlistMessagingProfilePhoneNumbersRequest pageSize(Integer pageSize) {
-      this.pageSize = pageSize;
-      return this;
-    }
-
-    /**
-     * Execute listMessagingProfilePhoneNumbers request
-     * @return ListMessagingProfilePhoneNumbersResponse
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-       </table>
-     
-     */
-    
-    public ListMessagingProfilePhoneNumbersResponse execute() throws ApiException {
-      return this.executeWithHttpInfo().getData();
-    }
-
-    /**
-     * Execute listMessagingProfilePhoneNumbers request with HTTP info returned
-     * @return ApiResponse&lt;ListMessagingProfilePhoneNumbersResponse&gt;
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-       </table>
-
-     */
-    public ApiResponse<ListMessagingProfilePhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
-      return listMessagingProfilePhoneNumbersWithHttpInfo(id, pageNumber, pageSize);
-    }
-  }
-
-  /**
-   * List phone numbers associated with a messaging profile
+   * Retrieve messaging profile metrics
    * 
    * @param id The id of the messaging profile to retrieve (required)
-   * @return listMessagingProfilePhoneNumbersRequest
+   * @return getMessagingProfileMetricsRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIlistMessagingProfilePhoneNumbersRequest listMessagingProfilePhoneNumbers(UUID id) throws ApiException {
-    return new APIlistMessagingProfilePhoneNumbersRequest(id);
+  public APIgetMessagingProfileMetricsRequest getMessagingProfileMetrics(UUID id) throws ApiException {
+    return new APIgetMessagingProfileMetricsRequest(id);
   }
 
-private ApiResponse<ListMessagingProfileShortCodesResponse> listMessagingProfileShortCodesWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listMessagingProfileShortCodes");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/messaging_profiles/{id}/short_codes"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListMessagingProfileShortCodesResponse> localVarReturnType = new GenericType<ListMessagingProfileShortCodesResponse>() {};
-
-    return apiClient.invokeAPI("MessagingProfilesApi.listMessagingProfileShortCodes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-
-  public class APIlistMessagingProfileShortCodesRequest {
-    private UUID id;
-    private Integer pageNumber;
-    private Integer pageSize;
-
-    private APIlistMessagingProfileShortCodesRequest(UUID id) {
-      this.id = id;
-    }
-
-    /**
-     * Set pageNumber
-     * @param pageNumber The page number to load (optional, default to 1)
-     * @return APIlistMessagingProfileShortCodesRequest
-     */
-    public APIlistMessagingProfileShortCodesRequest pageNumber(Integer pageNumber) {
-      this.pageNumber = pageNumber;
-      return this;
-    }
-
-    /**
-     * Set pageSize
-     * @param pageSize The size of the page (optional, default to 20)
-     * @return APIlistMessagingProfileShortCodesRequest
-     */
-    public APIlistMessagingProfileShortCodesRequest pageSize(Integer pageSize) {
-      this.pageSize = pageSize;
-      return this;
-    }
-
-    /**
-     * Execute listMessagingProfileShortCodes request
-     * @return ListMessagingProfileShortCodesResponse
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-       </table>
-     
-     */
-    
-    public ListMessagingProfileShortCodesResponse execute() throws ApiException {
-      return this.executeWithHttpInfo().getData();
-    }
-
-    /**
-     * Execute listMessagingProfileShortCodes request with HTTP info returned
-     * @return ApiResponse&lt;ListMessagingProfileShortCodesResponse&gt;
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-       </table>
-
-     */
-    public ApiResponse<ListMessagingProfileShortCodesResponse> executeWithHttpInfo() throws ApiException {
-      return listMessagingProfileShortCodesWithHttpInfo(id, pageNumber, pageSize);
-    }
-  }
-
-  /**
-   * List short codes associated with a messaging profile
-   * 
-   * @param id The id of the messaging profile to retrieve (required)
-   * @return listMessagingProfileShortCodesRequest
-   * @throws ApiException if fails to make API call
-   
-   
-   */
-  public APIlistMessagingProfileShortCodesRequest listMessagingProfileShortCodes(UUID id) throws ApiException {
-    return new APIlistMessagingProfileShortCodesRequest(id);
-  }
-
-private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttpInfo(Integer pageNumber, Integer pageSize, String filterName) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -580,6 +315,7 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[name]", filterName));
 
     
     
@@ -606,6 +342,7 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
   public class APIlistMessagingProfilesRequest {
     private Integer pageNumber;
     private Integer pageSize;
+    private String filterName;
 
     private APIlistMessagingProfilesRequest() {
     }
@@ -627,6 +364,16 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
      */
     public APIlistMessagingProfilesRequest pageSize(Integer pageSize) {
       this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Set filterName
+     * @param filterName Filter by name (optional)
+     * @return APIlistMessagingProfilesRequest
+     */
+    public APIlistMessagingProfilesRequest filterName(String filterName) {
+      this.filterName = filterName;
       return this;
     }
 
@@ -660,7 +407,7 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
 
      */
     public ApiResponse<ListMessagingProfilesResponse> executeWithHttpInfo() throws ApiException {
-      return listMessagingProfilesWithHttpInfo(pageNumber, pageSize);
+      return listMessagingProfilesWithHttpInfo(pageNumber, pageSize, filterName);
     }
   }
 
@@ -674,6 +421,378 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
    */
   public APIlistMessagingProfilesRequest listMessagingProfiles() throws ApiException {
     return new APIlistMessagingProfilesRequest();
+  }
+
+private ApiResponse<ListMessagingProfileMetricsResponse> listProfileMetricsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID id, String timeFrame) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/messaging_profile_metrics";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "id", id));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "time_frame", timeFrame));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ListMessagingProfileMetricsResponse> localVarReturnType = new GenericType<ListMessagingProfileMetricsResponse>() {};
+
+    return apiClient.invokeAPI("MessagingProfilesApi.listProfileMetrics", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+
+  public class APIlistProfileMetricsRequest {
+    private Integer pageNumber;
+    private Integer pageSize;
+    private UUID id;
+    private String timeFrame;
+
+    private APIlistProfileMetricsRequest() {
+    }
+
+    /**
+     * Set pageNumber
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @return APIlistProfileMetricsRequest
+     */
+    public APIlistProfileMetricsRequest pageNumber(Integer pageNumber) {
+      this.pageNumber = pageNumber;
+      return this;
+    }
+
+    /**
+     * Set pageSize
+     * @param pageSize The size of the page (optional, default to 20)
+     * @return APIlistProfileMetricsRequest
+     */
+    public APIlistProfileMetricsRequest pageSize(Integer pageSize) {
+      this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Set id
+     * @param id The id of the messaging profile(s) to retrieve (optional)
+     * @return APIlistProfileMetricsRequest
+     */
+    public APIlistProfileMetricsRequest id(UUID id) {
+      this.id = id;
+      return this;
+    }
+
+    /**
+     * Set timeFrame
+     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
+     * @return APIlistProfileMetricsRequest
+     */
+    public APIlistProfileMetricsRequest timeFrame(String timeFrame) {
+      this.timeFrame = timeFrame;
+      return this;
+    }
+
+    /**
+     * Execute listProfileMetrics request
+     * @return ListMessagingProfileMetricsResponse
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public ListMessagingProfileMetricsResponse execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute listProfileMetrics request with HTTP info returned
+     * @return ApiResponse&lt;ListMessagingProfileMetricsResponse&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of messaging profile metrics. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<ListMessagingProfileMetricsResponse> executeWithHttpInfo() throws ApiException {
+      return listProfileMetricsWithHttpInfo(pageNumber, pageSize, id, timeFrame);
+    }
+  }
+
+  /**
+   * List messaging profile metrics
+   * 
+   * @return listProfileMetricsRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIlistProfileMetricsRequest listProfileMetrics() throws ApiException {
+    return new APIlistProfileMetricsRequest();
+  }
+
+private ApiResponse<ListMessagingProfilePhoneNumbersResponse> listProfilePhoneNumbersWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling listProfilePhoneNumbers");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/messaging_profiles/{id}/phone_numbers"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ListMessagingProfilePhoneNumbersResponse> localVarReturnType = new GenericType<ListMessagingProfilePhoneNumbersResponse>() {};
+
+    return apiClient.invokeAPI("MessagingProfilesApi.listProfilePhoneNumbers", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+
+  public class APIlistProfilePhoneNumbersRequest {
+    private UUID id;
+    private Integer pageNumber;
+    private Integer pageSize;
+
+    private APIlistProfilePhoneNumbersRequest(UUID id) {
+      this.id = id;
+    }
+
+    /**
+     * Set pageNumber
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @return APIlistProfilePhoneNumbersRequest
+     */
+    public APIlistProfilePhoneNumbersRequest pageNumber(Integer pageNumber) {
+      this.pageNumber = pageNumber;
+      return this;
+    }
+
+    /**
+     * Set pageSize
+     * @param pageSize The size of the page (optional, default to 20)
+     * @return APIlistProfilePhoneNumbersRequest
+     */
+    public APIlistProfilePhoneNumbersRequest pageSize(Integer pageSize) {
+      this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Execute listProfilePhoneNumbers request
+     * @return ListMessagingProfilePhoneNumbersResponse
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public ListMessagingProfilePhoneNumbersResponse execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute listProfilePhoneNumbers request with HTTP info returned
+     * @return ApiResponse&lt;ListMessagingProfilePhoneNumbersResponse&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of messaging profile phone numbers. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<ListMessagingProfilePhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
+      return listProfilePhoneNumbersWithHttpInfo(id, pageNumber, pageSize);
+    }
+  }
+
+  /**
+   * List phone numbers associated with a messaging profile
+   * 
+   * @param id The id of the messaging profile to retrieve (required)
+   * @return listProfilePhoneNumbersRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIlistProfilePhoneNumbersRequest listProfilePhoneNumbers(UUID id) throws ApiException {
+    return new APIlistProfilePhoneNumbersRequest(id);
+  }
+
+private ApiResponse<ListMessagingProfileShortCodesResponse> listProfileShortCodesWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling listProfileShortCodes");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/messaging_profiles/{id}/short_codes"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<ListMessagingProfileShortCodesResponse> localVarReturnType = new GenericType<ListMessagingProfileShortCodesResponse>() {};
+
+    return apiClient.invokeAPI("MessagingProfilesApi.listProfileShortCodes", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+
+  public class APIlistProfileShortCodesRequest {
+    private UUID id;
+    private Integer pageNumber;
+    private Integer pageSize;
+
+    private APIlistProfileShortCodesRequest(UUID id) {
+      this.id = id;
+    }
+
+    /**
+     * Set pageNumber
+     * @param pageNumber The page number to load (optional, default to 1)
+     * @return APIlistProfileShortCodesRequest
+     */
+    public APIlistProfileShortCodesRequest pageNumber(Integer pageNumber) {
+      this.pageNumber = pageNumber;
+      return this;
+    }
+
+    /**
+     * Set pageSize
+     * @param pageSize The size of the page (optional, default to 20)
+     * @return APIlistProfileShortCodesRequest
+     */
+    public APIlistProfileShortCodesRequest pageSize(Integer pageSize) {
+      this.pageSize = pageSize;
+      return this;
+    }
+
+    /**
+     * Execute listProfileShortCodes request
+     * @return ListMessagingProfileShortCodesResponse
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+     
+     */
+    
+    public ListMessagingProfileShortCodesResponse execute() throws ApiException {
+      return this.executeWithHttpInfo().getData();
+    }
+
+    /**
+     * Execute listProfileShortCodes request with HTTP info returned
+     * @return ApiResponse&lt;ListMessagingProfileShortCodesResponse&gt;
+     * @throws ApiException if fails to make API call
+     * @http.response.details
+       <table summary="Response Details" border="1">
+         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+         <tr><td> 200 </td><td> Successful response with a list of messaging profile short codes. </td><td>  -  </td></tr>
+         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       </table>
+
+     */
+    public ApiResponse<ListMessagingProfileShortCodesResponse> executeWithHttpInfo() throws ApiException {
+      return listProfileShortCodesWithHttpInfo(id, pageNumber, pageSize);
+    }
+  }
+
+  /**
+   * List short codes associated with a messaging profile
+   * 
+   * @param id The id of the messaging profile to retrieve (required)
+   * @return listProfileShortCodesRequest
+   * @throws ApiException if fails to make API call
+   
+   
+   */
+  public APIlistProfileShortCodesRequest listProfileShortCodes(UUID id) throws ApiException {
+    return new APIlistProfileShortCodesRequest(id);
   }
   /**
    * Retrieve a messaging profile
@@ -744,113 +863,6 @@ private ApiResponse<ListMessagingProfilesResponse> listMessagingProfilesWithHttp
     return apiClient.invokeAPI("MessagingProfilesApi.retrieveMessagingProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
-  }
-
-private ApiResponse<RetrieveMessagingProfileMetricsResponse> retrieveMessagingProfileDetailedMetricsWithHttpInfo(UUID id, String timeFrame) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveMessagingProfileDetailedMetrics");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/messaging_profiles/{id}/metrics"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "time_frame", timeFrame));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RetrieveMessagingProfileMetricsResponse> localVarReturnType = new GenericType<RetrieveMessagingProfileMetricsResponse>() {};
-
-    return apiClient.invokeAPI("MessagingProfilesApi.retrieveMessagingProfileDetailedMetrics", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-
-  public class APIretrieveMessagingProfileDetailedMetricsRequest {
-    private UUID id;
-    private String timeFrame;
-
-    private APIretrieveMessagingProfileDetailedMetricsRequest(UUID id) {
-      this.id = id;
-    }
-
-    /**
-     * Set timeFrame
-     * @param timeFrame The timeframe for which you&#39;d like to retrieve metrics. (optional, default to 24h)
-     * @return APIretrieveMessagingProfileDetailedMetricsRequest
-     */
-    public APIretrieveMessagingProfileDetailedMetricsRequest timeFrame(String timeFrame) {
-      this.timeFrame = timeFrame;
-      return this;
-    }
-
-    /**
-     * Execute retrieveMessagingProfileDetailedMetrics request
-     * @return RetrieveMessagingProfileMetricsResponse
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-       </table>
-     
-     */
-    
-    public RetrieveMessagingProfileMetricsResponse execute() throws ApiException {
-      return this.executeWithHttpInfo().getData();
-    }
-
-    /**
-     * Execute retrieveMessagingProfileDetailedMetrics request with HTTP info returned
-     * @return ApiResponse&lt;RetrieveMessagingProfileMetricsResponse&gt;
-     * @throws ApiException if fails to make API call
-     * @http.response.details
-       <table summary="Response Details" border="1">
-         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-         <tr><td> 200 </td><td> Successful response with details about a messaging profile&#39;s metrics. </td><td>  -  </td></tr>
-         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-       </table>
-
-     */
-    public ApiResponse<RetrieveMessagingProfileMetricsResponse> executeWithHttpInfo() throws ApiException {
-      return retrieveMessagingProfileDetailedMetricsWithHttpInfo(id, timeFrame);
-    }
-  }
-
-  /**
-   * Retrieve messaging profile metrics
-   * 
-   * @param id The id of the messaging profile to retrieve (required)
-   * @return retrieveMessagingProfileDetailedMetricsRequest
-   * @throws ApiException if fails to make API call
-   
-   
-   */
-  public APIretrieveMessagingProfileDetailedMetricsRequest retrieveMessagingProfileDetailedMetrics(UUID id) throws ApiException {
-    return new APIretrieveMessagingProfileDetailedMetricsRequest(id);
   }
   /**
    * Update a messaging profile

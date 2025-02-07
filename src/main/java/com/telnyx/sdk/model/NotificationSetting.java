@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NotificationSettingParametersInner;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -47,7 +48,7 @@ import com.telnyx.sdk.JSON;
   NotificationSetting.JSON_PROPERTY_CREATED_AT,
   NotificationSetting.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NotificationSetting {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -68,21 +69,21 @@ public class NotificationSetting {
    * Most preferences apply immediately; however, other may needs to propagate.
    */
   public enum StatusEnum {
-    ENABLED("enabled"),
+    ENABLED(String.valueOf("enabled")),
     
-    ENABLE_RECEIVED("enable-received"),
+    ENABLE_RECEIVED(String.valueOf("enable-received")),
     
-    ENABLE_PENDING("enable-pending"),
+    ENABLE_PENDING(String.valueOf("enable-pending")),
     
-    ENABLE_SUBMTITED("enable-submtited"),
+    ENABLE_SUBMTITED(String.valueOf("enable-submtited")),
     
-    DELETE_RECEIVED("delete-received"),
+    DELETE_RECEIVED(String.valueOf("delete-received")),
     
-    DELETE_PENDING("delete-pending"),
+    DELETE_PENDING(String.valueOf("delete-pending")),
     
-    DELETE_SUBMITTED("delete-submitted"),
+    DELETE_SUBMITTED(String.valueOf("delete-submitted")),
     
-    DELETED("deleted");
+    DELETED(String.valueOf("deleted"));
 
     private String value;
 
@@ -294,7 +295,7 @@ public class NotificationSetting {
     return this;
   }
 
-  public NotificationSetting addParametersItem(NotificationSettingParametersInner parametersItem) {
+  public NotificationSetting addparametersItem(NotificationSettingParametersInner parametersItem) {
     if (this.parameters == null) {
       this.parameters = new ArrayList<>();
     }

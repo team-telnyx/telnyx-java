@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -36,15 +37,17 @@ import com.telnyx.sdk.JSON;
   Call.JSON_PROPERTY_CALL_SESSION_ID,
   Call.JSON_PROPERTY_CALL_LEG_ID,
   Call.JSON_PROPERTY_CALL_CONTROL_ID,
-  Call.JSON_PROPERTY_IS_ALIVE
+  Call.JSON_PROPERTY_IS_ALIVE,
+  Call.JSON_PROPERTY_CLIENT_STATE,
+  Call.JSON_PROPERTY_CALL_DURATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Call {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    CALL("call");
+    CALL(String.valueOf("call"));
 
     private String value;
 
@@ -87,6 +90,12 @@ public class Call {
 
   public static final String JSON_PROPERTY_IS_ALIVE = "is_alive";
   private Boolean isAlive;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
+
+  public static final String JSON_PROPERTY_CALL_DURATION = "call_duration";
+  private Integer callDuration;
 
   public Call() { 
   }
@@ -179,7 +188,7 @@ public class Call {
    * @return callControlId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", required = true, value = "Unique identifier and token for controlling the call.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", required = true, value = "Unique identifier and token for controlling the call.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -221,6 +230,58 @@ public class Call {
   }
 
 
+  public Call clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * State received from a command.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
+  public Call callDuration(Integer callDuration) {
+    this.callDuration = callDuration;
+    return this;
+  }
+
+   /**
+   * Indicates the duration of the call in seconds
+   * @return callDuration
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "50", value = "Indicates the duration of the call in seconds")
+  @JsonProperty(JSON_PROPERTY_CALL_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getCallDuration() {
+    return callDuration;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALL_DURATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallDuration(Integer callDuration) {
+    this.callDuration = callDuration;
+  }
+
+
   /**
    * Return true if this Call object is equal to o.
    */
@@ -237,12 +298,14 @@ public class Call {
         Objects.equals(this.callSessionId, call.callSessionId) &&
         Objects.equals(this.callLegId, call.callLegId) &&
         Objects.equals(this.callControlId, call.callControlId) &&
-        Objects.equals(this.isAlive, call.isAlive);
+        Objects.equals(this.isAlive, call.isAlive) &&
+        Objects.equals(this.clientState, call.clientState) &&
+        Objects.equals(this.callDuration, call.callDuration);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, callSessionId, callLegId, callControlId, isAlive);
+    return Objects.hash(recordType, callSessionId, callLegId, callControlId, isAlive, clientState, callDuration);
   }
 
   @Override
@@ -254,6 +317,8 @@ public class Call {
     sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
     sb.append("    callControlId: ").append(toIndentedString(callControlId)).append("\n");
     sb.append("    isAlive: ").append(toIndentedString(isAlive)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    callDuration: ").append(toIndentedString(callDuration)).append("\n");
     sb.append("}");
     return sb.toString();
   }

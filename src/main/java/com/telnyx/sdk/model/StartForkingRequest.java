@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,18 +33,14 @@ import com.telnyx.sdk.JSON;
  * StartForkingRequest
  */
 @JsonPropertyOrder({
-  StartForkingRequest.JSON_PROPERTY_TARGET,
   StartForkingRequest.JSON_PROPERTY_RX,
   StartForkingRequest.JSON_PROPERTY_STREAM_TYPE,
   StartForkingRequest.JSON_PROPERTY_TX,
   StartForkingRequest.JSON_PROPERTY_CLIENT_STATE,
   StartForkingRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StartForkingRequest {
-  public static final String JSON_PROPERTY_TARGET = "target";
-  private String target;
-
   public static final String JSON_PROPERTY_RX = "rx";
   private String rx;
 
@@ -51,9 +48,7 @@ public class StartForkingRequest {
    * Optionally specify a media type to stream. If &#x60;decrypted&#x60; selected, Telnyx will decrypt incoming SIP media before forking to the target. &#x60;rx&#x60; and &#x60;tx&#x60; are required fields if &#x60;decrypted&#x60; selected.
    */
   public enum StreamTypeEnum {
-    RAW("raw"),
-    
-    DECRYPTED("decrypted");
+    DECRYPTED(String.valueOf("decrypted"));
 
     private String value;
 
@@ -83,7 +78,7 @@ public class StartForkingRequest {
   }
 
   public static final String JSON_PROPERTY_STREAM_TYPE = "stream_type";
-  private StreamTypeEnum streamType = StreamTypeEnum.RAW;
+  private StreamTypeEnum streamType = StreamTypeEnum.DECRYPTED;
 
   public static final String JSON_PROPERTY_TX = "tx";
   private String tx;
@@ -96,32 +91,6 @@ public class StartForkingRequest {
 
   public StartForkingRequest() { 
   }
-
-  public StartForkingRequest target(String target) {
-    this.target = target;
-    return this;
-  }
-
-   /**
-   * The network target, &lt;udp:ip_address:port&gt;, where the call&#39;s RTP media packets should be forwarded. Both incoming and outgoing media packets will be delivered to the specified target, and information about the stream will be included in the encapsulation protocol header, including the direction (0 &#x3D; inbound; 1 &#x3D; outbound), leg (0 &#x3D; A-leg; 1 &#x3D; B-leg), and call_leg_id.
-   * @return target
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "udp:192.0.2.1:9000", value = "The network target, <udp:ip_address:port>, where the call's RTP media packets should be forwarded. Both incoming and outgoing media packets will be delivered to the specified target, and information about the stream will be included in the encapsulation protocol header, including the direction (0 = inbound; 1 = outbound), leg (0 = A-leg; 1 = B-leg), and call_leg_id.")
-  @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTarget() {
-    return target;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTarget(String target) {
-    this.target = target;
-  }
-
 
   public StartForkingRequest rx(String rx) {
     this.rx = rx;
@@ -265,8 +234,7 @@ public class StartForkingRequest {
       return false;
     }
     StartForkingRequest startForkingRequest = (StartForkingRequest) o;
-    return Objects.equals(this.target, startForkingRequest.target) &&
-        Objects.equals(this.rx, startForkingRequest.rx) &&
+    return Objects.equals(this.rx, startForkingRequest.rx) &&
         Objects.equals(this.streamType, startForkingRequest.streamType) &&
         Objects.equals(this.tx, startForkingRequest.tx) &&
         Objects.equals(this.clientState, startForkingRequest.clientState) &&
@@ -275,14 +243,13 @@ public class StartForkingRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(target, rx, streamType, tx, clientState, commandId);
+    return Objects.hash(rx, streamType, tx, clientState, commandId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class StartForkingRequest {\n");
-    sb.append("    target: ").append(toIndentedString(target)).append("\n");
     sb.append("    rx: ").append(toIndentedString(rx)).append("\n");
     sb.append("    streamType: ").append(toIndentedString(streamType)).append("\n");
     sb.append("    tx: ").append(toIndentedString(tx)).append("\n");

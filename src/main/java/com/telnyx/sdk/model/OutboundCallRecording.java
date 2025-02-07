@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,17 +40,17 @@ import com.telnyx.sdk.JSON;
   OutboundCallRecording.JSON_PROPERTY_CALL_RECORDING_CHANNELS,
   OutboundCallRecording.JSON_PROPERTY_CALL_RECORDING_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OutboundCallRecording {
   /**
    * Specifies which calls are recorded.
    */
   public enum CallRecordingTypeEnum {
-    ALL("all"),
+    ALL(String.valueOf("all")),
     
-    NONE("none"),
+    NONE(String.valueOf("none")),
     
-    BY_CALLER_PHONE_NUMBER("by_caller_phone_number");
+    BY_CALLER_PHONE_NUMBER(String.valueOf("by_caller_phone_number"));
 
     private String value;
 
@@ -88,9 +89,9 @@ public class OutboundCallRecording {
    * When using &#39;dual&#39; channels, the final audio file will be a stereo recording with the first leg on channel A, and the rest on channel B.
    */
   public enum CallRecordingChannelsEnum {
-    SINGLE("single"),
+    SINGLE(String.valueOf("single")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 
@@ -126,9 +127,9 @@ public class OutboundCallRecording {
    * The audio file format for calls being recorded.
    */
   public enum CallRecordingFormatEnum {
-    WAV("wav"),
+    WAV(String.valueOf("wav")),
     
-    MP3("mp3");
+    MP3(String.valueOf("mp3"));
 
     private String value;
 
@@ -194,7 +195,7 @@ public class OutboundCallRecording {
     return this;
   }
 
-  public OutboundCallRecording addCallRecordingCallerPhoneNumbersItem(String callRecordingCallerPhoneNumbersItem) {
+  public OutboundCallRecording addcallRecordingCallerPhoneNumbersItem(String callRecordingCallerPhoneNumbersItem) {
     if (this.callRecordingCallerPhoneNumbers == null) {
       this.callRecordingCallerPhoneNumbers = new ArrayList<>();
     }

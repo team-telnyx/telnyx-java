@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -34,52 +35,13 @@ import com.telnyx.sdk.JSON;
 @ApiModel(description = "The media features settings for a phone number.")
 @JsonPropertyOrder({
   MediaFeatures.JSON_PROPERTY_RTP_AUTO_ADJUST_ENABLED,
-  MediaFeatures.JSON_PROPERTY_MEDIA_HANDLING_MODE,
   MediaFeatures.JSON_PROPERTY_ACCEPT_ANY_RTP_PACKETS_ENABLED,
   MediaFeatures.JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MediaFeatures {
   public static final String JSON_PROPERTY_RTP_AUTO_ADJUST_ENABLED = "rtp_auto_adjust_enabled";
   private Boolean rtpAutoAdjustEnabled = true;
-
-  /**
-   * Controls how media is handled for the phone number. default: media routed through Telnyx with transcode support. proxy: media routed through Telnyx with no transcode support.
-   */
-  public enum MediaHandlingModeEnum {
-    DEFAULT("default"),
-    
-    PROXY("proxy");
-
-    private String value;
-
-    MediaHandlingModeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static MediaHandlingModeEnum fromValue(String value) {
-      for (MediaHandlingModeEnum b : MediaHandlingModeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_MEDIA_HANDLING_MODE = "media_handling_mode";
-  private MediaHandlingModeEnum mediaHandlingMode = MediaHandlingModeEnum.DEFAULT;
 
   public static final String JSON_PROPERTY_ACCEPT_ANY_RTP_PACKETS_ENABLED = "accept_any_rtp_packets_enabled";
   private Boolean acceptAnyRtpPacketsEnabled = false;
@@ -113,32 +75,6 @@ public class MediaFeatures {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRtpAutoAdjustEnabled(Boolean rtpAutoAdjustEnabled) {
     this.rtpAutoAdjustEnabled = rtpAutoAdjustEnabled;
-  }
-
-
-  public MediaFeatures mediaHandlingMode(MediaHandlingModeEnum mediaHandlingMode) {
-    this.mediaHandlingMode = mediaHandlingMode;
-    return this;
-  }
-
-   /**
-   * Controls how media is handled for the phone number. default: media routed through Telnyx with transcode support. proxy: media routed through Telnyx with no transcode support.
-   * @return mediaHandlingMode
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Controls how media is handled for the phone number. default: media routed through Telnyx with transcode support. proxy: media routed through Telnyx with no transcode support.")
-  @JsonProperty(JSON_PROPERTY_MEDIA_HANDLING_MODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public MediaHandlingModeEnum getMediaHandlingMode() {
-    return mediaHandlingMode;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA_HANDLING_MODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMediaHandlingMode(MediaHandlingModeEnum mediaHandlingMode) {
-    this.mediaHandlingMode = mediaHandlingMode;
   }
 
 
@@ -207,14 +143,13 @@ public class MediaFeatures {
     }
     MediaFeatures mediaFeatures = (MediaFeatures) o;
     return Objects.equals(this.rtpAutoAdjustEnabled, mediaFeatures.rtpAutoAdjustEnabled) &&
-        Objects.equals(this.mediaHandlingMode, mediaFeatures.mediaHandlingMode) &&
         Objects.equals(this.acceptAnyRtpPacketsEnabled, mediaFeatures.acceptAnyRtpPacketsEnabled) &&
         Objects.equals(this.t38FaxGatewayEnabled, mediaFeatures.t38FaxGatewayEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rtpAutoAdjustEnabled, mediaHandlingMode, acceptAnyRtpPacketsEnabled, t38FaxGatewayEnabled);
+    return Objects.hash(rtpAutoAdjustEnabled, acceptAnyRtpPacketsEnabled, t38FaxGatewayEnabled);
   }
 
   @Override
@@ -222,7 +157,6 @@ public class MediaFeatures {
     StringBuilder sb = new StringBuilder();
     sb.append("class MediaFeatures {\n");
     sb.append("    rtpAutoAdjustEnabled: ").append(toIndentedString(rtpAutoAdjustEnabled)).append("\n");
-    sb.append("    mediaHandlingMode: ").append(toIndentedString(mediaHandlingMode)).append("\n");
     sb.append("    acceptAnyRtpPacketsEnabled: ").append(toIndentedString(acceptAnyRtpPacketsEnabled)).append("\n");
     sb.append("    t38FaxGatewayEnabled: ").append(toIndentedString(t38FaxGatewayEnabled)).append("\n");
     sb.append("}");

@@ -8,11 +8,11 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.BulkSimCardActionGet200Response;
 import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.GetBulkSimCardAction200Response;
+import com.telnyx.sdk.model.GetSimCardAction200Response;
 import com.telnyx.sdk.model.ListBulkSIMCardActions200Response;
-import com.telnyx.sdk.model.ListSIMCardActions200Response;
-import com.telnyx.sdk.model.SimCardActionGet200Response;
+import com.telnyx.sdk.model.ListSimCardActions200Response;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SimCardActionsApi {
   private ApiClient apiClient;
 
@@ -54,38 +54,40 @@ public class SimCardActionsApi {
    * Get bulk SIM card action details
    * This API fetches information about a bulk SIM card action. A bulk SIM card action contains details about a collection of individual SIM card actions.
    * @param id Identifies the resource. (required)
-   * @return BulkSimCardActionGet200Response
+   * @return GetBulkSimCardAction200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public BulkSimCardActionGet200Response bulkSimCardActionGet(UUID id) throws ApiException {
-    return bulkSimCardActionGetWithHttpInfo(id).getData();
+  public GetBulkSimCardAction200Response getBulkSimCardAction(UUID id) throws ApiException {
+    return getBulkSimCardActionWithHttpInfo(id).getData();
   }
 
   /**
    * Get bulk SIM card action details
    * This API fetches information about a bulk SIM card action. A bulk SIM card action contains details about a collection of individual SIM card actions.
    * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;BulkSimCardActionGet200Response&gt;
+   * @return ApiResponse&lt;GetBulkSimCardAction200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<BulkSimCardActionGet200Response> bulkSimCardActionGetWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<GetBulkSimCardAction200Response> getBulkSimCardActionWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling bulkSimCardActionGet");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getBulkSimCardAction");
     }
     
     // create path and map variables
@@ -114,9 +116,81 @@ public class SimCardActionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<BulkSimCardActionGet200Response> localVarReturnType = new GenericType<BulkSimCardActionGet200Response>() {};
+    GenericType<GetBulkSimCardAction200Response> localVarReturnType = new GenericType<GetBulkSimCardAction200Response>() {};
 
-    return apiClient.invokeAPI("SimCardActionsApi.bulkSimCardActionGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("SimCardActionsApi.getBulkSimCardAction", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Get SIM card action details
+   * This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
+   * @param id Identifies the resource. (required)
+   * @return GetSimCardAction200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public GetSimCardAction200Response getSimCardAction(UUID id) throws ApiException {
+    return getSimCardActionWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Get SIM card action details
+   * This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
+   * @param id Identifies the resource. (required)
+   * @return ApiResponse&lt;GetSimCardAction200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<GetSimCardAction200Response> getSimCardActionWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getSimCardAction");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/sim_card_actions/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<GetSimCardAction200Response> localVarReturnType = new GenericType<GetSimCardAction200Response>() {};
+
+    return apiClient.invokeAPI("SimCardActionsApi.getSimCardAction", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -131,12 +205,13 @@ public class SimCardActionsApi {
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListBulkSIMCardActions200Response listBulkSIMCardActions(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
-    return listBulkSIMCardActionsWithHttpInfo(pageNumber, pageSize, filterActionType).getData();
+  public ListBulkSIMCardActions200Response listBulkSimCardActions(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
+    return listBulkSimCardActionsWithHttpInfo(pageNumber, pageSize, filterActionType).getData();
   }
 
   /**
@@ -150,11 +225,12 @@ public class SimCardActionsApi {
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListBulkSIMCardActions200Response> listBulkSIMCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
+  public ApiResponse<ListBulkSIMCardActions200Response> listBulkSimCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterActionType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -187,7 +263,7 @@ public class SimCardActionsApi {
 
     GenericType<ListBulkSIMCardActions200Response> localVarReturnType = new GenericType<ListBulkSIMCardActions200Response>() {};
 
-    return apiClient.invokeAPI("SimCardActionsApi.listBulkSIMCardActions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("SimCardActionsApi.listBulkSimCardActions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -200,17 +276,18 @@ public class SimCardActionsApi {
    * @param filterStatus Filter by a specific status of the resource&#39;s lifecycle. (optional)
    * @param filterBulkSimCardActionId Filter by a bulk SIM card action ID. (optional)
    * @param filterActionType Filter by action type. (optional)
-   * @return ListSIMCardActions200Response
+   * @return ListSimCardActions200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListSIMCardActions200Response listSIMCardActions(Integer pageNumber, Integer pageSize, UUID filterSimCardId, String filterStatus, UUID filterBulkSimCardActionId, String filterActionType) throws ApiException {
-    return listSIMCardActionsWithHttpInfo(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType).getData();
+  public ListSimCardActions200Response listSimCardActions(Integer pageNumber, Integer pageSize, UUID filterSimCardId, String filterStatus, UUID filterBulkSimCardActionId, String filterActionType) throws ApiException {
+    return listSimCardActionsWithHttpInfo(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType).getData();
   }
 
   /**
@@ -222,16 +299,17 @@ public class SimCardActionsApi {
    * @param filterStatus Filter by a specific status of the resource&#39;s lifecycle. (optional)
    * @param filterBulkSimCardActionId Filter by a bulk SIM card action ID. (optional)
    * @param filterActionType Filter by action type. (optional)
-   * @return ApiResponse&lt;ListSIMCardActions200Response&gt;
+   * @return ApiResponse&lt;ListSimCardActions200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListSIMCardActions200Response> listSIMCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterSimCardId, String filterStatus, UUID filterBulkSimCardActionId, String filterActionType) throws ApiException {
+  public ApiResponse<ListSimCardActions200Response> listSimCardActionsWithHttpInfo(Integer pageNumber, Integer pageSize, UUID filterSimCardId, String filterStatus, UUID filterBulkSimCardActionId, String filterActionType) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -265,79 +343,9 @@ public class SimCardActionsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ListSIMCardActions200Response> localVarReturnType = new GenericType<ListSIMCardActions200Response>() {};
+    GenericType<ListSimCardActions200Response> localVarReturnType = new GenericType<ListSimCardActions200Response>() {};
 
-    return apiClient.invokeAPI("SimCardActionsApi.listSIMCardActions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Get SIM card action details
-   * This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
-   * @param id Identifies the resource. (required)
-   * @return SimCardActionGet200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public SimCardActionGet200Response simCardActionGet(UUID id) throws ApiException {
-    return simCardActionGetWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Get SIM card action details
-   * This API fetches detailed information about a SIM card action to follow-up on an existing asynchronous operation.
-   * @param id Identifies the resource. (required)
-   * @return ApiResponse&lt;SimCardActionGet200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<SimCardActionGet200Response> simCardActionGetWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling simCardActionGet");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/sim_card_actions/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<SimCardActionGet200Response> localVarReturnType = new GenericType<SimCardActionGet200Response>() {};
-
-    return apiClient.invokeAPI("SimCardActionsApi.simCardActionGet", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("SimCardActionsApi.listSimCardActions", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

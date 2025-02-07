@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,13 +42,13 @@ import com.telnyx.sdk.JSON;
   Queue.JSON_PROPERTY_MAX_SIZE,
   Queue.JSON_PROPERTY_AVERAGE_WAIT_TIME_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Queue {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    QUEUE("queue");
+    QUEUE(String.valueOf("queue"));
 
     private String value;
 
@@ -95,7 +96,7 @@ public class Queue {
   private Integer currentSize;
 
   public static final String JSON_PROPERTY_MAX_SIZE = "max_size";
-  private Integer maxSize;
+  private Integer maxSize = 300;
 
   public static final String JSON_PROPERTY_AVERAGE_WAIT_TIME_SECS = "average_wait_time_secs";
   private Integer averageWaitTimeSecs;
@@ -265,11 +266,13 @@ public class Queue {
   }
 
    /**
-   * The maximum number of calls allowed in the queue
+   * Maximum number of calls that can be in the queue at once
+   * minimum: 1
+   * maximum: 300
    * @return maxSize
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "50", required = true, value = "The maximum number of calls allowed in the queue")
+  @ApiModelProperty(example = "100", required = true, value = "Maximum number of calls that can be in the queue at once")
   @JsonProperty(JSON_PROPERTY_MAX_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

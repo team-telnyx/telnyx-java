@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,7 +38,7 @@ import com.telnyx.sdk.JSON;
   EmergencySettings.JSON_PROPERTY_EMERGENCY_ADDRESS_ID,
   EmergencySettings.JSON_PROPERTY_EMERGENCY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class EmergencySettings {
   public static final String JSON_PROPERTY_EMERGENCY_ENABLED = "emergency_enabled";
   private Boolean emergencyEnabled = false;
@@ -49,13 +50,15 @@ public class EmergencySettings {
    * Represents the state of the number regarding emergency activation.
    */
   public enum EmergencyStatusEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    ACTIVE("active"),
+    ACTIVE(String.valueOf("active")),
     
-    PROVISIONING("provisioning"),
+    PROVISIONING(String.valueOf("provisioning")),
     
-    DEPROVISIONING("deprovisioning");
+    DEPROVISIONING(String.valueOf("deprovisioning")),
+    
+    PROVISIONING_FAILED(String.valueOf("provisioning-failed"));
 
     private String value;
 

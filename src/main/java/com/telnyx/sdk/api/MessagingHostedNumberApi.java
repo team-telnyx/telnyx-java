@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagingHostedNumberApi {
   private ApiClient apiClient;
 
@@ -184,8 +184,78 @@ public class MessagingHostedNumberApi {
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
+  /**
+   * Retrieve a messaging hosted number order
+   * 
+   * @param id Identifies the type of resource. (required)
+   * @return RetrieveMessagingHostedNumberOrderResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public RetrieveMessagingHostedNumberOrderResponse getMessagingHostedNumberOrder(String id) throws ApiException {
+    return getMessagingHostedNumberOrderWithHttpInfo(id).getData();
+  }
 
-private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedNumberOrderWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
+  /**
+   * Retrieve a messaging hosted number order
+   * 
+   * @param id Identifies the type of resource. (required)
+   * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> getMessagingHostedNumberOrderWithHttpInfo(String id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getMessagingHostedNumberOrder");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/messaging_hosted_number_orders/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<RetrieveMessagingHostedNumberOrderResponse> localVarReturnType = new GenericType<RetrieveMessagingHostedNumberOrderResponse>() {};
+
+    return apiClient.invokeAPI("MessagingHostedNumberApi.getMessagingHostedNumberOrder", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+
+private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedNumberOrdersWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -217,24 +287,24 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
 
     GenericType<ListMessagingHostedNumberOrderResponse> localVarReturnType = new GenericType<ListMessagingHostedNumberOrderResponse>() {};
 
-    return apiClient.invokeAPI("MessagingHostedNumberApi.listMessagingHostedNumberOrder", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("MessagingHostedNumberApi.listMessagingHostedNumberOrders", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
 
-  public class APIlistMessagingHostedNumberOrderRequest {
+  public class APIlistMessagingHostedNumberOrdersRequest {
     private Integer pageNumber;
     private Integer pageSize;
 
-    private APIlistMessagingHostedNumberOrderRequest() {
+    private APIlistMessagingHostedNumberOrdersRequest() {
     }
 
     /**
      * Set pageNumber
      * @param pageNumber The page number to load (optional, default to 1)
-     * @return APIlistMessagingHostedNumberOrderRequest
+     * @return APIlistMessagingHostedNumberOrdersRequest
      */
-    public APIlistMessagingHostedNumberOrderRequest pageNumber(Integer pageNumber) {
+    public APIlistMessagingHostedNumberOrdersRequest pageNumber(Integer pageNumber) {
       this.pageNumber = pageNumber;
       return this;
     }
@@ -242,15 +312,15 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
     /**
      * Set pageSize
      * @param pageSize The size of the page (optional, default to 20)
-     * @return APIlistMessagingHostedNumberOrderRequest
+     * @return APIlistMessagingHostedNumberOrdersRequest
      */
-    public APIlistMessagingHostedNumberOrderRequest pageSize(Integer pageSize) {
+    public APIlistMessagingHostedNumberOrdersRequest pageSize(Integer pageSize) {
       this.pageSize = pageSize;
       return this;
     }
 
     /**
-     * Execute listMessagingHostedNumberOrder request
+     * Execute listMessagingHostedNumberOrders request
      * @return ListMessagingHostedNumberOrderResponse
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -267,7 +337,7 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
     }
 
     /**
-     * Execute listMessagingHostedNumberOrder request with HTTP info returned
+     * Execute listMessagingHostedNumberOrders request with HTTP info returned
      * @return ApiResponse&lt;ListMessagingHostedNumberOrderResponse&gt;
      * @throws ApiException if fails to make API call
      * @http.response.details
@@ -279,90 +349,20 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
 
      */
     public ApiResponse<ListMessagingHostedNumberOrderResponse> executeWithHttpInfo() throws ApiException {
-      return listMessagingHostedNumberOrderWithHttpInfo(pageNumber, pageSize);
+      return listMessagingHostedNumberOrdersWithHttpInfo(pageNumber, pageSize);
     }
   }
 
   /**
    * List messaging hosted number orders
    * 
-   * @return listMessagingHostedNumberOrderRequest
+   * @return listMessagingHostedNumberOrdersRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIlistMessagingHostedNumberOrderRequest listMessagingHostedNumberOrder() throws ApiException {
-    return new APIlistMessagingHostedNumberOrderRequest();
-  }
-  /**
-   * Retrieve a messaging hosted number order
-   * 
-   * @param id Identifies the type of resource. (required)
-   * @return RetrieveMessagingHostedNumberOrderResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public RetrieveMessagingHostedNumberOrderResponse retrieveMessagingHostedNumberOrder(String id) throws ApiException {
-    return retrieveMessagingHostedNumberOrderWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a messaging hosted number order
-   * 
-   * @param id Identifies the type of resource. (required)
-   * @return ApiResponse&lt;RetrieveMessagingHostedNumberOrderResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a messaging hosted number order. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> retrieveMessagingHostedNumberOrderWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveMessagingHostedNumberOrder");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/messaging_hosted_number_orders/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<RetrieveMessagingHostedNumberOrderResponse> localVarReturnType = new GenericType<RetrieveMessagingHostedNumberOrderResponse>() {};
-
-    return apiClient.invokeAPI("MessagingHostedNumberApi.retrieveMessagingHostedNumberOrder", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
+  public APIlistMessagingHostedNumberOrdersRequest listMessagingHostedNumberOrders() throws ApiException {
+    return new APIlistMessagingHostedNumberOrdersRequest();
   }
   /**
    * Upload file required for a messaging hosted number order
@@ -379,8 +379,8 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public RetrieveMessagingHostedNumberOrderResponse uploadFileMessagingHostedNumberOrder(String id, File loa, File bill) throws ApiException {
-    return uploadFileMessagingHostedNumberOrderWithHttpInfo(id, loa, bill).getData();
+  public RetrieveMessagingHostedNumberOrderResponse uploadMessagingHostedNumberOrderFile(String id, File loa, File bill) throws ApiException {
+    return uploadMessagingHostedNumberOrderFileWithHttpInfo(id, loa, bill).getData();
   }
 
   /**
@@ -398,12 +398,12 @@ private ApiResponse<ListMessagingHostedNumberOrderResponse> listMessagingHostedN
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> uploadFileMessagingHostedNumberOrderWithHttpInfo(String id, File loa, File bill) throws ApiException {
+  public ApiResponse<RetrieveMessagingHostedNumberOrderResponse> uploadMessagingHostedNumberOrderFileWithHttpInfo(String id, File loa, File bill) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling uploadFileMessagingHostedNumberOrder");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling uploadMessagingHostedNumberOrderFile");
     }
     
     // create path and map variables
@@ -438,7 +438,7 @@ if (bill != null)
 
     GenericType<RetrieveMessagingHostedNumberOrderResponse> localVarReturnType = new GenericType<RetrieveMessagingHostedNumberOrderResponse>() {};
 
-    return apiClient.invokeAPI("MessagingHostedNumberApi.uploadFileMessagingHostedNumberOrder", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("MessagingHostedNumberApi.uploadMessagingHostedNumberOrderFile", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ConferenceParticipantPlaybackEndedPayload;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.ConferenceParticipantPlaybackStartedPayload;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,13 +40,13 @@ import com.telnyx.sdk.JSON;
   ConferenceParticipantPlaybackStarted.JSON_PROPERTY_ID,
   ConferenceParticipantPlaybackStarted.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceParticipantPlaybackStarted {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -81,7 +82,7 @@ public class ConferenceParticipantPlaybackStarted {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CONFERENCE_PARTICIPANT_PLAYBACK_STARTED("conference.participant.playback.started");
+    CONFERENCE_PARTICIPANT_PLAYBACK_STARTED(String.valueOf("conference.participant.playback.started"));
 
     private String value;
 
@@ -117,7 +118,7 @@ public class ConferenceParticipantPlaybackStarted {
   private UUID id;
 
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
-  private ConferenceParticipantPlaybackEndedPayload payload;
+  private ConferenceParticipantPlaybackStartedPayload payload;
 
   public ConferenceParticipantPlaybackStarted() { 
   }
@@ -200,7 +201,7 @@ public class ConferenceParticipantPlaybackStarted {
   }
 
 
-  public ConferenceParticipantPlaybackStarted payload(ConferenceParticipantPlaybackEndedPayload payload) {
+  public ConferenceParticipantPlaybackStarted payload(ConferenceParticipantPlaybackStartedPayload payload) {
     this.payload = payload;
     return this;
   }
@@ -214,14 +215,14 @@ public class ConferenceParticipantPlaybackStarted {
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public ConferenceParticipantPlaybackEndedPayload getPayload() {
+  public ConferenceParticipantPlaybackStartedPayload getPayload() {
     return payload;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPayload(ConferenceParticipantPlaybackEndedPayload payload) {
+  public void setPayload(ConferenceParticipantPlaybackStartedPayload payload) {
     this.payload = payload;
   }
 

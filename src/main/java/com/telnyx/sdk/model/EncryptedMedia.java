@@ -15,9 +15,10 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -26,13 +27,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Enable use of SRTP or ZRTP for encryption. Valid values are those listed or null. Cannot be set to non-null if the transport_portocol is TLS.
+ * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
  */
 public enum EncryptedMedia {
   
-  SRTP("SRTP"),
-  
-  ZRTP("ZRTP");
+  SRTP("SRTP");
 
   private String value;
 

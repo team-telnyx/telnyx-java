@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SIMCardActionsSummary;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -44,7 +45,7 @@ import com.telnyx.sdk.JSON;
   BulkSIMCardActionDetailed.JSON_PROPERTY_CREATED_AT,
   BulkSIMCardActionDetailed.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BulkSIMCardActionDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -53,10 +54,10 @@ public class BulkSIMCardActionDetailed {
   private String recordType;
 
   /**
-   * The operation type. It can be one of the following: &lt;br/&gt; &lt;ul&gt; &lt;li&gt;&lt;code&gt;bulk_set_public_ips&lt;/code&gt; - set a public IP for each specified SIM card&lt;/li&gt; &lt;/ul&gt;
+   * The operation type. It can be one of the following: &lt;br/&gt; &lt;ul&gt; &lt;li&gt;&lt;code&gt;bulk_set_public_ips&lt;/code&gt; - set a public IP for each specified SIM card.&lt;/li&gt; &lt;/ul&gt;
    */
   public enum ActionTypeEnum {
-    BULK_SET_PUBLIC_IPS("bulk_set_public_ips");
+    BULK_SET_PUBLIC_IPS(String.valueOf("bulk_set_public_ips"));
 
     private String value;
 
@@ -105,7 +106,6 @@ public class BulkSIMCardActionDetailed {
 
   @JsonCreator
   public BulkSIMCardActionDetailed(
-    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_ACTION_TYPE) ActionTypeEnum actionType, 
     @JsonProperty(JSON_PROPERTY_SETTINGS) Object settings, 
@@ -113,7 +113,6 @@ public class BulkSIMCardActionDetailed {
     @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
   ) {
     this();
-    this.id = id;
     this.recordType = recordType;
     this.actionType = actionType;
     this.settings = settings;
@@ -121,12 +120,17 @@ public class BulkSIMCardActionDetailed {
     this.updatedAt = updatedAt;
   }
 
+  public BulkSIMCardActionDetailed id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Identifies the type of resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
+  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -135,6 +139,11 @@ public class BulkSIMCardActionDetailed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
 
    /**
@@ -154,11 +163,11 @@ public class BulkSIMCardActionDetailed {
 
 
    /**
-   * The operation type. It can be one of the following: &lt;br/&gt; &lt;ul&gt; &lt;li&gt;&lt;code&gt;bulk_set_public_ips&lt;/code&gt; - set a public IP for each specified SIM card&lt;/li&gt; &lt;/ul&gt;
+   * The operation type. It can be one of the following: &lt;br/&gt; &lt;ul&gt; &lt;li&gt;&lt;code&gt;bulk_set_public_ips&lt;/code&gt; - set a public IP for each specified SIM card.&lt;/li&gt; &lt;/ul&gt;
    * @return actionType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "bulk_set_public_ips", value = "The operation type. It can be one of the following: <br/> <ul> <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card</li> </ul>")
+  @ApiModelProperty(example = "bulk_set_public_ips", value = "The operation type. It can be one of the following: <br/> <ul> <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card.</li> </ul>")
   @JsonProperty(JSON_PROPERTY_ACTION_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -190,7 +199,7 @@ public class BulkSIMCardActionDetailed {
     return this;
   }
 
-  public BulkSIMCardActionDetailed addSimCardActionsSummaryItem(SIMCardActionsSummary simCardActionsSummaryItem) {
+  public BulkSIMCardActionDetailed addsimCardActionsSummaryItem(SIMCardActionsSummary simCardActionsSummaryItem) {
     if (this.simCardActionsSummary == null) {
       this.simCardActionsSummary = new ArrayList<>();
     }

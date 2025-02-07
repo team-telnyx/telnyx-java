@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,11 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.InterfaceStatus;
-import com.telnyx.sdk.model.ModelInterface;
-import com.telnyx.sdk.model.Record;
-import com.telnyx.sdk.model.WireguardInterface1;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -45,9 +43,10 @@ import com.telnyx.sdk.JSON;
   WireguardInterface.JSON_PROPERTY_NAME,
   WireguardInterface.JSON_PROPERTY_STATUS,
   WireguardInterface.JSON_PROPERTY_ENDPOINT,
-  WireguardInterface.JSON_PROPERTY_PUBLIC_KEY
+  WireguardInterface.JSON_PROPERTY_PUBLIC_KEY,
+  WireguardInterface.JSON_PROPERTY_ENABLE_SIP_TRUNKING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WireguardInterface {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -75,6 +74,9 @@ public class WireguardInterface {
 
   public static final String JSON_PROPERTY_PUBLIC_KEY = "public_key";
   private String publicKey;
+
+  public static final String JSON_PROPERTY_ENABLE_SIP_TRUNKING = "enable_sip_trunking";
+  private Boolean enableSipTrunking;
 
   public WireguardInterface() { 
   }
@@ -271,6 +273,32 @@ public class WireguardInterface {
 
 
 
+  public WireguardInterface enableSipTrunking(Boolean enableSipTrunking) {
+    this.enableSipTrunking = enableSipTrunking;
+    return this;
+  }
+
+   /**
+   * Enable SIP traffic forwarding over VPN interface.
+   * @return enableSipTrunking
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "false", value = "Enable SIP traffic forwarding over VPN interface.")
+  @JsonProperty(JSON_PROPERTY_ENABLE_SIP_TRUNKING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getEnableSipTrunking() {
+    return enableSipTrunking;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENABLE_SIP_TRUNKING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnableSipTrunking(Boolean enableSipTrunking) {
+    this.enableSipTrunking = enableSipTrunking;
+  }
+
+
   /**
    * Return true if this WireguardInterface object is equal to o.
    */
@@ -291,12 +319,13 @@ public class WireguardInterface {
         Objects.equals(this.name, wireguardInterface.name) &&
         Objects.equals(this.status, wireguardInterface.status) &&
         Objects.equals(this.endpoint, wireguardInterface.endpoint) &&
-        Objects.equals(this.publicKey, wireguardInterface.publicKey);
+        Objects.equals(this.publicKey, wireguardInterface.publicKey) &&
+        Objects.equals(this.enableSipTrunking, wireguardInterface.enableSipTrunking);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, endpoint, publicKey);
+    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, endpoint, publicKey, enableSipTrunking);
   }
 
   @Override
@@ -312,6 +341,7 @@ public class WireguardInterface {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    endpoint: ").append(toIndentedString(endpoint)).append("\n");
     sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
+    sb.append("    enableSipTrunking: ").append(toIndentedString(enableSipTrunking)).append("\n");
     sb.append("}");
     return sb.toString();
   }

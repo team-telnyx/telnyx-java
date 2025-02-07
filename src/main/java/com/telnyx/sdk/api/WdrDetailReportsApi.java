@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WdrDetailReportsApi {
   private ApiClient apiClient;
 
@@ -46,7 +46,7 @@ public class WdrDetailReportsApi {
   }
 
   /**
-   * 
+   * Fetches all Wdr records
    * Fetch all Wdr records 
    * @param startDate Start date (optional)
    * @param endDate End date (optional)
@@ -60,6 +60,7 @@ public class WdrDetailReportsApi {
    * @param phoneNumber  (optional)
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Size of the page (optional, default to 20)
+   * @param sort  (optional, default to created_at)
    * @return ExternalWdrGetDetailResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -68,12 +69,12 @@ public class WdrDetailReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalWdrGetDetailResponse getPaginatedWdrs(String startDate, String endDate, String id, String mcc, String mnc, String imsi, String simGroupName, String simGroupId, String simCardId, String phoneNumber, Integer pageNumber, Integer pageSize) throws ApiException {
-    return getPaginatedWdrsWithHttpInfo(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize).getData();
+  public ExternalWdrGetDetailResponse getPaginatedWdrs(String startDate, String endDate, String id, String mcc, String mnc, String imsi, String simGroupName, String simGroupId, String simCardId, String phoneNumber, Integer pageNumber, Integer pageSize, String sort) throws ApiException {
+    return getPaginatedWdrsWithHttpInfo(startDate, endDate, id, mcc, mnc, imsi, simGroupName, simGroupId, simCardId, phoneNumber, pageNumber, pageSize, sort).getData();
   }
 
   /**
-   * 
+   * Fetches all Wdr records
    * Fetch all Wdr records 
    * @param startDate Start date (optional)
    * @param endDate End date (optional)
@@ -87,6 +88,7 @@ public class WdrDetailReportsApi {
    * @param phoneNumber  (optional)
    * @param pageNumber Page number (optional, default to 1)
    * @param pageSize Size of the page (optional, default to 20)
+   * @param sort  (optional, default to created_at)
    * @return ApiResponse&lt;ExternalWdrGetDetailResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -95,7 +97,7 @@ public class WdrDetailReportsApi {
        <tr><td> 200 </td><td> Successful </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalWdrGetDetailResponse> getPaginatedWdrsWithHttpInfo(String startDate, String endDate, String id, String mcc, String mnc, String imsi, String simGroupName, String simGroupId, String simCardId, String phoneNumber, Integer pageNumber, Integer pageSize) throws ApiException {
+  public ApiResponse<ExternalWdrGetDetailResponse> getPaginatedWdrsWithHttpInfo(String startDate, String endDate, String id, String mcc, String mnc, String imsi, String simGroupName, String simGroupId, String simCardId, String phoneNumber, Integer pageNumber, Integer pageSize, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -119,6 +121,7 @@ public class WdrDetailReportsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "phone_number", phoneNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
     

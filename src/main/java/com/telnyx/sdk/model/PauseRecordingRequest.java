@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -33,15 +35,19 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   PauseRecordingRequest.JSON_PROPERTY_CLIENT_STATE,
-  PauseRecordingRequest.JSON_PROPERTY_COMMAND_ID
+  PauseRecordingRequest.JSON_PROPERTY_COMMAND_ID,
+  PauseRecordingRequest.JSON_PROPERTY_RECORDING_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PauseRecordingRequest {
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
+
+  public static final String JSON_PROPERTY_RECORDING_ID = "recording_id";
+  private UUID recordingId;
 
   public PauseRecordingRequest() { 
   }
@@ -98,6 +104,32 @@ public class PauseRecordingRequest {
   }
 
 
+  public PauseRecordingRequest recordingId(UUID recordingId) {
+    this.recordingId = recordingId;
+    return this;
+  }
+
+   /**
+   * Uniquely identifies the resource.
+   * @return recordingId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "6e00ab49-9487-4364-8ad6-23965965afb2", value = "Uniquely identifies the resource.")
+  @JsonProperty(JSON_PROPERTY_RECORDING_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getRecordingId() {
+    return recordingId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORDING_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordingId(UUID recordingId) {
+    this.recordingId = recordingId;
+  }
+
+
   /**
    * Return true if this PauseRecordingRequest object is equal to o.
    */
@@ -111,12 +143,13 @@ public class PauseRecordingRequest {
     }
     PauseRecordingRequest pauseRecordingRequest = (PauseRecordingRequest) o;
     return Objects.equals(this.clientState, pauseRecordingRequest.clientState) &&
-        Objects.equals(this.commandId, pauseRecordingRequest.commandId);
+        Objects.equals(this.commandId, pauseRecordingRequest.commandId) &&
+        Objects.equals(this.recordingId, pauseRecordingRequest.recordingId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(clientState, commandId);
+    return Objects.hash(clientState, commandId, recordingId);
   }
 
   @Override
@@ -125,6 +158,7 @@ public class PauseRecordingRequest {
     sb.append("class PauseRecordingRequest {\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
+    sb.append("    recordingId: ").append(toIndentedString(recordingId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

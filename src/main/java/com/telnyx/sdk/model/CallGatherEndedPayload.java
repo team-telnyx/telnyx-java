@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +43,7 @@ import com.telnyx.sdk.JSON;
   CallGatherEndedPayload.JSON_PROPERTY_DIGITS,
   CallGatherEndedPayload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallGatherEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -72,17 +73,17 @@ public class CallGatherEndedPayload {
    * Reflects how command ended.
    */
   public enum StatusEnum {
-    VALID("valid"),
+    VALID(String.valueOf("valid")),
     
-    INVALID("invalid"),
+    INVALID(String.valueOf("invalid")),
     
-    CALL_HANGUP("call_hangup"),
+    CALL_HANGUP(String.valueOf("call_hangup")),
     
-    CANCELLED("cancelled"),
+    CANCELLED(String.valueOf("cancelled")),
     
-    CANCELLED_AMD("cancelled_amd"),
+    CANCELLED_AMD(String.valueOf("cancelled_amd")),
     
-    TIMEOUT("timeout");
+    TIMEOUT(String.valueOf("timeout"));
 
     private String value;
 
@@ -127,7 +128,7 @@ public class CallGatherEndedPayload {
    * @return callControlId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

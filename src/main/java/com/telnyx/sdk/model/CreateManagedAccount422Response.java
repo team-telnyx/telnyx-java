@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.UnprocessableEntityError;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -37,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateManagedAccount422Response.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateManagedAccount422Response {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<UnprocessableEntityError> errors = null;
@@ -50,7 +51,7 @@ public class CreateManagedAccount422Response {
     return this;
   }
 
-  public CreateManagedAccount422Response addErrorsItem(UnprocessableEntityError errorsItem) {
+  public CreateManagedAccount422Response adderrorsItem(UnprocessableEntityError errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }
@@ -80,7 +81,7 @@ public class CreateManagedAccount422Response {
 
 
   /**
-   * Return true if this createManagedAccount_422_response object is equal to o.
+   * Return true if this CreateManagedAccount_422_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

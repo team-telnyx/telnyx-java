@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,8 +26,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallControlApplicationInbound;
 import com.telnyx.sdk.model.CallControlApplicationOutbound;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -51,7 +52,7 @@ import com.telnyx.sdk.JSON;
   CreateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_EVENT_FAILOVER_URL,
   CreateCallControlApplicationRequest.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateCallControlApplicationRequest {
   public static final String JSON_PROPERTY_APPLICATION_NAME = "application_name";
   private String applicationName;
@@ -66,13 +67,13 @@ public class CreateCallControlApplicationRequest {
    * &lt;code&gt;Latency&lt;/code&gt; directs Telnyx to route media through the site with the lowest round-trip time to the user&#39;s connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media. 
    */
   public enum AnchorsiteOverrideEnum {
-    LATENCY_("\"Latency\""),
+    _LATENCY_(String.valueOf("\"Latency\"")),
     
-    CHICAGO_IL_("\"Chicago, IL\""),
+    _CHICAGO_IL_(String.valueOf("\"Chicago, IL\"")),
     
-    ASHBURN_VA_("\"Ashburn, VA\""),
+    _ASHBURN_VA_(String.valueOf("\"Ashburn, VA\"")),
     
-    SAN_JOSE_CA_("\"San Jose, CA\"");
+    _SAN_JOSE_CA_(String.valueOf("\"San Jose, CA\""));
 
     private String value;
 
@@ -102,17 +103,17 @@ public class CreateCallControlApplicationRequest {
   }
 
   public static final String JSON_PROPERTY_ANCHORSITE_OVERRIDE = "anchorsite_override";
-  private AnchorsiteOverrideEnum anchorsiteOverride = AnchorsiteOverrideEnum.LATENCY_;
+  private AnchorsiteOverrideEnum anchorsiteOverride = AnchorsiteOverrideEnum._LATENCY_;
 
   /**
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent to Telnyx will be accepted in all formats.
    */
   public enum DtmfTypeEnum {
-    RFC_2833("RFC 2833"),
+    RFC_2833(String.valueOf("RFC 2833")),
     
-    INBAND("Inband"),
+    INBAND(String.valueOf("Inband")),
     
-    SIP_INFO("SIP INFO");
+    SIP_INFO(String.valueOf("SIP INFO"));
 
     private String value;
 
@@ -160,9 +161,9 @@ public class CreateCallControlApplicationRequest {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2");
+    _2(String.valueOf("2"));
 
     private String value;
 

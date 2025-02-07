@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRecordingSavedPayloadPublicRecordingUrls;
 import com.telnyx.sdk.model.CallRecordingSavedPayloadRecordingUrls;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,7 +46,7 @@ import com.telnyx.sdk.JSON;
   CallRecordingSavedPayload.JSON_PROPERTY_RECORDING_URLS,
   CallRecordingSavedPayload.JSON_PROPERTY_PUBLIC_RECORDING_URLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallRecordingSavedPayload {
   public static final String JSON_PROPERTY_CALL_LEG_ID = "call_leg_id";
   private String callLegId;
@@ -69,9 +70,9 @@ public class CallRecordingSavedPayload {
    * Whether recording was recorded in &#x60;single&#x60; or &#x60;dual&#x60; channel.
    */
   public enum ChannelsEnum {
-    SINGLE("single"),
+    SINGLE(String.valueOf("single")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 

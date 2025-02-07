@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,15 +35,53 @@ import com.telnyx.sdk.JSON;
  * CreateVerifyProfileFlashcallRequest
  */
 @JsonPropertyOrder({
+  CreateVerifyProfileFlashcallRequest.JSON_PROPERTY_WHITELISTED_DESTINATIONS,
   CreateVerifyProfileFlashcallRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateVerifyProfileFlashcallRequest {
+  public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
+  private List<String> whitelistedDestinations = null;
+
   public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
-  private Integer defaultVerificationTimeoutSecs;
+  private Integer defaultVerificationTimeoutSecs = 300;
 
   public CreateVerifyProfileFlashcallRequest() { 
   }
+
+  public CreateVerifyProfileFlashcallRequest whitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+    return this;
+  }
+
+  public CreateVerifyProfileFlashcallRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+    if (this.whitelistedDestinations == null) {
+      this.whitelistedDestinations = new ArrayList<>();
+    }
+    this.whitelistedDestinations.add(whitelistedDestinationsItem);
+    return this;
+  }
+
+   /**
+   * Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.
+   * @return whitelistedDestinations
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"US\",\"CA\"]", value = "Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.")
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getWhitelistedDestinations() {
+    return whitelistedDestinations;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+  }
+
 
   public CreateVerifyProfileFlashcallRequest defaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
@@ -80,18 +121,20 @@ public class CreateVerifyProfileFlashcallRequest {
       return false;
     }
     CreateVerifyProfileFlashcallRequest createVerifyProfileFlashcallRequest = (CreateVerifyProfileFlashcallRequest) o;
-    return Objects.equals(this.defaultVerificationTimeoutSecs, createVerifyProfileFlashcallRequest.defaultVerificationTimeoutSecs);
+    return Objects.equals(this.whitelistedDestinations, createVerifyProfileFlashcallRequest.whitelistedDestinations) &&
+        Objects.equals(this.defaultVerificationTimeoutSecs, createVerifyProfileFlashcallRequest.defaultVerificationTimeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(defaultVerificationTimeoutSecs);
+    return Objects.hash(whitelistedDestinations, defaultVerificationTimeoutSecs);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateVerifyProfileFlashcallRequest {\n");
+    sb.append("    whitelistedDestinations: ").append(toIndentedString(whitelistedDestinations)).append("\n");
     sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -35,13 +36,13 @@ import com.telnyx.sdk.JSON;
   SipHeader.JSON_PROPERTY_NAME,
   SipHeader.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SipHeader {
   /**
    * The name of the header to add.
    */
   public enum NameEnum {
-    USER_TO_USER("user-to-user");
+    USER_TO_USER(String.valueOf("User-to-User"));
 
     private String value;
 
@@ -89,7 +90,7 @@ public class SipHeader {
    * @return name
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "user-to-user", required = true, value = "The name of the header to add.")
+  @ApiModelProperty(example = "User-to-User", required = true, value = "The name of the header to add.")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

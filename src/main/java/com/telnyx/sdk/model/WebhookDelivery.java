@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,10 +26,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Attempt;
 import com.telnyx.sdk.model.WebhookDeliveryWebhook;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -48,7 +49,7 @@ import com.telnyx.sdk.JSON;
   WebhookDelivery.JSON_PROPERTY_FINISHED_AT,
   WebhookDelivery.JSON_PROPERTY_ATTEMPTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookDelivery {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -63,9 +64,9 @@ public class WebhookDelivery {
    * Delivery status: &#39;delivered&#39; when successfuly delivered or &#39;failed&#39; if all attempts have failed.
    */
   public enum StatusEnum {
-    DELIVERED("delivered"),
+    DELIVERED(String.valueOf("delivered")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 
@@ -299,7 +300,7 @@ public class WebhookDelivery {
     return this;
   }
 
-  public WebhookDelivery addAttemptsItem(Attempt attemptsItem) {
+  public WebhookDelivery addattemptsItem(Attempt attemptsItem) {
     if (this.attempts == null) {
       this.attempts = new ArrayList<>();
     }

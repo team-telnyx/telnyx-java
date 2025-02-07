@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RoomParticipant;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -45,7 +46,7 @@ import com.telnyx.sdk.JSON;
   RoomSession.JSON_PROPERTY_PARTICIPANTS,
   RoomSession.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RoomSession {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -243,7 +244,7 @@ public class RoomSession {
     return this;
   }
 
-  public RoomSession addParticipantsItem(RoomParticipant participantsItem) {
+  public RoomSession addparticipantsItem(RoomParticipant participantsItem) {
     if (this.participants == null) {
       this.participants = new ArrayList<>();
     }

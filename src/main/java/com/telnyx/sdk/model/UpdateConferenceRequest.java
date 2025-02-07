@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,7 +40,7 @@ import com.telnyx.sdk.JSON;
   UpdateConferenceRequest.JSON_PROPERTY_SUPERVISOR_ROLE,
   UpdateConferenceRequest.JSON_PROPERTY_WHISPER_CALL_CONTROL_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateConferenceRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -51,13 +52,13 @@ public class UpdateConferenceRequest {
    * Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \&quot;barge\&quot; means the supervisor enters the conference as a normal participant. This is the same as \&quot;none\&quot;. \&quot;monitor\&quot; means the supervisor is muted but can hear all participants. \&quot;whisper\&quot; means that only the specified \&quot;whisper_call_control_ids\&quot; can hear the supervisor. Defaults to \&quot;none\&quot;.
    */
   public enum SupervisorRoleEnum {
-    BARGE("barge"),
+    BARGE(String.valueOf("barge")),
     
-    MONITOR("monitor"),
+    MONITOR(String.valueOf("monitor")),
     
-    NONE("none"),
+    NONE(String.valueOf("none")),
     
-    WHISPER("whisper");
+    WHISPER(String.valueOf("whisper"));
 
     private String value;
 
@@ -178,7 +179,7 @@ public class UpdateConferenceRequest {
     return this;
   }
 
-  public UpdateConferenceRequest addWhisperCallControlIdsItem(String whisperCallControlIdsItem) {
+  public UpdateConferenceRequest addwhisperCallControlIdsItem(String whisperCallControlIdsItem) {
     if (this.whisperCallControlIds == null) {
       this.whisperCallControlIds = new ArrayList<>();
     }

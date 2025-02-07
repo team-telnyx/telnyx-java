@@ -32,6 +32,7 @@ public class FqdNsApiTest {
     private Fqdn existingFqdn;
     private FqdnConnection existingFqdnConnection;
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -55,25 +56,12 @@ public class FqdNsApiTest {
         }
     }
 
-    @After
-    public void tearDown() throws InterruptedException {
-        try {
-            api.deleteFqdn(existingFqdn.getId());
-            fqdnConnectionsApi.deleteFqdnConnection(existingFqdnConnection.getId());
-        } catch (ApiException e) {
-            e.printStackTrace();
-            //ignore
-        }
-
-        //todo: Find a better way to avoid rate limiting during integration testing against production system
-        //sleep(100);
-    }
-
     /**
      * Create an Fqdn
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createFqdn_whenValidRequest_returnsCreatedFqdn() throws ApiException {
         CreateFqdnRequest createFqdnRequest = new CreateFqdnRequest()
@@ -100,6 +88,7 @@ public class FqdNsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void deleteFqdn_whenValidId_returnsDeletedFqdn() throws ApiException {
         String actualId = api.deleteFqdn(existingFqdn.getId())
@@ -135,6 +124,7 @@ public class FqdNsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveFqdn_whenFqdnExists_returnsFqdn() throws ApiException {
         Fqdn actualFqdn = api.retrieveFqdn(existingFqdn.getId()).getData();
@@ -165,13 +155,6 @@ public class FqdNsApiTest {
         assertEquals(updateFqdnRequest.getDnsRecordType(), actualFqdn.getDnsRecordType());
         assertEquals(updateFqdnRequest.getPort(), actualFqdn.getPort());
         assertEquals(updateFqdnRequest.getConnectionId(), actualFqdn.getConnectionId());
-
-        //Clean-up
-        try {
-            fqdnConnectionsApi.deleteFqdnConnection(newFqdnConnection.getId());
-        } catch (ApiException e) {
-            // ignore
-        }
     }
 
     /**

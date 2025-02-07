@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Comment;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -44,7 +44,7 @@ import com.telnyx.sdk.JSON;
   CreateComment200ResponseData.JSON_PROPERTY_CREATED_AT,
   CreateComment200ResponseData.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateComment200ResponseData {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -59,9 +59,9 @@ public class CreateComment200ResponseData {
    * Gets or Sets commenterType
    */
   public enum CommenterTypeEnum {
-    ADMIN("admin"),
+    ADMIN(String.valueOf("admin")),
     
-    USER("user");
+    USER(String.valueOf("user"));
 
     private String value;
 
@@ -97,11 +97,9 @@ public class CreateComment200ResponseData {
    * Gets or Sets commentRecordType
    */
   public enum CommentRecordTypeEnum {
-    NUMBER_ORDER("number_order"),
+    SUB_NUMBER_ORDER(String.valueOf("sub_number_order")),
     
-    SUB_NUMBER_ORDER("sub_number_order"),
-    
-    NUMBER_ORDER_PHONE_NUMBER("number_order_phone_number");
+    REQUIREMENT_GROUP(String.valueOf("requirement_group"));
 
     private String value;
 
@@ -297,7 +295,7 @@ public class CreateComment200ResponseData {
    * @return readAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "An ISO 8901 datetime string for when the comment was read.")
+  @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string for when the comment was read.")
   @JsonProperty(JSON_PROPERTY_READ_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -341,7 +339,7 @@ public class CreateComment200ResponseData {
 
 
   /**
-   * Return true if this createComment_200_response_data object is equal to o.
+   * Return true if this CreateComment_200_response_data object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

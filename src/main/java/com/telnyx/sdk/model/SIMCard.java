@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,13 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.SIMCardCurrentBillingPeriodConsumedData;
 import com.telnyx.sdk.model.SIMCardCurrentDeviceLocation;
 import com.telnyx.sdk.model.SIMCardDataLimit;
 import com.telnyx.sdk.model.SIMCardStatus;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.SimpleSIMCardCurrentBillingPeriodConsumedData;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -42,15 +43,17 @@ import com.telnyx.sdk.JSON;
   SIMCard.JSON_PROPERTY_ID,
   SIMCard.JSON_PROPERTY_RECORD_TYPE,
   SIMCard.JSON_PROPERTY_STATUS,
+  SIMCard.JSON_PROPERTY_TYPE,
   SIMCard.JSON_PROPERTY_ICCID,
   SIMCard.JSON_PROPERTY_IMSI,
   SIMCard.JSON_PROPERTY_MSISDN,
   SIMCard.JSON_PROPERTY_SIM_CARD_GROUP_ID,
   SIMCard.JSON_PROPERTY_TAGS,
-  SIMCard.JSON_PROPERTY_DATA_LIMIT,
-  SIMCard.JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA,
   SIMCard.JSON_PROPERTY_AUTHORIZED_IMEIS,
   SIMCard.JSON_PROPERTY_CURRENT_IMEI,
+  SIMCard.JSON_PROPERTY_DATA_LIMIT,
+  SIMCard.JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA,
+  SIMCard.JSON_PROPERTY_ACTIONS_IN_PROGRESS,
   SIMCard.JSON_PROPERTY_CREATED_AT,
   SIMCard.JSON_PROPERTY_UPDATED_AT,
   SIMCard.JSON_PROPERTY_IPV4,
@@ -60,7 +63,7 @@ import com.telnyx.sdk.JSON;
   SIMCard.JSON_PROPERTY_CURRENT_MCC,
   SIMCard.JSON_PROPERTY_LIVE_DATA_SESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCard {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -70,6 +73,44 @@ public class SIMCard {
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private SIMCardStatus status;
+
+  /**
+   * The type of SIM card
+   */
+  public enum TypeEnum {
+    PHYSICAL(String.valueOf("physical")),
+    
+    ESIM(String.valueOf("esim"));
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
 
   public static final String JSON_PROPERTY_ICCID = "iccid";
   private String iccid;
@@ -86,17 +127,20 @@ public class SIMCard {
   public static final String JSON_PROPERTY_TAGS = "tags";
   private List<String> tags = null;
 
-  public static final String JSON_PROPERTY_DATA_LIMIT = "data_limit";
-  private SIMCardDataLimit dataLimit;
-
-  public static final String JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA = "current_billing_period_consumed_data";
-  private SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
-
   public static final String JSON_PROPERTY_AUTHORIZED_IMEIS = "authorized_imeis";
   private List<String> authorizedImeis = null;
 
   public static final String JSON_PROPERTY_CURRENT_IMEI = "current_imei";
   private String currentImei;
+
+  public static final String JSON_PROPERTY_DATA_LIMIT = "data_limit";
+  private SIMCardDataLimit dataLimit;
+
+  public static final String JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA = "current_billing_period_consumed_data";
+  private SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
+
+  public static final String JSON_PROPERTY_ACTIONS_IN_PROGRESS = "actions_in_progress";
+  private Boolean actionsInProgress = false;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -123,11 +167,11 @@ public class SIMCard {
    * Indicates whether the device is actively connected to a network and able to run data.
    */
   public enum LiveDataSessionEnum {
-    CONNECTED("connected"),
+    CONNECTED(String.valueOf("connected")),
     
-    DISCONNECTED("disconnected"),
+    DISCONNECTED(String.valueOf("disconnected")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 
@@ -166,10 +210,12 @@ public class SIMCard {
   public SIMCard(
     @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_TYPE) TypeEnum type, 
     @JsonProperty(JSON_PROPERTY_ICCID) String iccid, 
     @JsonProperty(JSON_PROPERTY_IMSI) String imsi, 
     @JsonProperty(JSON_PROPERTY_MSISDN) String msisdn, 
     @JsonProperty(JSON_PROPERTY_CURRENT_IMEI) String currentImei, 
+    @JsonProperty(JSON_PROPERTY_ACTIONS_IN_PROGRESS) Boolean actionsInProgress, 
     @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt, 
     @JsonProperty(JSON_PROPERTY_IPV4) String ipv4, 
@@ -181,10 +227,12 @@ public class SIMCard {
     this();
     this.id = id;
     this.recordType = recordType;
+    this.type = type;
     this.iccid = iccid;
     this.imsi = imsi;
     this.msisdn = msisdn;
     this.currentImei = currentImei;
+    this.actionsInProgress = actionsInProgress;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.ipv4 = ipv4;
@@ -253,6 +301,22 @@ public class SIMCard {
 
 
    /**
+   * The type of SIM card
+   * @return type
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "physical", value = "The type of SIM card")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+
+
+   /**
    * The ICCID is the identifier of the specific SIM card/chip. Each SIM is internationally identified by its integrated circuit card identifier (ICCID). ICCIDs are stored in the SIM card&#39;s memory and are also engraved or printed on the SIM card body during a process called personalization. 
    * @return iccid
   **/
@@ -269,11 +333,11 @@ public class SIMCard {
 
 
    /**
-   * SIM cards are identified on their individual operator networks by a unique International Mobile Subscriber Identity (IMSI). &lt;br/&gt; Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). 
+   * SIM cards are identified on their individual network operators by a unique International Mobile Subscriber Identity (IMSI). &lt;br/&gt; Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). 
    * @return imsi
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "081932214823362973", value = "SIM cards are identified on their individual operator networks by a unique International Mobile Subscriber Identity (IMSI). <br/> Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). ")
+  @ApiModelProperty(example = "081932214823362973", value = "SIM cards are identified on their individual network operators by a unique International Mobile Subscriber Identity (IMSI). <br/> Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). ")
   @JsonProperty(JSON_PROPERTY_IMSI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -331,7 +395,7 @@ public class SIMCard {
     return this;
   }
 
-  public SIMCard addTagsItem(String tagsItem) {
+  public SIMCard addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -360,64 +424,12 @@ public class SIMCard {
   }
 
 
-  public SIMCard dataLimit(SIMCardDataLimit dataLimit) {
-    this.dataLimit = dataLimit;
-    return this;
-  }
-
-   /**
-   * Get dataLimit
-   * @return dataLimit
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SIMCardDataLimit getDataLimit() {
-    return dataLimit;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDataLimit(SIMCardDataLimit dataLimit) {
-    this.dataLimit = dataLimit;
-  }
-
-
-  public SIMCard currentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
-    this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
-    return this;
-  }
-
-   /**
-   * Get currentBillingPeriodConsumedData
-   * @return currentBillingPeriodConsumedData
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
-    return currentBillingPeriodConsumedData;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
-    this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
-  }
-
-
   public SIMCard authorizedImeis(List<String> authorizedImeis) {
     this.authorizedImeis = authorizedImeis;
     return this;
   }
 
-  public SIMCard addAuthorizedImeisItem(String authorizedImeisItem) {
+  public SIMCard addauthorizedImeisItem(String authorizedImeisItem) {
     if (this.authorizedImeis == null) {
       this.authorizedImeis = new ArrayList<>();
     }
@@ -457,6 +469,74 @@ public class SIMCard {
 
   public String getCurrentImei() {
     return currentImei;
+  }
+
+
+
+
+  public SIMCard dataLimit(SIMCardDataLimit dataLimit) {
+    this.dataLimit = dataLimit;
+    return this;
+  }
+
+   /**
+   * Get dataLimit
+   * @return dataLimit
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SIMCardDataLimit getDataLimit() {
+    return dataLimit;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDataLimit(SIMCardDataLimit dataLimit) {
+    this.dataLimit = dataLimit;
+  }
+
+
+  public SIMCard currentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+    this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
+    return this;
+  }
+
+   /**
+   * Get currentBillingPeriodConsumedData
+   * @return currentBillingPeriodConsumedData
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SimpleSIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
+    return currentBillingPeriodConsumedData;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCurrentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+    this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
+  }
+
+
+   /**
+   * Indicate whether the SIM card has any pending (in-progress) actions.
+   * @return actionsInProgress
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Indicate whether the SIM card has any pending (in-progress) actions.")
+  @JsonProperty(JSON_PROPERTY_ACTIONS_IN_PROGRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getActionsInProgress() {
+    return actionsInProgress;
   }
 
 
@@ -615,15 +695,17 @@ public class SIMCard {
     return Objects.equals(this.id, siMCard.id) &&
         Objects.equals(this.recordType, siMCard.recordType) &&
         Objects.equals(this.status, siMCard.status) &&
+        Objects.equals(this.type, siMCard.type) &&
         Objects.equals(this.iccid, siMCard.iccid) &&
         Objects.equals(this.imsi, siMCard.imsi) &&
         Objects.equals(this.msisdn, siMCard.msisdn) &&
         Objects.equals(this.simCardGroupId, siMCard.simCardGroupId) &&
         Objects.equals(this.tags, siMCard.tags) &&
-        Objects.equals(this.dataLimit, siMCard.dataLimit) &&
-        Objects.equals(this.currentBillingPeriodConsumedData, siMCard.currentBillingPeriodConsumedData) &&
         Objects.equals(this.authorizedImeis, siMCard.authorizedImeis) &&
         Objects.equals(this.currentImei, siMCard.currentImei) &&
+        Objects.equals(this.dataLimit, siMCard.dataLimit) &&
+        Objects.equals(this.currentBillingPeriodConsumedData, siMCard.currentBillingPeriodConsumedData) &&
+        Objects.equals(this.actionsInProgress, siMCard.actionsInProgress) &&
         Objects.equals(this.createdAt, siMCard.createdAt) &&
         Objects.equals(this.updatedAt, siMCard.updatedAt) &&
         Objects.equals(this.ipv4, siMCard.ipv4) &&
@@ -636,7 +718,7 @@ public class SIMCard {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, status, iccid, imsi, msisdn, simCardGroupId, tags, dataLimit, currentBillingPeriodConsumedData, authorizedImeis, currentImei, createdAt, updatedAt, ipv4, ipv6, currentDeviceLocation, currentMnc, currentMcc, liveDataSession);
+    return Objects.hash(id, recordType, status, type, iccid, imsi, msisdn, simCardGroupId, tags, authorizedImeis, currentImei, dataLimit, currentBillingPeriodConsumedData, actionsInProgress, createdAt, updatedAt, ipv4, ipv6, currentDeviceLocation, currentMnc, currentMcc, liveDataSession);
   }
 
   @Override
@@ -646,15 +728,17 @@ public class SIMCard {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    iccid: ").append(toIndentedString(iccid)).append("\n");
     sb.append("    imsi: ").append(toIndentedString(imsi)).append("\n");
     sb.append("    msisdn: ").append(toIndentedString(msisdn)).append("\n");
     sb.append("    simCardGroupId: ").append(toIndentedString(simCardGroupId)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    dataLimit: ").append(toIndentedString(dataLimit)).append("\n");
-    sb.append("    currentBillingPeriodConsumedData: ").append(toIndentedString(currentBillingPeriodConsumedData)).append("\n");
     sb.append("    authorizedImeis: ").append(toIndentedString(authorizedImeis)).append("\n");
     sb.append("    currentImei: ").append(toIndentedString(currentImei)).append("\n");
+    sb.append("    dataLimit: ").append(toIndentedString(dataLimit)).append("\n");
+    sb.append("    currentBillingPeriodConsumedData: ").append(toIndentedString(currentBillingPeriodConsumedData)).append("\n");
+    sb.append("    actionsInProgress: ").append(toIndentedString(actionsInProgress)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    ipv4: ").append(toIndentedString(ipv4)).append("\n");

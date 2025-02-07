@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,10 +40,11 @@ import com.telnyx.sdk.JSON;
   GatherRequest.JSON_PROPERTY_INITIAL_TIMEOUT_MILLIS,
   GatherRequest.JSON_PROPERTY_TERMINATING_DIGIT,
   GatherRequest.JSON_PROPERTY_VALID_DIGITS,
+  GatherRequest.JSON_PROPERTY_GATHER_ID,
   GatherRequest.JSON_PROPERTY_CLIENT_STATE,
   GatherRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GatherRequest {
   public static final String JSON_PROPERTY_MINIMUM_DIGITS = "minimum_digits";
   private Integer minimumDigits = 1;
@@ -64,6 +66,9 @@ public class GatherRequest {
 
   public static final String JSON_PROPERTY_VALID_DIGITS = "valid_digits";
   private String validDigits = "0123456789#*";
+
+  public static final String JSON_PROPERTY_GATHER_ID = "gather_id";
+  private String gatherId;
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -256,6 +261,32 @@ public class GatherRequest {
   }
 
 
+  public GatherRequest gatherId(String gatherId) {
+    this.gatherId = gatherId;
+    return this;
+  }
+
+   /**
+   * An id that will be sent back in the corresponding &#x60;call.gather.ended&#x60; webhook. Will be randomly generated if not specified.
+   * @return gatherId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "my_gather_id", value = "An id that will be sent back in the corresponding `call.gather.ended` webhook. Will be randomly generated if not specified.")
+  @JsonProperty(JSON_PROPERTY_GATHER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGatherId() {
+    return gatherId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GATHER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGatherId(String gatherId) {
+    this.gatherId = gatherId;
+  }
+
+
   public GatherRequest clientState(String clientState) {
     this.clientState = clientState;
     return this;
@@ -327,13 +358,14 @@ public class GatherRequest {
         Objects.equals(this.initialTimeoutMillis, gatherRequest.initialTimeoutMillis) &&
         Objects.equals(this.terminatingDigit, gatherRequest.terminatingDigit) &&
         Objects.equals(this.validDigits, gatherRequest.validDigits) &&
+        Objects.equals(this.gatherId, gatherRequest.gatherId) &&
         Objects.equals(this.clientState, gatherRequest.clientState) &&
         Objects.equals(this.commandId, gatherRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(minimumDigits, maximumDigits, timeoutMillis, interDigitTimeoutMillis, initialTimeoutMillis, terminatingDigit, validDigits, clientState, commandId);
+    return Objects.hash(minimumDigits, maximumDigits, timeoutMillis, interDigitTimeoutMillis, initialTimeoutMillis, terminatingDigit, validDigits, gatherId, clientState, commandId);
   }
 
   @Override
@@ -347,6 +379,7 @@ public class GatherRequest {
     sb.append("    initialTimeoutMillis: ").append(toIndentedString(initialTimeoutMillis)).append("\n");
     sb.append("    terminatingDigit: ").append(toIndentedString(terminatingDigit)).append("\n");
     sb.append("    validDigits: ").append(toIndentedString(validDigits)).append("\n");
+    sb.append("    gatherId: ").append(toIndentedString(gatherId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("}");

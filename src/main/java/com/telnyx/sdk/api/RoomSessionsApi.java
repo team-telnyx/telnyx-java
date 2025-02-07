@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RoomSessionsApi {
   private ApiClient apiClient;
 
@@ -396,8 +396,8 @@ public class RoomSessionsApi {
        <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
      </table>
    */
-  public ListRoomParticipants200Response nestedListRoomParticipants(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
-    return nestedListRoomParticipantsWithHttpInfo(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber).getData();
+  public ListRoomParticipants200Response retrieveListRoomParticipants(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
+    return retrieveListRoomParticipantsWithHttpInfo(roomSessionId, filterDateJoinedAtEq, filterDateJoinedAtGte, filterDateJoinedAtLte, filterDateUpdatedAtEq, filterDateUpdatedAtGte, filterDateUpdatedAtLte, filterDateLeftAtEq, filterDateLeftAtGte, filterDateLeftAtLte, filterContext, pageSize, pageNumber).getData();
   }
 
   /**
@@ -424,12 +424,12 @@ public class RoomSessionsApi {
        <tr><td> 200 </td><td> List room participants response. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListRoomParticipants200Response> nestedListRoomParticipantsWithHttpInfo(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListRoomParticipants200Response> retrieveListRoomParticipantsWithHttpInfo(UUID roomSessionId, LocalDate filterDateJoinedAtEq, LocalDate filterDateJoinedAtGte, LocalDate filterDateJoinedAtLte, LocalDate filterDateUpdatedAtEq, LocalDate filterDateUpdatedAtGte, LocalDate filterDateUpdatedAtLte, LocalDate filterDateLeftAtEq, LocalDate filterDateLeftAtGte, LocalDate filterDateLeftAtLte, String filterContext, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'roomSessionId' is set
     if (roomSessionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'roomSessionId' when calling nestedListRoomParticipants");
+      throw new ApiException(400, "Missing the required parameter 'roomSessionId' when calling retrieveListRoomParticipants");
     }
     
     // create path and map variables
@@ -472,7 +472,7 @@ public class RoomSessionsApi {
 
     GenericType<ListRoomParticipants200Response> localVarReturnType = new GenericType<ListRoomParticipants200Response>() {};
 
-    return apiClient.invokeAPI("RoomSessionsApi.nestedListRoomParticipants", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("RoomSessionsApi.retrieveListRoomParticipants", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

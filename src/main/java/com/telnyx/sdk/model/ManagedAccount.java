@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ManagedAccountBalance;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -48,13 +49,13 @@ import com.telnyx.sdk.JSON;
   ManagedAccount.JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING,
   ManagedAccount.JSON_PROPERTY_ROLLUP_BILLING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ManagedAccount {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MANAGED_ACCOUNT("managed_account");
+    MANAGED_ACCOUNT(String.valueOf("managed_account"));
 
     private String value;
 
@@ -213,7 +214,7 @@ public class ManagedAccount {
    * @return apiKey
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "KEY0174227C1D16D1B180A8FF742AD37F70_1bA4vlJKHpZcJGaSXaadFu", required = true, value = "The managed account's V2 API access key")
+  @ApiModelProperty(example = "KEY01236170692E74656C6E79782E636F6D_YmlnIGlyb24gaXMgZGVhZA", required = true, value = "The managed account's V2 API access key")
   @JsonProperty(JSON_PROPERTY_API_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

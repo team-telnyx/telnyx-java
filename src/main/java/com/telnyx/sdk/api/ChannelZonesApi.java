@@ -14,14 +14,14 @@ import com.telnyx.sdk.model.GcbChannelZone;
 import com.telnyx.sdk.model.GcbPhoneNumber;
 import com.telnyx.sdk.model.GetChannelZones200Response;
 import com.telnyx.sdk.model.GetPhoneNumbers200Response;
-import com.telnyx.sdk.model.PatchGroupRequest;
+import com.telnyx.sdk.model.PatchChannelZoneRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ChannelZonesApi {
   private ApiClient apiClient;
 
@@ -352,8 +352,8 @@ public class ChannelZonesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public GcbChannelZone patchGroup(String channelZoneId, PatchGroupRequest body) throws ApiException {
-    return patchGroupWithHttpInfo(channelZoneId, body).getData();
+  public GcbChannelZone patchChannelZone(String channelZoneId, PatchChannelZoneRequest body) throws ApiException {
+    return patchChannelZoneWithHttpInfo(channelZoneId, body).getData();
   }
 
   /**
@@ -370,17 +370,17 @@ public class ChannelZonesApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GcbChannelZone> patchGroupWithHttpInfo(String channelZoneId, PatchGroupRequest body) throws ApiException {
+  public ApiResponse<GcbChannelZone> patchChannelZoneWithHttpInfo(String channelZoneId, PatchChannelZoneRequest body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'channelZoneId' is set
     if (channelZoneId == null) {
-      throw new ApiException(400, "Missing the required parameter 'channelZoneId' when calling patchGroup");
+      throw new ApiException(400, "Missing the required parameter 'channelZoneId' when calling patchChannelZone");
     }
     
     // verify the required parameter 'body' is set
     if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling patchGroup");
+      throw new ApiException(400, "Missing the required parameter 'body' when calling patchChannelZone");
     }
     
     // create path and map variables
@@ -411,7 +411,7 @@ public class ChannelZonesApi {
 
     GenericType<GcbChannelZone> localVarReturnType = new GenericType<GcbChannelZone>() {};
 
-    return apiClient.invokeAPI("ChannelZonesApi.patchGroup", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("ChannelZonesApi.patchChannelZone", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

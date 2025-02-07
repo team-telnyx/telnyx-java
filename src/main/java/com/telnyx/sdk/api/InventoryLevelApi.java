@@ -8,7 +8,7 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.CreateInventoryCoverageRequest200Response;
+import com.telnyx.sdk.model.CreateInventoryCoverage200Response;
 import com.telnyx.sdk.model.Errors;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InventoryLevelApi {
   private ApiClient apiClient;
 
@@ -56,7 +56,8 @@ public class InventoryLevelApi {
    * @param filterPhoneNumberType  (optional)
    * @param filterCountryCode  (optional)
    * @param filterCount  (optional)
-   * @return CreateInventoryCoverageRequest200Response
+   * @param filterFeatures Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used. (optional)
+   * @return CreateInventoryCoverage200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -65,8 +66,8 @@ public class InventoryLevelApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public CreateInventoryCoverageRequest200Response createInventoryCoverageRequest(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount) throws ApiException {
-    return createInventoryCoverageRequestWithHttpInfo(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount).getData();
+  public CreateInventoryCoverage200Response createInventoryCoverage(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount, List<String> filterFeatures) throws ApiException {
+    return createInventoryCoverageWithHttpInfo(filterGroupBy, filterNpa, filterNxx, filterAdministrativeArea, filterPhoneNumberType, filterCountryCode, filterCount, filterFeatures).getData();
   }
 
   /**
@@ -79,7 +80,8 @@ public class InventoryLevelApi {
    * @param filterPhoneNumberType  (optional)
    * @param filterCountryCode  (optional)
    * @param filterCount  (optional)
-   * @return ApiResponse&lt;CreateInventoryCoverageRequest200Response&gt;
+   * @param filterFeatures Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used. (optional)
+   * @return ApiResponse&lt;CreateInventoryCoverage200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -88,12 +90,12 @@ public class InventoryLevelApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateInventoryCoverageRequest200Response> createInventoryCoverageRequestWithHttpInfo(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount) throws ApiException {
+  public ApiResponse<CreateInventoryCoverage200Response> createInventoryCoverageWithHttpInfo(String filterGroupBy, Integer filterNpa, Integer filterNxx, String filterAdministrativeArea, String filterPhoneNumberType, String filterCountryCode, Boolean filterCount, List<String> filterFeatures) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'filterGroupBy' is set
     if (filterGroupBy == null) {
-      throw new ApiException(400, "Missing the required parameter 'filterGroupBy' when calling createInventoryCoverageRequest");
+      throw new ApiException(400, "Missing the required parameter 'filterGroupBy' when calling createInventoryCoverage");
     }
     
     // create path and map variables
@@ -111,6 +113,7 @@ public class InventoryLevelApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number_type]", filterPhoneNumberType));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_code]", filterCountryCode));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[count]", filterCount));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[features]", filterFeatures));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[groupBy]", filterGroupBy));
 
     
@@ -128,9 +131,9 @@ public class InventoryLevelApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CreateInventoryCoverageRequest200Response> localVarReturnType = new GenericType<CreateInventoryCoverageRequest200Response>() {};
+    GenericType<CreateInventoryCoverage200Response> localVarReturnType = new GenericType<CreateInventoryCoverage200Response>() {};
 
-    return apiClient.invokeAPI("InventoryLevelApi.createInventoryCoverageRequest", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("InventoryLevelApi.createInventoryCoverage", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

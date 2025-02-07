@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -37,12 +38,11 @@ import com.telnyx.sdk.JSON;
   RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_DESCRIPTION,
   RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_ID,
   RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_EXAMPLE,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_LABEL,
+  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_NAME,
   RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_FIELD_TYPE,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_ACCEPTANCE_CRITERIA,
-  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_RECORD_TYPE
+  RegulatoryRequirementsRegulatoryRequirementsInner.JSON_PROPERTY_ACCEPTANCE_CRITERIA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirementsRegulatoryRequirementsInner {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
@@ -53,17 +53,14 @@ public class RegulatoryRequirementsRegulatoryRequirementsInner {
   public static final String JSON_PROPERTY_EXAMPLE = "example";
   private String example;
 
-  public static final String JSON_PROPERTY_LABEL = "label";
-  private String label;
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
 
   public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
   private String fieldType;
 
   public static final String JSON_PROPERTY_ACCEPTANCE_CRITERIA = "acceptance_criteria";
   private RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptanceCriteria;
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
 
   public RegulatoryRequirementsRegulatoryRequirementsInner() { 
   }
@@ -72,14 +69,12 @@ public class RegulatoryRequirementsRegulatoryRequirementsInner {
   public RegulatoryRequirementsRegulatoryRequirementsInner(
     @JsonProperty(JSON_PROPERTY_DESCRIPTION) String description, 
     @JsonProperty(JSON_PROPERTY_ID) UUID id, 
-    @JsonProperty(JSON_PROPERTY_EXAMPLE) String example, 
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+    @JsonProperty(JSON_PROPERTY_EXAMPLE) String example
   ) {
     this();
     this.description = description;
     this.id = id;
     this.example = example;
-    this.recordType = recordType;
   }
 
    /**
@@ -119,7 +114,7 @@ public class RegulatoryRequirementsRegulatoryRequirementsInner {
    * @return example
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "311 W Superior St, Chicago, IL 60654", value = "")
+  @ApiModelProperty(example = "600 Congress Avenue, 14th Floor, Austin, TX 78701", value = "")
   @JsonProperty(JSON_PROPERTY_EXAMPLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -130,29 +125,29 @@ public class RegulatoryRequirementsRegulatoryRequirementsInner {
 
 
 
-  public RegulatoryRequirementsRegulatoryRequirementsInner label(String label) {
-    this.label = label;
+  public RegulatoryRequirementsRegulatoryRequirementsInner name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Get label
-   * @return label
+   * Get name
+   * @return name
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(example = "Address matching the DID area code", value = "")
-  @JsonProperty(JSON_PROPERTY_LABEL)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getLabel() {
-    return label;
+  public String getName() {
+    return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LABEL)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabel(String label) {
-    this.label = label;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -208,22 +203,6 @@ public class RegulatoryRequirementsRegulatoryRequirementsInner {
   }
 
 
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "regulatory_requirement", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
-  }
-
-
-
-
   /**
    * Return true if this RegulatoryRequirements_regulatory_requirements_inner object is equal to o.
    */
@@ -239,15 +218,14 @@ public class RegulatoryRequirementsRegulatoryRequirementsInner {
     return Objects.equals(this.description, regulatoryRequirementsRegulatoryRequirementsInner.description) &&
         Objects.equals(this.id, regulatoryRequirementsRegulatoryRequirementsInner.id) &&
         Objects.equals(this.example, regulatoryRequirementsRegulatoryRequirementsInner.example) &&
-        Objects.equals(this.label, regulatoryRequirementsRegulatoryRequirementsInner.label) &&
+        Objects.equals(this.name, regulatoryRequirementsRegulatoryRequirementsInner.name) &&
         Objects.equals(this.fieldType, regulatoryRequirementsRegulatoryRequirementsInner.fieldType) &&
-        Objects.equals(this.acceptanceCriteria, regulatoryRequirementsRegulatoryRequirementsInner.acceptanceCriteria) &&
-        Objects.equals(this.recordType, regulatoryRequirementsRegulatoryRequirementsInner.recordType);
+        Objects.equals(this.acceptanceCriteria, regulatoryRequirementsRegulatoryRequirementsInner.acceptanceCriteria);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, id, example, label, fieldType, acceptanceCriteria, recordType);
+    return Objects.hash(description, id, example, name, fieldType, acceptanceCriteria);
   }
 
   @Override
@@ -257,10 +235,9 @@ public class RegulatoryRequirementsRegulatoryRequirementsInner {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    example: ").append(toIndentedString(example)).append("\n");
-    sb.append("    label: ").append(toIndentedString(label)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    fieldType: ").append(toIndentedString(fieldType)).append("\n");
     sb.append("    acceptanceCriteria: ").append(toIndentedString(acceptanceCriteria)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

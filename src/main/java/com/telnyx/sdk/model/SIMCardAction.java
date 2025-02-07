@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SIMCardActionStatus;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,7 +49,7 @@ import com.telnyx.sdk.JSON;
   SIMCardAction.JSON_PROPERTY_CREATED_AT,
   SIMCardAction.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardAction {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -63,13 +64,13 @@ public class SIMCardAction {
    * The operation type. It can be one of the following: &lt;br/&gt; &lt;ul&gt;  &lt;li&gt;&lt;code&gt;enable&lt;/code&gt; - move the SIM card to the &lt;code&gt;enabled&lt;/code&gt; status&lt;/li&gt;  &lt;li&gt;&lt;code&gt;enable_standby_sim_card&lt;/code&gt; - move a SIM card previously on the &lt;code&gt;standby&lt;/code&gt; status to the &lt;code&gt;enabled&lt;/code&gt; status after it consumes data.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;disable&lt;/code&gt; - move the SIM card to the &lt;code&gt;disabled&lt;/code&gt; status&lt;/li&gt;  &lt;li&gt;&lt;code&gt;set_standby&lt;/code&gt; - move the SIM card to the &lt;code&gt;standby&lt;/code&gt; status&lt;/li&gt;  &lt;/ul&gt;
    */
   public enum ActionTypeEnum {
-    ENABLE("enable"),
+    ENABLE(String.valueOf("enable")),
     
-    ENABLE_STANDBY_SIM_CARD("enable_standby_sim_card"),
+    ENABLE_STANDBY_SIM_CARD(String.valueOf("enable_standby_sim_card")),
     
-    DISABLE("disable"),
+    DISABLE(String.valueOf("disable")),
     
-    SET_STANDBY("set_standby");
+    SET_STANDBY(String.valueOf("set_standby"));
 
     private String value;
 
@@ -118,7 +119,6 @@ public class SIMCardAction {
 
   @JsonCreator
   public SIMCardAction(
-    @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_SIM_CARD_ID) UUID simCardId, 
     @JsonProperty(JSON_PROPERTY_ACTION_TYPE) ActionTypeEnum actionType, 
@@ -127,21 +127,25 @@ public class SIMCardAction {
     @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
   ) {
     this();
-    this.id = id;
     this.recordType = recordType;
     this.simCardId = simCardId;
     this.actionType = actionType;
-    this.settings = (JsonNullable<Object>) settings;
+    this.settings = JsonNullable.of(settings);
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
 
+  public SIMCardAction id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Identifies the type of resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "Identifies the resource.")
+  @ApiModelProperty(example = "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0", value = "Identifies the type of resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -150,6 +154,11 @@ public class SIMCardAction {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
 
    /**

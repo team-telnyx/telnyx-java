@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ReservedPhoneNumber;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -44,7 +45,7 @@ import com.telnyx.sdk.JSON;
   NumberReservation.JSON_PROPERTY_CREATED_AT,
   NumberReservation.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberReservation {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -59,11 +60,11 @@ public class NumberReservation {
    * The status of the entire reservation.
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    SUCCESS("success"),
+    SUCCESS(String.valueOf("success")),
     
-    FAILURE("failure");
+    FAILURE(String.valueOf("failure"));
 
     private String value;
 
@@ -160,7 +161,7 @@ public class NumberReservation {
     return this;
   }
 
-  public NumberReservation addPhoneNumbersItem(ReservedPhoneNumber phoneNumbersItem) {
+  public NumberReservation addphoneNumbersItem(ReservedPhoneNumber phoneNumbersItem) {
     if (this.phoneNumbers == null) {
       this.phoneNumbers = new ArrayList<>();
     }

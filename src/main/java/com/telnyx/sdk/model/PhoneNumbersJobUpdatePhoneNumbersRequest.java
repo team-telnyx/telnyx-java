@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.UpdatePhoneNumberVoiceSettingsRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,9 +41,11 @@ import com.telnyx.sdk.JSON;
   PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_EXTERNAL_PIN,
   PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_CONNECTION_ID,
-  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_BILLING_GROUP_ID
+  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_BILLING_GROUP_ID,
+  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_HD_VOICE_ENABLED,
+  PhoneNumbersJobUpdatePhoneNumbersRequest.JSON_PROPERTY_VOICE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
@@ -61,6 +65,12 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
 
+  public static final String JSON_PROPERTY_HD_VOICE_ENABLED = "hd_voice_enabled";
+  private Boolean hdVoiceEnabled;
+
+  public static final String JSON_PROPERTY_VOICE = "voice";
+  private UpdatePhoneNumberVoiceSettingsRequest voice;
+
   public PhoneNumbersJobUpdatePhoneNumbersRequest() { 
   }
 
@@ -69,7 +79,7 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
     return this;
   }
 
-  public PhoneNumbersJobUpdatePhoneNumbersRequest addPhoneNumbersItem(String phoneNumbersItem) {
+  public PhoneNumbersJobUpdatePhoneNumbersRequest addphoneNumbersItem(String phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }
@@ -100,7 +110,7 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
     return this;
   }
 
-  public PhoneNumbersJobUpdatePhoneNumbersRequest addTagsItem(String tagsItem) {
+  public PhoneNumbersJobUpdatePhoneNumbersRequest addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -233,6 +243,58 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
   }
 
 
+  public PhoneNumbersJobUpdatePhoneNumbersRequest hdVoiceEnabled(Boolean hdVoiceEnabled) {
+    this.hdVoiceEnabled = hdVoiceEnabled;
+    return this;
+  }
+
+   /**
+   * Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation.
+   * @return hdVoiceEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation.")
+  @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getHdVoiceEnabled() {
+    return hdVoiceEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHdVoiceEnabled(Boolean hdVoiceEnabled) {
+    this.hdVoiceEnabled = hdVoiceEnabled;
+  }
+
+
+  public PhoneNumbersJobUpdatePhoneNumbersRequest voice(UpdatePhoneNumberVoiceSettingsRequest voice) {
+    this.voice = voice;
+    return this;
+  }
+
+   /**
+   * Get voice
+   * @return voice
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_VOICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UpdatePhoneNumberVoiceSettingsRequest getVoice() {
+    return voice;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VOICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVoice(UpdatePhoneNumberVoiceSettingsRequest voice) {
+    this.voice = voice;
+  }
+
+
   /**
    * Return true if this PhoneNumbersJobUpdatePhoneNumbersRequest object is equal to o.
    */
@@ -250,12 +312,14 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
         Objects.equals(this.externalPin, phoneNumbersJobUpdatePhoneNumbersRequest.externalPin) &&
         Objects.equals(this.customerReference, phoneNumbersJobUpdatePhoneNumbersRequest.customerReference) &&
         Objects.equals(this.connectionId, phoneNumbersJobUpdatePhoneNumbersRequest.connectionId) &&
-        Objects.equals(this.billingGroupId, phoneNumbersJobUpdatePhoneNumbersRequest.billingGroupId);
+        Objects.equals(this.billingGroupId, phoneNumbersJobUpdatePhoneNumbersRequest.billingGroupId) &&
+        Objects.equals(this.hdVoiceEnabled, phoneNumbersJobUpdatePhoneNumbersRequest.hdVoiceEnabled) &&
+        Objects.equals(this.voice, phoneNumbersJobUpdatePhoneNumbersRequest.voice);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumbers, tags, externalPin, customerReference, connectionId, billingGroupId);
+    return Objects.hash(phoneNumbers, tags, externalPin, customerReference, connectionId, billingGroupId, hdVoiceEnabled, voice);
   }
 
   @Override
@@ -268,6 +332,8 @@ public class PhoneNumbersJobUpdatePhoneNumbersRequest {
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
+    sb.append("    hdVoiceEnabled: ").append(toIndentedString(hdVoiceEnabled)).append("\n");
+    sb.append("    voice: ").append(toIndentedString(voice)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,10 +28,9 @@ import com.telnyx.sdk.model.OutboundCallRecording;
 import com.telnyx.sdk.model.ServicePlan;
 import com.telnyx.sdk.model.TrafficType;
 import com.telnyx.sdk.model.UsagePaymentMethod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -58,7 +59,7 @@ import com.telnyx.sdk.JSON;
   CreateOutboundVoiceProfileRequest.JSON_PROPERTY_CALL_RECORDING,
   CreateOutboundVoiceProfileRequest.JSON_PROPERTY_BILLING_GROUP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateOutboundVoiceProfileRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -245,7 +246,7 @@ public class CreateOutboundVoiceProfileRequest {
     return this;
   }
 
-  public CreateOutboundVoiceProfileRequest addTagsItem(String tagsItem) {
+  public CreateOutboundVoiceProfileRequest addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -305,9 +306,9 @@ public class CreateOutboundVoiceProfileRequest {
     return this;
   }
 
-  public CreateOutboundVoiceProfileRequest addWhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+  public CreateOutboundVoiceProfileRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
     if (this.whitelistedDestinations == null) {
-      this.whitelistedDestinations = new ArrayList<>();
+      this.whitelistedDestinations = new ArrayList<>(Arrays.asList("US", "CA"));
     }
     this.whitelistedDestinations.add(whitelistedDestinationsItem);
     return this;

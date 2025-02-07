@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -35,7 +36,7 @@ import com.telnyx.sdk.JSON;
   WirelessCost.JSON_PROPERTY_AMOUNT,
   WirelessCost.JSON_PROPERTY_CURRENCY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WirelessCost {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private String amount;
@@ -44,15 +45,15 @@ public class WirelessCost {
    * Currency of the rate and cost
    */
   public enum CurrencyEnum {
-    AUD("AUD"),
+    AUD(String.valueOf("AUD")),
     
-    CAD("CAD"),
+    CAD(String.valueOf("CAD")),
     
-    EUR("EUR"),
+    EUR(String.valueOf("EUR")),
     
-    GBP("GBP"),
+    GBP(String.valueOf("GBP")),
     
-    USD("USD");
+    USD(String.valueOf("USD"));
 
     private String value;
 

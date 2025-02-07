@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Direction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -43,9 +44,10 @@ import com.telnyx.sdk.JSON;
   FaxFailedPayload.JSON_PROPERTY_FROM,
   FaxFailedPayload.JSON_PROPERTY_USER_ID,
   FaxFailedPayload.JSON_PROPERTY_FAILURE_REASON,
-  FaxFailedPayload.JSON_PROPERTY_STATUS
+  FaxFailedPayload.JSON_PROPERTY_STATUS,
+  FaxFailedPayload.JSON_PROPERTY_CLIENT_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class FaxFailedPayload {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -75,7 +77,7 @@ public class FaxFailedPayload {
    * Cause of the sending failure
    */
   public enum FailureReasonEnum {
-    REJECTED("rejected");
+    REJECTED(String.valueOf("rejected"));
 
     private String value;
 
@@ -111,7 +113,7 @@ public class FaxFailedPayload {
    * The status of the fax.
    */
   public enum StatusEnum {
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 
@@ -142,6 +144,9 @@ public class FaxFailedPayload {
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
 
   public FaxFailedPayload() { 
   }
@@ -406,6 +411,32 @@ public class FaxFailedPayload {
   }
 
 
+  public FaxFailedPayload clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * State received from a command.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "State received from a command.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
   /**
    * Return true if this FaxFailed_payload object is equal to o.
    */
@@ -427,12 +458,13 @@ public class FaxFailedPayload {
         Objects.equals(this.from, faxFailedPayload.from) &&
         Objects.equals(this.userId, faxFailedPayload.userId) &&
         Objects.equals(this.failureReason, faxFailedPayload.failureReason) &&
-        Objects.equals(this.status, faxFailedPayload.status);
+        Objects.equals(this.status, faxFailedPayload.status) &&
+        Objects.equals(this.clientState, faxFailedPayload.clientState);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, failureReason, status);
+    return Objects.hash(connectionId, direction, faxId, originalMediaUrl, mediaName, to, from, userId, failureReason, status, clientState);
   }
 
   @Override
@@ -449,6 +481,7 @@ public class FaxFailedPayload {
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    failureReason: ").append(toIndentedString(failureReason)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("}");
     return sb.toString();
   }

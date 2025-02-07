@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.CustomSipHeader;
+import com.telnyx.sdk.model.SipHeader;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,11 +43,15 @@ import com.telnyx.sdk.JSON;
   CallAnsweredPayload.JSON_PROPERTY_CALL_LEG_ID,
   CallAnsweredPayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallAnsweredPayload.JSON_PROPERTY_CLIENT_STATE,
+  CallAnsweredPayload.JSON_PROPERTY_CUSTOM_HEADERS,
+  CallAnsweredPayload.JSON_PROPERTY_SIP_HEADERS,
   CallAnsweredPayload.JSON_PROPERTY_FROM,
   CallAnsweredPayload.JSON_PROPERTY_TO,
-  CallAnsweredPayload.JSON_PROPERTY_STATE
+  CallAnsweredPayload.JSON_PROPERTY_START_TIME,
+  CallAnsweredPayload.JSON_PROPERTY_STATE,
+  CallAnsweredPayload.JSON_PROPERTY_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallAnsweredPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -58,17 +68,26 @@ public class CallAnsweredPayload {
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
 
+  public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
+  private List<CustomSipHeader> customHeaders = null;
+
+  public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
+  private List<SipHeader> sipHeaders = null;
+
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
 
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
 
+  public static final String JSON_PROPERTY_START_TIME = "start_time";
+  private OffsetDateTime startTime;
+
   /**
    * State received from a command.
    */
   public enum StateEnum {
-    ANSWERED("answered");
+    ANSWERED(String.valueOf("answered"));
 
     private String value;
 
@@ -100,6 +119,9 @@ public class CallAnsweredPayload {
   public static final String JSON_PROPERTY_STATE = "state";
   private StateEnum state;
 
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  private List<String> tags = null;
+
   public CallAnsweredPayload() { 
   }
 
@@ -113,7 +135,7 @@ public class CallAnsweredPayload {
    * @return callControlId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -233,6 +255,74 @@ public class CallAnsweredPayload {
   }
 
 
+  public CallAnsweredPayload customHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+    return this;
+  }
+
+  public CallAnsweredPayload addcustomHeadersItem(CustomSipHeader customHeadersItem) {
+    if (this.customHeaders == null) {
+      this.customHeaders = new ArrayList<>();
+    }
+    this.customHeaders.add(customHeadersItem);
+    return this;
+  }
+
+   /**
+   * Custom headers set on answer command
+   * @return customHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers set on answer command")
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<CustomSipHeader> getCustomHeaders() {
+    return customHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+  }
+
+
+  public CallAnsweredPayload sipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+    return this;
+  }
+
+  public CallAnsweredPayload addsipHeadersItem(SipHeader sipHeadersItem) {
+    if (this.sipHeaders == null) {
+      this.sipHeaders = new ArrayList<>();
+    }
+    this.sipHeaders.add(sipHeadersItem);
+    return this;
+  }
+
+   /**
+   * User-to-User and Diversion headers from sip invite.
+   * @return sipHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"1234\"},{\"name\":\"Diversion\",\"value\":\"<sip:111@192.168.1.1>\"}]", value = "User-to-User and Diversion headers from sip invite.")
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SipHeader> getSipHeaders() {
+    return sipHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+  }
+
+
   public CallAnsweredPayload from(String from) {
     this.from = from;
     return this;
@@ -285,6 +375,32 @@ public class CallAnsweredPayload {
   }
 
 
+  public CallAnsweredPayload startTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+    return this;
+  }
+
+   /**
+   * ISO 8601 datetime of when the call started.
+   * @return startTime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2018-02-02T22:20:27.521992Z", value = "ISO 8601 datetime of when the call started.")
+  @JsonProperty(JSON_PROPERTY_START_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OffsetDateTime getStartTime() {
+    return startTime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_START_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStartTime(OffsetDateTime startTime) {
+    this.startTime = startTime;
+  }
+
+
   public CallAnsweredPayload state(StateEnum state) {
     this.state = state;
     return this;
@@ -311,6 +427,40 @@ public class CallAnsweredPayload {
   }
 
 
+  public CallAnsweredPayload tags(List<String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public CallAnsweredPayload addtagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+   /**
+   * Array of tags associated to number.
+   * @return tags
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"tag-01\",\"tag-02\"]", value = "Array of tags associated to number.")
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(List<String> tags) {
+    this.tags = tags;
+  }
+
+
   /**
    * Return true if this CallAnswered_payload object is equal to o.
    */
@@ -328,14 +478,18 @@ public class CallAnsweredPayload {
         Objects.equals(this.callLegId, callAnsweredPayload.callLegId) &&
         Objects.equals(this.callSessionId, callAnsweredPayload.callSessionId) &&
         Objects.equals(this.clientState, callAnsweredPayload.clientState) &&
+        Objects.equals(this.customHeaders, callAnsweredPayload.customHeaders) &&
+        Objects.equals(this.sipHeaders, callAnsweredPayload.sipHeaders) &&
         Objects.equals(this.from, callAnsweredPayload.from) &&
         Objects.equals(this.to, callAnsweredPayload.to) &&
-        Objects.equals(this.state, callAnsweredPayload.state);
+        Objects.equals(this.startTime, callAnsweredPayload.startTime) &&
+        Objects.equals(this.state, callAnsweredPayload.state) &&
+        Objects.equals(this.tags, callAnsweredPayload.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, state);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, customHeaders, sipHeaders, from, to, startTime, state, tags);
   }
 
   @Override
@@ -347,9 +501,13 @@ public class CallAnsweredPayload {
     sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
     sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+    sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
+    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("}");
     return sb.toString();
   }

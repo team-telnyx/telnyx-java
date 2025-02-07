@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PWGAssignedResourcesSummary;
 import com.telnyx.sdk.model.PrivateWirelessGatewayStatus;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -48,7 +49,7 @@ import com.telnyx.sdk.JSON;
   PrivateWirelessGateway.JSON_PROPERTY_IP_RANGE,
   PrivateWirelessGateway.JSON_PROPERTY_ASSIGNED_RESOURCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PrivateWirelessGateway {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -69,7 +70,7 @@ public class PrivateWirelessGateway {
   private String name;
 
   public static final String JSON_PROPERTY_REGION_CODE = "region_code";
-  private String regionCode = "ashburn-va";
+  private String regionCode;
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private PrivateWirelessGatewayStatus status;
@@ -221,11 +222,11 @@ public class PrivateWirelessGateway {
   }
 
    /**
-   * The geographical region where the Private Wireless Gateway is deployed to.
+   * The name of the region where the Private Wireless Gateway is deployed.
    * @return regionCode
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "ashburn-va", value = "The geographical region where the Private Wireless Gateway is deployed to.")
+  @ApiModelProperty(example = "dc2", value = "The name of the region where the Private Wireless Gateway is deployed.")
   @JsonProperty(JSON_PROPERTY_REGION_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -288,7 +289,7 @@ public class PrivateWirelessGateway {
     return this;
   }
 
-  public PrivateWirelessGateway addAssignedResourcesItem(PWGAssignedResourcesSummary assignedResourcesItem) {
+  public PrivateWirelessGateway addassignedResourcesItem(PWGAssignedResourcesSummary assignedResourcesItem) {
     if (this.assignedResources == null) {
       this.assignedResources = new ArrayList<>();
     }
@@ -297,11 +298,11 @@ public class PrivateWirelessGateway {
   }
 
    /**
-   * A list of the resources that have been assigned to the Private Wireless Gateway
+   * A list of the resources that have been assigned to the Private Wireless Gateway.
    * @return assignedResources
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of the resources that have been assigned to the Private Wireless Gateway")
+  @ApiModelProperty(value = "A list of the resources that have been assigned to the Private Wireless Gateway.")
   @JsonProperty(JSON_PROPERTY_ASSIGNED_RESOURCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

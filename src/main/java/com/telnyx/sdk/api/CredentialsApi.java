@@ -9,7 +9,6 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.GetAllTelephonyCredentialResponse;
-import com.telnyx.sdk.model.ListTagsResponse;
 import com.telnyx.sdk.model.TelephonyCredentialCreateRequest;
 import com.telnyx.sdk.model.TelephonyCredentialResponse;
 import com.telnyx.sdk.model.TelephonyCredentialUpdateRequest;
@@ -19,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CredentialsApi {
   private ApiClient apiClient;
 
@@ -437,160 +436,6 @@ private ApiResponse<GetAllTelephonyCredentialResponse> findTelephonyCredentialsW
     GenericType<TelephonyCredentialResponse> localVarReturnType = new GenericType<TelephonyCredentialResponse>() {};
 
     return apiClient.invokeAPI("CredentialsApi.getTelephonyCredential", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * List all tags
-   * Returns a list of tags used on Credentials
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @return ListTagsResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with multiple tags </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ListTagsResponse listTags(Integer pageNumber, Integer pageSize) throws ApiException {
-    return listTagsWithHttpInfo(pageNumber, pageSize).getData();
-  }
-
-  /**
-   * List all tags
-   * Returns a list of tags used on Credentials
-   * @param pageNumber The page number to load (optional, default to 1)
-   * @param pageSize The size of the page (optional, default to 20)
-   * @return ApiResponse&lt;ListTagsResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with multiple tags </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<ListTagsResponse> listTagsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/telephony_credentials/tags";
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<ListTagsResponse> localVarReturnType = new GenericType<ListTagsResponse>() {};
-
-    return apiClient.invokeAPI("CredentialsApi.listTags", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Perform activate or deactivate action on provided Credential
-   * Perform activate or deactivate action on provided Credential. Activate action will change the status to active, making it possible to connect calls with the credential. Deactivate action will change the status to inactive, making it impossible to connect calls with the credential.
-   * @param id Identifies the resource. (required)
-   * @param action Identifies the action to be taken. (required)
-   * @return TelephonyCredentialResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a credential </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public TelephonyCredentialResponse telephonyCredentialAction(String id, String action) throws ApiException {
-    return telephonyCredentialActionWithHttpInfo(id, action).getData();
-  }
-
-  /**
-   * Perform activate or deactivate action on provided Credential
-   * Perform activate or deactivate action on provided Credential. Activate action will change the status to active, making it possible to connect calls with the credential. Deactivate action will change the status to inactive, making it impossible to connect calls with the credential.
-   * @param id Identifies the resource. (required)
-   * @param action Identifies the action to be taken. (required)
-   * @return ApiResponse&lt;TelephonyCredentialResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a credential </td><td>  -  </td></tr>
-       <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<TelephonyCredentialResponse> telephonyCredentialActionWithHttpInfo(String id, String action) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling telephonyCredentialAction");
-    }
-    
-    // verify the required parameter 'action' is set
-    if (action == null) {
-      throw new ApiException(400, "Missing the required parameter 'action' when calling telephonyCredentialAction");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/telephony_credentials/{id}/actions/{action}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
-      .replaceAll("\\{" + "action" + "\\}", apiClient.escapeString(action.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<TelephonyCredentialResponse> localVarReturnType = new GenericType<TelephonyCredentialResponse>() {};
-
-    return apiClient.invokeAPI("CredentialsApi.telephonyCredentialAction", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

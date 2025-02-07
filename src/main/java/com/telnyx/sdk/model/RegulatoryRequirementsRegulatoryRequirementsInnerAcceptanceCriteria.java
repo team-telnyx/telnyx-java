@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -33,19 +36,39 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_LOCALITY_LIMIT,
-  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_FIELD_VALUE,
-  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_FIELD_TYPE
+  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_TIME_LIMIT,
+  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_REGEX,
+  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_CASE_SENSITIVE,
+  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_ACCEPTABLE_CHARACTERS,
+  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_ACCEPTABLE_VALUES,
+  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_MAX_LENGTH,
+  RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.JSON_PROPERTY_MIN_LENGTH
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria {
   public static final String JSON_PROPERTY_LOCALITY_LIMIT = "locality_limit";
   private String localityLimit;
 
-  public static final String JSON_PROPERTY_FIELD_VALUE = "field_value";
-  private String fieldValue;
+  public static final String JSON_PROPERTY_TIME_LIMIT = "time_limit";
+  private String timeLimit;
 
-  public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
-  private String fieldType;
+  public static final String JSON_PROPERTY_REGEX = "regex";
+  private String regex;
+
+  public static final String JSON_PROPERTY_CASE_SENSITIVE = "case_sensitive";
+  private String caseSensitive;
+
+  public static final String JSON_PROPERTY_ACCEPTABLE_CHARACTERS = "acceptable_characters";
+  private String acceptableCharacters;
+
+  public static final String JSON_PROPERTY_ACCEPTABLE_VALUES = "acceptable_values";
+  private List<String> acceptableValues = null;
+
+  public static final String JSON_PROPERTY_MAX_LENGTH = "max_length";
+  private String maxLength;
+
+  public static final String JSON_PROPERTY_MIN_LENGTH = "min_length";
+  private String minLength;
 
   public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria() { 
   }
@@ -76,55 +99,193 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
   }
 
 
-  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria fieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria timeLimit(String timeLimit) {
+    this.timeLimit = timeLimit;
     return this;
   }
 
    /**
-   * Get fieldValue
-   * @return fieldValue
+   * Get timeLimit
+   * @return timeLimit
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "45f45a04-b4be-4592-95b1-9306b9db2b21", value = "")
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+  @ApiModelProperty(example = "Less than 5 months old", value = "")
+  @JsonProperty(JSON_PROPERTY_TIME_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getFieldValue() {
-    return fieldValue;
+  public String getTimeLimit() {
+    return timeLimit;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
+  @JsonProperty(JSON_PROPERTY_TIME_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFieldValue(String fieldValue) {
-    this.fieldValue = fieldValue;
+  public void setTimeLimit(String timeLimit) {
+    this.timeLimit = timeLimit;
   }
 
 
-  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria fieldType(String fieldType) {
-    this.fieldType = fieldType;
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria regex(String regex) {
+    this.regex = regex;
     return this;
   }
 
    /**
-   * Get fieldType
-   * @return fieldType
+   * Get regex
+   * @return regex
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "address", value = "")
-  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
+  @ApiModelProperty(example = "regex field value must match", value = "")
+  @JsonProperty(JSON_PROPERTY_REGEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getFieldType() {
-    return fieldType;
+  public String getRegex() {
+    return regex;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
+  @JsonProperty(JSON_PROPERTY_REGEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFieldType(String fieldType) {
-    this.fieldType = fieldType;
+  public void setRegex(String regex) {
+    this.regex = regex;
+  }
+
+
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria caseSensitive(String caseSensitive) {
+    this.caseSensitive = caseSensitive;
+    return this;
+  }
+
+   /**
+   * Get caseSensitive
+   * @return caseSensitive
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Whether field value is case sensitive", value = "")
+  @JsonProperty(JSON_PROPERTY_CASE_SENSITIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCaseSensitive() {
+    return caseSensitive;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CASE_SENSITIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCaseSensitive(String caseSensitive) {
+    this.caseSensitive = caseSensitive;
+  }
+
+
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptableCharacters(String acceptableCharacters) {
+    this.acceptableCharacters = acceptableCharacters;
+    return this;
+  }
+
+   /**
+   * Get acceptableCharacters
+   * @return acceptableCharacters
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Characters that can be included in field value", value = "")
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_CHARACTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAcceptableCharacters() {
+    return acceptableCharacters;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_CHARACTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAcceptableCharacters(String acceptableCharacters) {
+    this.acceptableCharacters = acceptableCharacters;
+  }
+
+
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria acceptableValues(List<String> acceptableValues) {
+    this.acceptableValues = acceptableValues;
+    return this;
+  }
+
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria addacceptableValuesItem(String acceptableValuesItem) {
+    if (this.acceptableValues == null) {
+      this.acceptableValues = new ArrayList<>();
+    }
+    this.acceptableValues.add(acceptableValuesItem);
+    return this;
+  }
+
+   /**
+   * Get acceptableValues
+   * @return acceptableValues
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAcceptableValues() {
+    return acceptableValues;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAcceptableValues(List<String> acceptableValues) {
+    this.acceptableValues = acceptableValues;
+  }
+
+
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria maxLength(String maxLength) {
+    this.maxLength = maxLength;
+    return this;
+  }
+
+   /**
+   * Get maxLength
+   * @return maxLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "10", value = "")
+  @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMaxLength() {
+    return maxLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxLength(String maxLength) {
+    this.maxLength = maxLength;
+  }
+
+
+  public RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria minLength(String minLength) {
+    this.minLength = minLength;
+    return this;
+  }
+
+   /**
+   * Get minLength
+   * @return minLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "5", value = "")
+  @JsonProperty(JSON_PROPERTY_MIN_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMinLength() {
+    return minLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MIN_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMinLength(String minLength) {
+    this.minLength = minLength;
   }
 
 
@@ -141,13 +302,18 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
     }
     RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria = (RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria) o;
     return Objects.equals(this.localityLimit, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.localityLimit) &&
-        Objects.equals(this.fieldValue, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.fieldValue) &&
-        Objects.equals(this.fieldType, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.fieldType);
+        Objects.equals(this.timeLimit, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.timeLimit) &&
+        Objects.equals(this.regex, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.regex) &&
+        Objects.equals(this.caseSensitive, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.caseSensitive) &&
+        Objects.equals(this.acceptableCharacters, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.acceptableCharacters) &&
+        Objects.equals(this.acceptableValues, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.acceptableValues) &&
+        Objects.equals(this.maxLength, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.maxLength) &&
+        Objects.equals(this.minLength, regulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria.minLength);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(localityLimit, fieldValue, fieldType);
+    return Objects.hash(localityLimit, timeLimit, regex, caseSensitive, acceptableCharacters, acceptableValues, maxLength, minLength);
   }
 
   @Override
@@ -155,8 +321,13 @@ public class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria
     StringBuilder sb = new StringBuilder();
     sb.append("class RegulatoryRequirementsRegulatoryRequirementsInnerAcceptanceCriteria {\n");
     sb.append("    localityLimit: ").append(toIndentedString(localityLimit)).append("\n");
-    sb.append("    fieldValue: ").append(toIndentedString(fieldValue)).append("\n");
-    sb.append("    fieldType: ").append(toIndentedString(fieldType)).append("\n");
+    sb.append("    timeLimit: ").append(toIndentedString(timeLimit)).append("\n");
+    sb.append("    regex: ").append(toIndentedString(regex)).append("\n");
+    sb.append("    caseSensitive: ").append(toIndentedString(caseSensitive)).append("\n");
+    sb.append("    acceptableCharacters: ").append(toIndentedString(acceptableCharacters)).append("\n");
+    sb.append("    acceptableValues: ").append(toIndentedString(acceptableValues)).append("\n");
+    sb.append("    maxLength: ").append(toIndentedString(maxLength)).append("\n");
+    sb.append("    minLength: ").append(toIndentedString(minLength)).append("\n");
     sb.append("}");
     return sb.toString();
   }

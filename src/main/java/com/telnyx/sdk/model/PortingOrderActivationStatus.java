@@ -15,9 +15,10 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -54,7 +55,7 @@ public enum PortingOrderActivationStatus {
   
   ACTIVE("Active"),
   
-  CANCELED("Canceled");
+  CANCELLED("Cancelled");
 
   private String value;
 

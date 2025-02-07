@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ConferenceEndedBy;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,13 +46,13 @@ import com.telnyx.sdk.JSON;
   Conference.JSON_PROPERTY_ENDED_BY,
   Conference.JSON_PROPERTY_CONNECTION_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Conference {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    CONFERENCE("conference");
+    CONFERENCE(String.valueOf("conference"));
 
     private String value;
 
@@ -105,11 +106,11 @@ public class Conference {
    * Status of the conference
    */
   public enum StatusEnum {
-    INIT("init"),
+    INIT(String.valueOf("init")),
     
-    IN_PROGRESS("in_progress"),
+    IN_PROGRESS(String.valueOf("in_progress")),
     
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed"));
 
     private String value;
 
@@ -145,13 +146,13 @@ public class Conference {
    * Reason why the conference ended
    */
   public enum EndReasonEnum {
-    ALL_LEFT("all_left"),
+    ALL_LEFT(String.valueOf("all_left")),
     
-    ENDED_VIA_API("ended_via_api"),
+    ENDED_VIA_API(String.valueOf("ended_via_api")),
     
-    HOST_LEFT("host_left"),
+    HOST_LEFT(String.valueOf("host_left")),
     
-    TIME_EXCEEDED("time_exceeded");
+    TIME_EXCEEDED(String.valueOf("time_exceeded"));
 
     private String value;
 
@@ -458,11 +459,11 @@ public class Conference {
   }
 
    /**
-   * Identifies the connection (Call Control App) associated with the conference
+   * Identifies the connection associated with the conference
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "3fa85f64-9191-4567-b3fc-2c963f66afa6", value = "Identifies the connection (Call Control App) associated with the conference")
+  @ApiModelProperty(example = "3fa85f64-9191-4567-b3fc-2c963f66afa6", value = "Identifies the connection associated with the conference")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

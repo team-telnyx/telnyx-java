@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -35,14 +36,14 @@ import com.telnyx.sdk.JSON;
   PushCredential.JSON_PROPERTY_ID,
   PushCredential.JSON_PROPERTY_CERTIFICATE,
   PushCredential.JSON_PROPERTY_PRIVATE_KEY,
-  PushCredential.JSON_PROPERTY_SERVER_KEY,
+  PushCredential.JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE,
   PushCredential.JSON_PROPERTY_ALIAS,
   PushCredential.JSON_PROPERTY_TYPE,
   PushCredential.JSON_PROPERTY_RECORD_TYPE,
   PushCredential.JSON_PROPERTY_CREATED_AT,
   PushCredential.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PushCredential {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -53,8 +54,8 @@ public class PushCredential {
   public static final String JSON_PROPERTY_PRIVATE_KEY = "private_key";
   private String privateKey;
 
-  public static final String JSON_PROPERTY_SERVER_KEY = "server_key";
-  private String serverKey;
+  public static final String JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE = "project_account_json_file";
+  private Object projectAccountJsonFile;
 
   public static final String JSON_PROPERTY_ALIAS = "alias";
   private String alias;
@@ -160,29 +161,29 @@ public class PushCredential {
   }
 
 
-  public PushCredential serverKey(String serverKey) {
-    this.serverKey = serverKey;
+  public PushCredential projectAccountJsonFile(Object projectAccountJsonFile) {
+    this.projectAccountJsonFile = projectAccountJsonFile;
     return this;
   }
 
    /**
    * Google server key for sending push notifications. For Android only
-   * @return serverKey
+   * @return projectAccountJsonFile
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "", required = true, value = "Google server key for sending push notifications. For Android only")
-  @JsonProperty(JSON_PROPERTY_SERVER_KEY)
+  @ApiModelProperty(example = "{\"private_key\":\"BBBB0J56jd8kda:APA91vjb11BCjvxx3Jxja...\",\"client_email\":\"account@customer.org\"}", required = true, value = "Google server key for sending push notifications. For Android only")
+  @JsonProperty(JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getServerKey() {
-    return serverKey;
+  public Object getProjectAccountJsonFile() {
+    return projectAccountJsonFile;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SERVER_KEY)
+  @JsonProperty(JSON_PROPERTY_PROJECT_ACCOUNT_JSON_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setServerKey(String serverKey) {
-    this.serverKey = serverKey;
+  public void setProjectAccountJsonFile(Object projectAccountJsonFile) {
+    this.projectAccountJsonFile = projectAccountJsonFile;
   }
 
 
@@ -321,7 +322,7 @@ public class PushCredential {
     return Objects.equals(this.id, pushCredential.id) &&
         Objects.equals(this.certificate, pushCredential.certificate) &&
         Objects.equals(this.privateKey, pushCredential.privateKey) &&
-        Objects.equals(this.serverKey, pushCredential.serverKey) &&
+        Objects.equals(this.projectAccountJsonFile, pushCredential.projectAccountJsonFile) &&
         Objects.equals(this.alias, pushCredential.alias) &&
         Objects.equals(this.type, pushCredential.type) &&
         Objects.equals(this.recordType, pushCredential.recordType) &&
@@ -331,7 +332,7 @@ public class PushCredential {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, certificate, privateKey, serverKey, alias, type, recordType, createdAt, updatedAt);
+    return Objects.hash(id, certificate, privateKey, projectAccountJsonFile, alias, type, recordType, createdAt, updatedAt);
   }
 
   @Override
@@ -341,7 +342,7 @@ public class PushCredential {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
     sb.append("    privateKey: ").append(toIndentedString(privateKey)).append("\n");
-    sb.append("    serverKey: ").append(toIndentedString(serverKey)).append("\n");
+    sb.append("    projectAccountJsonFile: ").append(toIndentedString(projectAccountJsonFile)).append("\n");
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");

@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AuthenticationProvidersApi {
   private ApiClient apiClient;
 
@@ -51,7 +51,7 @@ public class AuthenticationProvidersApi {
   /**
    * Creates an authentication provider
    * Creates an authentication provider.
-   * @param authenticationProviderCreate Parameters that can be defined during authentication provider creation (required)
+   * @param authenticationProviderCreate  (required)
    * @return CreateAuthenticationProvider200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -68,7 +68,7 @@ public class AuthenticationProvidersApi {
   /**
    * Creates an authentication provider
    * Creates an authentication provider.
-   * @param authenticationProviderCreate Parameters that can be defined during authentication provider creation (required)
+   * @param authenticationProviderCreate  (required)
    * @return ApiResponse&lt;CreateAuthenticationProvider200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -196,7 +196,7 @@ public class AuthenticationProvidersApi {
    * Returns a list of your SSO authentication providers.
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to -created_at)
+   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt;-&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in ascending order.   &lt;/li&gt;   &lt;li&gt;     &lt;code&gt;-name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt;&lt;br/&gt;If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to -created_at)
    * @return FindAuthenticationProviders200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -217,7 +217,7 @@ public class AuthenticationProvidersApi {
    * Returns a list of your SSO authentication providers.
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to -created_at)
+   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt;-&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in ascending order.   &lt;/li&gt;   &lt;li&gt;     &lt;code&gt;-name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt;&lt;br/&gt;If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to -created_at)
    * @return ApiResponse&lt;FindAuthenticationProviders200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -341,10 +341,10 @@ public class AuthenticationProvidersApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * Update a authentication provider
+   * Update an authentication provider
    * Updates settings of an existing authentication provider.
    * @param id Identifies the resource. (required)
-   * @param updateAuthenticationProviderRequest Parameters that can be updated in a authentication provider (required)
+   * @param updateAuthenticationProviderRequest  (required)
    * @return CreateAuthenticationProvider200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -361,10 +361,10 @@ public class AuthenticationProvidersApi {
   }
 
   /**
-   * Update a authentication provider
+   * Update an authentication provider
    * Updates settings of an existing authentication provider.
    * @param id Identifies the resource. (required)
-   * @param updateAuthenticationProviderRequest Parameters that can be updated in a authentication provider (required)
+   * @param updateAuthenticationProviderRequest  (required)
    * @return ApiResponse&lt;CreateAuthenticationProvider200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details

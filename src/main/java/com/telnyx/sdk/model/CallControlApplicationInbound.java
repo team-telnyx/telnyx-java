@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -33,13 +34,17 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CallControlApplicationInbound.JSON_PROPERTY_CHANNEL_LIMIT,
+  CallControlApplicationInbound.JSON_PROPERTY_SHAKEN_STIR_ENABLED,
   CallControlApplicationInbound.JSON_PROPERTY_SIP_SUBDOMAIN,
   CallControlApplicationInbound.JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallControlApplicationInbound {
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private Integer channelLimit;
+
+  public static final String JSON_PROPERTY_SHAKEN_STIR_ENABLED = "shaken_stir_enabled";
+  private Boolean shakenStirEnabled = false;
 
   public static final String JSON_PROPERTY_SIP_SUBDOMAIN = "sip_subdomain";
   private String sipSubdomain;
@@ -48,9 +53,9 @@ public class CallControlApplicationInbound {
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
    */
   public enum SipSubdomainReceiveSettingsEnum {
-    ONLY_MY_CONNECTIONS("only_my_connections"),
+    ONLY_MY_CONNECTIONS(String.valueOf("only_my_connections")),
     
-    FROM_ANYONE("from_anyone");
+    FROM_ANYONE(String.valueOf("from_anyone"));
 
     private String value;
 
@@ -108,6 +113,32 @@ public class CallControlApplicationInbound {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChannelLimit(Integer channelLimit) {
     this.channelLimit = channelLimit;
+  }
+
+
+  public CallControlApplicationInbound shakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+    return this;
+  }
+
+   /**
+   * When enabled Telnyx will include Shaken/Stir data in the Webhook for new inbound calls.
+   * @return shakenStirEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "false", value = "When enabled Telnyx will include Shaken/Stir data in the Webhook for new inbound calls.")
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getShakenStirEnabled() {
+    return shakenStirEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setShakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
   }
 
 
@@ -176,13 +207,14 @@ public class CallControlApplicationInbound {
     }
     CallControlApplicationInbound callControlApplicationInbound = (CallControlApplicationInbound) o;
     return Objects.equals(this.channelLimit, callControlApplicationInbound.channelLimit) &&
+        Objects.equals(this.shakenStirEnabled, callControlApplicationInbound.shakenStirEnabled) &&
         Objects.equals(this.sipSubdomain, callControlApplicationInbound.sipSubdomain) &&
         Objects.equals(this.sipSubdomainReceiveSettings, callControlApplicationInbound.sipSubdomainReceiveSettings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelLimit, sipSubdomain, sipSubdomainReceiveSettings);
+    return Objects.hash(channelLimit, shakenStirEnabled, sipSubdomain, sipSubdomainReceiveSettings);
   }
 
   @Override
@@ -190,6 +222,7 @@ public class CallControlApplicationInbound {
     StringBuilder sb = new StringBuilder();
     sb.append("class CallControlApplicationInbound {\n");
     sb.append("    channelLimit: ").append(toIndentedString(channelLimit)).append("\n");
+    sb.append("    shakenStirEnabled: ").append(toIndentedString(shakenStirEnabled)).append("\n");
     sb.append("    sipSubdomain: ").append(toIndentedString(sipSubdomain)).append("\n");
     sb.append("    sipSubdomainReceiveSettings: ").append(toIndentedString(sipSubdomainReceiveSettings)).append("\n");
     sb.append("}");

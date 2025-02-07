@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallControlApplicationsApi {
   private ApiClient apiClient;
 
@@ -127,7 +127,7 @@ public class CallControlApplicationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -146,7 +146,7 @@ public class CallControlApplicationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -264,7 +264,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
     /**
      * Set filterApplicationNameContains
-     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
+     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
      * @return APIlistCallControlApplicationsRequest
      */
     public APIlistCallControlApplicationsRequest filterApplicationNameContains(String filterApplicationNameContains) {
@@ -301,7 +301,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        </table>
      
@@ -320,7 +320,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        </table>
 
@@ -351,7 +351,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -370,7 +370,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -426,7 +426,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -446,7 +446,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthorized response. Happens when the current user is not a manager account. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>

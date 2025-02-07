@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,12 +30,13 @@ import com.telnyx.sdk.model.PortingOrderMisc;
 import com.telnyx.sdk.model.PortingOrderPhoneNumberConfiguration;
 import com.telnyx.sdk.model.PortingOrderUserFeedback;
 import com.telnyx.sdk.model.UpdatePortingOrderActivationSettings;
+import com.telnyx.sdk.model.UpdatePortingOrderMessaging;
 import com.telnyx.sdk.model.UpdatePortingOrderRequirement;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,12 +50,14 @@ import com.telnyx.sdk.JSON;
   UpdatePortingOrder.JSON_PROPERTY_DOCUMENTS,
   UpdatePortingOrder.JSON_PROPERTY_ACTIVATION_SETTINGS,
   UpdatePortingOrder.JSON_PROPERTY_PHONE_NUMBER_CONFIGURATION,
+  UpdatePortingOrder.JSON_PROPERTY_REQUIREMENT_GROUP_ID,
   UpdatePortingOrder.JSON_PROPERTY_REQUIREMENTS,
   UpdatePortingOrder.JSON_PROPERTY_USER_FEEDBACK,
   UpdatePortingOrder.JSON_PROPERTY_WEBHOOK_URL,
-  UpdatePortingOrder.JSON_PROPERTY_CUSTOMER_REFERENCE
+  UpdatePortingOrder.JSON_PROPERTY_CUSTOMER_REFERENCE,
+  UpdatePortingOrder.JSON_PROPERTY_MESSAGING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePortingOrder {
   public static final String JSON_PROPERTY_MISC = "misc";
   private PortingOrderMisc misc;
@@ -69,6 +74,9 @@ public class UpdatePortingOrder {
   public static final String JSON_PROPERTY_PHONE_NUMBER_CONFIGURATION = "phone_number_configuration";
   private PortingOrderPhoneNumberConfiguration phoneNumberConfiguration;
 
+  public static final String JSON_PROPERTY_REQUIREMENT_GROUP_ID = "requirement_group_id";
+  private UUID requirementGroupId;
+
   public static final String JSON_PROPERTY_REQUIREMENTS = "requirements";
   private List<UpdatePortingOrderRequirement> requirements = null;
 
@@ -80,6 +88,9 @@ public class UpdatePortingOrder {
 
   public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
   private String customerReference;
+
+  public static final String JSON_PROPERTY_MESSAGING = "messaging";
+  private UpdatePortingOrderMessaging messaging;
 
   public UpdatePortingOrder() { 
   }
@@ -214,12 +225,38 @@ public class UpdatePortingOrder {
   }
 
 
+  public UpdatePortingOrder requirementGroupId(UUID requirementGroupId) {
+    this.requirementGroupId = requirementGroupId;
+    return this;
+  }
+
+   /**
+   * If present, we will read the current values from the specified Requirement Group into the Documents and Requirements for this Porting Order. Note that any future changes in the Requirement Group would have no impact on this Porting Order. We will return an error if a specified Requirement Group conflicts with documents or requirements in the same request.
+   * @return requirementGroupId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "de748d99-06fa-4d90-9f9a-f4b62696bada", value = "If present, we will read the current values from the specified Requirement Group into the Documents and Requirements for this Porting Order. Note that any future changes in the Requirement Group would have no impact on this Porting Order. We will return an error if a specified Requirement Group conflicts with documents or requirements in the same request.")
+  @JsonProperty(JSON_PROPERTY_REQUIREMENT_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getRequirementGroupId() {
+    return requirementGroupId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIREMENT_GROUP_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequirementGroupId(UUID requirementGroupId) {
+    this.requirementGroupId = requirementGroupId;
+  }
+
+
   public UpdatePortingOrder requirements(List<UpdatePortingOrderRequirement> requirements) {
     this.requirements = requirements;
     return this;
   }
 
-  public UpdatePortingOrder addRequirementsItem(UpdatePortingOrderRequirement requirementsItem) {
+  public UpdatePortingOrder addrequirementsItem(UpdatePortingOrderRequirement requirementsItem) {
     if (this.requirements == null) {
       this.requirements = new ArrayList<>();
     }
@@ -228,11 +265,11 @@ public class UpdatePortingOrder {
   }
 
    /**
-   * List of requirements for porting numbers.
+   * List of requirements for porting numbers. 
    * @return requirements
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "List of requirements for porting numbers.")
+  @ApiModelProperty(value = "List of requirements for porting numbers. ")
   @JsonProperty(JSON_PROPERTY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -326,6 +363,32 @@ public class UpdatePortingOrder {
   }
 
 
+  public UpdatePortingOrder messaging(UpdatePortingOrderMessaging messaging) {
+    this.messaging = messaging;
+    return this;
+  }
+
+   /**
+   * Get messaging
+   * @return messaging
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_MESSAGING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UpdatePortingOrderMessaging getMessaging() {
+    return messaging;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMessaging(UpdatePortingOrderMessaging messaging) {
+    this.messaging = messaging;
+  }
+
+
   /**
    * Return true if this UpdatePortingOrder object is equal to o.
    */
@@ -343,15 +406,17 @@ public class UpdatePortingOrder {
         Objects.equals(this.documents, updatePortingOrder.documents) &&
         Objects.equals(this.activationSettings, updatePortingOrder.activationSettings) &&
         Objects.equals(this.phoneNumberConfiguration, updatePortingOrder.phoneNumberConfiguration) &&
+        Objects.equals(this.requirementGroupId, updatePortingOrder.requirementGroupId) &&
         Objects.equals(this.requirements, updatePortingOrder.requirements) &&
         Objects.equals(this.userFeedback, updatePortingOrder.userFeedback) &&
         Objects.equals(this.webhookUrl, updatePortingOrder.webhookUrl) &&
-        Objects.equals(this.customerReference, updatePortingOrder.customerReference);
+        Objects.equals(this.customerReference, updatePortingOrder.customerReference) &&
+        Objects.equals(this.messaging, updatePortingOrder.messaging);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(misc, endUser, documents, activationSettings, phoneNumberConfiguration, requirements, userFeedback, webhookUrl, customerReference);
+    return Objects.hash(misc, endUser, documents, activationSettings, phoneNumberConfiguration, requirementGroupId, requirements, userFeedback, webhookUrl, customerReference, messaging);
   }
 
   @Override
@@ -363,10 +428,12 @@ public class UpdatePortingOrder {
     sb.append("    documents: ").append(toIndentedString(documents)).append("\n");
     sb.append("    activationSettings: ").append(toIndentedString(activationSettings)).append("\n");
     sb.append("    phoneNumberConfiguration: ").append(toIndentedString(phoneNumberConfiguration)).append("\n");
+    sb.append("    requirementGroupId: ").append(toIndentedString(requirementGroupId)).append("\n");
     sb.append("    requirements: ").append(toIndentedString(requirements)).append("\n");
     sb.append("    userFeedback: ").append(toIndentedString(userFeedback)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
+    sb.append("    messaging: ").append(toIndentedString(messaging)).append("\n");
     sb.append("}");
     return sb.toString();
   }

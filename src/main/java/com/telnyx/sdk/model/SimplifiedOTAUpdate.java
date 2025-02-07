@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -42,7 +43,7 @@ import com.telnyx.sdk.JSON;
   SimplifiedOTAUpdate.JSON_PROPERTY_CREATED_AT,
   SimplifiedOTAUpdate.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SimplifiedOTAUpdate {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -57,7 +58,7 @@ public class SimplifiedOTAUpdate {
    * Represents the type of the operation requested. This will relate directly to the source of the request.
    */
   public enum TypeEnum {
-    SIM_CARD_NETWORK_PREFERENCES("sim_card_network_preferences");
+    SIM_CARD_NETWORK_PREFERENCES(String.valueOf("sim_card_network_preferences"));
 
     private String value;
 
@@ -93,11 +94,11 @@ public class SimplifiedOTAUpdate {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    IN_PROGRESS("in-progress"),
+    IN_PROGRESS(String.valueOf("in-progress")),
     
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 

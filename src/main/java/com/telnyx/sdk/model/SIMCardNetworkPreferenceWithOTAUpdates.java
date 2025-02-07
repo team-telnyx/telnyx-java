@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,11 +25,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CompleteOTAUpdate;
-import com.telnyx.sdk.model.MobileOperatorNetworkPreferencesResponse;
+import com.telnyx.sdk.model.MobileNetworkOperatorPreferencesResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,12 +42,12 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   SIMCardNetworkPreferenceWithOTAUpdates.JSON_PROPERTY_RECORD_TYPE,
   SIMCardNetworkPreferenceWithOTAUpdates.JSON_PROPERTY_SIM_CARD_ID,
-  SIMCardNetworkPreferenceWithOTAUpdates.JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES,
+  SIMCardNetworkPreferenceWithOTAUpdates.JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES,
   SIMCardNetworkPreferenceWithOTAUpdates.JSON_PROPERTY_OTA_UPDATES,
   SIMCardNetworkPreferenceWithOTAUpdates.JSON_PROPERTY_CREATED_AT,
   SIMCardNetworkPreferenceWithOTAUpdates.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class SIMCardNetworkPreferenceWithOTAUpdates {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -52,8 +55,8 @@ public class SIMCardNetworkPreferenceWithOTAUpdates {
   public static final String JSON_PROPERTY_SIM_CARD_ID = "sim_card_id";
   private UUID simCardId;
 
-  public static final String JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES = "mobile_operator_networks_preferences";
-  private List<MobileOperatorNetworkPreferencesResponse> mobileOperatorNetworksPreferences = null;
+  public static final String JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES = "mobile_network_operators_preferences";
+  private List<MobileNetworkOperatorPreferencesResponse> mobileNetworkOperatorsPreferences = null;
 
   public static final String JSON_PROPERTY_OTA_UPDATES = "ota_updates";
   private List<CompleteOTAUpdate> otaUpdates = null;
@@ -121,37 +124,37 @@ public class SIMCardNetworkPreferenceWithOTAUpdates {
   }
 
 
-  public SIMCardNetworkPreferenceWithOTAUpdates mobileOperatorNetworksPreferences(List<MobileOperatorNetworkPreferencesResponse> mobileOperatorNetworksPreferences) {
-    this.mobileOperatorNetworksPreferences = mobileOperatorNetworksPreferences;
+  public SIMCardNetworkPreferenceWithOTAUpdates mobileNetworkOperatorsPreferences(List<MobileNetworkOperatorPreferencesResponse> mobileNetworkOperatorsPreferences) {
+    this.mobileNetworkOperatorsPreferences = mobileNetworkOperatorsPreferences;
     return this;
   }
 
-  public SIMCardNetworkPreferenceWithOTAUpdates addMobileOperatorNetworksPreferencesItem(MobileOperatorNetworkPreferencesResponse mobileOperatorNetworksPreferencesItem) {
-    if (this.mobileOperatorNetworksPreferences == null) {
-      this.mobileOperatorNetworksPreferences = new ArrayList<>();
+  public SIMCardNetworkPreferenceWithOTAUpdates addMobileNetworkOperatorsPreferencesItem(MobileNetworkOperatorPreferencesResponse mobileNetworkOperatorsPreferencesItem) {
+    if (this.mobileNetworkOperatorsPreferences == null) {
+      this.mobileNetworkOperatorsPreferences = new ArrayList<>();
     }
-    this.mobileOperatorNetworksPreferences.add(mobileOperatorNetworksPreferencesItem);
+    this.mobileNetworkOperatorsPreferences.add(mobileNetworkOperatorsPreferencesItem);
     return this;
   }
 
    /**
-   * A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.
-   * @return mobileOperatorNetworksPreferences
+   * A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network.
+   * @return mobileNetworkOperatorsPreferences
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.")
-  @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
+  @ApiModelProperty(value = "A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network.")
+  @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<MobileOperatorNetworkPreferencesResponse> getMobileOperatorNetworksPreferences() {
-    return mobileOperatorNetworksPreferences;
+  public List<MobileNetworkOperatorPreferencesResponse> getMobileNetworkOperatorsPreferences() {
+    return mobileNetworkOperatorsPreferences;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
+  @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMobileOperatorNetworksPreferences(List<MobileOperatorNetworkPreferencesResponse> mobileOperatorNetworksPreferences) {
-    this.mobileOperatorNetworksPreferences = mobileOperatorNetworksPreferences;
+  public void setMobileNetworkOperatorsPreferences(List<MobileNetworkOperatorPreferencesResponse> mobileNetworkOperatorsPreferences) {
+    this.mobileNetworkOperatorsPreferences = mobileNetworkOperatorsPreferences;
   }
 
 
@@ -235,7 +238,7 @@ public class SIMCardNetworkPreferenceWithOTAUpdates {
     SIMCardNetworkPreferenceWithOTAUpdates siMCardNetworkPreferenceWithOTAUpdates = (SIMCardNetworkPreferenceWithOTAUpdates) o;
     return Objects.equals(this.recordType, siMCardNetworkPreferenceWithOTAUpdates.recordType) &&
         Objects.equals(this.simCardId, siMCardNetworkPreferenceWithOTAUpdates.simCardId) &&
-        Objects.equals(this.mobileOperatorNetworksPreferences, siMCardNetworkPreferenceWithOTAUpdates.mobileOperatorNetworksPreferences) &&
+        Objects.equals(this.mobileNetworkOperatorsPreferences, siMCardNetworkPreferenceWithOTAUpdates.mobileNetworkOperatorsPreferences) &&
         Objects.equals(this.otaUpdates, siMCardNetworkPreferenceWithOTAUpdates.otaUpdates) &&
         Objects.equals(this.createdAt, siMCardNetworkPreferenceWithOTAUpdates.createdAt) &&
         Objects.equals(this.updatedAt, siMCardNetworkPreferenceWithOTAUpdates.updatedAt);
@@ -243,7 +246,7 @@ public class SIMCardNetworkPreferenceWithOTAUpdates {
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, simCardId, mobileOperatorNetworksPreferences, otaUpdates, createdAt, updatedAt);
+    return Objects.hash(recordType, simCardId, mobileNetworkOperatorsPreferences, otaUpdates, createdAt, updatedAt);
   }
 
   @Override
@@ -252,7 +255,7 @@ public class SIMCardNetworkPreferenceWithOTAUpdates {
     sb.append("class SIMCardNetworkPreferenceWithOTAUpdates {\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    simCardId: ").append(toIndentedString(simCardId)).append("\n");
-    sb.append("    mobileOperatorNetworksPreferences: ").append(toIndentedString(mobileOperatorNetworksPreferences)).append("\n");
+    sb.append("    mobileNetworkOperatorsPreferences: ").append(toIndentedString(mobileNetworkOperatorsPreferences)).append("\n");
     sb.append("    otaUpdates: ").append(toIndentedString(otaUpdates)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");

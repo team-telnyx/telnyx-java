@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -48,7 +49,7 @@ import com.telnyx.sdk.JSON;
   MdrDetailResponse.JSON_PROPERTY_MESSAGE_TYPE,
   MdrDetailResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MdrDetailResponse {
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private OffsetDateTime createdAt;
@@ -66,19 +67,19 @@ public class MdrDetailResponse {
    * Message status
    */
   public enum StatusEnum {
-    GW_TIMEOUT("GW_TIMEOUT"),
+    GW_TIMEOUT(String.valueOf("GW_TIMEOUT")),
     
-    DELIVERED("DELIVERED"),
+    DELIVERED(String.valueOf("DELIVERED")),
     
-    DLR_UNCONFIRMED("DLR_UNCONFIRMED"),
+    DLR_UNCONFIRMED(String.valueOf("DLR_UNCONFIRMED")),
     
-    DLR_TIMEOUT("DLR_TIMEOUT"),
+    DLR_TIMEOUT(String.valueOf("DLR_TIMEOUT")),
     
-    RECEIVED("RECEIVED"),
+    RECEIVED(String.valueOf("RECEIVED")),
     
-    GW_REJECT("GW_REJECT"),
+    GW_REJECT(String.valueOf("GW_REJECT")),
     
-    FAILED("FAILED");
+    FAILED(String.valueOf("FAILED"));
 
     private String value;
 
@@ -126,15 +127,15 @@ public class MdrDetailResponse {
    * Currency of the rate and cost
    */
   public enum CurrencyEnum {
-    AUD("AUD"),
+    AUD(String.valueOf("AUD")),
     
-    CAD("CAD"),
+    CAD(String.valueOf("CAD")),
     
-    EUR("EUR"),
+    EUR(String.valueOf("EUR")),
     
-    GBP("GBP"),
+    GBP(String.valueOf("GBP")),
     
-    USD("USD");
+    USD(String.valueOf("USD"));
 
     private String value;
 
@@ -173,9 +174,9 @@ public class MdrDetailResponse {
    * Type of message
    */
   public enum MessageTypeEnum {
-    SMS("SMS"),
+    SMS(String.valueOf("SMS")),
     
-    MMS("MMS");
+    MMS(String.valueOf("MMS"));
 
     private String value;
 

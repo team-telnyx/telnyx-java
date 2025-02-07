@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,7 +38,7 @@ import com.telnyx.sdk.JSON;
   InboundMessagePayloadFrom.JSON_PROPERTY_CARRIER,
   InboundMessagePayloadFrom.JSON_PROPERTY_LINE_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InboundMessagePayloadFrom {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -46,9 +47,9 @@ public class InboundMessagePayloadFrom {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    RECEIVED("received"),
+    RECEIVED(String.valueOf("received")),
     
-    DELIVERED("delivered");
+    DELIVERED(String.valueOf("delivered"));
 
     private String value;
 
@@ -87,17 +88,17 @@ public class InboundMessagePayloadFrom {
    * The line-type of the sender.
    */
   public enum LineTypeEnum {
-    WIRELINE("Wireline"),
+    WIRELINE(String.valueOf("Wireline")),
     
-    WIRELESS("Wireless"),
+    WIRELESS(String.valueOf("Wireless")),
     
-    VOWIFI("VoWiFi"),
+    VO_WI_FI(String.valueOf("VoWiFi")),
     
-    VOIP("VoIP"),
+    VO_IP(String.valueOf("VoIP")),
     
-    PRE_PAID_WIRELESS("Pre-Paid Wireless"),
+    PRE_PAID_WIRELESS(String.valueOf("Pre-Paid Wireless")),
     
-    EMPTY("");
+    EMPTY(String.valueOf(""));
 
     private String value;
 

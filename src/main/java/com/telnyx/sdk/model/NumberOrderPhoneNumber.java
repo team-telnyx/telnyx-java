@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PhoneNumberRegulatoryRequirement;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.SubNumberOrderRegulatoryRequirementWithValue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -45,9 +46,14 @@ import com.telnyx.sdk.JSON;
   NumberOrderPhoneNumber.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   NumberOrderPhoneNumber.JSON_PROPERTY_REGULATORY_REQUIREMENTS,
   NumberOrderPhoneNumber.JSON_PROPERTY_REQUIREMENTS_MET,
-  NumberOrderPhoneNumber.JSON_PROPERTY_STATUS
+  NumberOrderPhoneNumber.JSON_PROPERTY_STATUS,
+  NumberOrderPhoneNumber.JSON_PROPERTY_BUNDLE_ID,
+  NumberOrderPhoneNumber.JSON_PROPERTY_LOCALITY,
+  NumberOrderPhoneNumber.JSON_PROPERTY_DEADLINE,
+  NumberOrderPhoneNumber.JSON_PROPERTY_REQUIREMENTS_STATUS,
+  NumberOrderPhoneNumber.JSON_PROPERTY_IS_BLOCK_NUMBER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberOrderPhoneNumber {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -71,17 +77,17 @@ public class NumberOrderPhoneNumber {
    * Gets or Sets phoneNumberType
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    TOLL_FREE("toll_free"),
+    TOLL_FREE(String.valueOf("toll_free")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    LANDLINE("landline");
+    LANDLINE(String.valueOf("landline"));
 
     private String value;
 
@@ -114,7 +120,7 @@ public class NumberOrderPhoneNumber {
   private PhoneNumberTypeEnum phoneNumberType;
 
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
-  private List<PhoneNumberRegulatoryRequirement> regulatoryRequirements = null;
+  private List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements = null;
 
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
@@ -123,11 +129,11 @@ public class NumberOrderPhoneNumber {
    * The status of the phone number in the order.
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    SUCCESS("success"),
+    SUCCESS(String.valueOf("success")),
     
-    FAILURE("failure");
+    FAILURE(String.valueOf("failure"));
 
     private String value;
 
@@ -159,6 +165,66 @@ public class NumberOrderPhoneNumber {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
+  public static final String JSON_PROPERTY_BUNDLE_ID = "bundle_id";
+  private UUID bundleId;
+
+  public static final String JSON_PROPERTY_LOCALITY = "locality";
+  private String locality;
+
+  public static final String JSON_PROPERTY_DEADLINE = "deadline";
+  private String deadline;
+
+  /**
+   * Status of requirements (if applicable)
+   */
+  public enum RequirementsStatusEnum {
+    PENDING(String.valueOf("pending")),
+    
+    APPROVED(String.valueOf("approved")),
+    
+    CANCELLED(String.valueOf("cancelled")),
+    
+    DELETED(String.valueOf("deleted")),
+    
+    REQUIREMENT_INFO_EXCEPTION(String.valueOf("requirement-info-exception")),
+    
+    REQUIREMENT_INFO_PENDING(String.valueOf("requirement-info-pending")),
+    
+    REQUIREMENT_INFO_UNDER_REVIEW(String.valueOf("requirement-info-under-review"));
+
+    private String value;
+
+    RequirementsStatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RequirementsStatusEnum fromValue(String value) {
+      for (RequirementsStatusEnum b : RequirementsStatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_REQUIREMENTS_STATUS = "requirements_status";
+  private RequirementsStatusEnum requirementsStatus;
+
+  public static final String JSON_PROPERTY_IS_BLOCK_NUMBER = "is_block_number";
+  private Boolean isBlockNumber;
+
   public NumberOrderPhoneNumber() { 
   }
 
@@ -167,13 +233,17 @@ public class NumberOrderPhoneNumber {
     @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET) Boolean requirementsMet, 
-    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status
+    @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
+    @JsonProperty(JSON_PROPERTY_BUNDLE_ID) UUID bundleId, 
+    @JsonProperty(JSON_PROPERTY_REQUIREMENTS_STATUS) RequirementsStatusEnum requirementsStatus
   ) {
     this();
     this.id = id;
     this.recordType = recordType;
     this.requirementsMet = requirementsMet;
     this.status = status;
+    this.bundleId = bundleId;
+    this.requirementsStatus = requirementsStatus;
   }
 
    /**
@@ -338,12 +408,12 @@ public class NumberOrderPhoneNumber {
   }
 
 
-  public NumberOrderPhoneNumber regulatoryRequirements(List<PhoneNumberRegulatoryRequirement> regulatoryRequirements) {
+  public NumberOrderPhoneNumber regulatoryRequirements(List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
     return this;
   }
 
-  public NumberOrderPhoneNumber addRegulatoryRequirementsItem(PhoneNumberRegulatoryRequirement regulatoryRequirementsItem) {
+  public NumberOrderPhoneNumber addregulatoryRequirementsItem(SubNumberOrderRegulatoryRequirementWithValue regulatoryRequirementsItem) {
     if (this.regulatoryRequirements == null) {
       this.regulatoryRequirements = new ArrayList<>();
     }
@@ -360,14 +430,14 @@ public class NumberOrderPhoneNumber {
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<PhoneNumberRegulatoryRequirement> getRegulatoryRequirements() {
+  public List<SubNumberOrderRegulatoryRequirementWithValue> getRegulatoryRequirements() {
     return regulatoryRequirements;
   }
 
 
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegulatoryRequirements(List<PhoneNumberRegulatoryRequirement> regulatoryRequirements) {
+  public void setRegulatoryRequirements(List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
   }
 
@@ -404,6 +474,116 @@ public class NumberOrderPhoneNumber {
 
 
 
+   /**
+   * Get bundleId
+   * @return bundleId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_BUNDLE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getBundleId() {
+    return bundleId;
+  }
+
+
+
+
+  public NumberOrderPhoneNumber locality(String locality) {
+    this.locality = locality;
+    return this;
+  }
+
+   /**
+   * Get locality
+   * @return locality
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "San Francisco", value = "")
+  @JsonProperty(JSON_PROPERTY_LOCALITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLocality() {
+    return locality;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOCALITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLocality(String locality) {
+    this.locality = locality;
+  }
+
+
+  public NumberOrderPhoneNumber deadline(String deadline) {
+    this.deadline = deadline;
+    return this;
+  }
+
+   /**
+   * Get deadline
+   * @return deadline
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "024-05-31T11:14:00+00:00", value = "")
+  @JsonProperty(JSON_PROPERTY_DEADLINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDeadline() {
+    return deadline;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEADLINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeadline(String deadline) {
+    this.deadline = deadline;
+  }
+
+
+   /**
+   * Status of requirements (if applicable)
+   * @return requirementsStatus
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Status of requirements (if applicable)")
+  @JsonProperty(JSON_PROPERTY_REQUIREMENTS_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RequirementsStatusEnum getRequirementsStatus() {
+    return requirementsStatus;
+  }
+
+
+
+
+  public NumberOrderPhoneNumber isBlockNumber(Boolean isBlockNumber) {
+    this.isBlockNumber = isBlockNumber;
+    return this;
+  }
+
+   /**
+   * Get isBlockNumber
+   * @return isBlockNumber
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "false", value = "")
+  @JsonProperty(JSON_PROPERTY_IS_BLOCK_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsBlockNumber() {
+    return isBlockNumber;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_BLOCK_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsBlockNumber(Boolean isBlockNumber) {
+    this.isBlockNumber = isBlockNumber;
+  }
+
+
   /**
    * Return true if this NumberOrderPhoneNumber object is equal to o.
    */
@@ -425,12 +605,17 @@ public class NumberOrderPhoneNumber {
         Objects.equals(this.phoneNumberType, numberOrderPhoneNumber.phoneNumberType) &&
         Objects.equals(this.regulatoryRequirements, numberOrderPhoneNumber.regulatoryRequirements) &&
         Objects.equals(this.requirementsMet, numberOrderPhoneNumber.requirementsMet) &&
-        Objects.equals(this.status, numberOrderPhoneNumber.status);
+        Objects.equals(this.status, numberOrderPhoneNumber.status) &&
+        Objects.equals(this.bundleId, numberOrderPhoneNumber.bundleId) &&
+        Objects.equals(this.locality, numberOrderPhoneNumber.locality) &&
+        Objects.equals(this.deadline, numberOrderPhoneNumber.deadline) &&
+        Objects.equals(this.requirementsStatus, numberOrderPhoneNumber.requirementsStatus) &&
+        Objects.equals(this.isBlockNumber, numberOrderPhoneNumber.isBlockNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, orderRequestId, subNumberOrderId, countryCode, phoneNumberType, regulatoryRequirements, requirementsMet, status);
+    return Objects.hash(id, recordType, phoneNumber, orderRequestId, subNumberOrderId, countryCode, phoneNumberType, regulatoryRequirements, requirementsMet, status, bundleId, locality, deadline, requirementsStatus, isBlockNumber);
   }
 
   @Override
@@ -447,6 +632,11 @@ public class NumberOrderPhoneNumber {
     sb.append("    regulatoryRequirements: ").append(toIndentedString(regulatoryRequirements)).append("\n");
     sb.append("    requirementsMet: ").append(toIndentedString(requirementsMet)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    bundleId: ").append(toIndentedString(bundleId)).append("\n");
+    sb.append("    locality: ").append(toIndentedString(locality)).append("\n");
+    sb.append("    deadline: ").append(toIndentedString(deadline)).append("\n");
+    sb.append("    requirementsStatus: ").append(toIndentedString(requirementsStatus)).append("\n");
+    sb.append("    isBlockNumber: ").append(toIndentedString(isBlockNumber)).append("\n");
     sb.append("}");
     return sb.toString();
   }

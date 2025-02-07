@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PaginationMeta;
 import com.telnyx.sdk.model.PortingOrdersAllowedFocWindow;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListAllowedFocWindows200Response.JSON_PROPERTY_DATA,
   ListAllowedFocWindows200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListAllowedFocWindows200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<PortingOrdersAllowedFocWindow> data = null;
@@ -55,7 +56,7 @@ public class ListAllowedFocWindows200Response {
     return this;
   }
 
-  public ListAllowedFocWindows200Response addDataItem(PortingOrdersAllowedFocWindow dataItem) {
+  public ListAllowedFocWindows200Response adddataItem(PortingOrdersAllowedFocWindow dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -111,7 +112,7 @@ public class ListAllowedFocWindows200Response {
 
 
   /**
-   * Return true if this listAllowedFocWindows_200_response object is equal to o.
+   * Return true if this ListAllowedFocWindows_200_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

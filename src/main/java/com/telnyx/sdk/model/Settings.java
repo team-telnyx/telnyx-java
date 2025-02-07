@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.net.URI;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -38,13 +40,13 @@ import com.telnyx.sdk.JSON;
   Settings.JSON_PROPERTY_IDP_CERT_FINGERPRINT,
   Settings.JSON_PROPERTY_IDP_CERT_FINGERPRINT_ALGORITHM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Settings {
   public static final String JSON_PROPERTY_IDP_ENTITY_ID = "idp_entity_id";
-  private String idpEntityId;
+  private URI idpEntityId;
 
   public static final String JSON_PROPERTY_IDP_SSO_TARGET_URL = "idp_sso_target_url";
-  private String idpSsoTargetUrl;
+  private URI idpSsoTargetUrl;
 
   public static final String JSON_PROPERTY_IDP_CERT_FINGERPRINT = "idp_cert_fingerprint";
   private String idpCertFingerprint;
@@ -53,13 +55,13 @@ public class Settings {
    * The algorithm used to generate the identity provider&#39;s (IdP) certificate fingerprint
    */
   public enum IdpCertFingerprintAlgorithmEnum {
-    SHA1("sha1"),
+    SHA1(String.valueOf("sha1")),
     
-    SHA256("sha256"),
+    SHA256(String.valueOf("sha256")),
     
-    SHA384("sha384"),
+    SHA384(String.valueOf("sha384")),
     
-    SHA512("sha512");
+    SHA512(String.valueOf("sha512"));
 
     private String value;
 
@@ -94,7 +96,7 @@ public class Settings {
   public Settings() { 
   }
 
-  public Settings idpEntityId(String idpEntityId) {
+  public Settings idpEntityId(URI idpEntityId) {
     this.idpEntityId = idpEntityId;
     return this;
   }
@@ -108,19 +110,19 @@ public class Settings {
   @JsonProperty(JSON_PROPERTY_IDP_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getIdpEntityId() {
+  public URI getIdpEntityId() {
     return idpEntityId;
   }
 
 
   @JsonProperty(JSON_PROPERTY_IDP_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIdpEntityId(String idpEntityId) {
+  public void setIdpEntityId(URI idpEntityId) {
     this.idpEntityId = idpEntityId;
   }
 
 
-  public Settings idpSsoTargetUrl(String idpSsoTargetUrl) {
+  public Settings idpSsoTargetUrl(URI idpSsoTargetUrl) {
     this.idpSsoTargetUrl = idpSsoTargetUrl;
     return this;
   }
@@ -134,14 +136,14 @@ public class Settings {
   @JsonProperty(JSON_PROPERTY_IDP_SSO_TARGET_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getIdpSsoTargetUrl() {
+  public URI getIdpSsoTargetUrl() {
     return idpSsoTargetUrl;
   }
 
 
   @JsonProperty(JSON_PROPERTY_IDP_SSO_TARGET_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIdpSsoTargetUrl(String idpSsoTargetUrl) {
+  public void setIdpSsoTargetUrl(URI idpSsoTargetUrl) {
     this.idpSsoTargetUrl = idpSsoTargetUrl;
   }
 

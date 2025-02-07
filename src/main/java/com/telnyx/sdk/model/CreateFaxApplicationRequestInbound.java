@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -33,13 +36,52 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CreateFaxApplicationRequestInbound.JSON_PROPERTY_CHANNEL_LIMIT,
+  CreateFaxApplicationRequestInbound.JSON_PROPERTY_INBOUND_FAX_FILE_TYPE,
   CreateFaxApplicationRequestInbound.JSON_PROPERTY_SIP_SUBDOMAIN,
   CreateFaxApplicationRequestInbound.JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class CreateFaxApplicationRequestInbound {
   public static final String JSON_PROPERTY_CHANNEL_LIMIT = "channel_limit";
   private Integer channelLimit;
+
+  /**
+   * The file type used for inbound faxes.
+   */
+  public enum InboundFaxFileTypeEnum {
+    PDF("pdf"),
+    
+    TIFF("tiff");
+
+    private String value;
+
+    InboundFaxFileTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static InboundFaxFileTypeEnum fromValue(String value) {
+      for (InboundFaxFileTypeEnum b : InboundFaxFileTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_INBOUND_FAX_FILE_TYPE = "inbound_fax_file_type";
+  private InboundFaxFileTypeEnum inboundFaxFileType = InboundFaxFileTypeEnum.PDF;
 
   public static final String JSON_PROPERTY_SIP_SUBDOMAIN = "sip_subdomain";
   private String sipSubdomain;
@@ -111,6 +153,32 @@ public class CreateFaxApplicationRequestInbound {
   }
 
 
+  public CreateFaxApplicationRequestInbound inboundFaxFileType(InboundFaxFileTypeEnum inboundFaxFileType) {
+    this.inboundFaxFileType = inboundFaxFileType;
+    return this;
+  }
+
+   /**
+   * The file type used for inbound faxes.
+   * @return inboundFaxFileType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "pdf", value = "The file type used for inbound faxes.")
+  @JsonProperty(JSON_PROPERTY_INBOUND_FAX_FILE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public InboundFaxFileTypeEnum getInboundFaxFileType() {
+    return inboundFaxFileType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INBOUND_FAX_FILE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInboundFaxFileType(InboundFaxFileTypeEnum inboundFaxFileType) {
+    this.inboundFaxFileType = inboundFaxFileType;
+  }
+
+
   public CreateFaxApplicationRequestInbound sipSubdomain(String sipSubdomain) {
     this.sipSubdomain = sipSubdomain;
     return this;
@@ -176,13 +244,14 @@ public class CreateFaxApplicationRequestInbound {
     }
     CreateFaxApplicationRequestInbound createFaxApplicationRequestInbound = (CreateFaxApplicationRequestInbound) o;
     return Objects.equals(this.channelLimit, createFaxApplicationRequestInbound.channelLimit) &&
+        Objects.equals(this.inboundFaxFileType, createFaxApplicationRequestInbound.inboundFaxFileType) &&
         Objects.equals(this.sipSubdomain, createFaxApplicationRequestInbound.sipSubdomain) &&
         Objects.equals(this.sipSubdomainReceiveSettings, createFaxApplicationRequestInbound.sipSubdomainReceiveSettings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(channelLimit, sipSubdomain, sipSubdomainReceiveSettings);
+    return Objects.hash(channelLimit, inboundFaxFileType, sipSubdomain, sipSubdomainReceiveSettings);
   }
 
   @Override
@@ -190,6 +259,7 @@ public class CreateFaxApplicationRequestInbound {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateFaxApplicationRequestInbound {\n");
     sb.append("    channelLimit: ").append(toIndentedString(channelLimit)).append("\n");
+    sb.append("    inboundFaxFileType: ").append(toIndentedString(inboundFaxFileType)).append("\n");
     sb.append("    sipSubdomain: ").append(toIndentedString(sipSubdomain)).append("\n");
     sb.append("    sipSubdomainReceiveSettings: ").append(toIndentedString(sipSubdomainReceiveSettings)).append("\n");
     sb.append("}");

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -34,9 +35,10 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_CONFIDENCE,
   TranscriptionPayloadTranscriptionData.JSON_PROPERTY_IS_FINAL,
-  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPT
+  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPT,
+  TranscriptionPayloadTranscriptionData.JSON_PROPERTY_TRANSCRIPTION_TRACK
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TranscriptionPayloadTranscriptionData {
   public static final String JSON_PROPERTY_CONFIDENCE = "confidence";
   private Double confidence;
@@ -46,6 +48,44 @@ public class TranscriptionPayloadTranscriptionData {
 
   public static final String JSON_PROPERTY_TRANSCRIPT = "transcript";
   private String transcript;
+
+  /**
+   * Indicates which leg of the call has been transcribed. This is only available when &#x60;transcription_engine&#x60; is set to &#x60;B&#x60;.
+   */
+  public enum TranscriptionTrackEnum {
+    INBOUND(String.valueOf("inbound")),
+    
+    OUTBOUND(String.valueOf("outbound"));
+
+    private String value;
+
+    TranscriptionTrackEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TranscriptionTrackEnum fromValue(String value) {
+      for (TranscriptionTrackEnum b : TranscriptionTrackEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_TRACK = "transcription_track";
+  private TranscriptionTrackEnum transcriptionTrack;
 
   public TranscriptionPayloadTranscriptionData() { 
   }
@@ -128,6 +168,32 @@ public class TranscriptionPayloadTranscriptionData {
   }
 
 
+  public TranscriptionPayloadTranscriptionData transcriptionTrack(TranscriptionTrackEnum transcriptionTrack) {
+    this.transcriptionTrack = transcriptionTrack;
+    return this;
+  }
+
+   /**
+   * Indicates which leg of the call has been transcribed. This is only available when &#x60;transcription_engine&#x60; is set to &#x60;B&#x60;.
+   * @return transcriptionTrack
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "inbound", value = "Indicates which leg of the call has been transcribed. This is only available when `transcription_engine` is set to `B`.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TranscriptionTrackEnum getTranscriptionTrack() {
+    return transcriptionTrack;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionTrack(TranscriptionTrackEnum transcriptionTrack) {
+    this.transcriptionTrack = transcriptionTrack;
+  }
+
+
   /**
    * Return true if this Transcription_payload_transcription_data object is equal to o.
    */
@@ -142,12 +208,13 @@ public class TranscriptionPayloadTranscriptionData {
     TranscriptionPayloadTranscriptionData transcriptionPayloadTranscriptionData = (TranscriptionPayloadTranscriptionData) o;
     return Objects.equals(this.confidence, transcriptionPayloadTranscriptionData.confidence) &&
         Objects.equals(this.isFinal, transcriptionPayloadTranscriptionData.isFinal) &&
-        Objects.equals(this.transcript, transcriptionPayloadTranscriptionData.transcript);
+        Objects.equals(this.transcript, transcriptionPayloadTranscriptionData.transcript) &&
+        Objects.equals(this.transcriptionTrack, transcriptionPayloadTranscriptionData.transcriptionTrack);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confidence, isFinal, transcript);
+    return Objects.hash(confidence, isFinal, transcript, transcriptionTrack);
   }
 
   @Override
@@ -157,6 +224,7 @@ public class TranscriptionPayloadTranscriptionData {
     sb.append("    confidence: ").append(toIndentedString(confidence)).append("\n");
     sb.append("    isFinal: ").append(toIndentedString(isFinal)).append("\n");
     sb.append("    transcript: ").append(toIndentedString(transcript)).append("\n");
+    sb.append("    transcriptionTrack: ").append(toIndentedString(transcriptionTrack)).append("\n");
     sb.append("}");
     return sb.toString();
   }

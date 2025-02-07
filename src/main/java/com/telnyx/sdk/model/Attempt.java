@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,12 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.Error;
 import com.telnyx.sdk.model.Http;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -44,15 +44,15 @@ import com.telnyx.sdk.JSON;
   Attempt.JSON_PROPERTY_HTTP,
   Attempt.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Attempt {
   /**
    * Gets or Sets status
    */
   public enum StatusEnum {
-    DELIVERED("delivered"),
+    DELIVERED(String.valueOf("delivered")),
     
-    FAILED("failed");
+    FAILED(String.valueOf("failed"));
 
     private String value;
 
@@ -94,7 +94,7 @@ public class Attempt {
   private Http http;
 
   public static final String JSON_PROPERTY_ERRORS = "errors";
-  private List<Error> errors = null;
+  private List<Integer> errors = null;
 
   public Attempt() { 
   }
@@ -203,12 +203,12 @@ public class Attempt {
   }
 
 
-  public Attempt errors(List<Error> errors) {
+  public Attempt errors(List<Integer> errors) {
     this.errors = errors;
     return this;
   }
 
-  public Attempt addErrorsItem(Error errorsItem) {
+  public Attempt adderrorsItem(Integer errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }
@@ -217,22 +217,22 @@ public class Attempt {
   }
 
    /**
-   * Webhook delivery errors.
+   * Webhook delivery error codes.
    * @return errors
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Webhook delivery errors.")
+  @ApiModelProperty(value = "Webhook delivery error codes.")
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Error> getErrors() {
+  public List<Integer> getErrors() {
     return errors;
   }
 
 
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setErrors(List<Error> errors) {
+  public void setErrors(List<Integer> errors) {
     this.errors = errors;
   }
 

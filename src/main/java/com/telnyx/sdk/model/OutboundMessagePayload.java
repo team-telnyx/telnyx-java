@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,14 +25,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Error;
-import com.telnyx.sdk.model.InboundMessagePayloadCost;
+import com.telnyx.sdk.model.OutboundMessagePayloadCost;
 import com.telnyx.sdk.model.OutboundMessagePayloadFrom;
 import com.telnyx.sdk.model.OutboundMessagePayloadMediaInner;
 import com.telnyx.sdk.model.OutboundMessagePayloadToInner;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -68,13 +69,13 @@ import com.telnyx.sdk.JSON;
   OutboundMessagePayload.JSON_PROPERTY_VALID_UNTIL,
   OutboundMessagePayload.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class OutboundMessagePayload {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MESSAGE("message");
+    MESSAGE(String.valueOf("message"));
 
     private String value;
 
@@ -110,7 +111,7 @@ public class OutboundMessagePayload {
    * The direction of the message. Inbound messages are sent to you whereas outbound messages are sent from you.
    */
   public enum DirectionEnum {
-    OUTBOUND("outbound");
+    OUTBOUND(String.valueOf("outbound"));
 
     private String value;
 
@@ -149,9 +150,9 @@ public class OutboundMessagePayload {
    * The type of message.
    */
   public enum TypeEnum {
-    SMS("SMS"),
+    SMS(String.valueOf("SMS")),
     
-    MMS("MMS");
+    MMS(String.valueOf("MMS"));
 
     private String value;
 
@@ -220,7 +221,7 @@ public class OutboundMessagePayload {
   private List<String> tags = null;
 
   public static final String JSON_PROPERTY_COST = "cost";
-  private JsonNullable<InboundMessagePayloadCost> cost = JsonNullable.<InboundMessagePayloadCost>undefined();
+  private JsonNullable<OutboundMessagePayloadCost> cost = JsonNullable.<OutboundMessagePayloadCost>undefined();
 
   public static final String JSON_PROPERTY_RECEIVED_AT = "received_at";
   private OffsetDateTime receivedAt;
@@ -427,7 +428,7 @@ public class OutboundMessagePayload {
     return this;
   }
 
-  public OutboundMessagePayload addToItem(OutboundMessagePayloadToInner toItem) {
+  public OutboundMessagePayload addtoItem(OutboundMessagePayloadToInner toItem) {
     if (this.to == null) {
       this.to = new ArrayList<>();
     }
@@ -521,7 +522,7 @@ public class OutboundMessagePayload {
     return this;
   }
 
-  public OutboundMessagePayload addMediaItem(OutboundMessagePayloadMediaInner mediaItem) {
+  public OutboundMessagePayload addmediaItem(OutboundMessagePayloadMediaInner mediaItem) {
     if (this.media == null) {
       this.media = new ArrayList<>();
     }
@@ -677,7 +678,7 @@ public class OutboundMessagePayload {
     return this;
   }
 
-  public OutboundMessagePayload addTagsItem(String tagsItem) {
+  public OutboundMessagePayload addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -706,8 +707,8 @@ public class OutboundMessagePayload {
   }
 
 
-  public OutboundMessagePayload cost(InboundMessagePayloadCost cost) {
-    this.cost = JsonNullable.<InboundMessagePayloadCost>of(cost);
+  public OutboundMessagePayload cost(OutboundMessagePayloadCost cost) {
+    this.cost = JsonNullable.<OutboundMessagePayloadCost>of(cost);
     return this;
   }
 
@@ -719,24 +720,24 @@ public class OutboundMessagePayload {
   @ApiModelProperty(value = "")
   @JsonIgnore
 
-  public InboundMessagePayloadCost getCost() {
+  public OutboundMessagePayloadCost getCost() {
         return cost.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_COST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<InboundMessagePayloadCost> getCost_JsonNullable() {
+  public JsonNullable<OutboundMessagePayloadCost> getCost_JsonNullable() {
     return cost;
   }
   
   @JsonProperty(JSON_PROPERTY_COST)
-  public void setCost_JsonNullable(JsonNullable<InboundMessagePayloadCost> cost) {
+  public void setCost_JsonNullable(JsonNullable<OutboundMessagePayloadCost> cost) {
     this.cost = cost;
   }
 
-  public void setCost(InboundMessagePayloadCost cost) {
-    this.cost = JsonNullable.<InboundMessagePayloadCost>of(cost);
+  public void setCost(OutboundMessagePayloadCost cost) {
+    this.cost = JsonNullable.<OutboundMessagePayloadCost>of(cost);
   }
 
 
@@ -857,7 +858,7 @@ public class OutboundMessagePayload {
     return this;
   }
 
-  public OutboundMessagePayload addErrorsItem(Error errorsItem) {
+  public OutboundMessagePayload adderrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }

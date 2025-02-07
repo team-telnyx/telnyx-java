@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.MobileOperatorNetworkPreferencesResponse;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.MobileNetworkOperatorPreferencesResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -36,47 +37,47 @@ import com.telnyx.sdk.JSON;
  */
 @ApiModel(description = "A JSON object representation of the operation. The information present here will relate directly to the source of the OTA request.")
 @JsonPropertyOrder({
-  CompleteOTAUpdateSettings.JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES
+  CompleteOTAUpdateSettings.JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CompleteOTAUpdateSettings {
-  public static final String JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES = "mobile_operator_networks_preferences";
-  private List<MobileOperatorNetworkPreferencesResponse> mobileOperatorNetworksPreferences = null;
+  public static final String JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES = "mobile_network_operators_preferences";
+  private List<MobileNetworkOperatorPreferencesResponse> mobileNetworkOperatorsPreferences = null;
 
   public CompleteOTAUpdateSettings() { 
   }
 
-  public CompleteOTAUpdateSettings mobileOperatorNetworksPreferences(List<MobileOperatorNetworkPreferencesResponse> mobileOperatorNetworksPreferences) {
-    this.mobileOperatorNetworksPreferences = mobileOperatorNetworksPreferences;
+  public CompleteOTAUpdateSettings mobileNetworkOperatorsPreferences(List<MobileNetworkOperatorPreferencesResponse> mobileNetworkOperatorsPreferences) {
+    this.mobileNetworkOperatorsPreferences = mobileNetworkOperatorsPreferences;
     return this;
   }
 
-  public CompleteOTAUpdateSettings addMobileOperatorNetworksPreferencesItem(MobileOperatorNetworkPreferencesResponse mobileOperatorNetworksPreferencesItem) {
-    if (this.mobileOperatorNetworksPreferences == null) {
-      this.mobileOperatorNetworksPreferences = new ArrayList<>();
+  public CompleteOTAUpdateSettings addmobileNetworkOperatorsPreferencesItem(MobileNetworkOperatorPreferencesResponse mobileNetworkOperatorsPreferencesItem) {
+    if (this.mobileNetworkOperatorsPreferences == null) {
+      this.mobileNetworkOperatorsPreferences = new ArrayList<>();
     }
-    this.mobileOperatorNetworksPreferences.add(mobileOperatorNetworksPreferencesItem);
+    this.mobileNetworkOperatorsPreferences.add(mobileNetworkOperatorsPreferencesItem);
     return this;
   }
 
    /**
-   * A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.
-   * @return mobileOperatorNetworksPreferences
+   * A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network.
+   * @return mobileNetworkOperatorsPreferences
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "A list of mobile operator networks and the priority that should be applied when the SIM is connecting to the network.")
-  @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
+  @ApiModelProperty(value = "A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network.")
+  @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<MobileOperatorNetworkPreferencesResponse> getMobileOperatorNetworksPreferences() {
-    return mobileOperatorNetworksPreferences;
+  public List<MobileNetworkOperatorPreferencesResponse> getMobileNetworkOperatorsPreferences() {
+    return mobileNetworkOperatorsPreferences;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MOBILE_OPERATOR_NETWORKS_PREFERENCES)
+  @JsonProperty(JSON_PROPERTY_MOBILE_NETWORK_OPERATORS_PREFERENCES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMobileOperatorNetworksPreferences(List<MobileOperatorNetworkPreferencesResponse> mobileOperatorNetworksPreferences) {
-    this.mobileOperatorNetworksPreferences = mobileOperatorNetworksPreferences;
+  public void setMobileNetworkOperatorsPreferences(List<MobileNetworkOperatorPreferencesResponse> mobileNetworkOperatorsPreferences) {
+    this.mobileNetworkOperatorsPreferences = mobileNetworkOperatorsPreferences;
   }
 
 
@@ -92,19 +93,19 @@ public class CompleteOTAUpdateSettings {
       return false;
     }
     CompleteOTAUpdateSettings completeOTAUpdateSettings = (CompleteOTAUpdateSettings) o;
-    return Objects.equals(this.mobileOperatorNetworksPreferences, completeOTAUpdateSettings.mobileOperatorNetworksPreferences);
+    return Objects.equals(this.mobileNetworkOperatorsPreferences, completeOTAUpdateSettings.mobileNetworkOperatorsPreferences);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(mobileOperatorNetworksPreferences);
+    return Objects.hash(mobileNetworkOperatorsPreferences);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CompleteOTAUpdateSettings {\n");
-    sb.append("    mobileOperatorNetworksPreferences: ").append(toIndentedString(mobileOperatorNetworksPreferences)).append("\n");
+    sb.append("    mobileNetworkOperatorsPreferences: ").append(toIndentedString(mobileNetworkOperatorsPreferences)).append("\n");
     sb.append("}");
     return sb.toString();
   }

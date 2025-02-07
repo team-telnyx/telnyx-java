@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CsvDownloadsApi {
   private ApiClient apiClient;
 
@@ -106,6 +106,76 @@ public class CsvDownloadsApi {
     GenericType<CSVDownloadResponse> localVarReturnType = new GenericType<CSVDownloadResponse>() {};
 
     return apiClient.invokeAPI("CsvDownloadsApi.createCsvDownload", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Retrieve a CSV download
+   * 
+   * @param id Identifies the CSV download. (required)
+   * @return CSVDownloadResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CSVDownloadResponse getCsvDownload(String id) throws ApiException {
+    return getCsvDownloadWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Retrieve a CSV download
+   * 
+   * @param id Identifies the CSV download. (required)
+   * @return ApiResponse&lt;CSVDownloadResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CSVDownloadResponse> getCsvDownloadWithHttpInfo(String id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getCsvDownload");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/phone_numbers/csv_downloads/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CSVDownloadResponse> localVarReturnType = new GenericType<CSVDownloadResponse>() {};
+
+    return apiClient.invokeAPI("CsvDownloadsApi.getCsvDownload", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -218,75 +288,5 @@ private ApiResponse<ListCSVDownloadsResponse> listCsvDownloadsWithHttpInfo(Integ
    */
   public APIlistCsvDownloadsRequest listCsvDownloads() throws ApiException {
     return new APIlistCsvDownloadsRequest();
-  }
-  /**
-   * Retrieve a CSV download
-   * 
-   * @param id Identifies the CSV download. (required)
-   * @return CSVDownloadResponse
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public CSVDownloadResponse retrieveCsvDownload(String id) throws ApiException {
-    return retrieveCsvDownloadWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a CSV download
-   * 
-   * @param id Identifies the CSV download. (required)
-   * @return ApiResponse&lt;CSVDownloadResponse&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a CSV download. </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<CSVDownloadResponse> retrieveCsvDownloadWithHttpInfo(String id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveCsvDownload");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/phone_numbers/csv_downloads/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CSVDownloadResponse> localVarReturnType = new GenericType<CSVDownloadResponse>() {};
-
-    return apiClient.invokeAPI("CsvDownloadsApi.retrieveCsvDownload", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
   }
 }

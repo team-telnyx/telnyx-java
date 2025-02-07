@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,11 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.InterfaceStatus;
-import com.telnyx.sdk.model.RegionOut;
 import com.telnyx.sdk.model.RegionOutRegion;
-import com.telnyx.sdk.model.WireguardInterface;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -46,10 +45,11 @@ import com.telnyx.sdk.JSON;
   WireguardInterfaceRead.JSON_PROPERTY_STATUS,
   WireguardInterfaceRead.JSON_PROPERTY_ENDPOINT,
   WireguardInterfaceRead.JSON_PROPERTY_PUBLIC_KEY,
+  WireguardInterfaceRead.JSON_PROPERTY_ENABLE_SIP_TRUNKING,
   WireguardInterfaceRead.JSON_PROPERTY_REGION_CODE,
   WireguardInterfaceRead.JSON_PROPERTY_REGION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WireguardInterfaceRead {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -77,6 +77,9 @@ public class WireguardInterfaceRead {
 
   public static final String JSON_PROPERTY_PUBLIC_KEY = "public_key";
   private String publicKey;
+
+  public static final String JSON_PROPERTY_ENABLE_SIP_TRUNKING = "enable_sip_trunking";
+  private Boolean enableSipTrunking;
 
   public static final String JSON_PROPERTY_REGION_CODE = "region_code";
   private String regionCode;
@@ -279,6 +282,32 @@ public class WireguardInterfaceRead {
 
 
 
+  public WireguardInterfaceRead enableSipTrunking(Boolean enableSipTrunking) {
+    this.enableSipTrunking = enableSipTrunking;
+    return this;
+  }
+
+   /**
+   * Enable SIP traffic forwarding over VPN interface.
+   * @return enableSipTrunking
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "false", value = "Enable SIP traffic forwarding over VPN interface.")
+  @JsonProperty(JSON_PROPERTY_ENABLE_SIP_TRUNKING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getEnableSipTrunking() {
+    return enableSipTrunking;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENABLE_SIP_TRUNKING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnableSipTrunking(Boolean enableSipTrunking) {
+    this.enableSipTrunking = enableSipTrunking;
+  }
+
+
   public WireguardInterfaceRead regionCode(String regionCode) {
     this.regionCode = regionCode;
     return this;
@@ -352,13 +381,14 @@ public class WireguardInterfaceRead {
         Objects.equals(this.status, wireguardInterfaceRead.status) &&
         Objects.equals(this.endpoint, wireguardInterfaceRead.endpoint) &&
         Objects.equals(this.publicKey, wireguardInterfaceRead.publicKey) &&
+        Objects.equals(this.enableSipTrunking, wireguardInterfaceRead.enableSipTrunking) &&
         Objects.equals(this.regionCode, wireguardInterfaceRead.regionCode) &&
         Objects.equals(this.region, wireguardInterfaceRead.region);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, endpoint, publicKey, regionCode, region);
+    return Objects.hash(id, recordType, createdAt, updatedAt, networkId, name, status, endpoint, publicKey, enableSipTrunking, regionCode, region);
   }
 
   @Override
@@ -374,6 +404,7 @@ public class WireguardInterfaceRead {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    endpoint: ").append(toIndentedString(endpoint)).append("\n");
     sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
+    sb.append("    enableSipTrunking: ").append(toIndentedString(enableSipTrunking)).append("\n");
     sb.append("    regionCode: ").append(toIndentedString(regionCode)).append("\n");
     sb.append("    region: ").append(toIndentedString(region)).append("\n");
     sb.append("}");

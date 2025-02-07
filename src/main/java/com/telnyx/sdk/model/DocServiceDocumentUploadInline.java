@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
 
@@ -36,7 +39,7 @@ import com.telnyx.sdk.JSON;
   DocServiceDocumentUploadInline.JSON_PROPERTY_FILENAME,
   DocServiceDocumentUploadInline.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class DocServiceDocumentUploadInline {
   public static final String JSON_PROPERTY_FILE = "file";
   private byte[] _file;
@@ -60,7 +63,7 @@ public class DocServiceDocumentUploadInline {
    * @return _file
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "The Base64 encoded contents of the file you are uploading.")
+  @ApiModelProperty(example = "[B@6b3871d6", required = true, value = "The Base64 encoded contents of the file you are uploading.")
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

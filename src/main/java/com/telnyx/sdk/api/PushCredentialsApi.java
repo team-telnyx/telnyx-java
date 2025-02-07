@@ -10,6 +10,7 @@ import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.CreatePushCredentialRequest;
 import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.ListPushCredentialsResponse;
 import com.telnyx.sdk.model.PushCredentialResponse;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PushCredentialsApi {
   private ApiClient apiClient;
 
@@ -280,7 +281,7 @@ public class PushCredentialsApi {
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
      </table>
    */
-  public String listPushCredentials(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ListPushCredentialsResponse listPushCredentials(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
     return listPushCredentialsWithHttpInfo(filterType, filterAlias, pageSize, pageNumber).getData();
   }
 
@@ -300,7 +301,7 @@ public class PushCredentialsApi {
        <tr><td> 401 </td><td> Unauthorized request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<String> listPushCredentialsWithHttpInfo(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
+  public ApiResponse<ListPushCredentialsResponse> listPushCredentialsWithHttpInfo(String filterType, String filterAlias, Integer pageSize, Integer pageNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -332,7 +333,7 @@ public class PushCredentialsApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<String> localVarReturnType = new GenericType<String>() {};
+    GenericType<ListPushCredentialsResponse> localVarReturnType = new GenericType<ListPushCredentialsResponse>() {};
 
     return apiClient.invokeAPI("PushCredentialsApi.listPushCredentials", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

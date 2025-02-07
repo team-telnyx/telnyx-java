@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortingOrderType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderMisc.JSON_PROPERTY_REMAINING_NUMBERS_ACTION,
   PortingOrderMisc.JSON_PROPERTY_NEW_BILLING_PHONE_NUMBER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderMisc {
   public static final String JSON_PROPERTY_TYPE = "type";
   private PortingOrderType type;
@@ -46,9 +47,9 @@ public class PortingOrderMisc {
    * Remaining numbers can be either kept with their current service provider or disconnected. &#39;new_billing_telephone_number&#39; is required when &#39;remaining_numbers_action&#39; is &#39;keep&#39;.
    */
   public enum RemainingNumbersActionEnum {
-    KEEP("keep"),
+    KEEP(String.valueOf("keep")),
     
-    DISCONNECT("disconnect");
+    DISCONNECT(String.valueOf("disconnect"));
 
     private String value;
 

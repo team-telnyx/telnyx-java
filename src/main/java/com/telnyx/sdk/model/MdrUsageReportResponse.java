@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.MdrUsageRecord;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -50,7 +51,7 @@ import com.telnyx.sdk.JSON;
   MdrUsageReportResponse.JSON_PROPERTY_PROFILES,
   MdrUsageReportResponse.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MdrUsageReportResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -68,11 +69,11 @@ public class MdrUsageReportResponse {
    * Gets or Sets aggregationType
    */
   public enum AggregationTypeEnum {
-    NO_AGGREGATION("NO_AGGREGATION"),
+    NO_AGGREGATION(String.valueOf("NO_AGGREGATION")),
     
-    PROFILE("PROFILE"),
+    PROFILE(String.valueOf("PROFILE")),
     
-    TAGS("TAGS");
+    TAGS(String.valueOf("TAGS"));
 
     private String value;
 
@@ -108,13 +109,13 @@ public class MdrUsageReportResponse {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    PENDING("PENDING"),
+    PENDING(String.valueOf("PENDING")),
     
-    COMPLETE("COMPLETE"),
+    COMPLETE(String.valueOf("COMPLETE")),
     
-    FAILED("FAILED"),
+    FAILED(String.valueOf("FAILED")),
     
-    EXPIRED("EXPIRED");
+    EXPIRED(String.valueOf("EXPIRED"));
 
     private String value;
 
@@ -250,7 +251,7 @@ public class MdrUsageReportResponse {
     return this;
   }
 
-  public MdrUsageReportResponse addConnectionsItem(Long connectionsItem) {
+  public MdrUsageReportResponse addconnectionsItem(Long connectionsItem) {
     if (this.connections == null) {
       this.connections = new ArrayList<>();
     }
@@ -362,7 +363,7 @@ public class MdrUsageReportResponse {
     return this;
   }
 
-  public MdrUsageReportResponse addResultItem(MdrUsageRecord resultItem) {
+  public MdrUsageReportResponse addresultItem(MdrUsageRecord resultItem) {
     if (this.result == null) {
       this.result = new ArrayList<>();
     }

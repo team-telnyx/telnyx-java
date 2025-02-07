@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Loopcount;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,11 +41,12 @@ import com.telnyx.sdk.JSON;
   PlayAudioUrlRequest.JSON_PROPERTY_STOP,
   PlayAudioUrlRequest.JSON_PROPERTY_TARGET_LEGS,
   PlayAudioUrlRequest.JSON_PROPERTY_CACHE_AUDIO,
+  PlayAudioUrlRequest.JSON_PROPERTY_AUDIO_TYPE,
   PlayAudioUrlRequest.JSON_PROPERTY_PLAYBACK_CONTENT,
   PlayAudioUrlRequest.JSON_PROPERTY_CLIENT_STATE,
   PlayAudioUrlRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PlayAudioUrlRequest {
   public static final String JSON_PROPERTY_AUDIO_URL = "audio_url";
   private String audioUrl;
@@ -66,6 +68,44 @@ public class PlayAudioUrlRequest {
 
   public static final String JSON_PROPERTY_CACHE_AUDIO = "cache_audio";
   private Boolean cacheAudio = true;
+
+  /**
+   * Specifies the type of audio provided in &#x60;audio_url&#x60; or &#x60;playback_content&#x60;.
+   */
+  public enum AudioTypeEnum {
+    MP3(String.valueOf("mp3")),
+    
+    WAV(String.valueOf("wav"));
+
+    private String value;
+
+    AudioTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AudioTypeEnum fromValue(String value) {
+      for (AudioTypeEnum b : AudioTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_AUDIO_TYPE = "audio_type";
+  private AudioTypeEnum audioType = AudioTypeEnum.MP3;
 
   public static final String JSON_PROPERTY_PLAYBACK_CONTENT = "playback_content";
   private String playbackContent;
@@ -241,11 +281,11 @@ public class PlayAudioUrlRequest {
   }
 
    /**
-   * Fetches the audio file for caching prior to playing on the call. Useful when an audio file is queued.
+   * Caches the audio file. Useful when playing the same audio file multiple times during the call.
    * @return cacheAudio
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Fetches the audio file for caching prior to playing on the call. Useful when an audio file is queued.")
+  @ApiModelProperty(example = "true", value = "Caches the audio file. Useful when playing the same audio file multiple times during the call.")
   @JsonProperty(JSON_PROPERTY_CACHE_AUDIO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -261,17 +301,43 @@ public class PlayAudioUrlRequest {
   }
 
 
+  public PlayAudioUrlRequest audioType(AudioTypeEnum audioType) {
+    this.audioType = audioType;
+    return this;
+  }
+
+   /**
+   * Specifies the type of audio provided in &#x60;audio_url&#x60; or &#x60;playback_content&#x60;.
+   * @return audioType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "wav", value = "Specifies the type of audio provided in `audio_url` or `playback_content`.")
+  @JsonProperty(JSON_PROPERTY_AUDIO_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AudioTypeEnum getAudioType() {
+    return audioType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AUDIO_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAudioType(AudioTypeEnum audioType) {
+    this.audioType = audioType;
+  }
+
+
   public PlayAudioUrlRequest playbackContent(String playbackContent) {
     this.playbackContent = playbackContent;
     return this;
   }
 
    /**
-   * Allows a user to provide base64 encoded mp3. Note: when using this parameter, &#x60;media_url&#x60; and &#x60;media_name&#x60; in the &#x60;playback_started&#x60; and &#x60;playback_ended&#x60; webhooks will be empty
+   * Allows a user to provide base64 encoded mp3 or wav. Note: when using this parameter, &#x60;media_url&#x60; and &#x60;media_name&#x60; in the &#x60;playback_started&#x60; and &#x60;playback_ended&#x60; webhooks will be empty
    * @return playbackContent
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "SUQzAwAAAAADf1...", value = "Allows a user to provide base64 encoded mp3. Note: when using this parameter, `media_url` and `media_name` in the `playback_started` and `playback_ended` webhooks will be empty")
+  @ApiModelProperty(example = "SUQzAwAAAAADf1...", value = "Allows a user to provide base64 encoded mp3 or wav. Note: when using this parameter, `media_url` and `media_name` in the `playback_started` and `playback_ended` webhooks will be empty")
   @JsonProperty(JSON_PROPERTY_PLAYBACK_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -358,6 +424,7 @@ public class PlayAudioUrlRequest {
         Objects.equals(this.stop, playAudioUrlRequest.stop) &&
         Objects.equals(this.targetLegs, playAudioUrlRequest.targetLegs) &&
         Objects.equals(this.cacheAudio, playAudioUrlRequest.cacheAudio) &&
+        Objects.equals(this.audioType, playAudioUrlRequest.audioType) &&
         Objects.equals(this.playbackContent, playAudioUrlRequest.playbackContent) &&
         Objects.equals(this.clientState, playAudioUrlRequest.clientState) &&
         Objects.equals(this.commandId, playAudioUrlRequest.commandId);
@@ -365,7 +432,7 @@ public class PlayAudioUrlRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(audioUrl, mediaName, loop, overlay, stop, targetLegs, cacheAudio, playbackContent, clientState, commandId);
+    return Objects.hash(audioUrl, mediaName, loop, overlay, stop, targetLegs, cacheAudio, audioType, playbackContent, clientState, commandId);
   }
 
   @Override
@@ -379,6 +446,7 @@ public class PlayAudioUrlRequest {
     sb.append("    stop: ").append(toIndentedString(stop)).append("\n");
     sb.append("    targetLegs: ").append(toIndentedString(targetLegs)).append("\n");
     sb.append("    cacheAudio: ").append(toIndentedString(cacheAudio)).append("\n");
+    sb.append("    audioType: ").append(toIndentedString(audioType)).append("\n");
     sb.append("    playbackContent: ").append(toIndentedString(playbackContent)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");

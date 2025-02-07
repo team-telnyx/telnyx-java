@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -36,9 +37,10 @@ import com.telnyx.sdk.JSON;
   Carrier.JSON_PROPERTY_MOBILE_NETWORK_CODE,
   Carrier.JSON_PROPERTY_NAME,
   Carrier.JSON_PROPERTY_TYPE,
-  Carrier.JSON_PROPERTY_ERROR_CODE
+  Carrier.JSON_PROPERTY_ERROR_CODE,
+  Carrier.JSON_PROPERTY_NORMALIZED_CARRIER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Carrier {
   public static final String JSON_PROPERTY_MOBILE_COUNTRY_CODE = "mobile_country_code";
   private String mobileCountryCode;
@@ -53,29 +55,29 @@ public class Carrier {
    * A phone number type that identifies the type of service associated with the requested phone number
    */
   public enum TypeEnum {
-    FIXED_LINE("fixed line"),
+    FIXED_LINE(String.valueOf("fixed line")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    VOIP("voip"),
+    VOIP(String.valueOf("voip")),
     
-    FIXED_LINE_OR_MOBILE("fixed line or mobile"),
+    FIXED_LINE_OR_MOBILE(String.valueOf("fixed line or mobile")),
     
-    TOLL_FREE("toll free"),
+    TOLL_FREE(String.valueOf("toll free")),
     
-    PREMIUM_RATE("premium rate"),
+    PREMIUM_RATE(String.valueOf("premium rate")),
     
-    SHARED_COST("shared cost"),
+    SHARED_COST(String.valueOf("shared cost")),
     
-    PERSONAL_NUMBER("personal number"),
+    PERSONAL_NUMBER(String.valueOf("personal number")),
     
-    PAGER("pager"),
+    PAGER(String.valueOf("pager")),
     
-    UAN("uan"),
+    UAN(String.valueOf("uan")),
     
-    VOICEMAIL("voicemail"),
+    VOICEMAIL(String.valueOf("voicemail")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 
@@ -109,6 +111,9 @@ public class Carrier {
 
   public static final String JSON_PROPERTY_ERROR_CODE = "error_code";
   private String errorCode;
+
+  public static final String JSON_PROPERTY_NORMALIZED_CARRIER = "normalized_carrier";
+  private String normalizedCarrier;
 
   public Carrier() { 
   }
@@ -243,6 +248,32 @@ public class Carrier {
   }
 
 
+  public Carrier normalizedCarrier(String normalizedCarrier) {
+    this.normalizedCarrier = normalizedCarrier;
+    return this;
+  }
+
+   /**
+   * If known to Telnyx and applicable, the primary network carrier.
+   * @return normalizedCarrier
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "AT&T", value = "If known to Telnyx and applicable, the primary network carrier.")
+  @JsonProperty(JSON_PROPERTY_NORMALIZED_CARRIER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNormalizedCarrier() {
+    return normalizedCarrier;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NORMALIZED_CARRIER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNormalizedCarrier(String normalizedCarrier) {
+    this.normalizedCarrier = normalizedCarrier;
+  }
+
+
   /**
    * Return true if this Carrier object is equal to o.
    */
@@ -259,12 +290,13 @@ public class Carrier {
         Objects.equals(this.mobileNetworkCode, carrier.mobileNetworkCode) &&
         Objects.equals(this.name, carrier.name) &&
         Objects.equals(this.type, carrier.type) &&
-        Objects.equals(this.errorCode, carrier.errorCode);
+        Objects.equals(this.errorCode, carrier.errorCode) &&
+        Objects.equals(this.normalizedCarrier, carrier.normalizedCarrier);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(mobileCountryCode, mobileNetworkCode, name, type, errorCode);
+    return Objects.hash(mobileCountryCode, mobileNetworkCode, name, type, errorCode, normalizedCarrier);
   }
 
   @Override
@@ -276,6 +308,7 @@ public class Carrier {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
+    sb.append("    normalizedCarrier: ").append(toIndentedString(normalizedCarrier)).append("\n");
     sb.append("}");
     return sb.toString();
   }

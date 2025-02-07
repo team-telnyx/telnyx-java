@@ -1,6 +1,6 @@
 
 
-# BulkSIMCardNetworkPreferences202Response
+# BulkSimCardNetworkPreferences202Response
 
 
 ## Properties

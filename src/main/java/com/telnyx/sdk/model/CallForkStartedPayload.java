@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,7 +40,7 @@ import com.telnyx.sdk.JSON;
   CallForkStartedPayload.JSON_PROPERTY_CLIENT_STATE,
   CallForkStartedPayload.JSON_PROPERTY_STREAM_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallForkStartedPayload {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -60,9 +61,7 @@ public class CallForkStartedPayload {
    * Type of media streamed. It can be either &#39;raw&#39; or &#39;decrypted&#39;.
    */
   public enum StreamTypeEnum {
-    RAW("raw"),
-    
-    DECRYPTED("decrypted");
+    DECRYPTED(String.valueOf("decrypted"));
 
     private String value;
 
@@ -237,7 +236,7 @@ public class CallForkStartedPayload {
    * @return streamType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "raw", value = "Type of media streamed. It can be either 'raw' or 'decrypted'.")
+  @ApiModelProperty(example = "decrypted", value = "Type of media streamed. It can be either 'raw' or 'decrypted'.")
   @JsonProperty(JSON_PROPERTY_STREAM_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

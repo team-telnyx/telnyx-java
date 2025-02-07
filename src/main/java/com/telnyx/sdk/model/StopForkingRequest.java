@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -36,7 +37,7 @@ import com.telnyx.sdk.JSON;
   StopForkingRequest.JSON_PROPERTY_COMMAND_ID,
   StopForkingRequest.JSON_PROPERTY_STREAM_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StopForkingRequest {
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -48,9 +49,9 @@ public class StopForkingRequest {
    * Optionally specify a &#x60;stream_type&#x60;. This should match the &#x60;stream_type&#x60; that was used in &#x60;fork_start&#x60; command to properly stop the fork.
    */
   public enum StreamTypeEnum {
-    RAW("raw"),
+    RAW(String.valueOf("raw")),
     
-    DECRYPTED("decrypted");
+    DECRYPTED(String.valueOf("decrypted"));
 
     private String value;
 

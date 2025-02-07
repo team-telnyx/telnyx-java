@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.UpdateRegulatoryRequirement;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -37,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdateNumberOrderPhoneNumberRequest.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateNumberOrderPhoneNumberRequest {
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
   private List<UpdateRegulatoryRequirement> regulatoryRequirements = null;
@@ -50,7 +51,7 @@ public class UpdateNumberOrderPhoneNumberRequest {
     return this;
   }
 
-  public UpdateNumberOrderPhoneNumberRequest addRegulatoryRequirementsItem(UpdateRegulatoryRequirement regulatoryRequirementsItem) {
+  public UpdateNumberOrderPhoneNumberRequest addregulatoryRequirementsItem(UpdateRegulatoryRequirement regulatoryRequirementsItem) {
     if (this.regulatoryRequirements == null) {
       this.regulatoryRequirements = new ArrayList<>();
     }

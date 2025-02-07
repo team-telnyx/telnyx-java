@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.HttpRequest;
-import com.telnyx.sdk.model.HttpResponse;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -42,13 +42,13 @@ import com.telnyx.sdk.JSON;
   Http.JSON_PROPERTY_REQUEST,
   Http.JSON_PROPERTY_RESPONSE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Http {
   public static final String JSON_PROPERTY_REQUEST = "request";
   private HttpRequest request;
 
   public static final String JSON_PROPERTY_RESPONSE = "response";
-  private JsonNullable<HttpResponse> response = JsonNullable.<HttpResponse>undefined();
+  private JsonNullable<String> response = JsonNullable.<String>undefined();
 
   public Http() { 
   }
@@ -79,37 +79,37 @@ public class Http {
   }
 
 
-  public Http response(HttpResponse response) {
-    this.response = JsonNullable.<HttpResponse>of(response);
+  public Http response(String response) {
+    this.response = JsonNullable.<String>of(response);
     return this;
   }
 
    /**
-   * Get response
+   * Response details, optional.
    * @return response
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Response details, optional.")
   @JsonIgnore
 
-  public HttpResponse getResponse() {
+  public String getResponse() {
         return response.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_RESPONSE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<HttpResponse> getResponse_JsonNullable() {
+  public JsonNullable<String> getResponse_JsonNullable() {
     return response;
   }
   
   @JsonProperty(JSON_PROPERTY_RESPONSE)
-  public void setResponse_JsonNullable(JsonNullable<HttpResponse> response) {
+  public void setResponse_JsonNullable(JsonNullable<String> response) {
     this.response = response;
   }
 
-  public void setResponse(HttpResponse response) {
-    this.response = JsonNullable.<HttpResponse>of(response);
+  public void setResponse(String response) {
+    this.response = JsonNullable.<String>of(response);
   }
 
 

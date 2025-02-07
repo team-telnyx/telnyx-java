@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -38,9 +39,10 @@ import com.telnyx.sdk.JSON;
   CallEnqueuedPayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallEnqueuedPayload.JSON_PROPERTY_CLIENT_STATE,
   CallEnqueuedPayload.JSON_PROPERTY_QUEUE,
-  CallEnqueuedPayload.JSON_PROPERTY_CURRENT_POSITION
+  CallEnqueuedPayload.JSON_PROPERTY_CURRENT_POSITION,
+  CallEnqueuedPayload.JSON_PROPERTY_QUEUE_AVG_WAIT_TIME_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallEnqueuedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -63,6 +65,9 @@ public class CallEnqueuedPayload {
   public static final String JSON_PROPERTY_CURRENT_POSITION = "current_position";
   private Integer currentPosition;
 
+  public static final String JSON_PROPERTY_QUEUE_AVG_WAIT_TIME_SECS = "queue_avg_wait_time_secs";
+  private Integer queueAvgWaitTimeSecs;
+
   public CallEnqueuedPayload() { 
   }
 
@@ -76,7 +81,7 @@ public class CallEnqueuedPayload {
    * @return callControlId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -98,11 +103,11 @@ public class CallEnqueuedPayload {
   }
 
    /**
-   * Telnyx connection ID used in the call.
+   * Call Control App ID (formerly Telnyx connection ID) used in the call.
    * @return connectionId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Telnyx connection ID used in the call.")
+  @ApiModelProperty(example = "7267xxxxxxxxxxxxxx", value = "Call Control App ID (formerly Telnyx connection ID) used in the call.")
   @JsonProperty(JSON_PROPERTY_CONNECTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -248,6 +253,32 @@ public class CallEnqueuedPayload {
   }
 
 
+  public CallEnqueuedPayload queueAvgWaitTimeSecs(Integer queueAvgWaitTimeSecs) {
+    this.queueAvgWaitTimeSecs = queueAvgWaitTimeSecs;
+    return this;
+  }
+
+   /**
+   * Average time call spends in the queue in seconds.
+   * @return queueAvgWaitTimeSecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "60", value = "Average time call spends in the queue in seconds.")
+  @JsonProperty(JSON_PROPERTY_QUEUE_AVG_WAIT_TIME_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getQueueAvgWaitTimeSecs() {
+    return queueAvgWaitTimeSecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_QUEUE_AVG_WAIT_TIME_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setQueueAvgWaitTimeSecs(Integer queueAvgWaitTimeSecs) {
+    this.queueAvgWaitTimeSecs = queueAvgWaitTimeSecs;
+  }
+
+
   /**
    * Return true if this CallEnqueued_payload object is equal to o.
    */
@@ -266,12 +297,13 @@ public class CallEnqueuedPayload {
         Objects.equals(this.callSessionId, callEnqueuedPayload.callSessionId) &&
         Objects.equals(this.clientState, callEnqueuedPayload.clientState) &&
         Objects.equals(this.queue, callEnqueuedPayload.queue) &&
-        Objects.equals(this.currentPosition, callEnqueuedPayload.currentPosition);
+        Objects.equals(this.currentPosition, callEnqueuedPayload.currentPosition) &&
+        Objects.equals(this.queueAvgWaitTimeSecs, callEnqueuedPayload.queueAvgWaitTimeSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, queue, currentPosition);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, queue, currentPosition, queueAvgWaitTimeSecs);
   }
 
   @Override
@@ -285,6 +317,7 @@ public class CallEnqueuedPayload {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    queue: ").append(toIndentedString(queue)).append("\n");
     sb.append("    currentPosition: ").append(toIndentedString(currentPosition)).append("\n");
+    sb.append("    queueAvgWaitTimeSecs: ").append(toIndentedString(queueAvgWaitTimeSecs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

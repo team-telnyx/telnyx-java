@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AccessIPRangeResponseSchema;
 import com.telnyx.sdk.model.PaginationMeta;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,7 +40,7 @@ import com.telnyx.sdk.JSON;
   AccessIPRangeListResponseSchema.JSON_PROPERTY_DATA,
   AccessIPRangeListResponseSchema.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AccessIPRangeListResponseSchema {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<AccessIPRangeResponseSchema> data = new ArrayList<>();
@@ -55,7 +56,7 @@ public class AccessIPRangeListResponseSchema {
     return this;
   }
 
-  public AccessIPRangeListResponseSchema addDataItem(AccessIPRangeResponseSchema dataItem) {
+  public AccessIPRangeListResponseSchema adddataItem(AccessIPRangeResponseSchema dataItem) {
     this.data.add(dataItem);
     return this;
   }

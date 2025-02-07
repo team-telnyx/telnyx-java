@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -45,27 +46,27 @@ import com.telnyx.sdk.JSON;
   InboundIp.JSON_PROPERTY_GENERATE_RINGBACK_TONE,
   InboundIp.JSON_PROPERTY_ISUP_HEADERS_ENABLED,
   InboundIp.JSON_PROPERTY_PRACK_ENABLED,
-  InboundIp.JSON_PROPERTY_PRIVACY_ZONE_ENABLED,
   InboundIp.JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED,
   InboundIp.JSON_PROPERTY_SIP_REGION,
   InboundIp.JSON_PROPERTY_SIP_SUBDOMAIN,
   InboundIp.JSON_PROPERTY_SIP_SUBDOMAIN_RECEIVE_SETTINGS,
   InboundIp.JSON_PROPERTY_TIMEOUT1XX_SECS,
-  InboundIp.JSON_PROPERTY_TIMEOUT2XX_SECS
+  InboundIp.JSON_PROPERTY_TIMEOUT2XX_SECS,
+  InboundIp.JSON_PROPERTY_SHAKEN_STIR_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InboundIp {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
    */
   public enum AniNumberFormatEnum {
-    _E_164("+E.164"),
+    _E_164(String.valueOf("+E.164")),
     
-    E_164("E.164"),
+    E_164(String.valueOf("E.164")),
     
-    _E_164_NATIONAL("+E.164-national"),
+    _E_164_NATIONAL(String.valueOf("+E.164-national")),
     
-    E_164_NATIONAL("E.164-national");
+    E_164_NATIONAL(String.valueOf("E.164-national"));
 
     private String value;
 
@@ -101,13 +102,13 @@ public class InboundIp {
    * Gets or Sets dnisNumberFormat
    */
   public enum DnisNumberFormatEnum {
-    _E164("+e164"),
+    _E164(String.valueOf("+e164")),
     
-    E164("e164"),
+    E164(String.valueOf("e164")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SIP_USERNAME("sip_username");
+    SIP_USERNAME(String.valueOf("sip_username"));
 
     private String value;
 
@@ -155,9 +156,9 @@ public class InboundIp {
    * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed.
    */
   public enum DefaultRoutingMethodEnum {
-    SEQUENTIAL("sequential"),
+    SEQUENTIAL(String.valueOf("sequential")),
     
-    ROUND_ROBIN("round-robin");
+    ROUND_ROBIN(String.valueOf("round-robin"));
 
     private String value;
 
@@ -201,9 +202,6 @@ public class InboundIp {
   public static final String JSON_PROPERTY_PRACK_ENABLED = "prack_enabled";
   private Boolean prackEnabled = false;
 
-  public static final String JSON_PROPERTY_PRIVACY_ZONE_ENABLED = "privacy_zone_enabled";
-  private Boolean privacyZoneEnabled = false;
-
   public static final String JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED = "sip_compact_headers_enabled";
   private Boolean sipCompactHeadersEnabled = true;
 
@@ -211,11 +209,11 @@ public class InboundIp {
    * Selects which &#x60;sip_region&#x60; to receive inbound calls from. If null, the default region (US) will be used.
    */
   public enum SipRegionEnum {
-    US("US"),
+    US(String.valueOf("US")),
     
-    EUROPE("Europe"),
+    EUROPE(String.valueOf("Europe")),
     
-    AUSTRALIA("Australia");
+    AUSTRALIA(String.valueOf("Australia"));
 
     private String value;
 
@@ -254,9 +252,9 @@ public class InboundIp {
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
    */
   public enum SipSubdomainReceiveSettingsEnum {
-    ONLY_MY_CONNECTIONS("only_my_connections"),
+    ONLY_MY_CONNECTIONS(String.valueOf("only_my_connections")),
     
-    FROM_ANYONE("from_anyone");
+    FROM_ANYONE(String.valueOf("from_anyone"));
 
     private String value;
 
@@ -293,6 +291,9 @@ public class InboundIp {
 
   public static final String JSON_PROPERTY_TIMEOUT2XX_SECS = "timeout_2xx_secs";
   private Integer timeout2xxSecs = 90;
+
+  public static final String JSON_PROPERTY_SHAKEN_STIR_ENABLED = "shaken_stir_enabled";
+  private Boolean shakenStirEnabled = false;
 
   public InboundIp() { 
   }
@@ -354,9 +355,9 @@ public class InboundIp {
     return this;
   }
 
-  public InboundIp addCodecsItem(String codecsItem) {
+  public InboundIp addcodecsItem(String codecsItem) {
     if (this.codecs == null) {
-      this.codecs = new ArrayList<>();
+      this.codecs = new ArrayList<>(Arrays.asList("G722", "G711U", "G711A", "G729", "OPUS", "H.264"));
     }
     this.codecs.add(codecsItem);
     return this;
@@ -591,32 +592,6 @@ public class InboundIp {
   }
 
 
-  public InboundIp privacyZoneEnabled(Boolean privacyZoneEnabled) {
-    this.privacyZoneEnabled = privacyZoneEnabled;
-    return this;
-  }
-
-   /**
-   * By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
-   * @return privacyZoneEnabled
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.")
-  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getPrivacyZoneEnabled() {
-    return privacyZoneEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrivacyZoneEnabled(Boolean privacyZoneEnabled) {
-    this.privacyZoneEnabled = privacyZoneEnabled;
-  }
-
-
   public InboundIp sipCompactHeadersEnabled(Boolean sipCompactHeadersEnabled) {
     this.sipCompactHeadersEnabled = sipCompactHeadersEnabled;
     return this;
@@ -775,6 +750,32 @@ public class InboundIp {
   }
 
 
+  public InboundIp shakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+    return this;
+  }
+
+   /**
+   * When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.
+   * @return shakenStirEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.")
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getShakenStirEnabled() {
+    return shakenStirEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SHAKEN_STIR_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setShakenStirEnabled(Boolean shakenStirEnabled) {
+    this.shakenStirEnabled = shakenStirEnabled;
+  }
+
+
   /**
    * Return true if this InboundIp object is equal to o.
    */
@@ -798,18 +799,18 @@ public class InboundIp {
         Objects.equals(this.generateRingbackTone, inboundIp.generateRingbackTone) &&
         Objects.equals(this.isupHeadersEnabled, inboundIp.isupHeadersEnabled) &&
         Objects.equals(this.prackEnabled, inboundIp.prackEnabled) &&
-        Objects.equals(this.privacyZoneEnabled, inboundIp.privacyZoneEnabled) &&
         Objects.equals(this.sipCompactHeadersEnabled, inboundIp.sipCompactHeadersEnabled) &&
         Objects.equals(this.sipRegion, inboundIp.sipRegion) &&
         Objects.equals(this.sipSubdomain, inboundIp.sipSubdomain) &&
         Objects.equals(this.sipSubdomainReceiveSettings, inboundIp.sipSubdomainReceiveSettings) &&
         Objects.equals(this.timeout1xxSecs, inboundIp.timeout1xxSecs) &&
-        Objects.equals(this.timeout2xxSecs, inboundIp.timeout2xxSecs);
+        Objects.equals(this.timeout2xxSecs, inboundIp.timeout2xxSecs) &&
+        Objects.equals(this.shakenStirEnabled, inboundIp.shakenStirEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultPrimaryIpId, defaultSecondaryIpId, defaultTertiaryIpId, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs);
+    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultPrimaryIpId, defaultSecondaryIpId, defaultTertiaryIpId, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs, shakenStirEnabled);
   }
 
   @Override
@@ -827,13 +828,13 @@ public class InboundIp {
     sb.append("    generateRingbackTone: ").append(toIndentedString(generateRingbackTone)).append("\n");
     sb.append("    isupHeadersEnabled: ").append(toIndentedString(isupHeadersEnabled)).append("\n");
     sb.append("    prackEnabled: ").append(toIndentedString(prackEnabled)).append("\n");
-    sb.append("    privacyZoneEnabled: ").append(toIndentedString(privacyZoneEnabled)).append("\n");
     sb.append("    sipCompactHeadersEnabled: ").append(toIndentedString(sipCompactHeadersEnabled)).append("\n");
     sb.append("    sipRegion: ").append(toIndentedString(sipRegion)).append("\n");
     sb.append("    sipSubdomain: ").append(toIndentedString(sipSubdomain)).append("\n");
     sb.append("    sipSubdomainReceiveSettings: ").append(toIndentedString(sipSubdomainReceiveSettings)).append("\n");
     sb.append("    timeout1xxSecs: ").append(toIndentedString(timeout1xxSecs)).append("\n");
     sb.append("    timeout2xxSecs: ").append(toIndentedString(timeout2xxSecs)).append("\n");
+    sb.append("    shakenStirEnabled: ").append(toIndentedString(shakenStirEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.DialogflowConfig;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.StreamBidirectionalCodec;
+import com.telnyx.sdk.model.StreamBidirectionalMode;
+import com.telnyx.sdk.model.StreamBidirectionalTargetLegs;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -35,12 +39,15 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   StartStreamingRequest.JSON_PROPERTY_STREAM_URL,
   StartStreamingRequest.JSON_PROPERTY_STREAM_TRACK,
-  StartStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
-  StartStreamingRequest.JSON_PROPERTY_COMMAND_ID,
+  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE,
+  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC,
+  StartStreamingRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS,
   StartStreamingRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
-  StartStreamingRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG
+  StartStreamingRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG,
+  StartStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
+  StartStreamingRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StartStreamingRequest {
   public static final String JSON_PROPERTY_STREAM_URL = "stream_url";
   private String streamUrl;
@@ -49,11 +56,11 @@ public class StartStreamingRequest {
    * Specifies which track should be streamed.
    */
   public enum StreamTrackEnum {
-    INBOUND_TRACK("inbound_track"),
+    INBOUND_TRACK(String.valueOf("inbound_track")),
     
-    OUTBOUND_TRACK("outbound_track"),
+    OUTBOUND_TRACK(String.valueOf("outbound_track")),
     
-    BOTH_TRACKS("both_tracks");
+    BOTH_TRACKS(String.valueOf("both_tracks"));
 
     private String value;
 
@@ -85,17 +92,26 @@ public class StartStreamingRequest {
   public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
   private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
 
-  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
-  private String clientState;
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE = "stream_bidirectional_mode";
+  private StreamBidirectionalMode streamBidirectionalMode = StreamBidirectionalMode.MP3;
 
-  public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
-  private String commandId;
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC = "stream_bidirectional_codec";
+  private StreamBidirectionalCodec streamBidirectionalCodec = StreamBidirectionalCodec.PCMU;
+
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS = "stream_bidirectional_target_legs";
+  private StreamBidirectionalTargetLegs streamBidirectionalTargetLegs = StreamBidirectionalTargetLegs.OPPOSITE;
 
   public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW = "enable_dialogflow";
   private Boolean enableDialogflow = false;
 
   public static final String JSON_PROPERTY_DIALOGFLOW_CONFIG = "dialogflow_config";
   private DialogflowConfig dialogflowConfig;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
+
+  public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
+  private String commandId;
 
   public StartStreamingRequest() { 
   }
@@ -152,55 +168,81 @@ public class StartStreamingRequest {
   }
 
 
-  public StartStreamingRequest clientState(String clientState) {
-    this.clientState = clientState;
+  public StartStreamingRequest streamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
     return this;
   }
 
    /**
-   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
-   * @return clientState
+   * Get streamBidirectionalMode
+   * @return streamBidirectionalMode
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getClientState() {
-    return clientState;
+  public StreamBidirectionalMode getStreamBidirectionalMode() {
+    return streamBidirectionalMode;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClientState(String clientState) {
-    this.clientState = clientState;
+  public void setStreamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
   }
 
 
-  public StartStreamingRequest commandId(String commandId) {
-    this.commandId = commandId;
+  public StartStreamingRequest streamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
     return this;
   }
 
    /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
-   * @return commandId
+   * Get streamBidirectionalCodec
+   * @return streamBidirectionalCodec
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getCommandId() {
-    return commandId;
+  public StreamBidirectionalCodec getStreamBidirectionalCodec() {
+    return streamBidirectionalCodec;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCommandId(String commandId) {
-    this.commandId = commandId;
+  public void setStreamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
+  }
+
+
+  public StartStreamingRequest streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs streamBidirectionalTargetLegs) {
+    this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalTargetLegs
+   * @return streamBidirectionalTargetLegs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalTargetLegs getStreamBidirectionalTargetLegs() {
+    return streamBidirectionalTargetLegs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalTargetLegs(StreamBidirectionalTargetLegs streamBidirectionalTargetLegs) {
+    this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
   }
 
 
@@ -256,6 +298,58 @@ public class StartStreamingRequest {
   }
 
 
+  public StartStreamingRequest clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
+  public StartStreamingRequest commandId(String commandId) {
+    this.commandId = commandId;
+    return this;
+  }
+
+   /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same &#x60;command_id&#x60; for the same &#x60;call_control_id&#x60;.
+   * @return commandId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "891510ac-f3e4-11e8-af5b-de00688a4901", value = "Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.")
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCommandId() {
+    return commandId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMMAND_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCommandId(String commandId) {
+    this.commandId = commandId;
+  }
+
+
   /**
    * Return true if this StartStreamingRequest object is equal to o.
    */
@@ -270,15 +364,18 @@ public class StartStreamingRequest {
     StartStreamingRequest startStreamingRequest = (StartStreamingRequest) o;
     return Objects.equals(this.streamUrl, startStreamingRequest.streamUrl) &&
         Objects.equals(this.streamTrack, startStreamingRequest.streamTrack) &&
-        Objects.equals(this.clientState, startStreamingRequest.clientState) &&
-        Objects.equals(this.commandId, startStreamingRequest.commandId) &&
+        Objects.equals(this.streamBidirectionalMode, startStreamingRequest.streamBidirectionalMode) &&
+        Objects.equals(this.streamBidirectionalCodec, startStreamingRequest.streamBidirectionalCodec) &&
+        Objects.equals(this.streamBidirectionalTargetLegs, startStreamingRequest.streamBidirectionalTargetLegs) &&
         Objects.equals(this.enableDialogflow, startStreamingRequest.enableDialogflow) &&
-        Objects.equals(this.dialogflowConfig, startStreamingRequest.dialogflowConfig);
+        Objects.equals(this.dialogflowConfig, startStreamingRequest.dialogflowConfig) &&
+        Objects.equals(this.clientState, startStreamingRequest.clientState) &&
+        Objects.equals(this.commandId, startStreamingRequest.commandId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(streamUrl, streamTrack, clientState, commandId, enableDialogflow, dialogflowConfig);
+    return Objects.hash(streamUrl, streamTrack, streamBidirectionalMode, streamBidirectionalCodec, streamBidirectionalTargetLegs, enableDialogflow, dialogflowConfig, clientState, commandId);
   }
 
   @Override
@@ -287,10 +384,13 @@ public class StartStreamingRequest {
     sb.append("class StartStreamingRequest {\n");
     sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
-    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
-    sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
+    sb.append("    streamBidirectionalMode: ").append(toIndentedString(streamBidirectionalMode)).append("\n");
+    sb.append("    streamBidirectionalCodec: ").append(toIndentedString(streamBidirectionalCodec)).append("\n");
+    sb.append("    streamBidirectionalTargetLegs: ").append(toIndentedString(streamBidirectionalTargetLegs)).append("\n");
     sb.append("    enableDialogflow: ").append(toIndentedString(enableDialogflow)).append("\n");
     sb.append("    dialogflowConfig: ").append(toIndentedString(dialogflowConfig)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

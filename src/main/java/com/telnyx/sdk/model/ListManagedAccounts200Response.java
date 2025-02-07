@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,11 +24,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ManagedAccount;
+import com.telnyx.sdk.model.ManagedAccountMultiListing;
 import com.telnyx.sdk.model.PaginationMeta;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,10 +40,10 @@ import com.telnyx.sdk.JSON;
   ListManagedAccounts200Response.JSON_PROPERTY_DATA,
   ListManagedAccounts200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListManagedAccounts200Response {
   public static final String JSON_PROPERTY_DATA = "data";
-  private List<ManagedAccount> data = null;
+  private List<ManagedAccountMultiListing> data = null;
 
   public static final String JSON_PROPERTY_META = "meta";
   private PaginationMeta meta;
@@ -50,12 +51,12 @@ public class ListManagedAccounts200Response {
   public ListManagedAccounts200Response() { 
   }
 
-  public ListManagedAccounts200Response data(List<ManagedAccount> data) {
+  public ListManagedAccounts200Response data(List<ManagedAccountMultiListing> data) {
     this.data = data;
     return this;
   }
 
-  public ListManagedAccounts200Response addDataItem(ManagedAccount dataItem) {
+  public ListManagedAccounts200Response adddataItem(ManagedAccountMultiListing dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -72,14 +73,14 @@ public class ListManagedAccounts200Response {
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<ManagedAccount> getData() {
+  public List<ManagedAccountMultiListing> getData() {
     return data;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(List<ManagedAccount> data) {
+  public void setData(List<ManagedAccountMultiListing> data) {
     this.data = data;
   }
 
@@ -111,7 +112,7 @@ public class ListManagedAccounts200Response {
 
 
   /**
-   * Return true if this listManagedAccounts_200_response object is equal to o.
+   * Return true if this ListManagedAccounts_200_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

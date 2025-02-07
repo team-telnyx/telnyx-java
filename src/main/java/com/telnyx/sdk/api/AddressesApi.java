@@ -8,18 +8,22 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.telnyx.sdk.model.AcceptSuggestionsRequest;
 import com.telnyx.sdk.model.AddressCreate;
-import com.telnyx.sdk.model.AddressResponse;
-import com.telnyx.sdk.model.GetAllAddressResponse;
+import com.telnyx.sdk.model.AddressSuggestionResponse;
+import com.telnyx.sdk.model.CreateAddress200Response;
+import com.telnyx.sdk.model.FindAddresses200Response;
+import com.telnyx.sdk.model.ResourceNotFoundError;
+import java.util.UUID;
+import com.telnyx.sdk.model.ValidateAddressActionResponse;
 import com.telnyx.sdk.model.ValidateAddressRequest;
-import com.telnyx.sdk.model.ValidateAddressResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AddressesApi {
   private ApiClient apiClient;
 
@@ -50,10 +54,84 @@ public class AddressesApi {
   }
 
   /**
+   * Accepts this address suggestion as a new emergency address for Operator Connect and finishes the uploads of the numbers associated with it to Microsoft.
+   * 
+   * @param id The UUID of the address that should be accepted. (required)
+   * @param acceptSuggestionsRequest  (optional)
+   * @return AddressSuggestionResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> This address suggestion has already been accepted. </td><td>  -  </td></tr>
+       <tr><td> 202 </td><td> This address suggestion was accepted. The numbers associated to it will resume processing in the background. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Address not found or not accessible by the user. </td><td>  -  </td></tr>
+     </table>
+   */
+  public AddressSuggestionResponse acceptAddressSuggestions(UUID id, AcceptSuggestionsRequest acceptSuggestionsRequest) throws ApiException {
+    return acceptAddressSuggestionsWithHttpInfo(id, acceptSuggestionsRequest).getData();
+  }
+
+  /**
+   * Accepts this address suggestion as a new emergency address for Operator Connect and finishes the uploads of the numbers associated with it to Microsoft.
+   * 
+   * @param id The UUID of the address that should be accepted. (required)
+   * @param acceptSuggestionsRequest  (optional)
+   * @return ApiResponse&lt;AddressSuggestionResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> This address suggestion has already been accepted. </td><td>  -  </td></tr>
+       <tr><td> 202 </td><td> This address suggestion was accepted. The numbers associated to it will resume processing in the background. </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Address not found or not accessible by the user. </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<AddressSuggestionResponse> acceptAddressSuggestionsWithHttpInfo(UUID id, AcceptSuggestionsRequest acceptSuggestionsRequest) throws ApiException {
+    Object localVarPostBody = acceptSuggestionsRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling acceptAddressSuggestions");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/addresses/{id}/actions/accept_suggestions"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<AddressSuggestionResponse> localVarReturnType = new GenericType<AddressSuggestionResponse>() {};
+
+    return apiClient.invokeAPI("AddressesApi.acceptAddressSuggestions", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Creates an address
    * Creates an address.
    * @param addressCreate Parameters that can be defined during address creation (required)
-   * @return AddressResponse
+   * @return CreateAddress200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -62,7 +140,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public AddressResponse createAddress(AddressCreate addressCreate) throws ApiException {
+  public CreateAddress200Response createAddress(AddressCreate addressCreate) throws ApiException {
     return createAddressWithHttpInfo(addressCreate).getData();
   }
 
@@ -70,7 +148,7 @@ public class AddressesApi {
    * Creates an address
    * Creates an address.
    * @param addressCreate Parameters that can be defined during address creation (required)
-   * @return ApiResponse&lt;AddressResponse&gt;
+   * @return ApiResponse&lt;CreateAddress200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -79,7 +157,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AddressResponse> createAddressWithHttpInfo(AddressCreate addressCreate) throws ApiException {
+  public ApiResponse<CreateAddress200Response> createAddressWithHttpInfo(AddressCreate addressCreate) throws ApiException {
     Object localVarPostBody = addressCreate;
     
     // verify the required parameter 'addressCreate' is set
@@ -112,7 +190,7 @@ public class AddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<AddressResponse> localVarReturnType = new GenericType<AddressResponse>() {};
+    GenericType<CreateAddress200Response> localVarReturnType = new GenericType<CreateAddress200Response>() {};
 
     return apiClient.invokeAPI("AddressesApi.createAddress", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -122,7 +200,7 @@ public class AddressesApi {
    * Deletes an address
    * Deletes an existing address.
    * @param id address ID (required)
-   * @return AddressResponse
+   * @return CreateAddress200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -133,7 +211,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public AddressResponse deleteAddress(String id) throws ApiException {
+  public CreateAddress200Response deleteAddress(String id) throws ApiException {
     return deleteAddressWithHttpInfo(id).getData();
   }
 
@@ -141,7 +219,7 @@ public class AddressesApi {
    * Deletes an address
    * Deletes an existing address.
    * @param id address ID (required)
-   * @return ApiResponse&lt;AddressResponse&gt;
+   * @return ApiResponse&lt;CreateAddress200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -152,7 +230,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AddressResponse> deleteAddressWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<CreateAddress200Response> deleteAddressWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -186,7 +264,7 @@ public class AddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<AddressResponse> localVarReturnType = new GenericType<AddressResponse>() {};
+    GenericType<CreateAddress200Response> localVarReturnType = new GenericType<CreateAddress200Response>() {};
 
     return apiClient.invokeAPI("AddressesApi.deleteAddress", localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -203,7 +281,7 @@ public class AddressesApi {
    * @param filterStreetAddressContains If present, addresses with &lt;code&gt;street_address&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
    * @param filterAddressBookEq If present, only returns results with the &lt;code&gt;address_book&lt;/code&gt; flag set to the given value. (optional, default to null)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;street_address&lt;/code&gt;: sorts the result by the     &lt;code&gt;street_address&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-street_address&lt;/code&gt;: sorts the result by the     &lt;code&gt;street_address&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return GetAllAddressResponse
+   * @return FindAddresses200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -214,8 +292,8 @@ public class AddressesApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllAddressResponse findAddresss(Integer pageNumber, Integer pageSize, String filterCustomerReferenceEq, String filterCustomerReferenceContains, String filterUsedAsEmergency, String filterStreetAddressContains, String filterAddressBookEq, String sort) throws ApiException {
-    return findAddresssWithHttpInfo(pageNumber, pageSize, filterCustomerReferenceEq, filterCustomerReferenceContains, filterUsedAsEmergency, filterStreetAddressContains, filterAddressBookEq, sort).getData();
+  public FindAddresses200Response findAddresses(Integer pageNumber, Integer pageSize, String filterCustomerReferenceEq, String filterCustomerReferenceContains, String filterUsedAsEmergency, String filterStreetAddressContains, String filterAddressBookEq, String sort) throws ApiException {
+    return findAddressesWithHttpInfo(pageNumber, pageSize, filterCustomerReferenceEq, filterCustomerReferenceContains, filterUsedAsEmergency, filterStreetAddressContains, filterAddressBookEq, sort).getData();
   }
 
   /**
@@ -229,7 +307,7 @@ public class AddressesApi {
    * @param filterStreetAddressContains If present, addresses with &lt;code&gt;street_address&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
    * @param filterAddressBookEq If present, only returns results with the &lt;code&gt;address_book&lt;/code&gt; flag set to the given value. (optional, default to null)
    * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;street_address&lt;/code&gt;: sorts the result by the     &lt;code&gt;street_address&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-street_address&lt;/code&gt;: sorts the result by the     &lt;code&gt;street_address&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
-   * @return ApiResponse&lt;GetAllAddressResponse&gt;
+   * @return ApiResponse&lt;FindAddresses200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -240,7 +318,7 @@ public class AddressesApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllAddressResponse> findAddresssWithHttpInfo(Integer pageNumber, Integer pageSize, String filterCustomerReferenceEq, String filterCustomerReferenceContains, String filterUsedAsEmergency, String filterStreetAddressContains, String filterAddressBookEq, String sort) throws ApiException {
+  public ApiResponse<FindAddresses200Response> findAddressesWithHttpInfo(Integer pageNumber, Integer pageSize, String filterCustomerReferenceEq, String filterCustomerReferenceContains, String filterUsedAsEmergency, String filterStreetAddressContains, String filterAddressBookEq, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -276,9 +354,9 @@ public class AddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<GetAllAddressResponse> localVarReturnType = new GenericType<GetAllAddressResponse>() {};
+    GenericType<FindAddresses200Response> localVarReturnType = new GenericType<FindAddresses200Response>() {};
 
-    return apiClient.invokeAPI("AddressesApi.findAddresss", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+    return apiClient.invokeAPI("AddressesApi.findAddresses", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }
@@ -286,7 +364,7 @@ public class AddressesApi {
    * Retrieve an address
    * Retrieves the details of an existing address.
    * @param id address ID (required)
-   * @return AddressResponse
+   * @return CreateAddress200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -297,7 +375,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public AddressResponse getAddress(String id) throws ApiException {
+  public CreateAddress200Response getAddress(String id) throws ApiException {
     return getAddressWithHttpInfo(id).getData();
   }
 
@@ -305,7 +383,7 @@ public class AddressesApi {
    * Retrieve an address
    * Retrieves the details of an existing address.
    * @param id address ID (required)
-   * @return ApiResponse&lt;AddressResponse&gt;
+   * @return ApiResponse&lt;CreateAddress200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -316,7 +394,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<AddressResponse> getAddressWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<CreateAddress200Response> getAddressWithHttpInfo(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -350,7 +428,7 @@ public class AddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<AddressResponse> localVarReturnType = new GenericType<AddressResponse>() {};
+    GenericType<CreateAddress200Response> localVarReturnType = new GenericType<CreateAddress200Response>() {};
 
     return apiClient.invokeAPI("AddressesApi.getAddress", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -360,7 +438,7 @@ public class AddressesApi {
    * Validate an address
    * Validates an address for emergency services.
    * @param validateAddressRequest Parameters that can be defined during address validation (required)
-   * @return ValidateAddressResponse
+   * @return ValidateAddressActionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -369,7 +447,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ValidateAddressResponse validateAddress(ValidateAddressRequest validateAddressRequest) throws ApiException {
+  public ValidateAddressActionResponse validateAddress(ValidateAddressRequest validateAddressRequest) throws ApiException {
     return validateAddressWithHttpInfo(validateAddressRequest).getData();
   }
 
@@ -377,7 +455,7 @@ public class AddressesApi {
    * Validate an address
    * Validates an address for emergency services.
    * @param validateAddressRequest Parameters that can be defined during address validation (required)
-   * @return ApiResponse&lt;ValidateAddressResponse&gt;
+   * @return ApiResponse&lt;ValidateAddressActionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -386,7 +464,7 @@ public class AddressesApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ValidateAddressResponse> validateAddressWithHttpInfo(ValidateAddressRequest validateAddressRequest) throws ApiException {
+  public ApiResponse<ValidateAddressActionResponse> validateAddressWithHttpInfo(ValidateAddressRequest validateAddressRequest) throws ApiException {
     Object localVarPostBody = validateAddressRequest;
     
     // verify the required parameter 'validateAddressRequest' is set
@@ -419,7 +497,7 @@ public class AddressesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<ValidateAddressResponse> localVarReturnType = new GenericType<ValidateAddressResponse>() {};
+    GenericType<ValidateAddressActionResponse> localVarReturnType = new GenericType<ValidateAddressActionResponse>() {};
 
     return apiClient.invokeAPI("AddressesApi.validateAddress", localVarPath, "POST", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

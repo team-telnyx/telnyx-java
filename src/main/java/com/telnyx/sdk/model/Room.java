@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RoomSession;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -53,7 +54,7 @@ import com.telnyx.sdk.JSON;
   Room.JSON_PROPERTY_WEBHOOK_TIMEOUT_SECS,
   Room.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Room {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -263,7 +264,7 @@ public class Room {
     return this;
   }
 
-  public Room addSessionsItem(RoomSession sessionsItem) {
+  public Room addsessionsItem(RoomSession sessionsItem) {
     if (this.sessions == null) {
       this.sessions = new ArrayList<>();
     }

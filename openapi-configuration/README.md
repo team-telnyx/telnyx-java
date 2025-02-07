@@ -27,7 +27,7 @@ To generate the SDK; ensure you're at the root folder `telnyx-java` and run the 
 ```
 openapi-generator generate \
   -g java \
-  -i ./openapi-configuration/spec3.json \
+  -i ./openapi-configuration/spec4.json \
   -c ./openapi-configuration/open-api_java_sdk_config.json \
   -t ./openapi-configuration/jersey2
 ```

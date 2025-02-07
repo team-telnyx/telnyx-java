@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -49,7 +50,7 @@ import com.telnyx.sdk.JSON;
   CdrUsageReportResponse.JSON_PROPERTY_RECORD_TYPE,
   CdrUsageReportResponse.JSON_PROPERTY_PRODUCT_BREAKDOWN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CdrUsageReportResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -67,13 +68,13 @@ public class CdrUsageReportResponse {
    * Gets or Sets aggregationType
    */
   public enum AggregationTypeEnum {
-    NO_AGGREGATION("NO_AGGREGATION"),
+    NO_AGGREGATION(String.valueOf("NO_AGGREGATION")),
     
-    CONNECTION("CONNECTION"),
+    CONNECTION(String.valueOf("CONNECTION")),
     
-    TAG("TAG"),
+    TAG(String.valueOf("TAG")),
     
-    BILLING_GROUP("BILLING_GROUP");
+    BILLING_GROUP(String.valueOf("BILLING_GROUP"));
 
     private String value;
 
@@ -109,13 +110,13 @@ public class CdrUsageReportResponse {
    * Gets or Sets status
    */
   public enum StatusEnum {
-    PENDING("PENDING"),
+    PENDING(String.valueOf("PENDING")),
     
-    COMPLETE("COMPLETE"),
+    COMPLETE(String.valueOf("COMPLETE")),
     
-    FAILED("FAILED"),
+    FAILED(String.valueOf("FAILED")),
     
-    EXPIRED("EXPIRED");
+    EXPIRED(String.valueOf("EXPIRED"));
 
     private String value;
 
@@ -166,13 +167,13 @@ public class CdrUsageReportResponse {
    * Gets or Sets productBreakdown
    */
   public enum ProductBreakdownEnum {
-    NO_BREAKDOWN("NO_BREAKDOWN"),
+    NO_BREAKDOWN(String.valueOf("NO_BREAKDOWN")),
     
-    DID_VS_TOLL_FREE("DID_VS_TOLL_FREE"),
+    DID_VS_TOLL_FREE(String.valueOf("DID_VS_TOLL_FREE")),
     
-    COUNTRY("COUNTRY"),
+    COUNTRY(String.valueOf("COUNTRY")),
     
-    DID_VS_TOLL_FREE_PER_COUNTRY("DID_VS_TOLL_FREE_PER_COUNTRY");
+    DID_VS_TOLL_FREE_PER_COUNTRY(String.valueOf("DID_VS_TOLL_FREE_PER_COUNTRY"));
 
     private String value;
 
@@ -287,14 +288,6 @@ public class CdrUsageReportResponse {
 
   public CdrUsageReportResponse connections(List<Long> connections) {
     this.connections = connections;
-    return this;
-  }
-
-  public CdrUsageReportResponse addConnectionsItem(Long connectionsItem) {
-    if (this.connections == null) {
-      this.connections = new ArrayList<>();
-    }
-    this.connections.add(connectionsItem);
     return this;
   }
 

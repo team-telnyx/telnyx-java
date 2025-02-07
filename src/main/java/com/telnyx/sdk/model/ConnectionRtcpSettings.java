@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -36,15 +37,15 @@ import com.telnyx.sdk.JSON;
   ConnectionRtcpSettings.JSON_PROPERTY_CAPTURE_ENABLED,
   ConnectionRtcpSettings.JSON_PROPERTY_REPORT_FREQUENCY_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConnectionRtcpSettings {
   /**
    * RTCP port by default is rtp+1, it can also be set to rtcp-mux
    */
   public enum PortEnum {
-    RTCP_MUX("rtcp-mux"),
+    RTCP_MUX(String.valueOf("rtcp-mux")),
     
-    RTP_1("rtp+1");
+    RTP_1(String.valueOf("rtp+1"));
 
     private String value;
 

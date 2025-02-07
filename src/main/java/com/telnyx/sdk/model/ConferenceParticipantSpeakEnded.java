@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.ConferenceParticipantSpeakEndedPayload;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.ConferenceParticipantSpeakStartedPayload;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,13 +40,13 @@ import com.telnyx.sdk.JSON;
   ConferenceParticipantSpeakEnded.JSON_PROPERTY_ID,
   ConferenceParticipantSpeakEnded.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceParticipantSpeakEnded {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -81,7 +82,7 @@ public class ConferenceParticipantSpeakEnded {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CONFERENCE_PARTICIPANT_SPEAK_ENDED("conference.participant.speak.ended");
+    CONFERENCE_PARTICIPANT_SPEAK_ENDED(String.valueOf("conference.participant.speak.ended"));
 
     private String value;
 
@@ -117,7 +118,7 @@ public class ConferenceParticipantSpeakEnded {
   private UUID id;
 
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
-  private ConferenceParticipantSpeakEndedPayload payload;
+  private ConferenceParticipantSpeakStartedPayload payload;
 
   public ConferenceParticipantSpeakEnded() { 
   }
@@ -200,7 +201,7 @@ public class ConferenceParticipantSpeakEnded {
   }
 
 
-  public ConferenceParticipantSpeakEnded payload(ConferenceParticipantSpeakEndedPayload payload) {
+  public ConferenceParticipantSpeakEnded payload(ConferenceParticipantSpeakStartedPayload payload) {
     this.payload = payload;
     return this;
   }
@@ -214,14 +215,14 @@ public class ConferenceParticipantSpeakEnded {
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public ConferenceParticipantSpeakEndedPayload getPayload() {
+  public ConferenceParticipantSpeakStartedPayload getPayload() {
     return payload;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PAYLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPayload(ConferenceParticipantSpeakEndedPayload payload) {
+  public void setPayload(ConferenceParticipantSpeakStartedPayload payload) {
     this.payload = payload;
   }
 

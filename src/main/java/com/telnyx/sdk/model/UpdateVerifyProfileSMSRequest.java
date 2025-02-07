@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,107 +40,179 @@ import com.telnyx.sdk.JSON;
  * UpdateVerifyProfileSMSRequest
  */
 @JsonPropertyOrder({
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_MESSAGING_ENABLED,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_RCS_ENABLED,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_MESSAGING_TEMPLATE,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
-  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_VSMS_ENABLED
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_MESSAGING_TEMPLATE_ID,
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_APP_NAME,
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_ALPHA_SENDER,
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_CODE_LENGTH,
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_WHITELISTED_DESTINATIONS,
+  UpdateVerifyProfileSMSRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateVerifyProfileSMSRequest {
-  public static final String JSON_PROPERTY_MESSAGING_ENABLED = "messaging_enabled";
-  private Boolean messagingEnabled;
+  public static final String JSON_PROPERTY_MESSAGING_TEMPLATE_ID = "messaging_template_id";
+  private UUID messagingTemplateId;
 
-  public static final String JSON_PROPERTY_RCS_ENABLED = "rcs_enabled";
-  private Boolean rcsEnabled;
+  public static final String JSON_PROPERTY_APP_NAME = "app_name";
+  private String appName;
 
-  public static final String JSON_PROPERTY_MESSAGING_TEMPLATE = "messaging_template";
-  private String messagingTemplate;
+  public static final String JSON_PROPERTY_ALPHA_SENDER = "alpha_sender";
+  private JsonNullable<String> alphaSender = JsonNullable.<String>of("Telnyx");
+
+  public static final String JSON_PROPERTY_CODE_LENGTH = "code_length";
+  private Integer codeLength = 5;
+
+  public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
+  private List<String> whitelistedDestinations = null;
 
   public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
-  private Integer defaultVerificationTimeoutSecs;
-
-  public static final String JSON_PROPERTY_VSMS_ENABLED = "vsms_enabled";
-  private Boolean vsmsEnabled;
+  private Integer defaultVerificationTimeoutSecs = 300;
 
   public UpdateVerifyProfileSMSRequest() { 
   }
 
-  public UpdateVerifyProfileSMSRequest messagingEnabled(Boolean messagingEnabled) {
-    this.messagingEnabled = messagingEnabled;
+  public UpdateVerifyProfileSMSRequest messagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
     return this;
   }
 
    /**
-   * Enables SMS text messaging for the Verify profile.
-   * @return messagingEnabled
+   * The message template identifier selected from /verify_profiles/templates
+   * @return messagingTemplateId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables SMS text messaging for the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_MESSAGING_ENABLED)
+  @ApiModelProperty(example = "0abb5b4f-459f-445a-bfcd-488998b7572d", value = "The message template identifier selected from /verify_profiles/templates")
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getMessagingEnabled() {
-    return messagingEnabled;
+  public UUID getMessagingTemplateId() {
+    return messagingTemplateId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_ENABLED)
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessagingEnabled(Boolean messagingEnabled) {
-    this.messagingEnabled = messagingEnabled;
+  public void setMessagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
   }
 
 
-  public UpdateVerifyProfileSMSRequest rcsEnabled(Boolean rcsEnabled) {
-    this.rcsEnabled = rcsEnabled;
+  public UpdateVerifyProfileSMSRequest appName(String appName) {
+    this.appName = appName;
     return this;
   }
 
    /**
-   * Enables RCS messaging for the Verify profile.
-   * @return rcsEnabled
+   * The name that identifies the application requesting 2fa in the verification message.
+   * @return appName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables RCS messaging for the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_RCS_ENABLED)
+  @ApiModelProperty(example = "Example Secure App", value = "The name that identifies the application requesting 2fa in the verification message.")
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getRcsEnabled() {
-    return rcsEnabled;
+  public String getAppName() {
+    return appName;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RCS_ENABLED)
+  @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRcsEnabled(Boolean rcsEnabled) {
-    this.rcsEnabled = rcsEnabled;
+  public void setAppName(String appName) {
+    this.appName = appName;
   }
 
 
-  public UpdateVerifyProfileSMSRequest messagingTemplate(String messagingTemplate) {
-    this.messagingTemplate = messagingTemplate;
+  public UpdateVerifyProfileSMSRequest alphaSender(String alphaSender) {
+    this.alphaSender = JsonNullable.<String>of(alphaSender);
     return this;
   }
 
    /**
-   * Optionally sets a messaging text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
-   * @return messagingTemplate
+   * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
+   * @return alphaSender
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a messaging text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
-  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
+  @ApiModelProperty(value = "The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.")
+  @JsonIgnore
+
+  public String getAlphaSender() {
+        return alphaSender.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ALPHA_SENDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getMessagingTemplate() {
-    return messagingTemplate;
+  public JsonNullable<String> getAlphaSender_JsonNullable() {
+    return alphaSender;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ALPHA_SENDER)
+  public void setAlphaSender_JsonNullable(JsonNullable<String> alphaSender) {
+    this.alphaSender = alphaSender;
+  }
+
+  public void setAlphaSender(String alphaSender) {
+    this.alphaSender = JsonNullable.<String>of(alphaSender);
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE)
+  public UpdateVerifyProfileSMSRequest codeLength(Integer codeLength) {
+    this.codeLength = codeLength;
+    return this;
+  }
+
+   /**
+   * The length of the verify code to generate.
+   * @return codeLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "6", value = "The length of the verify code to generate.")
+  @JsonProperty(JSON_PROPERTY_CODE_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessagingTemplate(String messagingTemplate) {
-    this.messagingTemplate = messagingTemplate;
+
+  public Integer getCodeLength() {
+    return codeLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CODE_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCodeLength(Integer codeLength) {
+    this.codeLength = codeLength;
+  }
+
+
+  public UpdateVerifyProfileSMSRequest whitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+    return this;
+  }
+
+  public UpdateVerifyProfileSMSRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+    if (this.whitelistedDestinations == null) {
+      this.whitelistedDestinations = new ArrayList<>();
+    }
+    this.whitelistedDestinations.add(whitelistedDestinationsItem);
+    return this;
+  }
+
+   /**
+   * Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.
+   * @return whitelistedDestinations
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"US\",\"CA\"]", value = "Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.")
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getWhitelistedDestinations() {
+    return whitelistedDestinations;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
   }
 
 
@@ -162,32 +242,6 @@ public class UpdateVerifyProfileSMSRequest {
   }
 
 
-  public UpdateVerifyProfileSMSRequest vsmsEnabled(Boolean vsmsEnabled) {
-    this.vsmsEnabled = vsmsEnabled;
-    return this;
-  }
-
-   /**
-   * Enables VSMS for the Verify profile.
-   * @return vsmsEnabled
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Enables VSMS for the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_VSMS_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getVsmsEnabled() {
-    return vsmsEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VSMS_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVsmsEnabled(Boolean vsmsEnabled) {
-    this.vsmsEnabled = vsmsEnabled;
-  }
-
-
   /**
    * Return true if this UpdateVerifyProfileSMSRequest object is equal to o.
    */
@@ -200,27 +254,40 @@ public class UpdateVerifyProfileSMSRequest {
       return false;
     }
     UpdateVerifyProfileSMSRequest updateVerifyProfileSMSRequest = (UpdateVerifyProfileSMSRequest) o;
-    return Objects.equals(this.messagingEnabled, updateVerifyProfileSMSRequest.messagingEnabled) &&
-        Objects.equals(this.rcsEnabled, updateVerifyProfileSMSRequest.rcsEnabled) &&
-        Objects.equals(this.messagingTemplate, updateVerifyProfileSMSRequest.messagingTemplate) &&
-        Objects.equals(this.defaultVerificationTimeoutSecs, updateVerifyProfileSMSRequest.defaultVerificationTimeoutSecs) &&
-        Objects.equals(this.vsmsEnabled, updateVerifyProfileSMSRequest.vsmsEnabled);
+    return Objects.equals(this.messagingTemplateId, updateVerifyProfileSMSRequest.messagingTemplateId) &&
+        Objects.equals(this.appName, updateVerifyProfileSMSRequest.appName) &&
+        equalsNullable(this.alphaSender, updateVerifyProfileSMSRequest.alphaSender) &&
+        Objects.equals(this.codeLength, updateVerifyProfileSMSRequest.codeLength) &&
+        Objects.equals(this.whitelistedDestinations, updateVerifyProfileSMSRequest.whitelistedDestinations) &&
+        Objects.equals(this.defaultVerificationTimeoutSecs, updateVerifyProfileSMSRequest.defaultVerificationTimeoutSecs);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(messagingEnabled, rcsEnabled, messagingTemplate, defaultVerificationTimeoutSecs, vsmsEnabled);
+    return Objects.hash(messagingTemplateId, appName, hashCodeNullable(alphaSender), codeLength, whitelistedDestinations, defaultVerificationTimeoutSecs);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateVerifyProfileSMSRequest {\n");
-    sb.append("    messagingEnabled: ").append(toIndentedString(messagingEnabled)).append("\n");
-    sb.append("    rcsEnabled: ").append(toIndentedString(rcsEnabled)).append("\n");
-    sb.append("    messagingTemplate: ").append(toIndentedString(messagingTemplate)).append("\n");
+    sb.append("    messagingTemplateId: ").append(toIndentedString(messagingTemplateId)).append("\n");
+    sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
+    sb.append("    alphaSender: ").append(toIndentedString(alphaSender)).append("\n");
+    sb.append("    codeLength: ").append(toIndentedString(codeLength)).append("\n");
+    sb.append("    whitelistedDestinations: ").append(toIndentedString(whitelistedDestinations)).append("\n");
     sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
-    sb.append("    vsmsEnabled: ").append(toIndentedString(vsmsEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

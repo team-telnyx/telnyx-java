@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.NotificationEventConditionParametersInner;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -49,7 +50,7 @@ import com.telnyx.sdk.JSON;
   NotificationEventCondition.JSON_PROPERTY_CREATED_AT,
   NotificationEventCondition.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NotificationEventCondition {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -67,9 +68,9 @@ public class NotificationEventCondition {
    * Gets or Sets associatedRecordType
    */
   public enum AssociatedRecordTypeEnum {
-    ACCOUNT("account"),
+    ACCOUNT(String.valueOf("account")),
     
-    PHONE_NUMBER("phone_number");
+    PHONE_NUMBER(String.valueOf("phone_number"));
 
     private String value;
 
@@ -258,7 +259,7 @@ public class NotificationEventCondition {
     return this;
   }
 
-  public NotificationEventCondition addParametersItem(NotificationEventConditionParametersInner parametersItem) {
+  public NotificationEventCondition addparametersItem(NotificationEventConditionParametersInner parametersItem) {
     if (this.parameters == null) {
       this.parameters = new ArrayList<>();
     }
@@ -370,7 +371,7 @@ public class NotificationEventCondition {
     return this;
   }
 
-  public NotificationEventCondition addSupportedChannelsItem(String supportedChannelsItem) {
+  public NotificationEventCondition addsupportedChannelsItem(String supportedChannelsItem) {
     if (this.supportedChannels == null) {
       this.supportedChannels = new ArrayList<>();
     }

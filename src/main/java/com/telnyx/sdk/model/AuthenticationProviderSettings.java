@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.net.URI;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,19 +43,19 @@ import com.telnyx.sdk.JSON;
   AuthenticationProviderSettings.JSON_PROPERTY_IDP_CERT_FINGERPRINT_ALGORITHM,
   AuthenticationProviderSettings.JSON_PROPERTY_NAME_IDENTIFIER_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AuthenticationProviderSettings {
   public static final String JSON_PROPERTY_ASSERTION_CONSUMER_SERVICE_URL = "assertion_consumer_service_url";
-  private String assertionConsumerServiceUrl;
+  private URI assertionConsumerServiceUrl;
 
   public static final String JSON_PROPERTY_SERVICE_PROVIDER_ENTITY_ID = "service_provider_entity_id";
-  private String serviceProviderEntityId;
+  private URI serviceProviderEntityId;
 
   public static final String JSON_PROPERTY_IDP_ENTITY_ID = "idp_entity_id";
-  private String idpEntityId;
+  private URI idpEntityId;
 
   public static final String JSON_PROPERTY_IDP_SSO_TARGET_URL = "idp_sso_target_url";
-  private String idpSsoTargetUrl;
+  private URI idpSsoTargetUrl;
 
   public static final String JSON_PROPERTY_IDP_CERT_FINGERPRINT = "idp_cert_fingerprint";
   private String idpCertFingerprint;
@@ -62,13 +64,13 @@ public class AuthenticationProviderSettings {
    * The algorithm used to generate the identity provider&#39;s (IdP) certificate fingerprint
    */
   public enum IdpCertFingerprintAlgorithmEnum {
-    SHA1("sha1"),
+    SHA1(String.valueOf("sha1")),
     
-    SHA256("sha256"),
+    SHA256(String.valueOf("sha256")),
     
-    SHA384("sha384"),
+    SHA384(String.valueOf("sha384")),
     
-    SHA512("sha512");
+    SHA512(String.valueOf("sha512"));
 
     private String value;
 
@@ -106,7 +108,7 @@ public class AuthenticationProviderSettings {
   public AuthenticationProviderSettings() { 
   }
 
-  public AuthenticationProviderSettings assertionConsumerServiceUrl(String assertionConsumerServiceUrl) {
+  public AuthenticationProviderSettings assertionConsumerServiceUrl(URI assertionConsumerServiceUrl) {
     this.assertionConsumerServiceUrl = assertionConsumerServiceUrl;
     return this;
   }
@@ -120,19 +122,19 @@ public class AuthenticationProviderSettings {
   @JsonProperty(JSON_PROPERTY_ASSERTION_CONSUMER_SERVICE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getAssertionConsumerServiceUrl() {
+  public URI getAssertionConsumerServiceUrl() {
     return assertionConsumerServiceUrl;
   }
 
 
   @JsonProperty(JSON_PROPERTY_ASSERTION_CONSUMER_SERVICE_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAssertionConsumerServiceUrl(String assertionConsumerServiceUrl) {
+  public void setAssertionConsumerServiceUrl(URI assertionConsumerServiceUrl) {
     this.assertionConsumerServiceUrl = assertionConsumerServiceUrl;
   }
 
 
-  public AuthenticationProviderSettings serviceProviderEntityId(String serviceProviderEntityId) {
+  public AuthenticationProviderSettings serviceProviderEntityId(URI serviceProviderEntityId) {
     this.serviceProviderEntityId = serviceProviderEntityId;
     return this;
   }
@@ -146,19 +148,19 @@ public class AuthenticationProviderSettings {
   @JsonProperty(JSON_PROPERTY_SERVICE_PROVIDER_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getServiceProviderEntityId() {
+  public URI getServiceProviderEntityId() {
     return serviceProviderEntityId;
   }
 
 
   @JsonProperty(JSON_PROPERTY_SERVICE_PROVIDER_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setServiceProviderEntityId(String serviceProviderEntityId) {
+  public void setServiceProviderEntityId(URI serviceProviderEntityId) {
     this.serviceProviderEntityId = serviceProviderEntityId;
   }
 
 
-  public AuthenticationProviderSettings idpEntityId(String idpEntityId) {
+  public AuthenticationProviderSettings idpEntityId(URI idpEntityId) {
     this.idpEntityId = idpEntityId;
     return this;
   }
@@ -172,19 +174,19 @@ public class AuthenticationProviderSettings {
   @JsonProperty(JSON_PROPERTY_IDP_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getIdpEntityId() {
+  public URI getIdpEntityId() {
     return idpEntityId;
   }
 
 
   @JsonProperty(JSON_PROPERTY_IDP_ENTITY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIdpEntityId(String idpEntityId) {
+  public void setIdpEntityId(URI idpEntityId) {
     this.idpEntityId = idpEntityId;
   }
 
 
-  public AuthenticationProviderSettings idpSsoTargetUrl(String idpSsoTargetUrl) {
+  public AuthenticationProviderSettings idpSsoTargetUrl(URI idpSsoTargetUrl) {
     this.idpSsoTargetUrl = idpSsoTargetUrl;
     return this;
   }
@@ -198,14 +200,14 @@ public class AuthenticationProviderSettings {
   @JsonProperty(JSON_PROPERTY_IDP_SSO_TARGET_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getIdpSsoTargetUrl() {
+  public URI getIdpSsoTargetUrl() {
     return idpSsoTargetUrl;
   }
 
 
   @JsonProperty(JSON_PROPERTY_IDP_SSO_TARGET_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIdpSsoTargetUrl(String idpSsoTargetUrl) {
+  public void setIdpSsoTargetUrl(URI idpSsoTargetUrl) {
     this.idpSsoTargetUrl = idpSsoTargetUrl;
   }
 

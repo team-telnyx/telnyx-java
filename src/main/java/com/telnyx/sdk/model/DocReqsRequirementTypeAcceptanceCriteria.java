@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -34,15 +37,39 @@ import com.telnyx.sdk.JSON;
 @ApiModel(description = "Specifies objective criteria for acceptance")
 @JsonPropertyOrder({
   DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_TIME_LIMIT,
-  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_LOCALITY_LIMIT
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_LOCALITY_LIMIT,
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_ACCEPTABLE_VALUES,
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_MAX_LENGTH,
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_MIN_LENGTH,
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_ACCEPTABLE_CHARACTERS,
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_CASE_SENSITIVE,
+  DocReqsRequirementTypeAcceptanceCriteria.JSON_PROPERTY_REGEX
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DocReqsRequirementTypeAcceptanceCriteria {
   public static final String JSON_PROPERTY_TIME_LIMIT = "time_limit";
   private String timeLimit;
 
   public static final String JSON_PROPERTY_LOCALITY_LIMIT = "locality_limit";
   private String localityLimit;
+
+  public static final String JSON_PROPERTY_ACCEPTABLE_VALUES = "acceptable_values";
+  private List<String> acceptableValues = null;
+
+  public static final String JSON_PROPERTY_MAX_LENGTH = "max_length";
+  private Integer maxLength;
+
+  public static final String JSON_PROPERTY_MIN_LENGTH = "min_length";
+  private Integer minLength;
+
+  public static final String JSON_PROPERTY_ACCEPTABLE_CHARACTERS = "acceptable_characters";
+  private String acceptableCharacters;
+
+  public static final String JSON_PROPERTY_CASE_SENSITIVE = "case_sensitive";
+  private Boolean caseSensitive;
+
+  public static final String JSON_PROPERTY_REGEX = "regex";
+  private String regex;
 
   public DocReqsRequirementTypeAcceptanceCriteria() { 
   }
@@ -99,6 +126,170 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
   }
 
 
+  public DocReqsRequirementTypeAcceptanceCriteria acceptableValues(List<String> acceptableValues) {
+    this.acceptableValues = acceptableValues;
+    return this;
+  }
+
+  public DocReqsRequirementTypeAcceptanceCriteria addacceptableValuesItem(String acceptableValuesItem) {
+    if (this.acceptableValues == null) {
+      this.acceptableValues = new ArrayList<>();
+    }
+    this.acceptableValues.add(acceptableValuesItem);
+    return this;
+  }
+
+   /**
+   * Specifies the list of strictly possible values for the requirement. Ignored when empty
+   * @return acceptableValues
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Specifies the list of strictly possible values for the requirement. Ignored when empty")
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAcceptableValues() {
+    return acceptableValues;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_VALUES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAcceptableValues(List<String> acceptableValues) {
+    this.acceptableValues = acceptableValues;
+  }
+
+
+  public DocReqsRequirementTypeAcceptanceCriteria maxLength(Integer maxLength) {
+    this.maxLength = maxLength;
+    return this;
+  }
+
+   /**
+   * Maximum length allowed for the value
+   * @return maxLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "20", value = "Maximum length allowed for the value")
+  @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxLength() {
+    return maxLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxLength(Integer maxLength) {
+    this.maxLength = maxLength;
+  }
+
+
+  public DocReqsRequirementTypeAcceptanceCriteria minLength(Integer minLength) {
+    this.minLength = minLength;
+    return this;
+  }
+
+   /**
+   * Minimum length allowed for the value
+   * @return minLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "16", value = "Minimum length allowed for the value")
+  @JsonProperty(JSON_PROPERTY_MIN_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMinLength() {
+    return minLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MIN_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMinLength(Integer minLength) {
+    this.minLength = minLength;
+  }
+
+
+  public DocReqsRequirementTypeAcceptanceCriteria acceptableCharacters(String acceptableCharacters) {
+    this.acceptableCharacters = acceptableCharacters;
+    return this;
+  }
+
+   /**
+   * Specifies the allowed characters as a string
+   * @return acceptableCharacters
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "abcdef0123456789", value = "Specifies the allowed characters as a string")
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_CHARACTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAcceptableCharacters() {
+    return acceptableCharacters;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACCEPTABLE_CHARACTERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAcceptableCharacters(String acceptableCharacters) {
+    this.acceptableCharacters = acceptableCharacters;
+  }
+
+
+  public DocReqsRequirementTypeAcceptanceCriteria caseSensitive(Boolean caseSensitive) {
+    this.caseSensitive = caseSensitive;
+    return this;
+  }
+
+   /**
+   * Specifies whether string matching should be case sensitive
+   * @return caseSensitive
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Specifies whether string matching should be case sensitive")
+  @JsonProperty(JSON_PROPERTY_CASE_SENSITIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCaseSensitive() {
+    return caseSensitive;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CASE_SENSITIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCaseSensitive(Boolean caseSensitive) {
+    this.caseSensitive = caseSensitive;
+  }
+
+
+  public DocReqsRequirementTypeAcceptanceCriteria regex(String regex) {
+    this.regex = regex;
+    return this;
+  }
+
+   /**
+   * A regular expression pattern that the value must match
+   * @return regex
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "^[A-Z0-9]+$", value = "A regular expression pattern that the value must match")
+  @JsonProperty(JSON_PROPERTY_REGEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRegex() {
+    return regex;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REGEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRegex(String regex) {
+    this.regex = regex;
+  }
+
+
   /**
    * Return true if this DocReqsRequirementType_acceptance_criteria object is equal to o.
    */
@@ -112,12 +303,18 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
     }
     DocReqsRequirementTypeAcceptanceCriteria docReqsRequirementTypeAcceptanceCriteria = (DocReqsRequirementTypeAcceptanceCriteria) o;
     return Objects.equals(this.timeLimit, docReqsRequirementTypeAcceptanceCriteria.timeLimit) &&
-        Objects.equals(this.localityLimit, docReqsRequirementTypeAcceptanceCriteria.localityLimit);
+        Objects.equals(this.localityLimit, docReqsRequirementTypeAcceptanceCriteria.localityLimit) &&
+        Objects.equals(this.acceptableValues, docReqsRequirementTypeAcceptanceCriteria.acceptableValues) &&
+        Objects.equals(this.maxLength, docReqsRequirementTypeAcceptanceCriteria.maxLength) &&
+        Objects.equals(this.minLength, docReqsRequirementTypeAcceptanceCriteria.minLength) &&
+        Objects.equals(this.acceptableCharacters, docReqsRequirementTypeAcceptanceCriteria.acceptableCharacters) &&
+        Objects.equals(this.caseSensitive, docReqsRequirementTypeAcceptanceCriteria.caseSensitive) &&
+        Objects.equals(this.regex, docReqsRequirementTypeAcceptanceCriteria.regex);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timeLimit, localityLimit);
+    return Objects.hash(timeLimit, localityLimit, acceptableValues, maxLength, minLength, acceptableCharacters, caseSensitive, regex);
   }
 
   @Override
@@ -126,6 +323,12 @@ public class DocReqsRequirementTypeAcceptanceCriteria {
     sb.append("class DocReqsRequirementTypeAcceptanceCriteria {\n");
     sb.append("    timeLimit: ").append(toIndentedString(timeLimit)).append("\n");
     sb.append("    localityLimit: ").append(toIndentedString(localityLimit)).append("\n");
+    sb.append("    acceptableValues: ").append(toIndentedString(acceptableValues)).append("\n");
+    sb.append("    maxLength: ").append(toIndentedString(maxLength)).append("\n");
+    sb.append("    minLength: ").append(toIndentedString(minLength)).append("\n");
+    sb.append("    acceptableCharacters: ").append(toIndentedString(acceptableCharacters)).append("\n");
+    sb.append("    caseSensitive: ").append(toIndentedString(caseSensitive)).append("\n");
+    sb.append("    regex: ").append(toIndentedString(regex)).append("\n");
     sb.append("}");
     return sb.toString();
   }

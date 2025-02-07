@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -34,12 +35,16 @@ import com.telnyx.sdk.JSON;
  * CreatePortingOrder
  */
 @JsonPropertyOrder({
-  CreatePortingOrder.JSON_PROPERTY_PHONE_NUMBERS
+  CreatePortingOrder.JSON_PROPERTY_PHONE_NUMBERS,
+  CreatePortingOrder.JSON_PROPERTY_CUSTOMER_REFERENCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePortingOrder {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
+  private String customerReference;
 
   public CreatePortingOrder() { 
   }
@@ -49,7 +54,7 @@ public class CreatePortingOrder {
     return this;
   }
 
-  public CreatePortingOrder addPhoneNumbersItem(String phoneNumbersItem) {
+  public CreatePortingOrder addphoneNumbersItem(String phoneNumbersItem) {
     this.phoneNumbers.add(phoneNumbersItem);
     return this;
   }
@@ -75,6 +80,32 @@ public class CreatePortingOrder {
   }
 
 
+  public CreatePortingOrder customerReference(String customerReference) {
+    this.customerReference = customerReference;
+    return this;
+  }
+
+   /**
+   * A customer-specified reference number for customer bookkeeping purposes
+   * @return customerReference
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Acct 123abc", value = "A customer-specified reference number for customer bookkeeping purposes")
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCustomerReference() {
+    return customerReference;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CUSTOMER_REFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCustomerReference(String customerReference) {
+    this.customerReference = customerReference;
+  }
+
+
   /**
    * Return true if this CreatePortingOrder object is equal to o.
    */
@@ -87,12 +118,13 @@ public class CreatePortingOrder {
       return false;
     }
     CreatePortingOrder createPortingOrder = (CreatePortingOrder) o;
-    return Objects.equals(this.phoneNumbers, createPortingOrder.phoneNumbers);
+    return Objects.equals(this.phoneNumbers, createPortingOrder.phoneNumbers) &&
+        Objects.equals(this.customerReference, createPortingOrder.customerReference);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumbers);
+    return Objects.hash(phoneNumbers, customerReference);
   }
 
   @Override
@@ -100,6 +132,7 @@ public class CreatePortingOrder {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreatePortingOrder {\n");
     sb.append("    phoneNumbers: ").append(toIndentedString(phoneNumbers)).append("\n");
+    sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("}");
     return sb.toString();
   }

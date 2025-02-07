@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -40,7 +41,7 @@ import com.telnyx.sdk.JSON;
   SIMCardRegistration.JSON_PROPERTY_REGISTRATION_CODES,
   SIMCardRegistration.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardRegistration {
   public static final String JSON_PROPERTY_SIM_CARD_GROUP_ID = "sim_card_group_id";
   private UUID simCardGroupId;
@@ -55,11 +56,11 @@ public class SIMCardRegistration {
    * Status on which the SIM card will be set after being successful registered.
    */
   public enum StatusEnum {
-    ENABLED("enabled"),
+    ENABLED(String.valueOf("enabled")),
     
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    STANDBY("standby");
+    STANDBY(String.valueOf("standby"));
 
     private String value;
 
@@ -125,7 +126,7 @@ public class SIMCardRegistration {
     return this;
   }
 
-  public SIMCardRegistration addTagsItem(String tagsItem) {
+  public SIMCardRegistration addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -159,7 +160,7 @@ public class SIMCardRegistration {
     return this;
   }
 
-  public SIMCardRegistration addRegistrationCodesItem(String registrationCodesItem) {
+  public SIMCardRegistration addregistrationCodesItem(String registrationCodesItem) {
     this.registrationCodes.add(registrationCodesItem);
     return this;
   }

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortingOrdersExceptionType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,7 +40,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderStatus.JSON_PROPERTY_DETAILS,
   PortingOrderStatus.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderStatus {
   public static final String JSON_PROPERTY_DETAILS = "details";
   private List<PortingOrdersExceptionType> details = null;
@@ -48,21 +49,21 @@ public class PortingOrderStatus {
    * The current status of the porting order
    */
   public enum ValueEnum {
-    DRAFT("draft"),
+    DRAFT(String.valueOf("draft")),
     
-    IN_PROCESS("in-process"),
+    IN_PROCESS(String.valueOf("in-process")),
     
-    SUBMITTED("submitted"),
+    SUBMITTED(String.valueOf("submitted")),
     
-    EXCEPTION("exception"),
+    EXCEPTION(String.valueOf("exception")),
     
-    FOC_DATE_CONFIRMED("foc-date-confirmed"),
+    FOC_DATE_CONFIRMED(String.valueOf("foc-date-confirmed")),
     
-    PORTED("ported"),
+    PORTED(String.valueOf("ported")),
     
-    CANCELED("canceled"),
+    CANCELLED(String.valueOf("cancelled")),
     
-    CANCEL_PENDING("cancel-pending");
+    CANCEL_PENDING(String.valueOf("cancel-pending"));
 
     private String value;
 
@@ -102,7 +103,7 @@ public class PortingOrderStatus {
     return this;
   }
 
-  public PortingOrderStatus addDetailsItem(PortingOrdersExceptionType detailsItem) {
+  public PortingOrderStatus adddetailsItem(PortingOrdersExceptionType detailsItem) {
     if (this.details == null) {
       this.details = new ArrayList<>();
     }

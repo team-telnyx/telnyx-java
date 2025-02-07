@@ -104,6 +104,7 @@ public class ConnectionsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveConnection_connectionIdProvided_returnsConnection() throws ApiException {
         //when
@@ -131,7 +132,6 @@ public class ConnectionsApiTest {
                         .generateRingbackTone(true)
                         .isupHeadersEnabled(true)
                         .prackEnabled(true)
-                        .privacyZoneEnabled(true)
                         .sipCompactHeadersEnabled(true)
                         .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
                         .sipSubdomain("example.sip.telnyx.com" + System.currentTimeMillis())

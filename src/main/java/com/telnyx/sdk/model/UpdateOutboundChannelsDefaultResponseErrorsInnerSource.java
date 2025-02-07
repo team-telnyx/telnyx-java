@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -35,7 +36,7 @@ import com.telnyx.sdk.JSON;
   UpdateOutboundChannelsDefaultResponseErrorsInnerSource.JSON_PROPERTY_POINTER,
   UpdateOutboundChannelsDefaultResponseErrorsInnerSource.JSON_PROPERTY_PARAMETER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateOutboundChannelsDefaultResponseErrorsInnerSource {
   public static final String JSON_PROPERTY_POINTER = "pointer";
   private String pointer;
@@ -99,7 +100,7 @@ public class UpdateOutboundChannelsDefaultResponseErrorsInnerSource {
 
 
   /**
-   * Return true if this updateOutboundChannels_default_response_errors_inner_source object is equal to o.
+   * Return true if this UpdateOutboundChannels_default_response_errors_inner_source object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

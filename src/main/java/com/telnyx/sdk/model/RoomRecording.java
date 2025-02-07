@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -50,7 +51,7 @@ import com.telnyx.sdk.JSON;
   RoomRecording.JSON_PROPERTY_COMPLETED_AT,
   RoomRecording.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RoomRecording {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -68,9 +69,9 @@ public class RoomRecording {
    * Shows the room recording status.
    */
   public enum StatusEnum {
-    COMPLETED("completed"),
+    COMPLETED(String.valueOf("completed")),
     
-    PROCESSING("processing");
+    PROCESSING(String.valueOf("processing"));
 
     private String value;
 
@@ -106,9 +107,9 @@ public class RoomRecording {
    * Shows the room recording type.
    */
   public enum TypeEnum {
-    AUDIO("audio"),
+    AUDIO(String.valueOf("audio")),
     
-    VIDEO("video");
+    VIDEO(String.valueOf("video"));
 
     private String value;
 

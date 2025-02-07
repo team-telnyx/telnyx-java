@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,9 +41,10 @@ import com.telnyx.sdk.JSON;
   CallPlaybackEndedPayload.JSON_PROPERTY_MEDIA_URL,
   CallPlaybackEndedPayload.JSON_PROPERTY_MEDIA_NAME,
   CallPlaybackEndedPayload.JSON_PROPERTY_OVERLAY,
-  CallPlaybackEndedPayload.JSON_PROPERTY_STATUS
+  CallPlaybackEndedPayload.JSON_PROPERTY_STATUS,
+  CallPlaybackEndedPayload.JSON_PROPERTY_STATUS_DETAIL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallPlaybackEndedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -72,17 +74,19 @@ public class CallPlaybackEndedPayload {
    * Reflects how command ended.
    */
   public enum StatusEnum {
-    FILE_NOT_FOUND("file_not_found"),
+    FILE_NOT_FOUND(String.valueOf("file_not_found")),
     
-    CALL_HANGUP("call_hangup"),
+    CALL_HANGUP(String.valueOf("call_hangup")),
     
-    UNKNOWN("unknown"),
+    UNKNOWN(String.valueOf("unknown")),
     
-    FAILED("failed"),
+    CANCELLED(String.valueOf("cancelled")),
     
-    CANCELLED_AMD("cancelled_amd"),
+    CANCELLED_AMD(String.valueOf("cancelled_amd")),
     
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed")),
+    
+    FAILED(String.valueOf("failed"));
 
     private String value;
 
@@ -114,6 +118,9 @@ public class CallPlaybackEndedPayload {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
+  public static final String JSON_PROPERTY_STATUS_DETAIL = "status_detail";
+  private String statusDetail;
+
   public CallPlaybackEndedPayload() { 
   }
 
@@ -127,7 +134,7 @@ public class CallPlaybackEndedPayload {
    * @return callControlId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ", value = "Call ID used to issue commands via Call Control API.")
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "Call ID used to issue commands via Call Control API.")
   @JsonProperty(JSON_PROPERTY_CALL_CONTROL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -351,6 +358,32 @@ public class CallPlaybackEndedPayload {
   }
 
 
+  public CallPlaybackEndedPayload statusDetail(String statusDetail) {
+    this.statusDetail = statusDetail;
+    return this;
+  }
+
+   /**
+   * Provides details in case of failure.
+   * @return statusDetail
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Received curl error 22 HTTP error code 404 trying to fetch http://mediaurl.com.", value = "Provides details in case of failure.")
+  @JsonProperty(JSON_PROPERTY_STATUS_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getStatusDetail() {
+    return statusDetail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatusDetail(String statusDetail) {
+    this.statusDetail = statusDetail;
+  }
+
+
   /**
    * Return true if this CallPlaybackEnded_payload object is equal to o.
    */
@@ -371,12 +404,13 @@ public class CallPlaybackEndedPayload {
         Objects.equals(this.mediaUrl, callPlaybackEndedPayload.mediaUrl) &&
         Objects.equals(this.mediaName, callPlaybackEndedPayload.mediaName) &&
         Objects.equals(this.overlay, callPlaybackEndedPayload.overlay) &&
-        Objects.equals(this.status, callPlaybackEndedPayload.status);
+        Objects.equals(this.status, callPlaybackEndedPayload.status) &&
+        Objects.equals(this.statusDetail, callPlaybackEndedPayload.statusDetail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, mediaUrl, mediaName, overlay, status);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, mediaUrl, mediaName, overlay, status, statusDetail);
   }
 
   @Override
@@ -392,6 +426,7 @@ public class CallPlaybackEndedPayload {
     sb.append("    mediaName: ").append(toIndentedString(mediaName)).append("\n");
     sb.append("    overlay: ").append(toIndentedString(overlay)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    statusDetail: ").append(toIndentedString(statusDetail)).append("\n");
     sb.append("}");
     return sb.toString();
   }

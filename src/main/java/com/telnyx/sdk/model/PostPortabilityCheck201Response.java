@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PortabilityCheckDetails;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -37,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   PostPortabilityCheck201Response.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PostPortabilityCheck201Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<PortabilityCheckDetails> data = null;
@@ -50,7 +51,7 @@ public class PostPortabilityCheck201Response {
     return this;
   }
 
-  public PostPortabilityCheck201Response addDataItem(PortabilityCheckDetails dataItem) {
+  public PostPortabilityCheck201Response adddataItem(PortabilityCheckDetails dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -80,7 +81,7 @@ public class PostPortabilityCheck201Response {
 
 
   /**
-   * Return true if this postPortabilityCheck_201_response object is equal to o.
+   * Return true if this PostPortabilityCheck_201_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {

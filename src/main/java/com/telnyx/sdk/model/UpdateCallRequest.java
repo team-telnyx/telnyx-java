@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,7 +42,7 @@ import com.telnyx.sdk.JSON;
   UpdateCallRequest.JSON_PROPERTY_STATUS_CALLBACK_METHOD,
   UpdateCallRequest.JSON_PROPERTY_TEXML
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateCallRequest {
   public static final String JSON_PROPERTY_STATUS = "Status";
   private String status;
@@ -53,9 +54,9 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;Url&#x60;.
    */
   public enum MethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -94,9 +95,9 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;FallbackUrl&#x60;.
    */
   public enum FallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -135,9 +136,9 @@ public class UpdateCallRequest {
    * HTTP request type used for &#x60;StatusCallback&#x60;.
    */
   public enum StatusCallbackMethodEnum {
-    GET("GET"),
+    GET(String.valueOf("GET")),
     
-    POST("POST");
+    POST(String.valueOf("POST"));
 
     private String value;
 
@@ -363,11 +364,11 @@ public class UpdateCallRequest {
   }
 
    /**
-   * TeXml to replace the current one with.
+   * TeXML to replace the current one with.
    * @return texml
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>", value = "TeXml to replace the current one with.")
+  @ApiModelProperty(example = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>", value = "TeXML to replace the current one with.")
   @JsonProperty(JSON_PROPERTY_TEXML)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.TranscriptionStartRequestLanguage;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -32,33 +34,29 @@ import com.telnyx.sdk.JSON;
  * TranscriptionStartRequest
  */
 @JsonPropertyOrder({
+  TranscriptionStartRequest.JSON_PROPERTY_TRANSCRIPTION_ENGINE,
   TranscriptionStartRequest.JSON_PROPERTY_LANGUAGE,
   TranscriptionStartRequest.JSON_PROPERTY_INTERIM_RESULTS,
+  TranscriptionStartRequest.JSON_PROPERTY_ENABLE_SPEAKER_DIARIZATION,
+  TranscriptionStartRequest.JSON_PROPERTY_MIN_SPEAKER_COUNT,
+  TranscriptionStartRequest.JSON_PROPERTY_MAX_SPEAKER_COUNT,
   TranscriptionStartRequest.JSON_PROPERTY_CLIENT_STATE,
   TranscriptionStartRequest.JSON_PROPERTY_TRANSCRIPTION_TRACKS,
   TranscriptionStartRequest.JSON_PROPERTY_COMMAND_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TranscriptionStartRequest {
   /**
-   * Language to use for speech recognition
+   * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;Google&#x60;, &#x60;B&#x60; - &#x60;Telnyx&#x60;.
    */
-  public enum LanguageEnum {
-    DE("de"),
+  public enum TranscriptionEngineEnum {
+    A(String.valueOf("A")),
     
-    EN("en"),
-    
-    ES("es"),
-    
-    FR("fr"),
-    
-    IT("it"),
-    
-    PL("pl");
+    B(String.valueOf("B"));
 
     private String value;
 
-    LanguageEnum(String value) {
+    TranscriptionEngineEnum(String value) {
       this.value = value;
     }
 
@@ -73,8 +71,8 @@ public class TranscriptionStartRequest {
     }
 
     @JsonCreator
-    public static LanguageEnum fromValue(String value) {
-      for (LanguageEnum b : LanguageEnum.values()) {
+    public static TranscriptionEngineEnum fromValue(String value) {
+      for (TranscriptionEngineEnum b : TranscriptionEngineEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -83,11 +81,23 @@ public class TranscriptionStartRequest {
     }
   }
 
+  public static final String JSON_PROPERTY_TRANSCRIPTION_ENGINE = "transcription_engine";
+  private TranscriptionEngineEnum transcriptionEngine = TranscriptionEngineEnum.A;
+
   public static final String JSON_PROPERTY_LANGUAGE = "language";
-  private LanguageEnum language = LanguageEnum.EN;
+  private TranscriptionStartRequestLanguage language;
 
   public static final String JSON_PROPERTY_INTERIM_RESULTS = "interim_results";
   private Boolean interimResults = false;
+
+  public static final String JSON_PROPERTY_ENABLE_SPEAKER_DIARIZATION = "enable_speaker_diarization";
+  private Boolean enableSpeakerDiarization = false;
+
+  public static final String JSON_PROPERTY_MIN_SPEAKER_COUNT = "min_speaker_count";
+  private Integer minSpeakerCount = 2;
+
+  public static final String JSON_PROPERTY_MAX_SPEAKER_COUNT = "max_speaker_count";
+  private Integer maxSpeakerCount = 6;
 
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -101,28 +111,54 @@ public class TranscriptionStartRequest {
   public TranscriptionStartRequest() { 
   }
 
-  public TranscriptionStartRequest language(LanguageEnum language) {
+  public TranscriptionStartRequest transcriptionEngine(TranscriptionEngineEnum transcriptionEngine) {
+    this.transcriptionEngine = transcriptionEngine;
+    return this;
+  }
+
+   /**
+   * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;Google&#x60;, &#x60;B&#x60; - &#x60;Telnyx&#x60;.
+   * @return transcriptionEngine
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "A", value = "Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_ENGINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TranscriptionEngineEnum getTranscriptionEngine() {
+    return transcriptionEngine;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_ENGINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionEngine(TranscriptionEngineEnum transcriptionEngine) {
+    this.transcriptionEngine = transcriptionEngine;
+  }
+
+
+  public TranscriptionStartRequest language(TranscriptionStartRequestLanguage language) {
     this.language = language;
     return this;
   }
 
    /**
-   * Language to use for speech recognition
+   * Get language
    * @return language
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "en", value = "Language to use for speech recognition")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public LanguageEnum getLanguage() {
+  public TranscriptionStartRequestLanguage getLanguage() {
     return language;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLanguage(LanguageEnum language) {
+  public void setLanguage(TranscriptionStartRequestLanguage language) {
     this.language = language;
   }
 
@@ -133,11 +169,11 @@ public class TranscriptionStartRequest {
   }
 
    /**
-   * Whether to send also interim results. If set to false, only final results will be sent.
+   * Whether to send also interim results. If set to false, only final results will be sent. Applies to &#x60;google&#x60; engine only.
    * @return interimResults
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Whether to send also interim results. If set to false, only final results will be sent.")
+  @ApiModelProperty(example = "true", value = "Whether to send also interim results. If set to false, only final results will be sent. Applies to `google` engine only.")
   @JsonProperty(JSON_PROPERTY_INTERIM_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -150,6 +186,84 @@ public class TranscriptionStartRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInterimResults(Boolean interimResults) {
     this.interimResults = interimResults;
+  }
+
+
+  public TranscriptionStartRequest enableSpeakerDiarization(Boolean enableSpeakerDiarization) {
+    this.enableSpeakerDiarization = enableSpeakerDiarization;
+    return this;
+  }
+
+   /**
+   * Enables speaker diarization. Applies to &#x60;google&#x60; engine only.
+   * @return enableSpeakerDiarization
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enables speaker diarization. Applies to `google` engine only.")
+  @JsonProperty(JSON_PROPERTY_ENABLE_SPEAKER_DIARIZATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getEnableSpeakerDiarization() {
+    return enableSpeakerDiarization;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ENABLE_SPEAKER_DIARIZATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnableSpeakerDiarization(Boolean enableSpeakerDiarization) {
+    this.enableSpeakerDiarization = enableSpeakerDiarization;
+  }
+
+
+  public TranscriptionStartRequest minSpeakerCount(Integer minSpeakerCount) {
+    this.minSpeakerCount = minSpeakerCount;
+    return this;
+  }
+
+   /**
+   * Defines minimum number of speakers in the conversation. Applies to &#x60;google&#x60; engine only.
+   * @return minSpeakerCount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "4", value = "Defines minimum number of speakers in the conversation. Applies to `google` engine only.")
+  @JsonProperty(JSON_PROPERTY_MIN_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMinSpeakerCount() {
+    return minSpeakerCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MIN_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMinSpeakerCount(Integer minSpeakerCount) {
+    this.minSpeakerCount = minSpeakerCount;
+  }
+
+
+  public TranscriptionStartRequest maxSpeakerCount(Integer maxSpeakerCount) {
+    this.maxSpeakerCount = maxSpeakerCount;
+    return this;
+  }
+
+   /**
+   * Defines maximum number of speakers in the conversation. Applies to &#x60;google&#x60; engine only.
+   * @return maxSpeakerCount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "4", value = "Defines maximum number of speakers in the conversation. Applies to `google` engine only.")
+  @JsonProperty(JSON_PROPERTY_MAX_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getMaxSpeakerCount() {
+    return maxSpeakerCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxSpeakerCount(Integer maxSpeakerCount) {
+    this.maxSpeakerCount = maxSpeakerCount;
   }
 
 
@@ -243,8 +357,12 @@ public class TranscriptionStartRequest {
       return false;
     }
     TranscriptionStartRequest transcriptionStartRequest = (TranscriptionStartRequest) o;
-    return Objects.equals(this.language, transcriptionStartRequest.language) &&
+    return Objects.equals(this.transcriptionEngine, transcriptionStartRequest.transcriptionEngine) &&
+        Objects.equals(this.language, transcriptionStartRequest.language) &&
         Objects.equals(this.interimResults, transcriptionStartRequest.interimResults) &&
+        Objects.equals(this.enableSpeakerDiarization, transcriptionStartRequest.enableSpeakerDiarization) &&
+        Objects.equals(this.minSpeakerCount, transcriptionStartRequest.minSpeakerCount) &&
+        Objects.equals(this.maxSpeakerCount, transcriptionStartRequest.maxSpeakerCount) &&
         Objects.equals(this.clientState, transcriptionStartRequest.clientState) &&
         Objects.equals(this.transcriptionTracks, transcriptionStartRequest.transcriptionTracks) &&
         Objects.equals(this.commandId, transcriptionStartRequest.commandId);
@@ -252,15 +370,19 @@ public class TranscriptionStartRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(language, interimResults, clientState, transcriptionTracks, commandId);
+    return Objects.hash(transcriptionEngine, language, interimResults, enableSpeakerDiarization, minSpeakerCount, maxSpeakerCount, clientState, transcriptionTracks, commandId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TranscriptionStartRequest {\n");
+    sb.append("    transcriptionEngine: ").append(toIndentedString(transcriptionEngine)).append("\n");
     sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("    interimResults: ").append(toIndentedString(interimResults)).append("\n");
+    sb.append("    enableSpeakerDiarization: ").append(toIndentedString(enableSpeakerDiarization)).append("\n");
+    sb.append("    minSpeakerCount: ").append(toIndentedString(minSpeakerCount)).append("\n");
+    sb.append("    maxSpeakerCount: ").append(toIndentedString(maxSpeakerCount)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    transcriptionTracks: ").append(toIndentedString(transcriptionTracks)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");

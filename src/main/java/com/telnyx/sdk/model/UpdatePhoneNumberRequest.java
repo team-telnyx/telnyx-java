@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -37,12 +38,12 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberRequest.JSON_PROPERTY_ID,
   UpdatePhoneNumberRequest.JSON_PROPERTY_TAGS,
   UpdatePhoneNumberRequest.JSON_PROPERTY_EXTERNAL_PIN,
+  UpdatePhoneNumberRequest.JSON_PROPERTY_HD_VOICE_ENABLED,
   UpdatePhoneNumberRequest.JSON_PROPERTY_CUSTOMER_REFERENCE,
   UpdatePhoneNumberRequest.JSON_PROPERTY_CONNECTION_ID,
-  UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID,
-  UpdatePhoneNumberRequest.JSON_PROPERTY_NUMBER_LEVEL_ROUTING
+  UpdatePhoneNumberRequest.JSON_PROPERTY_BILLING_GROUP_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePhoneNumberRequest {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -53,6 +54,9 @@ public class UpdatePhoneNumberRequest {
   public static final String JSON_PROPERTY_EXTERNAL_PIN = "external_pin";
   private String externalPin;
 
+  public static final String JSON_PROPERTY_HD_VOICE_ENABLED = "hd_voice_enabled";
+  private Boolean hdVoiceEnabled;
+
   public static final String JSON_PROPERTY_CUSTOMER_REFERENCE = "customer_reference";
   private String customerReference;
 
@@ -61,44 +65,6 @@ public class UpdatePhoneNumberRequest {
 
   public static final String JSON_PROPERTY_BILLING_GROUP_ID = "billing_group_id";
   private String billingGroupId;
-
-  /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
-   */
-  public enum NumberLevelRoutingEnum {
-    ENABLED("enabled"),
-    
-    DISABLED("disabled");
-
-    private String value;
-
-    NumberLevelRoutingEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static NumberLevelRoutingEnum fromValue(String value) {
-      for (NumberLevelRoutingEnum b : NumberLevelRoutingEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_NUMBER_LEVEL_ROUTING = "number_level_routing";
-  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.ENABLED;
 
   public UpdatePhoneNumberRequest() { 
   }
@@ -132,7 +98,7 @@ public class UpdatePhoneNumberRequest {
     return this;
   }
 
-  public UpdatePhoneNumberRequest addTagsItem(String tagsItem) {
+  public UpdatePhoneNumberRequest addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -184,6 +150,32 @@ public class UpdatePhoneNumberRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExternalPin(String externalPin) {
     this.externalPin = externalPin;
+  }
+
+
+  public UpdatePhoneNumberRequest hdVoiceEnabled(Boolean hdVoiceEnabled) {
+    this.hdVoiceEnabled = hdVoiceEnabled;
+    return this;
+  }
+
+   /**
+   * Indicates whether HD voice is enabled for this number.
+   * @return hdVoiceEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Indicates whether HD voice is enabled for this number.")
+  @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getHdVoiceEnabled() {
+    return hdVoiceEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HD_VOICE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHdVoiceEnabled(Boolean hdVoiceEnabled) {
+    this.hdVoiceEnabled = hdVoiceEnabled;
   }
 
 
@@ -265,32 +257,6 @@ public class UpdatePhoneNumberRequest {
   }
 
 
-  public UpdatePhoneNumberRequest numberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-    return this;
-  }
-
-   /**
-   * Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.
-   * @return numberLevelRouting
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Specifies whether the number can have overrides to the routing settings on itself (enabled) or if it uses the associated connection for all routing settings (disabled). Defaults to enabled but will be changed to disabled in the future. There are performance advantages to using disabled and setting all routing information at the connection level.")
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public NumberLevelRoutingEnum getNumberLevelRouting() {
-    return numberLevelRouting;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNumberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-  }
-
-
   /**
    * Return true if this UpdatePhoneNumberRequest object is equal to o.
    */
@@ -306,15 +272,15 @@ public class UpdatePhoneNumberRequest {
     return Objects.equals(this.id, updatePhoneNumberRequest.id) &&
         Objects.equals(this.tags, updatePhoneNumberRequest.tags) &&
         Objects.equals(this.externalPin, updatePhoneNumberRequest.externalPin) &&
+        Objects.equals(this.hdVoiceEnabled, updatePhoneNumberRequest.hdVoiceEnabled) &&
         Objects.equals(this.customerReference, updatePhoneNumberRequest.customerReference) &&
         Objects.equals(this.connectionId, updatePhoneNumberRequest.connectionId) &&
-        Objects.equals(this.billingGroupId, updatePhoneNumberRequest.billingGroupId) &&
-        Objects.equals(this.numberLevelRouting, updatePhoneNumberRequest.numberLevelRouting);
+        Objects.equals(this.billingGroupId, updatePhoneNumberRequest.billingGroupId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tags, externalPin, customerReference, connectionId, billingGroupId, numberLevelRouting);
+    return Objects.hash(id, tags, externalPin, hdVoiceEnabled, customerReference, connectionId, billingGroupId);
   }
 
   @Override
@@ -324,10 +290,10 @@ public class UpdatePhoneNumberRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    externalPin: ").append(toIndentedString(externalPin)).append("\n");
+    sb.append("    hdVoiceEnabled: ").append(toIndentedString(hdVoiceEnabled)).append("\n");
     sb.append("    customerReference: ").append(toIndentedString(customerReference)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
-    sb.append("    numberLevelRouting: ").append(toIndentedString(numberLevelRouting)).append("\n");
     sb.append("}");
     return sb.toString();
   }

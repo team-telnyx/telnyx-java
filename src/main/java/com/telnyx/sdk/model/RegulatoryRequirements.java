@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,11 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.RegulatoryRequirementsRegionInformationInner;
 import com.telnyx.sdk.model.RegulatoryRequirementsRegulatoryRequirementsInner;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -36,25 +36,21 @@ import com.telnyx.sdk.JSON;
  * RegulatoryRequirements
  */
 @JsonPropertyOrder({
-  RegulatoryRequirements.JSON_PROPERTY_PHONE_NUMBER,
+  RegulatoryRequirements.JSON_PROPERTY_COUNTRY_CODE,
   RegulatoryRequirements.JSON_PROPERTY_PHONE_NUMBER_TYPE,
-  RegulatoryRequirements.JSON_PROPERTY_REGION_INFORMATION,
-  RegulatoryRequirements.JSON_PROPERTY_RECORD_TYPE,
+  RegulatoryRequirements.JSON_PROPERTY_ACTION,
   RegulatoryRequirements.JSON_PROPERTY_REGULATORY_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirements {
-  public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
-  private String phoneNumber;
+  public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
+  private String countryCode;
 
   public static final String JSON_PROPERTY_PHONE_NUMBER_TYPE = "phone_number_type";
   private String phoneNumberType;
 
-  public static final String JSON_PROPERTY_REGION_INFORMATION = "region_information";
-  private List<RegulatoryRequirementsRegionInformationInner> regionInformation = null;
-
-  public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+  public static final String JSON_PROPERTY_ACTION = "action";
+  private String action;
 
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
   private List<RegulatoryRequirementsRegulatoryRequirementsInner> regulatoryRequirements = null;
@@ -64,27 +60,27 @@ public class RegulatoryRequirements {
 
   @JsonCreator
   public RegulatoryRequirements(
-    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE) String countryCode, 
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) String phoneNumberType, 
-    @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType
+    @JsonProperty(JSON_PROPERTY_ACTION) String action
   ) {
     this();
-    this.phoneNumber = phoneNumber;
+    this.countryCode = countryCode;
     this.phoneNumberType = phoneNumberType;
-    this.recordType = recordType;
+    this.action = action;
   }
 
    /**
-   * Get phoneNumber
-   * @return phoneNumber
+   * Get countryCode
+   * @return countryCode
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "+41215471644", value = "")
-  @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
+  @ApiModelProperty(example = "DE", value = "")
+  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getPhoneNumber() {
-    return phoneNumber;
+  public String getCountryCode() {
+    return countryCode;
   }
 
 
@@ -106,51 +102,17 @@ public class RegulatoryRequirements {
 
 
 
-  public RegulatoryRequirements regionInformation(List<RegulatoryRequirementsRegionInformationInner> regionInformation) {
-    this.regionInformation = regionInformation;
-    return this;
-  }
-
-  public RegulatoryRequirements addRegionInformationItem(RegulatoryRequirementsRegionInformationInner regionInformationItem) {
-    if (this.regionInformation == null) {
-      this.regionInformation = new ArrayList<>();
-    }
-    this.regionInformation.add(regionInformationItem);
-    return this;
-  }
-
    /**
-   * Get regionInformation
-   * @return regionInformation
+   * Get action
+   * @return action
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
+  @ApiModelProperty(example = "ordering", value = "")
+  @JsonProperty(JSON_PROPERTY_ACTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<RegulatoryRequirementsRegionInformationInner> getRegionInformation() {
-    return regionInformation;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REGION_INFORMATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegionInformation(List<RegulatoryRequirementsRegionInformationInner> regionInformation) {
-    this.regionInformation = regionInformation;
-  }
-
-
-   /**
-   * Get recordType
-   * @return recordType
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "phone_number_regulatory_requirements", value = "")
-  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRecordType() {
-    return recordType;
+  public String getAction() {
+    return action;
   }
 
 
@@ -161,7 +123,7 @@ public class RegulatoryRequirements {
     return this;
   }
 
-  public RegulatoryRequirements addRegulatoryRequirementsItem(RegulatoryRequirementsRegulatoryRequirementsInner regulatoryRequirementsItem) {
+  public RegulatoryRequirements addregulatoryRequirementsItem(RegulatoryRequirementsRegulatoryRequirementsInner regulatoryRequirementsItem) {
     if (this.regulatoryRequirements == null) {
       this.regulatoryRequirements = new ArrayList<>();
     }
@@ -202,26 +164,24 @@ public class RegulatoryRequirements {
       return false;
     }
     RegulatoryRequirements regulatoryRequirements = (RegulatoryRequirements) o;
-    return Objects.equals(this.phoneNumber, regulatoryRequirements.phoneNumber) &&
+    return Objects.equals(this.countryCode, regulatoryRequirements.countryCode) &&
         Objects.equals(this.phoneNumberType, regulatoryRequirements.phoneNumberType) &&
-        Objects.equals(this.regionInformation, regulatoryRequirements.regionInformation) &&
-        Objects.equals(this.recordType, regulatoryRequirements.recordType) &&
+        Objects.equals(this.action, regulatoryRequirements.action) &&
         Objects.equals(this.regulatoryRequirements, regulatoryRequirements.regulatoryRequirements);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, phoneNumberType, regionInformation, recordType, regulatoryRequirements);
+    return Objects.hash(countryCode, phoneNumberType, action, regulatoryRequirements);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RegulatoryRequirements {\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
     sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
-    sb.append("    regionInformation: ").append(toIndentedString(regionInformation)).append("\n");
-    sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
+    sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    regulatoryRequirements: ").append(toIndentedString(regulatoryRequirements)).append("\n");
     sb.append("}");
     return sb.toString();

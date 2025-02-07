@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallMachinePremiumGreetingEndedPayload;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -41,13 +42,13 @@ import com.telnyx.sdk.JSON;
   CallMachinePremiumGreetingEnded.JSON_PROPERTY_OCCURRED_AT,
   CallMachinePremiumGreetingEnded.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallMachinePremiumGreetingEnded {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -83,7 +84,7 @@ public class CallMachinePremiumGreetingEnded {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CALL_MACHINE_PREMIUM_GREETING_ENDED("call.machine.premium.greeting.ended");
+    CALL_MACHINE_PREMIUM_GREETING_ENDED(String.valueOf("call.machine.premium.greeting.ended"));
 
     private String value;
 
@@ -124,6 +125,8 @@ public class CallMachinePremiumGreetingEnded {
   public static final String JSON_PROPERTY_PAYLOAD = "payload";
   private CallMachinePremiumGreetingEndedPayload payload;
 
+  public CallMachinePremiumGreetingEnded() { 
+  }
 
   public CallMachinePremiumGreetingEnded recordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
@@ -144,6 +147,8 @@ public class CallMachinePremiumGreetingEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordType(RecordTypeEnum recordType) {
     this.recordType = recordType;
   }
@@ -168,6 +173,8 @@ public class CallMachinePremiumGreetingEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEventType(EventTypeEnum eventType) {
     this.eventType = eventType;
   }
@@ -192,6 +199,8 @@ public class CallMachinePremiumGreetingEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(UUID id) {
     this.id = id;
   }
@@ -216,6 +225,8 @@ public class CallMachinePremiumGreetingEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OCCURRED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOccurredAt(OffsetDateTime occurredAt) {
     this.occurredAt = occurredAt;
   }
@@ -240,6 +251,8 @@ public class CallMachinePremiumGreetingEnded {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPayload(CallMachinePremiumGreetingEndedPayload payload) {
     this.payload = payload;
   }
@@ -268,7 +281,6 @@ public class CallMachinePremiumGreetingEnded {
   public int hashCode() {
     return Objects.hash(recordType, eventType, id, occurredAt, payload);
   }
-
 
   @Override
   public String toString() {

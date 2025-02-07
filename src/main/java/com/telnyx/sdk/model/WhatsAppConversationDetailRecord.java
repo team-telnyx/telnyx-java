@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +43,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppConversationDetailRecord.JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID,
   WhatsAppConversationDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WhatsAppConversationDetailRecord {
   public static final String JSON_PROPERTY_RECIPIENT_REGION_CODE = "recipient_region_code";
   private String recipientRegionCode;
@@ -63,11 +64,11 @@ public class WhatsAppConversationDetailRecord {
    * Whatsapp Conversation Origin
    */
   public enum ConversationOriginEnum {
-    BUSINESS_INITIATED("business_initiated"),
+    BUSINESS_INITIATED(String.valueOf("business_initiated")),
     
-    USER_INITIATED("user_initiated"),
+    USER_INITIATED(String.valueOf("user_initiated")),
     
-    REFERRAL_CONVERSION("referral_conversion");
+    REFERRAL_CONVERSION(String.valueOf("referral_conversion"));
 
     private String value;
 

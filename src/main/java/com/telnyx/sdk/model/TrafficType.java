@@ -15,9 +15,10 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
-import io.swagger.annotations.ApiModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -30,9 +31,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum TrafficType {
   
-  CONVERSATIONAL("conversational"),
-  
-  SHORT_DURATION("short_duration");
+  CONVERSATIONAL("conversational");
 
   private String value;
 

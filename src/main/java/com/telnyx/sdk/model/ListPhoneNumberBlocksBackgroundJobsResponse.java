@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.PaginationMeta;
 import com.telnyx.sdk.model.PhoneNumberBlocksJob;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -39,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListPhoneNumberBlocksBackgroundJobsResponse.JSON_PROPERTY_DATA,
   ListPhoneNumberBlocksBackgroundJobsResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListPhoneNumberBlocksBackgroundJobsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<PhoneNumberBlocksJob> data = null;
@@ -55,7 +56,7 @@ public class ListPhoneNumberBlocksBackgroundJobsResponse {
     return this;
   }
 
-  public ListPhoneNumberBlocksBackgroundJobsResponse addDataItem(PhoneNumberBlocksJob dataItem) {
+  public ListPhoneNumberBlocksBackgroundJobsResponse adddataItem(PhoneNumberBlocksJob dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

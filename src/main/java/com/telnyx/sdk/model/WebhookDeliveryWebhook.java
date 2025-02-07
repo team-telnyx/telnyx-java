@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -41,13 +42,13 @@ import com.telnyx.sdk.JSON;
   WebhookDeliveryWebhook.JSON_PROPERTY_OCCURRED_AT,
   WebhookDeliveryWebhook.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WebhookDeliveryWebhook {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -79,41 +80,8 @@ public class WebhookDeliveryWebhook {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private RecordTypeEnum recordType;
 
-  /**
-   * The type of event being delivered.
-   */
-  public enum EventTypeEnum {
-    WEBHOOK_COMMAND("webhook.command");
-
-    private String value;
-
-    EventTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static EventTypeEnum fromValue(String value) {
-      for (EventTypeEnum b : EventTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_EVENT_TYPE = "event_type";
-  private EventTypeEnum eventType;
+  private String eventType;
 
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -153,7 +121,7 @@ public class WebhookDeliveryWebhook {
   }
 
 
-  public WebhookDeliveryWebhook eventType(EventTypeEnum eventType) {
+  public WebhookDeliveryWebhook eventType(String eventType) {
     this.eventType = eventType;
     return this;
   }
@@ -167,14 +135,14 @@ public class WebhookDeliveryWebhook {
   @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public EventTypeEnum getEventType() {
+  public String getEventType() {
     return eventType;
   }
 
 
   @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEventType(EventTypeEnum eventType) {
+  public void setEventType(String eventType) {
     this.eventType = eventType;
   }
 

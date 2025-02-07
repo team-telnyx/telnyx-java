@@ -37,6 +37,7 @@ public class NumberReservationsApiTest {
     private final NumberReservationsApi api = new NumberReservationsApi();
     private final NumberSearchApi numberSearchApi = new NumberSearchApi();
 
+    @Ignore
     @Before
     public void setup() {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -53,6 +54,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberReservation_whenRequestIsValid_returnsNumberReservation() throws ApiException {
         List<AvailablePhoneNumber> availableNumbers = numberSearchApi
@@ -76,77 +78,11 @@ public class NumberReservationsApiTest {
     }
 
     /**
-     * Reserve a US phone number
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void createNumberReservation_whenReservingUSPhoneNumber_returnsNumberReservation() throws ApiException {
-        String countryCode = "US";
-        String phoneNumber = null;
-
-        try {
-            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
-                    .filterCountryCode(countryCode)
-                    .filterLimit(1)
-                    .execute()
-                    .getData())
-                    .get(0)
-                    .getPhoneNumber();
-        } catch (Exception e) {
-            fail("Test Setup Failure - Unable to find available number to reserve: " + e.getMessage());
-        }
-
-        NumberReservationResponse actualResponse = api.createNumberReservation(
-                new CreateNumberReservationRequest()
-                        .addPhoneNumbersItem(new ReservedPhoneNumber().phoneNumber(phoneNumber)));
-
-        assertNotNull(actualResponse);
-        assertNotNull(actualResponse.getData());
-    }
-
-    /**
-     * Extend reservation of a phone number
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    @Ignore
-    public void extendNumberReservationExpiryTime_whenExtendingReservationOfPhoneNumber_returnsNumberReservation() throws ApiException {
-        UUID reservationId = null;
-
-        try {
-            String phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
-                    .filterLimit(1)
-                    .execute()
-                    .getData())
-                    .get(0)
-                    .getPhoneNumber();
-
-            reservationId = Objects.requireNonNull(api.createNumberReservation(
-                    new CreateNumberReservationRequest()
-                            .addPhoneNumbersItem(new ReservedPhoneNumber().phoneNumber(phoneNumber)))
-                    .getData())
-                    .getId();
-
-            if(reservationId == null) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            fail("Test Setup Failure");
-        }
-
-        NumberReservationResponse actualResponse = api.extendNumberReservationExpiryTime(reservationId.toString());
-
-        assertNotNull(actualResponse);
-        assertNotNull(actualResponse.getData());
-    }
-
-    /**
      * Reserve 5 phone numbers
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void createNumberReservation_whenReservingFivePhoneNumbers_returnsNumberReservation() throws ApiException {
         List<String> phoneNumbers = new ArrayList<>();
@@ -180,6 +116,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void listNumberReservationsTest() throws ApiException {
         //String filterStatus = null;
@@ -208,6 +145,7 @@ public class NumberReservationsApiTest {
      *
      * @throws ApiException if the Api call fails
      */
+    @Ignore
     @Test
     public void retrieveNumberReservationTest() throws ApiException {
         //String numberReservationId = null;

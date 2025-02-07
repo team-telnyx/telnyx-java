@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NotificationsApi {
   private ApiClient apiClient;
 
@@ -671,6 +671,216 @@ public class NotificationsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Get a notification channel
+   * Get a notification channel.
+   * @param id The id of the resource. (required)
+   * @return CreateNotificationChannels200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> A Notification Channel response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateNotificationChannels200Response getNotificationChannel(UUID id) throws ApiException {
+    return getNotificationChannelWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Get a notification channel
+   * Get a notification channel.
+   * @param id The id of the resource. (required)
+   * @return ApiResponse&lt;CreateNotificationChannels200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> A Notification Channel response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateNotificationChannels200Response> getNotificationChannelWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getNotificationChannel");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/notification_channels/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateNotificationChannels200Response> localVarReturnType = new GenericType<CreateNotificationChannels200Response>() {};
+
+    return apiClient.invokeAPI("NotificationsApi.getNotificationChannel", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Get a notification profile
+   * Get a notification profile.
+   * @param id The id of the resource. (required)
+   * @return CreateNotificationProfile200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> A Notification Profile response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateNotificationProfile200Response getNotificationProfile(UUID id) throws ApiException {
+    return getNotificationProfileWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Get a notification profile
+   * Get a notification profile.
+   * @param id The id of the resource. (required)
+   * @return ApiResponse&lt;CreateNotificationProfile200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> A Notification Profile response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateNotificationProfile200Response> getNotificationProfileWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getNotificationProfile");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/notification_profiles/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateNotificationProfile200Response> localVarReturnType = new GenericType<CreateNotificationProfile200Response>() {};
+
+    return apiClient.invokeAPI("NotificationsApi.getNotificationProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
+   * Get a notification setting
+   * Get a notification setting.
+   * @param id The id of the resource. (required)
+   * @return CreateNotificationSetting200Response
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> A Notification Setting response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public CreateNotificationSetting200Response getNotificationSetting(UUID id) throws ApiException {
+    return getNotificationSettingWithHttpInfo(id).getData();
+  }
+
+  /**
+   * Get a notification setting
+   * Get a notification setting.
+   * @param id The id of the resource. (required)
+   * @return ApiResponse&lt;CreateNotificationSetting200Response&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> A Notification Setting response </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<CreateNotificationSetting200Response> getNotificationSettingWithHttpInfo(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getNotificationSetting");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/notification_settings/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<CreateNotificationSetting200Response> localVarReturnType = new GenericType<CreateNotificationSetting200Response>() {};
+
+    return apiClient.invokeAPI("NotificationsApi.getNotificationSetting", localVarPath, "GET", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * List notification channels
    * List notification channels.
    * @param pageNumber The page number to load (optional, default to 1)
@@ -750,7 +960,7 @@ public class NotificationsApi {
    * @param filterNotificationChannelEq Filter by the id of a notification channel (optional)
    * @param filterNotificationEventConditionIdEq Filter by the id of a notification channel (optional)
    * @param filterAssociatedRecordTypeEq Filter by the associated record type (optional)
-   * @param filterStatusEq The status of a notification setting (optional)
+   * @param status Filters calls by status. (optional)
    * @return ListNotificationSettings200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -760,8 +970,8 @@ public class NotificationsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ListNotificationSettings200Response listNotificationSettings(Integer pageNumber, Integer pageSize, String filterNotificationProfileIdEq, String filterNotificationChannelEq, String filterNotificationEventConditionIdEq, String filterAssociatedRecordTypeEq, String filterStatusEq) throws ApiException {
-    return listNotificationSettingsWithHttpInfo(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, filterStatusEq).getData();
+  public ListNotificationSettings200Response listNotificationSettings(Integer pageNumber, Integer pageSize, String filterNotificationProfileIdEq, String filterNotificationChannelEq, String filterNotificationEventConditionIdEq, String filterAssociatedRecordTypeEq, String status) throws ApiException {
+    return listNotificationSettingsWithHttpInfo(pageNumber, pageSize, filterNotificationProfileIdEq, filterNotificationChannelEq, filterNotificationEventConditionIdEq, filterAssociatedRecordTypeEq, status).getData();
   }
 
   /**
@@ -773,7 +983,7 @@ public class NotificationsApi {
    * @param filterNotificationChannelEq Filter by the id of a notification channel (optional)
    * @param filterNotificationEventConditionIdEq Filter by the id of a notification channel (optional)
    * @param filterAssociatedRecordTypeEq Filter by the associated record type (optional)
-   * @param filterStatusEq The status of a notification setting (optional)
+   * @param status Filters calls by status. (optional)
    * @return ApiResponse&lt;ListNotificationSettings200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -783,7 +993,7 @@ public class NotificationsApi {
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListNotificationSettings200Response> listNotificationSettingsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterNotificationProfileIdEq, String filterNotificationChannelEq, String filterNotificationEventConditionIdEq, String filterAssociatedRecordTypeEq, String filterStatusEq) throws ApiException {
+  public ApiResponse<ListNotificationSettings200Response> listNotificationSettingsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterNotificationProfileIdEq, String filterNotificationChannelEq, String filterNotificationEventConditionIdEq, String filterAssociatedRecordTypeEq, String status) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -801,7 +1011,7 @@ public class NotificationsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[notification_channel][eq]", filterNotificationChannelEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[notification_event_condition_id][eq]", filterNotificationEventConditionIdEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[associated_record_type][eq]", filterAssociatedRecordTypeEq));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status][eq]", filterStatusEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "Status", status));
 
     
     
@@ -821,216 +1031,6 @@ public class NotificationsApi {
     GenericType<ListNotificationSettings200Response> localVarReturnType = new GenericType<ListNotificationSettings200Response>() {};
 
     return apiClient.invokeAPI("NotificationsApi.listNotificationSettings", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Retrieve a notification channel
-   * Retrieve a notification channel.
-   * @param id The id of the resource. (required)
-   * @return CreateNotificationChannels200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> A Notification Channel response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public CreateNotificationChannels200Response retrieveNotificationChannel(UUID id) throws ApiException {
-    return retrieveNotificationChannelWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a notification channel
-   * Retrieve a notification channel.
-   * @param id The id of the resource. (required)
-   * @return ApiResponse&lt;CreateNotificationChannels200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> A Notification Channel response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<CreateNotificationChannels200Response> retrieveNotificationChannelWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveNotificationChannel");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/notification_channels/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateNotificationChannels200Response> localVarReturnType = new GenericType<CreateNotificationChannels200Response>() {};
-
-    return apiClient.invokeAPI("NotificationsApi.retrieveNotificationChannel", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Retrieve a notification profile
-   * Retrieve a notification profile.
-   * @param id The id of the resource. (required)
-   * @return CreateNotificationProfile200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> A Notification Profile response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public CreateNotificationProfile200Response retrieveNotificationProfile(UUID id) throws ApiException {
-    return retrieveNotificationProfileWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a notification profile
-   * Retrieve a notification profile.
-   * @param id The id of the resource. (required)
-   * @return ApiResponse&lt;CreateNotificationProfile200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> A Notification Profile response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<CreateNotificationProfile200Response> retrieveNotificationProfileWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveNotificationProfile");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/notification_profiles/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateNotificationProfile200Response> localVarReturnType = new GenericType<CreateNotificationProfile200Response>() {};
-
-    return apiClient.invokeAPI("NotificationsApi.retrieveNotificationProfile", localVarPath, "GET", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, localVarReturnType, false);
-  }
-  /**
-   * Retrieve a notification setting
-   * Retrieve a notification setting.
-   * @param id The id of the resource. (required)
-   * @return CreateNotificationSetting200Response
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> A Notification Setting response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public CreateNotificationSetting200Response retrieveNotificationSetting(UUID id) throws ApiException {
-    return retrieveNotificationSettingWithHttpInfo(id).getData();
-  }
-
-  /**
-   * Retrieve a notification setting
-   * Retrieve a notification setting.
-   * @param id The id of the resource. (required)
-   * @return ApiResponse&lt;CreateNotificationSetting200Response&gt;
-   * @throws ApiException if fails to make API call
-   * @http.response.details
-     <table summary="Response Details" border="1">
-       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> A Notification Setting response </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
-     </table>
-   */
-  public ApiResponse<CreateNotificationSetting200Response> retrieveNotificationSettingWithHttpInfo(UUID id) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling retrieveNotificationSetting");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/notification_settings/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-
-    
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "bearerAuth" };
-
-    GenericType<CreateNotificationSetting200Response> localVarReturnType = new GenericType<CreateNotificationSetting200Response>() {};
-
-    return apiClient.invokeAPI("NotificationsApi.retrieveNotificationSetting", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
                                localVarAuthNames, localVarReturnType, false);
   }

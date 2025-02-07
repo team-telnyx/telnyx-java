@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -36,10 +41,10 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   CreateVerificationRequestCall.JSON_PROPERTY_PHONE_NUMBER,
   CreateVerificationRequestCall.JSON_PROPERTY_VERIFY_PROFILE_ID,
-  CreateVerificationRequestCall.JSON_PROPERTY_TIMEOUT_SECS,
-  CreateVerificationRequestCall.JSON_PROPERTY_CALL_TIMEOUT_SECS
+  CreateVerificationRequestCall.JSON_PROPERTY_CUSTOM_CODE,
+  CreateVerificationRequestCall.JSON_PROPERTY_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateVerificationRequestCall {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -47,11 +52,11 @@ public class CreateVerificationRequestCall {
   public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
   private UUID verifyProfileId;
 
+  public static final String JSON_PROPERTY_CUSTOM_CODE = "custom_code";
+  private JsonNullable<String> customCode = JsonNullable.<String>undefined();
+
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs;
-
-  public static final String JSON_PROPERTY_CALL_TIMEOUT_SECS = "call_timeout_secs";
-  private Integer callTimeoutSecs;
 
   public CreateVerificationRequestCall() { 
   }
@@ -108,6 +113,40 @@ public class CreateVerificationRequestCall {
   }
 
 
+  public CreateVerificationRequestCall customCode(String customCode) {
+    this.customCode = JsonNullable.<String>of(customCode);
+    return this;
+  }
+
+   /**
+   * Send a self-generated numeric code to the end-user
+   * @return customCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "43612", value = "Send a self-generated numeric code to the end-user")
+  @JsonIgnore
+
+  public String getCustomCode() {
+        return customCode.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getCustomCode_JsonNullable() {
+    return customCode;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+  public void setCustomCode_JsonNullable(JsonNullable<String> customCode) {
+    this.customCode = customCode;
+  }
+
+  public void setCustomCode(String customCode) {
+    this.customCode = JsonNullable.<String>of(customCode);
+  }
+
+
   public CreateVerificationRequestCall timeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
     return this;
@@ -134,32 +173,6 @@ public class CreateVerificationRequestCall {
   }
 
 
-  public CreateVerificationRequestCall callTimeoutSecs(Integer callTimeoutSecs) {
-    this.callTimeoutSecs = callTimeoutSecs;
-    return this;
-  }
-
-   /**
-   * Must be less than the profile&#39;s default_verification_timeout_secs or timeout_secs, whichever is lesser.
-   * @return callTimeoutSecs
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "30", value = "Must be less than the profile's default_verification_timeout_secs or timeout_secs, whichever is lesser.")
-  @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getCallTimeoutSecs() {
-    return callTimeoutSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallTimeoutSecs(Integer callTimeoutSecs) {
-    this.callTimeoutSecs = callTimeoutSecs;
-  }
-
-
   /**
    * Return true if this CreateVerificationRequestCall object is equal to o.
    */
@@ -174,13 +187,24 @@ public class CreateVerificationRequestCall {
     CreateVerificationRequestCall createVerificationRequestCall = (CreateVerificationRequestCall) o;
     return Objects.equals(this.phoneNumber, createVerificationRequestCall.phoneNumber) &&
         Objects.equals(this.verifyProfileId, createVerificationRequestCall.verifyProfileId) &&
-        Objects.equals(this.timeoutSecs, createVerificationRequestCall.timeoutSecs) &&
-        Objects.equals(this.callTimeoutSecs, createVerificationRequestCall.callTimeoutSecs);
+        equalsNullable(this.customCode, createVerificationRequestCall.customCode) &&
+        Objects.equals(this.timeoutSecs, createVerificationRequestCall.timeoutSecs);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, verifyProfileId, timeoutSecs, callTimeoutSecs);
+    return Objects.hash(phoneNumber, verifyProfileId, hashCodeNullable(customCode), timeoutSecs);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -189,8 +213,8 @@ public class CreateVerificationRequestCall {
     sb.append("class CreateVerificationRequestCall {\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
+    sb.append("    customCode: ").append(toIndentedString(customCode)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
-    sb.append("    callTimeoutSecs: ").append(toIndentedString(callTimeoutSecs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

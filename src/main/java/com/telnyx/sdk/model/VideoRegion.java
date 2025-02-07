@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -48,7 +49,7 @@ import com.telnyx.sdk.JSON;
   VideoRegion.JSON_PROPERTY_MAX_ROWS,
   VideoRegion.JSON_PROPERTY_VIDEO_SOURCES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VideoRegion {
   public static final String JSON_PROPERTY_X_POS = "x_pos";
   private JsonNullable<Integer> xPos = JsonNullable.<Integer>of(0);
@@ -328,7 +329,7 @@ public class VideoRegion {
     return this;
   }
 
-  public VideoRegion addVideoSourcesItem(UUID videoSourcesItem) {
+  public VideoRegion addvideoSourcesItem(UUID videoSourcesItem) {
     if (this.videoSources == null) {
       this.videoSources = new ArrayList<>();
     }

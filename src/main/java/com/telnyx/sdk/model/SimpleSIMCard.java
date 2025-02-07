@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,12 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.SIMCardCurrentBillingPeriodConsumedData;
 import com.telnyx.sdk.model.SIMCardStatus;
+import com.telnyx.sdk.model.SimpleSIMCardCurrentBillingPeriodConsumedData;
 import com.telnyx.sdk.model.SimpleSIMCardDataLimit;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -41,6 +42,7 @@ import com.telnyx.sdk.JSON;
   SimpleSIMCard.JSON_PROPERTY_ID,
   SimpleSIMCard.JSON_PROPERTY_RECORD_TYPE,
   SimpleSIMCard.JSON_PROPERTY_STATUS,
+  SimpleSIMCard.JSON_PROPERTY_TYPE,
   SimpleSIMCard.JSON_PROPERTY_ICCID,
   SimpleSIMCard.JSON_PROPERTY_IMSI,
   SimpleSIMCard.JSON_PROPERTY_MSISDN,
@@ -48,10 +50,11 @@ import com.telnyx.sdk.JSON;
   SimpleSIMCard.JSON_PROPERTY_TAGS,
   SimpleSIMCard.JSON_PROPERTY_DATA_LIMIT,
   SimpleSIMCard.JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA,
+  SimpleSIMCard.JSON_PROPERTY_ACTIONS_IN_PROGRESS,
   SimpleSIMCard.JSON_PROPERTY_CREATED_AT,
   SimpleSIMCard.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SimpleSIMCard {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -61,6 +64,44 @@ public class SimpleSIMCard {
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private SIMCardStatus status;
+
+  /**
+   * The type of SIM card
+   */
+  public enum TypeEnum {
+    PHYSICAL(String.valueOf("physical")),
+    
+    ESIM(String.valueOf("esim"));
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
 
   public static final String JSON_PROPERTY_ICCID = "iccid";
   private String iccid;
@@ -81,7 +122,10 @@ public class SimpleSIMCard {
   private SimpleSIMCardDataLimit dataLimit;
 
   public static final String JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA = "current_billing_period_consumed_data";
-  private SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
+  private SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
+
+  public static final String JSON_PROPERTY_ACTIONS_IN_PROGRESS = "actions_in_progress";
+  private Boolean actionsInProgress = false;
 
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -96,18 +140,22 @@ public class SimpleSIMCard {
   public SimpleSIMCard(
     @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
+    @JsonProperty(JSON_PROPERTY_TYPE) TypeEnum type, 
     @JsonProperty(JSON_PROPERTY_ICCID) String iccid, 
     @JsonProperty(JSON_PROPERTY_IMSI) String imsi, 
     @JsonProperty(JSON_PROPERTY_MSISDN) String msisdn, 
+    @JsonProperty(JSON_PROPERTY_ACTIONS_IN_PROGRESS) Boolean actionsInProgress, 
     @JsonProperty(JSON_PROPERTY_CREATED_AT) String createdAt, 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT) String updatedAt
   ) {
     this();
     this.id = id;
     this.recordType = recordType;
+    this.type = type;
     this.iccid = iccid;
     this.imsi = imsi;
     this.msisdn = msisdn;
+    this.actionsInProgress = actionsInProgress;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -171,6 +219,22 @@ public class SimpleSIMCard {
 
 
    /**
+   * The type of SIM card
+   * @return type
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "physical", value = "The type of SIM card")
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+
+
+   /**
    * The ICCID is the identifier of the specific SIM card/chip. Each SIM is internationally identified by its integrated circuit card identifier (ICCID). ICCIDs are stored in the SIM card&#39;s memory and are also engraved or printed on the SIM card body during a process called personalization. 
    * @return iccid
   **/
@@ -187,11 +251,11 @@ public class SimpleSIMCard {
 
 
    /**
-   * SIM cards are identified on their individual operator networks by a unique International Mobile Subscriber Identity (IMSI). &lt;br/&gt; Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). 
+   * SIM cards are identified on their individual network operators by a unique International Mobile Subscriber Identity (IMSI). &lt;br/&gt; Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). 
    * @return imsi
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "081932214823362973", value = "SIM cards are identified on their individual operator networks by a unique International Mobile Subscriber Identity (IMSI). <br/> Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). ")
+  @ApiModelProperty(example = "081932214823362973", value = "SIM cards are identified on their individual network operators by a unique International Mobile Subscriber Identity (IMSI). <br/> Mobile network operators connect mobile phone calls and communicate with their market SIM cards using their IMSIs. The IMSI is stored in the Subscriber  Identity Module (SIM) inside the device and is sent by the device to the appropriate network. It is used to acquire the details of the device in the Home  Location Register (HLR) or the Visitor Location Register (VLR). ")
   @JsonProperty(JSON_PROPERTY_IMSI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -249,7 +313,7 @@ public class SimpleSIMCard {
     return this;
   }
 
-  public SimpleSIMCard addTagsItem(String tagsItem) {
+  public SimpleSIMCard addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -304,7 +368,7 @@ public class SimpleSIMCard {
   }
 
 
-  public SimpleSIMCard currentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+  public SimpleSIMCard currentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
     this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
     return this;
   }
@@ -318,16 +382,32 @@ public class SimpleSIMCard {
   @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
+  public SimpleSIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
     return currentBillingPeriodConsumedData;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+  public void setCurrentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
     this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
   }
+
+
+   /**
+   * Indicate whether the SIM card has any pending (in-progress) actions.
+   * @return actionsInProgress
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Indicate whether the SIM card has any pending (in-progress) actions.")
+  @JsonProperty(JSON_PROPERTY_ACTIONS_IN_PROGRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getActionsInProgress() {
+    return actionsInProgress;
+  }
+
+
 
 
    /**
@@ -377,6 +457,7 @@ public class SimpleSIMCard {
     return Objects.equals(this.id, simpleSIMCard.id) &&
         Objects.equals(this.recordType, simpleSIMCard.recordType) &&
         Objects.equals(this.status, simpleSIMCard.status) &&
+        Objects.equals(this.type, simpleSIMCard.type) &&
         Objects.equals(this.iccid, simpleSIMCard.iccid) &&
         Objects.equals(this.imsi, simpleSIMCard.imsi) &&
         Objects.equals(this.msisdn, simpleSIMCard.msisdn) &&
@@ -384,13 +465,14 @@ public class SimpleSIMCard {
         Objects.equals(this.tags, simpleSIMCard.tags) &&
         Objects.equals(this.dataLimit, simpleSIMCard.dataLimit) &&
         Objects.equals(this.currentBillingPeriodConsumedData, simpleSIMCard.currentBillingPeriodConsumedData) &&
+        Objects.equals(this.actionsInProgress, simpleSIMCard.actionsInProgress) &&
         Objects.equals(this.createdAt, simpleSIMCard.createdAt) &&
         Objects.equals(this.updatedAt, simpleSIMCard.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, status, iccid, imsi, msisdn, simCardGroupId, tags, dataLimit, currentBillingPeriodConsumedData, createdAt, updatedAt);
+    return Objects.hash(id, recordType, status, type, iccid, imsi, msisdn, simCardGroupId, tags, dataLimit, currentBillingPeriodConsumedData, actionsInProgress, createdAt, updatedAt);
   }
 
   @Override
@@ -400,6 +482,7 @@ public class SimpleSIMCard {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    iccid: ").append(toIndentedString(iccid)).append("\n");
     sb.append("    imsi: ").append(toIndentedString(imsi)).append("\n");
     sb.append("    msisdn: ").append(toIndentedString(msisdn)).append("\n");
@@ -407,6 +490,7 @@ public class SimpleSIMCard {
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    dataLimit: ").append(toIndentedString(dataLimit)).append("\n");
     sb.append("    currentBillingPeriodConsumedData: ").append(toIndentedString(currentBillingPeriodConsumedData)).append("\n");
+    sb.append("    actionsInProgress: ").append(toIndentedString(actionsInProgress)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
