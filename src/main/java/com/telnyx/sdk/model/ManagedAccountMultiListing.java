@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,13 +45,13 @@ import com.telnyx.sdk.JSON;
   ManagedAccountMultiListing.JSON_PROPERTY_MANAGED_ACCOUNT_ALLOW_CUSTOM_PRICING,
   ManagedAccountMultiListing.JSON_PROPERTY_ROLLUP_BILLING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ManagedAccountMultiListing {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MANAGED_ACCOUNT("managed_account");
+    MANAGED_ACCOUNT(String.valueOf("managed_account"));
 
     private String value;
 

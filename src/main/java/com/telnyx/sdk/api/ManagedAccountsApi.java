@@ -12,6 +12,7 @@ import com.telnyx.sdk.model.CreateManagedAccount200Response;
 import com.telnyx.sdk.model.CreateManagedAccount422Response;
 import com.telnyx.sdk.model.CreateManagedAccountRequest;
 import com.telnyx.sdk.model.EnableManagedAccountRequest;
+import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.ListAllocatableGlobalOutboundChannels200Response;
 import com.telnyx.sdk.model.ListManagedAccounts200Response;
 import com.telnyx.sdk.model.UpdateManagedAccountGlobalChannelLimit200Response;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ManagedAccountsApi {
   private ApiClient apiClient;
 
@@ -63,7 +64,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
@@ -81,7 +82,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
    */
@@ -134,7 +135,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
@@ -153,7 +154,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
@@ -209,7 +210,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
@@ -229,7 +230,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
@@ -283,8 +284,8 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about allocatable global outbound channels. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthorized response. Happens when the current user is not authorized to access the endpoint. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
    */
   public ListAllocatableGlobalOutboundChannels200Response listAllocatableGlobalOutboundChannels() throws ApiException {
@@ -300,8 +301,8 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about allocatable global outbound channels. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthorized response. Happens when the current user is not authorized to access the endpoint. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListAllocatableGlobalOutboundChannels200Response> listAllocatableGlobalOutboundChannelsWithHttpInfo() throws ApiException {
@@ -347,7 +348,7 @@ public class ManagedAccountsApi {
    * @param filterEmailEq If present, only returns results with the &lt;code&gt;email&lt;/code&gt; matching exactly the value given. (optional, default to null)
    * @param filterOrganizationNameContains If present, only returns results with the &lt;code&gt;organization_name&lt;/code&gt; containing the given value. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
    * @param filterOrganizationNameEq If present, only returns results with the &lt;code&gt;organization_name&lt;/code&gt; matching exactly the value given. (optional, default to null)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+   * @param sort Set the order of the results by the creation date. (optional)
    * @param includeCancelledAccounts Specifies if cancelled accounts should be included in the results. (optional, default to false)
    * @return ListManagedAccounts200Response
    * @throws ApiException if fails to make API call
@@ -355,7 +356,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of managed accounts. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
   public ListManagedAccounts200Response listManagedAccounts(Integer pageNumber, Integer pageSize, String filterEmailContains, String filterEmailEq, String filterOrganizationNameContains, String filterOrganizationNameEq, String sort, Boolean includeCancelledAccounts) throws ApiException {
@@ -371,7 +372,7 @@ public class ManagedAccountsApi {
    * @param filterEmailEq If present, only returns results with the &lt;code&gt;email&lt;/code&gt; matching exactly the value given. (optional, default to null)
    * @param filterOrganizationNameContains If present, only returns results with the &lt;code&gt;organization_name&lt;/code&gt; containing the given value. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
    * @param filterOrganizationNameEq If present, only returns results with the &lt;code&gt;organization_name&lt;/code&gt; matching exactly the value given. (optional, default to null)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+   * @param sort Set the order of the results by the creation date. (optional)
    * @param includeCancelledAccounts Specifies if cancelled accounts should be included in the results. (optional, default to false)
    * @return ApiResponse&lt;ListManagedAccounts200Response&gt;
    * @throws ApiException if fails to make API call
@@ -379,7 +380,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with a list of managed accounts. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListManagedAccounts200Response> listManagedAccountsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterEmailContains, String filterEmailEq, String filterOrganizationNameContains, String filterOrganizationNameEq, String sort, Boolean includeCancelledAccounts) throws ApiException {
@@ -434,7 +435,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
@@ -452,7 +453,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
@@ -507,7 +508,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
@@ -527,7 +528,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about a single managed account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
@@ -588,7 +589,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about the allocatable global outbound channels for the given account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>
@@ -608,7 +609,7 @@ public class ManagedAccountsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with information about the allocatable global outbound channels for the given account. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity. Check the &#39;detail&#39; field in response for details. </td><td>  -  </td></tr>
      </table>

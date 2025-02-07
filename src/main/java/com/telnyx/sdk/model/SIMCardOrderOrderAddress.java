@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   SIMCardOrderOrderAddress.JSON_PROPERTY_COUNTRY_CODE,
   SIMCardOrderOrderAddress.JSON_PROPERTY_POSTAL_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardOrderOrderAddress {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -196,7 +194,7 @@ public class SIMCardOrderOrderAddress {
    * @return streetAddress
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "311 W Superior St", value = "The name of the street where the address is located.")
+  @ApiModelProperty(example = "600 Congress Avenue", value = "The name of the street where the address is located.")
   @JsonProperty(JSON_PROPERTY_STREET_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -222,7 +220,7 @@ public class SIMCardOrderOrderAddress {
    * @return extendedAddress
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Suite 504", value = "Supplemental field for address information.")
+  @ApiModelProperty(example = "14th Floor", value = "Supplemental field for address information.")
   @JsonProperty(JSON_PROPERTY_EXTENDED_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -248,7 +246,7 @@ public class SIMCardOrderOrderAddress {
    * @return locality
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Chicago", value = "The name of the city where the address is located.")
+  @ApiModelProperty(example = "Austin", value = "The name of the city where the address is located.")
   @JsonProperty(JSON_PROPERTY_LOCALITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -274,7 +272,7 @@ public class SIMCardOrderOrderAddress {
    * @return administrativeArea
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "IL", value = "State or province where the address is located.")
+  @ApiModelProperty(example = "TX", value = "State or province where the address is located.")
   @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -326,7 +324,7 @@ public class SIMCardOrderOrderAddress {
    * @return postalCode
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "60654", value = "Postal code for the address.")
+  @ApiModelProperty(example = "78701", value = "Postal code for the address.")
   @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

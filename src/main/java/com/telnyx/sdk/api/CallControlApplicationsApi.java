@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallControlApplicationsApi {
   private ApiClient apiClient;
 
@@ -127,7 +127,7 @@ public class CallControlApplicationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -146,7 +146,7 @@ public class CallControlApplicationsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -192,7 +192,7 @@ public class CallControlApplicationsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterApplicationNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -207,7 +207,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[application_name][contains]", filterApplicationNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -236,7 +236,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
     private Integer pageNumber;
     private Integer pageSize;
     private String filterApplicationNameContains;
-    private String filterOutboundOutboundVoiceProfileId;
+    private String filterOutboundVoiceProfileId;
     private String sort;
 
     private APIlistCallControlApplicationsRequest() {
@@ -264,7 +264,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
 
     /**
      * Set filterApplicationNameContains
-     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
+     * @param filterApplicationNameContains If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional)
      * @return APIlistCallControlApplicationsRequest
      */
     public APIlistCallControlApplicationsRequest filterApplicationNameContains(String filterApplicationNameContains) {
@@ -273,12 +273,12 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
     }
 
     /**
-     * Set filterOutboundOutboundVoiceProfileId
-     * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+     * Set filterOutboundVoiceProfileId
+     * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
      * @return APIlistCallControlApplicationsRequest
      */
-    public APIlistCallControlApplicationsRequest filterOutboundOutboundVoiceProfileId(String filterOutboundOutboundVoiceProfileId) {
-      this.filterOutboundOutboundVoiceProfileId = filterOutboundOutboundVoiceProfileId;
+    public APIlistCallControlApplicationsRequest filterOutboundVoiceProfileId(String filterOutboundVoiceProfileId) {
+      this.filterOutboundVoiceProfileId = filterOutboundVoiceProfileId;
       return this;
     }
 
@@ -301,7 +301,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        </table>
      
@@ -320,13 +320,13 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
          <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
          <tr><td> 200 </td><td> Successful response with a list of call control applications. </td><td>  -  </td></tr>
          <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-         <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
          <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        </table>
 
      */
     public ApiResponse<ListCallControlApplicationsResponse> executeWithHttpInfo() throws ApiException {
-      return listCallControlApplicationsWithHttpInfo(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+      return listCallControlApplicationsWithHttpInfo(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
     }
   }
 
@@ -351,7 +351,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -370,7 +370,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -426,7 +426,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
@@ -446,7 +446,7 @@ private ApiResponse<ListCallControlApplicationsResponse> listCallControlApplicat
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Successful response with details about a call control application. </td><td>  -  </td></tr>
-       <tr><td> 401 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>

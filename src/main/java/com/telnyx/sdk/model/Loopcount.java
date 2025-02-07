@@ -49,7 +49,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 @JsonDeserialize(using = Loopcount.LoopcountDeserializer.class)
 @JsonSerialize(using = Loopcount.LoopcountSerializer.class)
 public class Loopcount extends AbstractOpenApiSchema {

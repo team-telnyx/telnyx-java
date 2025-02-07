@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -40,16 +38,24 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   ESimPurchase.JSON_PROPERTY_SIM_CARD_GROUP_ID,
   ESimPurchase.JSON_PROPERTY_TAGS,
+  ESimPurchase.JSON_PROPERTY_PRODUCT,
+  ESimPurchase.JSON_PROPERTY_WHITELABEL_NAME,
   ESimPurchase.JSON_PROPERTY_AMOUNT,
   ESimPurchase.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ESimPurchase {
   public static final String JSON_PROPERTY_SIM_CARD_GROUP_ID = "sim_card_group_id";
   private UUID simCardGroupId;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
   private List<String> tags = null;
+
+  public static final String JSON_PROPERTY_PRODUCT = "product";
+  private String product;
+
+  public static final String JSON_PROPERTY_WHITELABEL_NAME = "whitelabel_name";
+  private String whitelabelName;
 
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private Integer amount;
@@ -58,11 +64,11 @@ public class ESimPurchase {
    * Status on which the SIM cards will be set after being successfully registered.
    */
   public enum StatusEnum {
-    ENABLED("enabled"),
+    ENABLED(String.valueOf("enabled")),
     
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    STANDBY("standby");
+    STANDBY(String.valueOf("standby"));
 
     private String value;
 
@@ -128,7 +134,7 @@ public class ESimPurchase {
     return this;
   }
 
-  public ESimPurchase addTagsItem(String tagsItem) {
+  public ESimPurchase addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -154,6 +160,58 @@ public class ESimPurchase {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<String> tags) {
     this.tags = tags;
+  }
+
+
+  public ESimPurchase product(String product) {
+    this.product = product;
+    return this;
+  }
+
+   /**
+   * Type of product to be purchased, specify \&quot;whitelabel\&quot; to use a custom SPN
+   * @return product
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "whitelabel", value = "Type of product to be purchased, specify \"whitelabel\" to use a custom SPN")
+  @JsonProperty(JSON_PROPERTY_PRODUCT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getProduct() {
+    return product;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PRODUCT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProduct(String product) {
+    this.product = product;
+  }
+
+
+  public ESimPurchase whitelabelName(String whitelabelName) {
+    this.whitelabelName = whitelabelName;
+    return this;
+  }
+
+   /**
+   * Service Provider Name (SPN) for the Whitelabel eSIM product. It will be displayed as the mobile service name by operating systems of smartphones. This parameter must only contain letters, numbers and whitespaces.
+   * @return whitelabelName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Custom SPN", value = "Service Provider Name (SPN) for the Whitelabel eSIM product. It will be displayed as the mobile service name by operating systems of smartphones. This parameter must only contain letters, numbers and whitespaces.")
+  @JsonProperty(JSON_PROPERTY_WHITELABEL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWhitelabelName() {
+    return whitelabelName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHITELABEL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhitelabelName(String whitelabelName) {
+    this.whitelabelName = whitelabelName;
   }
 
 
@@ -224,13 +282,15 @@ public class ESimPurchase {
     ESimPurchase esimPurchase = (ESimPurchase) o;
     return Objects.equals(this.simCardGroupId, esimPurchase.simCardGroupId) &&
         Objects.equals(this.tags, esimPurchase.tags) &&
+        Objects.equals(this.product, esimPurchase.product) &&
+        Objects.equals(this.whitelabelName, esimPurchase.whitelabelName) &&
         Objects.equals(this.amount, esimPurchase.amount) &&
         Objects.equals(this.status, esimPurchase.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(simCardGroupId, tags, amount, status);
+    return Objects.hash(simCardGroupId, tags, product, whitelabelName, amount, status);
   }
 
   @Override
@@ -239,6 +299,8 @@ public class ESimPurchase {
     sb.append("class ESimPurchase {\n");
     sb.append("    simCardGroupId: ").append(toIndentedString(simCardGroupId)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    product: ").append(toIndentedString(product)).append("\n");
+    sb.append("    whitelabelName: ").append(toIndentedString(whitelabelName)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");

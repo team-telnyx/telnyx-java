@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Left Queue Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallLeftQueue.json"
-    }
-  }
-}

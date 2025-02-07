@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CreateAndroidPushCredentialRequest;
 import com.telnyx.sdk.model.CreateIosPushCredentialRequest;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -59,7 +57,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 @JsonDeserialize(using = CreatePushCredentialRequest.CreatePushCredentialRequestDeserializer.class)
 @JsonSerialize(using = CreatePushCredentialRequest.CreatePushCredentialRequestSerializer.class)
 public class CreatePushCredentialRequest extends AbstractOpenApiSchema {

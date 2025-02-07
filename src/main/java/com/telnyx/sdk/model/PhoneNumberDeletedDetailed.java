@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -59,10 +57,9 @@ import com.telnyx.sdk.JSON;
   PhoneNumberDeletedDetailed.JSON_PROPERTY_PURCHASED_AT,
   PhoneNumberDeletedDetailed.JSON_PROPERTY_CREATED_AT,
   PhoneNumberDeletedDetailed.JSON_PROPERTY_UPDATED_AT,
-  PhoneNumberDeletedDetailed.JSON_PROPERTY_NUMBER_LEVEL_ROUTING,
   PhoneNumberDeletedDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberDeletedDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -77,23 +74,23 @@ public class PhoneNumberDeletedDetailed {
    * The phone number&#39;s current status.
    */
   public enum StatusEnum {
-    PURCHASE_PENDING("purchase-pending"),
+    PURCHASE_PENDING(String.valueOf("purchase-pending")),
     
-    PURCHASE_FAILED("purchase-failed"),
+    PURCHASE_FAILED(String.valueOf("purchase-failed")),
     
-    PORT_PENDING("port-pending"),
+    PORT_PENDING(String.valueOf("port-pending")),
     
-    PORT_FAILED("port-failed"),
+    PORT_FAILED(String.valueOf("port-failed")),
     
-    ACTIVE("active"),
+    ACTIVE(String.valueOf("active")),
     
-    DELETED("deleted"),
+    DELETED(String.valueOf("deleted")),
     
-    EMERGENCY_ONLY("emergency-only"),
+    EMERGENCY_ONLY(String.valueOf("emergency-only")),
     
-    PORTED_OUT("ported-out"),
+    PORTED_OUT(String.valueOf("ported-out")),
     
-    PORT_OUT_PENDING("port-out-pending");
+    PORT_OUT_PENDING(String.valueOf("port-out-pending"));
 
     private String value;
 
@@ -180,56 +177,20 @@ public class PhoneNumberDeletedDetailed {
   private String updatedAt;
 
   /**
-   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
-   */
-  public enum NumberLevelRoutingEnum {
-    DISABLED("disabled");
-
-    private String value;
-
-    NumberLevelRoutingEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static NumberLevelRoutingEnum fromValue(String value) {
-      for (NumberLevelRoutingEnum b : NumberLevelRoutingEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_NUMBER_LEVEL_ROUTING = "number_level_routing";
-  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.DISABLED;
-
-  /**
    * The phone number&#39;s type.
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    TOLL_FREE("toll_free"),
+    TOLL_FREE(String.valueOf("toll_free")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    LANDLINE("landline");
+    LANDLINE(String.valueOf("landline"));
 
     private String value;
 
@@ -266,7 +227,6 @@ public class PhoneNumberDeletedDetailed {
 
   @JsonCreator
   public PhoneNumberDeletedDetailed(
-    @JsonProperty(JSON_PROPERTY_ID) String id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
     @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
@@ -284,7 +244,6 @@ public class PhoneNumberDeletedDetailed {
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
   ) {
     this();
-    this.id = id;
     this.recordType = recordType;
     this.phoneNumber = phoneNumber;
     this.status = status;
@@ -302,12 +261,17 @@ public class PhoneNumberDeletedDetailed {
     this.phoneNumberType = phoneNumberType;
   }
 
+  public PhoneNumberDeletedDetailed id(String id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -316,6 +280,11 @@ public class PhoneNumberDeletedDetailed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
    /**
@@ -371,7 +340,7 @@ public class PhoneNumberDeletedDetailed {
     return this;
   }
 
-  public PhoneNumberDeletedDetailed addTagsItem(String tagsItem) {
+  public PhoneNumberDeletedDetailed addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -732,32 +701,6 @@ public class PhoneNumberDeletedDetailed {
 
 
 
-  public PhoneNumberDeletedDetailed numberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-    return this;
-  }
-
-   /**
-   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
-   * @return numberLevelRouting
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.")
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public NumberLevelRoutingEnum getNumberLevelRouting() {
-    return numberLevelRouting;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNumberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-  }
-
-
    /**
    * The phone number&#39;s type.
    * @return phoneNumberType
@@ -808,13 +751,12 @@ public class PhoneNumberDeletedDetailed {
         Objects.equals(this.purchasedAt, phoneNumberDeletedDetailed.purchasedAt) &&
         Objects.equals(this.createdAt, phoneNumberDeletedDetailed.createdAt) &&
         Objects.equals(this.updatedAt, phoneNumberDeletedDetailed.updatedAt) &&
-        Objects.equals(this.numberLevelRouting, phoneNumberDeletedDetailed.numberLevelRouting) &&
         Objects.equals(this.phoneNumberType, phoneNumberDeletedDetailed.phoneNumberType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, connectionId, customerReference, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, updatedAt, numberLevelRouting, phoneNumberType);
+    return Objects.hash(id, recordType, phoneNumber, status, tags, externalPin, connectionName, connectionId, customerReference, messagingProfileId, messagingProfileName, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, updatedAt, phoneNumberType);
   }
 
   @Override
@@ -843,7 +785,6 @@ public class PhoneNumberDeletedDetailed {
     sb.append("    purchasedAt: ").append(toIndentedString(purchasedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    numberLevelRouting: ").append(toIndentedString(numberLevelRouting)).append("\n");
     sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("}");
     return sb.toString();

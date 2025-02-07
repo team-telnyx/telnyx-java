@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.SharedCampaign;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   SharedCampaignRecordSet.JSON_PROPERTY_RECORDS,
   SharedCampaignRecordSet.JSON_PROPERTY_TOTAL_RECORDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SharedCampaignRecordSet {
   public static final String JSON_PROPERTY_PAGE = "page";
   private Integer page;
@@ -87,7 +85,7 @@ public class SharedCampaignRecordSet {
     return this;
   }
 
-  public SharedCampaignRecordSet addRecordsItem(SharedCampaign recordsItem) {
+  public SharedCampaignRecordSet addrecordsItem(SharedCampaign recordsItem) {
     if (this.records == null) {
       this.records = new ArrayList<>();
     }

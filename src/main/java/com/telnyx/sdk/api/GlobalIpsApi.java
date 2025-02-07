@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GlobalIpsApi {
   private ApiClient apiClient;
 
@@ -628,7 +628,7 @@ public class GlobalIpsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Global IP Assignment Health Check Metrics
    * 
    * @param filterGlobalIpIdIn Filter by Global IP ID(s) separated by commas (optional)
    * @param filterGlobalIpAssignmentIdIn Filter by Global IP Assignment ID(s) separated by commas (optional)
@@ -648,7 +648,7 @@ public class GlobalIpsApi {
   }
 
   /**
-   * 
+   * Global IP Assignment Health Check Metrics
    * 
    * @param filterGlobalIpIdIn Filter by Global IP ID(s) separated by commas (optional)
    * @param filterGlobalIpAssignmentIdIn Filter by Global IP Assignment ID(s) separated by commas (optional)
@@ -702,7 +702,7 @@ public class GlobalIpsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Global IP Assignment Usage Metrics
    * 
    * @param filterGlobalIpAssignmentIdIn Filter by Global IP Assignment ID(s) separated by commas (optional)
    * @param filterGlobalIpIdIn Filter by Global IP ID(s), separated by commas (optional)
@@ -722,7 +722,7 @@ public class GlobalIpsApi {
   }
 
   /**
-   * 
+   * Global IP Assignment Usage Metrics
    * 
    * @param filterGlobalIpAssignmentIdIn Filter by Global IP Assignment ID(s) separated by commas (optional)
    * @param filterGlobalIpIdIn Filter by Global IP ID(s), separated by commas (optional)
@@ -846,7 +846,7 @@ public class GlobalIpsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Global IP Latency Metrics
    * 
    * @param filterGlobalIpIdIn Filter by Global IP ID(s) separated by commas (optional)
    * @param filterTimestampGt Filter by timestamp greater than (optional)
@@ -865,7 +865,7 @@ public class GlobalIpsApi {
   }
 
   /**
-   * 
+   * Global IP Latency Metrics
    * 
    * @param filterGlobalIpIdIn Filter by Global IP ID(s) separated by commas (optional)
    * @param filterTimestampGt Filter by timestamp greater than (optional)
@@ -917,7 +917,7 @@ public class GlobalIpsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
-   * 
+   * Global IP Usage Metrics
    * 
    * @param filterGlobalIpIdIn Filter by Global IP ID(s) separated by commas (optional)
    * @param filterTimestampGt Filter by timestamp greater than (optional)
@@ -936,7 +936,7 @@ public class GlobalIpsApi {
   }
 
   /**
-   * 
+   * Global IP Usage Metrics
    * 
    * @param filterGlobalIpIdIn Filter by Global IP ID(s) separated by commas (optional)
    * @param filterTimestampGt Filter by timestamp greater than (optional)

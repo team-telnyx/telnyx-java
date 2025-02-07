@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Machine Premium Greeting Ended Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallMachinePremiumGreetingEnded.json"
-    }
-  }
-}

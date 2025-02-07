@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum UseCaseCategories {
   
-  _2FA("2FA"),
+  _2_FA("2FA"),
   
   APP_NOTIFICATIONS("App Notifications"),
   

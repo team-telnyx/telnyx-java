@@ -1,9 +1,0 @@
-{
-  "title": "CloudflareSyncStatus",
-  "enum": [
-    "pending",
-    "added"
-  ],
-  "type": "string",
-  "description": "An enumeration."
-}

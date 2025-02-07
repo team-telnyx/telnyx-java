@@ -21,11 +21,12 @@ Method | HTTP request | Description
 [**listExternalConnectionReleases**](ExternalConnectionsApi.md#listExternalConnectionReleases) | **GET** /external_connections/{id}/releases | List all Releases
 [**listExternalConnectionUploads**](ExternalConnectionsApi.md#listExternalConnectionUploads) | **GET** /external_connections/{id}/uploads | List all Upload requests
 [**listExternalConnections**](ExternalConnectionsApi.md#listExternalConnections) | **GET** /external_connections | List all External Connections
+[**operatorConnectRefresh**](ExternalConnectionsApi.md#operatorConnectRefresh) | **POST** /operator_connect/actions/refresh | Refresh Operator Connect integration
 [**refreshExternalConnectionUploads**](ExternalConnectionsApi.md#refreshExternalConnectionUploads) | **POST** /external_connections/{id}/uploads/refresh | Refresh the status of all Upload requests
 [**retryUpload**](ExternalConnectionsApi.md#retryUpload) | **POST** /external_connections/{id}/uploads/{ticket_id}/retry | Retry an Upload request
 [**updateExternalConnection**](ExternalConnectionsApi.md#updateExternalConnection) | **PATCH** /external_connections/{id} | Update an External Connection
 [**updateExternalConnectionPhoneNumber**](ExternalConnectionsApi.md#updateExternalConnectionPhoneNumber) | **PATCH** /external_connections/{id}/phone_numbers/{phone_number_id} | Update a phone number
-[**updateLocation**](ExternalConnectionsApi.md#updateLocation) | **PATCH** /v2/external_connections/{id}/locations/{location_id} | Update a location&#39;s static emergency address
+[**updateLocation**](ExternalConnectionsApi.md#updateLocation) | **PATCH** /external_connections/{id}/locations/{location_id} | Update a location&#39;s static emergency address
 
 
 
@@ -111,6 +112,7 @@ Creates a new Upload request to Microsoft teams with the included phone numbers.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -129,7 +131,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest = new CreateExternalConnectionUploadRequest(); // CreateExternalConnectionUploadRequest | Parameters that can be set when creating an Upload request.
         try {
             CreateUploadRequestResponse result = apiInstance.createExternalConnectionUpload(id, createExternalConnectionUploadRequest);
@@ -150,7 +152,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **createExternalConnectionUploadRequest** | [**CreateExternalConnectionUploadRequest**](CreateExternalConnectionUploadRequest.md)| Parameters that can be set when creating an Upload request. |
 
 ### Return type
@@ -188,6 +190,7 @@ Permanently deletes an External Connection. Deletion may be prevented if the app
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -206,7 +209,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             ExternalConnectionResponse result = apiInstance.deleteExternalConnection(id);
             System.out.println(result);
@@ -226,7 +229,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -261,6 +264,7 @@ Dismiss a log message for an external connection associated with your account.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -279,7 +283,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             DismissRequestWasSuccessful result = apiInstance.deleteExternalConnectionLogMessage(id);
             System.out.println(result);
@@ -299,7 +303,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -333,6 +337,7 @@ Return the details of an existing External Connection inside the 'data' attribut
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -351,7 +356,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             ExternalConnectionResponse result = apiInstance.getExternalConnection(id);
             System.out.println(result);
@@ -371,7 +376,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -425,7 +430,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UUID addressId = UUID.fromString("318fb664-d341-44d2-8405-e6bfb9ced6d9"); // UUID | Identifies a civic address or a location.
         try {
             GetCivicAddressResponse result = apiInstance.getExternalConnectionCivicAddress(id, addressId);
@@ -446,7 +451,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **addressId** | **UUID**| Identifies a civic address or a location. |
 
 ### Return type
@@ -483,6 +488,7 @@ Retrieve a log message for an external connection associated with your account.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -501,7 +507,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             GetLogMessageResponse result = apiInstance.getExternalConnectionLogMessage(id);
             System.out.println(result);
@@ -521,7 +527,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -555,6 +561,7 @@ Return the details of a phone number associated with the given external connecti
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -573,7 +580,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         String phoneNumberId = "1234567889"; // String | A phone number's ID via the Telnyx API
         try {
             GetExternalConnectionPhoneNumberResponse result = apiInstance.getExternalConnectionPhoneNumber(id, phoneNumberId);
@@ -594,7 +601,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **phoneNumberId** | **String**| A phone number&#39;s ID via the Telnyx API |
 
 ### Return type
@@ -648,7 +655,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UUID releaseId = UUID.fromString("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6"); // UUID | Identifies a Release request
         try {
             GetReleaseResponse result = apiInstance.getExternalConnectionRelease(id, releaseId);
@@ -669,7 +676,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **releaseId** | **UUID**| Identifies a Release request |
 
 ### Return type
@@ -723,7 +730,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UUID ticketId = UUID.fromString("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6"); // UUID | Identifies an Upload request
         try {
             GetUploadResponse result = apiInstance.getExternalConnectionUpload(id, ticketId);
@@ -744,7 +751,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **ticketId** | **UUID**| Identifies an Upload request |
 
 ### Return type
@@ -779,6 +786,7 @@ Returns the count of all pending upload requests for the given external connecti
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -797,7 +805,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             GetUploadsStatusResponse result = apiInstance.getExternalConnectionUploadsStatus(id);
             System.out.println(result);
@@ -817,7 +825,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -842,7 +850,7 @@ Name | Type | Description  | Notes
 
 ## listCivicAddresses
 
-> GetAllCivicAddressesResponse listCivicAddresses(id)
+> GetAllCivicAddressesResponse listCivicAddresses(id, filterCountry)
 
 List all civic addresses and locations
 
@@ -851,6 +859,7 @@ Returns the civic addresses and locations from Microsoft Teams.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -869,9 +878,10 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
+        List<String> filterCountry = Arrays.asList(); // List<String> | The country (or countries) to filter addresses by.
         try {
-            GetAllCivicAddressesResponse result = apiInstance.listCivicAddresses(id);
+            GetAllCivicAddressesResponse result = apiInstance.listCivicAddresses(id, filterCountry);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExternalConnectionsApi#listCivicAddresses");
@@ -889,7 +899,8 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
+ **filterCountry** | **List&lt;String&gt;**| The country (or countries) to filter addresses by. | [optional]
 
 ### Return type
 
@@ -996,7 +1007,7 @@ Name | Type | Description  | Notes
 
 ## listExternalConnectionPhoneNumbers
 
-> ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterCivicAddressIdEq, filterLocationIdEq)
+> ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterPhoneNumber, filterCivicAddressIdEq, filterLocationIdEq)
 
 List all phone numbers
 
@@ -1024,15 +1035,16 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         String filterPhoneNumberEq = "+1234567890"; // String | The phone number to filter by
-        String filterPhoneNumberContains = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
+        String filterPhoneNumberContains = "+123"; // String | The partial phone number to filter by. Requires 3-15 digits.
+        String filterPhoneNumber = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
         UUID filterCivicAddressIdEq = UUID.fromString("67ea7693-9cd5-4a68-8c76-abb3aa5bf5d2"); // UUID | The civic address ID to filter by
         UUID filterLocationIdEq = UUID.fromString("52545f6f-9cd5-4a68-8c76-abb3aa5bf5d2"); // UUID | The location ID to filter by
         try {
-            ListExternalConnectionPhoneNumbersResponse result = apiInstance.listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterCivicAddressIdEq, filterLocationIdEq);
+            ListExternalConnectionPhoneNumbersResponse result = apiInstance.listExternalConnectionPhoneNumbers(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterPhoneNumber, filterCivicAddressIdEq, filterLocationIdEq);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExternalConnectionsApi#listExternalConnectionPhoneNumbers");
@@ -1050,11 +1062,12 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterPhoneNumberEq** | **String**| The phone number to filter by | [optional]
- **filterPhoneNumberContains** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
+ **filterPhoneNumberContains** | **String**| The partial phone number to filter by. Requires 3-15 digits. | [optional]
+ **filterPhoneNumber** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
  **filterCivicAddressIdEq** | **UUID**| The civic address ID to filter by | [optional]
  **filterLocationIdEq** | **UUID**| The location ID to filter by | [optional]
 
@@ -1110,7 +1123,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         List<String> filterStatusEq = Arrays.asList(); // List<String> | The status of the release to filter by
@@ -1137,7 +1150,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterStatusEq** | **List&lt;String&gt;**| The status of the release to filter by | [optional] [enum: pending_upload, pending, in_progress, complete, failed, expired, unknown]
@@ -1198,7 +1211,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         List<String> filterStatusEq = Arrays.asList(); // List<String> | The status of the upload to filter by
@@ -1225,7 +1238,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
  **filterStatusEq** | **List&lt;String&gt;**| The status of the upload to filter by | [optional] [enum: pending_upload, pending, in_progress, success, error]
@@ -1258,7 +1271,7 @@ Name | Type | Description  | Notes
 
 ## listExternalConnections
 
-> GetAllExternalConnectionsResponse listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumberContains)
+> GetAllExternalConnectionsResponse listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumber)
 
 List all External Connections
 
@@ -1291,9 +1304,9 @@ public class Example {
         String filterExternalSipConnection = "zoom"; // String | If present, connections with <code>external_sip_connection</code> matching the given value will be returned.
         String filterId = "1930241863466354012"; // String | If present, connections with <code>id</code> matching the given value will be returned.
         String filterCreatedAt = "2018-02-02T22:25:27.521Z"; // String | Filter by ISO 8601 formatted date-time string matching resource creation date-time.
-        String filterPhoneNumberContains = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
+        String filterPhoneNumber = "+15555555555"; // String | If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
         try {
-            GetAllExternalConnectionsResponse result = apiInstance.listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumberContains);
+            GetAllExternalConnectionsResponse result = apiInstance.listExternalConnections(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumber);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExternalConnectionsApi#listExternalConnections");
@@ -1317,7 +1330,7 @@ Name | Type | Description  | Notes
  **filterExternalSipConnection** | **String**| If present, connections with &lt;code&gt;external_sip_connection&lt;/code&gt; matching the given value will be returned. | [optional] [enum: zoom, operator_connect]
  **filterId** | **String**| If present, connections with &lt;code&gt;id&lt;/code&gt; matching the given value will be returned. | [optional]
  **filterCreatedAt** | **String**| Filter by ISO 8601 formatted date-time string matching resource creation date-time. | [optional]
- **filterPhoneNumberContains** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
+ **filterPhoneNumber** | **String**| If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. | [optional]
 
 ### Return type
 
@@ -1341,13 +1354,13 @@ Name | Type | Description  | Notes
 | **404** | Resource not found |  -  |
 
 
-## refreshExternalConnectionUploads
+## operatorConnectRefresh
 
-> CreateUploadRequestResponse1 refreshExternalConnectionUploads(id)
+> OperatorConnectRefreshResponse operatorConnectRefresh()
 
-Refresh the status of all Upload requests
+Refresh Operator Connect integration
 
-Forces a recheck of the status of all pending Upload requests for the given external connection in the background.
+This endpoint will make an asynchronous request to refresh the Operator Connect integration with Microsoft Teams for the current user. This will create new external connections on the user's account if needed, and/or report the integration results as [log messages](https://developers.telnyx.com/api/external-voice-integrations/list-external-connection-log-messages).
 
 ### Example
 
@@ -1370,7 +1383,76 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        try {
+            OperatorConnectRefreshResponse result = apiInstance.operatorConnectRefresh();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ExternalConnectionsApi#operatorConnectRefresh");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**OperatorConnectRefreshResponse**](OperatorConnectRefreshResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  -  |
+| **202** | Successful response |  -  |
+| **401** | Unauthorized |  -  |
+
+
+## refreshExternalConnectionUploads
+
+> CreateUploadRequestResponse1 refreshExternalConnectionUploads(id)
+
+Refresh the status of all Upload requests
+
+Forces a recheck of the status of all pending Upload requests for the given external connection in the background.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.ExternalConnectionsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             CreateUploadRequestResponse1 result = apiInstance.refreshExternalConnectionUploads(id);
             System.out.println(result);
@@ -1390,7 +1472,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -1444,7 +1526,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UUID ticketId = UUID.fromString("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6"); // UUID | Identifies an Upload request
         try {
             GetUploadResponse result = apiInstance.retryUpload(id, ticketId);
@@ -1465,7 +1547,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **ticketId** | **UUID**| Identifies an Upload request |
 
 ### Return type
@@ -1502,6 +1584,7 @@ Updates settings of an existing External Connection based on the parameters of t
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -1520,7 +1603,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UpdateExternalConnectionRequest updateExternalConnectionRequest = new UpdateExternalConnectionRequest(); // UpdateExternalConnectionRequest | Parameters to be updated for the External Connection
         try {
             ExternalConnectionResponse result = apiInstance.updateExternalConnection(id, updateExternalConnectionRequest);
@@ -1541,7 +1624,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **updateExternalConnectionRequest** | [**UpdateExternalConnectionRequest**](UpdateExternalConnectionRequest.md)| Parameters to be updated for the External Connection |
 
 ### Return type
@@ -1577,6 +1660,7 @@ Asynchronously update settings of the phone number associated with the given ext
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -1595,7 +1679,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExternalConnectionsApi apiInstance = new ExternalConnectionsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         String phoneNumberId = "1234567889"; // String | A phone number's ID via the Telnyx API
         UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest = new UpdateExternalConnectionPhoneNumberRequest(); // UpdateExternalConnectionPhoneNumberRequest | Values that can be set when updating a phone number
         try {
@@ -1617,7 +1701,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **phoneNumberId** | **String**| A phone number&#39;s ID via the Telnyx API |
  **updateExternalConnectionPhoneNumberRequest** | [**UpdateExternalConnectionPhoneNumberRequest**](UpdateExternalConnectionPhoneNumberRequest.md)| Values that can be set when updating a phone number |
 

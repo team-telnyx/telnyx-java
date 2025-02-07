@@ -1,8 +1,0 @@
-{
-  "name": "filter[status]",
-  "in": "query",
-  "description": "Filter by status",
-  "schema": {
-    "type": "string"
-  }
-}

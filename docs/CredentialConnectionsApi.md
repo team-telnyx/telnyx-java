@@ -83,8 +83,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with details about a credential connection registration status. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## createCredentialConnection
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **201** | Successful response with details about a credential connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **403** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -230,8 +230,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with details about a credential connection. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## listCredentialConnections
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 | **200** | Successful response with a list of credential connections. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **403** | Unauthorized |  -  |
 
 
 ## retrieveCredentialConnection
@@ -391,8 +391,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with details about a credential connection. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## updateCredentialConnection
@@ -466,7 +466,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about a credential connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 

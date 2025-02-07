@@ -25,10 +25,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.telnyx.sdk.model.CampaignCSP;
+import com.telnyx.sdk.model.TelnyxCampaignCSP;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -56,7 +60,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.telnyx.sdk.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 @JsonDeserialize(using=ResponseSubmitCampaignPublicCampaignbuilderPost.ResponseSubmitCampaignPublicCampaignbuilderPostDeserializer.class)
 @JsonSerialize(using = ResponseSubmitCampaignPublicCampaignbuilderPost.ResponseSubmitCampaignPublicCampaignbuilderPostSerializer.class)
 public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpenApiSchema {
@@ -91,9 +95,9 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
-            // deserialize CampaignCSP
+            // deserialize Object
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(CampaignCSP.class);
+                deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
                 ResponseSubmitCampaignPublicCampaignbuilderPost ret = new ResponseSubmitCampaignPublicCampaignbuilderPost();
                 ret.setActualInstance(deserialized);
                 return ret;
@@ -102,9 +106,9 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
                 log.log(Level.FINER, "Input data does not match 'ResponseSubmitCampaignPublicCampaignbuilderPost'", e);
             }
 
-            // deserialize Object
+            // deserialize TelnyxCampaignCSP
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
+                deserialized = tree.traverse(jp.getCodec()).readValueAs(TelnyxCampaignCSP.class);
                 ResponseSubmitCampaignPublicCampaignbuilderPost ret = new ResponseSubmitCampaignPublicCampaignbuilderPost();
                 ret.setActualInstance(deserialized);
                 return ret;
@@ -132,20 +136,20 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
         super("anyOf", Boolean.FALSE);
     }
 
-    public ResponseSubmitCampaignPublicCampaignbuilderPost(CampaignCSP o) {
-        super("anyOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
     public ResponseSubmitCampaignPublicCampaignbuilderPost(Object o) {
         super("anyOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
+    public ResponseSubmitCampaignPublicCampaignbuilderPost(TelnyxCampaignCSP o) {
+        super("anyOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     static {
-        schemas.put("CampaignCSP", new GenericType<CampaignCSP>() {
-        });
         schemas.put("Object", new GenericType<Object>() {
+        });
+        schemas.put("TelnyxCampaignCSP", new GenericType<TelnyxCampaignCSP>() {
         });
         JSON.registerDescendants(ResponseSubmitCampaignPublicCampaignbuilderPost.class, Collections.unmodifiableMap(schemas));
     }
@@ -158,46 +162,35 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
     /**
      * Set the instance that matches the anyOf child schema, check
      * the instance parameter is valid against the anyOf child schemas:
-     * CampaignCSP, Object
+     * Object, TelnyxCampaignCSP
      *
      * It could be an instance of the 'anyOf' schemas.
      * The anyOf child schemas may themselves be a composed schema (allOf, anyOf, anyOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(CampaignCSP.class, instance, new HashSet<Class<?>>())) {
-            super.setActualInstance(instance);
-            return;
-        }
-
         if (JSON.isInstanceOf(Object.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be CampaignCSP, Object");
+        if (JSON.isInstanceOf(TelnyxCampaignCSP.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        throw new RuntimeException("Invalid instance type. Must be Object, TelnyxCampaignCSP");
     }
 
     /**
      * Get the actual instance, which can be the following:
-     * CampaignCSP, Object
+     * Object, TelnyxCampaignCSP
      *
-     * @return The actual instance (CampaignCSP, Object)
+     * @return The actual instance (Object, TelnyxCampaignCSP)
      */
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
-    }
-
-    /**
-     * Get the actual instance of `CampaignCSP`. If the actual instance is not `CampaignCSP`,
-     * the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `CampaignCSP`
-     * @throws ClassCastException if the instance is not `CampaignCSP`
-     */
-    public CampaignCSP getCampaignCSP() throws ClassCastException {
-        return (CampaignCSP)super.getActualInstance();
     }
 
     /**
@@ -209,6 +202,17 @@ public class ResponseSubmitCampaignPublicCampaignbuilderPost extends AbstractOpe
      */
     public Object getObject() throws ClassCastException {
         return (Object)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `TelnyxCampaignCSP`. If the actual instance is not `TelnyxCampaignCSP`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `TelnyxCampaignCSP`
+     * @throws ClassCastException if the instance is not `TelnyxCampaignCSP`
+     */
+    public TelnyxCampaignCSP getTelnyxCampaignCSP() throws ClassCastException {
+        return (TelnyxCampaignCSP)super.getActualInstance();
     }
 
 }

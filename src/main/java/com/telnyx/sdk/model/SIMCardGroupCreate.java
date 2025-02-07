@@ -24,11 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.SIMCardGroupDataLimit;
+import com.telnyx.sdk.model.SearchedSIMCardGroupDataLimit;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,13 +37,13 @@ import com.telnyx.sdk.JSON;
   SIMCardGroupCreate.JSON_PROPERTY_NAME,
   SIMCardGroupCreate.JSON_PROPERTY_DATA_LIMIT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardGroupCreate {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
   public static final String JSON_PROPERTY_DATA_LIMIT = "data_limit";
-  private SIMCardGroupDataLimit dataLimit;
+  private SearchedSIMCardGroupDataLimit dataLimit;
 
   public SIMCardGroupCreate() { 
   }
@@ -76,7 +74,7 @@ public class SIMCardGroupCreate {
   }
 
 
-  public SIMCardGroupCreate dataLimit(SIMCardGroupDataLimit dataLimit) {
+  public SIMCardGroupCreate dataLimit(SearchedSIMCardGroupDataLimit dataLimit) {
     this.dataLimit = dataLimit;
     return this;
   }
@@ -90,14 +88,14 @@ public class SIMCardGroupCreate {
   @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SIMCardGroupDataLimit getDataLimit() {
+  public SearchedSIMCardGroupDataLimit getDataLimit() {
     return dataLimit;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDataLimit(SIMCardGroupDataLimit dataLimit) {
+  public void setDataLimit(SearchedSIMCardGroupDataLimit dataLimit) {
     this.dataLimit = dataLimit;
   }
 

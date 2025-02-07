@@ -28,9 +28,6 @@ import com.telnyx.sdk.model.UnprocessableEntityErrorAllOfMeta;
 import com.telnyx.sdk.model.UnprocessableEntityErrorAllOfSource;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -48,7 +45,7 @@ import com.telnyx.sdk.JSON;
   UnprocessableEntityError.JSON_PROPERTY_SOURCE,
   UnprocessableEntityError.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UnprocessableEntityError {
   public static final String JSON_PROPERTY_CODE = "code";
   private JsonNullable<Object> code = JsonNullable.<Object>of(null);

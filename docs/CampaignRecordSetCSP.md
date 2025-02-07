@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**records** | [**List&lt;TelnyxCampaignWithAssignedCountCSP&gt;**](TelnyxCampaignWithAssignedCountCSP.md) |  |  [optional] |
 |**page** | **Integer** |  |  [optional] |
-|**records** | [**List&lt;CampaignCSP&gt;**](CampaignCSP.md) |  |  [optional] |
 |**totalRecords** | **Integer** |  |  [optional] |
 
 

@@ -150,6 +150,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | Success |  -  |
+| **401** | Unauthorized |  -  |
 
 
 ## headBucket
@@ -224,7 +225,7 @@ null (empty response body)
 
 ## listBuckets
 
-> ListBucketsResponse listBuckets()
+> ListBuckets200Response listBuckets()
 
 ListBuckets
 
@@ -252,7 +253,7 @@ public class Example {
 
         BucketApi apiInstance = new BucketApi(defaultClient);
         try {
-            ListBucketsResponse result = apiInstance.listBuckets();
+            ListBuckets200Response result = apiInstance.listBuckets();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BucketApi#listBuckets");
@@ -271,7 +272,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListBucketsResponse**](ListBucketsResponse.md)
+[**ListBuckets200Response**](ListBuckets200Response.md)
 
 ### Authorization
 
@@ -286,4 +287,5 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
+| **401** | Unauthorized |  -  |
 

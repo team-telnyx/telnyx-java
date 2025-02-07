@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,7 +36,7 @@ import com.telnyx.sdk.JSON;
   CreateVerifiedNumberRequest.JSON_PROPERTY_PHONE_NUMBER,
   CreateVerifiedNumberRequest.JSON_PROPERTY_VERIFICATION_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateVerifiedNumberRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
@@ -47,9 +45,9 @@ public class CreateVerifiedNumberRequest {
    * Verification method.
    */
   public enum VerificationMethodEnum {
-    SMS("sms"),
+    SMS(String.valueOf("sms")),
     
-    CALL("call");
+    CALL(String.valueOf("call"));
 
     private String value;
 

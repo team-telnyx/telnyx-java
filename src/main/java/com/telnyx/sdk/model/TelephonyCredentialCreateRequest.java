@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   TelephonyCredentialCreateRequest.JSON_PROPERTY_CONNECTION_ID,
   TelephonyCredentialCreateRequest.JSON_PROPERTY_EXPIRES_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TelephonyCredentialCreateRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -89,11 +87,11 @@ public class TelephonyCredentialCreateRequest {
   }
 
    /**
-   * Tags a credential to filter for bulk operations. A single tag can hold at maximum 1000 credentials.
+   * Tags a credential. A single tag can hold at maximum 1000 credentials.
    * @return tag
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "some_tag", value = "Tags a credential to filter for bulk operations. A single tag can hold at maximum 1000 credentials.")
+  @ApiModelProperty(example = "some_tag", value = "Tags a credential. A single tag can hold at maximum 1000 credentials.")
   @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

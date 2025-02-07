@@ -22,6 +22,7 @@
 
 | Name | Value |
 |---- | -----|
+| BEEP_DETECTED | &quot;beep_detected&quot; |
 | ENDED | &quot;ended&quot; |
 | NOT_SURE | &quot;not_sure&quot; |
 

@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -35,113 +35,34 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   RegulatoryRequirement.JSON_PROPERTY_RECORD_TYPE,
-  RegulatoryRequirement.JSON_PROPERTY_REQUIREMENT_TYPE,
-  RegulatoryRequirement.JSON_PROPERTY_LABEL,
-  RegulatoryRequirement.JSON_PROPERTY_FIELD_TYPE,
-  RegulatoryRequirement.JSON_PROPERTY_DESCRIPTION
+  RegulatoryRequirement.JSON_PROPERTY_REQUIREMENT_ID,
+  RegulatoryRequirement.JSON_PROPERTY_FIELD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegulatoryRequirement {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
 
-  /**
-   * Gets or Sets requirementType
-   */
-  public enum RequirementTypeEnum {
-    END_USER_PROOF_OF_ADDRESS("end user proof of address"),
-    
-    ENTITY_IDENTIFICATION("entity identification"),
-    
-    END_USER_ADDRESS("end user address");
-
-    private String value;
-
-    RequirementTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static RequirementTypeEnum fromValue(String value) {
-      for (RequirementTypeEnum b : RequirementTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_REQUIREMENT_TYPE = "requirement_type";
-  private RequirementTypeEnum requirementType;
-
-  public static final String JSON_PROPERTY_LABEL = "label";
-  private String label;
-
-  /**
-   * Gets or Sets fieldType
-   */
-  public enum FieldTypeEnum {
-    FILE_UPLOAD("file upload"),
-    
-    TEXT_FIELD("text field"),
-    
-    ADDRESS("address"),
-    
-    DATETIME("datetime");
-
-    private String value;
-
-    FieldTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static FieldTypeEnum fromValue(String value) {
-      for (FieldTypeEnum b : FieldTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
+  public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
+  private UUID requirementId;
 
   public static final String JSON_PROPERTY_FIELD_TYPE = "field_type";
-  private FieldTypeEnum fieldType;
-
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
+  private String fieldType;
 
   public RegulatoryRequirement() { 
   }
 
+  public RegulatoryRequirement recordType(String recordType) {
+    this.recordType = recordType;
+    return this;
+  }
+
    /**
-   * Identifies the type of the resource.
+   * Get recordType
    * @return recordType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "regulatory_requirement", value = "Identifies the type of the resource.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -150,61 +71,40 @@ public class RegulatoryRequirement {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordType(String recordType) {
+    this.recordType = recordType;
+  }
 
 
-  public RegulatoryRequirement requirementType(RequirementTypeEnum requirementType) {
-    this.requirementType = requirementType;
+  public RegulatoryRequirement requirementId(UUID requirementId) {
+    this.requirementId = requirementId;
     return this;
   }
 
    /**
-   * Get requirementType
-   * @return requirementType
+   * Get requirementId
+   * @return requirementId
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE)
+  @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public RequirementTypeEnum getRequirementType() {
-    return requirementType;
+  public UUID getRequirementId() {
+    return requirementId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REQUIREMENT_TYPE)
+  @JsonProperty(JSON_PROPERTY_REQUIREMENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequirementType(RequirementTypeEnum requirementType) {
-    this.requirementType = requirementType;
+  public void setRequirementId(UUID requirementId) {
+    this.requirementId = requirementId;
   }
 
 
-  public RegulatoryRequirement label(String label) {
-    this.label = label;
-    return this;
-  }
-
-   /**
-   * Get label
-   * @return label
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Proof of Address", value = "")
-  @JsonProperty(JSON_PROPERTY_LABEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getLabel() {
-    return label;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LABEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabel(String label) {
-    this.label = label;
-  }
-
-
-  public RegulatoryRequirement fieldType(FieldTypeEnum fieldType) {
+  public RegulatoryRequirement fieldType(String fieldType) {
     this.fieldType = fieldType;
     return this;
   }
@@ -218,41 +118,15 @@ public class RegulatoryRequirement {
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FieldTypeEnum getFieldType() {
+  public String getFieldType() {
     return fieldType;
   }
 
 
   @JsonProperty(JSON_PROPERTY_FIELD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFieldType(FieldTypeEnum fieldType) {
+  public void setFieldType(String fieldType) {
     this.fieldType = fieldType;
-  }
-
-
-  public RegulatoryRequirement description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Requirement for providing Proof of Address.", value = "")
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(String description) {
-    this.description = description;
   }
 
 
@@ -269,15 +143,13 @@ public class RegulatoryRequirement {
     }
     RegulatoryRequirement regulatoryRequirement = (RegulatoryRequirement) o;
     return Objects.equals(this.recordType, regulatoryRequirement.recordType) &&
-        Objects.equals(this.requirementType, regulatoryRequirement.requirementType) &&
-        Objects.equals(this.label, regulatoryRequirement.label) &&
-        Objects.equals(this.fieldType, regulatoryRequirement.fieldType) &&
-        Objects.equals(this.description, regulatoryRequirement.description);
+        Objects.equals(this.requirementId, regulatoryRequirement.requirementId) &&
+        Objects.equals(this.fieldType, regulatoryRequirement.fieldType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, requirementType, label, fieldType, description);
+    return Objects.hash(recordType, requirementId, fieldType);
   }
 
   @Override
@@ -285,10 +157,8 @@ public class RegulatoryRequirement {
     StringBuilder sb = new StringBuilder();
     sb.append("class RegulatoryRequirement {\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
-    sb.append("    requirementType: ").append(toIndentedString(requirementType)).append("\n");
-    sb.append("    label: ").append(toIndentedString(label)).append("\n");
+    sb.append("    requirementId: ").append(toIndentedString(requirementId)).append("\n");
     sb.append("    fieldType: ").append(toIndentedString(fieldType)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

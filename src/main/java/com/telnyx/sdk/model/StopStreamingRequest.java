@@ -25,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -36,15 +35,19 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   StopStreamingRequest.JSON_PROPERTY_CLIENT_STATE,
-  StopStreamingRequest.JSON_PROPERTY_COMMAND_ID
+  StopStreamingRequest.JSON_PROPERTY_COMMAND_ID,
+  StopStreamingRequest.JSON_PROPERTY_STREAM_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StopStreamingRequest {
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
 
   public static final String JSON_PROPERTY_COMMAND_ID = "command_id";
   private String commandId;
+
+  public static final String JSON_PROPERTY_STREAM_ID = "stream_id";
+  private UUID streamId;
 
   public StopStreamingRequest() { 
   }
@@ -101,6 +104,32 @@ public class StopStreamingRequest {
   }
 
 
+  public StopStreamingRequest streamId(UUID streamId) {
+    this.streamId = streamId;
+    return this;
+  }
+
+   /**
+   * Identifies the stream. If the &#x60;stream_id&#x60; is not provided the command stops all streams associated with a given &#x60;call_control_id&#x60;.
+   * @return streamId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "1edb94f9-7ef0-4150-b502-e0ebadfd9491", value = "Identifies the stream. If the `stream_id` is not provided the command stops all streams associated with a given `call_control_id`.")
+  @JsonProperty(JSON_PROPERTY_STREAM_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getStreamId() {
+    return streamId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamId(UUID streamId) {
+    this.streamId = streamId;
+  }
+
+
   /**
    * Return true if this StopStreamingRequest object is equal to o.
    */
@@ -114,12 +143,13 @@ public class StopStreamingRequest {
     }
     StopStreamingRequest stopStreamingRequest = (StopStreamingRequest) o;
     return Objects.equals(this.clientState, stopStreamingRequest.clientState) &&
-        Objects.equals(this.commandId, stopStreamingRequest.commandId);
+        Objects.equals(this.commandId, stopStreamingRequest.commandId) &&
+        Objects.equals(this.streamId, stopStreamingRequest.streamId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(clientState, commandId);
+    return Objects.hash(clientState, commandId, streamId);
   }
 
   @Override
@@ -128,6 +158,7 @@ public class StopStreamingRequest {
     sb.append("class StopStreamingRequest {\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    commandId: ").append(toIndentedString(commandId)).append("\n");
+    sb.append("    streamId: ").append(toIndentedString(streamId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

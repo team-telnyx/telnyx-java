@@ -1,7 +1,0 @@
-{
-  "title": "First Command Timeout",
-  "type": "boolean",
-  "description": "Specifies whether calls to phone numbers associated with this connection should hangup after timing out.",
-  "default": false,
-  "example": true
-}

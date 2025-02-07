@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,13 +39,13 @@ import com.telnyx.sdk.JSON;
   GcbPhoneNumber.JSON_PROPERTY_PHONE_NUMBER,
   GcbPhoneNumber.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GcbPhoneNumber {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    CHANNEL_ZONE_PHONE_NUMBER("channel_zone_phone_number");
+    CHANNEL_ZONE_PHONE_NUMBER(String.valueOf("channel_zone_phone_number"));
 
     private String value;
 

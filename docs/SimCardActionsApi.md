@@ -6,8 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getBulkSimCardAction**](SimCardActionsApi.md#getBulkSimCardAction) | **GET** /bulk_sim_card_actions/{id} | Get bulk SIM card action details
 [**getSimCardAction**](SimCardActionsApi.md#getSimCardAction) | **GET** /sim_card_actions/{id} | Get SIM card action details
-[**listSimCardActions**](SimCardActionsApi.md#listSimCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
-[**listSimCardActions_0**](SimCardActionsApi.md#listSimCardActions_0) | **GET** /sim_card_actions | List SIM card actions
+[**listBulkSimCardActions**](SimCardActionsApi.md#listBulkSimCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
+[**listSimCardActions**](SimCardActionsApi.md#listSimCardActions) | **GET** /sim_card_actions | List SIM card actions
 
 
 
@@ -80,6 +80,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -152,12 +153,13 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
-## listSimCardActions
+## listBulkSimCardActions
 
-> ListSimCardActions200Response listSimCardActions(pageNumber, pageSize, filterActionType)
+> ListBulkSIMCardActions200Response listBulkSimCardActions(pageNumber, pageSize, filterActionType)
 
 List bulk SIM card actions
 
@@ -188,10 +190,10 @@ public class Example {
         Integer pageSize = 20; // Integer | The size of the page
         String filterActionType = "bulk_set_public_ips"; // String | Filter by action type.
         try {
-            ListSimCardActions200Response result = apiInstance.listSimCardActions(pageNumber, pageSize, filterActionType);
+            ListBulkSIMCardActions200Response result = apiInstance.listBulkSimCardActions(pageNumber, pageSize, filterActionType);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardActionsApi#listSimCardActions");
+            System.err.println("Exception when calling SimCardActionsApi#listBulkSimCardActions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -212,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListSimCardActions200Response**](ListSimCardActions200Response.md)
+[**ListBulkSIMCardActions200Response**](ListBulkSIMCardActions200Response.md)
 
 ### Authorization
 
@@ -226,13 +228,14 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
-## listSimCardActions_0
+## listSimCardActions
 
-> ListSimCardActions200Response1 listSimCardActions_0(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType)
+> ListSimCardActions200Response listSimCardActions(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType)
 
 List SIM card actions
 
@@ -267,10 +270,10 @@ public class Example {
         UUID filterBulkSimCardActionId = UUID.fromString("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9"); // UUID | Filter by a bulk SIM card action ID.
         String filterActionType = "enable"; // String | Filter by action type.
         try {
-            ListSimCardActions200Response1 result = apiInstance.listSimCardActions_0(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType);
+            ListSimCardActions200Response result = apiInstance.listSimCardActions(pageNumber, pageSize, filterSimCardId, filterStatus, filterBulkSimCardActionId, filterActionType);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SimCardActionsApi#listSimCardActions_0");
+            System.err.println("Exception when calling SimCardActionsApi#listSimCardActions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -294,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListSimCardActions200Response1**](ListSimCardActions200Response1.md)
+[**ListSimCardActions200Response**](ListSimCardActions200Response.md)
 
 ### Authorization
 
@@ -308,6 +311,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 

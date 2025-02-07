@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 Create a ledger billing group report
 
+
+
 ### Example
 
 ```java
@@ -36,7 +38,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ReportsApi apiInstance = new ReportsApi(defaultClient);
-        NewLedgerBillingGroupReport newLedgerBillingGroupReport = new NewLedgerBillingGroupReport(); // NewLedgerBillingGroupReport | New ledger billing group report parameters
+        NewLedgerBillingGroupReport newLedgerBillingGroupReport = new NewLedgerBillingGroupReport(); // NewLedgerBillingGroupReport | 
         try {
             CreateBillingGroupReport200Response result = apiInstance.createBillingGroupReport(newLedgerBillingGroupReport);
             System.out.println(result);
@@ -56,7 +58,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **newLedgerBillingGroupReport** | [**NewLedgerBillingGroupReport**](NewLedgerBillingGroupReport.md)| New ledger billing group report parameters |
+ **newLedgerBillingGroupReport** | [**NewLedgerBillingGroupReport**](NewLedgerBillingGroupReport.md)|  |
 
 ### Return type
 
@@ -75,7 +77,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected ledger billing group report response to a valid request |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## getBillingGroupReport
@@ -83,6 +85,8 @@ Name | Type | Description  | Notes
 > CreateBillingGroupReport200Response getBillingGroupReport(id)
 
 Get a ledger billing group report
+
+
 
 ### Example
 
@@ -106,7 +110,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ReportsApi apiInstance = new ReportsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the ledger billing group report
+        UUID id = UUID.fromString("f5586561-8ff0-4291-a0ac-84fe544797bd"); // UUID | The id of the ledger billing group report
         try {
             CreateBillingGroupReport200Response result = apiInstance.getBillingGroupReport(id);
             System.out.println(result);
@@ -145,5 +149,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected ledger billing group report response to a valid request |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 

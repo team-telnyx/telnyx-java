@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,9 +40,10 @@ import com.telnyx.sdk.JSON;
   CallLeftQueuePayload.JSON_PROPERTY_CLIENT_STATE,
   CallLeftQueuePayload.JSON_PROPERTY_QUEUE,
   CallLeftQueuePayload.JSON_PROPERTY_QUEUE_POSITION,
-  CallLeftQueuePayload.JSON_PROPERTY_REASON
+  CallLeftQueuePayload.JSON_PROPERTY_REASON,
+  CallLeftQueuePayload.JSON_PROPERTY_WAIT_TIME_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallLeftQueuePayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -71,15 +70,15 @@ public class CallLeftQueuePayload {
    * The reason for leaving the queue
    */
   public enum ReasonEnum {
-    BRIDGED("bridged"),
+    BRIDGED(String.valueOf("bridged")),
     
-    BRIDGING_IN_PROCESS("bridging-in-process"),
+    BRIDGING_IN_PROCESS(String.valueOf("bridging-in-process")),
     
-    HANGUP("hangup"),
+    HANGUP(String.valueOf("hangup")),
     
-    LEAVE("leave"),
+    LEAVE(String.valueOf("leave")),
     
-    TIMEOUT("timeout");
+    TIMEOUT(String.valueOf("timeout"));
 
     private String value;
 
@@ -110,6 +109,9 @@ public class CallLeftQueuePayload {
 
   public static final String JSON_PROPERTY_REASON = "reason";
   private ReasonEnum reason;
+
+  public static final String JSON_PROPERTY_WAIT_TIME_SECS = "wait_time_secs";
+  private Integer waitTimeSecs;
 
   public CallLeftQueuePayload() { 
   }
@@ -322,6 +324,32 @@ public class CallLeftQueuePayload {
   }
 
 
+  public CallLeftQueuePayload waitTimeSecs(Integer waitTimeSecs) {
+    this.waitTimeSecs = waitTimeSecs;
+    return this;
+  }
+
+   /**
+   * Time call spent in the queue in seconds.
+   * @return waitTimeSecs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "60", value = "Time call spent in the queue in seconds.")
+  @JsonProperty(JSON_PROPERTY_WAIT_TIME_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getWaitTimeSecs() {
+    return waitTimeSecs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WAIT_TIME_SECS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWaitTimeSecs(Integer waitTimeSecs) {
+    this.waitTimeSecs = waitTimeSecs;
+  }
+
+
   /**
    * Return true if this CallLeftQueue_payload object is equal to o.
    */
@@ -341,12 +369,13 @@ public class CallLeftQueuePayload {
         Objects.equals(this.clientState, callLeftQueuePayload.clientState) &&
         Objects.equals(this.queue, callLeftQueuePayload.queue) &&
         Objects.equals(this.queuePosition, callLeftQueuePayload.queuePosition) &&
-        Objects.equals(this.reason, callLeftQueuePayload.reason);
+        Objects.equals(this.reason, callLeftQueuePayload.reason) &&
+        Objects.equals(this.waitTimeSecs, callLeftQueuePayload.waitTimeSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, queue, queuePosition, reason);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, queue, queuePosition, reason, waitTimeSecs);
   }
 
   @Override
@@ -361,6 +390,7 @@ public class CallLeftQueuePayload {
     sb.append("    queue: ").append(toIndentedString(queue)).append("\n");
     sb.append("    queuePosition: ").append(toIndentedString(queuePosition)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("    waitTimeSecs: ").append(toIndentedString(waitTimeSecs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

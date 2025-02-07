@@ -24,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.TranscriptionStartRequestLanguage;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,17 +43,24 @@ import com.telnyx.sdk.JSON;
   StartRecordingRequest.JSON_PROPERTY_TIMEOUT_SECS,
   StartRecordingRequest.JSON_PROPERTY_RECORDING_TRACK,
   StartRecordingRequest.JSON_PROPERTY_TRIM,
-  StartRecordingRequest.JSON_PROPERTY_CUSTOM_FILE_NAME
+  StartRecordingRequest.JSON_PROPERTY_CUSTOM_FILE_NAME,
+  StartRecordingRequest.JSON_PROPERTY_TRANSCRIPTION,
+  StartRecordingRequest.JSON_PROPERTY_TRANSCRIPTION_ENGINE,
+  StartRecordingRequest.JSON_PROPERTY_TRANSCRIPTION_LANGUAGE,
+  StartRecordingRequest.JSON_PROPERTY_TRANSCRIPTION_PROFANITY_FILTER,
+  StartRecordingRequest.JSON_PROPERTY_TRANSCRIPTION_SPEAKER_DIARIZATION,
+  StartRecordingRequest.JSON_PROPERTY_TRANSCRIPTION_MIN_SPEAKER_COUNT,
+  StartRecordingRequest.JSON_PROPERTY_TRANSCRIPTION_MAX_SPEAKER_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class StartRecordingRequest {
   /**
    * The audio file format used when storing the call recording. Can be either &#x60;mp3&#x60; or &#x60;wav&#x60;.
    */
   public enum FormatEnum {
-    WAV("wav"),
+    WAV(String.valueOf("wav")),
     
-    MP3("mp3");
+    MP3(String.valueOf("mp3"));
 
     private String value;
 
@@ -90,9 +96,9 @@ public class StartRecordingRequest {
    * When &#x60;dual&#x60;, final audio file will be stereo recorded with the first leg on channel A, and the rest on channel B.
    */
   public enum ChannelsEnum {
-    SINGLE("single"),
+    SINGLE(String.valueOf("single")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 
@@ -143,11 +149,11 @@ public class StartRecordingRequest {
    * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
    */
   public enum RecordingTrackEnum {
-    BOTH("both"),
+    BOTH(String.valueOf("both")),
     
-    INBOUND("inbound"),
+    INBOUND(String.valueOf("inbound")),
     
-    OUTBOUND("outbound");
+    OUTBOUND(String.valueOf("outbound"));
 
     private String value;
 
@@ -183,7 +189,7 @@ public class StartRecordingRequest {
    * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
    */
   public enum TrimEnum {
-    TRIM_SILENCE("trim-silence");
+    TRIM_SILENCE(String.valueOf("trim-silence"));
 
     private String value;
 
@@ -217,6 +223,62 @@ public class StartRecordingRequest {
 
   public static final String JSON_PROPERTY_CUSTOM_FILE_NAME = "custom_file_name";
   private String customFileName;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION = "transcription";
+  private Boolean transcription = false;
+
+  /**
+   * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;Google&#x60;, &#x60;B&#x60; - &#x60;Telnyx&#x60;.
+   */
+  public enum TranscriptionEngineEnum {
+    A(String.valueOf("A")),
+    
+    B(String.valueOf("B"));
+
+    private String value;
+
+    TranscriptionEngineEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TranscriptionEngineEnum fromValue(String value) {
+      for (TranscriptionEngineEnum b : TranscriptionEngineEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_ENGINE = "transcription_engine";
+  private TranscriptionEngineEnum transcriptionEngine = TranscriptionEngineEnum.A;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_LANGUAGE = "transcription_language";
+  private TranscriptionStartRequestLanguage transcriptionLanguage;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_PROFANITY_FILTER = "transcription_profanity_filter";
+  private Boolean transcriptionProfanityFilter = false;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_SPEAKER_DIARIZATION = "transcription_speaker_diarization";
+  private Boolean transcriptionSpeakerDiarization = false;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_MIN_SPEAKER_COUNT = "transcription_min_speaker_count";
+  private Integer transcriptionMinSpeakerCount = 2;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_MAX_SPEAKER_COUNT = "transcription_max_speaker_count";
+  private Integer transcriptionMaxSpeakerCount = 6;
 
   public StartRecordingRequest() { 
   }
@@ -481,6 +543,188 @@ public class StartRecordingRequest {
   }
 
 
+  public StartRecordingRequest transcription(Boolean transcription) {
+    this.transcription = transcription;
+    return this;
+  }
+
+   /**
+   * Enable post recording transcription. The default value is false.
+   * @return transcription
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enable post recording transcription. The default value is false.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getTranscription() {
+    return transcription;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscription(Boolean transcription) {
+    this.transcription = transcription;
+  }
+
+
+  public StartRecordingRequest transcriptionEngine(TranscriptionEngineEnum transcriptionEngine) {
+    this.transcriptionEngine = transcriptionEngine;
+    return this;
+  }
+
+   /**
+   * Engine to use for speech recognition. &#x60;A&#x60; - &#x60;Google&#x60;, &#x60;B&#x60; - &#x60;Telnyx&#x60;.
+   * @return transcriptionEngine
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "A", value = "Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_ENGINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TranscriptionEngineEnum getTranscriptionEngine() {
+    return transcriptionEngine;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_ENGINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionEngine(TranscriptionEngineEnum transcriptionEngine) {
+    this.transcriptionEngine = transcriptionEngine;
+  }
+
+
+  public StartRecordingRequest transcriptionLanguage(TranscriptionStartRequestLanguage transcriptionLanguage) {
+    this.transcriptionLanguage = transcriptionLanguage;
+    return this;
+  }
+
+   /**
+   * Get transcriptionLanguage
+   * @return transcriptionLanguage
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_LANGUAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TranscriptionStartRequestLanguage getTranscriptionLanguage() {
+    return transcriptionLanguage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_LANGUAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionLanguage(TranscriptionStartRequestLanguage transcriptionLanguage) {
+    this.transcriptionLanguage = transcriptionLanguage;
+  }
+
+
+  public StartRecordingRequest transcriptionProfanityFilter(Boolean transcriptionProfanityFilter) {
+    this.transcriptionProfanityFilter = transcriptionProfanityFilter;
+    return this;
+  }
+
+   /**
+   * Enables profanity_filter. Applies to &#x60;google&#x60; engine only.
+   * @return transcriptionProfanityFilter
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enables profanity_filter. Applies to `google` engine only.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_PROFANITY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getTranscriptionProfanityFilter() {
+    return transcriptionProfanityFilter;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_PROFANITY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionProfanityFilter(Boolean transcriptionProfanityFilter) {
+    this.transcriptionProfanityFilter = transcriptionProfanityFilter;
+  }
+
+
+  public StartRecordingRequest transcriptionSpeakerDiarization(Boolean transcriptionSpeakerDiarization) {
+    this.transcriptionSpeakerDiarization = transcriptionSpeakerDiarization;
+    return this;
+  }
+
+   /**
+   * Enables speaker diarization. Applies to &#x60;google&#x60; engine only.
+   * @return transcriptionSpeakerDiarization
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enables speaker diarization. Applies to `google` engine only.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_SPEAKER_DIARIZATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getTranscriptionSpeakerDiarization() {
+    return transcriptionSpeakerDiarization;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_SPEAKER_DIARIZATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionSpeakerDiarization(Boolean transcriptionSpeakerDiarization) {
+    this.transcriptionSpeakerDiarization = transcriptionSpeakerDiarization;
+  }
+
+
+  public StartRecordingRequest transcriptionMinSpeakerCount(Integer transcriptionMinSpeakerCount) {
+    this.transcriptionMinSpeakerCount = transcriptionMinSpeakerCount;
+    return this;
+  }
+
+   /**
+   * Defines minimum number of speakers in the conversation. Applies to &#x60;google&#x60; engine only.
+   * @return transcriptionMinSpeakerCount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "4", value = "Defines minimum number of speakers in the conversation. Applies to `google` engine only.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_MIN_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTranscriptionMinSpeakerCount() {
+    return transcriptionMinSpeakerCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_MIN_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionMinSpeakerCount(Integer transcriptionMinSpeakerCount) {
+    this.transcriptionMinSpeakerCount = transcriptionMinSpeakerCount;
+  }
+
+
+  public StartRecordingRequest transcriptionMaxSpeakerCount(Integer transcriptionMaxSpeakerCount) {
+    this.transcriptionMaxSpeakerCount = transcriptionMaxSpeakerCount;
+    return this;
+  }
+
+   /**
+   * Defines maximum number of speakers in the conversation. Applies to &#x60;google&#x60; engine only.
+   * @return transcriptionMaxSpeakerCount
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "4", value = "Defines maximum number of speakers in the conversation. Applies to `google` engine only.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_MAX_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getTranscriptionMaxSpeakerCount() {
+    return transcriptionMaxSpeakerCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_MAX_SPEAKER_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionMaxSpeakerCount(Integer transcriptionMaxSpeakerCount) {
+    this.transcriptionMaxSpeakerCount = transcriptionMaxSpeakerCount;
+  }
+
+
   /**
    * Return true if this StartRecordingRequest object is equal to o.
    */
@@ -502,12 +746,19 @@ public class StartRecordingRequest {
         Objects.equals(this.timeoutSecs, startRecordingRequest.timeoutSecs) &&
         Objects.equals(this.recordingTrack, startRecordingRequest.recordingTrack) &&
         Objects.equals(this.trim, startRecordingRequest.trim) &&
-        Objects.equals(this.customFileName, startRecordingRequest.customFileName);
+        Objects.equals(this.customFileName, startRecordingRequest.customFileName) &&
+        Objects.equals(this.transcription, startRecordingRequest.transcription) &&
+        Objects.equals(this.transcriptionEngine, startRecordingRequest.transcriptionEngine) &&
+        Objects.equals(this.transcriptionLanguage, startRecordingRequest.transcriptionLanguage) &&
+        Objects.equals(this.transcriptionProfanityFilter, startRecordingRequest.transcriptionProfanityFilter) &&
+        Objects.equals(this.transcriptionSpeakerDiarization, startRecordingRequest.transcriptionSpeakerDiarization) &&
+        Objects.equals(this.transcriptionMinSpeakerCount, startRecordingRequest.transcriptionMinSpeakerCount) &&
+        Objects.equals(this.transcriptionMaxSpeakerCount, startRecordingRequest.transcriptionMaxSpeakerCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(format, channels, clientState, commandId, playBeep, maxLength, timeoutSecs, recordingTrack, trim, customFileName);
+    return Objects.hash(format, channels, clientState, commandId, playBeep, maxLength, timeoutSecs, recordingTrack, trim, customFileName, transcription, transcriptionEngine, transcriptionLanguage, transcriptionProfanityFilter, transcriptionSpeakerDiarization, transcriptionMinSpeakerCount, transcriptionMaxSpeakerCount);
   }
 
   @Override
@@ -524,6 +775,13 @@ public class StartRecordingRequest {
     sb.append("    recordingTrack: ").append(toIndentedString(recordingTrack)).append("\n");
     sb.append("    trim: ").append(toIndentedString(trim)).append("\n");
     sb.append("    customFileName: ").append(toIndentedString(customFileName)).append("\n");
+    sb.append("    transcription: ").append(toIndentedString(transcription)).append("\n");
+    sb.append("    transcriptionEngine: ").append(toIndentedString(transcriptionEngine)).append("\n");
+    sb.append("    transcriptionLanguage: ").append(toIndentedString(transcriptionLanguage)).append("\n");
+    sb.append("    transcriptionProfanityFilter: ").append(toIndentedString(transcriptionProfanityFilter)).append("\n");
+    sb.append("    transcriptionSpeakerDiarization: ").append(toIndentedString(transcriptionSpeakerDiarization)).append("\n");
+    sb.append("    transcriptionMinSpeakerCount: ").append(toIndentedString(transcriptionMinSpeakerCount)).append("\n");
+    sb.append("    transcriptionMaxSpeakerCount: ").append(toIndentedString(transcriptionMaxSpeakerCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**listExternalVettings**](BrandsApi.md#listExternalVettings) | **GET** /brand/{brandId}/externalVetting | List External Vettings
 [**postOrderExternalVetting**](BrandsApi.md#postOrderExternalVetting) | **POST** /brand/{brandId}/externalVetting | Order Brand External Vetting
 [**putExternalVettingRecord**](BrandsApi.md#putExternalVettingRecord) | **PUT** /brand/{brandId}/externalVetting | Import External Vetting Record
+[**resendBrand2faEmail**](BrandsApi.md#resendBrand2faEmail) | **POST** /brand/{brandId}/2faEmail | Resend brand 2FA email
 [**revetBrand**](BrandsApi.md#revetBrand) | **PUT** /brand/{brandId}/revet | Revet Brand
 [**updateBrand**](BrandsApi.md#updateBrand) | **PUT** /brand/{brandId} | Update Brand
 
@@ -19,7 +20,7 @@ Method | HTTP request | Description
 
 ## createBrandPost
 
-> Object createBrandPost(createBrand)
+> TelnyxBrand createBrandPost(createBrand)
 
 Create Brand
 
@@ -48,7 +49,7 @@ public class Example {
         BrandsApi apiInstance = new BrandsApi(defaultClient);
         CreateBrand createBrand = new CreateBrand(); // CreateBrand | 
         try {
-            Object result = apiInstance.createBrandPost(createBrand);
+            TelnyxBrand result = apiInstance.createBrandPost(createBrand);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BrandsApi#createBrandPost");
@@ -70,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**TelnyxBrand**](TelnyxBrand.md)
 
 ### Authorization
 
@@ -93,6 +94,8 @@ Name | Type | Description  | Notes
 > Object deleteBrand(brandId)
 
 Delete Brand
+
+Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be deleted if it contains one or more active campaigns, the campaigns need to be inactive and at least 3 months old due to billing purposes.
 
 ### Example
 
@@ -159,7 +162,7 @@ Name | Type | Description  | Notes
 
 ## getBrand
 
-> TelnyxBrand getBrand(brandId)
+> TelnyxBrandWithCampaignsCount getBrand(brandId)
 
 Get Brand
 
@@ -188,7 +191,7 @@ public class Example {
         BrandsApi apiInstance = new BrandsApi(defaultClient);
         String brandId = "brandId_example"; // String | 
         try {
-            TelnyxBrand result = apiInstance.getBrand(brandId);
+            TelnyxBrandWithCampaignsCount result = apiInstance.getBrand(brandId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BrandsApi#getBrand");
@@ -210,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TelnyxBrand**](TelnyxBrand.md)
+[**TelnyxBrandWithCampaignsCount**](TelnyxBrandWithCampaignsCount.md)
 
 ### Authorization
 
@@ -313,7 +316,7 @@ Name | Type | Description  | Notes
 
 ## getBrands
 
-> BrandRecordSetCSP getBrands(page, recordsPerPage, displayName, entityType, state, country)
+> BrandRecordSetCSP getBrands(page, recordsPerPage, sort, displayName, entityType, state, country, brandId, tcrBrandId)
 
 List Brands
 
@@ -342,12 +345,15 @@ public class Example {
         BrandsApi apiInstance = new BrandsApi(defaultClient);
         Integer page = 1; // Integer | 
         Integer recordsPerPage = 10; // Integer | number of records per page. maximum of 500
+        String sort = "assignedCampaignsCount"; // String | Specifies the sort order for results. If not given, results are sorted by createdAt in descending order.
         String displayName = "displayName_example"; // String | 
         String entityType = "entityType_example"; // String | 
         String state = "state_example"; // String | 
         String country = "country_example"; // String | 
+        String brandId = "826ef77a-348c-445b-81a5-a9b13c68fbfe"; // String | Filter results by the Telnyx Brand id
+        String tcrBrandId = "BBAND1"; // String | Filter results by the TCR Brand id
         try {
-            BrandRecordSetCSP result = apiInstance.getBrands(page, recordsPerPage, displayName, entityType, state, country);
+            BrandRecordSetCSP result = apiInstance.getBrands(page, recordsPerPage, sort, displayName, entityType, state, country, brandId, tcrBrandId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BrandsApi#getBrands");
@@ -367,10 +373,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **Integer**|  | [optional] [default to 1]
  **recordsPerPage** | **Integer**| number of records per page. maximum of 500 | [optional] [default to 10]
+ **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by createdAt in descending order. | [optional] [default to -createdAt] [enum: assignedCampaignsCount, -assignedCampaignsCount, brandId, -brandId, createdAt, -createdAt, displayName, -displayName, identityStatus, -identityStatus, status, -status, tcrBrandId, -tcrBrandId]
  **displayName** | **String**|  | [optional]
  **entityType** | **String**|  | [optional]
  **state** | **String**|  | [optional]
  **country** | **String**|  | [optional]
+ **brandId** | **String**| Filter results by the Telnyx Brand id | [optional]
+ **tcrBrandId** | **String**| Filter results by the TCR Brand id | [optional]
 
 ### Return type
 
@@ -609,6 +618,73 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
 | **422** | Validation Error |  -  |
+
+
+## resendBrand2faEmail
+
+> resendBrand2faEmail(brandId)
+
+Resend brand 2FA email
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.BrandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        BrandsApi apiInstance = new BrandsApi(defaultClient);
+        String brandId = "brandId_example"; // String | 
+        try {
+            apiInstance.resendBrand2faEmail(brandId);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling BrandsApi#resendBrand2faEmail");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **brandId** | **String**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Response |  -  |
 
 
 ## revetBrand

@@ -1,8 +1,0 @@
-{
-  "title": "Status",
-  "enum": [
-    "ACTIVE",
-    "EXPIRED"
-  ],
-  "description": "An enumeration."
-}

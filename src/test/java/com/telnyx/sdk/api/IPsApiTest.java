@@ -209,7 +209,6 @@ public class IPsApiTest {
                         .generateRingbackTone(true)
                         .isupHeadersEnabled(true)
                         .prackEnabled(true)
-                        .privacyZoneEnabled(true)
                         .sipCompactHeadersEnabled(true)
                         .sipRegion(CreateInboundIpRequest.SipRegionEnum.US)
                         .sipSubdomain("test")

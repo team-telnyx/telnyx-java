@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.Error;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   Errors.JSON_PROPERTY_ERRORS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Errors {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private List<Error> errors = null;
@@ -53,7 +51,7 @@ public class Errors {
     return this;
   }
 
-  public Errors addErrorsItem(Error errorsItem) {
+  public Errors adderrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }

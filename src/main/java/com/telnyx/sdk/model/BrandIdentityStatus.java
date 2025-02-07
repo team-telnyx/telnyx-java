@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- *      The verification status of an active brand     
+ * The verification status of an active brand
  */
 public enum BrandIdentityStatus {
   

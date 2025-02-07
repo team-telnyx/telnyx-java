@@ -1,8 +1,0 @@
-{
-  "name": "filter[tag]",
-  "in": "query",
-  "description": "Filter by tag",
-  "schema": {
-    "type": "string"
-  }
-}

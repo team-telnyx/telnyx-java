@@ -1,9 +1,0 @@
-{
-  "name": "filter[address.postal_code]",
-  "description": "Filter by postal code for the address.",
-  "schema": {
-    "type": "string",
-    "example": "78701"
-  },
-  "in": "query"
-}

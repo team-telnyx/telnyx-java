@@ -24,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.Region;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,13 +39,13 @@ import com.telnyx.sdk.JSON;
   S3ConfigurationData.JSON_PROPERTY_AWS_ACCESS_KEY_ID,
   S3ConfigurationData.JSON_PROPERTY_AWS_SECRET_ACCESS_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class S3ConfigurationData {
   public static final String JSON_PROPERTY_BUCKET = "bucket";
   private String bucket;
 
   public static final String JSON_PROPERTY_REGION = "region";
-  private String region;
+  private Region region;
 
   public static final String JSON_PROPERTY_AWS_ACCESS_KEY_ID = "aws_access_key_id";
   private String awsAccessKeyId;
@@ -83,28 +82,28 @@ public class S3ConfigurationData {
   }
 
 
-  public S3ConfigurationData region(String region) {
+  public S3ConfigurationData region(Region region) {
     this.region = region;
     return this;
   }
 
    /**
-   * Region where the bucket is located.
+   * Get region
    * @return region
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "us-east-1", value = "Region where the bucket is located.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRegion() {
+  public Region getRegion() {
     return region;
   }
 
 
   @JsonProperty(JSON_PROPERTY_REGION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegion(String region) {
+  public void setRegion(Region region) {
     this.region = region;
   }
 

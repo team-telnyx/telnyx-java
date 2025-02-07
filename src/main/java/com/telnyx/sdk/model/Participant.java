@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.ParticipantConference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -52,13 +50,13 @@ import com.telnyx.sdk.JSON;
   Participant.JSON_PROPERTY_MUTED,
   Participant.JSON_PROPERTY_ON_HOLD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Participant {
   /**
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    PARTICIPANT("participant");
+    PARTICIPANT(String.valueOf("participant"));
 
     private String value;
 
@@ -121,11 +119,11 @@ public class Participant {
    * The status of the participant with respect to the lifecycle within the conference
    */
   public enum StatusEnum {
-    JOINING("joining"),
+    JOINING(String.valueOf("joining")),
     
-    JOINED("joined"),
+    JOINED(String.valueOf("joined")),
     
-    LEFT("left");
+    LEFT(String.valueOf("left"));
 
     private String value;
 
@@ -301,7 +299,7 @@ public class Participant {
     return this;
   }
 
-  public Participant addWhisperCallControlIdsItem(String whisperCallControlIdsItem) {
+  public Participant addwhisperCallControlIdsItem(String whisperCallControlIdsItem) {
     this.whisperCallControlIds.add(whisperCallControlIdsItem);
     return this;
   }

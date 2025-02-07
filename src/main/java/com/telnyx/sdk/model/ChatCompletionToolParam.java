@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.FunctionDefinition;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -36,19 +34,16 @@ import com.telnyx.sdk.JSON;
  * ChatCompletionToolParam
  */
 @JsonPropertyOrder({
-  ChatCompletionToolParam.JSON_PROPERTY_FUNCTION,
-  ChatCompletionToolParam.JSON_PROPERTY_TYPE
+  ChatCompletionToolParam.JSON_PROPERTY_TYPE,
+  ChatCompletionToolParam.JSON_PROPERTY_FUNCTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ChatCompletionToolParam {
-  public static final String JSON_PROPERTY_FUNCTION = "function";
-  private FunctionDefinition function;
-
   /**
    * Gets or Sets type
    */
   public enum TypeEnum {
-    FUNCTION("function");
+    FUNCTION(String.valueOf("function"));
 
     private String value;
 
@@ -80,34 +75,11 @@ public class ChatCompletionToolParam {
   public static final String JSON_PROPERTY_TYPE = "type";
   private TypeEnum type;
 
+  public static final String JSON_PROPERTY_FUNCTION = "function";
+  private FunctionDefinition function;
+
   public ChatCompletionToolParam() { 
   }
-
-  public ChatCompletionToolParam function(FunctionDefinition function) {
-    this.function = function;
-    return this;
-  }
-
-   /**
-   * Get function
-   * @return function
-  **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-  @JsonProperty(JSON_PROPERTY_FUNCTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public FunctionDefinition getFunction() {
-    return function;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FUNCTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFunction(FunctionDefinition function) {
-    this.function = function;
-  }
-
 
   public ChatCompletionToolParam type(TypeEnum type) {
     this.type = type;
@@ -135,6 +107,32 @@ public class ChatCompletionToolParam {
   }
 
 
+  public ChatCompletionToolParam function(FunctionDefinition function) {
+    this.function = function;
+    return this;
+  }
+
+   /**
+   * Get function
+   * @return function
+  **/
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
+  @JsonProperty(JSON_PROPERTY_FUNCTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public FunctionDefinition getFunction() {
+    return function;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FUNCTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFunction(FunctionDefinition function) {
+    this.function = function;
+  }
+
+
   /**
    * Return true if this ChatCompletionToolParam object is equal to o.
    */
@@ -147,21 +145,21 @@ public class ChatCompletionToolParam {
       return false;
     }
     ChatCompletionToolParam chatCompletionToolParam = (ChatCompletionToolParam) o;
-    return Objects.equals(this.function, chatCompletionToolParam.function) &&
-        Objects.equals(this.type, chatCompletionToolParam.type);
+    return Objects.equals(this.type, chatCompletionToolParam.type) &&
+        Objects.equals(this.function, chatCompletionToolParam.function);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(function, type);
+    return Objects.hash(type, function);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ChatCompletionToolParam {\n");
-    sb.append("    function: ").append(toIndentedString(function)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    function: ").append(toIndentedString(function)).append("\n");
     sb.append("}");
     return sb.toString();
   }

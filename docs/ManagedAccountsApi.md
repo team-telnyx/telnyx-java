@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
@@ -299,8 +299,8 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about allocatable global outbound channels. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **403** | Unauthorized response. Happens when the current user is not authorized to access the endpoint. |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 
 
 ## listManagedAccounts
@@ -338,7 +338,7 @@ public class Example {
         String filterEmailEq = "null"; // String | If present, only returns results with the <code>email</code> matching exactly the value given.
         String filterOrganizationNameContains = "null"; // String | If present, only returns results with the <code>organization_name</code> containing the given value. Matching is not case-sensitive. Requires at least three characters.
         String filterOrganizationNameEq = "null"; // String | If present, only returns results with the <code>organization_name</code> matching exactly the value given.
-        String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>email</code>: sorts the result by the     <code>email</code> field in ascending order.   </li>    <li>     <code>-email</code>: sorts the result by the     <code>email</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+        String sort = "asc"; // String | Set the order of the results by the creation date.
         Boolean includeCancelledAccounts = false; // Boolean | Specifies if cancelled accounts should be included in the results.
         try {
             ListManagedAccounts200Response result = apiInstance.listManagedAccounts(pageNumber, pageSize, filterEmailContains, filterEmailEq, filterOrganizationNameContains, filterOrganizationNameEq, sort, includeCancelledAccounts);
@@ -365,7 +365,7 @@ Name | Type | Description  | Notes
  **filterEmailEq** | **String**| If present, only returns results with the &lt;code&gt;email&lt;/code&gt; matching exactly the value given. | [optional] [default to null]
  **filterOrganizationNameContains** | **String**| If present, only returns results with the &lt;code&gt;organization_name&lt;/code&gt; containing the given value. Matching is not case-sensitive. Requires at least three characters. | [optional] [default to null]
  **filterOrganizationNameEq** | **String**| If present, only returns results with the &lt;code&gt;organization_name&lt;/code&gt; matching exactly the value given. | [optional] [default to null]
- **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-email&lt;/code&gt;: sorts the result by the     &lt;code&gt;email&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to created_at] [enum: created_at, email]
+ **sort** | **String**| Set the order of the results by the creation date. | [optional] [enum: asc, desc]
  **includeCancelledAccounts** | **Boolean**| Specifies if cancelled accounts should be included in the results. | [optional] [default to false]
 
 ### Return type
@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with a list of managed accounts. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 
 
 ## retrieveManagedAccount
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 
 
@@ -530,7 +530,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about a single managed account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response with information about the allocatable global outbound channels for the given account. |  -  |
-| **401** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 

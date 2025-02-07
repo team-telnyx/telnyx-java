@@ -1,9 +1,0 @@
-{
-  "type": "string",
-  "title": "Available service",
-  "enum": [
-    "cloud_vpn",
-    "private_wireless_gateway",
-    "virtual_cross_connect"
-  ]
-}

@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.Carrier;
 import com.telnyx.sdk.model.Portability;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   NumberLookupRecord.JSON_PROPERTY_CALLER_NAME,
   NumberLookupRecord.JSON_PROPERTY_PORTABILITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class NumberLookupRecord {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;

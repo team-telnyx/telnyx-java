@@ -1,9 +1,0 @@
-{
-  "name": "page[before]",
-  "in": "query",
-  "description": "Opaque identifier of previous page",
-  "schema": {
-    "type": "string",
-    "default": "null"
-  }
-}

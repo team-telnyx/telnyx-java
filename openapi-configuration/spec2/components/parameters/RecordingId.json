@@ -1,9 +1,0 @@
-{
-  "name": "recording_id",
-  "description": "Uniquely identifies the recording by id.",
-  "in": "path",
-  "required": true,
-  "schema": {
-    "type": "string"
-  }
-}

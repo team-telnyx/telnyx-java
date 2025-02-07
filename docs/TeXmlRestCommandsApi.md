@@ -20,11 +20,15 @@ Method | HTTP request | Description
 [**getTexmlConferenceRecordings**](TeXmlRestCommandsApi.md#getTexmlConferenceRecordings) | **GET** /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings | List conference recordings
 [**getTexmlConferences**](TeXmlRestCommandsApi.md#getTexmlConferences) | **GET** /texml/Accounts/{account_sid}/Conferences | List conference resources
 [**initiateTexmlCall**](TeXmlRestCommandsApi.md#initiateTexmlCall) | **POST** /texml/Accounts/{account_sid}/Calls | Initiate an outbound call
-[**initiateTexmlCall_0**](TeXmlRestCommandsApi.md#initiateTexmlCall_0) | **POST** /texml/calls/{application_id} | Initiate an outbound call
+[**initiateTexmlCallByApplicationId**](TeXmlRestCommandsApi.md#initiateTexmlCallByApplicationId) | **POST** /texml/calls/{application_id} | Initiate an outbound call
 [**startTeXMLCallRecording**](TeXmlRestCommandsApi.md#startTeXMLCallRecording) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json | Request recording for a call
+[**startTeXMLCallStreaming**](TeXmlRestCommandsApi.md#startTeXMLCallStreaming) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Streams.json | Start streaming media from a call.
+[**startTeXMLSiprecSession**](TeXmlRestCommandsApi.md#startTeXMLSiprecSession) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec.json | Request siprec session for a call
 [**updateTeXMLCallRecording**](TeXmlRestCommandsApi.md#updateTeXMLCallRecording) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{recording_sid}.json | Update recording on a call
+[**updateTeXMLCallStreaming**](TeXmlRestCommandsApi.md#updateTeXMLCallStreaming) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Streams/{streaming_sid}.json | Update streaming on a call
+[**updateTeXMLSiprecSession**](TeXmlRestCommandsApi.md#updateTeXMLSiprecSession) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{siprec_sid}.json | Updates siprec session for a call
 [**updateTexmlCall**](TeXmlRestCommandsApi.md#updateTexmlCall) | **POST** /texml/Accounts/{account_sid}/Calls/{call_sid} | Update call
-[**updateTexmlCall_0**](TeXmlRestCommandsApi.md#updateTexmlCall_0) | **POST** /texml/calls/{call_sid}/update | Update call
+[**updateTexmlCallBySid**](TeXmlRestCommandsApi.md#updateTexmlCallBySid) | **POST** /texml/calls/{call_sid}/update | Update call
 [**updateTexmlConference**](TeXmlRestCommandsApi.md#updateTexmlConference) | **POST** /texml/Accounts/{account_sid}/Conferences/{conference_sid} | Update a conference resource
 [**updateTexmlConferenceParticipant**](TeXmlRestCommandsApi.md#updateTexmlConferenceParticipant) | **POST** /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid} | Update a conference participant
 
@@ -166,13 +170,13 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | The resource was deleted successfully. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## deleteTexmlConferenceParticipant
@@ -240,18 +244,18 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | The resource was deleted successfully. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## dialTexmlConferenceParticipant
 
-> NewParticipantResource dialTexmlConferenceParticipant(accountSid, conferenceSid, beep, statusCallback, statusCallbackMethod, statusCallbackEvent, to, from, timeout, muted, startConferenceOnEnter, endConferenceOnExit, waitUrl, maxParticipants, coaching, callSidToCoach, callerId, timeLimit, machineDetection, machineDetectionTimeout, machineDetectionSpeechThreshold, machineDetectionSpeechEndThreshold, machineDetectionSilenceTimeout, amdStatusCallback, amdStatusCallbackMethod, cancelPlaybackOnMachineDetection, cancelPlaybackOnDetectMessageEnd, preferredCodecs, record, recordingChannels, recordingStatusCallback, recordingStatusCallbackMethod, recordingStatusCallbackEvent, recordingTrack, sipAuthPassword, sipAuthUsername, trim, conferenceRecord, conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackMethod, conferenceRecordingStatusCallbackEvent, conferenceRecordingTimeout, conferenceTrim)
+> NewParticipantResource dialTexmlConferenceParticipant(accountSid, conferenceSid, beep, statusCallback, statusCallbackMethod, statusCallbackEvent, to, from, timeout, muted, startConferenceOnEnter, endConferenceOnExit, earlyMedia, conferenceStatusCallback, conferenceStatusCallbackMethod, conferenceStatusCallbackEvent, waitUrl, maxParticipants, coaching, callSidToCoach, callerId, timeLimit, machineDetection, machineDetectionTimeout, machineDetectionSpeechThreshold, machineDetectionSpeechEndThreshold, machineDetectionSilenceTimeout, amdStatusCallback, amdStatusCallbackMethod, cancelPlaybackOnMachineDetection, cancelPlaybackOnDetectMessageEnd, preferredCodecs, record, recordingChannels, recordingStatusCallback, recordingStatusCallbackMethod, recordingStatusCallbackEvent, recordingTrack, sipAuthPassword, sipAuthUsername, trim, conferenceRecord, conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackMethod, conferenceRecordingStatusCallbackEvent, conferenceRecordingTimeout, conferenceTrim)
 
 Dial a new conference participant
 
@@ -290,6 +294,10 @@ public class Example {
         Boolean muted = true; // Boolean | Whether the participant should be muted.
         Boolean startConferenceOnEnter = true; // Boolean | Whether to start the conference when the participant enters. Defaults to `true`.
         Boolean endConferenceOnExit = true; // Boolean | Whether to end the conference when the participant leaves. Defaults to `false`.
+        Boolean earlyMedia = false; // Boolean | Whether participant shall be bridged to conference before the participant answers (from early media if available). Defaults to `false`.
+        String conferenceStatusCallback = "conferenceStatusCallback_example"; // String | The URL the conference callbacks will be sent to.
+        String conferenceStatusCallbackMethod = "GET"; // String | HTTP request type used for `ConferenceStatusCallback`. Defaults to `POST`.
+        String conferenceStatusCallbackEvent = "conferenceStatusCallbackEvent_example"; // String | The changes to the conference's state that should generate a call to `ConferenceStatusCallback`. Can be: `start`, `end`, `join` and `leave`. Separate multiple values with a space. By default no callbacks are sent.
         String waitUrl = "waitUrl_example"; // String | The URL to call for an audio file to play while the participant is waiting for the conference to start.
         Integer maxParticipants = 56; // Integer | The maximum number of participants in the conference. Can be a positive integer from 2 to 800. The default value is 250.
         Boolean coaching = true; // Boolean | Whether the participant is coaching another call. When `true`, `CallSidToCoach` has to be given.
@@ -322,7 +330,7 @@ public class Example {
         Integer conferenceRecordingTimeout = 0; // Integer | The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. Please note that the transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite)
         String conferenceTrim = "trim-silence"; // String | Whether to trim any leading and trailing silence from the conference recording. Defaults to `trim-silence`.
         try {
-            NewParticipantResource result = apiInstance.dialTexmlConferenceParticipant(accountSid, conferenceSid, beep, statusCallback, statusCallbackMethod, statusCallbackEvent, to, from, timeout, muted, startConferenceOnEnter, endConferenceOnExit, waitUrl, maxParticipants, coaching, callSidToCoach, callerId, timeLimit, machineDetection, machineDetectionTimeout, machineDetectionSpeechThreshold, machineDetectionSpeechEndThreshold, machineDetectionSilenceTimeout, amdStatusCallback, amdStatusCallbackMethod, cancelPlaybackOnMachineDetection, cancelPlaybackOnDetectMessageEnd, preferredCodecs, record, recordingChannels, recordingStatusCallback, recordingStatusCallbackMethod, recordingStatusCallbackEvent, recordingTrack, sipAuthPassword, sipAuthUsername, trim, conferenceRecord, conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackMethod, conferenceRecordingStatusCallbackEvent, conferenceRecordingTimeout, conferenceTrim);
+            NewParticipantResource result = apiInstance.dialTexmlConferenceParticipant(accountSid, conferenceSid, beep, statusCallback, statusCallbackMethod, statusCallbackEvent, to, from, timeout, muted, startConferenceOnEnter, endConferenceOnExit, earlyMedia, conferenceStatusCallback, conferenceStatusCallbackMethod, conferenceStatusCallbackEvent, waitUrl, maxParticipants, coaching, callSidToCoach, callerId, timeLimit, machineDetection, machineDetectionTimeout, machineDetectionSpeechThreshold, machineDetectionSpeechEndThreshold, machineDetectionSilenceTimeout, amdStatusCallback, amdStatusCallbackMethod, cancelPlaybackOnMachineDetection, cancelPlaybackOnDetectMessageEnd, preferredCodecs, record, recordingChannels, recordingStatusCallback, recordingStatusCallbackMethod, recordingStatusCallbackEvent, recordingTrack, sipAuthPassword, sipAuthUsername, trim, conferenceRecord, conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackMethod, conferenceRecordingStatusCallbackEvent, conferenceRecordingTimeout, conferenceTrim);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlRestCommandsApi#dialTexmlConferenceParticipant");
@@ -352,6 +360,10 @@ Name | Type | Description  | Notes
  **muted** | **Boolean**| Whether the participant should be muted. | [optional]
  **startConferenceOnEnter** | **Boolean**| Whether to start the conference when the participant enters. Defaults to &#x60;true&#x60;. | [optional]
  **endConferenceOnExit** | **Boolean**| Whether to end the conference when the participant leaves. Defaults to &#x60;false&#x60;. | [optional]
+ **earlyMedia** | **Boolean**| Whether participant shall be bridged to conference before the participant answers (from early media if available). Defaults to &#x60;false&#x60;. | [optional] [default to false]
+ **conferenceStatusCallback** | **String**| The URL the conference callbacks will be sent to. | [optional]
+ **conferenceStatusCallbackMethod** | **String**| HTTP request type used for &#x60;ConferenceStatusCallback&#x60;. Defaults to &#x60;POST&#x60;. | [optional] [enum: GET, POST]
+ **conferenceStatusCallbackEvent** | **String**| The changes to the conference&#39;s state that should generate a call to &#x60;ConferenceStatusCallback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60; and &#x60;leave&#x60;. Separate multiple values with a space. By default no callbacks are sent. | [optional]
  **waitUrl** | **String**| The URL to call for an audio file to play while the participant is waiting for the conference to start. | [optional]
  **maxParticipants** | **Integer**| The maximum number of participants in the conference. Can be a positive integer from 2 to 800. The default value is 250. | [optional]
  **coaching** | **Boolean**| Whether the participant is coaching another call. When &#x60;true&#x60;, &#x60;CallSidToCoach&#x60; has to be given. | [optional]
@@ -401,7 +413,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | New participant resource. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## fetchTeXMLCallRecordings
@@ -475,7 +487,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Get Call Recordings Response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## fetchTeXMLConferenceRecordings
@@ -549,7 +561,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Get Call Recordings Response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTeXMLCallRecording
@@ -624,7 +636,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Retrieves call recording resource. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTeXMLCallRecordings
@@ -705,7 +717,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Get Call Recordings Response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTexmlCall
@@ -778,12 +790,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Call resource. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTexmlCalls
 
-> MultipleCallResources getTexmlCalls(accountSid, page, pageSize, pageToken, to, from, status, startTime, endTime)
+> CallResourceIndex getTexmlCalls(accountSid, page, pageSize, pageToken, to, from, status, startTime, startTimeGreaterThan, startTimeLessThan, endTime, endTimeGreaterThan, endTimeLessThan)
 
 Fetch multiple call resources
 
@@ -817,10 +829,14 @@ public class Example {
         String to = "+1312345678"; // String | Filters calls by the to number.
         String from = "+1312345678"; // String | Filters calls by the from number.
         String status = "canceled"; // String | Filters calls by status.
-        String startTime = ">=2023-05-22"; // String | Filters calls by the start date. Expected format is YYYY-MM-DD. Also accepts inequality operators, e.g. StartTime>=2023-05-22.
-        String endTime = ">=2023-05-22"; // String | Filters calls by their end date. Expected format is YYYY-MM-DD. Also accepts inequality operators, e.g. EndTime>=2023-05-22.
+        String startTime = "2023-05-22"; // String | Filters calls by their start date. Expected format is YYYY-MM-DD.
+        String startTimeGreaterThan = "2023-05-22"; // String | Filters calls by their start date (after). Expected format is YYYY-MM-DD
+        String startTimeLessThan = "2023-05-22"; // String | Filters calls by their start date (before). Expected format is YYYY-MM-DD
+        String endTime = "2023-05-22"; // String | Filters calls by their end date. Expected format is YYYY-MM-DD
+        String endTimeGreaterThan = "2023-05-22"; // String | Filters calls by their end date (after). Expected format is YYYY-MM-DD
+        String endTimeLessThan = "2023-05-22"; // String | Filters calls by their end date (before). Expected format is YYYY-MM-DD
         try {
-            MultipleCallResources result = apiInstance.getTexmlCalls(accountSid, page, pageSize, pageToken, to, from, status, startTime, endTime);
+            CallResourceIndex result = apiInstance.getTexmlCalls(accountSid, page, pageSize, pageToken, to, from, status, startTime, startTimeGreaterThan, startTimeLessThan, endTime, endTimeGreaterThan, endTimeLessThan);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlRestCommandsApi#getTexmlCalls");
@@ -845,12 +861,16 @@ Name | Type | Description  | Notes
  **to** | **String**| Filters calls by the to number. | [optional]
  **from** | **String**| Filters calls by the from number. | [optional]
  **status** | **String**| Filters calls by status. | [optional] [enum: canceled, completed, failed, busy, no-answer]
- **startTime** | **String**| Filters calls by the start date. Expected format is YYYY-MM-DD. Also accepts inequality operators, e.g. StartTime&gt;&#x3D;2023-05-22. | [optional]
- **endTime** | **String**| Filters calls by their end date. Expected format is YYYY-MM-DD. Also accepts inequality operators, e.g. EndTime&gt;&#x3D;2023-05-22. | [optional]
+ **startTime** | **String**| Filters calls by their start date. Expected format is YYYY-MM-DD. | [optional]
+ **startTimeGreaterThan** | **String**| Filters calls by their start date (after). Expected format is YYYY-MM-DD | [optional]
+ **startTimeLessThan** | **String**| Filters calls by their start date (before). Expected format is YYYY-MM-DD | [optional]
+ **endTime** | **String**| Filters calls by their end date. Expected format is YYYY-MM-DD | [optional]
+ **endTimeGreaterThan** | **String**| Filters calls by their end date (after). Expected format is YYYY-MM-DD | [optional]
+ **endTimeLessThan** | **String**| Filters calls by their end date (before). Expected format is YYYY-MM-DD | [optional]
 
 ### Return type
 
-[**MultipleCallResources**](MultipleCallResources.md)
+[**CallResourceIndex**](CallResourceIndex.md)
 
 ### Authorization
 
@@ -865,7 +885,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Multiple call resources. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTexmlConference
@@ -938,7 +958,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Conference resource. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTexmlConferenceParticipant
@@ -1013,12 +1033,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Participant resource. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTexmlConferenceParticipants
 
-> MultipleParticipantResources getTexmlConferenceParticipants(accountSid, conferenceSid)
+> ParticipantResourceIndex getTexmlConferenceParticipants(accountSid, conferenceSid)
 
 List conference participants
 
@@ -1048,7 +1068,7 @@ public class Example {
         String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
         String conferenceSid = "conferenceSid_example"; // String | The ConferenceSid that uniquely identifies a conference.
         try {
-            MultipleParticipantResources result = apiInstance.getTexmlConferenceParticipants(accountSid, conferenceSid);
+            ParticipantResourceIndex result = apiInstance.getTexmlConferenceParticipants(accountSid, conferenceSid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlRestCommandsApi#getTexmlConferenceParticipants");
@@ -1071,7 +1091,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MultipleParticipantResources**](MultipleParticipantResources.md)
+[**ParticipantResourceIndex**](ParticipantResourceIndex.md)
 
 ### Authorization
 
@@ -1086,12 +1106,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Multiple participant resources. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTexmlConferenceRecordings
 
-> MultipleConferenceRecordingResources getTexmlConferenceRecordings(accountSid, conferenceSid)
+> ConferenceRecordingResourceIndex getTexmlConferenceRecordings(accountSid, conferenceSid)
 
 List conference recordings
 
@@ -1121,7 +1141,7 @@ public class Example {
         String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
         String conferenceSid = "conferenceSid_example"; // String | The ConferenceSid that uniquely identifies a conference.
         try {
-            MultipleConferenceRecordingResources result = apiInstance.getTexmlConferenceRecordings(accountSid, conferenceSid);
+            ConferenceRecordingResourceIndex result = apiInstance.getTexmlConferenceRecordings(accountSid, conferenceSid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlRestCommandsApi#getTexmlConferenceRecordings");
@@ -1144,7 +1164,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MultipleConferenceRecordingResources**](MultipleConferenceRecordingResources.md)
+[**ConferenceRecordingResourceIndex**](ConferenceRecordingResourceIndex.md)
 
 ### Authorization
 
@@ -1159,12 +1179,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Multiple conference recording resources. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getTexmlConferences
 
-> MultipleConferenceResources getTexmlConferences(accountSid, page, pageSize, pageToken, friendlyName, status, dateCreated, dateUpdated)
+> ConferenceResourceIndex getTexmlConferences(accountSid, page, pageSize, pageToken, friendlyName, status, dateCreated, dateUpdated)
 
 List conference resources
 
@@ -1200,7 +1220,7 @@ public class Example {
         String dateCreated = ">=2023-05-22"; // String | Filters conferences by the creation date. Expected format is YYYY-MM-DD. Also accepts inequality operators, e.g. DateCreated>=2023-05-22.
         String dateUpdated = ">=2023-05-22"; // String | Filters conferences by the time they were last updated. Expected format is YYYY-MM-DD. Also accepts inequality operators, e.g. DateUpdated>=2023-05-22.
         try {
-            MultipleConferenceResources result = apiInstance.getTexmlConferences(accountSid, page, pageSize, pageToken, friendlyName, status, dateCreated, dateUpdated);
+            ConferenceResourceIndex result = apiInstance.getTexmlConferences(accountSid, page, pageSize, pageToken, friendlyName, status, dateCreated, dateUpdated);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlRestCommandsApi#getTexmlConferences");
@@ -1229,7 +1249,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MultipleConferenceResources**](MultipleConferenceResources.md)
+[**ConferenceResourceIndex**](ConferenceResourceIndex.md)
 
 ### Authorization
 
@@ -1244,12 +1264,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Multiple conference resources. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## initiateTexmlCall
 
-> InitiateTeXMLCallResponse initiateTexmlCall(accountSid).initiateCallRequest(initiateCallRequest).execute();
+> InitiateCallResult initiateTexmlCall(accountSid).initiateCallRequest(initiateCallRequest).execute();
 
 Initiate an outbound call
 
@@ -1279,7 +1299,7 @@ public class Example {
         String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
         InitiateCallRequest initiateCallRequest = new InitiateCallRequest(); // InitiateCallRequest | Iniatiate Call request object
         try {
-            InitiateTeXMLCallResponse result = api.initiateTexmlCall(accountSid)
+            InitiateCallResult result = api.initiateTexmlCall(accountSid)
                 .initiateCallRequest(initiateCallRequest)
                 .execute();
             System.out.println(result);
@@ -1304,7 +1324,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InitiateTeXMLCallResponse**](InitiateTeXMLCallResponse.md)
+[**InitiateCallResult**](InitiateCallResult.md)
 
 ### Authorization
 
@@ -1321,9 +1341,9 @@ Name | Type | Description  | Notes
 | **200** | Successful response upon initiating a TeXML call. |  -  |
 
 
-## initiateTexmlCall_0
+## initiateTexmlCallByApplicationId
 
-> InitiateTeXMLCallResponse initiateTexmlCall_0(applicationId).initiateCallRequest(initiateCallRequest).execute();
+> InitiateCallResult initiateTexmlCallByApplicationId(applicationId).initiateCallRequest(initiateCallRequest).execute();
 
 Initiate an outbound call
 
@@ -1353,12 +1373,12 @@ public class Example {
         String applicationId = "applicationId_example"; // String | The ID of the TeXML application used for the call.
         InitiateCallRequest initiateCallRequest = new InitiateCallRequest(); // InitiateCallRequest | Iniatiate Call request object
         try {
-            InitiateTeXMLCallResponse result = api.initiateTexmlCall_0(applicationId)
+            InitiateCallResult result = api.initiateTexmlCallByApplicationId(applicationId)
                 .initiateCallRequest(initiateCallRequest)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TeXmlRestCommandsApi#initiateTexmlCall_0");
+            System.err.println("Exception when calling TeXmlRestCommandsApi#initiateTexmlCallByApplicationId");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1378,7 +1398,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InitiateTeXMLCallResponse**](InitiateTeXMLCallResponse.md)
+[**InitiateCallResult**](InitiateCallResult.md)
 
 ### Authorization
 
@@ -1397,11 +1417,200 @@ Name | Type | Description  | Notes
 
 ## startTeXMLCallRecording
 
-> TexmlCreateCallRecordingResponseBody startTeXMLCallRecording(accountSid, callSid).texmlCreateCallRecordingRequestBody(texmlCreateCallRecordingRequestBody).execute();
+> TexmlCreateCallRecordingResponseBody startTeXMLCallRecording(accountSid, callSid).playBeep(playBeep).recordingStatusCallbackEvent(recordingStatusCallbackEvent).recordingStatusCallback(recordingStatusCallback).recordingStatusCallbackMethod(recordingStatusCallbackMethod).recordingChannels(recordingChannels).recordingTrack(recordingTrack).execute();
 
 Request recording for a call
 
 Starts recording with specified parameters for call idientified by call_sid.
+
+### Example
+
+```java
+import java.net.URI;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.TeXmlRestCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        TeXmlRestCommandsApi apiInstance = new TeXmlRestCommandsApi(defaultClient);
+        String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
+        String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
+        Boolean playBeep = true; // Boolean | Whether to play a beep when recording is started.
+        String recordingStatusCallbackEvent = "recordingStatusCallbackEvent_example"; // String | The changes to the recording's state that should generate a call to `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`. Separate multiple values with a space. Defaults to `completed`.
+        URI recordingStatusCallback = new URI(); // URI | Url where status callbacks will be sent.
+        TexmlStatusCallbackMethod recordingStatusCallbackMethod = TexmlStatusCallbackMethod.fromValue("GET"); // TexmlStatusCallbackMethod | 
+        TexmlRecordingChannels recordingChannels = TexmlRecordingChannels.fromValue("single"); // TexmlRecordingChannels | 
+        RecordingTrack recordingTrack = RecordingTrack.fromValue("inbound"); // RecordingTrack | 
+        try {
+            TexmlCreateCallRecordingResponseBody result = api.startTeXMLCallRecording(accountSid, callSid)
+                .playBeep(playBeep)
+                .recordingStatusCallbackEvent(recordingStatusCallbackEvent)
+                .recordingStatusCallback(recordingStatusCallback)
+                .recordingStatusCallbackMethod(recordingStatusCallbackMethod)
+                .recordingChannels(recordingChannels)
+                .recordingTrack(recordingTrack)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TeXmlRestCommandsApi#startTeXMLCallRecording");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountSid** | **String**| The id of the account the resource belongs to. |
+ **callSid** | **String**| The CallSid that identifies the call to update. |
+ **playBeep** | **Boolean**| Whether to play a beep when recording is started. | [optional] [default to true]
+ **recordingStatusCallbackEvent** | **String**| The changes to the recording&#39;s state that should generate a call to &#x60;RecoridngStatusCallback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60; and &#x60;absent&#x60;. Separate multiple values with a space. Defaults to &#x60;completed&#x60;. | [optional]
+ **recordingStatusCallback** | **URI**| Url where status callbacks will be sent. | [optional]
+ **recordingStatusCallbackMethod** | **TexmlStatusCallbackMethod**|  | [optional] [default to POST] [enum: GET, POST]
+ **recordingChannels** | **TexmlRecordingChannels**|  | [optional] [default to dual] [enum: single, dual]
+ **recordingTrack** | **RecordingTrack**|  | [optional] [enum: inbound, outbound, both]
+
+### Return type
+
+[**TexmlCreateCallRecordingResponseBody**](TexmlCreateCallRecordingResponseBody.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful call recording create response |  -  |
+| **404** | Fax does not exist |  -  |
+
+
+## startTeXMLCallStreaming
+
+> TexmlCreateCallStreamingResponseBody startTeXMLCallStreaming(accountSid, callSid).statusCallback(statusCallback).statusCallbackMethod(statusCallbackMethod).track(track).name(name).bidirectionalMode(bidirectionalMode).bidirectionalCodec(bidirectionalCodec).url(url).execute();
+
+Start streaming media from a call.
+
+Starts streaming media from a call to a specific WebSocket address.
+
+### Example
+
+```java
+import java.net.URI;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.TeXmlRestCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        TeXmlRestCommandsApi apiInstance = new TeXmlRestCommandsApi(defaultClient);
+        String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
+        String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
+        URI statusCallback = new URI(); // URI | Url where status callbacks will be sent.
+        TexmlStatusCallbackMethod statusCallbackMethod = TexmlStatusCallbackMethod.fromValue("GET"); // TexmlStatusCallbackMethod | 
+        StreamTrack track = StreamTrack.fromValue("inbound_track"); // StreamTrack | 
+        String name = "name_example"; // String | The user specified name of Stream.
+        TexmlBidirectionalStreamMode bidirectionalMode = TexmlBidirectionalStreamMode.fromValue("mp3"); // TexmlBidirectionalStreamMode | 
+        TexmlBidirectionalStreamCodec bidirectionalCodec = TexmlBidirectionalStreamCodec.fromValue("PCMU"); // TexmlBidirectionalStreamCodec | 
+        String url = "url_example"; // String | The destination WebSocket address where the stream is going to be delivered.
+        try {
+            TexmlCreateCallStreamingResponseBody result = api.startTeXMLCallStreaming(accountSid, callSid)
+                .statusCallback(statusCallback)
+                .statusCallbackMethod(statusCallbackMethod)
+                .track(track)
+                .name(name)
+                .bidirectionalMode(bidirectionalMode)
+                .bidirectionalCodec(bidirectionalCodec)
+                .url(url)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TeXmlRestCommandsApi#startTeXMLCallStreaming");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountSid** | **String**| The id of the account the resource belongs to. |
+ **callSid** | **String**| The CallSid that identifies the call to update. |
+ **statusCallback** | **URI**| Url where status callbacks will be sent. | [optional]
+ **statusCallbackMethod** | **TexmlStatusCallbackMethod**|  | [optional] [default to POST] [enum: GET, POST]
+ **track** | **StreamTrack**|  | [optional] [default to inbound_track] [enum: inbound_track, outbound_track, both_tracks]
+ **name** | **String**| The user specified name of Stream. | [optional]
+ **bidirectionalMode** | **TexmlBidirectionalStreamMode**|  | [optional] [default to mp3] [enum: mp3, rtp]
+ **bidirectionalCodec** | **TexmlBidirectionalStreamCodec**|  | [optional] [default to PCMU] [enum: PCMU, PCMA, G722]
+ **url** | **String**| The destination WebSocket address where the stream is going to be delivered. | [optional]
+
+### Return type
+
+[**TexmlCreateCallStreamingResponseBody**](TexmlCreateCallStreamingResponseBody.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful call streaming create response |  -  |
+| **404** | Fax does not exist |  -  |
+
+
+## startTeXMLSiprecSession
+
+> TexmlCreateSiprecSessionResponseBody startTeXMLSiprecSession(accountSid, callSid).connectorName(connectorName).track(track).includeMetadataCustomHeaders(includeMetadataCustomHeaders).secure(secure).sessionTimeoutSecs(sessionTimeoutSecs).statusCallback(statusCallback).statusCallbackMethod(statusCallbackMethod).execute();
+
+Request siprec session for a call
+
+Starts siprec session with specified parameters for call idientified by call_sid.
 
 ### Example
 
@@ -1426,14 +1635,26 @@ public class Example {
         TeXmlRestCommandsApi apiInstance = new TeXmlRestCommandsApi(defaultClient);
         String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
         String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
-        TexmlCreateCallRecordingRequestBody texmlCreateCallRecordingRequestBody = new TexmlCreateCallRecordingRequestBody(); // TexmlCreateCallRecordingRequestBody | Starts call recording on a call.
+        String connectorName = "connectorName_example"; // String | The name of the connector to use for the SIPREC session.
+        String track = "both_tracks"; // String | The track to be used for siprec session. Can be `both_tracks`, `inbound_track` or `outbound_track`. Defaults to `both_tracks`.
+        Boolean includeMetadataCustomHeaders = true; // Boolean | When set, custom parameters will be added as metadata (recording.session.ExtensionParameters). Otherwise, they’ll be added to sip headers.
+        Boolean secure = true; // Boolean | Controls whether to encrypt media sent to your SRS using SRTP and TLS. When set you need to configure SRS port in your connector to 5061.
+        Integer sessionTimeoutSecs = 1800; // Integer | Sets `Session-Expires` header to the INVITE. A reinvite is sent every half the value set. Usefull for session keep alive. Minimum value is 90, set to 0 to disable.
+        String statusCallback = "statusCallback_example"; // String | URL destination for Telnyx to send status callback events to for the siprec session.
+        String statusCallbackMethod = "GET"; // String | HTTP request type used for `StatusCallback`.
         try {
-            TexmlCreateCallRecordingResponseBody result = api.startTeXMLCallRecording(accountSid, callSid)
-                .texmlCreateCallRecordingRequestBody(texmlCreateCallRecordingRequestBody)
+            TexmlCreateSiprecSessionResponseBody result = api.startTeXMLSiprecSession(accountSid, callSid)
+                .connectorName(connectorName)
+                .track(track)
+                .includeMetadataCustomHeaders(includeMetadataCustomHeaders)
+                .secure(secure)
+                .sessionTimeoutSecs(sessionTimeoutSecs)
+                .statusCallback(statusCallback)
+                .statusCallbackMethod(statusCallbackMethod)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TeXmlRestCommandsApi#startTeXMLCallRecording");
+            System.err.println("Exception when calling TeXmlRestCommandsApi#startTeXMLSiprecSession");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1450,11 +1671,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountSid** | **String**| The id of the account the resource belongs to. |
  **callSid** | **String**| The CallSid that identifies the call to update. |
- **texmlCreateCallRecordingRequestBody** | [**TexmlCreateCallRecordingRequestBody**](TexmlCreateCallRecordingRequestBody.md)| Starts call recording on a call. | [optional]
+ **connectorName** | **String**| The name of the connector to use for the SIPREC session. | [optional]
+ **track** | **String**| The track to be used for siprec session. Can be &#x60;both_tracks&#x60;, &#x60;inbound_track&#x60; or &#x60;outbound_track&#x60;. Defaults to &#x60;both_tracks&#x60;. | [optional] [enum: both_tracks, inbound_track, outbound_track]
+ **includeMetadataCustomHeaders** | **Boolean**| When set, custom parameters will be added as metadata (recording.session.ExtensionParameters). Otherwise, they’ll be added to sip headers. | [optional]
+ **secure** | **Boolean**| Controls whether to encrypt media sent to your SRS using SRTP and TLS. When set you need to configure SRS port in your connector to 5061. | [optional]
+ **sessionTimeoutSecs** | **Integer**| Sets &#x60;Session-Expires&#x60; header to the INVITE. A reinvite is sent every half the value set. Usefull for session keep alive. Minimum value is 90, set to 0 to disable. | [optional] [default to 1800]
+ **statusCallback** | **String**| URL destination for Telnyx to send status callback events to for the siprec session. | [optional]
+ **statusCallbackMethod** | **String**| HTTP request type used for &#x60;StatusCallback&#x60;. | [optional] [enum: GET, POST]
 
 ### Return type
 
-[**TexmlCreateCallRecordingResponseBody**](TexmlCreateCallRecordingResponseBody.md)
+[**TexmlCreateSiprecSessionResponseBody**](TexmlCreateSiprecSessionResponseBody.md)
 
 ### Authorization
 
@@ -1468,13 +1695,13 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful call recording create response |  -  |
-| **404** | Resource not found |  -  |
+| **200** | Successful SIPREC session create response |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## updateTeXMLCallRecording
 
-> TexmlCreateCallRecordingResponseBody updateTeXMLCallRecording(accountSid, callSid, recordingSid).texmlUpdateCallRecordingRequestBody(texmlUpdateCallRecordingRequestBody).execute();
+> TexmlCreateCallRecordingResponseBody updateTeXMLCallRecording(accountSid, callSid, recordingSid).status(status).execute();
 
 Update recording on a call
 
@@ -1505,10 +1732,10 @@ public class Example {
         String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
         String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
         UUID recordingSid = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Uniquely identifies the recording by id.
-        TexmlUpdateCallRecordingRequestBody texmlUpdateCallRecordingRequestBody = new TexmlUpdateCallRecordingRequestBody(); // TexmlUpdateCallRecordingRequestBody | Update call recording on a call.
+        String status = "in-progress"; // String | 
         try {
             TexmlCreateCallRecordingResponseBody result = api.updateTeXMLCallRecording(accountSid, callSid, recordingSid)
-                .texmlUpdateCallRecordingRequestBody(texmlUpdateCallRecordingRequestBody)
+                .status(status)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
@@ -1530,7 +1757,7 @@ Name | Type | Description  | Notes
  **accountSid** | **String**| The id of the account the resource belongs to. |
  **callSid** | **String**| The CallSid that identifies the call to update. |
  **recordingSid** | **UUID**| Uniquely identifies the recording by id. |
- **texmlUpdateCallRecordingRequestBody** | [**TexmlUpdateCallRecordingRequestBody**](TexmlUpdateCallRecordingRequestBody.md)| Update call recording on a call. | [optional]
+ **status** | **String**|  | [optional] [enum: in-progress, paused, stopped]
 
 ### Return type
 
@@ -1549,7 +1776,164 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful call recording create response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
+
+
+## updateTeXMLCallStreaming
+
+> TexmlUpdateCallStreamingResponseBody updateTeXMLCallStreaming(accountSid, callSid, streamingSid).status(status).execute();
+
+Update streaming on a call
+
+Updates streaming resource for particular call.
+
+### Example
+
+```java
+import java.util.UUID;
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.TeXmlRestCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        TeXmlRestCommandsApi apiInstance = new TeXmlRestCommandsApi(defaultClient);
+        String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
+        String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
+        UUID streamingSid = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Uniquely identifies the streaming by id.
+        StreamStatus status = StreamStatus.fromValue("stopped"); // StreamStatus | 
+        try {
+            TexmlUpdateCallStreamingResponseBody result = api.updateTeXMLCallStreaming(accountSid, callSid, streamingSid)
+                .status(status)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TeXmlRestCommandsApi#updateTeXMLCallStreaming");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountSid** | **String**| The id of the account the resource belongs to. |
+ **callSid** | **String**| The CallSid that identifies the call to update. |
+ **streamingSid** | **UUID**| Uniquely identifies the streaming by id. |
+ **status** | **StreamStatus**|  | [optional] [default to stopped] [enum: stopped]
+
+### Return type
+
+[**TexmlUpdateCallStreamingResponseBody**](TexmlUpdateCallStreamingResponseBody.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful call streaming update response |  -  |
+| **404** | Fax does not exist |  -  |
+
+
+## updateTeXMLSiprecSession
+
+> TexmlUpdateSiprecSessionResponseBody updateTeXMLSiprecSession(accountSid, callSid).status(status).execute();
+
+Updates siprec session for a call
+
+Updates siprec session identified by siprec_sid.
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.TeXmlRestCommandsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        TeXmlRestCommandsApi apiInstance = new TeXmlRestCommandsApi(defaultClient);
+        String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
+        String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
+        String status = "stopped"; // String | The new status of the resource. Specifying `stopped` will end the siprec session.
+        try {
+            TexmlUpdateSiprecSessionResponseBody result = api.updateTeXMLSiprecSession(accountSid, callSid)
+                .status(status)
+                .execute();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TeXmlRestCommandsApi#updateTeXMLSiprecSession");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountSid** | **String**| The id of the account the resource belongs to. |
+ **callSid** | **String**| The CallSid that identifies the call to update. |
+ **status** | **String**| The new status of the resource. Specifying &#x60;stopped&#x60; will end the siprec session. | [optional] [enum: stopped]
+
+### Return type
+
+[**TexmlUpdateSiprecSessionResponseBody**](TexmlUpdateSiprecSessionResponseBody.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful SIPREC session update response |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## updateTexmlCall
@@ -1649,9 +2033,9 @@ Name | Type | Description  | Notes
 | **200** | Call resource. |  -  |
 
 
-## updateTexmlCall_0
+## updateTexmlCallBySid
 
-> TeXMLRESTCommandResponse updateTexmlCall_0(callSid).updateCallRequest(updateCallRequest).execute();
+> TeXMLRESTCommandResponse updateTexmlCallBySid(callSid).updateCallRequest(updateCallRequest).execute();
 
 Update call
 
@@ -1681,12 +2065,12 @@ public class Example {
         String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
         UpdateCallRequest updateCallRequest = new UpdateCallRequest(); // UpdateCallRequest | Update Call request object
         try {
-            TeXMLRESTCommandResponse result = api.updateTexmlCall_0(callSid)
+            TeXMLRESTCommandResponse result = api.updateTexmlCallBySid(callSid)
                 .updateCallRequest(updateCallRequest)
                 .execute();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TeXmlRestCommandsApi#updateTexmlCall_0");
+            System.err.println("Exception when calling TeXmlRestCommandsApi#updateTexmlCallBySid");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1725,7 +2109,7 @@ Name | Type | Description  | Notes
 
 ## updateTexmlConference
 
-> ConferenceResource updateTexmlConference(accountSid, conferenceSid, status, announceUrl, announceMethod)
+> ConferenceResource updateTexmlConference(accountSid, conferenceSid, callControlId, supervisorRole, commandId, whisperCallControlIds)
 
 Update a conference resource
 
@@ -1754,11 +2138,12 @@ public class Example {
         TeXmlRestCommandsApi apiInstance = new TeXmlRestCommandsApi(defaultClient);
         String accountSid = "accountSid_example"; // String | The id of the account the resource belongs to.
         String conferenceSid = "conferenceSid_example"; // String | The ConferenceSid that uniquely identifies a conference.
-        String status = "status_example"; // String | The new status of the resource. Specifying `completed` will end the conference and hang up all participants.
-        String announceUrl = "announceUrl_example"; // String | The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains <Play>, <Say>, <Pause>, or <Redirect> verbs.
-        String announceMethod = "GET"; // String | The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
+        String callControlId = "callControlId_example"; // String | Unique identifier and token for controlling the call
+        String supervisorRole = "barge"; // String | Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \\\"barge\\\" means the supervisor enters the conference as a normal participant. This is the same as \\\"none\\\". \\\"monitor\\\" means the supervisor is muted but can hear all participants. \\\"whisper\\\" means that only the specified \\\"whisper_call_control_ids\\\" can hear the supervisor. Defaults to \\\"none\\\".
+        String commandId = "commandId_example"; // String | Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.
+        List<String> whisperCallControlIds = Arrays.asList(); // List<String> | Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.
         try {
-            ConferenceResource result = apiInstance.updateTexmlConference(accountSid, conferenceSid, status, announceUrl, announceMethod);
+            ConferenceResource result = apiInstance.updateTexmlConference(accountSid, conferenceSid, callControlId, supervisorRole, commandId, whisperCallControlIds);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlRestCommandsApi#updateTexmlConference");
@@ -1778,9 +2163,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountSid** | **String**| The id of the account the resource belongs to. |
  **conferenceSid** | **String**| The ConferenceSid that uniquely identifies a conference. |
- **status** | **String**| The new status of the resource. Specifying &#x60;completed&#x60; will end the conference and hang up all participants. | [optional]
- **announceUrl** | **String**| The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &lt;Play&gt;, &lt;Say&gt;, &lt;Pause&gt;, or &lt;Redirect&gt; verbs. | [optional]
- **announceMethod** | **String**| The HTTP method used to call the &#x60;AnnounceUrl&#x60;. Defaults to &#x60;POST&#x60;. | [optional] [enum: GET, POST]
+ **callControlId** | **String**| Unique identifier and token for controlling the call |
+ **supervisorRole** | **String**| Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. \\\&quot;barge\\\&quot; means the supervisor enters the conference as a normal participant. This is the same as \\\&quot;none\\\&quot;. \\\&quot;monitor\\\&quot; means the supervisor is muted but can hear all participants. \\\&quot;whisper\\\&quot; means that only the specified \\\&quot;whisper_call_control_ids\\\&quot; can hear the supervisor. Defaults to \\\&quot;none\\\&quot;. | [enum: barge, monitor, none, whisper]
+ **commandId** | **String**| Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same &#x60;command_id&#x60; as one that has already been executed. | [optional]
+ **whisperCallControlIds** | **List&lt;String&gt;**| Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only. | [optional]
 
 ### Return type
 
@@ -1799,12 +2185,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Conference resource. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## updateTexmlConferenceParticipant
 
-> ParticipantResource updateTexmlConferenceParticipant(accountSid, conferenceSid, callSid, muted, hold, holdURL, holdMethod, announceUrl, announceMethod, waitUrl, beepOnExit, endConferenceOnExit, coaching, callSidToCoach)
+> ParticipantResource updateTexmlConferenceParticipant(accountSid, conferenceSid, callSid, muted, hold, holdUrl, holdMethod, announceUrl, announceMethod, waitUrl, beepOnExit, endConferenceOnExit, coaching, callSidToCoach)
 
 Update a conference participant
 
@@ -1836,9 +2222,9 @@ public class Example {
         String callSid = "callSid_example"; // String | The CallSid that identifies the call to update.
         Boolean muted = true; // Boolean | Whether the participant should be muted.
         Boolean hold = true; // Boolean | Whether the participant should be on hold.
-        String holdURL = "holdURL_example"; // String | The URL to be called using the `HoldMethod` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains <Play>, <Say>, <Pause>, or <Redirect> verbs.
-        String holdMethod = "GET"; // String | The HTTP method to use when calling the `HoldURL`.
-        String announceUrl = "announceUrl_example"; // String | The URL to call to announce something to the participant. The URL may return an MP3 fileo a WAV file, or a TwiML document that contains <Play>, <Say>, <Pause>, or <Redirect> verbs.
+        String holdUrl = "holdUrl_example"; // String | The URL to be called using the `HoldMethod` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        String holdMethod = "GET"; // String | The HTTP method to use when calling the `HoldUrl`.
+        String announceUrl = "announceUrl_example"; // String | The URL to call to announce something to the participant. The URL may return an MP3 fileo a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
         String announceMethod = "GET"; // String | The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
         String waitUrl = "waitUrl_example"; // String | The URL to call for an audio file to play while the participant is waiting for the conference to start.
         Boolean beepOnExit = true; // Boolean | Whether to play a notification beep to the conference when the participant exits.
@@ -1846,7 +2232,7 @@ public class Example {
         Boolean coaching = true; // Boolean | Whether the participant is coaching another call. When `true`, `CallSidToCoach` has to be given.
         String callSidToCoach = "callSidToCoach_example"; // String | The SID of the participant who is being coached. The participant being coached is the only participant who can hear the participant who is coaching.
         try {
-            ParticipantResource result = apiInstance.updateTexmlConferenceParticipant(accountSid, conferenceSid, callSid, muted, hold, holdURL, holdMethod, announceUrl, announceMethod, waitUrl, beepOnExit, endConferenceOnExit, coaching, callSidToCoach);
+            ParticipantResource result = apiInstance.updateTexmlConferenceParticipant(accountSid, conferenceSid, callSid, muted, hold, holdUrl, holdMethod, announceUrl, announceMethod, waitUrl, beepOnExit, endConferenceOnExit, coaching, callSidToCoach);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TeXmlRestCommandsApi#updateTexmlConferenceParticipant");
@@ -1869,9 +2255,9 @@ Name | Type | Description  | Notes
  **callSid** | **String**| The CallSid that identifies the call to update. |
  **muted** | **Boolean**| Whether the participant should be muted. | [optional]
  **hold** | **Boolean**| Whether the participant should be on hold. | [optional]
- **holdURL** | **String**| The URL to be called using the &#x60;HoldMethod&#x60; for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &lt;Play&gt;, &lt;Say&gt;, &lt;Pause&gt;, or &lt;Redirect&gt; verbs. | [optional]
- **holdMethod** | **String**| The HTTP method to use when calling the &#x60;HoldURL&#x60;. | [optional] [enum: GET, POST]
- **announceUrl** | **String**| The URL to call to announce something to the participant. The URL may return an MP3 fileo a WAV file, or a TwiML document that contains &lt;Play&gt;, &lt;Say&gt;, &lt;Pause&gt;, or &lt;Redirect&gt; verbs. | [optional]
+ **holdUrl** | **String**| The URL to be called using the &#x60;HoldMethod&#x60; for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs. | [optional]
+ **holdMethod** | **String**| The HTTP method to use when calling the &#x60;HoldUrl&#x60;. | [optional] [enum: GET, POST]
+ **announceUrl** | **String**| The URL to call to announce something to the participant. The URL may return an MP3 fileo a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs. | [optional]
  **announceMethod** | **String**| The HTTP method used to call the &#x60;AnnounceUrl&#x60;. Defaults to &#x60;POST&#x60;. | [optional] [enum: GET, POST]
  **waitUrl** | **String**| The URL to call for an audio file to play while the participant is waiting for the conference to start. | [optional]
  **beepOnExit** | **Boolean**| Whether to play a notification beep to the conference when the participant exits. | [optional]
@@ -1896,5 +2282,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Participant resource. |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 

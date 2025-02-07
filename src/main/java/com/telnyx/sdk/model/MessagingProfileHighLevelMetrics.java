@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.MessagingProfileHighLevelMetricsOutbound;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,13 +43,13 @@ import com.telnyx.sdk.JSON;
   MessagingProfileHighLevelMetrics.JSON_PROPERTY_OUTBOUND,
   MessagingProfileHighLevelMetrics.JSON_PROPERTY_INBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagingProfileHighLevelMetrics {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    MESSAGING_PROFILE_METRICS("messaging_profile_metrics");
+    MESSAGING_PROFILE_METRICS(String.valueOf("messaging_profile_metrics"));
 
     private String value;
 

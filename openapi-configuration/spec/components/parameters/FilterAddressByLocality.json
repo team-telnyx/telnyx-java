@@ -1,9 +1,0 @@
-{
-  "name": "filter[address.locality]",
-  "description": "Filter by the name of the city where the address is located.",
-  "schema": {
-    "type": "string",
-    "example": "Austin"
-  },
-  "in": "query"
-}

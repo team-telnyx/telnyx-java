@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ## getCampaign
 
-> CampaignCSP getCampaign(campaignId)
+> TelnyxCampaignCSP getCampaign(campaignId)
 
 Get My Campaign
 
@@ -192,7 +192,7 @@ public class Example {
         CampaignApi apiInstance = new CampaignApi(defaultClient);
         String campaignId = "campaignId_example"; // String | 
         try {
-            CampaignCSP result = apiInstance.getCampaign(campaignId);
+            TelnyxCampaignCSP result = apiInstance.getCampaign(campaignId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CampaignApi#getCampaign");
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CampaignCSP**](CampaignCSP.md)
+[**TelnyxCampaignCSP**](TelnyxCampaignCSP.md)
 
 ### Authorization
 
@@ -303,11 +303,11 @@ Name | Type | Description  | Notes
 
 ## getCampaignMnoMetadata
 
-> Object getCampaignMnoMetadata(campaignId)
+> MnoMetadata getCampaignMnoMetadata(campaignId)
 
 Get Campaign Mno Metadata
 
-Get the campaign metadata for each MNO it was submitted to
+Get the campaign metadata for each MNO it was submitted to.
 
 ### Example
 
@@ -332,7 +332,7 @@ public class Example {
         CampaignApi apiInstance = new CampaignApi(defaultClient);
         String campaignId = "campaignId_example"; // String | ID of the campaign in question
         try {
-            Object result = apiInstance.getCampaignMnoMetadata(campaignId);
+            MnoMetadata result = apiInstance.getCampaignMnoMetadata(campaignId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CampaignApi#getCampaignMnoMetadata");
@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**MnoMetadata**](MnoMetadata.md)
 
 ### Authorization
 
@@ -368,8 +368,8 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **200** | Successful Response. It constains a map of usecase metadata for each MNO. The key is the network ID of the MNO (e.g. 10017), the value is the mno metadata for the usecase. The metadata may also include some MNO specific fields. |  -  |
+| **0** | Unexpected Error |  -  |
 
 
 ## getCampaignOperationStatus
@@ -583,7 +583,7 @@ Name | Type | Description  | Notes
 
 ## getCampaigns
 
-> CampaignRecordSetCSP getCampaigns(brandId, page, recordsPerPage)
+> CampaignRecordSetCSP getCampaigns(brandId, page, recordsPerPage, sort)
 
 List Campaigns
 
@@ -613,8 +613,9 @@ public class Example {
         String brandId = "brandId_example"; // String | 
         Integer page = 1; // Integer | The 1-indexed page number to get. The default value is `1`.
         Integer recordsPerPage = 10; // Integer | The amount of records per page, limited to between 1 and 500 inclusive. The default value is `10`.
+        String sort = "assignedPhoneNumbersCount"; // String | Specifies the sort order for results. If not given, results are sorted by createdAt in descending order.
         try {
-            CampaignRecordSetCSP result = apiInstance.getCampaigns(brandId, page, recordsPerPage);
+            CampaignRecordSetCSP result = apiInstance.getCampaigns(brandId, page, recordsPerPage, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CampaignApi#getCampaigns");
@@ -635,6 +636,7 @@ Name | Type | Description  | Notes
  **brandId** | **String**|  |
  **page** | **Integer**| The 1-indexed page number to get. The default value is &#x60;1&#x60;. | [optional] [default to 1]
  **recordsPerPage** | **Integer**| The amount of records per page, limited to between 1 and 500 inclusive. The default value is &#x60;10&#x60;. | [optional] [default to 10]
+ **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by createdAt in descending order. | [optional] [default to -createdAt] [enum: assignedPhoneNumbersCount, -assignedPhoneNumbersCount, campaignId, -campaignId, createdAt, -createdAt, status, -status, tcrCampaignId, -tcrCampaignId]
 
 ### Return type
 
@@ -735,7 +737,7 @@ Name | Type | Description  | Notes
 
 Submit Campaign
 
-Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/docs/api/v2/10dlc/Campaign#qualify_by_usecase_campaignBuilder_brand__brand_id__usecase__usecase__get) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you'll only be able to edit the campaign's sample messages. Creating a campaign will entail an upfront, non-refundable three month's cost that will depend on the campaign's use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/api/v2/10dlc)).
+Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/api/messaging/10dlc/get-usecase-qualification) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you'll only be able to edit the campaign's sample messages. Creating a campaign will entail an upfront, non-refundable three month's cost that will depend on the campaign's use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
 
 ### Example
 
@@ -802,7 +804,7 @@ Name | Type | Description  | Notes
 
 ## updateCampaign
 
-> Campaign updateCampaign(campaignId, updateCampaign)
+> TelnyxCampaignCSP updateCampaign(campaignId, updateCampaignRequest)
 
 Update My Campaign
 
@@ -830,9 +832,9 @@ public class Example {
 
         CampaignApi apiInstance = new CampaignApi(defaultClient);
         String campaignId = "campaignId_example"; // String | 
-        UpdateCampaign updateCampaign = new UpdateCampaign(); // UpdateCampaign | 
+        UpdateCampaignRequest updateCampaignRequest = new UpdateCampaignRequest(); // UpdateCampaignRequest | 
         try {
-            Campaign result = apiInstance.updateCampaign(campaignId, updateCampaign);
+            TelnyxCampaignCSP result = apiInstance.updateCampaign(campaignId, updateCampaignRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CampaignApi#updateCampaign");
@@ -851,11 +853,11 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaignId** | **String**|  |
- **updateCampaign** | [**UpdateCampaign**](UpdateCampaign.md)|  |
+ **updateCampaignRequest** | [**UpdateCampaignRequest**](UpdateCampaignRequest.md)|  |
 
 ### Return type
 
-[**Campaign**](Campaign.md)
+[**TelnyxCampaignCSP**](TelnyxCampaignCSP.md)
 
 ### Authorization
 

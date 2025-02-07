@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,15 +35,19 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_NETWORK_ID,
-  CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_NAME
+  CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_NAME,
+  CreatePrivateWirelessGatewayRequest.JSON_PROPERTY_REGION_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreatePrivateWirelessGatewayRequest {
   public static final String JSON_PROPERTY_NETWORK_ID = "network_id";
   private UUID networkId;
 
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
+
+  public static final String JSON_PROPERTY_REGION_CODE = "region_code";
+  private String regionCode;
 
   public CreatePrivateWirelessGatewayRequest() { 
   }
@@ -102,6 +104,32 @@ public class CreatePrivateWirelessGatewayRequest {
   }
 
 
+  public CreatePrivateWirelessGatewayRequest regionCode(String regionCode) {
+    this.regionCode = regionCode;
+    return this;
+  }
+
+   /**
+   * The code of the region where the private wireless gateway will be assigned. A list of available regions can be found at the regions endpoint
+   * @return regionCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "dc2", value = "The code of the region where the private wireless gateway will be assigned. A list of available regions can be found at the regions endpoint")
+  @JsonProperty(JSON_PROPERTY_REGION_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRegionCode() {
+    return regionCode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REGION_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRegionCode(String regionCode) {
+    this.regionCode = regionCode;
+  }
+
+
   /**
    * Return true if this CreatePrivateWirelessGateway_request object is equal to o.
    */
@@ -115,12 +143,13 @@ public class CreatePrivateWirelessGatewayRequest {
     }
     CreatePrivateWirelessGatewayRequest createPrivateWirelessGatewayRequest = (CreatePrivateWirelessGatewayRequest) o;
     return Objects.equals(this.networkId, createPrivateWirelessGatewayRequest.networkId) &&
-        Objects.equals(this.name, createPrivateWirelessGatewayRequest.name);
+        Objects.equals(this.name, createPrivateWirelessGatewayRequest.name) &&
+        Objects.equals(this.regionCode, createPrivateWirelessGatewayRequest.regionCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(networkId, name);
+    return Objects.hash(networkId, name, regionCode);
   }
 
   @Override
@@ -129,6 +158,7 @@ public class CreatePrivateWirelessGatewayRequest {
     sb.append("class CreatePrivateWirelessGatewayRequest {\n");
     sb.append("    networkId: ").append(toIndentedString(networkId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    regionCode: ").append(toIndentedString(regionCode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

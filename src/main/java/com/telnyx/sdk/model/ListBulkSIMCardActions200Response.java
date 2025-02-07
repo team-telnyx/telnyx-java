@@ -26,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.BulkSIMCardActionDetailed;
 import com.telnyx.sdk.model.PaginationMeta;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -41,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListBulkSIMCardActions200Response.JSON_PROPERTY_DATA,
   ListBulkSIMCardActions200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListBulkSIMCardActions200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<BulkSIMCardActionDetailed> data = null;
@@ -57,7 +56,7 @@ public class ListBulkSIMCardActions200Response {
     return this;
   }
 
-  public ListBulkSIMCardActions200Response addDataItem(BulkSIMCardActionDetailed dataItem) {
+  public ListBulkSIMCardActions200Response adddataItem(BulkSIMCardActionDetailed dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -113,7 +112,7 @@ public class ListBulkSIMCardActions200Response {
 
 
   /**
-   * Return true if this ListBulkSIMCardActions_200_response object is equal to o.
+   * Return true if this ListBulkSimCardActions_200_response object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -123,9 +122,9 @@ public class ListBulkSIMCardActions200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListBulkSIMCardActions200Response listBulkSIMCardActions200Response = (ListBulkSIMCardActions200Response) o;
-    return Objects.equals(this.data, listBulkSIMCardActions200Response.data) &&
-        Objects.equals(this.meta, listBulkSIMCardActions200Response.meta);
+    ListBulkSIMCardActions200Response ListBulkSIMCardActions200Response = (ListBulkSIMCardActions200Response) o;
+    return Objects.equals(this.data, ListBulkSIMCardActions200Response.data) &&
+        Objects.equals(this.meta, ListBulkSIMCardActions200Response.meta);
   }
 
   @Override

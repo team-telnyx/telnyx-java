@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallInformationApi {
   private ApiClient apiClient;
 
@@ -48,17 +48,17 @@ public class CallInformationApi {
   }
 
 
-private ApiResponse<ActiveCallsResponse> listConnectionActiveCallsWithHttpInfo(String connectionId, Integer pageLimit, String pageAfter, String pageBefore) throws ApiException {
+private ApiResponse<ActiveCallsResponse> listConnectionActiveCallsWithHttpInfo(String connectionIdWireless, Integer pageLimit, String pageAfter, String pageBefore) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'connectionId' is set
-    if (connectionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling listConnectionActiveCalls");
+    // verify the required parameter 'connectionIdWireless' is set
+    if (connectionIdWireless == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionIdWireless' when calling listConnectionActiveCalls");
     }
     
     // create path and map variables
     String localVarPath = "/connections/{connection_id}/active_calls"
-      .replaceAll("\\{" + "connection_id" + "\\}", apiClient.escapeString(connectionId.toString()));
+      .replaceAll("\\{" + "connection_id_wireless" + "\\}", apiClient.escapeString(connectionIdWireless.toString()));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -93,13 +93,13 @@ private ApiResponse<ActiveCallsResponse> listConnectionActiveCallsWithHttpInfo(S
   }
 
   public class APIlistConnectionActiveCallsRequest {
-    private String connectionId;
+    private String connectionIdWireless;
     private Integer pageLimit;
     private String pageAfter;
     private String pageBefore;
 
-    private APIlistConnectionActiveCallsRequest(String connectionId) {
-      this.connectionId = connectionId;
+    private APIlistConnectionActiveCallsRequest(String connectionIdWireless) {
+      this.connectionIdWireless = connectionIdWireless;
     }
 
     /**
@@ -162,21 +162,21 @@ private ApiResponse<ActiveCallsResponse> listConnectionActiveCallsWithHttpInfo(S
 
      */
     public ApiResponse<ActiveCallsResponse> executeWithHttpInfo() throws ApiException {
-      return listConnectionActiveCallsWithHttpInfo(connectionId, pageLimit, pageAfter, pageBefore);
+      return listConnectionActiveCallsWithHttpInfo(connectionIdWireless, pageLimit, pageAfter, pageBefore);
     }
   }
 
   /**
    * List all active calls for given connection
    * Lists all active calls for given connection. Acceptable connections are either SIP connections with webhook_url or xml_request_url, call control or texml. Returned results are cursor paginated. 
-   * @param connectionId Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. (required)
+   * @param connectionIdWireless Telnyx connection id (required)
    * @return listConnectionActiveCallsRequest
    * @throws ApiException if fails to make API call
    
    
    */
-  public APIlistConnectionActiveCallsRequest listConnectionActiveCalls(String connectionId) throws ApiException {
-    return new APIlistConnectionActiveCallsRequest(connectionId);
+  public APIlistConnectionActiveCallsRequest listConnectionActiveCalls(String connectionIdWireless) throws ApiException {
+    return new APIlistConnectionActiveCallsRequest(connectionIdWireless);
   }
   /**
    * Retrieve a call status

@@ -16,6 +16,10 @@
 |**numberPoolSettings** | [**NumberPoolSettings**](NumberPoolSettings.md) |  |  [optional] |
 |**urlShortenerSettings** | [**UrlShortenerSettings**](UrlShortenerSettings.md) |  |  [optional] |
 |**alphaSender** | **String** | The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID. |  [optional] |
+|**dailySpendLimit** | **String** | The maximum amount of money (in USD) that can be spent by this profile before midnight UTC. |  [optional] |
+|**dailySpendLimitEnabled** | **Boolean** | Whether to enforce the value configured by &#x60;daily_spend_limit&#x60;. |  [optional] |
+|**mmsFallBackToSms** | **Boolean** | enables SMS fallback for MMS messages. |  [optional] |
+|**mmsTranscoding** | **Boolean** | enables automated resizing of MMS media. |  [optional] |
 
 
 

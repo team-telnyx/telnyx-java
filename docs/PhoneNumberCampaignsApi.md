@@ -4,14 +4,9 @@ All URIs are relative to *https://api.telnyx.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createPhoneNumberCampaign**](PhoneNumberCampaignsApi.md#createPhoneNumberCampaign) | **POST** /phoneNumberCampaign | Create New Phone Number Campaign
-[**createPhoneNumberCampaign_0**](PhoneNumberCampaignsApi.md#createPhoneNumberCampaign_0) | **PUT** /phoneNumberCampaign/{phoneNumber} | Create New Phone Number Campaign
-[**createPhoneNumberCampaign_1**](PhoneNumberCampaignsApi.md#createPhoneNumberCampaign_1) | **POST** /phone_number_campaigns | Create New Phone Number Campaign
-[**deletePhoneNumberCampaign**](PhoneNumberCampaignsApi.md#deletePhoneNumberCampaign) | **DELETE** /phoneNumberCampaign/{phoneNumber} | Delete Phone Number Campaign
-[**deletePhoneNumberCampaign_0**](PhoneNumberCampaignsApi.md#deletePhoneNumberCampaign_0) | **DELETE** /phone_number_campaigns/{phoneNumber} | Delete Phone Number Campaign
-[**getAllPhoneNumberCampaigns**](PhoneNumberCampaignsApi.md#getAllPhoneNumberCampaigns) | **GET** /phoneNumberCampaign | Retrieve All Phone Number Campaigns
-[**getAllPhoneNumberCampaigns_0**](PhoneNumberCampaignsApi.md#getAllPhoneNumberCampaigns_0) | **GET** /phone_number_campaigns | Retrieve All Phone Number Campaigns
-[**getPhoneNumberCampaign**](PhoneNumberCampaignsApi.md#getPhoneNumberCampaign) | **GET** /phoneNumberCampaign/{phoneNumber} | Get Single Phone Number Campaign
+[**createPhoneNumberCampaign**](PhoneNumberCampaignsApi.md#createPhoneNumberCampaign) | **POST** /phone_number_campaigns | Create New Phone Number Campaign
+[**deletePhoneNumberCampaign**](PhoneNumberCampaignsApi.md#deletePhoneNumberCampaign) | **DELETE** /phone_number_campaigns/{phoneNumber} | Delete Phone Number Campaign
+[**getAllPhoneNumberCampaigns**](PhoneNumberCampaignsApi.md#getAllPhoneNumberCampaigns) | **GET** /phone_number_campaigns | Retrieve All Phone Number Campaigns
 [**getSinglePhoneNumberCampaign**](PhoneNumberCampaignsApi.md#getSinglePhoneNumberCampaign) | **GET** /phone_number_campaigns/{phoneNumber} | Get Single Phone Number Campaign
 [**putPhoneNumberCampaign**](PhoneNumberCampaignsApi.md#putPhoneNumberCampaign) | **PUT** /phone_number_campaigns/{phoneNumber} | Create New Phone Number Campaign
 
@@ -19,11 +14,9 @@ Method | HTTP request | Description
 
 ## createPhoneNumberCampaign
 
-> ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPost createPhoneNumberCampaign(phoneNumberCampaignCreate)
+> PhoneNumberCampaign createPhoneNumberCampaign(phoneNumberCampaignCreate)
 
 Create New Phone Number Campaign
-
-Assign an individual phone number to campaign.
 
 ### Example
 
@@ -48,7 +41,7 @@ public class Example {
         PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
         PhoneNumberCampaignCreate phoneNumberCampaignCreate = new PhoneNumberCampaignCreate(); // PhoneNumberCampaignCreate | 
         try {
-            ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPost result = apiInstance.createPhoneNumberCampaign(phoneNumberCampaignCreate);
+            PhoneNumberCampaign result = apiInstance.createPhoneNumberCampaign(phoneNumberCampaignCreate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PhoneNumberCampaignsApi#createPhoneNumberCampaign");
@@ -70,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPost**](ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPost.md)
+[**PhoneNumberCampaign**](PhoneNumberCampaign.md)
 
 ### Authorization
 
@@ -85,149 +78,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
-
-
-## createPhoneNumberCampaign_0
-
-> ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut createPhoneNumberCampaign_0(phoneNumber, phoneNumberCampaignCreate)
-
-Create New Phone Number Campaign
-
-This endpoint allows you to assign a different campaign to a supplied `phoneNumber`.
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.PhoneNumberCampaignsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
-        String phoneNumber = "phoneNumber_example"; // String | 
-        PhoneNumberCampaignCreate phoneNumberCampaignCreate = new PhoneNumberCampaignCreate(); // PhoneNumberCampaignCreate | 
-        try {
-            ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut result = apiInstance.createPhoneNumberCampaign_0(phoneNumber, phoneNumberCampaignCreate);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PhoneNumberCampaignsApi#createPhoneNumberCampaign_0");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **phoneNumber** | **String**|  |
- **phoneNumberCampaignCreate** | [**PhoneNumberCampaignCreate**](PhoneNumberCampaignCreate.md)|  |
-
-### Return type
-
-[**ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut**](ResponseCreateNewPhoneNumberCampaignPublicPhonenumbercampaignPhonenumberPut.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
-
-
-## createPhoneNumberCampaign_1
-
-> Object createPhoneNumberCampaign_1(phoneNumberCampaignCreate)
-
-Create New Phone Number Campaign
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.PhoneNumberCampaignsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
-        PhoneNumberCampaignCreate phoneNumberCampaignCreate = new PhoneNumberCampaignCreate(); // PhoneNumberCampaignCreate | 
-        try {
-            Object result = apiInstance.createPhoneNumberCampaign_1(phoneNumberCampaignCreate);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PhoneNumberCampaignsApi#createPhoneNumberCampaign_1");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **phoneNumberCampaignCreate** | [**PhoneNumberCampaignCreate**](PhoneNumberCampaignCreate.md)|  |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## deletePhoneNumberCampaign
@@ -298,89 +149,19 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
-
-
-## deletePhoneNumberCampaign_0
-
-> Object deletePhoneNumberCampaign_0(phoneNumber)
-
-Delete Phone Number Campaign
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.PhoneNumberCampaignsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
-        String phoneNumber = "phoneNumber_example"; // String | 
-        try {
-            Object result = apiInstance.deletePhoneNumberCampaign_0(phoneNumber);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PhoneNumberCampaignsApi#deletePhoneNumberCampaign_0");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **phoneNumber** | **String**|  |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## getAllPhoneNumberCampaigns
 
-> PhoneNumberCampaignPaginated getAllPhoneNumberCampaigns(recordsPerPage, page)
+> PhoneNumberCampaignPaginated getAllPhoneNumberCampaigns(recordsPerPage, page, filterTelnyxCampaignId, filterTelnyxBrandId, filterTcrCampaignId, filterTcrBrandId, sort)
 
 Retrieve All Phone Number Campaigns
-
-Retrieve all of your organization's phone number/campaign assignments.
 
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -401,8 +182,13 @@ public class Example {
         PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
         Object recordsPerPage = 20; // Object | 
         Object page = 1; // Object | 
+        UUID filterTelnyxCampaignId = UUID.fromString("f3575e15-32ce-400e-a4c0-dd78800c20b0"); // UUID | Filter results by the Telnyx Campaign id
+        UUID filterTelnyxBrandId = UUID.fromString("f3575e15-32ce-400e-a4c0-dd78800c20b0"); // UUID | Filter results by the Telnyx Brand id
+        String filterTcrCampaignId = "CAMPID3"; // String | Filter results by the TCR Campaign id
+        String filterTcrBrandId = "BRANDID"; // String | Filter results by the TCR Brand id
+        String sort = "assignmentStatus"; // String | Specifies the sort order for results. If not given, results are sorted by createdAt in descending order.
         try {
-            PhoneNumberCampaignPaginated result = apiInstance.getAllPhoneNumberCampaigns(recordsPerPage, page);
+            PhoneNumberCampaignPaginated result = apiInstance.getAllPhoneNumberCampaigns(recordsPerPage, page, filterTelnyxCampaignId, filterTelnyxBrandId, filterTcrCampaignId, filterTcrBrandId, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PhoneNumberCampaignsApi#getAllPhoneNumberCampaigns");
@@ -422,6 +208,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **recordsPerPage** | **Object**|  | [optional] [default to 20]
  **page** | **Object**|  | [optional] [default to 1]
+ **filterTelnyxCampaignId** | **UUID**| Filter results by the Telnyx Campaign id | [optional]
+ **filterTelnyxBrandId** | **UUID**| Filter results by the Telnyx Brand id | [optional]
+ **filterTcrCampaignId** | **String**| Filter results by the TCR Campaign id | [optional]
+ **filterTcrBrandId** | **String**| Filter results by the TCR Brand id | [optional]
+ **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by createdAt in descending order. | [optional] [default to -createdAt] [enum: assignmentStatus, -assignmentStatus, createdAt, -createdAt, phoneNumber, -phoneNumber]
 
 ### Return type
 
@@ -440,83 +231,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 
 
-## getAllPhoneNumberCampaigns_0
+## getSinglePhoneNumberCampaign
 
-> Object getAllPhoneNumberCampaigns_0(recordsPerPage, page)
-
-Retrieve All Phone Number Campaigns
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.PhoneNumberCampaignsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
-        Object recordsPerPage = 20; // Object | 
-        Object page = 1; // Object | 
-        try {
-            Object result = apiInstance.getAllPhoneNumberCampaigns_0(recordsPerPage, page);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PhoneNumberCampaignsApi#getAllPhoneNumberCampaigns_0");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **recordsPerPage** | **Object**|  | [optional] [default to 20]
- **page** | **Object**|  | [optional] [default to 1]
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
-
-
-## getPhoneNumberCampaign
-
-> PhoneNumberCampaign getPhoneNumberCampaign(phoneNumber)
+> PhoneNumberCampaign getSinglePhoneNumberCampaign(phoneNumber)
 
 Get Single Phone Number Campaign
 
@@ -545,10 +265,10 @@ public class Example {
         PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
         String phoneNumber = "phoneNumber_example"; // String | 
         try {
-            PhoneNumberCampaign result = apiInstance.getPhoneNumberCampaign(phoneNumber);
+            PhoneNumberCampaign result = apiInstance.getSinglePhoneNumberCampaign(phoneNumber);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling PhoneNumberCampaignsApi#getPhoneNumberCampaign");
+            System.err.println("Exception when calling PhoneNumberCampaignsApi#getSinglePhoneNumberCampaign");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -582,81 +302,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
-
-
-## getSinglePhoneNumberCampaign
-
-> Object getSinglePhoneNumberCampaign(phoneNumber)
-
-Get Single Phone Number Campaign
-
-### Example
-
-```java
-// Import classes:
-import com.telnyx.sdk.ApiClient;
-import com.telnyx.sdk.ApiException;
-import com.telnyx.sdk.Configuration;
-import com.telnyx.sdk.auth.*;
-import com.telnyx.sdk.model.*;
-import com.telnyx.sdk.api.PhoneNumberCampaignsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.telnyx.com/v2");
-        
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        PhoneNumberCampaignsApi apiInstance = new PhoneNumberCampaignsApi(defaultClient);
-        String phoneNumber = "phoneNumber_example"; // String | 
-        try {
-            Object result = apiInstance.getSinglePhoneNumberCampaign(phoneNumber);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling PhoneNumberCampaignsApi#getSinglePhoneNumberCampaign");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **phoneNumber** | **String**|  |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 
 
 ## putPhoneNumberCampaign
 
-> Object putPhoneNumberCampaign(phoneNumber, phoneNumberCampaignCreate)
+> PhoneNumberCampaign putPhoneNumberCampaign(phoneNumber, phoneNumberCampaignCreate)
 
 Create New Phone Number Campaign
 
@@ -684,7 +335,7 @@ public class Example {
         String phoneNumber = "phoneNumber_example"; // String | 
         PhoneNumberCampaignCreate phoneNumberCampaignCreate = new PhoneNumberCampaignCreate(); // PhoneNumberCampaignCreate | 
         try {
-            Object result = apiInstance.putPhoneNumberCampaign(phoneNumber, phoneNumberCampaignCreate);
+            PhoneNumberCampaign result = apiInstance.putPhoneNumberCampaign(phoneNumber, phoneNumberCampaignCreate);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PhoneNumberCampaignsApi#putPhoneNumberCampaign");
@@ -707,7 +358,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**PhoneNumberCampaign**](PhoneNumberCampaign.md)
 
 ### Authorization
 
@@ -722,5 +373,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
-| **422** | Validation Error |  -  |
+| **0** | Unexpected error |  -  |
 

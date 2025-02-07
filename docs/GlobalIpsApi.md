@@ -12,11 +12,11 @@ Method | HTTP request | Description
 [**deleteGlobalIpHealthCheck**](GlobalIpsApi.md#deleteGlobalIpHealthCheck) | **DELETE** /global_ip_health_checks/{id} | Delete a Global IP health check
 [**getGlobalIp**](GlobalIpsApi.md#getGlobalIp) | **GET** /global_ips/{id} | Retrieve a Global IP
 [**getGlobalIpAssignment**](GlobalIpsApi.md#getGlobalIpAssignment) | **GET** /global_ip_assignments/{id} | Retrieve a Global IP
-[**getGlobalIpAssignmentHealth**](GlobalIpsApi.md#getGlobalIpAssignmentHealth) | **GET** /global_ip_assignment_health | 
-[**getGlobalIpAssignmentUsage**](GlobalIpsApi.md#getGlobalIpAssignmentUsage) | **GET** /global_ip_assignments_usage | 
+[**getGlobalIpAssignmentHealth**](GlobalIpsApi.md#getGlobalIpAssignmentHealth) | **GET** /global_ip_assignment_health | Global IP Assignment Health Check Metrics
+[**getGlobalIpAssignmentUsage**](GlobalIpsApi.md#getGlobalIpAssignmentUsage) | **GET** /global_ip_assignments_usage | Global IP Assignment Usage Metrics
 [**getGlobalIpHealthCheck**](GlobalIpsApi.md#getGlobalIpHealthCheck) | **GET** /global_ip_health_checks/{id} | Retrieve a Global IP health check
-[**getGlobalIpLatency**](GlobalIpsApi.md#getGlobalIpLatency) | **GET** /global_ip_latency | 
-[**getGlobalIpUsage**](GlobalIpsApi.md#getGlobalIpUsage) | **GET** /global_ip_usage | 
+[**getGlobalIpLatency**](GlobalIpsApi.md#getGlobalIpLatency) | **GET** /global_ip_latency | Global IP Latency Metrics
+[**getGlobalIpUsage**](GlobalIpsApi.md#getGlobalIpUsage) | **GET** /global_ip_usage | Global IP Usage Metrics
 [**listGlobalIpAllowedPorts**](GlobalIpsApi.md#listGlobalIpAllowedPorts) | **GET** /global_ip_allowed_ports | List all Global IP Allowed Ports
 [**listGlobalIpAssignments**](GlobalIpsApi.md#listGlobalIpAssignments) | **GET** /global_ip_assignments | List all Global IP assignments
 [**listGlobalIpHealthCheckTypes**](GlobalIpsApi.md#listGlobalIpHealthCheckTypes) | **GET** /global_ip_health_check_types | List all Global IP Health check types
@@ -607,7 +607,7 @@ Name | Type | Description  | Notes
 
 > GetGlobalIpAssignmentHealth200Response getGlobalIpAssignmentHealth(filterGlobalIpIdIn, filterGlobalIpAssignmentIdIn, filterTimestampGt, filterTimestampLt)
 
-
+Global IP Assignment Health Check Metrics
 
 ### Example
 
@@ -683,7 +683,7 @@ Name | Type | Description  | Notes
 
 > GetGlobalIpAssignmentUsage200Response getGlobalIpAssignmentUsage(filterGlobalIpAssignmentIdIn, filterGlobalIpIdIn, filterTimestampGt, filterTimestampLt)
 
-
+Global IP Assignment Usage Metrics
 
 ### Example
 
@@ -831,7 +831,7 @@ Name | Type | Description  | Notes
 
 > GetGlobalIpLatency200Response getGlobalIpLatency(filterGlobalIpIdIn, filterTimestampGt, filterTimestampLt)
 
-
+Global IP Latency Metrics
 
 ### Example
 
@@ -905,7 +905,7 @@ Name | Type | Description  | Notes
 
 > GetGlobalIpUsage200Response getGlobalIpUsage(filterGlobalIpIdIn, filterTimestampGt, filterTimestampLt)
 
-
+Global IP Usage Metrics
 
 ### Example
 

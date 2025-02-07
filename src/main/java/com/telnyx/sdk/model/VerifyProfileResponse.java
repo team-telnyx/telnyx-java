@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.VerifyProfileFlashcallResponse;
 import com.telnyx.sdk.model.VerifyProfileSMSResponse;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -52,7 +50,7 @@ import com.telnyx.sdk.JSON;
   VerifyProfileResponse.JSON_PROPERTY_FLASHCALL,
   VerifyProfileResponse.JSON_PROPERTY_LANGUAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class VerifyProfileResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;

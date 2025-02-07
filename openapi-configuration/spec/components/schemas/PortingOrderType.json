@@ -1,9 +1,0 @@
-{
-  "type": "string",
-  "description": "A port can be either 'full' or 'partial'. When type is 'full' the other attributes should be omitted.",
-  "enum": [
-    "full",
-    "partial"
-  ],
-  "example": "full"
-}

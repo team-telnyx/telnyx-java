@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   EnqueueRequest.JSON_PROPERTY_MAX_WAIT_TIME_SECS,
   EnqueueRequest.JSON_PROPERTY_MAX_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class EnqueueRequest {
   public static final String JSON_PROPERTY_QUEUE_NAME = "queue_name";
   private String queueName;
@@ -70,10 +68,10 @@ public class EnqueueRequest {
    * The name of the queue the call should be put in. If a queue with a given name doesn&#39;t exist yet it will be created.
    * @return queueName
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "tier_1_support", value = "The name of the queue the call should be put in. If a queue with a given name doesn't exist yet it will be created.")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(example = "tier_1_support", required = true, value = "The name of the queue the call should be put in. If a queue with a given name doesn't exist yet it will be created.")
   @JsonProperty(JSON_PROPERTY_QUEUE_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getQueueName() {
     return queueName;
@@ -81,7 +79,7 @@ public class EnqueueRequest {
 
 
   @JsonProperty(JSON_PROPERTY_QUEUE_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setQueueName(String queueName) {
     this.queueName = queueName;
   }

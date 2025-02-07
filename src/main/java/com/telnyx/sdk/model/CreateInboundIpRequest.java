@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,7 +43,6 @@ import com.telnyx.sdk.JSON;
   CreateInboundIpRequest.JSON_PROPERTY_GENERATE_RINGBACK_TONE,
   CreateInboundIpRequest.JSON_PROPERTY_ISUP_HEADERS_ENABLED,
   CreateInboundIpRequest.JSON_PROPERTY_PRACK_ENABLED,
-  CreateInboundIpRequest.JSON_PROPERTY_PRIVACY_ZONE_ENABLED,
   CreateInboundIpRequest.JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED,
   CreateInboundIpRequest.JSON_PROPERTY_SIP_REGION,
   CreateInboundIpRequest.JSON_PROPERTY_SIP_SUBDOMAIN,
@@ -54,19 +51,19 @@ import com.telnyx.sdk.JSON;
   CreateInboundIpRequest.JSON_PROPERTY_TIMEOUT2XX_SECS,
   CreateInboundIpRequest.JSON_PROPERTY_SHAKEN_STIR_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateInboundIpRequest {
   /**
    * This setting allows you to set the format with which the caller&#39;s number (ANI) is sent for inbound phone calls.
    */
   public enum AniNumberFormatEnum {
-    _E_164("+E.164"),
+    _E_164(String.valueOf("+E.164")),
     
-    E_164("E.164"),
+    E_164(String.valueOf("E.164")),
     
-    _E_164_NATIONAL("+E.164-national"),
+    _E_164_NATIONAL(String.valueOf("+E.164-national")),
     
-    E_164_NATIONAL("E.164-national");
+    E_164_NATIONAL(String.valueOf("E.164-national"));
 
     private String value;
 
@@ -102,13 +99,13 @@ public class CreateInboundIpRequest {
    * Gets or Sets dnisNumberFormat
    */
   public enum DnisNumberFormatEnum {
-    _E164("+e164"),
+    _E164(String.valueOf("+e164")),
     
-    E164("e164"),
+    E164(String.valueOf("e164")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SIP_USERNAME("sip_username");
+    SIP_USERNAME(String.valueOf("sip_username"));
 
     private String value;
 
@@ -147,9 +144,9 @@ public class CreateInboundIpRequest {
    * Default routing method to be used when a number is associated with the connection. Must be one of the routing method types or left blank, other values are not allowed.
    */
   public enum DefaultRoutingMethodEnum {
-    SEQUENTIAL("sequential"),
+    SEQUENTIAL(String.valueOf("sequential")),
     
-    ROUND_ROBIN("round-robin");
+    ROUND_ROBIN(String.valueOf("round-robin"));
 
     private String value;
 
@@ -193,9 +190,6 @@ public class CreateInboundIpRequest {
   public static final String JSON_PROPERTY_PRACK_ENABLED = "prack_enabled";
   private Boolean prackEnabled = false;
 
-  public static final String JSON_PROPERTY_PRIVACY_ZONE_ENABLED = "privacy_zone_enabled";
-  private Boolean privacyZoneEnabled = false;
-
   public static final String JSON_PROPERTY_SIP_COMPACT_HEADERS_ENABLED = "sip_compact_headers_enabled";
   private Boolean sipCompactHeadersEnabled = true;
 
@@ -203,11 +197,11 @@ public class CreateInboundIpRequest {
    * Selects which &#x60;sip_region&#x60; to receive inbound calls from. If null, the default region (US) will be used.
    */
   public enum SipRegionEnum {
-    US("US"),
+    US(String.valueOf("US")),
     
-    EUROPE("Europe"),
+    EUROPE(String.valueOf("Europe")),
     
-    AUSTRALIA("Australia");
+    AUSTRALIA(String.valueOf("Australia"));
 
     private String value;
 
@@ -246,9 +240,9 @@ public class CreateInboundIpRequest {
    * This option can be enabled to receive calls from: \&quot;Anyone\&quot; (any SIP endpoint in the public Internet) or \&quot;Only my connections\&quot; (any connection assigned to the same Telnyx user).
    */
   public enum SipSubdomainReceiveSettingsEnum {
-    ONLY_MY_CONNECTIONS("only_my_connections"),
+    ONLY_MY_CONNECTIONS(String.valueOf("only_my_connections")),
     
-    FROM_ANYONE("from_anyone");
+    FROM_ANYONE(String.valueOf("from_anyone"));
 
     private String value;
 
@@ -349,7 +343,7 @@ public class CreateInboundIpRequest {
     return this;
   }
 
-  public CreateInboundIpRequest addCodecsItem(String codecsItem) {
+  public CreateInboundIpRequest addcodecsItem(String codecsItem) {
     if (this.codecs == null) {
       this.codecs = new ArrayList<>(Arrays.asList("G722", "G711U", "G711A", "G729", "OPUS", "H.264"));
     }
@@ -505,32 +499,6 @@ public class CreateInboundIpRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrackEnabled(Boolean prackEnabled) {
     this.prackEnabled = prackEnabled;
-  }
-
-
-  public CreateInboundIpRequest privacyZoneEnabled(Boolean privacyZoneEnabled) {
-    this.privacyZoneEnabled = privacyZoneEnabled;
-    return this;
-  }
-
-   /**
-   * By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
-   * @return privacyZoneEnabled
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.")
-  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getPrivacyZoneEnabled() {
-    return privacyZoneEnabled;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PRIVACY_ZONE_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrivacyZoneEnabled(Boolean privacyZoneEnabled) {
-    this.privacyZoneEnabled = privacyZoneEnabled;
   }
 
 
@@ -738,7 +706,6 @@ public class CreateInboundIpRequest {
         Objects.equals(this.generateRingbackTone, createInboundIpRequest.generateRingbackTone) &&
         Objects.equals(this.isupHeadersEnabled, createInboundIpRequest.isupHeadersEnabled) &&
         Objects.equals(this.prackEnabled, createInboundIpRequest.prackEnabled) &&
-        Objects.equals(this.privacyZoneEnabled, createInboundIpRequest.privacyZoneEnabled) &&
         Objects.equals(this.sipCompactHeadersEnabled, createInboundIpRequest.sipCompactHeadersEnabled) &&
         Objects.equals(this.sipRegion, createInboundIpRequest.sipRegion) &&
         Objects.equals(this.sipSubdomain, createInboundIpRequest.sipSubdomain) &&
@@ -750,7 +717,7 @@ public class CreateInboundIpRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, privacyZoneEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs, shakenStirEnabled);
+    return Objects.hash(aniNumberFormat, dnisNumberFormat, codecs, defaultRoutingMethod, channelLimit, generateRingbackTone, isupHeadersEnabled, prackEnabled, sipCompactHeadersEnabled, sipRegion, sipSubdomain, sipSubdomainReceiveSettings, timeout1xxSecs, timeout2xxSecs, shakenStirEnabled);
   }
 
   @Override
@@ -765,7 +732,6 @@ public class CreateInboundIpRequest {
     sb.append("    generateRingbackTone: ").append(toIndentedString(generateRingbackTone)).append("\n");
     sb.append("    isupHeadersEnabled: ").append(toIndentedString(isupHeadersEnabled)).append("\n");
     sb.append("    prackEnabled: ").append(toIndentedString(prackEnabled)).append("\n");
-    sb.append("    privacyZoneEnabled: ").append(toIndentedString(privacyZoneEnabled)).append("\n");
     sb.append("    sipCompactHeadersEnabled: ").append(toIndentedString(sipCompactHeadersEnabled)).append("\n");
     sb.append("    sipRegion: ").append(toIndentedString(sipRegion)).append("\n");
     sb.append("    sipSubdomain: ").append(toIndentedString(sipSubdomain)).append("\n");

@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Recording Saved Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallRecordingSaved.json"
-    }
-  }
-}

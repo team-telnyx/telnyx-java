@@ -10,6 +10,7 @@
 |**applicationSid** | **String** | The ID of the TeXML Application. |  |
 |**to** | **String** | The phone number of the called party. Phone numbers are formatted with a &#x60;+&#x60; and country code. |  |
 |**from** | **String** | The phone number of the party that initiated the call. Phone numbers are formatted with a &#x60;+&#x60; and country code. |  |
+|**callerId** | **String** | To be used as the caller id name (SIP From Display Name) presented to the destination (&#x60;To&#x60; number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and &#x60;-_~!.+&#x60; special characters. If ommited, the display name will be the same as the number in the &#x60;From&#x60; field. |  [optional] |
 |**url** | **String** | The URL from which Telnyx will retrieve the TeXML call instructions. |  [optional] |
 |**urlMethod** | [**UrlMethodEnum**](#UrlMethodEnum) | HTTP request type used for &#x60;Url&#x60;. The default value is inherited from TeXML Application setting. |  [optional] |
 |**fallbackUrl** | **String** | A failover URL for which Telnyx will retrieve the TeXML call instructions if the &#x60;Url&#x60; is not responding. |  [optional] |
@@ -76,7 +77,7 @@
 |---- | -----|
 | ENABLE | &quot;Enable&quot; |
 | DISABLE | &quot;Disable&quot; |
-| DETECTMESSAGEEND | &quot;DetectMessageEnd&quot; |
+| DETECT_MESSAGE_END | &quot;DetectMessageEnd&quot; |
 
 
 

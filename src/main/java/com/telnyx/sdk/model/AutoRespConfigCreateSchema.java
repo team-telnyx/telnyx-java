@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,17 +40,17 @@ import com.telnyx.sdk.JSON;
   AutoRespConfigCreateSchema.JSON_PROPERTY_RESP_TEXT,
   AutoRespConfigCreateSchema.JSON_PROPERTY_COUNTRY_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AutoRespConfigCreateSchema {
   /**
    * Gets or Sets op
    */
   public enum OpEnum {
-    START("start"),
+    START(String.valueOf("start")),
     
-    STOP("stop"),
+    STOP(String.valueOf("stop")),
     
-    INFO("info");
+    INFO(String.valueOf("info"));
 
     private String value;
 
@@ -127,7 +125,7 @@ public class AutoRespConfigCreateSchema {
     return this;
   }
 
-  public AutoRespConfigCreateSchema addKeywordsItem(String keywordsItem) {
+  public AutoRespConfigCreateSchema addkeywordsItem(String keywordsItem) {
     this.keywords.add(keywordsItem);
     return this;
   }

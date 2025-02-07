@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Machine Detection Ended Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallMachineDetectionEnded.json"
-    }
-  }
-}

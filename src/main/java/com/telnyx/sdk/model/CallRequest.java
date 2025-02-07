@@ -25,15 +25,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.CallRequestAnsweringMachineDetectionConfig;
+import com.telnyx.sdk.model.CallRequestConferenceConfig;
+import com.telnyx.sdk.model.CallRequestTo;
 import com.telnyx.sdk.model.CustomSipHeader;
 import com.telnyx.sdk.model.DialogflowConfig;
 import com.telnyx.sdk.model.SipHeader;
 import com.telnyx.sdk.model.SoundModifications;
+import com.telnyx.sdk.model.StreamBidirectionalCodec;
+import com.telnyx.sdk.model.StreamBidirectionalMode;
+import com.telnyx.sdk.model.StreamBidirectionalSamplingRate;
+import com.telnyx.sdk.model.StreamBidirectionalTargetLegs;
+import com.telnyx.sdk.model.TranscriptionStartRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -54,6 +59,7 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_TIME_LIMIT_SECS,
   CallRequest.JSON_PROPERTY_ANSWERING_MACHINE_DETECTION,
   CallRequest.JSON_PROPERTY_ANSWERING_MACHINE_DETECTION_CONFIG,
+  CallRequest.JSON_PROPERTY_CONFERENCE_CONFIG,
   CallRequest.JSON_PROPERTY_CUSTOM_HEADERS,
   CallRequest.JSON_PROPERTY_BILLING_GROUP_ID,
   CallRequest.JSON_PROPERTY_CLIENT_STATE,
@@ -67,6 +73,10 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_SOUND_MODIFICATIONS,
   CallRequest.JSON_PROPERTY_STREAM_URL,
   CallRequest.JSON_PROPERTY_STREAM_TRACK,
+  CallRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE,
+  CallRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC,
+  CallRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS,
+  CallRequest.JSON_PROPERTY_STREAM_BIDIRECTIONAL_SAMPLING_RATE,
   CallRequest.JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE,
   CallRequest.JSON_PROPERTY_WEBHOOK_URL,
   CallRequest.JSON_PROPERTY_WEBHOOK_URL_METHOD,
@@ -75,15 +85,20 @@ import com.telnyx.sdk.JSON;
   CallRequest.JSON_PROPERTY_RECORD_FORMAT,
   CallRequest.JSON_PROPERTY_RECORD_MAX_LENGTH,
   CallRequest.JSON_PROPERTY_RECORD_TIMEOUT_SECS,
+  CallRequest.JSON_PROPERTY_RECORD_TRACK,
   CallRequest.JSON_PROPERTY_RECORD_TRIM,
   CallRequest.JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME,
+  CallRequest.JSON_PROPERTY_SUPERVISE_CALL_CONTROL_ID,
+  CallRequest.JSON_PROPERTY_SUPERVISOR_ROLE,
   CallRequest.JSON_PROPERTY_ENABLE_DIALOGFLOW,
-  CallRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG
+  CallRequest.JSON_PROPERTY_DIALOGFLOW_CONFIG,
+  CallRequest.JSON_PROPERTY_TRANSCRIPTION,
+  CallRequest.JSON_PROPERTY_TRANSCRIPTION_CONFIG
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallRequest {
   public static final String JSON_PROPERTY_TO = "to";
-  private String to;
+  private CallRequestTo to;
 
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -113,17 +128,17 @@ public class CallRequest {
    * Enables Answering Machine Detection. Telnyx offers Premium and Standard detections. With Premium detection, when a call is answered, Telnyx runs real-time detection and sends a &#x60;call.machine.premium.detection.ended&#x60; webhook with one of the following results: &#x60;human_residence&#x60;, &#x60;human_business&#x60;, &#x60;machine&#x60;, &#x60;silence&#x60; or &#x60;fax_detected&#x60;. If we detect a beep, we also send a &#x60;call.machine.premium.greeting.ended&#x60; webhook with the result of &#x60;beep_detected&#x60;. If we detect a beep before &#x60;call.machine.premium.detection.ended&#x60; we only send &#x60;call.machine.premium.greeting.ended&#x60;, and if we detect a beep after &#x60;call.machine.premium.detection.ended&#x60;, we send both webhooks. With Standard detection, when a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an &#x60;call.machine.detection.ended&#x60; webhook with the analysis result. If &#x60;greeting_end&#x60; or &#x60;detect_words&#x60; is used and a &#x60;machine&#x60; is detected, you will receive another &#x60;call.machine.greeting.ended&#x60; webhook when the answering machine greeting ends with a beep or silence. If &#x60;detect_beep&#x60; is used, you will only receive &#x60;call.machine.greeting.ended&#x60; if a beep is detected.
    */
   public enum AnsweringMachineDetectionEnum {
-    PREMIUM("premium"),
+    PREMIUM(String.valueOf("premium")),
     
-    DETECT("detect"),
+    DETECT(String.valueOf("detect")),
     
-    DETECT_BEEP("detect_beep"),
+    DETECT_BEEP(String.valueOf("detect_beep")),
     
-    DETECT_WORDS("detect_words"),
+    DETECT_WORDS(String.valueOf("detect_words")),
     
-    GREETING_END("greeting_end"),
+    GREETING_END(String.valueOf("greeting_end")),
     
-    DISABLED("disabled");
+    DISABLED(String.valueOf("disabled"));
 
     private String value;
 
@@ -158,6 +173,9 @@ public class CallRequest {
   public static final String JSON_PROPERTY_ANSWERING_MACHINE_DETECTION_CONFIG = "answering_machine_detection_config";
   private CallRequestAnsweringMachineDetectionConfig answeringMachineDetectionConfig;
 
+  public static final String JSON_PROPERTY_CONFERENCE_CONFIG = "conference_config";
+  private CallRequestConferenceConfig conferenceConfig;
+
   public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
   private List<CustomSipHeader> customHeaders = null;
 
@@ -177,9 +195,9 @@ public class CallRequest {
    * Defines whether media should be encrypted on the call.
    */
   public enum MediaEncryptionEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    SRTP("SRTP");
+    SRTP(String.valueOf("SRTP"));
 
     private String value;
 
@@ -224,11 +242,11 @@ public class CallRequest {
    * Defines SIP transport protocol to be used on the call.
    */
   public enum SipTransportProtocolEnum {
-    UDP("UDP"),
+    UDP(String.valueOf("UDP")),
     
-    TCP("TCP"),
+    TCP(String.valueOf("TCP")),
     
-    TLS("TLS");
+    TLS(String.valueOf("TLS"));
 
     private String value;
 
@@ -270,11 +288,11 @@ public class CallRequest {
    * Specifies which track should be streamed.
    */
   public enum StreamTrackEnum {
-    INBOUND_TRACK("inbound_track"),
+    INBOUND_TRACK(String.valueOf("inbound_track")),
     
-    OUTBOUND_TRACK("outbound_track"),
+    OUTBOUND_TRACK(String.valueOf("outbound_track")),
     
-    BOTH_TRACKS("both_tracks");
+    BOTH_TRACKS(String.valueOf("both_tracks"));
 
     private String value;
 
@@ -306,6 +324,18 @@ public class CallRequest {
   public static final String JSON_PROPERTY_STREAM_TRACK = "stream_track";
   private StreamTrackEnum streamTrack = StreamTrackEnum.INBOUND_TRACK;
 
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE = "stream_bidirectional_mode";
+  private StreamBidirectionalMode streamBidirectionalMode = StreamBidirectionalMode.MP3;
+
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC = "stream_bidirectional_codec";
+  private StreamBidirectionalCodec streamBidirectionalCodec = StreamBidirectionalCodec.PCMU;
+
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS = "stream_bidirectional_target_legs";
+  private StreamBidirectionalTargetLegs streamBidirectionalTargetLegs = StreamBidirectionalTargetLegs.OPPOSITE;
+
+  public static final String JSON_PROPERTY_STREAM_BIDIRECTIONAL_SAMPLING_RATE = "stream_bidirectional_sampling_rate";
+  private StreamBidirectionalSamplingRate streamBidirectionalSamplingRate = StreamBidirectionalSamplingRate.NUMBER_8000;
+
   public static final String JSON_PROPERTY_SEND_SILENCE_WHEN_IDLE = "send_silence_when_idle";
   private Boolean sendSilenceWhenIdle = false;
 
@@ -316,9 +346,9 @@ public class CallRequest {
    * HTTP request type used for &#x60;webhook_url&#x60;.
    */
   public enum WebhookUrlMethodEnum {
-    POST("POST"),
+    POST(String.valueOf("POST")),
     
-    GET("GET");
+    GET(String.valueOf("GET"));
 
     private String value;
 
@@ -354,7 +384,7 @@ public class CallRequest {
    * Start recording automatically after an event. Disabled by default.
    */
   public enum RecordEnum {
-    RECORD_FROM_ANSWER("record-from-answer");
+    RECORD_FROM_ANSWER(String.valueOf("record-from-answer"));
 
     private String value;
 
@@ -390,9 +420,9 @@ public class CallRequest {
    * Defines which channel should be recorded (&#39;single&#39; or &#39;dual&#39;) when &#x60;record&#x60; is specified.
    */
   public enum RecordChannelsEnum {
-    SINGLE("single"),
+    SINGLE(String.valueOf("single")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 
@@ -428,9 +458,9 @@ public class CallRequest {
    * Defines the format of the recording (&#39;wav&#39; or &#39;mp3&#39;) when &#x60;record&#x60; is specified.
    */
   public enum RecordFormatEnum {
-    WAV("wav"),
+    WAV(String.valueOf("wav")),
     
-    MP3("mp3");
+    MP3(String.valueOf("mp3"));
 
     private String value;
 
@@ -469,10 +499,50 @@ public class CallRequest {
   private Integer recordTimeoutSecs = 0;
 
   /**
+   * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
+   */
+  public enum RecordTrackEnum {
+    BOTH(String.valueOf("both")),
+    
+    INBOUND(String.valueOf("inbound")),
+    
+    OUTBOUND(String.valueOf("outbound"));
+
+    private String value;
+
+    RecordTrackEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static RecordTrackEnum fromValue(String value) {
+      for (RecordTrackEnum b : RecordTrackEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_RECORD_TRACK = "record_track";
+  private RecordTrackEnum recordTrack = RecordTrackEnum.BOTH;
+
+  /**
    * When set to &#x60;trim-silence&#x60;, silence will be removed from the beginning and end of the recording.
    */
   public enum RecordTrimEnum {
-    TRIM_SILENCE("trim-silence");
+    TRIM_SILENCE(String.valueOf("trim-silence"));
 
     private String value;
 
@@ -507,16 +577,65 @@ public class CallRequest {
   public static final String JSON_PROPERTY_RECORD_CUSTOM_FILE_NAME = "record_custom_file_name";
   private String recordCustomFileName;
 
+  public static final String JSON_PROPERTY_SUPERVISE_CALL_CONTROL_ID = "supervise_call_control_id";
+  private String superviseCallControlId;
+
+  /**
+   * The role of the supervisor call. &#39;barge&#39; means that supervisor call hears and is being heard by both ends of the call (caller &amp; callee). &#39;whisper&#39; means that only supervised_call_control_id hears supervisor but supervisor can hear everything. &#39;monitor&#39; means that nobody can hear supervisor call, but supervisor can hear everything on the call.
+   */
+  public enum SupervisorRoleEnum {
+    BARGE(String.valueOf("barge")),
+    
+    WHISPER(String.valueOf("whisper")),
+    
+    MONITOR(String.valueOf("monitor"));
+
+    private String value;
+
+    SupervisorRoleEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SupervisorRoleEnum fromValue(String value) {
+      for (SupervisorRoleEnum b : SupervisorRoleEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_SUPERVISOR_ROLE = "supervisor_role";
+  private SupervisorRoleEnum supervisorRole = SupervisorRoleEnum.BARGE;
+
   public static final String JSON_PROPERTY_ENABLE_DIALOGFLOW = "enable_dialogflow";
   private Boolean enableDialogflow = false;
 
   public static final String JSON_PROPERTY_DIALOGFLOW_CONFIG = "dialogflow_config";
   private DialogflowConfig dialogflowConfig;
 
+  public static final String JSON_PROPERTY_TRANSCRIPTION = "transcription";
+  private Boolean transcription = false;
+
+  public static final String JSON_PROPERTY_TRANSCRIPTION_CONFIG = "transcription_config";
+  private TranscriptionStartRequest transcriptionConfig;
+
   public CallRequest() { 
   }
 
-  public CallRequest to(String to) {
+  public CallRequest to(CallRequestTo to) {
     this.to = to;
     return this;
   }
@@ -530,14 +649,14 @@ public class CallRequest {
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getTo() {
+  public CallRequestTo getTo() {
     return to;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTo(String to) {
+  public void setTo(CallRequestTo to) {
     this.to = to;
   }
 
@@ -704,11 +823,11 @@ public class CallRequest {
   }
 
    /**
-   * The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being called. If the timeout is reached before an answer is received, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;timeout&#x60; will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.
+   * The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being called. If the timeout is reached before an answer is received, the call will hangup and a &#x60;call.hangup&#x60; webhook with a &#x60;hangup_cause&#x60; of &#x60;timeout&#x60; will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
    * @return timeoutSecs
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "60", value = "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being called. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.")
+  @ApiModelProperty(example = "60", value = "The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being called. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.")
   @JsonProperty(JSON_PROPERTY_TIMEOUT_SECS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -804,12 +923,38 @@ public class CallRequest {
   }
 
 
+  public CallRequest conferenceConfig(CallRequestConferenceConfig conferenceConfig) {
+    this.conferenceConfig = conferenceConfig;
+    return this;
+  }
+
+   /**
+   * Get conferenceConfig
+   * @return conferenceConfig
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CONFERENCE_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public CallRequestConferenceConfig getConferenceConfig() {
+    return conferenceConfig;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONFERENCE_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConferenceConfig(CallRequestConferenceConfig conferenceConfig) {
+    this.conferenceConfig = conferenceConfig;
+  }
+
+
   public CallRequest customHeaders(List<CustomSipHeader> customHeaders) {
     this.customHeaders = customHeaders;
     return this;
   }
 
-  public CallRequest addCustomHeadersItem(CustomSipHeader customHeadersItem) {
+  public CallRequest addcustomHeadersItem(CustomSipHeader customHeadersItem) {
     if (this.customHeaders == null) {
       this.customHeaders = new ArrayList<>();
     }
@@ -1025,7 +1170,7 @@ public class CallRequest {
     return this;
   }
 
-  public CallRequest addSipHeadersItem(SipHeader sipHeadersItem) {
+  public CallRequest addsipHeadersItem(SipHeader sipHeadersItem) {
     if (this.sipHeaders == null) {
       this.sipHeaders = new ArrayList<>();
     }
@@ -1155,6 +1300,110 @@ public class CallRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStreamTrack(StreamTrackEnum streamTrack) {
     this.streamTrack = streamTrack;
+  }
+
+
+  public CallRequest streamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalMode
+   * @return streamBidirectionalMode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalMode getStreamBidirectionalMode() {
+    return streamBidirectionalMode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_MODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalMode(StreamBidirectionalMode streamBidirectionalMode) {
+    this.streamBidirectionalMode = streamBidirectionalMode;
+  }
+
+
+  public CallRequest streamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalCodec
+   * @return streamBidirectionalCodec
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalCodec getStreamBidirectionalCodec() {
+    return streamBidirectionalCodec;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_CODEC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalCodec(StreamBidirectionalCodec streamBidirectionalCodec) {
+    this.streamBidirectionalCodec = streamBidirectionalCodec;
+  }
+
+
+  public CallRequest streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs streamBidirectionalTargetLegs) {
+    this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalTargetLegs
+   * @return streamBidirectionalTargetLegs
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalTargetLegs getStreamBidirectionalTargetLegs() {
+    return streamBidirectionalTargetLegs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_TARGET_LEGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalTargetLegs(StreamBidirectionalTargetLegs streamBidirectionalTargetLegs) {
+    this.streamBidirectionalTargetLegs = streamBidirectionalTargetLegs;
+  }
+
+
+  public CallRequest streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate streamBidirectionalSamplingRate) {
+    this.streamBidirectionalSamplingRate = streamBidirectionalSamplingRate;
+    return this;
+  }
+
+   /**
+   * Get streamBidirectionalSamplingRate
+   * @return streamBidirectionalSamplingRate
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_SAMPLING_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StreamBidirectionalSamplingRate getStreamBidirectionalSamplingRate() {
+    return streamBidirectionalSamplingRate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STREAM_BIDIRECTIONAL_SAMPLING_RATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStreamBidirectionalSamplingRate(StreamBidirectionalSamplingRate streamBidirectionalSamplingRate) {
+    this.streamBidirectionalSamplingRate = streamBidirectionalSamplingRate;
   }
 
 
@@ -1366,6 +1615,32 @@ public class CallRequest {
   }
 
 
+  public CallRequest recordTrack(RecordTrackEnum recordTrack) {
+    this.recordTrack = recordTrack;
+    return this;
+  }
+
+   /**
+   * The audio track to be recorded. Can be either &#x60;both&#x60;, &#x60;inbound&#x60; or &#x60;outbound&#x60;. If only single track is specified (&#x60;inbound&#x60;, &#x60;outbound&#x60;), &#x60;channels&#x60; configuration is ignored and it will be recorded as mono (single channel).
+   * @return recordTrack
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "outbound", value = "The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).")
+  @JsonProperty(JSON_PROPERTY_RECORD_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RecordTrackEnum getRecordTrack() {
+    return recordTrack;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RECORD_TRACK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRecordTrack(RecordTrackEnum recordTrack) {
+    this.recordTrack = recordTrack;
+  }
+
+
   public CallRequest recordTrim(RecordTrimEnum recordTrim) {
     this.recordTrim = recordTrim;
     return this;
@@ -1415,6 +1690,58 @@ public class CallRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRecordCustomFileName(String recordCustomFileName) {
     this.recordCustomFileName = recordCustomFileName;
+  }
+
+
+  public CallRequest superviseCallControlId(String superviseCallControlId) {
+    this.superviseCallControlId = superviseCallControlId;
+    return this;
+  }
+
+   /**
+   * The call leg which will be supervised by the new call.
+   * @return superviseCallControlId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg", value = "The call leg which will be supervised by the new call.")
+  @JsonProperty(JSON_PROPERTY_SUPERVISE_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSuperviseCallControlId() {
+    return superviseCallControlId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUPERVISE_CALL_CONTROL_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuperviseCallControlId(String superviseCallControlId) {
+    this.superviseCallControlId = superviseCallControlId;
+  }
+
+
+  public CallRequest supervisorRole(SupervisorRoleEnum supervisorRole) {
+    this.supervisorRole = supervisorRole;
+    return this;
+  }
+
+   /**
+   * The role of the supervisor call. &#39;barge&#39; means that supervisor call hears and is being heard by both ends of the call (caller &amp; callee). &#39;whisper&#39; means that only supervised_call_control_id hears supervisor but supervisor can hear everything. &#39;monitor&#39; means that nobody can hear supervisor call, but supervisor can hear everything on the call.
+   * @return supervisorRole
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The role of the supervisor call. 'barge' means that supervisor call hears and is being heard by both ends of the call (caller & callee). 'whisper' means that only supervised_call_control_id hears supervisor but supervisor can hear everything. 'monitor' means that nobody can hear supervisor call, but supervisor can hear everything on the call.")
+  @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public SupervisorRoleEnum getSupervisorRole() {
+    return supervisorRole;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUPERVISOR_ROLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSupervisorRole(SupervisorRoleEnum supervisorRole) {
+    this.supervisorRole = supervisorRole;
   }
 
 
@@ -1470,6 +1797,58 @@ public class CallRequest {
   }
 
 
+  public CallRequest transcription(Boolean transcription) {
+    this.transcription = transcription;
+    return this;
+  }
+
+   /**
+   * Enable transcription upon call answer. The default value is false.
+   * @return transcription
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Enable transcription upon call answer. The default value is false.")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getTranscription() {
+    return transcription;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscription(Boolean transcription) {
+    this.transcription = transcription;
+  }
+
+
+  public CallRequest transcriptionConfig(TranscriptionStartRequest transcriptionConfig) {
+    this.transcriptionConfig = transcriptionConfig;
+    return this;
+  }
+
+   /**
+   * Get transcriptionConfig
+   * @return transcriptionConfig
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TranscriptionStartRequest getTranscriptionConfig() {
+    return transcriptionConfig;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPTION_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptionConfig(TranscriptionStartRequest transcriptionConfig) {
+    this.transcriptionConfig = transcriptionConfig;
+  }
+
+
   /**
    * Return true if this CallRequest object is equal to o.
    */
@@ -1493,6 +1872,7 @@ public class CallRequest {
         Objects.equals(this.timeLimitSecs, callRequest.timeLimitSecs) &&
         Objects.equals(this.answeringMachineDetection, callRequest.answeringMachineDetection) &&
         Objects.equals(this.answeringMachineDetectionConfig, callRequest.answeringMachineDetectionConfig) &&
+        Objects.equals(this.conferenceConfig, callRequest.conferenceConfig) &&
         Objects.equals(this.customHeaders, callRequest.customHeaders) &&
         Objects.equals(this.billingGroupId, callRequest.billingGroupId) &&
         Objects.equals(this.clientState, callRequest.clientState) &&
@@ -1506,6 +1886,10 @@ public class CallRequest {
         Objects.equals(this.soundModifications, callRequest.soundModifications) &&
         Objects.equals(this.streamUrl, callRequest.streamUrl) &&
         Objects.equals(this.streamTrack, callRequest.streamTrack) &&
+        Objects.equals(this.streamBidirectionalMode, callRequest.streamBidirectionalMode) &&
+        Objects.equals(this.streamBidirectionalCodec, callRequest.streamBidirectionalCodec) &&
+        Objects.equals(this.streamBidirectionalTargetLegs, callRequest.streamBidirectionalTargetLegs) &&
+        Objects.equals(this.streamBidirectionalSamplingRate, callRequest.streamBidirectionalSamplingRate) &&
         Objects.equals(this.sendSilenceWhenIdle, callRequest.sendSilenceWhenIdle) &&
         Objects.equals(this.webhookUrl, callRequest.webhookUrl) &&
         Objects.equals(this.webhookUrlMethod, callRequest.webhookUrlMethod) &&
@@ -1514,15 +1898,20 @@ public class CallRequest {
         Objects.equals(this.recordFormat, callRequest.recordFormat) &&
         Objects.equals(this.recordMaxLength, callRequest.recordMaxLength) &&
         Objects.equals(this.recordTimeoutSecs, callRequest.recordTimeoutSecs) &&
+        Objects.equals(this.recordTrack, callRequest.recordTrack) &&
         Objects.equals(this.recordTrim, callRequest.recordTrim) &&
         Objects.equals(this.recordCustomFileName, callRequest.recordCustomFileName) &&
+        Objects.equals(this.superviseCallControlId, callRequest.superviseCallControlId) &&
+        Objects.equals(this.supervisorRole, callRequest.supervisorRole) &&
         Objects.equals(this.enableDialogflow, callRequest.enableDialogflow) &&
-        Objects.equals(this.dialogflowConfig, callRequest.dialogflowConfig);
+        Objects.equals(this.dialogflowConfig, callRequest.dialogflowConfig) &&
+        Objects.equals(this.transcription, callRequest.transcription) &&
+        Objects.equals(this.transcriptionConfig, callRequest.transcriptionConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, mediaName, preferredCodecs, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, mediaEncryption, sipAuthUsername, sipAuthPassword, sipHeaders, sipTransportProtocol, soundModifications, streamUrl, streamTrack, sendSilenceWhenIdle, webhookUrl, webhookUrlMethod, record, recordChannels, recordFormat, recordMaxLength, recordTimeoutSecs, recordTrim, recordCustomFileName, enableDialogflow, dialogflowConfig);
+    return Objects.hash(to, from, fromDisplayName, connectionId, audioUrl, mediaName, preferredCodecs, timeoutSecs, timeLimitSecs, answeringMachineDetection, answeringMachineDetectionConfig, conferenceConfig, customHeaders, billingGroupId, clientState, commandId, linkTo, mediaEncryption, sipAuthUsername, sipAuthPassword, sipHeaders, sipTransportProtocol, soundModifications, streamUrl, streamTrack, streamBidirectionalMode, streamBidirectionalCodec, streamBidirectionalTargetLegs, streamBidirectionalSamplingRate, sendSilenceWhenIdle, webhookUrl, webhookUrlMethod, record, recordChannels, recordFormat, recordMaxLength, recordTimeoutSecs, recordTrack, recordTrim, recordCustomFileName, superviseCallControlId, supervisorRole, enableDialogflow, dialogflowConfig, transcription, transcriptionConfig);
   }
 
   @Override
@@ -1540,6 +1929,7 @@ public class CallRequest {
     sb.append("    timeLimitSecs: ").append(toIndentedString(timeLimitSecs)).append("\n");
     sb.append("    answeringMachineDetection: ").append(toIndentedString(answeringMachineDetection)).append("\n");
     sb.append("    answeringMachineDetectionConfig: ").append(toIndentedString(answeringMachineDetectionConfig)).append("\n");
+    sb.append("    conferenceConfig: ").append(toIndentedString(conferenceConfig)).append("\n");
     sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
@@ -1553,6 +1943,10 @@ public class CallRequest {
     sb.append("    soundModifications: ").append(toIndentedString(soundModifications)).append("\n");
     sb.append("    streamUrl: ").append(toIndentedString(streamUrl)).append("\n");
     sb.append("    streamTrack: ").append(toIndentedString(streamTrack)).append("\n");
+    sb.append("    streamBidirectionalMode: ").append(toIndentedString(streamBidirectionalMode)).append("\n");
+    sb.append("    streamBidirectionalCodec: ").append(toIndentedString(streamBidirectionalCodec)).append("\n");
+    sb.append("    streamBidirectionalTargetLegs: ").append(toIndentedString(streamBidirectionalTargetLegs)).append("\n");
+    sb.append("    streamBidirectionalSamplingRate: ").append(toIndentedString(streamBidirectionalSamplingRate)).append("\n");
     sb.append("    sendSilenceWhenIdle: ").append(toIndentedString(sendSilenceWhenIdle)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
     sb.append("    webhookUrlMethod: ").append(toIndentedString(webhookUrlMethod)).append("\n");
@@ -1561,10 +1955,15 @@ public class CallRequest {
     sb.append("    recordFormat: ").append(toIndentedString(recordFormat)).append("\n");
     sb.append("    recordMaxLength: ").append(toIndentedString(recordMaxLength)).append("\n");
     sb.append("    recordTimeoutSecs: ").append(toIndentedString(recordTimeoutSecs)).append("\n");
+    sb.append("    recordTrack: ").append(toIndentedString(recordTrack)).append("\n");
     sb.append("    recordTrim: ").append(toIndentedString(recordTrim)).append("\n");
     sb.append("    recordCustomFileName: ").append(toIndentedString(recordCustomFileName)).append("\n");
+    sb.append("    superviseCallControlId: ").append(toIndentedString(superviseCallControlId)).append("\n");
+    sb.append("    supervisorRole: ").append(toIndentedString(supervisorRole)).append("\n");
     sb.append("    enableDialogflow: ").append(toIndentedString(enableDialogflow)).append("\n");
     sb.append("    dialogflowConfig: ").append(toIndentedString(dialogflowConfig)).append("\n");
+    sb.append("    transcription: ").append(toIndentedString(transcription)).append("\n");
+    sb.append("    transcriptionConfig: ").append(toIndentedString(transcriptionConfig)).append("\n");
     sb.append("}");
     return sb.toString();
   }

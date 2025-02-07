@@ -31,8 +31,6 @@ import com.telnyx.sdk.model.StockExchange;
 import com.telnyx.sdk.model.Vertical;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -61,9 +59,12 @@ import com.telnyx.sdk.JSON;
   UpdateBrand.JSON_PROPERTY_ALT_BUSINESS_ID,
   UpdateBrand.JSON_PROPERTY_ALT_BUSINESS_ID_TYPE,
   UpdateBrand.JSON_PROPERTY_IS_RESELLER,
-  UpdateBrand.JSON_PROPERTY_IDENTITY_STATUS
+  UpdateBrand.JSON_PROPERTY_IDENTITY_STATUS,
+  UpdateBrand.JSON_PROPERTY_BUSINESS_CONTACT_EMAIL,
+  UpdateBrand.JSON_PROPERTY_WEBHOOK_U_R_L,
+  UpdateBrand.JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateBrand {
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
@@ -130,6 +131,15 @@ public class UpdateBrand {
 
   public static final String JSON_PROPERTY_IDENTITY_STATUS = "identityStatus";
   private BrandIdentityStatus identityStatus;
+
+  public static final String JSON_PROPERTY_BUSINESS_CONTACT_EMAIL = "businessContactEmail";
+  private String businessContactEmail;
+
+  public static final String JSON_PROPERTY_WEBHOOK_U_R_L = "webhookURL";
+  private String webhookURL;
+
+  public static final String JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L = "webhookFailoverURL";
+  private String webhookFailoverURL;
 
   public UpdateBrand() { 
   }
@@ -706,6 +716,84 @@ public class UpdateBrand {
   }
 
 
+  public UpdateBrand businessContactEmail(String businessContactEmail) {
+    this.businessContactEmail = businessContactEmail;
+    return this;
+  }
+
+   /**
+   * Business contact email.  Required if &#x60;entityType&#x60; will be changed to &#x60;PUBLIC_PROFIT&#x60;.
+   * @return businessContactEmail
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "name@example.com", value = "Business contact email.  Required if `entityType` will be changed to `PUBLIC_PROFIT`.")
+  @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBusinessContactEmail() {
+    return businessContactEmail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBusinessContactEmail(String businessContactEmail) {
+    this.businessContactEmail = businessContactEmail;
+  }
+
+
+  public UpdateBrand webhookURL(String webhookURL) {
+    this.webhookURL = webhookURL;
+    return this;
+  }
+
+   /**
+   * Webhook URL for brand status updates.
+   * @return webhookURL
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93", value = "Webhook URL for brand status updates.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookURL() {
+    return webhookURL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWebhookURL(String webhookURL) {
+    this.webhookURL = webhookURL;
+  }
+
+
+  public UpdateBrand webhookFailoverURL(String webhookFailoverURL) {
+    this.webhookFailoverURL = webhookFailoverURL;
+    return this;
+  }
+
+   /**
+   * Webhook failover URL for brand status updates.
+   * @return webhookFailoverURL
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://webhook.com/9010a453-4df8-4be6-a551-1070892888d6", value = "Webhook failover URL for brand status updates.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookFailoverURL() {
+    return webhookFailoverURL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWebhookFailoverURL(String webhookFailoverURL) {
+    this.webhookFailoverURL = webhookFailoverURL;
+  }
+
+
   /**
    * Return true if this UpdateBrand object is equal to o.
    */
@@ -739,12 +827,15 @@ public class UpdateBrand {
         Objects.equals(this.altBusinessId, updateBrand.altBusinessId) &&
         Objects.equals(this.altBusinessIdType, updateBrand.altBusinessIdType) &&
         Objects.equals(this.isReseller, updateBrand.isReseller) &&
-        Objects.equals(this.identityStatus, updateBrand.identityStatus);
+        Objects.equals(this.identityStatus, updateBrand.identityStatus) &&
+        Objects.equals(this.businessContactEmail, updateBrand.businessContactEmail) &&
+        Objects.equals(this.webhookURL, updateBrand.webhookURL) &&
+        Objects.equals(this.webhookFailoverURL, updateBrand.webhookFailoverURL);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(entityType, displayName, companyName, firstName, lastName, ein, phone, street, city, state, postalCode, country, email, stockSymbol, stockExchange, ipAddress, website, vertical, altBusinessId, altBusinessIdType, isReseller, identityStatus);
+    return Objects.hash(entityType, displayName, companyName, firstName, lastName, ein, phone, street, city, state, postalCode, country, email, stockSymbol, stockExchange, ipAddress, website, vertical, altBusinessId, altBusinessIdType, isReseller, identityStatus, businessContactEmail, webhookURL, webhookFailoverURL);
   }
 
   @Override
@@ -773,6 +864,9 @@ public class UpdateBrand {
     sb.append("    altBusinessIdType: ").append(toIndentedString(altBusinessIdType)).append("\n");
     sb.append("    isReseller: ").append(toIndentedString(isReseller)).append("\n");
     sb.append("    identityStatus: ").append(toIndentedString(identityStatus)).append("\n");
+    sb.append("    businessContactEmail: ").append(toIndentedString(businessContactEmail)).append("\n");
+    sb.append("    webhookURL: ").append(toIndentedString(webhookURL)).append("\n");
+    sb.append("    webhookFailoverURL: ").append(toIndentedString(webhookFailoverURL)).append("\n");
     sb.append("}");
     return sb.toString();
   }

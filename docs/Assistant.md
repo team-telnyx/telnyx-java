@@ -13,7 +13,7 @@
 |**description** | **String** |  |  [optional] |
 |**model** | **String** |  |  |
 |**instructions** | **String** |  |  |
-|**tools** | [**List&lt;Tool&gt;**](Tool.md) |  |  [optional] |
+|**tools** | [**List&lt;ToolsInner&gt;**](ToolsInner.md) |  |  [optional] |
 
 
 

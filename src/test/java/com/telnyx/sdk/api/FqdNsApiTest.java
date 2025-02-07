@@ -56,21 +56,6 @@ public class FqdNsApiTest {
         }
     }
 
-    @Ignore
-    @After
-    public void tearDown() throws InterruptedException {
-        try {
-            api.deleteFqdn(existingFqdn.getId());
-            fqdnConnectionsApi.deleteFqdnConnection(existingFqdnConnection.getId());
-        } catch (ApiException e) {
-            e.printStackTrace();
-            //ignore
-        }
-
-        //todo: Find a better way to avoid rate limiting during integration testing against production system
-        //sleep(100);
-    }
-
     /**
      * Create an Fqdn
      *
@@ -170,13 +155,6 @@ public class FqdNsApiTest {
         assertEquals(updateFqdnRequest.getDnsRecordType(), actualFqdn.getDnsRecordType());
         assertEquals(updateFqdnRequest.getPort(), actualFqdn.getPort());
         assertEquals(updateFqdnRequest.getConnectionId(), actualFqdn.getConnectionId());
-
-        //Clean-up
-        try {
-            fqdnConnectionsApi.deleteFqdnConnection(newFqdnConnection.getId());
-        } catch (ApiException e) {
-            // ignore
-        }
     }
 
     /**

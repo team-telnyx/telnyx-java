@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CallMachineGreetingEndedPayload;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,13 +42,13 @@ import com.telnyx.sdk.JSON;
   CallMachineGreetingEnded.JSON_PROPERTY_OCCURRED_AT,
   CallMachineGreetingEnded.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallMachineGreetingEnded {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -86,7 +84,7 @@ public class CallMachineGreetingEnded {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CALL_MACHINE_GREETING_ENDED("call.machine.greeting.ended");
+    CALL_MACHINE_GREETING_ENDED(String.valueOf("call.machine.greeting.ended"));
 
     private String value;
 

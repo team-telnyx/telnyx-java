@@ -1,9 +1,0 @@
-{
-  "name": "filter[phone_number][contains]",
-  "in": "query",
-  "description": "The partial phone number to filter by. Requires 3-15 digits.",
-  "schema": {
-    "type": "string",
-    "example": "+123"
-  }
-}

@@ -1,5 +1,0 @@
-{
-  "description": "The original URL to the PDF used for the fax's media. If media_name was supplied, this is omitted",
-  "type": "string",
-  "example": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-}

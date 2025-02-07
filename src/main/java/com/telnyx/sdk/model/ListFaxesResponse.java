@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.Fax;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ListFaxesResponse.JSON_PROPERTY_DATA,
   ListFaxesResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListFaxesResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<Fax> data = null;
@@ -57,7 +55,7 @@ public class ListFaxesResponse {
     return this;
   }
 
-  public ListFaxesResponse addDataItem(Fax dataItem) {
+  public ListFaxesResponse adddataItem(Fax dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

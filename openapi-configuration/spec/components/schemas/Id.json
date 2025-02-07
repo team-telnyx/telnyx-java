@@ -1,6 +1,0 @@
-{
-  "type": "string",
-  "format": "uuid",
-  "example": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
-  "description": "Identifies the type of resource."
-}

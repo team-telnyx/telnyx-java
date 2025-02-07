@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CustomerServiceRecordApi {
   private ApiClient apiClient;
 
@@ -217,7 +217,8 @@ public class CustomerServiceRecordApi {
    * @param filterPhoneNumberIn Filters records to those with at least one number in the list. (optional)
    * @param filterStatusEq Filters records to those with a specific status. (optional)
    * @param filterStatusIn Filters records to those with a least one status in the list. (optional)
-   * @param filterCreatedAtLt Filters records to those created after a specific date. (optional)
+   * @param filterCreatedAtLt Filters records to those created before a specific date. (optional)
+   * @param filterCreatedAtGt Filters records to those created after a specific date. (optional)
    * @return ListCustomerServiceRecords200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -230,8 +231,8 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public ListCustomerServiceRecords200Response listCustomerServiceRecords(Integer pageNumber, Integer pageSize, String sort, String filterPhoneNumberEq, List<String> filterPhoneNumberIn, String filterStatusEq, List<String> filterStatusIn, OffsetDateTime filterCreatedAtLt) throws ApiException {
-    return listCustomerServiceRecordsWithHttpInfo(pageNumber, pageSize, sort, filterPhoneNumberEq, filterPhoneNumberIn, filterStatusEq, filterStatusIn, filterCreatedAtLt).getData();
+  public ListCustomerServiceRecords200Response listCustomerServiceRecords(Integer pageNumber, Integer pageSize, String sort, String filterPhoneNumberEq, List<String> filterPhoneNumberIn, String filterStatusEq, List<String> filterStatusIn, OffsetDateTime filterCreatedAtLt, OffsetDateTime filterCreatedAtGt) throws ApiException {
+    return listCustomerServiceRecordsWithHttpInfo(pageNumber, pageSize, sort, filterPhoneNumberEq, filterPhoneNumberIn, filterStatusEq, filterStatusIn, filterCreatedAtLt, filterCreatedAtGt).getData();
   }
 
   /**
@@ -244,7 +245,8 @@ public class CustomerServiceRecordApi {
    * @param filterPhoneNumberIn Filters records to those with at least one number in the list. (optional)
    * @param filterStatusEq Filters records to those with a specific status. (optional)
    * @param filterStatusIn Filters records to those with a least one status in the list. (optional)
-   * @param filterCreatedAtLt Filters records to those created after a specific date. (optional)
+   * @param filterCreatedAtLt Filters records to those created before a specific date. (optional)
+   * @param filterCreatedAtGt Filters records to those created after a specific date. (optional)
    * @return ApiResponse&lt;ListCustomerServiceRecords200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -257,7 +259,7 @@ public class CustomerServiceRecordApi {
        <tr><td> 500 </td><td> An unexpected error occurred. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListCustomerServiceRecords200Response> listCustomerServiceRecordsWithHttpInfo(Integer pageNumber, Integer pageSize, String sort, String filterPhoneNumberEq, List<String> filterPhoneNumberIn, String filterStatusEq, List<String> filterStatusIn, OffsetDateTime filterCreatedAtLt) throws ApiException {
+  public ApiResponse<ListCustomerServiceRecords200Response> listCustomerServiceRecordsWithHttpInfo(Integer pageNumber, Integer pageSize, String sort, String filterPhoneNumberEq, List<String> filterPhoneNumberIn, String filterStatusEq, List<String> filterStatusIn, OffsetDateTime filterCreatedAtLt, OffsetDateTime filterCreatedAtGt) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -277,6 +279,7 @@ public class CustomerServiceRecordApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status][eq]", filterStatusEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[status][in][]", filterStatusIn));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][lt]", filterCreatedAtLt));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at][gt]", filterCreatedAtGt));
 
     
     

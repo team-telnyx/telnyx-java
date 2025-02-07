@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.ConferenceResource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   ConferenceResourceIndex.JSON_PROPERTY_START,
   ConferenceResourceIndex.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceResourceIndex {
   public static final String JSON_PROPERTY_CONFERENCES = "conferences";
   private List<ConferenceResource> conferences = null;
@@ -81,7 +79,7 @@ public class ConferenceResourceIndex {
     return this;
   }
 
-  public ConferenceResourceIndex addConferencesItem(ConferenceResource conferencesItem) {
+  public ConferenceResourceIndex addconferencesItem(ConferenceResource conferencesItem) {
     if (this.conferences == null) {
       this.conferences = new ArrayList<>();
     }

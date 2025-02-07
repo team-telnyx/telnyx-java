@@ -27,8 +27,8 @@
 
 | Name | Value |
 |---- | -----|
-| SENT | &quot;message.sent&quot; |
-| FINALIZED | &quot;message.finalized&quot; |
+| MESSAGE_SENT | &quot;message.sent&quot; |
+| MESSAGE_FINALIZED | &quot;message.finalized&quot; |
 
 
 

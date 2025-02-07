@@ -1,9 +1,0 @@
-{
-  "name": "filter[external_connection_id]",
-  "in": "query",
-  "description": "The external connection ID to filter by or \"null\" to filter for logs without an external connection ID",
-  "schema": {
-    "type": "string",
-    "example": "67ea7693-9cd5-4a68-8c76-abb3aa5bf5d2"
-  }
-}

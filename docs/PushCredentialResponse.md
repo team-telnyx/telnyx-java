@@ -6,9 +6,9 @@ Success response with details about a push credential
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**data** | [**PushCredential**](PushCredential.md) |  |  [optional]
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**data** | [**PushCredential**](PushCredential.md) |  |  [optional] |
 
 
 

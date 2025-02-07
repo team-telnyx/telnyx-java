@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**taskId** | **UUID** |  |  [optional] |
 |**taskName** | **String** |  |  [optional] |
-|**status** | **String** |  |  [optional] |
+|**status** | **BackgroundTaskStatus** |  |  [optional] |
 |**createdAt** | **String** |  |  [optional] |
 |**finishedAt** | **String** |  |  [optional] |
 

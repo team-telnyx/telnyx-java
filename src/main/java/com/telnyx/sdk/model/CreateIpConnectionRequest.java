@@ -32,9 +32,6 @@ import com.telnyx.sdk.model.EncryptedMedia;
 import com.telnyx.sdk.model.OutboundIp;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -65,7 +62,7 @@ import com.telnyx.sdk.JSON;
   CreateIpConnectionRequest.JSON_PROPERTY_INBOUND,
   CreateIpConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateIpConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active;
@@ -80,11 +77,11 @@ public class CreateIpConnectionRequest {
    * One of UDP, TLS, or TCP. Applies only to connections with IP authentication or FQDN authentication.
    */
   public enum TransportProtocolEnum {
-    UDP("UDP"),
+    UDP(String.valueOf("UDP")),
     
-    TCP("TCP"),
+    TCP(String.valueOf("TCP")),
     
-    TLS("TLS");
+    TLS(String.valueOf("TLS"));
 
     private String value;
 
@@ -147,9 +144,9 @@ public class CreateIpConnectionRequest {
    * Determines which webhook format will be used, Telnyx API v1 or v2.
    */
   public enum WebhookApiVersionEnum {
-    _1("1"),
+    _1(String.valueOf("1")),
     
-    _2("2");
+    _2(String.valueOf("2"));
 
     private String value;
 

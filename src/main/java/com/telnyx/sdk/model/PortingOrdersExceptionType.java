@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,55 +36,53 @@ import com.telnyx.sdk.JSON;
   PortingOrdersExceptionType.JSON_PROPERTY_CODE,
   PortingOrdersExceptionType.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrdersExceptionType {
   /**
    * Identifier of an exception type
    */
   public enum CodeEnum {
-    ACCOUNT_NUMBER_MISMATCH("ACCOUNT_NUMBER_MISMATCH"),
+    ACCOUNT_NUMBER_MISMATCH(String.valueOf("ACCOUNT_NUMBER_MISMATCH")),
     
-    AUTH_PERSON_MISMATCH("AUTH_PERSON_MISMATCH"),
+    AUTH_PERSON_MISMATCH(String.valueOf("AUTH_PERSON_MISMATCH")),
     
-    BTN_ATN_MISMATCH("BTN_ATN_MISMATCH"),
+    BTN_ATN_MISMATCH(String.valueOf("BTN_ATN_MISMATCH")),
     
-    ENTITY_NAME_MISMATCH("ENTITY_NAME_MISMATCH"),
+    ENTITY_NAME_MISMATCH(String.valueOf("ENTITY_NAME_MISMATCH")),
     
-    FOC_EXPIRED("FOC_EXPIRED"),
+    FOC_EXPIRED(String.valueOf("FOC_EXPIRED")),
     
-    FOC_REJECTED("FOC_REJECTED"),
+    FOC_REJECTED(String.valueOf("FOC_REJECTED")),
     
-    LOCATION_MISMATCH("LOCATION_MISMATCH"),
+    LOCATION_MISMATCH(String.valueOf("LOCATION_MISMATCH")),
     
-    LSR_PENDING("LSR_PENDING"),
+    LSR_PENDING(String.valueOf("LSR_PENDING")),
     
-    MAIN_BTN_PORTING("MAIN_BTN_PORTING"),
+    MAIN_BTN_PORTING(String.valueOf("MAIN_BTN_PORTING")),
     
-    OSP_IRRESPONSIVE("OSP_IRRESPONSIVE"),
+    OSP_IRRESPONSIVE(String.valueOf("OSP_IRRESPONSIVE")),
     
-    OTHER("OTHER"),
+    OTHER(String.valueOf("OTHER")),
     
-    PASSCODE_PIN_INVALID("PASSCODE_PIN_INVALID"),
+    PASSCODE_PIN_INVALID(String.valueOf("PASSCODE_PIN_INVALID")),
     
-    PHONE_NUMBER_HAS_SPECIAL_FEATURE("PHONE_NUMBER_HAS_SPECIAL_FEATURE"),
+    PHONE_NUMBER_HAS_SPECIAL_FEATURE(String.valueOf("PHONE_NUMBER_HAS_SPECIAL_FEATURE")),
     
-    PHONE_NUMBER_MISMATCH("PHONE_NUMBER_MISMATCH"),
+    PHONE_NUMBER_MISMATCH(String.valueOf("PHONE_NUMBER_MISMATCH")),
     
-    PHONE_NUMBER_NOT_PORTABLE("PHONE_NUMBER_NOT_PORTABLE"),
+    PHONE_NUMBER_NOT_PORTABLE(String.valueOf("PHONE_NUMBER_NOT_PORTABLE")),
     
-    PORT_TYPE_INCORRECT("PORT_TYPE_INCORRECT"),
+    PORT_TYPE_INCORRECT(String.valueOf("PORT_TYPE_INCORRECT")),
     
-    PORTING_ORDER_SPLIT_REQUIRED("PORTING_ORDER_SPLIT_REQUIRED"),
+    PORTING_ORDER_SPLIT_REQUIRED(String.valueOf("PORTING_ORDER_SPLIT_REQUIRED")),
     
-    PORTING_ORDER_SPLIT_REQUIRED2("PORTING_ORDER_SPLIT_REQUIRED"),
+    POSTAL_CODE_MISMATCH(String.valueOf("POSTAL_CODE_MISMATCH")),
     
-    POSTAL_CODE_MISMATCH("POSTAL_CODE_MISMATCH"),
+    RATE_CENTER_NOT_PORTABLE(String.valueOf("RATE_CENTER_NOT_PORTABLE")),
     
-    RATE_CENTER_NOT_PORTABLE("RATE_CENTER_NOT_PORTABLE"),
+    SV_CONFLICT(String.valueOf("SV_CONFLICT")),
     
-    SV_CONFLICT("SV_CONFLICT"),
-    
-    SV_UNKNOWN_FAILURE("SV_UNKNOWN_FAILURE");
+    SV_UNKNOWN_FAILURE(String.valueOf("SV_UNKNOWN_FAILURE"));
 
     private String value;
 

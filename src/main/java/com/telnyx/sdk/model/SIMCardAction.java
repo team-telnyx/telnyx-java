@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.SIMCardActionStatus;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -51,7 +49,7 @@ import com.telnyx.sdk.JSON;
   SIMCardAction.JSON_PROPERTY_CREATED_AT,
   SIMCardAction.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCardAction {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -66,13 +64,13 @@ public class SIMCardAction {
    * The operation type. It can be one of the following: &lt;br/&gt; &lt;ul&gt;  &lt;li&gt;&lt;code&gt;enable&lt;/code&gt; - move the SIM card to the &lt;code&gt;enabled&lt;/code&gt; status&lt;/li&gt;  &lt;li&gt;&lt;code&gt;enable_standby_sim_card&lt;/code&gt; - move a SIM card previously on the &lt;code&gt;standby&lt;/code&gt; status to the &lt;code&gt;enabled&lt;/code&gt; status after it consumes data.&lt;/li&gt;  &lt;li&gt;&lt;code&gt;disable&lt;/code&gt; - move the SIM card to the &lt;code&gt;disabled&lt;/code&gt; status&lt;/li&gt;  &lt;li&gt;&lt;code&gt;set_standby&lt;/code&gt; - move the SIM card to the &lt;code&gt;standby&lt;/code&gt; status&lt;/li&gt;  &lt;/ul&gt;
    */
   public enum ActionTypeEnum {
-    ENABLE("enable"),
+    ENABLE(String.valueOf("enable")),
     
-    ENABLE_STANDBY_SIM_CARD("enable_standby_sim_card"),
+    ENABLE_STANDBY_SIM_CARD(String.valueOf("enable_standby_sim_card")),
     
-    DISABLE("disable"),
+    DISABLE(String.valueOf("disable")),
     
-    SET_STANDBY("set_standby");
+    SET_STANDBY(String.valueOf("set_standby"));
 
     private String value;
 
@@ -132,7 +130,7 @@ public class SIMCardAction {
     this.recordType = recordType;
     this.simCardId = simCardId;
     this.actionType = actionType;
-    this.settings = (JsonNullable<Object>) settings;
+    this.settings = JsonNullable.of(settings);
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }

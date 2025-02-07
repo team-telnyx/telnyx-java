@@ -1,6 +1,0 @@
-{
-  "type": "string",
-  "description": "The price of this recording, the currency is specified in the price_unit field. ",
-  "example": "0.10",
-  "nullable": true
-}

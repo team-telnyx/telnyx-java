@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Playback Started Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallPlaybackStarted.json"
-    }
-  }
-}

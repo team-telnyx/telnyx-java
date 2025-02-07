@@ -12,7 +12,7 @@ Webhook delivery attempt details.
 |**startedAt** | **OffsetDateTime** | ISO 8601 timestamp indicating when the attempt was initiated. |  [optional] |
 |**finishedAt** | **OffsetDateTime** | ISO 8601 timestamp indicating when the attempt has finished. |  [optional] |
 |**http** | [**Http**](Http.md) |  |  [optional] |
-|**errors** | [**List&lt;Error&gt;**](Error.md) | Webhook delivery errors. |  [optional] |
+|**errors** | **List&lt;Integer&gt;** | Webhook delivery error codes. |  [optional] |
 
 
 

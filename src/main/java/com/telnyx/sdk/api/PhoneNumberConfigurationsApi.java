@@ -9,9 +9,12 @@ import com.telnyx.sdk.Pair;
 import javax.ws.rs.core.GenericType;
 
 import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.ListPhoneNumbersFilterCountryIsoAlpha2Parameter;
 import com.telnyx.sdk.model.ListPhoneNumbersResponse;
 import com.telnyx.sdk.model.ListPhoneNumbersResponse1;
 import com.telnyx.sdk.model.ListPhoneNumbersWithVoiceSettingsResponse;
+import com.telnyx.sdk.model.PhoneNumberBundleStatusChange;
+import com.telnyx.sdk.model.PhoneNumberBundleStatusChangeRequest;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergency;
 import com.telnyx.sdk.model.PhoneNumberEnableEmergencyRequest;
 import com.telnyx.sdk.model.PhoneNumberResponse;
@@ -25,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberConfigurationsApi {
   private ApiClient apiClient;
 
@@ -275,7 +278,7 @@ public class PhoneNumberConfigurationsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, String filterConnectionId, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterVoiceUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference, String sort) throws ApiException {
+private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, String filterTag, String filterPhoneNumber, String filterStatus, ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2, String filterConnectionId, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionNameEq, String filterVoiceUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference, String filterNumberTypeEq, String filterSource, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -292,6 +295,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[tag]", filterTag));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_iso_alpha2]", filterCountryIsoAlpha2));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_id]", filterConnectionId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][contains]", filterVoiceConnectionNameContains));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][starts_with]", filterVoiceConnectionNameStartsWith));
@@ -301,6 +305,8 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[billing_group_id]", filterBillingGroupId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[emergency_address_id]", filterEmergencyAddressId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference]", filterCustomerReference));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[number_type][eq]", filterNumberTypeEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[source]", filterSource));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -331,6 +337,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     private String filterTag;
     private String filterPhoneNumber;
     private String filterStatus;
+    private ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2;
     private String filterConnectionId;
     private String filterVoiceConnectionNameContains;
     private String filterVoiceConnectionNameStartsWith;
@@ -340,6 +347,8 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     private String filterBillingGroupId;
     private String filterEmergencyAddressId;
     private String filterCustomerReference;
+    private String filterNumberTypeEq;
+    private String filterSource;
     private String sort;
 
     private APIlistPhoneNumbersRequest() {
@@ -392,6 +401,16 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
      */
     public APIlistPhoneNumbersRequest filterStatus(String filterStatus) {
       this.filterStatus = filterStatus;
+      return this;
+    }
+
+    /**
+     * Set filterCountryIsoAlpha2
+     * @param filterCountryIsoAlpha2 Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. (optional)
+     * @return APIlistPhoneNumbersRequest
+     */
+    public APIlistPhoneNumbersRequest filterCountryIsoAlpha2(ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2) {
+      this.filterCountryIsoAlpha2 = filterCountryIsoAlpha2;
       return this;
     }
 
@@ -486,6 +505,26 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
     }
 
     /**
+     * Set filterNumberTypeEq
+     * @param filterNumberTypeEq Filter phone numbers by phone number type. (optional)
+     * @return APIlistPhoneNumbersRequest
+     */
+    public APIlistPhoneNumbersRequest filterNumberTypeEq(String filterNumberTypeEq) {
+      this.filterNumberTypeEq = filterNumberTypeEq;
+      return this;
+    }
+
+    /**
+     * Set filterSource
+     * @param filterSource Filter phone numbers by their source. Use &#39;ported&#39; for numbers ported from other carriers, or &#39;purchased&#39; for numbers bought directly from Telnyx. (optional)
+     * @return APIlistPhoneNumbersRequest
+     */
+    public APIlistPhoneNumbersRequest filterSource(String filterSource) {
+      this.filterSource = filterSource;
+      return this;
+    }
+
+    /**
      * Set sort
      * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
      * @return APIlistPhoneNumbersRequest
@@ -525,7 +564,7 @@ private ApiResponse<ListPhoneNumbersResponse> listPhoneNumbersWithHttpInfo(Integ
 
      */
     public ApiResponse<ListPhoneNumbersResponse> executeWithHttpInfo() throws ApiException {
-      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterConnectionId, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterVoiceUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference, sort);
+      return listPhoneNumbersWithHttpInfo(pageNumber, pageSize, filterTag, filterPhoneNumber, filterStatus, filterCountryIsoAlpha2, filterConnectionId, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionNameEq, filterVoiceUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference, filterNumberTypeEq, filterSource, sort);
     }
   }
 
@@ -711,6 +750,83 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
     return new APIlistPhoneNumbersWithVoiceSettingsRequest();
   }
   /**
+   * Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
+   * 
+   * @param id Identifies the resource. (required)
+   * @param phoneNumberBundleStatusChangeRequest  (required)
+   * @return PhoneNumberBundleStatusChange
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Phone number bundle status change success </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public PhoneNumberBundleStatusChange phoneNumberBundleStatusChange(String id, PhoneNumberBundleStatusChangeRequest phoneNumberBundleStatusChangeRequest) throws ApiException {
+    return phoneNumberBundleStatusChangeWithHttpInfo(id, phoneNumberBundleStatusChangeRequest).getData();
+  }
+
+  /**
+   * Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
+   * 
+   * @param id Identifies the resource. (required)
+   * @param phoneNumberBundleStatusChangeRequest  (required)
+   * @return ApiResponse&lt;PhoneNumberBundleStatusChange&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Phone number bundle status change success </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<PhoneNumberBundleStatusChange> phoneNumberBundleStatusChangeWithHttpInfo(String id, PhoneNumberBundleStatusChangeRequest phoneNumberBundleStatusChangeRequest) throws ApiException {
+    Object localVarPostBody = phoneNumberBundleStatusChangeRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling phoneNumberBundleStatusChange");
+    }
+    
+    // verify the required parameter 'phoneNumberBundleStatusChangeRequest' is set
+    if (phoneNumberBundleStatusChangeRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'phoneNumberBundleStatusChangeRequest' when calling phoneNumberBundleStatusChange");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/phone_numbers/{id}/actions/bundle_status_change"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<PhoneNumberBundleStatusChange> localVarReturnType = new GenericType<PhoneNumberBundleStatusChange>() {};
+
+    return apiClient.invokeAPI("PhoneNumberConfigurationsApi.phoneNumberBundleStatusChange", localVarPath, "PATCH", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Retrieve a phone number
    * 
    * @param id Identifies the resource. (required)
@@ -781,7 +897,7 @@ private ApiResponse<ListPhoneNumbersWithVoiceSettingsResponse> listPhoneNumbersW
                                localVarAuthNames, localVarReturnType, false);
   }
 
-private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, Boolean includeConnection, Boolean includeTags, String filterTag, String filterPhoneNumber, String filterStatus, String filterConnectionId, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionName, String filterVoiceUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference, String sort) throws ApiException {
+private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(Integer pageNumber, Integer pageSize, Boolean includeConnection, Boolean includeTags, String filterTag, String filterPhoneNumber, String filterStatus, ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2, String filterConnectionId, String filterVoiceConnectionNameContains, String filterVoiceConnectionNameStartsWith, String filterVoiceConnectionNameEndsWith, String filterVoiceConnectionName, String filterVoiceUsagePaymentMethod, String filterBillingGroupId, String filterEmergencyAddressId, String filterCustomerReference, String filterNumberTypeEq, String filterSource, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -800,6 +916,7 @@ private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[tag]", filterTag));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[status]", filterStatus));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[country_iso_alpha2]", filterCountryIsoAlpha2));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[connection_id]", filterConnectionId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][contains]", filterVoiceConnectionNameContains));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[voice.connection_name][starts_with]", filterVoiceConnectionNameStartsWith));
@@ -809,6 +926,8 @@ private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[billing_group_id]", filterBillingGroupId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[emergency_address_id]", filterEmergencyAddressId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[customer_reference]", filterCustomerReference));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[number_type][eq]", filterNumberTypeEq));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[source]", filterSource));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -841,6 +960,7 @@ private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(
     private String filterTag;
     private String filterPhoneNumber;
     private String filterStatus;
+    private ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2;
     private String filterConnectionId;
     private String filterVoiceConnectionNameContains;
     private String filterVoiceConnectionNameStartsWith;
@@ -850,6 +970,8 @@ private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(
     private String filterBillingGroupId;
     private String filterEmergencyAddressId;
     private String filterCustomerReference;
+    private String filterNumberTypeEq;
+    private String filterSource;
     private String sort;
 
     private APIslimListPhoneNumbersRequest() {
@@ -922,6 +1044,16 @@ private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(
      */
     public APIslimListPhoneNumbersRequest filterStatus(String filterStatus) {
       this.filterStatus = filterStatus;
+      return this;
+    }
+
+    /**
+     * Set filterCountryIsoAlpha2
+     * @param filterCountryIsoAlpha2 Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. (optional)
+     * @return APIslimListPhoneNumbersRequest
+     */
+    public APIslimListPhoneNumbersRequest filterCountryIsoAlpha2(ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2) {
+      this.filterCountryIsoAlpha2 = filterCountryIsoAlpha2;
       return this;
     }
 
@@ -1016,6 +1148,26 @@ private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(
     }
 
     /**
+     * Set filterNumberTypeEq
+     * @param filterNumberTypeEq Filter phone numbers by phone number type. (optional)
+     * @return APIslimListPhoneNumbersRequest
+     */
+    public APIslimListPhoneNumbersRequest filterNumberTypeEq(String filterNumberTypeEq) {
+      this.filterNumberTypeEq = filterNumberTypeEq;
+      return this;
+    }
+
+    /**
+     * Set filterSource
+     * @param filterSource Filter phone numbers by their source. Use &#39;ported&#39; for numbers ported from other carriers, or &#39;purchased&#39; for numbers bought directly from Telnyx. (optional)
+     * @return APIslimListPhoneNumbersRequest
+     */
+    public APIslimListPhoneNumbersRequest filterSource(String filterSource) {
+      this.filterSource = filterSource;
+      return this;
+    }
+
+    /**
      * Set sort
      * @param sort Specifies the sort order for results. If not given, results are sorted by created_at in descending order. (optional)
      * @return APIslimListPhoneNumbersRequest
@@ -1055,7 +1207,7 @@ private ApiResponse<ListPhoneNumbersResponse1> slimListPhoneNumbersWithHttpInfo(
 
      */
     public ApiResponse<ListPhoneNumbersResponse1> executeWithHttpInfo() throws ApiException {
-      return slimListPhoneNumbersWithHttpInfo(pageNumber, pageSize, includeConnection, includeTags, filterTag, filterPhoneNumber, filterStatus, filterConnectionId, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionName, filterVoiceUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference, sort);
+      return slimListPhoneNumbersWithHttpInfo(pageNumber, pageSize, includeConnection, includeTags, filterTag, filterPhoneNumber, filterStatus, filterCountryIsoAlpha2, filterConnectionId, filterVoiceConnectionNameContains, filterVoiceConnectionNameStartsWith, filterVoiceConnectionNameEndsWith, filterVoiceConnectionName, filterVoiceUsagePaymentMethod, filterBillingGroupId, filterEmergencyAddressId, filterCustomerReference, filterNumberTypeEq, filterSource, sort);
     }
   }
 

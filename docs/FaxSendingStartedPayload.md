@@ -16,6 +16,7 @@
 |**from** | **String** | The phone number, in E.164 format, the fax will be sent from. |  [optional] |
 |**userId** | **UUID** | Identifier of the user to whom the fax belongs |  [optional] |
 |**status** | [**StatusEnum**](#StatusEnum) | The status of the fax. |  [optional] |
+|**clientState** | **String** | State received from a command. |  [optional] |
 
 
 

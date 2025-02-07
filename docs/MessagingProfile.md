@@ -9,6 +9,8 @@
 |------------ | ------------- | ------------- | -------------|
 |**recordType** | [**RecordTypeEnum**](#RecordTypeEnum) | Identifies the type of the resource. |  [optional] [readonly] |
 |**id** | **UUID** | Identifies the type of resource. |  [optional] [readonly] |
+|**mmsFallBackToSms** | **Boolean** | enables SMS fallback for MMS messages. |  [optional] |
+|**mmsTranscoding** | **Boolean** | enables automated resizing of MMS media. |  [optional] |
 |**name** | **String** | A user friendly name for the messaging profile. |  [optional] |
 |**enabled** | **Boolean** | Specifies whether the messaging profile is enabled or not. |  [optional] |
 |**webhookUrl** | **String** | The URL where webhooks related to this messaging profile will be sent. |  [optional] |
@@ -21,6 +23,8 @@
 |**numberPoolSettings** | [**NumberPoolSettings**](NumberPoolSettings.md) |  |  [optional] |
 |**urlShortenerSettings** | [**UrlShortenerSettings**](UrlShortenerSettings.md) |  |  [optional] |
 |**alphaSender** | **String** | The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID. |  [optional] |
+|**dailySpendLimit** | **String** | The maximum amount of money (in USD) that can be spent by this profile before midnight UTC. |  [optional] |
+|**dailySpendLimitEnabled** | **Boolean** | Whether to enforce the value configured by &#x60;daily_spend_limit&#x60;. |  [optional] |
 
 
 

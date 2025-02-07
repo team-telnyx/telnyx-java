@@ -26,9 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -44,7 +41,7 @@ import com.telnyx.sdk.JSON;
   CallRecordingSavedPayloadPublicRecordingUrls.JSON_PROPERTY_MP3,
   CallRecordingSavedPayloadPublicRecordingUrls.JSON_PROPERTY_WAV
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallRecordingSavedPayloadPublicRecordingUrls {
   public static final String JSON_PROPERTY_MP3 = "mp3";
   private JsonNullable<String> mp3 = JsonNullable.<String>undefined();

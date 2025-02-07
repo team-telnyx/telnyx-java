@@ -31,8 +31,6 @@ import com.telnyx.sdk.model.EmergencySettings;
 import com.telnyx.sdk.model.MediaFeatures;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -55,7 +53,7 @@ import com.telnyx.sdk.JSON;
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_CALL_RECORDING,
   PhoneNumberWithVoiceSettings.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumberWithVoiceSettings {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -91,9 +89,9 @@ public class PhoneNumberWithVoiceSettings {
    * Controls whether a number is billed per minute or uses your concurrent channels.
    */
   public enum UsagePaymentMethodEnum {
-    PAY_PER_MINUTE("pay-per-minute"),
+    PAY_PER_MINUTE(String.valueOf("pay-per-minute")),
     
-    CHANNEL("channel");
+    CHANNEL(String.valueOf("channel"));
 
     private String value;
 
@@ -135,11 +133,11 @@ public class PhoneNumberWithVoiceSettings {
    * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
    */
   public enum InboundCallScreeningEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    REJECT_CALLS("reject_calls"),
+    REJECT_CALLS(String.valueOf("reject_calls")),
     
-    FLAG_CALLS("flag_calls");
+    FLAG_CALLS(String.valueOf("flag_calls"));
 
     private String value;
 

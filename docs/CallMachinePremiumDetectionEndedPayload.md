@@ -27,6 +27,7 @@
 | MACHINE | &quot;machine&quot; |
 | SILENCE | &quot;silence&quot; |
 | FAX_DETECTED | &quot;fax_detected&quot; |
+| NOT_SURE | &quot;not_sure&quot; |
 
 
 

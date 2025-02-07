@@ -15,6 +15,8 @@ package com.telnyx.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,9 +27,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.VerificationRecordType;
 import com.telnyx.sdk.model.VerificationStatus;
 import com.telnyx.sdk.model.VerificationType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -37,23 +42,23 @@ import com.telnyx.sdk.JSON;
  */
 @JsonPropertyOrder({
   Verification.JSON_PROPERTY_ID,
-  Verification.JSON_PROPERTY_VERIFICATION_TYPE,
+  Verification.JSON_PROPERTY_TYPE,
   Verification.JSON_PROPERTY_RECORD_TYPE,
   Verification.JSON_PROPERTY_PHONE_NUMBER,
   Verification.JSON_PROPERTY_VERIFY_PROFILE_ID,
+  Verification.JSON_PROPERTY_CUSTOM_CODE,
   Verification.JSON_PROPERTY_TIMEOUT_SECS,
-  Verification.JSON_PROPERTY_CALL_TIMEOUT_SECS,
   Verification.JSON_PROPERTY_STATUS,
   Verification.JSON_PROPERTY_CREATED_AT,
   Verification.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Verification {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
 
-  public static final String JSON_PROPERTY_VERIFICATION_TYPE = "verification_type";
-  private VerificationType verificationType;
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private VerificationType type;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private VerificationRecordType recordType;
@@ -64,11 +69,11 @@ public class Verification {
   public static final String JSON_PROPERTY_VERIFY_PROFILE_ID = "verify_profile_id";
   private UUID verifyProfileId;
 
+  public static final String JSON_PROPERTY_CUSTOM_CODE = "custom_code";
+  private JsonNullable<String> customCode = JsonNullable.<String>undefined();
+
   public static final String JSON_PROPERTY_TIMEOUT_SECS = "timeout_secs";
   private Integer timeoutSecs;
-
-  public static final String JSON_PROPERTY_CALL_TIMEOUT_SECS = "call_timeout_secs";
-  private Integer callTimeoutSecs;
 
   public static final String JSON_PROPERTY_STATUS = "status";
   private VerificationStatus status;
@@ -108,29 +113,29 @@ public class Verification {
   }
 
 
-  public Verification verificationType(VerificationType verificationType) {
-    this.verificationType = verificationType;
+  public Verification type(VerificationType type) {
+    this.type = type;
     return this;
   }
 
    /**
-   * Get verificationType
-   * @return verificationType
+   * Get type
+   * @return type
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_VERIFICATION_TYPE)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public VerificationType getVerificationType() {
-    return verificationType;
+  public VerificationType getType() {
+    return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERIFICATION_TYPE)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVerificationType(VerificationType verificationType) {
-    this.verificationType = verificationType;
+  public void setType(VerificationType type) {
+    this.type = type;
   }
 
 
@@ -212,6 +217,40 @@ public class Verification {
   }
 
 
+  public Verification customCode(String customCode) {
+    this.customCode = JsonNullable.<String>of(customCode);
+    return this;
+  }
+
+   /**
+   * Send a self-generated numeric code to the end-user
+   * @return customCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "43612", value = "Send a self-generated numeric code to the end-user")
+  @JsonIgnore
+
+  public String getCustomCode() {
+        return customCode.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getCustomCode_JsonNullable() {
+    return customCode;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_CUSTOM_CODE)
+  public void setCustomCode_JsonNullable(JsonNullable<String> customCode) {
+    this.customCode = customCode;
+  }
+
+  public void setCustomCode(String customCode) {
+    this.customCode = JsonNullable.<String>of(customCode);
+  }
+
+
   public Verification timeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
     return this;
@@ -235,32 +274,6 @@ public class Verification {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeoutSecs(Integer timeoutSecs) {
     this.timeoutSecs = timeoutSecs;
-  }
-
-
-  public Verification callTimeoutSecs(Integer callTimeoutSecs) {
-    this.callTimeoutSecs = callTimeoutSecs;
-    return this;
-  }
-
-   /**
-   * This is the number of seconds before the call ends, if the verification makes a call. Note: this will override the &#x60;default_call_timeout_secs&#x60; on the Verify profile.
-   * @return callTimeoutSecs
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "299", value = "This is the number of seconds before the call ends, if the verification makes a call. Note: this will override the `default_call_timeout_secs` on the Verify profile.")
-  @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getCallTimeoutSecs() {
-    return callTimeoutSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCallTimeoutSecs(Integer callTimeoutSecs) {
-    this.callTimeoutSecs = callTimeoutSecs;
   }
 
 
@@ -355,20 +368,31 @@ public class Verification {
     }
     Verification verification = (Verification) o;
     return Objects.equals(this.id, verification.id) &&
-        Objects.equals(this.verificationType, verification.verificationType) &&
+        Objects.equals(this.type, verification.type) &&
         Objects.equals(this.recordType, verification.recordType) &&
         Objects.equals(this.phoneNumber, verification.phoneNumber) &&
         Objects.equals(this.verifyProfileId, verification.verifyProfileId) &&
+        equalsNullable(this.customCode, verification.customCode) &&
         Objects.equals(this.timeoutSecs, verification.timeoutSecs) &&
-        Objects.equals(this.callTimeoutSecs, verification.callTimeoutSecs) &&
         Objects.equals(this.status, verification.status) &&
         Objects.equals(this.createdAt, verification.createdAt) &&
         Objects.equals(this.updatedAt, verification.updatedAt);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(id, verificationType, recordType, phoneNumber, verifyProfileId, timeoutSecs, callTimeoutSecs, status, createdAt, updatedAt);
+    return Objects.hash(id, type, recordType, phoneNumber, verifyProfileId, hashCodeNullable(customCode), timeoutSecs, status, createdAt, updatedAt);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -376,12 +400,12 @@ public class Verification {
     StringBuilder sb = new StringBuilder();
     sb.append("class Verification {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    verificationType: ").append(toIndentedString(verificationType)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    verifyProfileId: ").append(toIndentedString(verifyProfileId)).append("\n");
+    sb.append("    customCode: ").append(toIndentedString(customCode)).append("\n");
     sb.append("    timeoutSecs: ").append(toIndentedString(timeoutSecs)).append("\n");
-    sb.append("    callTimeoutSecs: ").append(toIndentedString(callTimeoutSecs)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");

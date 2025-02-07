@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -56,7 +54,7 @@ import com.telnyx.sdk.JSON;
   WhatsAppDetailRecord.JSON_PROPERTY_WHATSAPP_BUSINESS_ACCOUNT_ID,
   WhatsAppDetailRecord.JSON_PROPERTY_RECORD_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WhatsAppDetailRecord {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -74,9 +72,9 @@ public class WhatsAppDetailRecord {
    * WhatsApp Message Type. Consult WhatsApp API documentation to see all available types
    */
   public enum MessageTypeEnum {
-    SESSION("session"),
+    SESSION(String.valueOf("session")),
     
-    TEMPLATE("template");
+    TEMPLATE(String.valueOf("template"));
 
     private String value;
 
@@ -112,15 +110,15 @@ public class WhatsAppDetailRecord {
    * WhatsApp Message Status. Consult WhatsApp API documentation to see all available status
    */
   public enum MessageStatusEnum {
-    SENT("sent"),
+    SENT(String.valueOf("sent")),
     
-    DELIVERED("delivered"),
+    DELIVERED(String.valueOf("delivered")),
     
-    READ("read"),
+    READ(String.valueOf("read")),
     
-    FAILED("failed"),
+    FAILED(String.valueOf("failed")),
     
-    DELETED("deleted");
+    DELETED(String.valueOf("deleted"));
 
     private String value;
 
@@ -156,9 +154,9 @@ public class WhatsAppDetailRecord {
    * Logical direction of the message from the Telnyx customer&#39;s perspective. It&#39;s inbound when the Telnyx customer receives the message, or outbound otherwise
    */
   public enum DirectionEnum {
-    INBOUND("inbound"),
+    INBOUND(String.valueOf("inbound")),
     
-    OUTBOUND("outbound");
+    OUTBOUND(String.valueOf("outbound"));
 
     private String value;
 
@@ -221,11 +219,11 @@ public class WhatsAppDetailRecord {
    * Whatsapp Conversation Origin
    */
   public enum ConversationOriginEnum {
-    BUSINESS_INITIATED("business_initiated"),
+    BUSINESS_INITIATED(String.valueOf("business_initiated")),
     
-    USER_INITIATED("user_initiated"),
+    USER_INITIATED(String.valueOf("user_initiated")),
     
-    REFERRAL_CONVERSION("referral_conversion");
+    REFERRAL_CONVERSION(String.valueOf("referral_conversion"));
 
     private String value;
 

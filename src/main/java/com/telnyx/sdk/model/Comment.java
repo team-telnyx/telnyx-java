@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   Comment.JSON_PROPERTY_CREATED_AT,
   Comment.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Comment {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -61,9 +59,9 @@ public class Comment {
    * Gets or Sets commenterType
    */
   public enum CommenterTypeEnum {
-    ADMIN("admin"),
+    ADMIN(String.valueOf("admin")),
     
-    USER("user");
+    USER(String.valueOf("user"));
 
     private String value;
 
@@ -99,11 +97,9 @@ public class Comment {
    * Gets or Sets commentRecordType
    */
   public enum CommentRecordTypeEnum {
-    NUMBER_ORDER("number_order"),
+    SUB_NUMBER_ORDER(String.valueOf("sub_number_order")),
     
-    SUB_NUMBER_ORDER("sub_number_order"),
-    
-    NUMBER_ORDER_PHONE_NUMBER("number_order_phone_number");
+    REQUIREMENT_GROUP(String.valueOf("requirement_group"));
 
     private String value;
 
@@ -299,7 +295,7 @@ public class Comment {
    * @return readAt
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "An ISO 8901 datetime string for when the comment was read.")
+  @ApiModelProperty(example = "2018-01-01T00:00:00.000000Z", value = "An ISO 8901 datetime string for when the comment was read.")
   @JsonProperty(JSON_PROPERTY_READ_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

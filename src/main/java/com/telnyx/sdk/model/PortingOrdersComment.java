@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,10 +39,12 @@ import com.telnyx.sdk.JSON;
   PortingOrdersComment.JSON_PROPERTY_BODY,
   PortingOrdersComment.JSON_PROPERTY_PORTING_ORDER_ID,
   PortingOrdersComment.JSON_PROPERTY_USER_TYPE,
+  PortingOrdersComment.JSON_PROPERTY_USER_ID,
+  PortingOrdersComment.JSON_PROPERTY_USER_EMAIL,
   PortingOrdersComment.JSON_PROPERTY_RECORD_TYPE,
   PortingOrdersComment.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrdersComment {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -59,11 +59,11 @@ public class PortingOrdersComment {
    * Indicates whether this comment was created by a Telnyx Admin, user, or system
    */
   public enum UserTypeEnum {
-    ADMIN("admin"),
+    ADMIN(String.valueOf("admin")),
     
-    USER("user"),
+    USER(String.valueOf("user")),
     
-    SYSTEM("system");
+    SYSTEM(String.valueOf("system"));
 
     private String value;
 
@@ -94,6 +94,12 @@ public class PortingOrdersComment {
 
   public static final String JSON_PROPERTY_USER_TYPE = "user_type";
   private UserTypeEnum userType;
+
+  public static final String JSON_PROPERTY_USER_ID = "user_id";
+  private UUID userId;
+
+  public static final String JSON_PROPERTY_USER_EMAIL = "user_email";
+  private String userEmail;
 
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -208,6 +214,58 @@ public class PortingOrdersComment {
   }
 
 
+  public PortingOrdersComment userId(UUID userId) {
+    this.userId = userId;
+    return this;
+  }
+
+   /**
+   * The ID of the user who created this comment
+   * @return userId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "6a09cdc3-8948-47f0-aa62-74ac943d6c58", value = "The ID of the user who created this comment")
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getUserId() {
+    return userId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUserId(UUID userId) {
+    this.userId = userId;
+  }
+
+
+  public PortingOrdersComment userEmail(String userEmail) {
+    this.userEmail = userEmail;
+    return this;
+  }
+
+   /**
+   * The email address of the user who created this comment
+   * @return userEmail
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "user@example.com", value = "The email address of the user who created this comment")
+  @JsonProperty(JSON_PROPERTY_USER_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUserEmail() {
+    return userEmail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_USER_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail;
+  }
+
+
   public PortingOrdersComment recordType(String recordType) {
     this.recordType = recordType;
     return this;
@@ -276,13 +334,15 @@ public class PortingOrdersComment {
         Objects.equals(this.body, portingOrdersComment.body) &&
         Objects.equals(this.portingOrderId, portingOrdersComment.portingOrderId) &&
         Objects.equals(this.userType, portingOrdersComment.userType) &&
+        Objects.equals(this.userId, portingOrdersComment.userId) &&
+        Objects.equals(this.userEmail, portingOrdersComment.userEmail) &&
         Objects.equals(this.recordType, portingOrdersComment.recordType) &&
         Objects.equals(this.createdAt, portingOrdersComment.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, body, portingOrderId, userType, recordType, createdAt);
+    return Objects.hash(id, body, portingOrderId, userType, userId, userEmail, recordType, createdAt);
   }
 
   @Override
@@ -293,6 +353,8 @@ public class PortingOrdersComment {
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
     sb.append("    portingOrderId: ").append(toIndentedString(portingOrderId)).append("\n");
     sb.append("    userType: ").append(toIndentedString(userType)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    userEmail: ").append(toIndentedString(userEmail)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");

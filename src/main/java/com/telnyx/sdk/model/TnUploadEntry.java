@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,7 +43,7 @@ import com.telnyx.sdk.JSON;
   TnUploadEntry.JSON_PROPERTY_LOCATION_ID,
   TnUploadEntry.JSON_PROPERTY_INTERNAL_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TnUploadEntry {
   public static final String JSON_PROPERTY_NUMBER_ID = "number_id";
   private UUID numberId;
@@ -57,15 +55,15 @@ public class TnUploadEntry {
    * Represents the status of the phone number entry upload on Microsoft Teams.
    */
   public enum StatusEnum {
-    PENDING_UPLOAD("pending_upload"),
+    PENDING_UPLOAD(String.valueOf("pending_upload")),
     
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    IN_PROGRESS("in_progress"),
+    IN_PROGRESS(String.valueOf("in_progress")),
     
-    SUCCESS("success"),
+    SUCCESS(String.valueOf("success")),
     
-    ERROR("error");
+    ERROR(String.valueOf("error"));
 
     private String value;
 
@@ -101,17 +99,17 @@ public class TnUploadEntry {
    * A code returned by Microsoft Teams if there is an error with the phone number entry upload.
    */
   public enum ErrorCodeEnum {
-    INTERNAL_ERROR("internal_error"),
+    INTERNAL_ERROR(String.valueOf("internal_error")),
     
-    UNABLE_TO_RETRIEVE_DEFAULT_LOCATION("unable_to_retrieve_default_location"),
+    UNABLE_TO_RETRIEVE_DEFAULT_LOCATION(String.valueOf("unable_to_retrieve_default_location")),
     
-    UNKNOWN_COUNTRY_CODE("unknown_country_code"),
+    UNKNOWN_COUNTRY_CODE(String.valueOf("unknown_country_code")),
     
-    UNABLE_TO_RETRIEVE_LOCATION("unable_to_retrieve_location"),
+    UNABLE_TO_RETRIEVE_LOCATION(String.valueOf("unable_to_retrieve_location")),
     
-    UNABLE_TO_RETRIEVE_PARTNER_INFO("unable_to_retrieve_partner_info"),
+    UNABLE_TO_RETRIEVE_PARTNER_INFO(String.valueOf("unable_to_retrieve_partner_info")),
     
-    UNABLE_TO_MATCH_GEOGRAPHY_ENTRY("unable_to_match_geography_entry");
+    UNABLE_TO_MATCH_GEOGRAPHY_ENTRY(String.valueOf("unable_to_match_geography_entry"));
 
     private String value;
 
@@ -156,17 +154,17 @@ public class TnUploadEntry {
    * Represents the status of the phone number entry upload on Telnyx.
    */
   public enum InternalStatusEnum {
-    PENDING_ASSIGNMENT("pending_assignment"),
+    PENDING_ASSIGNMENT(String.valueOf("pending_assignment")),
     
-    IN_PROGRESS("in_progress"),
+    IN_PROGRESS(String.valueOf("in_progress")),
     
-    ALL_INTERNAL_JOBS_COMPLETED("all_internal_jobs_completed"),
+    ALL_INTERNAL_JOBS_COMPLETED(String.valueOf("all_internal_jobs_completed")),
     
-    RELEASE_REQUESTED("release_requested"),
+    RELEASE_REQUESTED(String.valueOf("release_requested")),
     
-    RELEASE_COMPLETED("release_completed"),
+    RELEASE_COMPLETED(String.valueOf("release_completed")),
     
-    ERROR("error");
+    ERROR(String.valueOf("error"));
 
     private String value;
 

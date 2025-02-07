@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CallAnsweredPayload;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,13 +42,13 @@ import com.telnyx.sdk.JSON;
   CallAnswered.JSON_PROPERTY_OCCURRED_AT,
   CallAnswered.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallAnswered {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -86,7 +84,7 @@ public class CallAnswered {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CALL_ANSWERED("call.answered");
+    CALL_ANSWERED(String.valueOf("call.answered"));
 
     private String value;
 

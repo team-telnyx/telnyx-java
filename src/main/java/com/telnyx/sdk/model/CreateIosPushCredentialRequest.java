@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,13 +38,13 @@ import com.telnyx.sdk.JSON;
   CreateIosPushCredentialRequest.JSON_PROPERTY_PRIVATE_KEY,
   CreateIosPushCredentialRequest.JSON_PROPERTY_ALIAS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateIosPushCredentialRequest {
   /**
    * Type of mobile push credential. Should be &lt;code&gt;ios&lt;/code&gt; here
    */
   public enum TypeEnum {
-    IOS("ios");
+    IOS(String.valueOf("ios"));
 
     private String value;
 

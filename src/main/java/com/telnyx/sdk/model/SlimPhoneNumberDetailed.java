@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,6 +36,7 @@ import com.telnyx.sdk.JSON;
   SlimPhoneNumberDetailed.JSON_PROPERTY_ID,
   SlimPhoneNumberDetailed.JSON_PROPERTY_RECORD_TYPE,
   SlimPhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER,
+  SlimPhoneNumberDetailed.JSON_PROPERTY_COUNTRY_ISO_ALPHA2,
   SlimPhoneNumberDetailed.JSON_PROPERTY_STATUS,
   SlimPhoneNumberDetailed.JSON_PROPERTY_EXTERNAL_PIN,
   SlimPhoneNumberDetailed.JSON_PROPERTY_CONNECTION_ID,
@@ -45,6 +44,7 @@ import com.telnyx.sdk.JSON;
   SlimPhoneNumberDetailed.JSON_PROPERTY_BILLING_GROUP_ID,
   SlimPhoneNumberDetailed.JSON_PROPERTY_EMERGENCY_ENABLED,
   SlimPhoneNumberDetailed.JSON_PROPERTY_EMERGENCY_ADDRESS_ID,
+  SlimPhoneNumberDetailed.JSON_PROPERTY_EMERGENCY_STATUS,
   SlimPhoneNumberDetailed.JSON_PROPERTY_CALL_FORWARDING_ENABLED,
   SlimPhoneNumberDetailed.JSON_PROPERTY_CNAM_LISTING_ENABLED,
   SlimPhoneNumberDetailed.JSON_PROPERTY_CALLER_ID_NAME_ENABLED,
@@ -52,11 +52,10 @@ import com.telnyx.sdk.JSON;
   SlimPhoneNumberDetailed.JSON_PROPERTY_T38_FAX_GATEWAY_ENABLED,
   SlimPhoneNumberDetailed.JSON_PROPERTY_PURCHASED_AT,
   SlimPhoneNumberDetailed.JSON_PROPERTY_CREATED_AT,
-  SlimPhoneNumberDetailed.JSON_PROPERTY_NUMBER_LEVEL_ROUTING,
   SlimPhoneNumberDetailed.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   SlimPhoneNumberDetailed.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SlimPhoneNumberDetailed {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -67,35 +66,38 @@ public class SlimPhoneNumberDetailed {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
 
+  public static final String JSON_PROPERTY_COUNTRY_ISO_ALPHA2 = "country_iso_alpha2";
+  private String countryIsoAlpha2;
+
   /**
    * The phone number&#39;s current status.
    */
   public enum StatusEnum {
-    PURCHASE_PENDING("purchase-pending"),
+    PURCHASE_PENDING(String.valueOf("purchase-pending")),
     
-    PURCHASE_FAILED("purchase-failed"),
+    PURCHASE_FAILED(String.valueOf("purchase-failed")),
     
-    PORT_PENDING("port-pending"),
+    PORT_PENDING(String.valueOf("port-pending")),
     
-    PORT_FAILED("port-failed"),
+    PORT_FAILED(String.valueOf("port-failed")),
     
-    ACTIVE("active"),
+    ACTIVE(String.valueOf("active")),
     
-    DELETED("deleted"),
+    DELETED(String.valueOf("deleted")),
     
-    EMERGENCY_ONLY("emergency-only"),
+    EMERGENCY_ONLY(String.valueOf("emergency-only")),
     
-    PORTED_OUT("ported-out"),
+    PORTED_OUT(String.valueOf("ported-out")),
     
-    PORT_OUT_PENDING("port-out-pending"),
+    PORT_OUT_PENDING(String.valueOf("port-out-pending")),
     
-    REQUIREMENT_INFO_PENDING("requirement-info-pending"),
+    REQUIREMENT_INFO_PENDING(String.valueOf("requirement-info-pending")),
     
-    REQUIREMENT_INFO_UNDER_REVIEW("requirement-info-under-review"),
+    REQUIREMENT_INFO_UNDER_REVIEW(String.valueOf("requirement-info-under-review")),
     
-    REQUIREMENT_INFO_EXCEPTION("requirement-info-exception"),
+    REQUIREMENT_INFO_EXCEPTION(String.valueOf("requirement-info-exception")),
     
-    PROVISION_PENDING("provision-pending");
+    PROVISION_PENDING(String.valueOf("provision-pending"));
 
     private String value;
 
@@ -145,6 +147,50 @@ public class SlimPhoneNumberDetailed {
   public static final String JSON_PROPERTY_EMERGENCY_ADDRESS_ID = "emergency_address_id";
   private String emergencyAddressId;
 
+  /**
+   * Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.
+   */
+  public enum EmergencyStatusEnum {
+    ACTIVE(String.valueOf("active")),
+    
+    DEPROVISIONING(String.valueOf("deprovisioning")),
+    
+    DISABLED(String.valueOf("disabled")),
+    
+    PROVISIONING(String.valueOf("provisioning")),
+    
+    PROVISIONING_FAILED(String.valueOf("provisioning-failed"));
+
+    private String value;
+
+    EmergencyStatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static EmergencyStatusEnum fromValue(String value) {
+      for (EmergencyStatusEnum b : EmergencyStatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_EMERGENCY_STATUS = "emergency_status";
+  private EmergencyStatusEnum emergencyStatus;
+
   public static final String JSON_PROPERTY_CALL_FORWARDING_ENABLED = "call_forwarding_enabled";
   private Boolean callForwardingEnabled = true;
 
@@ -167,62 +213,26 @@ public class SlimPhoneNumberDetailed {
   private String createdAt;
 
   /**
-   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
-   */
-  public enum NumberLevelRoutingEnum {
-    DISABLED("disabled");
-
-    private String value;
-
-    NumberLevelRoutingEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static NumberLevelRoutingEnum fromValue(String value) {
-      for (NumberLevelRoutingEnum b : NumberLevelRoutingEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_NUMBER_LEVEL_ROUTING = "number_level_routing";
-  private NumberLevelRoutingEnum numberLevelRouting = NumberLevelRoutingEnum.DISABLED;
-
-  /**
    * The phone number&#39;s type. Note: For numbers purchased prior to July 2023 or when fetching a number&#39;s details immediately after a purchase completes, the legacy values &#x60;tollfree&#x60;, &#x60;shortcode&#x60; or &#x60;longcode&#x60; may be returned instead.
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    TOLL_FREE("toll_free"),
+    TOLL_FREE(String.valueOf("toll_free")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    LANDLINE("landline"),
+    LANDLINE(String.valueOf("landline")),
     
-    TOLLFREE("tollfree"),
+    TOLLFREE(String.valueOf("tollfree")),
     
-    SHORTCODE("shortcode"),
+    SHORTCODE(String.valueOf("shortcode")),
     
-    LONGCODE("longcode");
+    LONGCODE(String.valueOf("longcode"));
 
     private String value;
 
@@ -258,11 +268,11 @@ public class SlimPhoneNumberDetailed {
    * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
    */
   public enum InboundCallScreeningEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    REJECT_CALLS("reject_calls"),
+    REJECT_CALLS(String.valueOf("reject_calls")),
     
-    FLAG_CALLS("flag_calls");
+    FLAG_CALLS(String.valueOf("flag_calls"));
 
     private String value;
 
@@ -299,9 +309,9 @@ public class SlimPhoneNumberDetailed {
 
   @JsonCreator
   public SlimPhoneNumberDetailed(
-    @JsonProperty(JSON_PROPERTY_ID) String id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER) String phoneNumber, 
+    @JsonProperty(JSON_PROPERTY_COUNTRY_ISO_ALPHA2) String countryIsoAlpha2, 
     @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
     @JsonProperty(JSON_PROPERTY_EMERGENCY_ENABLED) Boolean emergencyEnabled, 
     @JsonProperty(JSON_PROPERTY_EMERGENCY_ADDRESS_ID) String emergencyAddressId, 
@@ -315,9 +325,9 @@ public class SlimPhoneNumberDetailed {
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
   ) {
     this();
-    this.id = id;
     this.recordType = recordType;
     this.phoneNumber = phoneNumber;
+    this.countryIsoAlpha2 = countryIsoAlpha2;
     this.status = status;
     this.emergencyEnabled = emergencyEnabled;
     this.emergencyAddressId = emergencyAddressId;
@@ -331,12 +341,17 @@ public class SlimPhoneNumberDetailed {
     this.phoneNumberType = phoneNumberType;
   }
 
+  public SlimPhoneNumberDetailed id(String id) {
+    this.id = id;
+    return this;
+  }
+
    /**
-   * Identifies the resource.
+   * Uniquely identifies the resource.
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1293384261075731499", value = "Identifies the resource.")
+  @ApiModelProperty(example = "1293384261075731499", value = "Uniquely identifies the resource.")
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -345,6 +360,11 @@ public class SlimPhoneNumberDetailed {
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
 
 
    /**
@@ -374,6 +394,22 @@ public class SlimPhoneNumberDetailed {
 
   public String getPhoneNumber() {
     return phoneNumber;
+  }
+
+
+
+
+   /**
+   * The ISO 3166-1 alpha-2 country code of the phone number.
+   * @return countryIsoAlpha2
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "US", value = "The ISO 3166-1 alpha-2 country code of the phone number.")
+  @JsonProperty(JSON_PROPERTY_COUNTRY_ISO_ALPHA2)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCountryIsoAlpha2() {
+    return countryIsoAlpha2;
   }
 
 
@@ -531,6 +567,32 @@ public class SlimPhoneNumberDetailed {
 
 
 
+  public SlimPhoneNumberDetailed emergencyStatus(EmergencyStatusEnum emergencyStatus) {
+    this.emergencyStatus = emergencyStatus;
+    return this;
+  }
+
+   /**
+   * Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.
+   * @return emergencyStatus
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.")
+  @JsonProperty(JSON_PROPERTY_EMERGENCY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public EmergencyStatusEnum getEmergencyStatus() {
+    return emergencyStatus;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EMERGENCY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmergencyStatus(EmergencyStatusEnum emergencyStatus) {
+    this.emergencyStatus = emergencyStatus;
+  }
+
+
    /**
    * Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.
    * @return callForwardingEnabled
@@ -643,32 +705,6 @@ public class SlimPhoneNumberDetailed {
 
 
 
-  public SlimPhoneNumberDetailed numberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-    return this;
-  }
-
-   /**
-   * Deprecated field, the only value for this is &#39;disabled&#39;. All routing for numbers should be configured via connection settings.
-   * @return numberLevelRouting
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.")
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public NumberLevelRoutingEnum getNumberLevelRouting() {
-    return numberLevelRouting;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NUMBER_LEVEL_ROUTING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNumberLevelRouting(NumberLevelRoutingEnum numberLevelRouting) {
-    this.numberLevelRouting = numberLevelRouting;
-  }
-
-
    /**
    * The phone number&#39;s type. Note: For numbers purchased prior to July 2023 or when fetching a number&#39;s details immediately after a purchase completes, the legacy values &#x60;tollfree&#x60;, &#x60;shortcode&#x60; or &#x60;longcode&#x60; may be returned instead.
    * @return phoneNumberType
@@ -726,6 +762,7 @@ public class SlimPhoneNumberDetailed {
     return Objects.equals(this.id, slimPhoneNumberDetailed.id) &&
         Objects.equals(this.recordType, slimPhoneNumberDetailed.recordType) &&
         Objects.equals(this.phoneNumber, slimPhoneNumberDetailed.phoneNumber) &&
+        Objects.equals(this.countryIsoAlpha2, slimPhoneNumberDetailed.countryIsoAlpha2) &&
         Objects.equals(this.status, slimPhoneNumberDetailed.status) &&
         Objects.equals(this.externalPin, slimPhoneNumberDetailed.externalPin) &&
         Objects.equals(this.connectionId, slimPhoneNumberDetailed.connectionId) &&
@@ -733,6 +770,7 @@ public class SlimPhoneNumberDetailed {
         Objects.equals(this.billingGroupId, slimPhoneNumberDetailed.billingGroupId) &&
         Objects.equals(this.emergencyEnabled, slimPhoneNumberDetailed.emergencyEnabled) &&
         Objects.equals(this.emergencyAddressId, slimPhoneNumberDetailed.emergencyAddressId) &&
+        Objects.equals(this.emergencyStatus, slimPhoneNumberDetailed.emergencyStatus) &&
         Objects.equals(this.callForwardingEnabled, slimPhoneNumberDetailed.callForwardingEnabled) &&
         Objects.equals(this.cnamListingEnabled, slimPhoneNumberDetailed.cnamListingEnabled) &&
         Objects.equals(this.callerIdNameEnabled, slimPhoneNumberDetailed.callerIdNameEnabled) &&
@@ -740,14 +778,13 @@ public class SlimPhoneNumberDetailed {
         Objects.equals(this.t38FaxGatewayEnabled, slimPhoneNumberDetailed.t38FaxGatewayEnabled) &&
         Objects.equals(this.purchasedAt, slimPhoneNumberDetailed.purchasedAt) &&
         Objects.equals(this.createdAt, slimPhoneNumberDetailed.createdAt) &&
-        Objects.equals(this.numberLevelRouting, slimPhoneNumberDetailed.numberLevelRouting) &&
         Objects.equals(this.phoneNumberType, slimPhoneNumberDetailed.phoneNumberType) &&
         Objects.equals(this.inboundCallScreening, slimPhoneNumberDetailed.inboundCallScreening);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, status, externalPin, connectionId, customerReference, billingGroupId, emergencyEnabled, emergencyAddressId, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, numberLevelRouting, phoneNumberType, inboundCallScreening);
+    return Objects.hash(id, recordType, phoneNumber, countryIsoAlpha2, status, externalPin, connectionId, customerReference, billingGroupId, emergencyEnabled, emergencyAddressId, emergencyStatus, callForwardingEnabled, cnamListingEnabled, callerIdNameEnabled, callRecordingEnabled, t38FaxGatewayEnabled, purchasedAt, createdAt, phoneNumberType, inboundCallScreening);
   }
 
   @Override
@@ -757,6 +794,7 @@ public class SlimPhoneNumberDetailed {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    countryIsoAlpha2: ").append(toIndentedString(countryIsoAlpha2)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    externalPin: ").append(toIndentedString(externalPin)).append("\n");
     sb.append("    connectionId: ").append(toIndentedString(connectionId)).append("\n");
@@ -764,6 +802,7 @@ public class SlimPhoneNumberDetailed {
     sb.append("    billingGroupId: ").append(toIndentedString(billingGroupId)).append("\n");
     sb.append("    emergencyEnabled: ").append(toIndentedString(emergencyEnabled)).append("\n");
     sb.append("    emergencyAddressId: ").append(toIndentedString(emergencyAddressId)).append("\n");
+    sb.append("    emergencyStatus: ").append(toIndentedString(emergencyStatus)).append("\n");
     sb.append("    callForwardingEnabled: ").append(toIndentedString(callForwardingEnabled)).append("\n");
     sb.append("    cnamListingEnabled: ").append(toIndentedString(cnamListingEnabled)).append("\n");
     sb.append("    callerIdNameEnabled: ").append(toIndentedString(callerIdNameEnabled)).append("\n");
@@ -771,7 +810,6 @@ public class SlimPhoneNumberDetailed {
     sb.append("    t38FaxGatewayEnabled: ").append(toIndentedString(t38FaxGatewayEnabled)).append("\n");
     sb.append("    purchasedAt: ").append(toIndentedString(purchasedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    numberLevelRouting: ").append(toIndentedString(numberLevelRouting)).append("\n");
     sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("    inboundCallScreening: ").append(toIndentedString(inboundCallScreening)).append("\n");
     sb.append("}");

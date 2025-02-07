@@ -24,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.ChatCompletionSystemMessageParamContent;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,22 +37,22 @@ import com.telnyx.sdk.JSON;
   ChatCompletionSystemMessageParam.JSON_PROPERTY_CONTENT,
   ChatCompletionSystemMessageParam.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ChatCompletionSystemMessageParam {
   public static final String JSON_PROPERTY_CONTENT = "content";
-  private String content;
+  private ChatCompletionSystemMessageParamContent content;
 
   /**
    * Gets or Sets role
    */
   public enum RoleEnum {
-    SYSTEM("system"),
+    SYSTEM(String.valueOf("system")),
     
-    USER("user"),
+    USER(String.valueOf("user")),
     
-    ASSISTANT("assistant"),
+    ASSISTANT(String.valueOf("assistant")),
     
-    TOOL("tool");
+    TOOL(String.valueOf("tool"));
 
     private String value;
 
@@ -88,7 +87,7 @@ public class ChatCompletionSystemMessageParam {
   public ChatCompletionSystemMessageParam() { 
   }
 
-  public ChatCompletionSystemMessageParam content(String content) {
+  public ChatCompletionSystemMessageParam content(ChatCompletionSystemMessageParamContent content) {
     this.content = content;
     return this;
   }
@@ -102,14 +101,14 @@ public class ChatCompletionSystemMessageParam {
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getContent() {
+  public ChatCompletionSystemMessageParamContent getContent() {
     return content;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setContent(String content) {
+  public void setContent(ChatCompletionSystemMessageParamContent content) {
     this.content = content;
   }
 

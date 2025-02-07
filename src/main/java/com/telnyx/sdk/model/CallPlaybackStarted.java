@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.CallPlaybackStartedPayload;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -44,13 +42,13 @@ import com.telnyx.sdk.JSON;
   CallPlaybackStarted.JSON_PROPERTY_OCCURRED_AT,
   CallPlaybackStarted.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallPlaybackStarted {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    EVENT("event");
+    EVENT(String.valueOf("event"));
 
     private String value;
 
@@ -86,7 +84,7 @@ public class CallPlaybackStarted {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    CALL_PLAYBACK_STARTED("call.playback.started");
+    CALL_PLAYBACK_STARTED(String.valueOf("call.playback.started"));
 
     private String value;
 

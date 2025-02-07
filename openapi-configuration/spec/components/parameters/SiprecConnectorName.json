@@ -1,9 +1,0 @@
-{
-  "name": "connector_name",
-  "description": "Uniquely identifies a SIPREC connector",
-  "in": "path",
-  "required": true,
-  "schema": {
-    "type": "string"
-  }
-}

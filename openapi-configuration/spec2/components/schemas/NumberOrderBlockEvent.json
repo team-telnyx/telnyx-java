@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Number Order Event",
-  "properties": {
-    "data": {
-      "$ref": "./NumberBlockOrder.json"
-    }
-  }
-}

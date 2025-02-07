@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**deleteAuthenticationProvider**](AuthenticationProvidersApi.md#deleteAuthenticationProvider) | **DELETE** /authentication_providers/{id} | Deletes an authentication provider
 [**findAuthenticationProviders**](AuthenticationProvidersApi.md#findAuthenticationProviders) | **GET** /authentication_providers | List all SSO authentication providers
 [**getAuthenticationProvider**](AuthenticationProvidersApi.md#getAuthenticationProvider) | **GET** /authentication_providers/{id} | Retrieve an authentication provider
-[**updateAuthenticationProvider**](AuthenticationProvidersApi.md#updateAuthenticationProvider) | **PATCH** /authentication_providers/{id} | Update a authentication provider
+[**updateAuthenticationProvider**](AuthenticationProvidersApi.md#updateAuthenticationProvider) | **PATCH** /authentication_providers/{id} | Update an authentication provider
 
 
 
@@ -41,7 +41,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         AuthenticationProvidersApi apiInstance = new AuthenticationProvidersApi(defaultClient);
-        AuthenticationProviderCreate authenticationProviderCreate = new AuthenticationProviderCreate(); // AuthenticationProviderCreate | Parameters that can be defined during authentication provider creation
+        AuthenticationProviderCreate authenticationProviderCreate = new AuthenticationProviderCreate(); // AuthenticationProviderCreate | 
         try {
             CreateAuthenticationProvider200Response result = apiInstance.createAuthenticationProvider(authenticationProviderCreate);
             System.out.println(result);
@@ -61,7 +61,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authenticationProviderCreate** | [**AuthenticationProviderCreate**](AuthenticationProviderCreate.md)| Parameters that can be defined during authentication provider creation |
+ **authenticationProviderCreate** | [**AuthenticationProviderCreate**](AuthenticationProviderCreate.md)|  |
 
 ### Return type
 
@@ -187,7 +187,7 @@ public class Example {
         AuthenticationProvidersApi apiInstance = new AuthenticationProvidersApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
-        String sort = "name"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>name</code>: sorts the result by the     <code>name</code> field in ascending order.   </li>    <li>     <code>-name</code>: sorts the result by the     <code>name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+        String sort = "name"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code>-</code> prefix.<br/><br/> That is: <ul>   <li>     <code>name</code>: sorts the result by the     <code>name</code> field in ascending order.   </li>   <li>     <code>-name</code>: sorts the result by the     <code>name</code> field in descending order.   </li> </ul><br/>If not given, results are sorted by <code>created_at</code> in descending order.
         try {
             FindAuthenticationProviders200Response result = apiInstance.findAuthenticationProviders(pageNumber, pageSize, sort);
             System.out.println(result);
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
- **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to -created_at] [enum: name, -name, short_name, -short_name, active, -active, created_at, -created_at, updated_at, -updated_at]
+ **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt;-&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in ascending order.   &lt;/li&gt;   &lt;li&gt;     &lt;code&gt;-name&lt;/code&gt;: sorts the result by the     &lt;code&gt;name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt;&lt;br/&gt;If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to -created_at] [enum: name, -name, short_name, -short_name, active, -active, created_at, -created_at, updated_at, -updated_at]
 
 ### Return type
 
@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 
 > CreateAuthenticationProvider200Response updateAuthenticationProvider(id, updateAuthenticationProviderRequest)
 
-Update a authentication provider
+Update an authentication provider
 
 Updates settings of an existing authentication provider.
 
@@ -336,7 +336,7 @@ public class Example {
 
         AuthenticationProvidersApi apiInstance = new AuthenticationProvidersApi(defaultClient);
         String id = "id_example"; // String | Identifies the resource.
-        UpdateAuthenticationProviderRequest updateAuthenticationProviderRequest = new UpdateAuthenticationProviderRequest(); // UpdateAuthenticationProviderRequest | Parameters that can be updated in a authentication provider
+        UpdateAuthenticationProviderRequest updateAuthenticationProviderRequest = new UpdateAuthenticationProviderRequest(); // UpdateAuthenticationProviderRequest | 
         try {
             CreateAuthenticationProvider200Response result = apiInstance.updateAuthenticationProvider(id, updateAuthenticationProviderRequest);
             System.out.println(result);
@@ -357,7 +357,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Identifies the resource. |
- **updateAuthenticationProviderRequest** | [**UpdateAuthenticationProviderRequest**](UpdateAuthenticationProviderRequest.md)| Parameters that can be updated in a authentication provider |
+ **updateAuthenticationProviderRequest** | [**UpdateAuthenticationProviderRequest**](UpdateAuthenticationProviderRequest.md)|  |
 
 ### Return type
 

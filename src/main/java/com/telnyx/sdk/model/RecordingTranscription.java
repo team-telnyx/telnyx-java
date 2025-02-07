@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -44,7 +42,7 @@ import com.telnyx.sdk.JSON;
   RecordingTranscription.JSON_PROPERTY_TRANSCRIPTION_TEXT,
   RecordingTranscription.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RecordingTranscription {
   public static final String JSON_PROPERTY_CREATED_AT = "created_at";
   private String createdAt;
@@ -62,7 +60,7 @@ public class RecordingTranscription {
    * Gets or Sets recordType
    */
   public enum RecordTypeEnum {
-    RECORDING_TRANSCRIPTION("recording_transcription");
+    RECORDING_TRANSCRIPTION(String.valueOf("recording_transcription"));
 
     private String value;
 
@@ -98,9 +96,9 @@ public class RecordingTranscription {
    * The status of the recording transcriptions. The transcription text will be available only when the status is completed.
    */
   public enum StatusEnum {
-    IN_PROGRESS("in-progress"),
+    IN_PROGRESS(String.valueOf("in-progress")),
     
-    COMPLETED("completed");
+    COMPLETED(String.valueOf("completed"));
 
     private String value;
 

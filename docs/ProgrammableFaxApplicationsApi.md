@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **201** | Successful response |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **403** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -96,6 +96,7 @@ Permanently deletes a Fax Application. Deletion may be prevented if the applicat
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -114,7 +115,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ProgrammableFaxApplicationsApi apiInstance = new ProgrammableFaxApplicationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             FaxApplicationResponse result = apiInstance.deleteFaxApplication(id);
             System.out.println(result);
@@ -134,7 +135,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -155,8 +156,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## getFaxApplication
@@ -170,6 +171,7 @@ Return the details of an existing Fax Application inside the 'data' attribute of
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -188,7 +190,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ProgrammableFaxApplicationsApi apiInstance = new ProgrammableFaxApplicationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             FaxApplicationResponse result = apiInstance.getFaxApplication(id);
             System.out.println(result);
@@ -208,7 +210,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -229,13 +231,13 @@ Name | Type | Description  | Notes
 | **200** | Successful response |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## listFaxApplications
 
-> GetAllFaxApplicationsResponse listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort)
+> GetAllFaxApplicationsResponse listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort)
 
 List all Fax Applications
 
@@ -264,11 +266,11 @@ public class Example {
         ProgrammableFaxApplicationsApi apiInstance = new ProgrammableFaxApplicationsApi(defaultClient);
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
-        String filterApplicationNameContains = "null"; // String | If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
-        String filterOutboundOutboundVoiceProfileId = "1293384261075731499"; // String | Identifies the associated outbound voice profile.
-        String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>connection_name</code>: sorts the result by the     <code>connection_name</code> field in ascending order.   </li>    <li>     <code>-connection_name</code>: sorts the result by the     <code>connection_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+        String filterApplicationNameContains = "filterApplicationNameContains_example"; // String | If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+        String filterOutboundVoiceProfileId = "1293384261075731499"; // String | Identifies the associated outbound voice profile.
+        String sort = "created_at"; // String | Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/> That is: <ul>   <li>     <code>application_name</code>: sorts the result by the     <code>application_name</code> field in ascending order.   </li>    <li>     <code>-application_name</code>: sorts the result by the     <code>application_name</code> field in descending order.   </li> </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
         try {
-            GetAllFaxApplicationsResponse result = apiInstance.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundOutboundVoiceProfileId, sort);
+            GetAllFaxApplicationsResponse result = apiInstance.listFaxApplications(pageNumber, pageSize, filterApplicationNameContains, filterOutboundVoiceProfileId, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProgrammableFaxApplicationsApi#listFaxApplications");
@@ -288,9 +290,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageNumber** | **Integer**| The page number to load | [optional] [default to 1]
  **pageSize** | **Integer**| The size of the page | [optional] [default to 20]
- **filterApplicationNameContains** | **String**| If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. | [optional] [default to null]
- **filterOutboundOutboundVoiceProfileId** | **String**| Identifies the associated outbound voice profile. | [optional]
- **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to created_at] [enum: created_at, connection_name, active]
+ **filterApplicationNameContains** | **String**| If present, applications with &lt;code&gt;application_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. | [optional]
+ **filterOutboundVoiceProfileId** | **String**| Identifies the associated outbound voice profile. | [optional]
+ **sort** | **String**| Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;application_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;application_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-application_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;application_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. | [optional] [default to created_at] [enum: created_at, application_name, active]
 
 ### Return type
 
@@ -311,7 +313,7 @@ Name | Type | Description  | Notes
 | **200** | Successful response |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **403** | Unauthorized |  -  |
 
 
 ## updateFaxApplication
@@ -325,6 +327,7 @@ Updates settings of an existing Fax Application based on the parameters of the r
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -343,7 +346,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ProgrammableFaxApplicationsApi apiInstance = new ProgrammableFaxApplicationsApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UpdateFaxApplicationRequest updateFaxApplicationRequest = new UpdateFaxApplicationRequest(); // UpdateFaxApplicationRequest | Parameters to be updated for the Fax Application
         try {
             FaxApplicationResponse result = apiInstance.updateFaxApplication(id, updateFaxApplicationRequest);
@@ -364,7 +367,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **updateFaxApplicationRequest** | [**UpdateFaxApplicationRequest**](UpdateFaxApplicationRequest.md)| Parameters to be updated for the Fax Application |
 
 ### Return type
@@ -385,7 +388,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 

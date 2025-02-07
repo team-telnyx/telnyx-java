@@ -1,9 +1,0 @@
-{
-  "title": "Fax Email Recipient",
-  "type": "string",
-  "description": "Specifies an email address where faxes sent to this application will be forwarded to (as pdf or tiff attachments)",
-  "default": null,
-  "nullable": true,
-  "format": "email",
-  "example": "user@example.com"
-}

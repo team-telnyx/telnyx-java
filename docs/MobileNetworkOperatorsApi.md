@@ -93,6 +93,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 

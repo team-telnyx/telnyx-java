@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -35,44 +33,450 @@ import com.telnyx.sdk.JSON;
  * ConferenceResource
  */
 @JsonPropertyOrder({
-  ConferenceResource.JSON_PROPERTY_DATA
+  ConferenceResource.JSON_PROPERTY_ACCOUNT_SID,
+  ConferenceResource.JSON_PROPERTY_API_VERSION,
+  ConferenceResource.JSON_PROPERTY_CALL_SID_ENDING_CONFERENCE,
+  ConferenceResource.JSON_PROPERTY_DATE_CREATED,
+  ConferenceResource.JSON_PROPERTY_DATE_UPDATED,
+  ConferenceResource.JSON_PROPERTY_FRIENDLY_NAME,
+  ConferenceResource.JSON_PROPERTY_REASON_CONFERENCE_ENDED,
+  ConferenceResource.JSON_PROPERTY_REGION,
+  ConferenceResource.JSON_PROPERTY_SID,
+  ConferenceResource.JSON_PROPERTY_STATUS,
+  ConferenceResource.JSON_PROPERTY_SUBRESOURCE_URIS,
+  ConferenceResource.JSON_PROPERTY_URI
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceResource {
-  public static final String JSON_PROPERTY_DATA = "data";
-  private ConferenceResource data;
+  public static final String JSON_PROPERTY_ACCOUNT_SID = "account_sid";
+  private String accountSid;
+
+  public static final String JSON_PROPERTY_API_VERSION = "api_version";
+  private String apiVersion;
+
+  public static final String JSON_PROPERTY_CALL_SID_ENDING_CONFERENCE = "call_sid_ending_conference";
+  private String callSidEndingConference;
+
+  public static final String JSON_PROPERTY_DATE_CREATED = "date_created";
+  private String dateCreated;
+
+  public static final String JSON_PROPERTY_DATE_UPDATED = "date_updated";
+  private String dateUpdated;
+
+  public static final String JSON_PROPERTY_FRIENDLY_NAME = "friendly_name";
+  private String friendlyName;
+
+  /**
+   * The reason why a conference ended. When a conference is in progress, will be null.
+   */
+  public enum ReasonConferenceEndedEnum {
+    PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT(String.valueOf("participant-with-end-conference-on-exit-left")),
+    
+    LAST_PARTICIPANT_LEFT(String.valueOf("last-participant-left")),
+    
+    CONFERENCE_ENDED_VIA_API(String.valueOf("conference-ended-via-api")),
+    
+    TIME_EXCEEDED(String.valueOf("time-exceeded"));
+
+    private String value;
+
+    ReasonConferenceEndedEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ReasonConferenceEndedEnum fromValue(String value) {
+      for (ReasonConferenceEndedEnum b : ReasonConferenceEndedEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_REASON_CONFERENCE_ENDED = "reason_conference_ended";
+  private ReasonConferenceEndedEnum reasonConferenceEnded;
+
+  public static final String JSON_PROPERTY_REGION = "region";
+  private String region;
+
+  public static final String JSON_PROPERTY_SID = "sid";
+  private String sid;
+
+  /**
+   * The status of this conference.
+   */
+  public enum StatusEnum {
+    INIT(String.valueOf("init")),
+    
+    IN_PROGRESS(String.valueOf("in-progress")),
+    
+    COMPLETED(String.valueOf("completed"));
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private StatusEnum status;
+
+  public static final String JSON_PROPERTY_SUBRESOURCE_URIS = "subresource_uris";
+  private Object subresourceUris;
+
+  public static final String JSON_PROPERTY_URI = "uri";
+  private String uri;
 
   public ConferenceResource() { 
   }
 
-  public ConferenceResource data(ConferenceResource data) {
-    this.data = data;
+  public ConferenceResource accountSid(String accountSid) {
+    this.accountSid = accountSid;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * The id of the account the resource belongs to.
+   * @return accountSid
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @ApiModelProperty(example = "61bf923e-5e4d-4595-a110-56190ea18a1b", value = "The id of the account the resource belongs to.")
+  @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public ConferenceResource getData() {
-    return data;
+  public String getAccountSid() {
+    return accountSid;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonProperty(JSON_PROPERTY_ACCOUNT_SID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(ConferenceResource data) {
-    this.data = data;
+  public void setAccountSid(String accountSid) {
+    this.accountSid = accountSid;
+  }
+
+
+  public ConferenceResource apiVersion(String apiVersion) {
+    this.apiVersion = apiVersion;
+    return this;
+  }
+
+   /**
+   * The version of the API that was used to make the request.
+   * @return apiVersion
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "v2/texml", value = "The version of the API that was used to make the request.")
+  @JsonProperty(JSON_PROPERTY_API_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getApiVersion() {
+    return apiVersion;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_API_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setApiVersion(String apiVersion) {
+    this.apiVersion = apiVersion;
+  }
+
+
+  public ConferenceResource callSidEndingConference(String callSidEndingConference) {
+    this.callSidEndingConference = callSidEndingConference;
+    return this;
+  }
+
+   /**
+   * Caller ID, if present.
+   * @return callSidEndingConference
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ", value = "Caller ID, if present.")
+  @JsonProperty(JSON_PROPERTY_CALL_SID_ENDING_CONFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCallSidEndingConference() {
+    return callSidEndingConference;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALL_SID_ENDING_CONFERENCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallSidEndingConference(String callSidEndingConference) {
+    this.callSidEndingConference = callSidEndingConference;
+  }
+
+
+  public ConferenceResource dateCreated(String dateCreated) {
+    this.dateCreated = dateCreated;
+    return this;
+  }
+
+   /**
+   * The timestamp of when the resource was created.
+   * @return dateCreated
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was created.")
+  @JsonProperty(JSON_PROPERTY_DATE_CREATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDateCreated() {
+    return dateCreated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATE_CREATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDateCreated(String dateCreated) {
+    this.dateCreated = dateCreated;
+  }
+
+
+  public ConferenceResource dateUpdated(String dateUpdated) {
+    this.dateUpdated = dateUpdated;
+    return this;
+  }
+
+   /**
+   * The timestamp of when the resource was last updated.
+   * @return dateUpdated
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Thu, 15 Jun 2023 09:56:45 +0000", value = "The timestamp of when the resource was last updated.")
+  @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDateUpdated() {
+    return dateUpdated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDateUpdated(String dateUpdated) {
+    this.dateUpdated = dateUpdated;
+  }
+
+
+  public ConferenceResource friendlyName(String friendlyName) {
+    this.friendlyName = friendlyName;
+    return this;
+  }
+
+   /**
+   * A string that you assigned to describe this conference room.
+   * @return friendlyName
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "weekly_review_call", value = "A string that you assigned to describe this conference room.")
+  @JsonProperty(JSON_PROPERTY_FRIENDLY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFriendlyName() {
+    return friendlyName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FRIENDLY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFriendlyName(String friendlyName) {
+    this.friendlyName = friendlyName;
+  }
+
+
+  public ConferenceResource reasonConferenceEnded(ReasonConferenceEndedEnum reasonConferenceEnded) {
+    this.reasonConferenceEnded = reasonConferenceEnded;
+    return this;
+  }
+
+   /**
+   * The reason why a conference ended. When a conference is in progress, will be null.
+   * @return reasonConferenceEnded
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "time-exceeded", value = "The reason why a conference ended. When a conference is in progress, will be null.")
+  @JsonProperty(JSON_PROPERTY_REASON_CONFERENCE_ENDED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ReasonConferenceEndedEnum getReasonConferenceEnded() {
+    return reasonConferenceEnded;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REASON_CONFERENCE_ENDED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setReasonConferenceEnded(ReasonConferenceEndedEnum reasonConferenceEnded) {
+    this.reasonConferenceEnded = reasonConferenceEnded;
+  }
+
+
+  public ConferenceResource region(String region) {
+    this.region = region;
+    return this;
+  }
+
+   /**
+   * A string representing the region where the conference is hosted.
+   * @return region
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "dc2", value = "A string representing the region where the conference is hosted.")
+  @JsonProperty(JSON_PROPERTY_REGION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRegion() {
+    return region;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REGION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRegion(String region) {
+    this.region = region;
+  }
+
+
+  public ConferenceResource sid(String sid) {
+    this.sid = sid;
+    return this;
+  }
+
+   /**
+   * The unique identifier of the conference.
+   * @return sid
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "cd5a70f4-759b-4d5e-9c06-88c00f16f3c1", value = "The unique identifier of the conference.")
+  @JsonProperty(JSON_PROPERTY_SID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSid() {
+    return sid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSid(String sid) {
+    this.sid = sid;
+  }
+
+
+  public ConferenceResource status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of this conference.
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "in-progress", value = "The status of this conference.")
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public ConferenceResource subresourceUris(Object subresourceUris) {
+    this.subresourceUris = subresourceUris;
+    return this;
+  }
+
+   /**
+   * A list of related resources identified by their relative URIs.
+   * @return subresourceUris
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "{\"participants\":\"/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Participants.json\",\"recordings\":\"/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Recordings.json\"}", value = "A list of related resources identified by their relative URIs.")
+  @JsonProperty(JSON_PROPERTY_SUBRESOURCE_URIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getSubresourceUris() {
+    return subresourceUris;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUBRESOURCE_URIS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubresourceUris(Object subresourceUris) {
+    this.subresourceUris = subresourceUris;
+  }
+
+
+  public ConferenceResource uri(String uri) {
+    this.uri = uri;
+    return this;
+  }
+
+   /**
+   * The relative URI for this conference.
+   * @return uri
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1.json", value = "The relative URI for this conference.")
+  @JsonProperty(JSON_PROPERTY_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getUri() {
+    return uri;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUri(String uri) {
+    this.uri = uri;
   }
 
 
   /**
-   * Return true if this Conference_resource object is equal to o.
+   * Return true if this ConferenceResource object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -83,19 +487,41 @@ public class ConferenceResource {
       return false;
     }
     ConferenceResource conferenceResource = (ConferenceResource) o;
-    return Objects.equals(this.data, conferenceResource.data);
+    return Objects.equals(this.accountSid, conferenceResource.accountSid) &&
+        Objects.equals(this.apiVersion, conferenceResource.apiVersion) &&
+        Objects.equals(this.callSidEndingConference, conferenceResource.callSidEndingConference) &&
+        Objects.equals(this.dateCreated, conferenceResource.dateCreated) &&
+        Objects.equals(this.dateUpdated, conferenceResource.dateUpdated) &&
+        Objects.equals(this.friendlyName, conferenceResource.friendlyName) &&
+        Objects.equals(this.reasonConferenceEnded, conferenceResource.reasonConferenceEnded) &&
+        Objects.equals(this.region, conferenceResource.region) &&
+        Objects.equals(this.sid, conferenceResource.sid) &&
+        Objects.equals(this.status, conferenceResource.status) &&
+        Objects.equals(this.subresourceUris, conferenceResource.subresourceUris) &&
+        Objects.equals(this.uri, conferenceResource.uri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(accountSid, apiVersion, callSidEndingConference, dateCreated, dateUpdated, friendlyName, reasonConferenceEnded, region, sid, status, subresourceUris, uri);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConferenceResource {\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    accountSid: ").append(toIndentedString(accountSid)).append("\n");
+    sb.append("    apiVersion: ").append(toIndentedString(apiVersion)).append("\n");
+    sb.append("    callSidEndingConference: ").append(toIndentedString(callSidEndingConference)).append("\n");
+    sb.append("    dateCreated: ").append(toIndentedString(dateCreated)).append("\n");
+    sb.append("    dateUpdated: ").append(toIndentedString(dateUpdated)).append("\n");
+    sb.append("    friendlyName: ").append(toIndentedString(friendlyName)).append("\n");
+    sb.append("    reasonConferenceEnded: ").append(toIndentedString(reasonConferenceEnded)).append("\n");
+    sb.append("    region: ").append(toIndentedString(region)).append("\n");
+    sb.append("    sid: ").append(toIndentedString(sid)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    subresourceUris: ").append(toIndentedString(subresourceUris)).append("\n");
+    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("}");
     return sb.toString();
   }

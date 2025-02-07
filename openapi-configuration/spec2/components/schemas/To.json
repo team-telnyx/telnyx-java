@@ -1,5 +1,0 @@
-{
-  "description": "The phone number, in E.164 format, the fax will be sent to or SIP URI",
-  "type": "string",
-  "example": "+13127367276"
-}

@@ -25,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Settings;
+import java.net.URI;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,7 +41,7 @@ import com.telnyx.sdk.JSON;
   UpdateAuthenticationProviderRequest.JSON_PROPERTY_SETTINGS,
   UpdateAuthenticationProviderRequest.JSON_PROPERTY_SETTINGS_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateAuthenticationProviderRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -57,7 +56,7 @@ public class UpdateAuthenticationProviderRequest {
   private Settings settings;
 
   public static final String JSON_PROPERTY_SETTINGS_URL = "settings_url";
-  private String settingsUrl;
+  private URI settingsUrl;
 
   public UpdateAuthenticationProviderRequest() { 
   }
@@ -166,7 +165,7 @@ public class UpdateAuthenticationProviderRequest {
   }
 
 
-  public UpdateAuthenticationProviderRequest settingsUrl(String settingsUrl) {
+  public UpdateAuthenticationProviderRequest settingsUrl(URI settingsUrl) {
     this.settingsUrl = settingsUrl;
     return this;
   }
@@ -180,14 +179,14 @@ public class UpdateAuthenticationProviderRequest {
   @JsonProperty(JSON_PROPERTY_SETTINGS_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getSettingsUrl() {
+  public URI getSettingsUrl() {
     return settingsUrl;
   }
 
 
   @JsonProperty(JSON_PROPERTY_SETTINGS_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSettingsUrl(String settingsUrl) {
+  public void setSettingsUrl(URI settingsUrl) {
     this.settingsUrl = settingsUrl;
   }
 

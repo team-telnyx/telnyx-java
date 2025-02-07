@@ -61,41 +61,6 @@ public class NumberOrderRegulatoryRequirementsApiTest {
     }
 
     /**
-     * List regulatory requirements for a Spanish number
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    @Ignore
-    public void listPhoneNumberRegulatoryRequirements_whenFilteringBySpanishPhoneNumber_returnsRegulatoryRequirements() throws ApiException {
-        String countryCode = "ES";
-        String phoneNumber = null;
-
-        try {
-            phoneNumber = Objects.requireNonNull(numberSearchApi.listAvailablePhoneNumbers()
-                    .filterCountryCode(countryCode)
-                    .filterLimit(1)
-                    .execute()
-                    .getData())
-                    .get(0)
-                    .getPhoneNumber();
-
-            numberOrdersApi.createNumberOrder(
-                    new CreateNumberOrderRequest()
-                            .phoneNumbers(Collections.singletonList(new PhoneNumber().phoneNumber(phoneNumber))));
-        } catch (Exception e) {
-            fail("Test Setup Failure - Unable to create Spanish number order: " + e.getMessage());
-        }
-
-        ListPhoneNumberRegulatoryRequirementsResponse actualResponse = api.listPhoneNumberRegulatoryRequirements()
-                .filterPhoneNumber(Collections.singletonList(phoneNumber))
-                .execute();
-
-        assertNotNull(actualResponse);
-        assertFalse(actualResponse.getData().isEmpty());
-    }
-
-    /**
      * Retrieve a number order regulatory requirement
      * <p>
      * Gets a single number order regulatory requirement.

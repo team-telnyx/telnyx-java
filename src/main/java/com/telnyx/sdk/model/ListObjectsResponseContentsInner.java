@@ -28,8 +28,6 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ListObjectsResponseContentsInner.JSON_PROPERTY_SIZE,
   ListObjectsResponseContentsInner.JSON_PROPERTY_LAST_MODIFIED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListObjectsResponseContentsInner {
   public static final String JSON_PROPERTY_KEY = "Key";
   private String key;

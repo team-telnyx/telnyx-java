@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   PaginationMetaSimple.JSON_PROPERTY_TOTAL_PAGES,
   PaginationMetaSimple.JSON_PROPERTY_TOTAL_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PaginationMetaSimple {
   public static final String JSON_PROPERTY_PAGE_NUMBER = "page_number";
   private Integer pageNumber;

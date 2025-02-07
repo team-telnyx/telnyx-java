@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Speak Ended Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallSpeakEnded.json"
-    }
-  }
-}

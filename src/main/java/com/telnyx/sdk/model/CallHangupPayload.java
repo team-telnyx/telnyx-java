@@ -24,11 +24,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.telnyx.sdk.model.CustomSipHeader;
+import com.telnyx.sdk.model.SipHeader;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,15 +43,18 @@ import com.telnyx.sdk.JSON;
   CallHangupPayload.JSON_PROPERTY_CALL_LEG_ID,
   CallHangupPayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallHangupPayload.JSON_PROPERTY_CLIENT_STATE,
+  CallHangupPayload.JSON_PROPERTY_CUSTOM_HEADERS,
+  CallHangupPayload.JSON_PROPERTY_SIP_HEADERS,
   CallHangupPayload.JSON_PROPERTY_FROM,
   CallHangupPayload.JSON_PROPERTY_TO,
   CallHangupPayload.JSON_PROPERTY_START_TIME,
   CallHangupPayload.JSON_PROPERTY_STATE,
+  CallHangupPayload.JSON_PROPERTY_TAGS,
   CallHangupPayload.JSON_PROPERTY_HANGUP_CAUSE,
   CallHangupPayload.JSON_PROPERTY_HANGUP_SOURCE,
   CallHangupPayload.JSON_PROPERTY_SIP_HANGUP_CAUSE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallHangupPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -66,6 +71,12 @@ public class CallHangupPayload {
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
 
+  public static final String JSON_PROPERTY_CUSTOM_HEADERS = "custom_headers";
+  private List<CustomSipHeader> customHeaders = null;
+
+  public static final String JSON_PROPERTY_SIP_HEADERS = "sip_headers";
+  private List<SipHeader> sipHeaders = null;
+
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
 
@@ -79,7 +90,7 @@ public class CallHangupPayload {
    * State received from a command.
    */
   public enum StateEnum {
-    HANGUP("hangup");
+    HANGUP(String.valueOf("hangup"));
 
     private String value;
 
@@ -111,25 +122,28 @@ public class CallHangupPayload {
   public static final String JSON_PROPERTY_STATE = "state";
   private StateEnum state;
 
+  public static final String JSON_PROPERTY_TAGS = "tags";
+  private List<String> tags = null;
+
   /**
    * The reason the call was ended (&#x60;call_rejected&#x60;, &#x60;normal_clearing&#x60;, &#x60;originator_cancel&#x60;, &#x60;timeout&#x60;, &#x60;time_limit&#x60;, &#x60;user_busy&#x60;, &#x60;not_found&#x60; or &#x60;unspecified&#x60;).
    */
   public enum HangupCauseEnum {
-    CALL_REJECTED("call_rejected"),
+    CALL_REJECTED(String.valueOf("call_rejected")),
     
-    NORMAL_CLEARING("normal_clearing"),
+    NORMAL_CLEARING(String.valueOf("normal_clearing")),
     
-    ORIGINATOR_CANCEL("originator_cancel"),
+    ORIGINATOR_CANCEL(String.valueOf("originator_cancel")),
     
-    TIMEOUT("timeout"),
+    TIMEOUT(String.valueOf("timeout")),
     
-    TIME_LIMIT("time_limit"),
+    TIME_LIMIT(String.valueOf("time_limit")),
     
-    USER_BUSY("user_busy"),
+    USER_BUSY(String.valueOf("user_busy")),
     
-    NOT_FOUND("not_found"),
+    NOT_FOUND(String.valueOf("not_found")),
     
-    UNSPECIFIED("unspecified");
+    UNSPECIFIED(String.valueOf("unspecified"));
 
     private String value;
 
@@ -165,11 +179,11 @@ public class CallHangupPayload {
    * The party who ended the call (&#x60;callee&#x60;, &#x60;caller&#x60;, &#x60;unknown&#x60;).
    */
   public enum HangupSourceEnum {
-    CALLER("caller"),
+    CALLER(String.valueOf("caller")),
     
-    CALLEE("callee"),
+    CALLEE(String.valueOf("callee")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 
@@ -337,6 +351,74 @@ public class CallHangupPayload {
   }
 
 
+  public CallHangupPayload customHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+    return this;
+  }
+
+  public CallHangupPayload addcustomHeadersItem(CustomSipHeader customHeadersItem) {
+    if (this.customHeaders == null) {
+      this.customHeaders = new ArrayList<>();
+    }
+    this.customHeaders.add(customHeadersItem);
+    return this;
+  }
+
+   /**
+   * Custom headers set on answer command
+   * @return customHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"head_1\",\"value\":\"val_1\"},{\"name\":\"head_2\",\"value\":\"val_2\"}]", value = "Custom headers set on answer command")
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<CustomSipHeader> getCustomHeaders() {
+    return customHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCustomHeaders(List<CustomSipHeader> customHeaders) {
+    this.customHeaders = customHeaders;
+  }
+
+
+  public CallHangupPayload sipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+    return this;
+  }
+
+  public CallHangupPayload addsipHeadersItem(SipHeader sipHeadersItem) {
+    if (this.sipHeaders == null) {
+      this.sipHeaders = new ArrayList<>();
+    }
+    this.sipHeaders.add(sipHeadersItem);
+    return this;
+  }
+
+   /**
+   * User-to-User and Diversion headers from sip invite.
+   * @return sipHeaders
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[{\"name\":\"User-to-User\",\"value\":\"1234\"},{\"name\":\"Diversion\",\"value\":\"<sip:111@192.168.1.1>\"}]", value = "User-to-User and Diversion headers from sip invite.")
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SipHeader> getSipHeaders() {
+    return sipHeaders;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SIP_HEADERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSipHeaders(List<SipHeader> sipHeaders) {
+    this.sipHeaders = sipHeaders;
+  }
+
+
   public CallHangupPayload from(String from) {
     this.from = from;
     return this;
@@ -441,6 +523,40 @@ public class CallHangupPayload {
   }
 
 
+  public CallHangupPayload tags(List<String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public CallHangupPayload addtagsItem(String tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+   /**
+   * Array of tags associated to number.
+   * @return tags
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"tag-01\",\"tag-02\"]", value = "Array of tags associated to number.")
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(List<String> tags) {
+    this.tags = tags;
+  }
+
+
   public CallHangupPayload hangupCause(HangupCauseEnum hangupCause) {
     this.hangupCause = hangupCause;
     return this;
@@ -536,10 +652,13 @@ public class CallHangupPayload {
         Objects.equals(this.callLegId, callHangupPayload.callLegId) &&
         Objects.equals(this.callSessionId, callHangupPayload.callSessionId) &&
         Objects.equals(this.clientState, callHangupPayload.clientState) &&
+        Objects.equals(this.customHeaders, callHangupPayload.customHeaders) &&
+        Objects.equals(this.sipHeaders, callHangupPayload.sipHeaders) &&
         Objects.equals(this.from, callHangupPayload.from) &&
         Objects.equals(this.to, callHangupPayload.to) &&
         Objects.equals(this.startTime, callHangupPayload.startTime) &&
         Objects.equals(this.state, callHangupPayload.state) &&
+        Objects.equals(this.tags, callHangupPayload.tags) &&
         Objects.equals(this.hangupCause, callHangupPayload.hangupCause) &&
         Objects.equals(this.hangupSource, callHangupPayload.hangupSource) &&
         Objects.equals(this.sipHangupCause, callHangupPayload.sipHangupCause);
@@ -547,7 +666,7 @@ public class CallHangupPayload {
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, startTime, state, hangupCause, hangupSource, sipHangupCause);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, customHeaders, sipHeaders, from, to, startTime, state, tags, hangupCause, hangupSource, sipHangupCause);
   }
 
   @Override
@@ -559,10 +678,13 @@ public class CallHangupPayload {
     sb.append("    callLegId: ").append(toIndentedString(callLegId)).append("\n");
     sb.append("    callSessionId: ").append(toIndentedString(callSessionId)).append("\n");
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
+    sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+    sb.append("    sipHeaders: ").append(toIndentedString(sipHeaders)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    hangupCause: ").append(toIndentedString(hangupCause)).append("\n");
     sb.append("    hangupSource: ").append(toIndentedString(hangupSource)).append("\n");
     sb.append("    sipHangupCause: ").append(toIndentedString(sipHangupCause)).append("\n");

@@ -24,10 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.PhoneNumberRegulatoryRequirement;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.telnyx.sdk.model.SubNumberOrderRegulatoryRequirementWithValue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -41,14 +40,16 @@ import com.telnyx.sdk.JSON;
   PhoneNumber.JSON_PROPERTY_ID,
   PhoneNumber.JSON_PROPERTY_RECORD_TYPE,
   PhoneNumber.JSON_PROPERTY_PHONE_NUMBER,
-  PhoneNumber.JSON_PROPERTY_REGULATORY_GROUP_ID,
+  PhoneNumber.JSON_PROPERTY_COUNTRY_ISO_ALPHA2,
   PhoneNumber.JSON_PROPERTY_REGULATORY_REQUIREMENTS,
   PhoneNumber.JSON_PROPERTY_REQUIREMENTS_MET,
   PhoneNumber.JSON_PROPERTY_REQUIREMENTS_STATUS,
   PhoneNumber.JSON_PROPERTY_STATUS,
-  PhoneNumber.JSON_PROPERTY_PHONE_NUMBER_TYPE
+  PhoneNumber.JSON_PROPERTY_BUNDLE_ID,
+  PhoneNumber.JSON_PROPERTY_PHONE_NUMBER_TYPE,
+  PhoneNumber.JSON_PROPERTY_COUNTRY_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PhoneNumber {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -59,11 +60,11 @@ public class PhoneNumber {
   public static final String JSON_PROPERTY_PHONE_NUMBER = "phone_number";
   private String phoneNumber;
 
-  public static final String JSON_PROPERTY_REGULATORY_GROUP_ID = "regulatory_group_id";
-  private String regulatoryGroupId;
+  public static final String JSON_PROPERTY_COUNTRY_ISO_ALPHA2 = "country_iso_alpha2";
+  private String countryIsoAlpha2;
 
   public static final String JSON_PROPERTY_REGULATORY_REQUIREMENTS = "regulatory_requirements";
-  private List<PhoneNumberRegulatoryRequirement> regulatoryRequirements = null;
+  private List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements = null;
 
   public static final String JSON_PROPERTY_REQUIREMENTS_MET = "requirements_met";
   private Boolean requirementsMet;
@@ -72,19 +73,19 @@ public class PhoneNumber {
    * Status of document requirements (if applicable)
    */
   public enum RequirementsStatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    APPROVED("approved"),
+    APPROVED(String.valueOf("approved")),
     
-    CANCELLED("cancelled"),
+    CANCELLED(String.valueOf("cancelled")),
     
-    DELETED("deleted"),
+    DELETED(String.valueOf("deleted")),
     
-    REQUIREMENT_INFO_EXCEPTION("requirement-info-exception"),
+    REQUIREMENT_INFO_EXCEPTION(String.valueOf("requirement-info-exception")),
     
-    REQUIREMENT_INFO_PENDING("requirement-info-pending"),
+    REQUIREMENT_INFO_PENDING(String.valueOf("requirement-info-pending")),
     
-    REQUIREMENT_INFO_UNDER_REVIEW("requirement-info-under-review");
+    REQUIREMENT_INFO_UNDER_REVIEW(String.valueOf("requirement-info-under-review"));
 
     private String value;
 
@@ -120,11 +121,11 @@ public class PhoneNumber {
    * The status of the phone number in the order.
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    SUCCESS("success"),
+    SUCCESS(String.valueOf("success")),
     
-    FAILURE("failure");
+    FAILURE(String.valueOf("failure"));
 
     private String value;
 
@@ -156,19 +157,22 @@ public class PhoneNumber {
   public static final String JSON_PROPERTY_STATUS = "status";
   private StatusEnum status;
 
+  public static final String JSON_PROPERTY_BUNDLE_ID = "bundle_id";
+  private UUID bundleId;
+
   /**
    * Phone number type
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    MOBILE("mobile"),
+    MOBILE(String.valueOf("mobile")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    TOLL_FREE("toll_free");
+    TOLL_FREE(String.valueOf("toll_free"));
 
     private String value;
 
@@ -200,6 +204,9 @@ public class PhoneNumber {
   public static final String JSON_PROPERTY_PHONE_NUMBER_TYPE = "phone_number_type";
   private PhoneNumberTypeEnum phoneNumberType;
 
+  public static final String JSON_PROPERTY_COUNTRY_CODE = "country_code";
+  private String countryCode;
+
   public PhoneNumber() { 
   }
 
@@ -207,20 +214,24 @@ public class PhoneNumber {
   public PhoneNumber(
     @JsonProperty(JSON_PROPERTY_ID) UUID id, 
     @JsonProperty(JSON_PROPERTY_RECORD_TYPE) String recordType, 
-    @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID) String regulatoryGroupId, 
+    @JsonProperty(JSON_PROPERTY_COUNTRY_ISO_ALPHA2) String countryIsoAlpha2, 
     @JsonProperty(JSON_PROPERTY_REQUIREMENTS_MET) Boolean requirementsMet, 
     @JsonProperty(JSON_PROPERTY_REQUIREMENTS_STATUS) RequirementsStatusEnum requirementsStatus, 
     @JsonProperty(JSON_PROPERTY_STATUS) StatusEnum status, 
-    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType
+    @JsonProperty(JSON_PROPERTY_BUNDLE_ID) UUID bundleId, 
+    @JsonProperty(JSON_PROPERTY_PHONE_NUMBER_TYPE) PhoneNumberTypeEnum phoneNumberType, 
+    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE) String countryCode
   ) {
     this();
     this.id = id;
     this.recordType = recordType;
-    this.regulatoryGroupId = regulatoryGroupId;
+    this.countryIsoAlpha2 = countryIsoAlpha2;
     this.requirementsMet = requirementsMet;
     this.requirementsStatus = requirementsStatus;
     this.status = status;
+    this.bundleId = bundleId;
     this.phoneNumberType = phoneNumberType;
+    this.countryCode = countryCode;
   }
 
    /**
@@ -282,27 +293,27 @@ public class PhoneNumber {
 
 
    /**
-   * Get regulatoryGroupId
-   * @return regulatoryGroupId
+   * The ISO 3166-1 alpha-2 country code of the phone number.
+   * @return countryIsoAlpha2
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "dc8e4d67-33a0-4cbb-af74-7b58f05bd494", value = "")
-  @JsonProperty(JSON_PROPERTY_REGULATORY_GROUP_ID)
+  @ApiModelProperty(example = "US", value = "The ISO 3166-1 alpha-2 country code of the phone number.")
+  @JsonProperty(JSON_PROPERTY_COUNTRY_ISO_ALPHA2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRegulatoryGroupId() {
-    return regulatoryGroupId;
+  public String getCountryIsoAlpha2() {
+    return countryIsoAlpha2;
   }
 
 
 
 
-  public PhoneNumber regulatoryRequirements(List<PhoneNumberRegulatoryRequirement> regulatoryRequirements) {
+  public PhoneNumber regulatoryRequirements(List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
     return this;
   }
 
-  public PhoneNumber addRegulatoryRequirementsItem(PhoneNumberRegulatoryRequirement regulatoryRequirementsItem) {
+  public PhoneNumber addregulatoryRequirementsItem(SubNumberOrderRegulatoryRequirementWithValue regulatoryRequirementsItem) {
     if (this.regulatoryRequirements == null) {
       this.regulatoryRequirements = new ArrayList<>();
     }
@@ -319,14 +330,14 @@ public class PhoneNumber {
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<PhoneNumberRegulatoryRequirement> getRegulatoryRequirements() {
+  public List<SubNumberOrderRegulatoryRequirementWithValue> getRegulatoryRequirements() {
     return regulatoryRequirements;
   }
 
 
   @JsonProperty(JSON_PROPERTY_REGULATORY_REQUIREMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRegulatoryRequirements(List<PhoneNumberRegulatoryRequirement> regulatoryRequirements) {
+  public void setRegulatoryRequirements(List<SubNumberOrderRegulatoryRequirementWithValue> regulatoryRequirements) {
     this.regulatoryRequirements = regulatoryRequirements;
   }
 
@@ -380,6 +391,22 @@ public class PhoneNumber {
 
 
    /**
+   * Get bundleId
+   * @return bundleId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "bc8e4d67-33a0-4cbb-af74-7b58f05bd494", value = "")
+  @JsonProperty(JSON_PROPERTY_BUNDLE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public UUID getBundleId() {
+    return bundleId;
+  }
+
+
+
+
+   /**
    * Phone number type
    * @return phoneNumberType
   **/
@@ -390,6 +417,22 @@ public class PhoneNumber {
 
   public PhoneNumberTypeEnum getPhoneNumberType() {
     return phoneNumberType;
+  }
+
+
+
+
+   /**
+   * Country code of the phone number
+   * @return countryCode
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "US", value = "Country code of the phone number")
+  @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getCountryCode() {
+    return countryCode;
   }
 
 
@@ -410,17 +453,19 @@ public class PhoneNumber {
     return Objects.equals(this.id, phoneNumber.id) &&
         Objects.equals(this.recordType, phoneNumber.recordType) &&
         Objects.equals(this.phoneNumber, phoneNumber.phoneNumber) &&
-        Objects.equals(this.regulatoryGroupId, phoneNumber.regulatoryGroupId) &&
+        Objects.equals(this.countryIsoAlpha2, phoneNumber.countryIsoAlpha2) &&
         Objects.equals(this.regulatoryRequirements, phoneNumber.regulatoryRequirements) &&
         Objects.equals(this.requirementsMet, phoneNumber.requirementsMet) &&
         Objects.equals(this.requirementsStatus, phoneNumber.requirementsStatus) &&
         Objects.equals(this.status, phoneNumber.status) &&
-        Objects.equals(this.phoneNumberType, phoneNumber.phoneNumberType);
+        Objects.equals(this.bundleId, phoneNumber.bundleId) &&
+        Objects.equals(this.phoneNumberType, phoneNumber.phoneNumberType) &&
+        Objects.equals(this.countryCode, phoneNumber.countryCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, recordType, phoneNumber, regulatoryGroupId, regulatoryRequirements, requirementsMet, requirementsStatus, status, phoneNumberType);
+    return Objects.hash(id, recordType, phoneNumber, countryIsoAlpha2, regulatoryRequirements, requirementsMet, requirementsStatus, status, bundleId, phoneNumberType, countryCode);
   }
 
   @Override
@@ -430,12 +475,14 @@ public class PhoneNumber {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    regulatoryGroupId: ").append(toIndentedString(regulatoryGroupId)).append("\n");
+    sb.append("    countryIsoAlpha2: ").append(toIndentedString(countryIsoAlpha2)).append("\n");
     sb.append("    regulatoryRequirements: ").append(toIndentedString(regulatoryRequirements)).append("\n");
     sb.append("    requirementsMet: ").append(toIndentedString(requirementsMet)).append("\n");
     sb.append("    requirementsStatus: ").append(toIndentedString(requirementsStatus)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    bundleId: ").append(toIndentedString(bundleId)).append("\n");
     sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
+    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

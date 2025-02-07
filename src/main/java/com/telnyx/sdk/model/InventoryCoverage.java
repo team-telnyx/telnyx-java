@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -42,9 +40,11 @@ import com.telnyx.sdk.JSON;
   InventoryCoverage.JSON_PROPERTY_PHONE_NUMBER_TYPE,
   InventoryCoverage.JSON_PROPERTY_COVERAGE_TYPE,
   InventoryCoverage.JSON_PROPERTY_RECORD_TYPE,
-  InventoryCoverage.JSON_PROPERTY_COUNT
+  InventoryCoverage.JSON_PROPERTY_ADMINISTRATIVE_AREA,
+  InventoryCoverage.JSON_PROPERTY_COUNT,
+  InventoryCoverage.JSON_PROPERTY_ADVANCE_REQUIREMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class InventoryCoverage {
   public static final String JSON_PROPERTY_GROUP = "group";
   private String group;
@@ -59,9 +59,9 @@ public class InventoryCoverage {
    * Gets or Sets numberType
    */
   public enum NumberTypeEnum {
-    DID("did"),
+    DID(String.valueOf("did")),
     
-    TOLL_FREE("toll-free");
+    TOLL_FREE(String.valueOf("toll-free"));
 
     private String value;
 
@@ -97,17 +97,17 @@ public class InventoryCoverage {
    * Gets or Sets phoneNumberType
    */
   public enum PhoneNumberTypeEnum {
-    LOCAL("local"),
+    LOCAL(String.valueOf("local")),
     
-    TOLL_FREE("toll_free"),
+    TOLL_FREE(String.valueOf("toll_free")),
     
-    NATIONAL("national"),
+    NATIONAL(String.valueOf("national")),
     
-    LANDLINE("landline"),
+    LANDLINE(String.valueOf("landline")),
     
-    SHARED_COST("shared_cost"),
+    SHARED_COST(String.valueOf("shared_cost")),
     
-    MOBILE("mobile");
+    MOBILE(String.valueOf("mobile"));
 
     private String value;
 
@@ -143,9 +143,9 @@ public class InventoryCoverage {
    * Gets or Sets coverageType
    */
   public enum CoverageTypeEnum {
-    NUMBER("number"),
+    NUMBER(String.valueOf("number")),
     
-    BLOCK("block");
+    BLOCK(String.valueOf("block"));
 
     private String value;
 
@@ -180,8 +180,14 @@ public class InventoryCoverage {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
 
+  public static final String JSON_PROPERTY_ADMINISTRATIVE_AREA = "administrative_area";
+  private String administrativeArea;
+
   public static final String JSON_PROPERTY_COUNT = "count";
   private Integer count;
+
+  public static final String JSON_PROPERTY_ADVANCE_REQUIREMENTS = "advance_requirements";
+  private Boolean advanceRequirements;
 
   public InventoryCoverage() { 
   }
@@ -368,6 +374,32 @@ public class InventoryCoverage {
   }
 
 
+  public InventoryCoverage administrativeArea(String administrativeArea) {
+    this.administrativeArea = administrativeArea;
+    return this;
+  }
+
+   /**
+   * Get administrativeArea
+   * @return administrativeArea
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "NJ", value = "")
+  @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAdministrativeArea() {
+    return administrativeArea;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ADMINISTRATIVE_AREA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAdministrativeArea(String administrativeArea) {
+    this.administrativeArea = administrativeArea;
+  }
+
+
   public InventoryCoverage count(Integer count) {
     this.count = count;
     return this;
@@ -394,6 +426,32 @@ public class InventoryCoverage {
   }
 
 
+  public InventoryCoverage advanceRequirements(Boolean advanceRequirements) {
+    this.advanceRequirements = advanceRequirements;
+    return this;
+  }
+
+   /**
+   * Indicates if the phone number requires advance requirements.
+   * @return advanceRequirements
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "true", value = "Indicates if the phone number requires advance requirements.")
+  @JsonProperty(JSON_PROPERTY_ADVANCE_REQUIREMENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getAdvanceRequirements() {
+    return advanceRequirements;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ADVANCE_REQUIREMENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAdvanceRequirements(Boolean advanceRequirements) {
+    this.advanceRequirements = advanceRequirements;
+  }
+
+
   /**
    * Return true if this InventoryCoverage object is equal to o.
    */
@@ -413,12 +471,14 @@ public class InventoryCoverage {
         Objects.equals(this.phoneNumberType, inventoryCoverage.phoneNumberType) &&
         Objects.equals(this.coverageType, inventoryCoverage.coverageType) &&
         Objects.equals(this.recordType, inventoryCoverage.recordType) &&
-        Objects.equals(this.count, inventoryCoverage.count);
+        Objects.equals(this.administrativeArea, inventoryCoverage.administrativeArea) &&
+        Objects.equals(this.count, inventoryCoverage.count) &&
+        Objects.equals(this.advanceRequirements, inventoryCoverage.advanceRequirements);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(group, groupType, numberRange, numberType, phoneNumberType, coverageType, recordType, count);
+    return Objects.hash(group, groupType, numberRange, numberType, phoneNumberType, coverageType, recordType, administrativeArea, count, advanceRequirements);
   }
 
   @Override
@@ -432,7 +492,9 @@ public class InventoryCoverage {
     sb.append("    phoneNumberType: ").append(toIndentedString(phoneNumberType)).append("\n");
     sb.append("    coverageType: ").append(toIndentedString(coverageType)).append("\n");
     sb.append("    recordType: ").append(toIndentedString(recordType)).append("\n");
+    sb.append("    administrativeArea: ").append(toIndentedString(administrativeArea)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    advanceRequirements: ").append(toIndentedString(advanceRequirements)).append("\n");
     sb.append("}");
     return sb.toString();
   }

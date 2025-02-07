@@ -25,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.FaxSendingStartedPayload;
+import com.telnyx.sdk.model.RecordType;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,10 +41,10 @@ import com.telnyx.sdk.JSON;
   FaxSendingStarted.JSON_PROPERTY_EVENT_TYPE,
   FaxSendingStarted.JSON_PROPERTY_PAYLOAD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class FaxSendingStarted {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
-  private String recordType;
+  private RecordType recordType;
 
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -54,7 +53,7 @@ public class FaxSendingStarted {
    * The type of event being delivered.
    */
   public enum EventTypeEnum {
-    FAX_SENDING_STARTED("fax.sending.started");
+    FAX_SENDING_STARTED(String.valueOf("fax.sending.started"));
 
     private String value;
 
@@ -92,28 +91,28 @@ public class FaxSendingStarted {
   public FaxSendingStarted() { 
   }
 
-  public FaxSendingStarted recordType(String recordType) {
+  public FaxSendingStarted recordType(RecordType recordType) {
     this.recordType = recordType;
     return this;
   }
 
    /**
-   * Identifies record type.
+   * Get recordType
    * @return recordType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Identifies record type.")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRecordType() {
+  public RecordType getRecordType() {
     return recordType;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRecordType(String recordType) {
+  public void setRecordType(RecordType recordType) {
     this.recordType = recordType;
   }
 

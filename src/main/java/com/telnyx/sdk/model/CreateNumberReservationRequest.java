@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.ReservedPhoneNumber;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   CreateNumberReservationRequest.JSON_PROPERTY_CREATED_AT,
   CreateNumberReservationRequest.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateNumberReservationRequest {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -62,11 +60,11 @@ public class CreateNumberReservationRequest {
    * The status of the entire reservation.
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    SUCCESS("success"),
+    SUCCESS(String.valueOf("success")),
     
-    FAILURE("failure");
+    FAILURE(String.valueOf("failure"));
 
     private String value;
 
@@ -163,7 +161,7 @@ public class CreateNumberReservationRequest {
     return this;
   }
 
-  public CreateNumberReservationRequest addPhoneNumbersItem(ReservedPhoneNumber phoneNumbersItem) {
+  public CreateNumberReservationRequest addphoneNumbersItem(ReservedPhoneNumber phoneNumbersItem) {
     if (this.phoneNumbers == null) {
       this.phoneNumbers = new ArrayList<>();
     }

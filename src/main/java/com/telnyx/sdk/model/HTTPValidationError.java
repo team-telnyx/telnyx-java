@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.ValidationError;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   HTTPValidationError.JSON_PROPERTY_DETAIL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class HTTPValidationError {
   public static final String JSON_PROPERTY_DETAIL = "detail";
   private List<ValidationError> detail = null;
@@ -53,7 +51,7 @@ public class HTTPValidationError {
     return this;
   }
 
-  public HTTPValidationError addDetailItem(ValidationError detailItem) {
+  public HTTPValidationError adddetailItem(ValidationError detailItem) {
     if (this.detail == null) {
       this.detail = new ArrayList<>();
     }

@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   MobileNetworkOperatorPreferencesResponse.JSON_PROPERTY_MOBILE_NETWORK_OPERATOR_NAME,
   MobileNetworkOperatorPreferencesResponse.JSON_PROPERTY_PRIORITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MobileNetworkOperatorPreferencesResponse {
   public static final String JSON_PROPERTY_MOBILE_NETWORK_OPERATOR_ID = "mobile_network_operator_id";
   private UUID mobileNetworkOperatorId;

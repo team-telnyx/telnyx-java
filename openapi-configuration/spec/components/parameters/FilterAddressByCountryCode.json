@@ -1,9 +1,0 @@
-{
-  "name": "filter[address.country_code]",
-  "description": "Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code.",
-  "schema": {
-    "type": "string",
-    "example": "US"
-  },
-  "in": "query"
-}

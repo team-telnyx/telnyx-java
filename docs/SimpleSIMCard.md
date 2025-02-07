@@ -17,7 +17,7 @@
 |**simCardGroupId** | **UUID** | The group SIMCardGroup identification. This attribute can be &lt;code&gt;null&lt;/code&gt; when it&#39;s present in an associated resource. |  [optional] |
 |**tags** | **List&lt;String&gt;** | Searchable tags associated with the SIM card |  [optional] |
 |**dataLimit** | [**SimpleSIMCardDataLimit**](SimpleSIMCardDataLimit.md) |  |  [optional] |
-|**currentBillingPeriodConsumedData** | [**SIMCardCurrentBillingPeriodConsumedData**](SIMCardCurrentBillingPeriodConsumedData.md) |  |  [optional] |
+|**currentBillingPeriodConsumedData** | [**SimpleSIMCardCurrentBillingPeriodConsumedData**](SimpleSIMCardCurrentBillingPeriodConsumedData.md) |  |  [optional] |
 |**actionsInProgress** | **Boolean** | Indicate whether the SIM card has any pending (in-progress) actions. |  [optional] [readonly] |
 |**createdAt** | **String** | ISO 8601 formatted date-time indicating when the resource was created. |  [optional] [readonly] |
 |**updatedAt** | **String** | ISO 8601 formatted date-time indicating when the resource was updated. |  [optional] [readonly] |

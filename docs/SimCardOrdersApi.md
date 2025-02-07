@@ -79,6 +79,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -190,12 +191,12 @@ public class Example {
         String filterCostAmount = "2.53"; // String | The total monetary amount of the order.
         String filterCostCurrency = "USD"; // String | Filter by ISO 4217 currency string.
         String filterAddressId = "1293384261075731499"; // String | Uniquely identifies the address for the order.
-        String filterAddressStreetAddress = "311 W Superior St"; // String | Returns entries with matching name of the street where the address is located.
-        String filterAddressExtendedAddress = "Suite 504"; // String | Returns entries with matching name of the supplemental field for address information.
-        String filterAddressLocality = "Chicago"; // String | Filter by the name of the city where the address is located.
-        String filterAddressAdministrativeArea = "IL"; // String | Filter by state or province where the address is located.
+        String filterAddressStreetAddress = "600 Congress Avenue"; // String | Returns entries with matching name of the street where the address is located.
+        String filterAddressExtendedAddress = "14th Floor"; // String | Returns entries with matching name of the supplemental field for address information.
+        String filterAddressLocality = "Austin"; // String | Filter by the name of the city where the address is located.
+        String filterAddressAdministrativeArea = "TX"; // String | Filter by state or province where the address is located.
         String filterAddressCountryCode = "US"; // String | Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code.
-        String filterAddressPostalCode = "60654"; // String | Filter by postal code for the address.
+        String filterAddressPostalCode = "78701"; // String | Filter by postal code for the address.
         Integer pageNumber = 1; // Integer | The page number to load
         Integer pageSize = 20; // Integer | The size of the page
         try {
@@ -248,7 +249,8 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful response |  -  |
+| **200** | Successful Response |  -  |
+| **401** | Unauthorized |  -  |
 | **0** | Unexpected error |  -  |
 
 
@@ -319,6 +321,6 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successful response |  -  |
+| **202** | Successful Response |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
 

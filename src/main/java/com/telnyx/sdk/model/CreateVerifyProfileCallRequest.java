@@ -24,10 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -35,51 +36,55 @@ import com.telnyx.sdk.JSON;
  * CreateVerifyProfileCallRequest
  */
 @JsonPropertyOrder({
-  CreateVerifyProfileCallRequest.JSON_PROPERTY_MSG_TEMPLATE,
+  CreateVerifyProfileCallRequest.JSON_PROPERTY_MESSAGING_TEMPLATE_ID,
   CreateVerifyProfileCallRequest.JSON_PROPERTY_APP_NAME,
-  CreateVerifyProfileCallRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS,
-  CreateVerifyProfileCallRequest.JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS
+  CreateVerifyProfileCallRequest.JSON_PROPERTY_CODE_LENGTH,
+  CreateVerifyProfileCallRequest.JSON_PROPERTY_WHITELISTED_DESTINATIONS,
+  CreateVerifyProfileCallRequest.JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateVerifyProfileCallRequest {
-  public static final String JSON_PROPERTY_MSG_TEMPLATE = "msg_template";
-  private String msgTemplate;
+  public static final String JSON_PROPERTY_MESSAGING_TEMPLATE_ID = "messaging_template_id";
+  private UUID messagingTemplateId;
 
   public static final String JSON_PROPERTY_APP_NAME = "app_name";
   private String appName;
 
-  public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
-  private Integer defaultVerificationTimeoutSecs;
+  public static final String JSON_PROPERTY_CODE_LENGTH = "code_length";
+  private Integer codeLength = 5;
 
-  public static final String JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS = "default_call_timeout_secs";
-  private Integer defaultCallTimeoutSecs = 45;
+  public static final String JSON_PROPERTY_WHITELISTED_DESTINATIONS = "whitelisted_destinations";
+  private List<String> whitelistedDestinations = null;
+
+  public static final String JSON_PROPERTY_DEFAULT_VERIFICATION_TIMEOUT_SECS = "default_verification_timeout_secs";
+  private Integer defaultVerificationTimeoutSecs = 300;
 
   public CreateVerifyProfileCallRequest() { 
   }
 
-  public CreateVerifyProfileCallRequest msgTemplate(String msgTemplate) {
-    this.msgTemplate = msgTemplate;
+  public CreateVerifyProfileCallRequest messagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
     return this;
   }
 
    /**
-   * Optionally sets a speech text template when sending the verification code. Uses &#x60;{code}&#x60; to template in the actual verification code.
-   * @return msgTemplate
+   * The message template identifier selected from /verify_profiles/templates
+   * @return messagingTemplateId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Hello, this is the Acme Inc verification code you requested: {code}.", value = "Optionally sets a speech text template when sending the verification code. Uses `{code}` to template in the actual verification code.")
-  @JsonProperty(JSON_PROPERTY_MSG_TEMPLATE)
+  @ApiModelProperty(example = "0abb5b4f-459f-445a-bfcd-488998b7572d", value = "The message template identifier selected from /verify_profiles/templates")
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getMsgTemplate() {
-    return msgTemplate;
+  public UUID getMessagingTemplateId() {
+    return messagingTemplateId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MSG_TEMPLATE)
+  @JsonProperty(JSON_PROPERTY_MESSAGING_TEMPLATE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMsgTemplate(String msgTemplate) {
-    this.msgTemplate = msgTemplate;
+  public void setMessagingTemplateId(UUID messagingTemplateId) {
+    this.messagingTemplateId = messagingTemplateId;
   }
 
 
@@ -109,6 +114,66 @@ public class CreateVerifyProfileCallRequest {
   }
 
 
+  public CreateVerifyProfileCallRequest codeLength(Integer codeLength) {
+    this.codeLength = codeLength;
+    return this;
+  }
+
+   /**
+   * The length of the verify code to generate.
+   * @return codeLength
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "6", value = "The length of the verify code to generate.")
+  @JsonProperty(JSON_PROPERTY_CODE_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getCodeLength() {
+    return codeLength;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CODE_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCodeLength(Integer codeLength) {
+    this.codeLength = codeLength;
+  }
+
+
+  public CreateVerifyProfileCallRequest whitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+    return this;
+  }
+
+  public CreateVerifyProfileCallRequest addwhitelistedDestinationsItem(String whitelistedDestinationsItem) {
+    if (this.whitelistedDestinations == null) {
+      this.whitelistedDestinations = new ArrayList<>();
+    }
+    this.whitelistedDestinations.add(whitelistedDestinationsItem);
+    return this;
+  }
+
+   /**
+   * Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to &#x60;[\&quot;*\&quot;]&#x60;, all destinations will be allowed.
+   * @return whitelistedDestinations
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "[\"US\",\"CA\"]", value = "Enabled country destinations to send verification codes. The elements in the list must be valid ISO 3166-1 alpha-2 country codes. If set to `[\"*\"]`, all destinations will be allowed.")
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getWhitelistedDestinations() {
+    return whitelistedDestinations;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WHITELISTED_DESTINATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWhitelistedDestinations(List<String> whitelistedDestinations) {
+    this.whitelistedDestinations = whitelistedDestinations;
+  }
+
+
   public CreateVerifyProfileCallRequest defaultVerificationTimeoutSecs(Integer defaultVerificationTimeoutSecs) {
     this.defaultVerificationTimeoutSecs = defaultVerificationTimeoutSecs;
     return this;
@@ -135,32 +200,6 @@ public class CreateVerifyProfileCallRequest {
   }
 
 
-  public CreateVerifyProfileCallRequest defaultCallTimeoutSecs(Integer defaultCallTimeoutSecs) {
-    this.defaultCallTimeoutSecs = defaultCallTimeoutSecs;
-    return this;
-  }
-
-   /**
-   * Must be less than default_verification_timeout_secs
-   * @return defaultCallTimeoutSecs
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "30", value = "Must be less than default_verification_timeout_secs")
-  @JsonProperty(JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getDefaultCallTimeoutSecs() {
-    return defaultCallTimeoutSecs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DEFAULT_CALL_TIMEOUT_SECS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDefaultCallTimeoutSecs(Integer defaultCallTimeoutSecs) {
-    this.defaultCallTimeoutSecs = defaultCallTimeoutSecs;
-  }
-
-
   /**
    * Return true if this CreateVerifyProfileCallRequest object is equal to o.
    */
@@ -173,25 +212,27 @@ public class CreateVerifyProfileCallRequest {
       return false;
     }
     CreateVerifyProfileCallRequest createVerifyProfileCallRequest = (CreateVerifyProfileCallRequest) o;
-    return Objects.equals(this.msgTemplate, createVerifyProfileCallRequest.msgTemplate) &&
+    return Objects.equals(this.messagingTemplateId, createVerifyProfileCallRequest.messagingTemplateId) &&
         Objects.equals(this.appName, createVerifyProfileCallRequest.appName) &&
-        Objects.equals(this.defaultVerificationTimeoutSecs, createVerifyProfileCallRequest.defaultVerificationTimeoutSecs) &&
-        Objects.equals(this.defaultCallTimeoutSecs, createVerifyProfileCallRequest.defaultCallTimeoutSecs);
+        Objects.equals(this.codeLength, createVerifyProfileCallRequest.codeLength) &&
+        Objects.equals(this.whitelistedDestinations, createVerifyProfileCallRequest.whitelistedDestinations) &&
+        Objects.equals(this.defaultVerificationTimeoutSecs, createVerifyProfileCallRequest.defaultVerificationTimeoutSecs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(msgTemplate, appName, defaultVerificationTimeoutSecs, defaultCallTimeoutSecs);
+    return Objects.hash(messagingTemplateId, appName, codeLength, whitelistedDestinations, defaultVerificationTimeoutSecs);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateVerifyProfileCallRequest {\n");
-    sb.append("    msgTemplate: ").append(toIndentedString(msgTemplate)).append("\n");
+    sb.append("    messagingTemplateId: ").append(toIndentedString(messagingTemplateId)).append("\n");
     sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
+    sb.append("    codeLength: ").append(toIndentedString(codeLength)).append("\n");
+    sb.append("    whitelistedDestinations: ").append(toIndentedString(whitelistedDestinations)).append("\n");
     sb.append("    defaultVerificationTimeoutSecs: ").append(toIndentedString(defaultVerificationTimeoutSecs)).append("\n");
-    sb.append("    defaultCallTimeoutSecs: ").append(toIndentedString(defaultCallTimeoutSecs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

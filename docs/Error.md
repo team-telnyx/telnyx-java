@@ -7,9 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**code** | **Integer** |  |  [optional] |
-|**title** | **String** |  |  [optional] |
+|**code** | **Integer** |  |  |
+|**title** | **String** |  |  |
 |**detail** | **String** |  |  [optional] |
+|**source** | [**UpdateOutboundChannelsDefaultResponseErrorsInnerSource**](UpdateOutboundChannelsDefaultResponseErrorsInnerSource.md) |  |  [optional] |
+|**meta** | **Object** |  |  [optional] |
 
 
 

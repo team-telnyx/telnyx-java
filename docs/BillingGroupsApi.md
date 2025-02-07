@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 Create a billing group
 
+
+
 ### Example
 
 ```java
@@ -39,7 +41,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         BillingGroupsApi apiInstance = new BillingGroupsApi(defaultClient);
-        NewBillingGroup newBillingGroup = new NewBillingGroup(); // NewBillingGroup | New billing group object
+        NewBillingGroup newBillingGroup = new NewBillingGroup(); // NewBillingGroup | 
         try {
             CreateBillingGroup200Response result = apiInstance.createBillingGroup(newBillingGroup);
             System.out.println(result);
@@ -59,7 +61,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **newBillingGroup** | [**NewBillingGroup**](NewBillingGroup.md)| New billing group object |
+ **newBillingGroup** | [**NewBillingGroup**](NewBillingGroup.md)|  |
 
 ### Return type
 
@@ -78,7 +80,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected billing group response to a valid request |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## deleteBillingGroup
@@ -86,6 +88,8 @@ Name | Type | Description  | Notes
 > CreateBillingGroup200Response deleteBillingGroup(id)
 
 Delete a billing group
+
+
 
 ### Example
 
@@ -109,7 +113,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         BillingGroupsApi apiInstance = new BillingGroupsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the billing group
+        UUID id = UUID.fromString("f5586561-8ff0-4291-a0ac-84fe544797bd"); // UUID | The id of the billing group
         try {
             CreateBillingGroup200Response result = apiInstance.deleteBillingGroup(id);
             System.out.println(result);
@@ -148,7 +152,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected billing group response to a valid request |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## getBillingGroup
@@ -156,6 +160,8 @@ Name | Type | Description  | Notes
 > CreateBillingGroup200Response getBillingGroup(id)
 
 Get a billing group
+
+
 
 ### Example
 
@@ -179,7 +185,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         BillingGroupsApi apiInstance = new BillingGroupsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the billing group
+        UUID id = UUID.fromString("f5586561-8ff0-4291-a0ac-84fe544797bd"); // UUID | The id of the billing group
         try {
             CreateBillingGroup200Response result = apiInstance.getBillingGroup(id);
             System.out.println(result);
@@ -218,7 +224,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected billing group response to a valid request |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## listBillingGroups
@@ -226,6 +232,8 @@ Name | Type | Description  | Notes
 > ListBillingGroups200Response listBillingGroups(pageNumber, pageSize)
 
 List all billing groups
+
+
 
 ### Example
 
@@ -289,7 +297,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A paginated array of billing groups |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## updateBillingGroup
@@ -297,6 +305,8 @@ Name | Type | Description  | Notes
 > CreateBillingGroup200Response updateBillingGroup(id, updateBillingGroup)
 
 Update a billing group
+
+
 
 ### Example
 
@@ -320,8 +330,8 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         BillingGroupsApi apiInstance = new BillingGroupsApi(defaultClient);
-        UUID id = UUID.randomUUID(); // UUID | The id of the billing group
-        UpdateBillingGroup updateBillingGroup = new UpdateBillingGroup(); // UpdateBillingGroup | Update billing group object
+        UUID id = UUID.fromString("f5586561-8ff0-4291-a0ac-84fe544797bd"); // UUID | The id of the billing group
+        UpdateBillingGroup updateBillingGroup = new UpdateBillingGroup(); // UpdateBillingGroup | 
         try {
             CreateBillingGroup200Response result = apiInstance.updateBillingGroup(id, updateBillingGroup);
             System.out.println(result);
@@ -342,7 +352,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| The id of the billing group |
- **updateBillingGroup** | [**UpdateBillingGroup**](UpdateBillingGroup.md)| Update billing group object |
+ **updateBillingGroup** | [**UpdateBillingGroup**](UpdateBillingGroup.md)|  |
 
 ### Return type
 
@@ -361,5 +371,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Expected billing group response to a valid request |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 

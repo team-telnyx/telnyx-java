@@ -38,6 +38,9 @@ CampaignRequest object describes the campaign to be submitted via '/campaignBuil
 |**subscriberOptout** | **Boolean** | Does campaign support subscriber opt-out keyword(s)? |  [optional] |
 |**tag** | **Set&lt;String&gt;** | Tags to be set on the Campaign. |  [optional] |
 |**termsAndConditions** | **Boolean** | Is terms and conditions accepted? |  [optional] |
+|**privacyPolicyLink** | **String** | Link to the campaign&#39;s privacy policy. |  [optional] |
+|**termsAndConditionsLink** | **String** | Link to the campaign&#39;s terms and conditions. |  [optional] |
+|**embeddedLinkSample** | **String** | Sample of an embedded link that will be sent to subscribers. |  [optional] |
 |**usecase** | **String** | Campaign usecase. Must be of defined valid types. Use &#x60;/registry/enum/usecase&#x60; operation to retrieve usecases available for given brand. |  |
 |**webhookURL** | **String** | Webhook to which campaign status updates are sent. |  [optional] |
 |**webhookFailoverURL** | **String** | Failover webhook to which campaign status updates are sent. |  [optional] |

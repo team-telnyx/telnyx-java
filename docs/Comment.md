@@ -32,9 +32,8 @@
 
 | Name | Value |
 |---- | -----|
-| NUMBER_ORDER | &quot;number_order&quot; |
 | SUB_NUMBER_ORDER | &quot;sub_number_order&quot; |
-| NUMBER_ORDER_PHONE_NUMBER | &quot;number_order_phone_number&quot; |
+| REQUIREMENT_GROUP | &quot;requirement_group&quot; |
 
 
 

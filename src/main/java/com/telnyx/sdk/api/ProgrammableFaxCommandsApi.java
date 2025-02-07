@@ -13,7 +13,6 @@ import com.telnyx.sdk.model.GetFaxResponse;
 import com.telnyx.sdk.model.ListFaxesResponse;
 import java.time.OffsetDateTime;
 import com.telnyx.sdk.model.RefreshFaxResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.SendFaxRequest;
 import com.telnyx.sdk.model.SendFaxResponse;
 import com.telnyx.sdk.model.SuccessfulResponseUponAcceptingCancelFaxCommand;
@@ -24,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ProgrammableFaxCommandsApi {
   private ApiClient apiClient;
 
@@ -64,7 +63,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
@@ -83,7 +82,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 202 </td><td> Successful response upon accepting cancel fax command </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
@@ -294,7 +293,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
@@ -312,7 +311,7 @@ public class ProgrammableFaxCommandsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Refresh fax response </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */

@@ -30,8 +30,6 @@ import com.telnyx.sdk.model.CnamListing;
 import com.telnyx.sdk.model.MediaFeatures;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,6 +39,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_TECH_PREFIX_ENABLED,
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_TRANSLATED_NUMBER,
+  UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALLER_ID_NAME_ENABLED,
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_FORWARDING,
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CNAM_LISTING,
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_USAGE_PAYMENT_METHOD,
@@ -48,13 +47,16 @@ import com.telnyx.sdk.JSON;
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_CALL_RECORDING,
   UpdatePhoneNumberVoiceSettingsRequest.JSON_PROPERTY_INBOUND_CALL_SCREENING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdatePhoneNumberVoiceSettingsRequest {
   public static final String JSON_PROPERTY_TECH_PREFIX_ENABLED = "tech_prefix_enabled";
   private Boolean techPrefixEnabled = false;
 
   public static final String JSON_PROPERTY_TRANSLATED_NUMBER = "translated_number";
   private String translatedNumber;
+
+  public static final String JSON_PROPERTY_CALLER_ID_NAME_ENABLED = "caller_id_name_enabled";
+  private Boolean callerIdNameEnabled = false;
 
   public static final String JSON_PROPERTY_CALL_FORWARDING = "call_forwarding";
   private CallForwarding callForwarding;
@@ -66,9 +68,9 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
    * Controls whether a number is billed per minute or uses your concurrent channels.
    */
   public enum UsagePaymentMethodEnum {
-    PAY_PER_MINUTE("pay-per-minute"),
+    PAY_PER_MINUTE(String.valueOf("pay-per-minute")),
     
-    CHANNEL("channel");
+    CHANNEL(String.valueOf("channel"));
 
     private String value;
 
@@ -110,11 +112,11 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
    * The inbound_call_screening setting is a phone number configuration option variable that allows users to configure their settings to block or flag fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost associated with it.
    */
   public enum InboundCallScreeningEnum {
-    DISABLED("disabled"),
+    DISABLED(String.valueOf("disabled")),
     
-    REJECT_CALLS("reject_calls"),
+    REJECT_CALLS(String.valueOf("reject_calls")),
     
-    FLAG_CALLS("flag_calls");
+    FLAG_CALLS(String.valueOf("flag_calls"));
 
     private String value;
 
@@ -198,6 +200,32 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTranslatedNumber(String translatedNumber) {
     this.translatedNumber = translatedNumber;
+  }
+
+
+  public UpdatePhoneNumberVoiceSettingsRequest callerIdNameEnabled(Boolean callerIdNameEnabled) {
+    this.callerIdNameEnabled = callerIdNameEnabled;
+    return this;
+  }
+
+   /**
+   * Controls whether the caller ID name is enabled for this phone number.
+   * @return callerIdNameEnabled
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Controls whether the caller ID name is enabled for this phone number.")
+  @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCallerIdNameEnabled() {
+    return callerIdNameEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CALLER_ID_NAME_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCallerIdNameEnabled(Boolean callerIdNameEnabled) {
+    this.callerIdNameEnabled = callerIdNameEnabled;
   }
 
 
@@ -371,6 +399,7 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
     UpdatePhoneNumberVoiceSettingsRequest updatePhoneNumberVoiceSettingsRequest = (UpdatePhoneNumberVoiceSettingsRequest) o;
     return Objects.equals(this.techPrefixEnabled, updatePhoneNumberVoiceSettingsRequest.techPrefixEnabled) &&
         Objects.equals(this.translatedNumber, updatePhoneNumberVoiceSettingsRequest.translatedNumber) &&
+        Objects.equals(this.callerIdNameEnabled, updatePhoneNumberVoiceSettingsRequest.callerIdNameEnabled) &&
         Objects.equals(this.callForwarding, updatePhoneNumberVoiceSettingsRequest.callForwarding) &&
         Objects.equals(this.cnamListing, updatePhoneNumberVoiceSettingsRequest.cnamListing) &&
         Objects.equals(this.usagePaymentMethod, updatePhoneNumberVoiceSettingsRequest.usagePaymentMethod) &&
@@ -381,7 +410,7 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(techPrefixEnabled, translatedNumber, callForwarding, cnamListing, usagePaymentMethod, mediaFeatures, callRecording, inboundCallScreening);
+    return Objects.hash(techPrefixEnabled, translatedNumber, callerIdNameEnabled, callForwarding, cnamListing, usagePaymentMethod, mediaFeatures, callRecording, inboundCallScreening);
   }
 
   @Override
@@ -390,6 +419,7 @@ public class UpdatePhoneNumberVoiceSettingsRequest {
     sb.append("class UpdatePhoneNumberVoiceSettingsRequest {\n");
     sb.append("    techPrefixEnabled: ").append(toIndentedString(techPrefixEnabled)).append("\n");
     sb.append("    translatedNumber: ").append(toIndentedString(translatedNumber)).append("\n");
+    sb.append("    callerIdNameEnabled: ").append(toIndentedString(callerIdNameEnabled)).append("\n");
     sb.append("    callForwarding: ").append(toIndentedString(callForwarding)).append("\n");
     sb.append("    cnamListing: ").append(toIndentedString(cnamListing)).append("\n");
     sb.append("    usagePaymentMethod: ").append(toIndentedString(usagePaymentMethod)).append("\n");

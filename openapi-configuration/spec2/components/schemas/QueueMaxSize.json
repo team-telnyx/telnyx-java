@@ -1,8 +1,0 @@
-{
-  "type": "integer",
-  "description": "Maximum number of calls that can be in the queue at once",
-  "minimum": 1,
-  "maximum": 300,
-  "default": 300,
-  "example": 100
-}

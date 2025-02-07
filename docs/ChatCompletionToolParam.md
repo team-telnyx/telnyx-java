@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**function** | [**FunctionDefinition**](FunctionDefinition.md) |  |  |
 |**type** | [**TypeEnum**](#TypeEnum) |  |  |
+|**function** | [**FunctionDefinition**](FunctionDefinition.md) |  |  |
 
 
 

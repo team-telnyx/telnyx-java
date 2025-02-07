@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Answered Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallAnswered.json"
-    }
-  }
-}

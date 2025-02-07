@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -41,10 +39,9 @@ import com.telnyx.sdk.JSON;
   CallBridgedPayload.JSON_PROPERTY_CALL_SESSION_ID,
   CallBridgedPayload.JSON_PROPERTY_CLIENT_STATE,
   CallBridgedPayload.JSON_PROPERTY_FROM,
-  CallBridgedPayload.JSON_PROPERTY_TO,
-  CallBridgedPayload.JSON_PROPERTY_STATE
+  CallBridgedPayload.JSON_PROPERTY_TO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallBridgedPayload {
   public static final String JSON_PROPERTY_CALL_CONTROL_ID = "call_control_id";
   private String callControlId;
@@ -66,42 +63,6 @@ public class CallBridgedPayload {
 
   public static final String JSON_PROPERTY_TO = "to";
   private String to;
-
-  /**
-   * State received from a command.
-   */
-  public enum StateEnum {
-    BRIDGED("bridged");
-
-    private String value;
-
-    StateEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StateEnum fromValue(String value) {
-      for (StateEnum b : StateEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_STATE = "state";
-  private StateEnum state;
 
   public CallBridgedPayload() { 
   }
@@ -288,32 +249,6 @@ public class CallBridgedPayload {
   }
 
 
-  public CallBridgedPayload state(StateEnum state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * State received from a command.
-   * @return state
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "bridged", value = "State received from a command.")
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StateEnum getState() {
-    return state;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(StateEnum state) {
-    this.state = state;
-  }
-
-
   /**
    * Return true if this CallBridged_payload object is equal to o.
    */
@@ -332,13 +267,12 @@ public class CallBridgedPayload {
         Objects.equals(this.callSessionId, callBridgedPayload.callSessionId) &&
         Objects.equals(this.clientState, callBridgedPayload.clientState) &&
         Objects.equals(this.from, callBridgedPayload.from) &&
-        Objects.equals(this.to, callBridgedPayload.to) &&
-        Objects.equals(this.state, callBridgedPayload.state);
+        Objects.equals(this.to, callBridgedPayload.to);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to, state);
+    return Objects.hash(callControlId, connectionId, callLegId, callSessionId, clientState, from, to);
   }
 
   @Override
@@ -352,7 +286,6 @@ public class CallBridgedPayload {
     sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("}");
     return sb.toString();
   }

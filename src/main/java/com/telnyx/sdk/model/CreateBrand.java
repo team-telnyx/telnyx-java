@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.StockExchange;
 import com.telnyx.sdk.model.Vertical;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -58,9 +56,12 @@ import com.telnyx.sdk.JSON;
   CreateBrand.JSON_PROPERTY_VERTICAL,
   CreateBrand.JSON_PROPERTY_IS_RESELLER,
   CreateBrand.JSON_PROPERTY_MOCK,
-  CreateBrand.JSON_PROPERTY_MOBILE_PHONE
+  CreateBrand.JSON_PROPERTY_MOBILE_PHONE,
+  CreateBrand.JSON_PROPERTY_BUSINESS_CONTACT_EMAIL,
+  CreateBrand.JSON_PROPERTY_WEBHOOK_U_R_L,
+  CreateBrand.JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateBrand {
   public static final String JSON_PROPERTY_ENTITY_TYPE = "entityType";
   private EntityType entityType;
@@ -124,6 +125,15 @@ public class CreateBrand {
 
   public static final String JSON_PROPERTY_MOBILE_PHONE = "mobilePhone";
   private String mobilePhone;
+
+  public static final String JSON_PROPERTY_BUSINESS_CONTACT_EMAIL = "businessContactEmail";
+  private String businessContactEmail;
+
+  public static final String JSON_PROPERTY_WEBHOOK_U_R_L = "webhookURL";
+  private String webhookURL;
+
+  public static final String JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L = "webhookFailoverURL";
+  private String webhookFailoverURL;
 
   public CreateBrand() { 
   }
@@ -628,11 +638,11 @@ public class CreateBrand {
   }
 
    /**
-   * Mock brand for testing purposes
+   * Mock brand for testing purposes. Defaults to false.
    * @return mock
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Mock brand for testing purposes")
+  @ApiModelProperty(value = "Mock brand for testing purposes. Defaults to false.")
   @JsonProperty(JSON_PROPERTY_MOCK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -674,6 +684,84 @@ public class CreateBrand {
   }
 
 
+  public CreateBrand businessContactEmail(String businessContactEmail) {
+    this.businessContactEmail = businessContactEmail;
+    return this;
+  }
+
+   /**
+   * Business contact email.  Required if &#x60;entityType&#x60; is &#x60;PUBLIC_PROFIT&#x60;.
+   * @return businessContactEmail
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "name@example.com", value = "Business contact email.  Required if `entityType` is `PUBLIC_PROFIT`.")
+  @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBusinessContactEmail() {
+    return businessContactEmail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BUSINESS_CONTACT_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBusinessContactEmail(String businessContactEmail) {
+    this.businessContactEmail = businessContactEmail;
+  }
+
+
+  public CreateBrand webhookURL(String webhookURL) {
+    this.webhookURL = webhookURL;
+    return this;
+  }
+
+   /**
+   * Webhook URL for brand status updates.
+   * @return webhookURL
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93", value = "Webhook URL for brand status updates.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookURL() {
+    return webhookURL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWebhookURL(String webhookURL) {
+    this.webhookURL = webhookURL;
+  }
+
+
+  public CreateBrand webhookFailoverURL(String webhookFailoverURL) {
+    this.webhookFailoverURL = webhookFailoverURL;
+    return this;
+  }
+
+   /**
+   * Webhook failover URL for brand status updates.
+   * @return webhookFailoverURL
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "https://webhook.com/9010a453-4df8-4be6-a551-1070892888d6", value = "Webhook failover URL for brand status updates.")
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getWebhookFailoverURL() {
+    return webhookFailoverURL;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBHOOK_FAILOVER_U_R_L)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWebhookFailoverURL(String webhookFailoverURL) {
+    this.webhookFailoverURL = webhookFailoverURL;
+  }
+
+
   /**
    * Return true if this CreateBrand object is equal to o.
    */
@@ -706,12 +794,15 @@ public class CreateBrand {
         Objects.equals(this.vertical, createBrand.vertical) &&
         Objects.equals(this.isReseller, createBrand.isReseller) &&
         Objects.equals(this.mock, createBrand.mock) &&
-        Objects.equals(this.mobilePhone, createBrand.mobilePhone);
+        Objects.equals(this.mobilePhone, createBrand.mobilePhone) &&
+        Objects.equals(this.businessContactEmail, createBrand.businessContactEmail) &&
+        Objects.equals(this.webhookURL, createBrand.webhookURL) &&
+        Objects.equals(this.webhookFailoverURL, createBrand.webhookFailoverURL);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(entityType, displayName, companyName, firstName, lastName, ein, phone, street, city, state, postalCode, country, email, stockSymbol, stockExchange, ipAddress, website, vertical, isReseller, mock, mobilePhone);
+    return Objects.hash(entityType, displayName, companyName, firstName, lastName, ein, phone, street, city, state, postalCode, country, email, stockSymbol, stockExchange, ipAddress, website, vertical, isReseller, mock, mobilePhone, businessContactEmail, webhookURL, webhookFailoverURL);
   }
 
   @Override
@@ -739,6 +830,9 @@ public class CreateBrand {
     sb.append("    isReseller: ").append(toIndentedString(isReseller)).append("\n");
     sb.append("    mock: ").append(toIndentedString(mock)).append("\n");
     sb.append("    mobilePhone: ").append(toIndentedString(mobilePhone)).append("\n");
+    sb.append("    businessContactEmail: ").append(toIndentedString(businessContactEmail)).append("\n");
+    sb.append("    webhookURL: ").append(toIndentedString(webhookURL)).append("\n");
+    sb.append("    webhookFailoverURL: ").append(toIndentedString(webhookFailoverURL)).append("\n");
     sb.append("}");
     return sb.toString();
   }

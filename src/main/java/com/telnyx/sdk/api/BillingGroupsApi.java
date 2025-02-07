@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BillingGroupsApi {
   private ApiClient apiClient;
 
@@ -53,14 +53,14 @@ public class BillingGroupsApi {
   /**
    * Create a billing group
    * 
-   * @param newBillingGroup New billing group object (required)
+   * @param newBillingGroup  (required)
    * @return CreateBillingGroup200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateBillingGroup200Response createBillingGroup(NewBillingGroup newBillingGroup) throws ApiException {
@@ -70,14 +70,14 @@ public class BillingGroupsApi {
   /**
    * Create a billing group
    * 
-   * @param newBillingGroup New billing group object (required)
+   * @param newBillingGroup  (required)
    * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateBillingGroup200Response> createBillingGroupWithHttpInfo(NewBillingGroup newBillingGroup) throws ApiException {
@@ -129,7 +129,7 @@ public class BillingGroupsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateBillingGroup200Response deleteBillingGroup(UUID id) throws ApiException {
@@ -146,7 +146,7 @@ public class BillingGroupsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateBillingGroup200Response> deleteBillingGroupWithHttpInfo(UUID id) throws ApiException {
@@ -199,7 +199,7 @@ public class BillingGroupsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateBillingGroup200Response getBillingGroup(UUID id) throws ApiException {
@@ -216,7 +216,7 @@ public class BillingGroupsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateBillingGroup200Response> getBillingGroupWithHttpInfo(UUID id) throws ApiException {
@@ -270,7 +270,7 @@ public class BillingGroupsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> A paginated array of billing groups </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ListBillingGroups200Response listBillingGroups(Integer pageNumber, Integer pageSize) throws ApiException {
@@ -288,7 +288,7 @@ public class BillingGroupsApi {
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> A paginated array of billing groups </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<ListBillingGroups200Response> listBillingGroupsWithHttpInfo(Integer pageNumber, Integer pageSize) throws ApiException {
@@ -331,14 +331,14 @@ public class BillingGroupsApi {
    * Update a billing group
    * 
    * @param id The id of the billing group (required)
-   * @param updateBillingGroup Update billing group object (required)
+   * @param updateBillingGroup  (required)
    * @return CreateBillingGroup200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public CreateBillingGroup200Response updateBillingGroup(UUID id, UpdateBillingGroup updateBillingGroup) throws ApiException {
@@ -349,14 +349,14 @@ public class BillingGroupsApi {
    * Update a billing group
    * 
    * @param id The id of the billing group (required)
-   * @param updateBillingGroup Update billing group object (required)
+   * @param updateBillingGroup  (required)
    * @return ApiResponse&lt;CreateBillingGroup200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 200 </td><td> Expected billing group response to a valid request </td><td>  -  </td></tr>
-       <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+       <tr><td> 500 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
   public ApiResponse<CreateBillingGroup200Response> updateBillingGroupWithHttpInfo(UUID id, UpdateBillingGroup updateBillingGroup) throws ApiException {

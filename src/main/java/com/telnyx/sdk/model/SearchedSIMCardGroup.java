@@ -25,11 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.ConsumedData;
-import com.telnyx.sdk.model.SIMCardGroupDataLimit;
+import com.telnyx.sdk.model.SearchedSIMCardGroupDataLimit;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   SearchedSIMCardGroup.JSON_PROPERTY_CREATED_AT,
   SearchedSIMCardGroup.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SearchedSIMCardGroup {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -64,7 +62,7 @@ public class SearchedSIMCardGroup {
   private String name;
 
   public static final String JSON_PROPERTY_DATA_LIMIT = "data_limit";
-  private SIMCardGroupDataLimit dataLimit;
+  private SearchedSIMCardGroupDataLimit dataLimit;
 
   public static final String JSON_PROPERTY_CONSUMED_DATA = "consumed_data";
   private ConsumedData consumedData;
@@ -174,7 +172,7 @@ public class SearchedSIMCardGroup {
   }
 
 
-  public SearchedSIMCardGroup dataLimit(SIMCardGroupDataLimit dataLimit) {
+  public SearchedSIMCardGroup dataLimit(SearchedSIMCardGroupDataLimit dataLimit) {
     this.dataLimit = dataLimit;
     return this;
   }
@@ -188,14 +186,14 @@ public class SearchedSIMCardGroup {
   @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SIMCardGroupDataLimit getDataLimit() {
+  public SearchedSIMCardGroupDataLimit getDataLimit() {
     return dataLimit;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DATA_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDataLimit(SIMCardGroupDataLimit dataLimit) {
+  public void setDataLimit(SearchedSIMCardGroupDataLimit dataLimit) {
     this.dataLimit = dataLimit;
   }
 

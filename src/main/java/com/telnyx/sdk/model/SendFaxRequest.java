@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.Quality;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -46,9 +44,12 @@ import com.telnyx.sdk.JSON;
   SendFaxRequest.JSON_PROPERTY_T38_ENABLED,
   SendFaxRequest.JSON_PROPERTY_MONOCHROME,
   SendFaxRequest.JSON_PROPERTY_STORE_MEDIA,
-  SendFaxRequest.JSON_PROPERTY_WEBHOOK_URL
+  SendFaxRequest.JSON_PROPERTY_STORE_PREVIEW,
+  SendFaxRequest.JSON_PROPERTY_PREVIEW_FORMAT,
+  SendFaxRequest.JSON_PROPERTY_WEBHOOK_URL,
+  SendFaxRequest.JSON_PROPERTY_CLIENT_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SendFaxRequest {
   public static final String JSON_PROPERTY_CONNECTION_ID = "connection_id";
   private String connectionId;
@@ -80,8 +81,52 @@ public class SendFaxRequest {
   public static final String JSON_PROPERTY_STORE_MEDIA = "store_media";
   private Boolean storeMedia = false;
 
+  public static final String JSON_PROPERTY_STORE_PREVIEW = "store_preview";
+  private Boolean storePreview = false;
+
+  /**
+   * The format for the preview file in case the &#x60;store_preview&#x60; is &#x60;true&#x60;.
+   */
+  public enum PreviewFormatEnum {
+    PDF(String.valueOf("pdf")),
+    
+    TIFF(String.valueOf("tiff"));
+
+    private String value;
+
+    PreviewFormatEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PreviewFormatEnum fromValue(String value) {
+      for (PreviewFormatEnum b : PreviewFormatEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_PREVIEW_FORMAT = "preview_format";
+  private PreviewFormatEnum previewFormat = PreviewFormatEnum.TIFF;
+
   public static final String JSON_PROPERTY_WEBHOOK_URL = "webhook_url";
   private String webhookUrl;
+
+  public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
+  private String clientState;
 
   public SendFaxRequest() { 
   }
@@ -118,11 +163,11 @@ public class SendFaxRequest {
   }
 
    /**
-   * The URL to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
+   * The URL (or list of URLs) to the PDF used for the fax&#39;s media. media_url and media_name/contents can&#39;t be submitted together.
    * @return mediaUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
+  @ApiModelProperty(example = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", value = "The URL (or list of URLs) to the PDF used for the fax's media. media_url and media_name/contents can't be submitted together.")
   @JsonProperty(JSON_PROPERTY_MEDIA_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -346,6 +391,58 @@ public class SendFaxRequest {
   }
 
 
+  public SendFaxRequest storePreview(Boolean storePreview) {
+    this.storePreview = storePreview;
+    return this;
+  }
+
+   /**
+   * Should fax preview be stored on temporary URL.
+   * @return storePreview
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Should fax preview be stored on temporary URL.")
+  @JsonProperty(JSON_PROPERTY_STORE_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getStorePreview() {
+    return storePreview;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STORE_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorePreview(Boolean storePreview) {
+    this.storePreview = storePreview;
+  }
+
+
+  public SendFaxRequest previewFormat(PreviewFormatEnum previewFormat) {
+    this.previewFormat = previewFormat;
+    return this;
+  }
+
+   /**
+   * The format for the preview file in case the &#x60;store_preview&#x60; is &#x60;true&#x60;.
+   * @return previewFormat
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "The format for the preview file in case the `store_preview` is `true`.")
+  @JsonProperty(JSON_PROPERTY_PREVIEW_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PreviewFormatEnum getPreviewFormat() {
+    return previewFormat;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREVIEW_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPreviewFormat(PreviewFormatEnum previewFormat) {
+    this.previewFormat = previewFormat;
+  }
+
+
   public SendFaxRequest webhookUrl(String webhookUrl) {
     this.webhookUrl = webhookUrl;
     return this;
@@ -372,6 +469,32 @@ public class SendFaxRequest {
   }
 
 
+  public SendFaxRequest clientState(String clientState) {
+    this.clientState = clientState;
+    return this;
+  }
+
+   /**
+   * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+   * @return clientState
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "aGF2ZSBhIG5pY2UgZGF5ID1d", value = "Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.")
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getClientState() {
+    return clientState;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLIENT_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClientState(String clientState) {
+    this.clientState = clientState;
+  }
+
+
   /**
    * Return true if this SendFaxRequest object is equal to o.
    */
@@ -394,12 +517,15 @@ public class SendFaxRequest {
         Objects.equals(this.t38Enabled, sendFaxRequest.t38Enabled) &&
         Objects.equals(this.monochrome, sendFaxRequest.monochrome) &&
         Objects.equals(this.storeMedia, sendFaxRequest.storeMedia) &&
-        Objects.equals(this.webhookUrl, sendFaxRequest.webhookUrl);
+        Objects.equals(this.storePreview, sendFaxRequest.storePreview) &&
+        Objects.equals(this.previewFormat, sendFaxRequest.previewFormat) &&
+        Objects.equals(this.webhookUrl, sendFaxRequest.webhookUrl) &&
+        Objects.equals(this.clientState, sendFaxRequest.clientState);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionId, mediaUrl, mediaName, to, from, fromDisplayName, quality, t38Enabled, monochrome, storeMedia, webhookUrl);
+    return Objects.hash(connectionId, mediaUrl, mediaName, to, from, fromDisplayName, quality, t38Enabled, monochrome, storeMedia, storePreview, previewFormat, webhookUrl, clientState);
   }
 
   @Override
@@ -416,7 +542,10 @@ public class SendFaxRequest {
     sb.append("    t38Enabled: ").append(toIndentedString(t38Enabled)).append("\n");
     sb.append("    monochrome: ").append(toIndentedString(monochrome)).append("\n");
     sb.append("    storeMedia: ").append(toIndentedString(storeMedia)).append("\n");
+    sb.append("    storePreview: ").append(toIndentedString(storePreview)).append("\n");
+    sb.append("    previewFormat: ").append(toIndentedString(previewFormat)).append("\n");
     sb.append("    webhookUrl: ").append(toIndentedString(webhookUrl)).append("\n");
+    sb.append("    clientState: ").append(toIndentedString(clientState)).append("\n");
     sb.append("}");
     return sb.toString();
   }

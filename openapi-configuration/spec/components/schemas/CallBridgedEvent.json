@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Bridged Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallBridged.json"
-    }
-  }
-}

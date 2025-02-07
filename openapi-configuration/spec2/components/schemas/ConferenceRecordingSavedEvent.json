@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Conference Recording Saved Event",
-  "properties": {
-    "data": {
-      "$ref": "./ConferenceRecordingSaved.json"
-    }
-  }
-}

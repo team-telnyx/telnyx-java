@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.RegionOutRegion;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RegionOut.JSON_PROPERTY_REGION_CODE,
   RegionOut.JSON_PROPERTY_REGION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RegionOut {
   public static final String JSON_PROPERTY_REGION_CODE = "region_code";
   private String regionCode;

@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   Meta.JSON_PROPERTY_PAGE_NUMBER,
   Meta.JSON_PROPERTY_PAGE_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class Meta {
   public static final String JSON_PROPERTY_TOTAL_PAGES = "total_pages";
   private Integer totalPages;
@@ -66,10 +64,10 @@ public class Meta {
    * Get totalPages
    * @return totalPages
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "3", value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getTotalPages() {
     return totalPages;
@@ -77,7 +75,7 @@ public class Meta {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL_PAGES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTotalPages(Integer totalPages) {
     this.totalPages = totalPages;
   }
@@ -92,10 +90,10 @@ public class Meta {
    * Get totalResults
    * @return totalResults
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "55", value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getTotalResults() {
     return totalResults;
@@ -103,7 +101,7 @@ public class Meta {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTotalResults(Integer totalResults) {
     this.totalResults = totalResults;
   }
@@ -118,10 +116,10 @@ public class Meta {
    * Get pageNumber
    * @return pageNumber
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "2", value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getPageNumber() {
     return pageNumber;
@@ -129,7 +127,7 @@ public class Meta {
 
 
   @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPageNumber(Integer pageNumber) {
     this.pageNumber = pageNumber;
   }
@@ -144,10 +142,10 @@ public class Meta {
    * Get pageSize
    * @return pageSize
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "25", value = "")
+  @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getPageSize() {
     return pageSize;
@@ -155,7 +153,7 @@ public class Meta {
 
 
   @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPageSize(Integer pageSize) {
     this.pageSize = pageSize;
   }

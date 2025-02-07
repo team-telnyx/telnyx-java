@@ -96,6 +96,7 @@ Deletes an existing outbound voice profile.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -114,7 +115,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             OutboundVoiceProfileResponse result = apiInstance.deleteOutboundVoiceProfile(id);
             System.out.println(result);
@@ -134,7 +135,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -169,6 +170,7 @@ Retrieves the details of an existing outbound voice profile.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -187,7 +189,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         try {
             OutboundVoiceProfileResponse result = apiInstance.getOutboundVoiceProfile(id);
             System.out.println(result);
@@ -207,7 +209,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
 
 ### Return type
 
@@ -325,6 +327,7 @@ Updates an existing outbound voice profile.
 ### Example
 
 ```java
+import java.util.UUID;
 // Import classes:
 import com.telnyx.sdk.ApiClient;
 import com.telnyx.sdk.ApiException;
@@ -343,7 +346,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         OutboundVoiceProfilesApi apiInstance = new OutboundVoiceProfilesApi(defaultClient);
-        String id = "1293384261075731499"; // String | Identifies the resource.
+        UUID id = UUID.randomUUID(); // UUID | The id of the resource.
         UpdateOutboundVoiceProfileRequest updateOutboundVoiceProfileRequest = new UpdateOutboundVoiceProfileRequest(); // UpdateOutboundVoiceProfileRequest | Parameters that can be updated on an outbound voice profile
         try {
             OutboundVoiceProfileResponse result = apiInstance.updateOutboundVoiceProfile(id, updateOutboundVoiceProfileRequest);
@@ -364,7 +367,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Identifies the resource. |
+ **id** | **UUID**| The id of the resource. |
  **updateOutboundVoiceProfileRequest** | [**UpdateOutboundVoiceProfileRequest**](UpdateOutboundVoiceProfileRequest.md)| Parameters that can be updated on an outbound voice profile |
 
 ### Return type

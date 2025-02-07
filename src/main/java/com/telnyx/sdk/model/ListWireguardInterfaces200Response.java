@@ -29,8 +29,6 @@ import com.telnyx.sdk.model.WireguardInterfaceRead;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -42,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListWireguardInterfaces200Response.JSON_PROPERTY_DATA,
   ListWireguardInterfaces200Response.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListWireguardInterfaces200Response {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<WireguardInterfaceRead> data = null;
@@ -58,7 +56,7 @@ public class ListWireguardInterfaces200Response {
     return this;
   }
 
-  public ListWireguardInterfaces200Response addDataItem(WireguardInterfaceRead dataItem) {
+  public ListWireguardInterfaces200Response adddataItem(WireguardInterfaceRead dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

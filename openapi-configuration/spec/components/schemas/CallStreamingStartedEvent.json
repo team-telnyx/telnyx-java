@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Streaming Started Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallStreamingStarted.json"
-    }
-  }
-}

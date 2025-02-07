@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.LogMessage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   GetLogMessageResponse.JSON_PROPERTY_LOG_MESSAGES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class GetLogMessageResponse {
   public static final String JSON_PROPERTY_LOG_MESSAGES = "log_messages";
   private List<LogMessage> logMessages = null;
@@ -53,7 +51,7 @@ public class GetLogMessageResponse {
     return this;
   }
 
-  public GetLogMessageResponse addLogMessagesItem(LogMessage logMessagesItem) {
+  public GetLogMessageResponse addlogMessagesItem(LogMessage logMessagesItem) {
     if (this.logMessages == null) {
       this.logMessages = new ArrayList<>();
     }

@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Recording Error Event",
-  "properties": {
-    "data": {
-      "$ref": "./callRecordingError.json"
-    }
-  }
-}

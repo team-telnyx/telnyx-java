@@ -26,20 +26,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
 /**
- * The summary of the resource that have been assigned to the Private Wireless Gateway
+ * The summary of the resource that have been assigned to the Private Wireless Gateway.
  */
-@ApiModel(description = "The summary of the resource that have been assigned to the Private Wireless Gateway")
+@ApiModel(description = "The summary of the resource that have been assigned to the Private Wireless Gateway.")
 @JsonPropertyOrder({
   PWGAssignedResourcesSummary.JSON_PROPERTY_RECORD_TYPE,
   PWGAssignedResourcesSummary.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PWGAssignedResourcesSummary {
   public static final String JSON_PROPERTY_RECORD_TYPE = "record_type";
   private String recordType;
@@ -61,11 +59,11 @@ public class PWGAssignedResourcesSummary {
   }
 
    /**
-   * The type of the resource assigned to the Private Wireless Gateway
+   * The type of the resource assigned to the Private Wireless Gateway.
    * @return recordType
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "sim_card_group", value = "The type of the resource assigned to the Private Wireless Gateway")
+  @ApiModelProperty(example = "sim_card_group", value = "The type of the resource assigned to the Private Wireless Gateway.")
   @JsonProperty(JSON_PROPERTY_RECORD_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -77,11 +75,11 @@ public class PWGAssignedResourcesSummary {
 
 
    /**
-   * The current count of a resource type assigned to the Private Wireless Gateway
+   * The current count of a resource type assigned to the Private Wireless Gateway.
    * @return count
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1", value = "The current count of a resource type assigned to the Private Wireless Gateway")
+  @ApiModelProperty(example = "1", value = "The current count of a resource type assigned to the Private Wireless Gateway.")
   @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

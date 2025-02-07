@@ -27,8 +27,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -45,13 +47,13 @@ import com.telnyx.sdk.JSON;
   BillingGroup.JSON_PROPERTY_UPDATED_AT,
   BillingGroup.JSON_PROPERTY_DELETED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BillingGroup {
   /**
    * Identifies the type of the resource.
    */
   public enum RecordTypeEnum {
-    BILLING_GROUP("billing_group");
+    BILLING_GROUP(String.valueOf("billing_group"));
 
     private String value;
 
@@ -99,7 +101,7 @@ public class BillingGroup {
   private OffsetDateTime updatedAt;
 
   public static final String JSON_PROPERTY_DELETED_AT = "deleted_at";
-  private OffsetDateTime deletedAt;
+  private JsonNullable<OffsetDateTime> deletedAt = JsonNullable.<OffsetDateTime>undefined();
 
   public BillingGroup() { 
   }
@@ -261,7 +263,7 @@ public class BillingGroup {
 
 
   public BillingGroup deletedAt(OffsetDateTime deletedAt) {
-    this.deletedAt = deletedAt;
+    this.deletedAt = JsonNullable.<OffsetDateTime>of(deletedAt);
     return this;
   }
 
@@ -271,18 +273,26 @@ public class BillingGroup {
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "ISO 8601 formatted date indicating when the resource was removed.")
-  @JsonProperty(JSON_PROPERTY_DELETED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
 
   public OffsetDateTime getDeletedAt() {
-    return deletedAt;
+        return deletedAt.orElse(null);
   }
-
 
   @JsonProperty(JSON_PROPERTY_DELETED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeletedAt(OffsetDateTime deletedAt) {
+
+  public JsonNullable<OffsetDateTime> getDeletedAt_JsonNullable() {
+    return deletedAt;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_DELETED_AT)
+  public void setDeletedAt_JsonNullable(JsonNullable<OffsetDateTime> deletedAt) {
     this.deletedAt = deletedAt;
+  }
+
+  public void setDeletedAt(OffsetDateTime deletedAt) {
+    this.deletedAt = JsonNullable.<OffsetDateTime>of(deletedAt);
   }
 
 
@@ -304,12 +314,23 @@ public class BillingGroup {
         Objects.equals(this.name, billingGroup.name) &&
         Objects.equals(this.createdAt, billingGroup.createdAt) &&
         Objects.equals(this.updatedAt, billingGroup.updatedAt) &&
-        Objects.equals(this.deletedAt, billingGroup.deletedAt);
+        equalsNullable(this.deletedAt, billingGroup.deletedAt);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recordType, id, organizationId, name, createdAt, updatedAt, deletedAt);
+    return Objects.hash(recordType, id, organizationId, name, createdAt, updatedAt, hashCodeNullable(deletedAt));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override

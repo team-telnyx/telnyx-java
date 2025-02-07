@@ -34,9 +34,6 @@ import com.telnyx.sdk.model.OutboundFqdn;
 import com.telnyx.sdk.model.WebhookApiVersion;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
@@ -68,7 +65,7 @@ import com.telnyx.sdk.JSON;
   CreateFqdnConnectionRequest.JSON_PROPERTY_INBOUND,
   CreateFqdnConnectionRequest.JSON_PROPERTY_OUTBOUND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateFqdnConnectionRequest {
   public static final String JSON_PROPERTY_ACTIVE = "active";
   private Boolean active = true;

@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "title": "Call Enqueued Event",
-  "properties": {
-    "data": {
-      "$ref": "./CallEnqueued.json"
-    }
-  }
-}

@@ -1,5 +1,0 @@
-{
-  "description": "Name of the bucket to be used to store recording files.",
-  "type": "string",
-  "example": "example-bucket"
-}

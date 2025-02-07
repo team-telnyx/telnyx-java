@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -46,7 +44,7 @@ import com.telnyx.sdk.JSON;
   CreateGroupMMSMessageRequest.JSON_PROPERTY_WEBHOOK_FAILOVER_URL,
   CreateGroupMMSMessageRequest.JSON_PROPERTY_USE_PROFILE_WEBHOOKS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CreateGroupMMSMessageRequest {
   public static final String JSON_PROPERTY_FROM = "from";
   private String from;
@@ -106,7 +104,7 @@ public class CreateGroupMMSMessageRequest {
     return this;
   }
 
-  public CreateGroupMMSMessageRequest addToItem(String toItem) {
+  public CreateGroupMMSMessageRequest addtoItem(String toItem) {
     this.to.add(toItem);
     return this;
   }
@@ -189,7 +187,7 @@ public class CreateGroupMMSMessageRequest {
     return this;
   }
 
-  public CreateGroupMMSMessageRequest addMediaUrlsItem(String mediaUrlsItem) {
+  public CreateGroupMMSMessageRequest addmediaUrlsItem(String mediaUrlsItem) {
     if (this.mediaUrls == null) {
       this.mediaUrls = new ArrayList<>();
     }

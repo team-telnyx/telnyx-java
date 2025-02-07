@@ -28,6 +28,8 @@ import com.telnyx.sdk.model.ListLogMessagesResponse;
 import com.telnyx.sdk.model.ListReleasesResponse;
 import com.telnyx.sdk.model.ListUploadsResponse;
 import com.telnyx.sdk.model.LocationResponse;
+import com.telnyx.sdk.model.OperatorConnectRefreshResponse;
+import com.telnyx.sdk.model.OperatorConnectRefreshResponse1;
 import java.util.UUID;
 import com.telnyx.sdk.model.UpdateExternalConnectionPhoneNumberRequest;
 import com.telnyx.sdk.model.UpdateExternalConnectionRequest;
@@ -38,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ExternalConnectionsApi {
   private ApiClient apiClient;
 
@@ -140,7 +142,7 @@ public class ExternalConnectionsApi {
   /**
    * Creates an Upload request
    * Creates a new Upload request to Microsoft teams with the included phone numbers. Only one of civic_address_id or location_id must be provided, not both. The maximum allowed phone numbers for the numbers_ids array is 1000.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param createExternalConnectionUploadRequest Parameters that can be set when creating an Upload request. (required)
    * @return CreateUploadRequestResponse
    * @throws ApiException if fails to make API call
@@ -155,14 +157,14 @@ public class ExternalConnectionsApi {
        <tr><td> 504 </td><td> Gateway Timeout </td><td>  -  </td></tr>
      </table>
    */
-  public CreateUploadRequestResponse createExternalConnectionUpload(String id, CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest) throws ApiException {
+  public CreateUploadRequestResponse createExternalConnectionUpload(UUID id, CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest) throws ApiException {
     return createExternalConnectionUploadWithHttpInfo(id, createExternalConnectionUploadRequest).getData();
   }
 
   /**
    * Creates an Upload request
    * Creates a new Upload request to Microsoft teams with the included phone numbers. Only one of civic_address_id or location_id must be provided, not both. The maximum allowed phone numbers for the numbers_ids array is 1000.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param createExternalConnectionUploadRequest Parameters that can be set when creating an Upload request. (required)
    * @return ApiResponse&lt;CreateUploadRequestResponse&gt;
    * @throws ApiException if fails to make API call
@@ -177,7 +179,7 @@ public class ExternalConnectionsApi {
        <tr><td> 504 </td><td> Gateway Timeout </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateUploadRequestResponse> createExternalConnectionUploadWithHttpInfo(String id, CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest) throws ApiException {
+  public ApiResponse<CreateUploadRequestResponse> createExternalConnectionUploadWithHttpInfo(UUID id, CreateExternalConnectionUploadRequest createExternalConnectionUploadRequest) throws ApiException {
     Object localVarPostBody = createExternalConnectionUploadRequest;
     
     // verify the required parameter 'id' is set
@@ -225,7 +227,7 @@ public class ExternalConnectionsApi {
   /**
    * Deletes an External Connection
    * Permanently deletes an External Connection. Deletion may be prevented if the application is in use by phone numbers, is active, or if it is an Operator Connect connection. To remove an Operator Connect integration please contact Telnyx support.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ExternalConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -237,14 +239,14 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalConnectionResponse deleteExternalConnection(String id) throws ApiException {
+  public ExternalConnectionResponse deleteExternalConnection(UUID id) throws ApiException {
     return deleteExternalConnectionWithHttpInfo(id).getData();
   }
 
   /**
    * Deletes an External Connection
    * Permanently deletes an External Connection. Deletion may be prevented if the application is in use by phone numbers, is active, or if it is an Operator Connect connection. To remove an Operator Connect integration please contact Telnyx support.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;ExternalConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -256,7 +258,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalConnectionResponse> deleteExternalConnectionWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<ExternalConnectionResponse> deleteExternalConnectionWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -299,7 +301,7 @@ public class ExternalConnectionsApi {
   /**
    * Dismiss a log message
    * Dismiss a log message for an external connection associated with your account.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return DismissRequestWasSuccessful
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -310,14 +312,14 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public DismissRequestWasSuccessful deleteExternalConnectionLogMessage(String id) throws ApiException {
+  public DismissRequestWasSuccessful deleteExternalConnectionLogMessage(UUID id) throws ApiException {
     return deleteExternalConnectionLogMessageWithHttpInfo(id).getData();
   }
 
   /**
    * Dismiss a log message
    * Dismiss a log message for an external connection associated with your account.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;DismissRequestWasSuccessful&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -328,7 +330,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DismissRequestWasSuccessful> deleteExternalConnectionLogMessageWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<DismissRequestWasSuccessful> deleteExternalConnectionLogMessageWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -371,7 +373,7 @@ public class ExternalConnectionsApi {
   /**
    * Retrieve an External Connection
    * Return the details of an existing External Connection inside the &#39;data&#39; attribute of the response.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ExternalConnectionResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -383,14 +385,14 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalConnectionResponse getExternalConnection(String id) throws ApiException {
+  public ExternalConnectionResponse getExternalConnection(UUID id) throws ApiException {
     return getExternalConnectionWithHttpInfo(id).getData();
   }
 
   /**
    * Retrieve an External Connection
    * Return the details of an existing External Connection inside the &#39;data&#39; attribute of the response.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;ExternalConnectionResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -402,7 +404,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalConnectionResponse> getExternalConnectionWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<ExternalConnectionResponse> getExternalConnectionWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -445,7 +447,7 @@ public class ExternalConnectionsApi {
   /**
    * Retrieve a Civic Address
    * Return the details of an existing Civic Address with its Locations inside the &#39;data&#39; attribute of the response.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param addressId Identifies a civic address or a location. (required)
    * @return GetCivicAddressResponse
    * @throws ApiException if fails to make API call
@@ -459,14 +461,14 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public GetCivicAddressResponse getExternalConnectionCivicAddress(String id, UUID addressId) throws ApiException {
+  public GetCivicAddressResponse getExternalConnectionCivicAddress(UUID id, UUID addressId) throws ApiException {
     return getExternalConnectionCivicAddressWithHttpInfo(id, addressId).getData();
   }
 
   /**
    * Retrieve a Civic Address
    * Return the details of an existing Civic Address with its Locations inside the &#39;data&#39; attribute of the response.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param addressId Identifies a civic address or a location. (required)
    * @return ApiResponse&lt;GetCivicAddressResponse&gt;
    * @throws ApiException if fails to make API call
@@ -480,7 +482,7 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetCivicAddressResponse> getExternalConnectionCivicAddressWithHttpInfo(String id, UUID addressId) throws ApiException {
+  public ApiResponse<GetCivicAddressResponse> getExternalConnectionCivicAddressWithHttpInfo(UUID id, UUID addressId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -529,7 +531,7 @@ public class ExternalConnectionsApi {
   /**
    * Retrieve a log message
    * Retrieve a log message for an external connection associated with your account.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return GetLogMessageResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -540,14 +542,14 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetLogMessageResponse getExternalConnectionLogMessage(String id) throws ApiException {
+  public GetLogMessageResponse getExternalConnectionLogMessage(UUID id) throws ApiException {
     return getExternalConnectionLogMessageWithHttpInfo(id).getData();
   }
 
   /**
    * Retrieve a log message
    * Retrieve a log message for an external connection associated with your account.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;GetLogMessageResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -558,7 +560,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetLogMessageResponse> getExternalConnectionLogMessageWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<GetLogMessageResponse> getExternalConnectionLogMessageWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -601,7 +603,7 @@ public class ExternalConnectionsApi {
   /**
    * Retrieve a phone number
    * Return the details of a phone number associated with the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param phoneNumberId A phone number&#39;s ID via the Telnyx API (required)
    * @return GetExternalConnectionPhoneNumberResponse
    * @throws ApiException if fails to make API call
@@ -613,14 +615,14 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetExternalConnectionPhoneNumberResponse getExternalConnectionPhoneNumber(String id, String phoneNumberId) throws ApiException {
+  public GetExternalConnectionPhoneNumberResponse getExternalConnectionPhoneNumber(UUID id, String phoneNumberId) throws ApiException {
     return getExternalConnectionPhoneNumberWithHttpInfo(id, phoneNumberId).getData();
   }
 
   /**
    * Retrieve a phone number
    * Return the details of a phone number associated with the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param phoneNumberId A phone number&#39;s ID via the Telnyx API (required)
    * @return ApiResponse&lt;GetExternalConnectionPhoneNumberResponse&gt;
    * @throws ApiException if fails to make API call
@@ -632,7 +634,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetExternalConnectionPhoneNumberResponse> getExternalConnectionPhoneNumberWithHttpInfo(String id, String phoneNumberId) throws ApiException {
+  public ApiResponse<GetExternalConnectionPhoneNumberResponse> getExternalConnectionPhoneNumberWithHttpInfo(UUID id, String phoneNumberId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -681,7 +683,7 @@ public class ExternalConnectionsApi {
   /**
    * Retrieve a Release request
    * Return the details of a Release request and its phone numbers.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param releaseId Identifies a Release request (required)
    * @return GetReleaseResponse
    * @throws ApiException if fails to make API call
@@ -693,14 +695,14 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetReleaseResponse getExternalConnectionRelease(String id, UUID releaseId) throws ApiException {
+  public GetReleaseResponse getExternalConnectionRelease(UUID id, UUID releaseId) throws ApiException {
     return getExternalConnectionReleaseWithHttpInfo(id, releaseId).getData();
   }
 
   /**
    * Retrieve a Release request
    * Return the details of a Release request and its phone numbers.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param releaseId Identifies a Release request (required)
    * @return ApiResponse&lt;GetReleaseResponse&gt;
    * @throws ApiException if fails to make API call
@@ -712,7 +714,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetReleaseResponse> getExternalConnectionReleaseWithHttpInfo(String id, UUID releaseId) throws ApiException {
+  public ApiResponse<GetReleaseResponse> getExternalConnectionReleaseWithHttpInfo(UUID id, UUID releaseId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -761,7 +763,7 @@ public class ExternalConnectionsApi {
   /**
    * Retrieve an Upload request
    * Return the details of an Upload request and its phone numbers.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param ticketId Identifies an Upload request (required)
    * @return GetUploadResponse
    * @throws ApiException if fails to make API call
@@ -773,14 +775,14 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetUploadResponse getExternalConnectionUpload(String id, UUID ticketId) throws ApiException {
+  public GetUploadResponse getExternalConnectionUpload(UUID id, UUID ticketId) throws ApiException {
     return getExternalConnectionUploadWithHttpInfo(id, ticketId).getData();
   }
 
   /**
    * Retrieve an Upload request
    * Return the details of an Upload request and its phone numbers.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param ticketId Identifies an Upload request (required)
    * @return ApiResponse&lt;GetUploadResponse&gt;
    * @throws ApiException if fails to make API call
@@ -792,7 +794,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetUploadResponse> getExternalConnectionUploadWithHttpInfo(String id, UUID ticketId) throws ApiException {
+  public ApiResponse<GetUploadResponse> getExternalConnectionUploadWithHttpInfo(UUID id, UUID ticketId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -841,7 +843,7 @@ public class ExternalConnectionsApi {
   /**
    * Get the count of pending upload requests
    * Returns the count of all pending upload requests for the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return GetUploadsStatusResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -852,14 +854,14 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetUploadsStatusResponse getExternalConnectionUploadsStatus(String id) throws ApiException {
+  public GetUploadsStatusResponse getExternalConnectionUploadsStatus(UUID id) throws ApiException {
     return getExternalConnectionUploadsStatusWithHttpInfo(id).getData();
   }
 
   /**
    * Get the count of pending upload requests
    * Returns the count of all pending upload requests for the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;GetUploadsStatusResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -870,7 +872,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetUploadsStatusResponse> getExternalConnectionUploadsStatusWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<GetUploadsStatusResponse> getExternalConnectionUploadsStatusWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -913,7 +915,8 @@ public class ExternalConnectionsApi {
   /**
    * List all civic addresses and locations
    * Returns the civic addresses and locations from Microsoft Teams.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
+   * @param filterCountry The country (or countries) to filter addresses by. (optional)
    * @return GetAllCivicAddressesResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -926,14 +929,15 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllCivicAddressesResponse listCivicAddresses(String id) throws ApiException {
-    return listCivicAddressesWithHttpInfo(id).getData();
+  public GetAllCivicAddressesResponse listCivicAddresses(UUID id, List<String> filterCountry) throws ApiException {
+    return listCivicAddressesWithHttpInfo(id, filterCountry).getData();
   }
 
   /**
    * List all civic addresses and locations
    * Returns the civic addresses and locations from Microsoft Teams.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
+   * @param filterCountry The country (or countries) to filter addresses by. (optional)
    * @return ApiResponse&lt;GetAllCivicAddressesResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -946,7 +950,7 @@ public class ExternalConnectionsApi {
        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllCivicAddressesResponse> listCivicAddressesWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<GetAllCivicAddressesResponse> listCivicAddressesWithHttpInfo(UUID id, List<String> filterCountry) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -964,6 +968,7 @@ public class ExternalConnectionsApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "filter[country]", filterCountry));
 
     
     
@@ -1068,11 +1073,12 @@ public class ExternalConnectionsApi {
   /**
    * List all phone numbers
    * Returns a list of all active phone numbers associated with the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterPhoneNumberEq The phone number to filter by (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumberContains The partial phone number to filter by. Requires 3-15 digits. (optional)
+   * @param filterPhoneNumber If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @param filterCivicAddressIdEq The civic address ID to filter by (optional)
    * @param filterLocationIdEq The location ID to filter by (optional)
    * @return ListExternalConnectionPhoneNumbersResponse
@@ -1086,18 +1092,19 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(String id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
-    return listExternalConnectionPhoneNumbersWithHttpInfo(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterCivicAddressIdEq, filterLocationIdEq).getData();
+  public ListExternalConnectionPhoneNumbersResponse listExternalConnectionPhoneNumbers(UUID id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, String filterPhoneNumber, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
+    return listExternalConnectionPhoneNumbersWithHttpInfo(id, pageNumber, pageSize, filterPhoneNumberEq, filterPhoneNumberContains, filterPhoneNumber, filterCivicAddressIdEq, filterLocationIdEq).getData();
   }
 
   /**
    * List all phone numbers
    * Returns a list of all active phone numbers associated with the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterPhoneNumberEq The phone number to filter by (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumberContains The partial phone number to filter by. Requires 3-15 digits. (optional)
+   * @param filterPhoneNumber If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @param filterCivicAddressIdEq The civic address ID to filter by (optional)
    * @param filterLocationIdEq The location ID to filter by (optional)
    * @return ApiResponse&lt;ListExternalConnectionPhoneNumbersResponse&gt;
@@ -1111,7 +1118,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListExternalConnectionPhoneNumbersResponse> listExternalConnectionPhoneNumbersWithHttpInfo(String id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
+  public ApiResponse<ListExternalConnectionPhoneNumbersResponse> listExternalConnectionPhoneNumbersWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, String filterPhoneNumberEq, String filterPhoneNumberContains, String filterPhoneNumber, UUID filterCivicAddressIdEq, UUID filterLocationIdEq) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1133,6 +1140,7 @@ public class ExternalConnectionsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][eq]", filterPhoneNumberEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[civic_address_id][eq]", filterCivicAddressIdEq));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[location_id][eq]", filterLocationIdEq));
 
@@ -1160,7 +1168,7 @@ public class ExternalConnectionsApi {
   /**
    * List all Releases
    * Returns a list of your Releases for the given external connection. These are automatically created when you change the &#x60;connection_id&#x60; of a phone number that is currently on Microsoft Teams.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterStatusEq The status of the release to filter by (optional)
@@ -1179,14 +1187,14 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListReleasesResponse listExternalConnectionReleases(String id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
+  public ListReleasesResponse listExternalConnectionReleases(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
     return listExternalConnectionReleasesWithHttpInfo(id, pageNumber, pageSize, filterStatusEq, filterCivicAddressIdEq, filterLocationIdEq, filterPhoneNumberEq, filterPhoneNumberContains).getData();
   }
 
   /**
    * List all Releases
    * Returns a list of your Releases for the given external connection. These are automatically created when you change the &#x60;connection_id&#x60; of a phone number that is currently on Microsoft Teams.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterStatusEq The status of the release to filter by (optional)
@@ -1205,7 +1213,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListReleasesResponse> listExternalConnectionReleasesWithHttpInfo(String id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
+  public ApiResponse<ListReleasesResponse> listExternalConnectionReleasesWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1255,7 +1263,7 @@ public class ExternalConnectionsApi {
   /**
    * List all Upload requests
    * Returns a list of your Upload requests for the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterStatusEq The status of the upload to filter by (optional)
@@ -1274,14 +1282,14 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ListUploadsResponse listExternalConnectionUploads(String id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
+  public ListUploadsResponse listExternalConnectionUploads(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
     return listExternalConnectionUploadsWithHttpInfo(id, pageNumber, pageSize, filterStatusEq, filterCivicAddressIdEq, filterLocationIdEq, filterPhoneNumberEq, filterPhoneNumberContains).getData();
   }
 
   /**
    * List all Upload requests
    * Returns a list of your Upload requests for the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterStatusEq The status of the upload to filter by (optional)
@@ -1300,7 +1308,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ListUploadsResponse> listExternalConnectionUploadsWithHttpInfo(String id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
+  public ApiResponse<ListUploadsResponse> listExternalConnectionUploadsWithHttpInfo(UUID id, Integer pageNumber, Integer pageSize, List<String> filterStatusEq, UUID filterCivicAddressIdEq, UUID filterLocationIdEq, String filterPhoneNumberEq, String filterPhoneNumberContains) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1356,7 +1364,7 @@ public class ExternalConnectionsApi {
    * @param filterExternalSipConnection If present, connections with &lt;code&gt;external_sip_connection&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterId If present, connections with &lt;code&gt;id&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterCreatedAt Filter by ISO 8601 formatted date-time string matching resource creation date-time. (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumber If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @return GetAllExternalConnectionsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1368,8 +1376,8 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllExternalConnectionsResponse listExternalConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumberContains) throws ApiException {
-    return listExternalConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumberContains).getData();
+  public GetAllExternalConnectionsResponse listExternalConnections(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumber) throws ApiException {
+    return listExternalConnectionsWithHttpInfo(pageNumber, pageSize, filterConnectionNameContains, filterExternalSipConnection, filterId, filterCreatedAt, filterPhoneNumber).getData();
   }
 
   /**
@@ -1381,7 +1389,7 @@ public class ExternalConnectionsApi {
    * @param filterExternalSipConnection If present, connections with &lt;code&gt;external_sip_connection&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterId If present, connections with &lt;code&gt;id&lt;/code&gt; matching the given value will be returned. (optional)
    * @param filterCreatedAt Filter by ISO 8601 formatted date-time string matching resource creation date-time. (optional)
-   * @param filterPhoneNumberContains If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
+   * @param filterPhoneNumber If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. (optional)
    * @return ApiResponse&lt;GetAllExternalConnectionsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1393,7 +1401,7 @@ public class ExternalConnectionsApi {
        <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllExternalConnectionsResponse> listExternalConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumberContains) throws ApiException {
+  public ApiResponse<GetAllExternalConnectionsResponse> listExternalConnectionsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterConnectionNameContains, String filterExternalSipConnection, String filterId, String filterCreatedAt, String filterPhoneNumber) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -1411,7 +1419,7 @@ public class ExternalConnectionsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[external_sip_connection]", filterExternalSipConnection));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[id]", filterId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[created_at]", filterCreatedAt));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number][contains]", filterPhoneNumberContains));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[phone_number]", filterPhoneNumber));
 
     
     
@@ -1435,9 +1443,73 @@ public class ExternalConnectionsApi {
                                localVarAuthNames, localVarReturnType, false);
   }
   /**
+   * Refresh Operator Connect integration
+   * This endpoint will make an asynchronous request to refresh the Operator Connect integration with Microsoft Teams for the current user. This will create new external connections on the user&#39;s account if needed, and/or report the integration results as [log messages](https://developers.telnyx.com/api/external-voice-integrations/list-external-connection-log-messages).
+   * @return OperatorConnectRefreshResponse
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+     </table>
+   */
+  public OperatorConnectRefreshResponse operatorConnectRefresh() throws ApiException {
+    return operatorConnectRefreshWithHttpInfo().getData();
+  }
+
+  /**
+   * Refresh Operator Connect integration
+   * This endpoint will make an asynchronous request to refresh the Operator Connect integration with Microsoft Teams for the current user. This will create new external connections on the user&#39;s account if needed, and/or report the integration results as [log messages](https://developers.telnyx.com/api/external-voice-integrations/list-external-connection-log-messages).
+   * @return ApiResponse&lt;OperatorConnectRefreshResponse&gt;
+   * @throws ApiException if fails to make API call
+   * @http.response.details
+     <table summary="Response Details" border="1">
+       <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+       <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 202 </td><td> Successful response </td><td>  -  </td></tr>
+       <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+     </table>
+   */
+  public ApiResponse<OperatorConnectRefreshResponse> operatorConnectRefreshWithHttpInfo() throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/operator_connect/actions/refresh";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "bearerAuth" };
+
+    GenericType<OperatorConnectRefreshResponse> localVarReturnType = new GenericType<OperatorConnectRefreshResponse>() {};
+
+    return apiClient.invokeAPI("ExternalConnectionsApi.operatorConnectRefresh", localVarPath, "POST", localVarQueryParams, localVarPostBody,
+                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+                               localVarAuthNames, localVarReturnType, false);
+  }
+  /**
    * Refresh the status of all Upload requests
    * Forces a recheck of the status of all pending Upload requests for the given external connection in the background.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return CreateUploadRequestResponse1
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1449,14 +1521,14 @@ public class ExternalConnectionsApi {
        <tr><td> 409 </td><td> Status refresh is still in progress, please wait before calling again </td><td>  -  </td></tr>
      </table>
    */
-  public CreateUploadRequestResponse1 refreshExternalConnectionUploads(String id) throws ApiException {
+  public CreateUploadRequestResponse1 refreshExternalConnectionUploads(UUID id) throws ApiException {
     return refreshExternalConnectionUploadsWithHttpInfo(id).getData();
   }
 
   /**
    * Refresh the status of all Upload requests
    * Forces a recheck of the status of all pending Upload requests for the given external connection in the background.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;CreateUploadRequestResponse1&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -1468,7 +1540,7 @@ public class ExternalConnectionsApi {
        <tr><td> 409 </td><td> Status refresh is still in progress, please wait before calling again </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CreateUploadRequestResponse1> refreshExternalConnectionUploadsWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<CreateUploadRequestResponse1> refreshExternalConnectionUploadsWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1511,7 +1583,7 @@ public class ExternalConnectionsApi {
   /**
    * Retry an Upload request
    * If there were any errors during the upload process, this endpoint will retry the upload request. In some cases this will reattempt the existing upload request, in other cases it may create a new upload request. Please check the ticket_id in the response to determine if a new upload request was created.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param ticketId Identifies an Upload request (required)
    * @return GetUploadResponse
    * @throws ApiException if fails to make API call
@@ -1525,14 +1597,14 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
    */
-  public GetUploadResponse retryUpload(String id, UUID ticketId) throws ApiException {
+  public GetUploadResponse retryUpload(UUID id, UUID ticketId) throws ApiException {
     return retryUploadWithHttpInfo(id, ticketId).getData();
   }
 
   /**
    * Retry an Upload request
    * If there were any errors during the upload process, this endpoint will retry the upload request. In some cases this will reattempt the existing upload request, in other cases it may create a new upload request. Please check the ticket_id in the response to determine if a new upload request was created.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param ticketId Identifies an Upload request (required)
    * @return ApiResponse&lt;GetUploadResponse&gt;
    * @throws ApiException if fails to make API call
@@ -1546,7 +1618,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetUploadResponse> retryUploadWithHttpInfo(String id, UUID ticketId) throws ApiException {
+  public ApiResponse<GetUploadResponse> retryUploadWithHttpInfo(UUID id, UUID ticketId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1595,7 +1667,7 @@ public class ExternalConnectionsApi {
   /**
    * Update an External Connection
    * Updates settings of an existing External Connection based on the parameters of the request.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param updateExternalConnectionRequest Parameters to be updated for the External Connection (required)
    * @return ExternalConnectionResponse
    * @throws ApiException if fails to make API call
@@ -1608,14 +1680,14 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ExternalConnectionResponse updateExternalConnection(String id, UpdateExternalConnectionRequest updateExternalConnectionRequest) throws ApiException {
+  public ExternalConnectionResponse updateExternalConnection(UUID id, UpdateExternalConnectionRequest updateExternalConnectionRequest) throws ApiException {
     return updateExternalConnectionWithHttpInfo(id, updateExternalConnectionRequest).getData();
   }
 
   /**
    * Update an External Connection
    * Updates settings of an existing External Connection based on the parameters of the request.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param updateExternalConnectionRequest Parameters to be updated for the External Connection (required)
    * @return ApiResponse&lt;ExternalConnectionResponse&gt;
    * @throws ApiException if fails to make API call
@@ -1628,7 +1700,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalConnectionResponse> updateExternalConnectionWithHttpInfo(String id, UpdateExternalConnectionRequest updateExternalConnectionRequest) throws ApiException {
+  public ApiResponse<ExternalConnectionResponse> updateExternalConnectionWithHttpInfo(UUID id, UpdateExternalConnectionRequest updateExternalConnectionRequest) throws ApiException {
     Object localVarPostBody = updateExternalConnectionRequest;
     
     // verify the required parameter 'id' is set
@@ -1676,7 +1748,7 @@ public class ExternalConnectionsApi {
   /**
    * Update a phone number
    * Asynchronously update settings of the phone number associated with the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param phoneNumberId A phone number&#39;s ID via the Telnyx API (required)
    * @param updateExternalConnectionPhoneNumberRequest Values that can be set when updating a phone number (required)
    * @return GetExternalConnectionPhoneNumberResponse
@@ -1690,14 +1762,14 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public GetExternalConnectionPhoneNumberResponse updateExternalConnectionPhoneNumber(String id, String phoneNumberId, UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest) throws ApiException {
+  public GetExternalConnectionPhoneNumberResponse updateExternalConnectionPhoneNumber(UUID id, String phoneNumberId, UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest) throws ApiException {
     return updateExternalConnectionPhoneNumberWithHttpInfo(id, phoneNumberId, updateExternalConnectionPhoneNumberRequest).getData();
   }
 
   /**
    * Update a phone number
    * Asynchronously update settings of the phone number associated with the given external connection.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param phoneNumberId A phone number&#39;s ID via the Telnyx API (required)
    * @param updateExternalConnectionPhoneNumberRequest Values that can be set when updating a phone number (required)
    * @return ApiResponse&lt;GetExternalConnectionPhoneNumberResponse&gt;
@@ -1711,7 +1783,7 @@ public class ExternalConnectionsApi {
        <tr><td> 422 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetExternalConnectionPhoneNumberResponse> updateExternalConnectionPhoneNumberWithHttpInfo(String id, String phoneNumberId, UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest) throws ApiException {
+  public ApiResponse<GetExternalConnectionPhoneNumberResponse> updateExternalConnectionPhoneNumberWithHttpInfo(UUID id, String phoneNumberId, UpdateExternalConnectionPhoneNumberRequest updateExternalConnectionPhoneNumberRequest) throws ApiException {
     Object localVarPostBody = updateExternalConnectionPhoneNumberRequest;
     
     // verify the required parameter 'id' is set
@@ -1819,7 +1891,7 @@ public class ExternalConnectionsApi {
     }
     
     // create path and map variables
-    String localVarPath = "/v2/external_connections/{id}/locations/{location_id}"
+    String localVarPath = "/external_connections/{id}/locations/{location_id}"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
       .replaceAll("\\{" + "location_id" + "\\}", apiClient.escapeString(locationId.toString()));
 

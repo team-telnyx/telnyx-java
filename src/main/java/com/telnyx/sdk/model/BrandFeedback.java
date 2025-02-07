@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.BrandFeedbackCategory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   BrandFeedback.JSON_PROPERTY_BRAND_ID,
   BrandFeedback.JSON_PROPERTY_CATEGORY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class BrandFeedback {
   public static final String JSON_PROPERTY_BRAND_ID = "brandId";
   private String brandId;
@@ -83,7 +81,7 @@ public class BrandFeedback {
     return this;
   }
 
-  public BrandFeedback addCategoryItem(BrandFeedbackCategory categoryItem) {
+  public BrandFeedback addcategoryItem(BrandFeedbackCategory categoryItem) {
     this.category.add(categoryItem);
     return this;
   }

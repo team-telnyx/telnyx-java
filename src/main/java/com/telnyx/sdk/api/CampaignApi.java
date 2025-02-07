@@ -8,16 +8,17 @@ import com.telnyx.sdk.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import com.telnyx.sdk.model.Campaign;
-import com.telnyx.sdk.model.CampaignCSP;
 import com.telnyx.sdk.model.CampaignCost;
 import com.telnyx.sdk.model.CampaignDeletionResponse;
 import com.telnyx.sdk.model.CampaignRecordSetCSP;
 import com.telnyx.sdk.model.CampaignRequest;
 import com.telnyx.sdk.model.CampaignSharingChain;
+import com.telnyx.sdk.model.Errors;
 import com.telnyx.sdk.model.HTTPValidationError;
+import com.telnyx.sdk.model.MnoMetadata;
 import com.telnyx.sdk.model.ResponseSubmitCampaignPublicCampaignbuilderPost;
-import com.telnyx.sdk.model.UpdateCampaign;
+import com.telnyx.sdk.model.TelnyxCampaignCSP;
+import com.telnyx.sdk.model.UpdateCampaignRequest;
 import com.telnyx.sdk.model.UsecaseMetadata;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CampaignApi {
   private ApiClient apiClient;
 
@@ -199,7 +200,7 @@ public class CampaignApi {
    * Get My Campaign
    * Retrieve campaign details by &#x60;campaignId&#x60;.
    * @param campaignId  (required)
-   * @return CampaignCSP
+   * @return TelnyxCampaignCSP
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -208,7 +209,7 @@ public class CampaignApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public CampaignCSP getCampaign(String campaignId) throws ApiException {
+  public TelnyxCampaignCSP getCampaign(String campaignId) throws ApiException {
     return getCampaignWithHttpInfo(campaignId).getData();
   }
 
@@ -216,7 +217,7 @@ public class CampaignApi {
    * Get My Campaign
    * Retrieve campaign details by &#x60;campaignId&#x60;.
    * @param campaignId  (required)
-   * @return ApiResponse&lt;CampaignCSP&gt;
+   * @return ApiResponse&lt;TelnyxCampaignCSP&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -225,7 +226,7 @@ public class CampaignApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CampaignCSP> getCampaignWithHttpInfo(String campaignId) throws ApiException {
+  public ApiResponse<TelnyxCampaignCSP> getCampaignWithHttpInfo(String campaignId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'campaignId' is set
@@ -259,7 +260,7 @@ public class CampaignApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<CampaignCSP> localVarReturnType = new GenericType<CampaignCSP>() {};
+    GenericType<TelnyxCampaignCSP> localVarReturnType = new GenericType<TelnyxCampaignCSP>() {};
 
     return apiClient.invokeAPI("CampaignApi.getCampaign", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -337,35 +338,35 @@ public class CampaignApi {
   }
   /**
    * Get Campaign Mno Metadata
-   * Get the campaign metadata for each MNO it was submitted to
+   * Get the campaign metadata for each MNO it was submitted to.
    * @param campaignId ID of the campaign in question (required)
-   * @return Object
+   * @return MnoMetadata
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response. It constains a map of usecase metadata for each MNO. The key is the network ID of the MNO (e.g. 10017), the value is the mno metadata for the usecase. The metadata may also include some MNO specific fields. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected Error </td><td>  -  </td></tr>
      </table>
    */
-  public Object getCampaignMnoMetadata(String campaignId) throws ApiException {
+  public MnoMetadata getCampaignMnoMetadata(String campaignId) throws ApiException {
     return getCampaignMnoMetadataWithHttpInfo(campaignId).getData();
   }
 
   /**
    * Get Campaign Mno Metadata
-   * Get the campaign metadata for each MNO it was submitted to
+   * Get the campaign metadata for each MNO it was submitted to.
    * @param campaignId ID of the campaign in question (required)
-   * @return ApiResponse&lt;Object&gt;
+   * @return ApiResponse&lt;MnoMetadata&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful Response </td><td>  -  </td></tr>
-       <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful Response. It constains a map of usecase metadata for each MNO. The key is the network ID of the MNO (e.g. 10017), the value is the mno metadata for the usecase. The metadata may also include some MNO specific fields. </td><td>  -  </td></tr>
+       <tr><td> 0 </td><td> Unexpected Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Object> getCampaignMnoMetadataWithHttpInfo(String campaignId) throws ApiException {
+  public ApiResponse<MnoMetadata> getCampaignMnoMetadataWithHttpInfo(String campaignId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'campaignId' is set
@@ -399,7 +400,7 @@ public class CampaignApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<Object> localVarReturnType = new GenericType<Object>() {};
+    GenericType<MnoMetadata> localVarReturnType = new GenericType<MnoMetadata>() {};
 
     return apiClient.invokeAPI("CampaignApi.getCampaignMnoMetadata", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
@@ -621,6 +622,7 @@ public class CampaignApi {
    * @param brandId  (required)
    * @param page The 1-indexed page number to get. The default value is &#x60;1&#x60;. (optional, default to 1)
    * @param recordsPerPage The amount of records per page, limited to between 1 and 500 inclusive. The default value is &#x60;10&#x60;. (optional, default to 10)
+   * @param sort Specifies the sort order for results. If not given, results are sorted by createdAt in descending order. (optional, default to -createdAt)
    * @return CampaignRecordSetCSP
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -630,8 +632,8 @@ public class CampaignApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public CampaignRecordSetCSP getCampaigns(String brandId, Integer page, Integer recordsPerPage) throws ApiException {
-    return getCampaignsWithHttpInfo(brandId, page, recordsPerPage).getData();
+  public CampaignRecordSetCSP getCampaigns(String brandId, Integer page, Integer recordsPerPage, String sort) throws ApiException {
+    return getCampaignsWithHttpInfo(brandId, page, recordsPerPage, sort).getData();
   }
 
   /**
@@ -640,6 +642,7 @@ public class CampaignApi {
    * @param brandId  (required)
    * @param page The 1-indexed page number to get. The default value is &#x60;1&#x60;. (optional, default to 1)
    * @param recordsPerPage The amount of records per page, limited to between 1 and 500 inclusive. The default value is &#x60;10&#x60;. (optional, default to 10)
+   * @param sort Specifies the sort order for results. If not given, results are sorted by createdAt in descending order. (optional, default to -createdAt)
    * @return ApiResponse&lt;CampaignRecordSetCSP&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -649,7 +652,7 @@ public class CampaignApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<CampaignRecordSetCSP> getCampaignsWithHttpInfo(String brandId, Integer page, Integer recordsPerPage) throws ApiException {
+  public ApiResponse<CampaignRecordSetCSP> getCampaignsWithHttpInfo(String brandId, Integer page, Integer recordsPerPage, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'brandId' is set
@@ -669,6 +672,7 @@ public class CampaignApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "brandId", brandId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page", page));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "recordsPerPage", recordsPerPage));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
     
@@ -771,7 +775,7 @@ public class CampaignApi {
   }
   /**
    * Submit Campaign
-   * Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/docs/api/v2/10dlc/Campaign#qualify_by_usecase_campaignBuilder_brand__brand_id__usecase__usecase__get) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you&#39;ll only be able to edit the campaign&#39;s sample messages. Creating a campaign will entail an upfront, non-refundable three month&#39;s cost that will depend on the campaign&#39;s use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/api/v2/10dlc)).
+   * Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/api/messaging/10dlc/get-usecase-qualification) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you&#39;ll only be able to edit the campaign&#39;s sample messages. Creating a campaign will entail an upfront, non-refundable three month&#39;s cost that will depend on the campaign&#39;s use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
    * @param campaignRequest  (required)
    * @return ResponseSubmitCampaignPublicCampaignbuilderPost
    * @throws ApiException if fails to make API call
@@ -788,7 +792,7 @@ public class CampaignApi {
 
   /**
    * Submit Campaign
-   * Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/docs/api/v2/10dlc/Campaign#qualify_by_usecase_campaignBuilder_brand__brand_id__usecase__usecase__get) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you&#39;ll only be able to edit the campaign&#39;s sample messages. Creating a campaign will entail an upfront, non-refundable three month&#39;s cost that will depend on the campaign&#39;s use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/api/v2/10dlc)).
+   * Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/api/messaging/10dlc/get-usecase-qualification) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you&#39;ll only be able to edit the campaign&#39;s sample messages. Creating a campaign will entail an upfront, non-refundable three month&#39;s cost that will depend on the campaign&#39;s use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
    * @param campaignRequest  (required)
    * @return ApiResponse&lt;ResponseSubmitCampaignPublicCampaignbuilderPost&gt;
    * @throws ApiException if fails to make API call
@@ -842,8 +846,8 @@ public class CampaignApi {
    * Update My Campaign
    * Update a campaign&#39;s properties by &#x60;campaignId&#x60;. **Please note:** only sample messages are editable.
    * @param campaignId  (required)
-   * @param updateCampaign  (required)
-   * @return Campaign
+   * @param updateCampaignRequest  (required)
+   * @return TelnyxCampaignCSP
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -852,16 +856,16 @@ public class CampaignApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public Campaign updateCampaign(String campaignId, UpdateCampaign updateCampaign) throws ApiException {
-    return updateCampaignWithHttpInfo(campaignId, updateCampaign).getData();
+  public TelnyxCampaignCSP updateCampaign(String campaignId, UpdateCampaignRequest updateCampaignRequest) throws ApiException {
+    return updateCampaignWithHttpInfo(campaignId, updateCampaignRequest).getData();
   }
 
   /**
    * Update My Campaign
    * Update a campaign&#39;s properties by &#x60;campaignId&#x60;. **Please note:** only sample messages are editable.
    * @param campaignId  (required)
-   * @param updateCampaign  (required)
-   * @return ApiResponse&lt;Campaign&gt;
+   * @param updateCampaignRequest  (required)
+   * @return ApiResponse&lt;TelnyxCampaignCSP&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
@@ -870,17 +874,17 @@ public class CampaignApi {
        <tr><td> 422 </td><td> Validation Error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Campaign> updateCampaignWithHttpInfo(String campaignId, UpdateCampaign updateCampaign) throws ApiException {
-    Object localVarPostBody = updateCampaign;
+  public ApiResponse<TelnyxCampaignCSP> updateCampaignWithHttpInfo(String campaignId, UpdateCampaignRequest updateCampaignRequest) throws ApiException {
+    Object localVarPostBody = updateCampaignRequest;
     
     // verify the required parameter 'campaignId' is set
     if (campaignId == null) {
       throw new ApiException(400, "Missing the required parameter 'campaignId' when calling updateCampaign");
     }
     
-    // verify the required parameter 'updateCampaign' is set
-    if (updateCampaign == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateCampaign' when calling updateCampaign");
+    // verify the required parameter 'updateCampaignRequest' is set
+    if (updateCampaignRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'updateCampaignRequest' when calling updateCampaign");
     }
     
     // create path and map variables
@@ -909,7 +913,7 @@ public class CampaignApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<Campaign> localVarReturnType = new GenericType<Campaign>() {};
+    GenericType<TelnyxCampaignCSP> localVarReturnType = new GenericType<TelnyxCampaignCSP>() {};
 
     return apiClient.invokeAPI("CampaignApi.updateCampaign", localVarPath, "PUT", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

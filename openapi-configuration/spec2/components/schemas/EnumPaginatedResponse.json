@@ -1,5 +1,0 @@
-{
-  "title": "EnumPaginatedResponse",
-  "type": "object",
-  "example": "{\"page\": 1, \"records\": [{\"isin\": \"US68243Q1067\", \"iso2\": \"US\", \"symbol\": \"FLWS\", \"exchange\": \"NASDAQ\", \"displayName\": \"1-800 FLOWERS.COM, Inc.\"}, {\"isin\": \"US88025U1097\", \"iso2\": \"US\", \"symbol\": \"TXG\", \"exchange\": \"NASDAQ\", \"displayName\": \"10X GENOMICS INC CLASS A\"}], \"totalRecords\": 2}"
-}

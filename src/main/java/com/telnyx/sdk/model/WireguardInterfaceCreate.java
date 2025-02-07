@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.InterfaceStatus;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -49,7 +47,7 @@ import com.telnyx.sdk.JSON;
   WireguardInterfaceCreate.JSON_PROPERTY_ENABLE_SIP_TRUNKING,
   WireguardInterfaceCreate.JSON_PROPERTY_REGION_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class WireguardInterfaceCreate {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -289,7 +287,7 @@ public class WireguardInterfaceCreate {
    * @return enableSipTrunking
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Enable SIP traffic forwarding over VPN interface.")
+  @ApiModelProperty(example = "false", value = "Enable SIP traffic forwarding over VPN interface.")
   @JsonProperty(JSON_PROPERTY_ENABLE_SIP_TRUNKING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

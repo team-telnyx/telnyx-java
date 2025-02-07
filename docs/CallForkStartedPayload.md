@@ -20,7 +20,6 @@
 
 | Name | Value |
 |---- | -----|
-| RAW | &quot;raw&quot; |
 | DECRYPTED | &quot;decrypted&quot; |
 
 

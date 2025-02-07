@@ -1,9 +1,0 @@
-{
-  "name": "filter[phone_number]",
-  "in": "query",
-  "description": "Filter results by phone number",
-  "schema": {
-    "type": "string",
-    "example": "+12003151212"
-  }
-}

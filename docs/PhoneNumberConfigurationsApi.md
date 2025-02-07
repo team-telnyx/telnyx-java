@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**getPhoneNumberVoiceSettings**](PhoneNumberConfigurationsApi.md#getPhoneNumberVoiceSettings) | **GET** /phone_numbers/{id}/voice | Retrieve a phone number with voice settings
 [**listPhoneNumbers**](PhoneNumberConfigurationsApi.md#listPhoneNumbers) | **GET** /phone_numbers | List phone numbers
 [**listPhoneNumbersWithVoiceSettings**](PhoneNumberConfigurationsApi.md#listPhoneNumbersWithVoiceSettings) | **GET** /phone_numbers/voice | List phone numbers with voice settings
+[**phoneNumberBundleStatusChange**](PhoneNumberConfigurationsApi.md#phoneNumberBundleStatusChange) | **PATCH** /phone_numbers/{id}/actions/bundle_status_change | Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
 [**retrievePhoneNumber**](PhoneNumberConfigurationsApi.md#retrievePhoneNumber) | **GET** /phone_numbers/{id} | Retrieve a phone number
 [**slimListPhoneNumbers**](PhoneNumberConfigurationsApi.md#slimListPhoneNumbers) | **GET** /phone_numbers/slim | Slim List phone numbers
 [**updatePhoneNumber**](PhoneNumberConfigurationsApi.md#updatePhoneNumber) | **PATCH** /phone_numbers/{id} | Update a phone number
@@ -228,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## listPhoneNumbers
 
-> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterConnectionId(filterConnectionId).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterVoiceUsagePaymentMethod(filterVoiceUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).sort(sort).execute();
+> ListPhoneNumbersResponse listPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterCountryIsoAlpha2(filterCountryIsoAlpha2).filterConnectionId(filterConnectionId).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionNameEq(filterVoiceConnectionNameEq).filterVoiceUsagePaymentMethod(filterVoiceUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).filterNumberTypeEq(filterNumberTypeEq).filterSource(filterSource).sort(sort).execute();
 
 List phone numbers
 
@@ -258,6 +259,7 @@ public class Example {
         String filterTag = "filterTag_example"; // String | Filter by phone number tags.
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterStatus = "purchase_pending"; // String | Filter by phone number status.
+        ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2 = new ListPhoneNumbersFilterCountryIsoAlpha2Parameter(); // ListPhoneNumbersFilterCountryIsoAlpha2Parameter | Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values.
         String filterConnectionId = "1521916448077776306"; // String | Filter by connection_id.
         String filterVoiceConnectionNameContains = "test"; // String | Filter contains connection name. Requires at least three characters.
         String filterVoiceConnectionNameStartsWith = "test"; // String | Filter starts with connection name. Requires at least three characters.
@@ -267,6 +269,8 @@ public class Example {
         String filterBillingGroupId = "62e4bf2e-c278-4282-b524-488d9c9c43b2"; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
         String filterEmergencyAddressId = "9102160989215728032"; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
+        String filterNumberTypeEq = "local"; // String | Filter phone numbers by phone number type.
+        String filterSource = "ported"; // String | Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx.
         String sort = "purchased_at"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersResponse result = api.listPhoneNumbers()
@@ -275,6 +279,7 @@ public class Example {
                 .filterTag(filterTag)
                 .filterPhoneNumber(filterPhoneNumber)
                 .filterStatus(filterStatus)
+                .filterCountryIsoAlpha2(filterCountryIsoAlpha2)
                 .filterConnectionId(filterConnectionId)
                 .filterVoiceConnectionNameContains(filterVoiceConnectionNameContains)
                 .filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith)
@@ -284,6 +289,8 @@ public class Example {
                 .filterBillingGroupId(filterBillingGroupId)
                 .filterEmergencyAddressId(filterEmergencyAddressId)
                 .filterCustomerReference(filterCustomerReference)
+                .filterNumberTypeEq(filterNumberTypeEq)
+                .filterSource(filterSource)
                 .sort(sort)
                 .execute();
             System.out.println(result);
@@ -308,6 +315,7 @@ Name | Type | Description  | Notes
  **filterTag** | **String**| Filter by phone number tags. | [optional]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
+ **filterCountryIsoAlpha2** | [**ListPhoneNumbersFilterCountryIsoAlpha2Parameter**](ListPhoneNumbersFilterCountryIsoAlpha2Parameter.md)| Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. | [optional]
  **filterConnectionId** | **String**| Filter by connection_id. | [optional]
  **filterVoiceConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters. | [optional]
  **filterVoiceConnectionNameStartsWith** | **String**| Filter starts with connection name. Requires at least three characters. | [optional]
@@ -317,6 +325,8 @@ Name | Type | Description  | Notes
  **filterBillingGroupId** | **String**| Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. | [optional]
  **filterEmergencyAddressId** | **String**| Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string &#39;null&#39;. | [optional]
  **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]
+ **filterNumberTypeEq** | **String**| Filter phone numbers by phone number type. | [optional] [enum: local, national, toll_free, mobile, shared_cost]
+ **filterSource** | **String**| Filter phone numbers by their source. Use &#39;ported&#39; for numbers ported from other carriers, or &#39;purchased&#39; for numbers bought directly from Telnyx. | [optional] [enum: ported, purchased]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
 
 ### Return type
@@ -428,6 +438,77 @@ Name | Type | Description  | Notes
 | **0** | Unexpected error |  -  |
 
 
+## phoneNumberBundleStatusChange
+
+> PhoneNumberBundleStatusChange phoneNumberBundleStatusChange(id, phoneNumberBundleStatusChangeRequest)
+
+Change the bundle status for a phone number (set to being in a bundle or remove from a bundle)
+
+### Example
+
+```java
+// Import classes:
+import com.telnyx.sdk.ApiClient;
+import com.telnyx.sdk.ApiException;
+import com.telnyx.sdk.Configuration;
+import com.telnyx.sdk.auth.*;
+import com.telnyx.sdk.model.*;
+import com.telnyx.sdk.api.PhoneNumberConfigurationsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.telnyx.com/v2");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        PhoneNumberConfigurationsApi apiInstance = new PhoneNumberConfigurationsApi(defaultClient);
+        String id = "1293384261075731499"; // String | Identifies the resource.
+        PhoneNumberBundleStatusChangeRequest phoneNumberBundleStatusChangeRequest = new PhoneNumberBundleStatusChangeRequest(); // PhoneNumberBundleStatusChangeRequest | 
+        try {
+            PhoneNumberBundleStatusChange result = apiInstance.phoneNumberBundleStatusChange(id, phoneNumberBundleStatusChangeRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PhoneNumberConfigurationsApi#phoneNumberBundleStatusChange");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Identifies the resource. |
+ **phoneNumberBundleStatusChangeRequest** | [**PhoneNumberBundleStatusChangeRequest**](PhoneNumberBundleStatusChangeRequest.md)|  |
+
+### Return type
+
+[**PhoneNumberBundleStatusChange**](PhoneNumberBundleStatusChange.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Phone number bundle status change success |  -  |
+| **0** | Unexpected error |  -  |
+
+
 ## retrievePhoneNumber
 
 > PhoneNumberResponse retrievePhoneNumber(id)
@@ -499,7 +580,7 @@ Name | Type | Description  | Notes
 
 ## slimListPhoneNumbers
 
-> ListPhoneNumbersResponse1 slimListPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).includeConnection(includeConnection).includeTags(includeTags).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterConnectionId(filterConnectionId).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionName(filterVoiceConnectionName).filterVoiceUsagePaymentMethod(filterVoiceUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).sort(sort).execute();
+> ListPhoneNumbersResponse1 slimListPhoneNumbers().pageNumber(pageNumber).pageSize(pageSize).includeConnection(includeConnection).includeTags(includeTags).filterTag(filterTag).filterPhoneNumber(filterPhoneNumber).filterStatus(filterStatus).filterCountryIsoAlpha2(filterCountryIsoAlpha2).filterConnectionId(filterConnectionId).filterVoiceConnectionNameContains(filterVoiceConnectionNameContains).filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith).filterVoiceConnectionNameEndsWith(filterVoiceConnectionNameEndsWith).filterVoiceConnectionName(filterVoiceConnectionName).filterVoiceUsagePaymentMethod(filterVoiceUsagePaymentMethod).filterBillingGroupId(filterBillingGroupId).filterEmergencyAddressId(filterEmergencyAddressId).filterCustomerReference(filterCustomerReference).filterNumberTypeEq(filterNumberTypeEq).filterSource(filterSource).sort(sort).execute();
 
 Slim List phone numbers
 
@@ -533,6 +614,7 @@ public class Example {
         String filterTag = "filterTag_example"; // String | Filter by phone number tags. (This requires the include_tags param)
         String filterPhoneNumber = "filterPhoneNumber_example"; // String | Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned.
         String filterStatus = "purchase_pending"; // String | Filter by phone number status.
+        ListPhoneNumbersFilterCountryIsoAlpha2Parameter filterCountryIsoAlpha2 = new ListPhoneNumbersFilterCountryIsoAlpha2Parameter(); // ListPhoneNumbersFilterCountryIsoAlpha2Parameter | Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values.
         String filterConnectionId = "1521916448077776306"; // String | Filter by connection_id.
         String filterVoiceConnectionNameContains = "test"; // String | Filter contains connection name. Requires at least three characters and the include_connection param.
         String filterVoiceConnectionNameStartsWith = "test"; // String | Filter starts with connection name. Requires at least three characters and the include_connection param.
@@ -542,6 +624,8 @@ public class Example {
         String filterBillingGroupId = "62e4bf2e-c278-4282-b524-488d9c9c43b2"; // String | Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
         String filterEmergencyAddressId = "9102160989215728032"; // String | Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
         String filterCustomerReference = "filterCustomerReference_example"; // String | Filter numbers via the customer_reference set.
+        String filterNumberTypeEq = "local"; // String | Filter phone numbers by phone number type.
+        String filterSource = "ported"; // String | Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx.
         String sort = "purchased_at"; // String | Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
         try {
             ListPhoneNumbersResponse1 result = api.slimListPhoneNumbers()
@@ -552,6 +636,7 @@ public class Example {
                 .filterTag(filterTag)
                 .filterPhoneNumber(filterPhoneNumber)
                 .filterStatus(filterStatus)
+                .filterCountryIsoAlpha2(filterCountryIsoAlpha2)
                 .filterConnectionId(filterConnectionId)
                 .filterVoiceConnectionNameContains(filterVoiceConnectionNameContains)
                 .filterVoiceConnectionNameStartsWith(filterVoiceConnectionNameStartsWith)
@@ -561,6 +646,8 @@ public class Example {
                 .filterBillingGroupId(filterBillingGroupId)
                 .filterEmergencyAddressId(filterEmergencyAddressId)
                 .filterCustomerReference(filterCustomerReference)
+                .filterNumberTypeEq(filterNumberTypeEq)
+                .filterSource(filterSource)
                 .sort(sort)
                 .execute();
             System.out.println(result);
@@ -587,6 +674,7 @@ Name | Type | Description  | Notes
  **filterTag** | **String**| Filter by phone number tags. (This requires the include_tags param) | [optional]
  **filterPhoneNumber** | **String**| Filter by phone number. Requires at least three digits.              Non-numerical characters will result in no values being returned. | [optional]
  **filterStatus** | **String**| Filter by phone number status. | [optional] [enum: purchase_pending, purchase_failed, port_pending, active, deleted, port_failed, emergency_only, ported_out, port_out_pending]
+ **filterCountryIsoAlpha2** | [**ListPhoneNumbersFilterCountryIsoAlpha2Parameter**](ListPhoneNumbersFilterCountryIsoAlpha2Parameter.md)| Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. | [optional]
  **filterConnectionId** | **String**| Filter by connection_id. | [optional]
  **filterVoiceConnectionNameContains** | **String**| Filter contains connection name. Requires at least three characters and the include_connection param. | [optional]
  **filterVoiceConnectionNameStartsWith** | **String**| Filter starts with connection name. Requires at least three characters and the include_connection param. | [optional]
@@ -596,6 +684,8 @@ Name | Type | Description  | Notes
  **filterBillingGroupId** | **String**| Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string &#39;null&#39;. | [optional]
  **filterEmergencyAddressId** | **String**| Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string &#39;null&#39;. | [optional]
  **filterCustomerReference** | **String**| Filter numbers via the customer_reference set. | [optional]
+ **filterNumberTypeEq** | **String**| Filter phone numbers by phone number type. | [optional] [enum: local, national, toll_free, mobile, shared_cost]
+ **filterSource** | **String**| Filter phone numbers by their source. Use &#39;ported&#39; for numbers ported from other carriers, or &#39;purchased&#39; for numbers bought directly from Telnyx. | [optional] [enum: ported, purchased]
  **sort** | **String**| Specifies the sort order for results. If not given, results are sorted by created_at in descending order. | [optional] [enum: purchased_at, phone_number, connection_name, usage_payment_method]
 
 ### Return type

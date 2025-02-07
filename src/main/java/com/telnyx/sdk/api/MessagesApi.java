@@ -14,6 +14,7 @@ import com.telnyx.sdk.model.CreateMessageRequest;
 import com.telnyx.sdk.model.CreateNumberPoolMessageRequest;
 import com.telnyx.sdk.model.CreateShortCodeMessageRequest;
 import com.telnyx.sdk.model.Errors;
+import com.telnyx.sdk.model.GetMessage200Response;
 import com.telnyx.sdk.model.MessageResponse;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class MessagesApi {
   private ApiClient apiClient;
 
@@ -310,35 +311,35 @@ public class MessagesApi {
   }
   /**
    * Retrieve a message
-   * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
+   * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/api/v1/mission-control/add-mdr-request)
    * @param id The id of the message (required)
-   * @return MessageResponse
+   * @return GetMessage200Response
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details of a message. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public MessageResponse getMessage(UUID id) throws ApiException {
+  public GetMessage200Response getMessage(UUID id) throws ApiException {
     return getMessageWithHttpInfo(id).getData();
   }
 
   /**
    * Retrieve a message
-   * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/docs/api/v1/reports/MDR-Reports)
+   * Note: This API endpoint can only retrieve messages that are no older than 10 days since their creation. If you require messages older than this, please generate an [MDR report.](https://developers.telnyx.com/api/v1/mission-control/add-mdr-request)
    * @param id The id of the message (required)
-   * @return ApiResponse&lt;MessageResponse&gt;
+   * @return ApiResponse&lt;GetMessage200Response&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
      <table summary="Response Details" border="1">
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-       <tr><td> 200 </td><td> Successful response with details about a message. </td><td>  -  </td></tr>
+       <tr><td> 200 </td><td> Successful response with details of a message. </td><td>  -  </td></tr>
        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<MessageResponse> getMessageWithHttpInfo(UUID id) throws ApiException {
+  public ApiResponse<GetMessage200Response> getMessageWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -372,7 +373,7 @@ public class MessagesApi {
 
     String[] localVarAuthNames = new String[] { "bearerAuth" };
 
-    GenericType<MessageResponse> localVarReturnType = new GenericType<MessageResponse>() {};
+    GenericType<GetMessage200Response> localVarReturnType = new GenericType<GetMessage200Response>() {};
 
     return apiClient.invokeAPI("MessagesApi.getMessage", localVarPath, "GET", localVarQueryParams, localVarPostBody,
                                localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,

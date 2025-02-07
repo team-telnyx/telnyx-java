@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## createDocument
 
-> CreateDocument200Response createDocument(createDocServiceDocumentRequest)
+> CreateDocument200Response createDocument(createDocumentRequest)
 
 Upload a document
 
@@ -43,9 +43,9 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-        CreateDocServiceDocumentRequest createDocServiceDocumentRequest = new CreateDocServiceDocumentRequest(); // CreateDocServiceDocumentRequest | 
+        CreateDocumentRequest createDocumentRequest = new CreateDocumentRequest(); // CreateDocumentRequest | 
         try {
-            CreateDocument200Response result = apiInstance.createDocument(createDocServiceDocumentRequest);
+            CreateDocument200Response result = apiInstance.createDocument(createDocumentRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#createDocument");
@@ -63,7 +63,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createDocServiceDocumentRequest** | [**CreateDocServiceDocumentRequest**](CreateDocServiceDocumentRequest.md)|  |
+ **createDocumentRequest** | [**CreateDocumentRequest**](CreateDocumentRequest.md)|  |
 
 ### Return type
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
 | **422** | Unprocessable entity. Check the &#39;detail&#39; field in response for details. |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## deleteDocument
@@ -155,12 +155,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## downloadDocument
 
-> File downloadDocument(id)
+> Object downloadDocument(id)
 
 Download a document
 
@@ -190,7 +190,7 @@ public class Example {
         DocumentsApi apiInstance = new DocumentsApi(defaultClient);
         UUID id = UUID.fromString("6a09cdc3-8948-47f0-aa62-74ac943d6c58"); // UUID | Identifies the resource.
         try {
-            File result = apiInstance.downloadDocument(id);
+            Object result = apiInstance.downloadDocument(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DocumentsApi#downloadDocument");
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**File**](File.md)
+**Object**
 
 ### Authorization
 
@@ -221,13 +221,13 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: *, application/json
+- **Accept**: */*, application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## listDocumentLinks
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## listDocuments
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## retrieveDocument
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 
 
 ## updateDocument
@@ -519,7 +519,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Identifies the resource. |
- **docServiceDocument** | [**DocServiceDocument**](DocServiceDocument.md)|  |
+ **docServiceDocument** | [**DocServiceDocument**](DocServiceDocument.md)|  | [optional]
 
 ### Return type
 
@@ -538,5 +538,5 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  -  |
-| **0** | Unexpected error |  -  |
+| **500** | Unexpected error |  -  |
 

@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful response upon accepting cancel fax command |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 | **0** | Unexpected error |  -  |
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Refresh fax response |  -  |
-| **404** | Resource not found |  -  |
+| **404** | Fax does not exist |  -  |
 | **0** | Unexpected error |  -  |
 
 

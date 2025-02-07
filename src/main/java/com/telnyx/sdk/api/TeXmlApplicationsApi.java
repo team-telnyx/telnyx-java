@@ -11,8 +11,8 @@ import javax.ws.rs.core.GenericType;
 import com.telnyx.sdk.model.CreateTexmlApplicationRequest;
 import com.telnyx.sdk.model.ErrorResponse;
 import com.telnyx.sdk.model.GetAllTexmlApplicationsResponse;
-import com.telnyx.sdk.model.ResourceNotFound;
 import com.telnyx.sdk.model.TexmlApplicationResponse;
+import java.util.UUID;
 import com.telnyx.sdk.model.UpdateTexmlApplicationRequest;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class TeXmlApplicationsApi {
   private ApiClient apiClient;
 
@@ -61,8 +61,8 @@ public class TeXmlApplicationsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -81,8 +81,8 @@ public class TeXmlApplicationsApi {
        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
        <tr><td> 201 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
@@ -128,7 +128,7 @@ public class TeXmlApplicationsApi {
   /**
    * Deletes a TeXML Application
    * Deletes a TeXML Application.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return TexmlApplicationResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -137,18 +137,18 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public TexmlApplicationResponse deleteTexmlApplication(String id) throws ApiException {
+  public TexmlApplicationResponse deleteTexmlApplication(UUID id) throws ApiException {
     return deleteTexmlApplicationWithHttpInfo(id).getData();
   }
 
   /**
    * Deletes a TeXML Application
    * Deletes a TeXML Application.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;TexmlApplicationResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -157,11 +157,11 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TexmlApplicationResponse> deleteTexmlApplicationWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<TexmlApplicationResponse> deleteTexmlApplicationWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -207,8 +207,8 @@ public class TeXmlApplicationsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+   * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;application_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;application_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-application_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;application_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
    * @return GetAllTexmlApplicationsResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -217,11 +217,11 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public GetAllTexmlApplicationsResponse findTexmlApplications(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
-    return findTexmlApplicationsWithHttpInfo(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundOutboundVoiceProfileId, sort).getData();
+  public GetAllTexmlApplicationsResponse findTexmlApplications(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
+    return findTexmlApplicationsWithHttpInfo(pageNumber, pageSize, filterFriendlyNameContains, filterOutboundVoiceProfileId, sort).getData();
   }
 
   /**
@@ -230,8 +230,8 @@ public class TeXmlApplicationsApi {
    * @param pageNumber The page number to load (optional, default to 1)
    * @param pageSize The size of the page (optional, default to 20)
    * @param filterFriendlyNameContains If present, applications with &lt;code&gt;friendly_name&lt;/code&gt; containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. (optional, default to null)
-   * @param filterOutboundOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
-   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-connection_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;connection_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
+   * @param filterOutboundVoiceProfileId Identifies the associated outbound voice profile. (optional)
+   * @param sort Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the &lt;code&gt; -&lt;/code&gt; prefix.&lt;br/&gt;&lt;br/&gt; That is: &lt;ul&gt;   &lt;li&gt;     &lt;code&gt;application_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;application_name&lt;/code&gt; field in ascending order.   &lt;/li&gt;    &lt;li&gt;     &lt;code&gt;-application_name&lt;/code&gt;: sorts the result by the     &lt;code&gt;application_name&lt;/code&gt; field in descending order.   &lt;/li&gt; &lt;/ul&gt; &lt;br/&gt; If not given, results are sorted by &lt;code&gt;created_at&lt;/code&gt; in descending order. (optional, default to created_at)
    * @return ApiResponse&lt;GetAllTexmlApplicationsResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -240,10 +240,10 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetAllTexmlApplicationsResponse> findTexmlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundOutboundVoiceProfileId, String sort) throws ApiException {
+  public ApiResponse<GetAllTexmlApplicationsResponse> findTexmlApplicationsWithHttpInfo(Integer pageNumber, Integer pageSize, String filterFriendlyNameContains, String filterOutboundVoiceProfileId, String sort) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -258,7 +258,7 @@ public class TeXmlApplicationsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[number]", pageNumber));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page[size]", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[friendly_name][contains]", filterFriendlyNameContains));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound.outbound_voice_profile_id]", filterOutboundOutboundVoiceProfileId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter[outbound_voice_profile_id]", filterOutboundVoiceProfileId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
 
     
@@ -285,7 +285,7 @@ public class TeXmlApplicationsApi {
   /**
    * Retrieve a TeXML Application
    * Retrieves the details of an existing TeXML Application.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return TexmlApplicationResponse
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -294,18 +294,18 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public TexmlApplicationResponse getTexmlApplication(String id) throws ApiException {
+  public TexmlApplicationResponse getTexmlApplication(UUID id) throws ApiException {
     return getTexmlApplicationWithHttpInfo(id).getData();
   }
 
   /**
    * Retrieve a TeXML Application
    * Retrieves the details of an existing TeXML Application.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @return ApiResponse&lt;TexmlApplicationResponse&gt;
    * @throws ApiException if fails to make API call
    * @http.response.details
@@ -314,11 +314,11 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TexmlApplicationResponse> getTexmlApplicationWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<TexmlApplicationResponse> getTexmlApplicationWithHttpInfo(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -361,7 +361,7 @@ public class TeXmlApplicationsApi {
   /**
    * Update a TeXML Application
    * Updates settings of an existing TeXML Application.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param updateTexmlApplicationRequest Parameters that can be updated in a TeXML Application (required)
    * @return TexmlApplicationResponse
    * @throws ApiException if fails to make API call
@@ -371,19 +371,19 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public TexmlApplicationResponse updateTexmlApplication(String id, UpdateTexmlApplicationRequest updateTexmlApplicationRequest) throws ApiException {
+  public TexmlApplicationResponse updateTexmlApplication(UUID id, UpdateTexmlApplicationRequest updateTexmlApplicationRequest) throws ApiException {
     return updateTexmlApplicationWithHttpInfo(id, updateTexmlApplicationRequest).getData();
   }
 
   /**
    * Update a TeXML Application
    * Updates settings of an existing TeXML Application.
-   * @param id Identifies the resource. (required)
+   * @param id The id of the resource. (required)
    * @param updateTexmlApplicationRequest Parameters that can be updated in a TeXML Application (required)
    * @return ApiResponse&lt;TexmlApplicationResponse&gt;
    * @throws ApiException if fails to make API call
@@ -393,12 +393,12 @@ public class TeXmlApplicationsApi {
        <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
        <tr><td> 400 </td><td> Bad request, the request was unacceptable, often due to missing a required parameter. </td><td>  -  </td></tr>
        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-       <tr><td> 403 </td><td> Unauthenticated response. Happens when the current user cannot be authenticated. </td><td>  -  </td></tr>
-       <tr><td> 404 </td><td> Resource not found </td><td>  -  </td></tr>
+       <tr><td> 403 </td><td> Unauthorized </td><td>  -  </td></tr>
+       <tr><td> 404 </td><td> Fax does not exist </td><td>  -  </td></tr>
        <tr><td> 422 </td><td> Unprocessable entity </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TexmlApplicationResponse> updateTexmlApplicationWithHttpInfo(String id, UpdateTexmlApplicationRequest updateTexmlApplicationRequest) throws ApiException {
+  public ApiResponse<TexmlApplicationResponse> updateTexmlApplicationWithHttpInfo(UUID id, UpdateTexmlApplicationRequest updateTexmlApplicationRequest) throws ApiException {
     Object localVarPostBody = updateTexmlApplicationRequest;
     
     // verify the required parameter 'id' is set

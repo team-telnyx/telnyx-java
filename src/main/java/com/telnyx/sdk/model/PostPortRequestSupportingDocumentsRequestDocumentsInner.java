@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,15 +37,15 @@ import com.telnyx.sdk.JSON;
   PostPortRequestSupportingDocumentsRequestDocumentsInner.JSON_PROPERTY_TYPE,
   PostPortRequestSupportingDocumentsRequestDocumentsInner.JSON_PROPERTY_DOCUMENT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PostPortRequestSupportingDocumentsRequestDocumentsInner {
   /**
    * Identifies the type of the document
    */
   public enum TypeEnum {
-    LOA("loa"),
+    LOA(String.valueOf("loa")),
     
-    INVOICE("invoice");
+    INVOICE(String.valueOf("invoice"));
 
     private String value;
 

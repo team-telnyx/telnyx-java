@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CsvDownload.JSON_PROPERTY_URL,
   CsvDownload.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CsvDownload {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -55,13 +53,13 @@ public class CsvDownload {
    * Indicates the completion level of the CSV report. Only complete CSV download requests will be able to be retrieved.
    */
   public enum StatusEnum {
-    PENDING("pending"),
+    PENDING(String.valueOf("pending")),
     
-    COMPLETE("complete"),
+    COMPLETE(String.valueOf("complete")),
     
-    FAILED("failed"),
+    FAILED(String.valueOf("failed")),
     
-    EXPIRED("expired");
+    EXPIRED(String.valueOf("expired"));
 
     private String value;
 

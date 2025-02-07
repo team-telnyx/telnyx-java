@@ -8,8 +8,8 @@ The settings associated with the authentication provider.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**idpEntityId** | **String** | The Entity ID for the identity provider (IdP). |  |
-|**idpSsoTargetUrl** | **String** | The SSO target url for the identity provider (IdP). |  |
+|**idpEntityId** | **URI** | The Entity ID for the identity provider (IdP). |  |
+|**idpSsoTargetUrl** | **URI** | The SSO target url for the identity provider (IdP). |  |
 |**idpCertFingerprint** | **String** | The certificate fingerprint for the identity provider (IdP) |  |
 |**idpCertFingerprintAlgorithm** | [**IdpCertFingerprintAlgorithmEnum**](#IdpCertFingerprintAlgorithmEnum) | The algorithm used to generate the identity provider&#39;s (IdP) certificate fingerprint |  [optional] |
 

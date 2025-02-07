@@ -24,15 +24,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.telnyx.sdk.model.SIMCardCurrentBillingPeriodConsumedData;
 import com.telnyx.sdk.model.SIMCardCurrentDeviceLocation;
 import com.telnyx.sdk.model.SIMCardDataLimit;
 import com.telnyx.sdk.model.SIMCardStatus;
+import com.telnyx.sdk.model.SimpleSIMCardCurrentBillingPeriodConsumedData;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -65,7 +63,7 @@ import com.telnyx.sdk.JSON;
   SIMCard.JSON_PROPERTY_CURRENT_MCC,
   SIMCard.JSON_PROPERTY_LIVE_DATA_SESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SIMCard {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -80,9 +78,9 @@ public class SIMCard {
    * The type of SIM card
    */
   public enum TypeEnum {
-    PHYSICAL("physical"),
+    PHYSICAL(String.valueOf("physical")),
     
-    ESIM("esim");
+    ESIM(String.valueOf("esim"));
 
     private String value;
 
@@ -139,7 +137,7 @@ public class SIMCard {
   private SIMCardDataLimit dataLimit;
 
   public static final String JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA = "current_billing_period_consumed_data";
-  private SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
+  private SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData;
 
   public static final String JSON_PROPERTY_ACTIONS_IN_PROGRESS = "actions_in_progress";
   private Boolean actionsInProgress = false;
@@ -169,11 +167,11 @@ public class SIMCard {
    * Indicates whether the device is actively connected to a network and able to run data.
    */
   public enum LiveDataSessionEnum {
-    CONNECTED("connected"),
+    CONNECTED(String.valueOf("connected")),
     
-    DISCONNECTED("disconnected"),
+    DISCONNECTED(String.valueOf("disconnected")),
     
-    UNKNOWN("unknown");
+    UNKNOWN(String.valueOf("unknown"));
 
     private String value;
 
@@ -397,7 +395,7 @@ public class SIMCard {
     return this;
   }
 
-  public SIMCard addTagsItem(String tagsItem) {
+  public SIMCard addtagsItem(String tagsItem) {
     if (this.tags == null) {
       this.tags = new ArrayList<>();
     }
@@ -431,7 +429,7 @@ public class SIMCard {
     return this;
   }
 
-  public SIMCard addAuthorizedImeisItem(String authorizedImeisItem) {
+  public SIMCard addauthorizedImeisItem(String authorizedImeisItem) {
     if (this.authorizedImeis == null) {
       this.authorizedImeis = new ArrayList<>();
     }
@@ -502,7 +500,7 @@ public class SIMCard {
   }
 
 
-  public SIMCard currentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+  public SIMCard currentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
     this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
     return this;
   }
@@ -516,14 +514,14 @@ public class SIMCard {
   @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
+  public SimpleSIMCardCurrentBillingPeriodConsumedData getCurrentBillingPeriodConsumedData() {
     return currentBillingPeriodConsumedData;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CURRENT_BILLING_PERIOD_CONSUMED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrentBillingPeriodConsumedData(SIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
+  public void setCurrentBillingPeriodConsumedData(SimpleSIMCardCurrentBillingPeriodConsumedData currentBillingPeriodConsumedData) {
     this.currentBillingPeriodConsumedData = currentBillingPeriodConsumedData;
   }
 

@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -38,7 +36,7 @@ import com.telnyx.sdk.JSON;
   SharePortingOrderRequest.JSON_PROPERTY_EXPIRES_IN_SECONDS,
   SharePortingOrderRequest.JSON_PROPERTY_PERMISSIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SharePortingOrderRequest {
   public static final String JSON_PROPERTY_EXPIRES_IN_SECONDS = "expires_in_seconds";
   private Integer expiresInSeconds;
@@ -47,9 +45,9 @@ public class SharePortingOrderRequest {
    * The permissions the token will have
    */
   public enum PermissionsEnum {
-    READ("porting_order.document.read"),
+    PORTING_ORDER_DOCUMENT_READ(String.valueOf("porting_order.document.read")),
     
-    UPDATE("porting_order.document.update");
+    PORTING_ORDER_DOCUMENT_UPDATE(String.valueOf("porting_order.document.update"));
 
     private String value;
 

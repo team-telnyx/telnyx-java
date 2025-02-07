@@ -7,10 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **UUID** | Uniquely identifies the resource. |  [optional] |
-|**additionalInfo** | **String** |  |  [optional] |
-|**description** | **String** |  |  [optional] |
-|**isDefault** | **Boolean** | Represents whether the location is the default or not. |  [optional] |
+|**region** | **String** | Identifies the geographical region of location. |  [optional] |
+|**site** | **String** | Site of location. |  [optional] |
+|**pop** | **String** | Point of presence of location. |  [optional] |
+|**code** | **String** | Location code. |  [optional] |
+|**name** | **String** | Human readable name of location. |  [optional] |
 
 
 

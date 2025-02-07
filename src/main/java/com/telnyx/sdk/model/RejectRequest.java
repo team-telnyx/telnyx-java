@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
   RejectRequest.JSON_PROPERTY_COMMAND_ID,
   RejectRequest.JSON_PROPERTY_CAUSE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class RejectRequest {
   public static final String JSON_PROPERTY_CLIENT_STATE = "client_state";
   private String clientState;
@@ -51,9 +49,9 @@ public class RejectRequest {
    * Cause for call rejection.
    */
   public enum CauseEnum {
-    CALL_REJECTED("CALL_REJECTED"),
+    CALL_REJECTED(String.valueOf("CALL_REJECTED")),
     
-    USER_BUSY("USER_BUSY");
+    USER_BUSY(String.valueOf("USER_BUSY"));
 
     private String value;
 

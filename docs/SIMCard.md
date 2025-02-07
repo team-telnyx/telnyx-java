@@ -19,7 +19,7 @@
 |**authorizedImeis** | **List&lt;String&gt;** | List of IMEIs authorized to use a given SIM card. |  [optional] |
 |**currentImei** | **String** | IMEI of the device where a given SIM card is currently being used. |  [optional] [readonly] |
 |**dataLimit** | [**SIMCardDataLimit**](SIMCardDataLimit.md) |  |  [optional] |
-|**currentBillingPeriodConsumedData** | [**SIMCardCurrentBillingPeriodConsumedData**](SIMCardCurrentBillingPeriodConsumedData.md) |  |  [optional] |
+|**currentBillingPeriodConsumedData** | [**SimpleSIMCardCurrentBillingPeriodConsumedData**](SimpleSIMCardCurrentBillingPeriodConsumedData.md) |  |  [optional] |
 |**actionsInProgress** | **Boolean** | Indicate whether the SIM card has any pending (in-progress) actions. |  [optional] [readonly] |
 |**createdAt** | **String** | ISO 8601 formatted date-time indicating when the resource was created. |  [optional] [readonly] |
 |**updatedAt** | **String** | ISO 8601 formatted date-time indicating when the resource was updated. |  [optional] [readonly] |

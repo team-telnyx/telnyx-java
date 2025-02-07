@@ -28,8 +28,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -48,7 +46,7 @@ import com.telnyx.sdk.JSON;
   PortingOrderSharingToken.JSON_PROPERTY_RECORD_TYPE,
   PortingOrderSharingToken.JSON_PROPERTY_CREATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class PortingOrderSharingToken {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -63,9 +61,9 @@ public class PortingOrderSharingToken {
    * Gets or Sets permissions
    */
   public enum PermissionsEnum {
-    READ("porting_order.document.read"),
+    PORTING_ORDER_DOCUMENT_READ(String.valueOf("porting_order.document.read")),
     
-    UPDATE("porting_order.document.update");
+    PORTING_ORDER_DOCUMENT_UPDATE(String.valueOf("porting_order.document.update"));
 
     private String value;
 
@@ -204,7 +202,7 @@ public class PortingOrderSharingToken {
     return this;
   }
 
-  public PortingOrderSharingToken addPermissionsItem(PermissionsEnum permissionsItem) {
+  public PortingOrderSharingToken addpermissionsItem(PermissionsEnum permissionsItem) {
     if (this.permissions == null) {
       this.permissions = new ArrayList<>();
     }

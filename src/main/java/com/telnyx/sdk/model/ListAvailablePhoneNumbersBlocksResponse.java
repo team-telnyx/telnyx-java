@@ -26,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.AvailablePhoneNumberBlock;
 import com.telnyx.sdk.model.AvailablePhoneNumbersMetadata;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -41,7 +40,7 @@ import com.telnyx.sdk.JSON;
   ListAvailablePhoneNumbersBlocksResponse.JSON_PROPERTY_DATA,
   ListAvailablePhoneNumbersBlocksResponse.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ListAvailablePhoneNumbersBlocksResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<AvailablePhoneNumberBlock> data = null;
@@ -57,7 +56,7 @@ public class ListAvailablePhoneNumbersBlocksResponse {
     return this;
   }
 
-  public ListAvailablePhoneNumbersBlocksResponse addDataItem(AvailablePhoneNumberBlock dataItem) {
+  public ListAvailablePhoneNumbersBlocksResponse adddataItem(AvailablePhoneNumberBlock dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }

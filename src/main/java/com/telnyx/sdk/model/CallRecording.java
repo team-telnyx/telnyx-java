@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.telnyx.sdk.JSON;
 
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   CallRecording.JSON_PROPERTY_INBOUND_CALL_RECORDING_FORMAT,
   CallRecording.JSON_PROPERTY_INBOUND_CALL_RECORDING_CHANNELS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CallRecording {
   public static final String JSON_PROPERTY_INBOUND_CALL_RECORDING_ENABLED = "inbound_call_recording_enabled";
   private Boolean inboundCallRecordingEnabled = false;
@@ -49,9 +47,9 @@ public class CallRecording {
    * The audio file format for calls being recorded.
    */
   public enum InboundCallRecordingFormatEnum {
-    WAV("wav"),
+    WAV(String.valueOf("wav")),
     
-    MP3("mp3");
+    MP3(String.valueOf("mp3"));
 
     private String value;
 
@@ -87,9 +85,9 @@ public class CallRecording {
    * When using &#39;dual&#39; channels, final audio file will be stereo recorded with the first leg on channel A, and the rest on channel B.
    */
   public enum InboundCallRecordingChannelsEnum {
-    SINGLE("single"),
+    SINGLE(String.valueOf("single")),
     
-    DUAL("dual");
+    DUAL(String.valueOf("dual"));
 
     private String value;
 

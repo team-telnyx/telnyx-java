@@ -1,6 +1,0 @@
-{
-  "title": "Connection Name",
-  "type": "string",
-  "description": "A user-assigned name to help manage the connection.",
-  "example": "office-connection"
-}

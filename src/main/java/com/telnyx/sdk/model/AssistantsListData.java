@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.Assistant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
 @JsonPropertyOrder({
   AssistantsListData.JSON_PROPERTY_DATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class AssistantsListData {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<Assistant> data = new ArrayList<>();
@@ -53,7 +51,7 @@ public class AssistantsListData {
     return this;
   }
 
-  public AssistantsListData addDataItem(Assistant dataItem) {
+  public AssistantsListData adddataItem(Assistant dataItem) {
     this.data.add(dataItem);
     return this;
   }

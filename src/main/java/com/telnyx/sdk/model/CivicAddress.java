@@ -28,8 +28,6 @@ import com.telnyx.sdk.model.Location;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
@@ -56,7 +54,7 @@ import com.telnyx.sdk.JSON;
   CivicAddress.JSON_PROPERTY_STREET_SUFFIX,
   CivicAddress.JSON_PROPERTY_LOCATIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class CivicAddress {
   public static final String JSON_PROPERTY_ID = "id";
   private UUID id;
@@ -327,7 +325,7 @@ public class CivicAddress {
    * @return description
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Chicago Office", value = "")
+  @ApiModelProperty(example = "Austin Office", value = "")
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -353,7 +351,7 @@ public class CivicAddress {
    * @return houseNumber
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "311", value = "")
+  @ApiModelProperty(example = "600", value = "")
   @JsonProperty(JSON_PROPERTY_HOUSE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -405,7 +403,7 @@ public class CivicAddress {
    * @return postalOrZipCode
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "60654", value = "")
+  @ApiModelProperty(example = "78701", value = "")
   @JsonProperty(JSON_PROPERTY_POSTAL_OR_ZIP_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -431,7 +429,7 @@ public class CivicAddress {
    * @return stateOrProvince
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "IL", value = "")
+  @ApiModelProperty(example = "TX", value = "")
   @JsonProperty(JSON_PROPERTY_STATE_OR_PROVINCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -457,7 +455,7 @@ public class CivicAddress {
    * @return streetName
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "West Superior Street", value = "")
+  @ApiModelProperty(example = "Congress", value = "")
   @JsonProperty(JSON_PROPERTY_STREET_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -483,7 +481,7 @@ public class CivicAddress {
    * @return streetSuffix
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "St", value = "")
   @JsonProperty(JSON_PROPERTY_STREET_SUFFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -504,7 +502,7 @@ public class CivicAddress {
     return this;
   }
 
-  public CivicAddress addLocationsItem(Location locationsItem) {
+  public CivicAddress addlocationsItem(Location locationsItem) {
     if (this.locations == null) {
       this.locations = new ArrayList<>();
     }

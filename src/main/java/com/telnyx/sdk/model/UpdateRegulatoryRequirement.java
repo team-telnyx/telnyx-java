@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -39,7 +37,7 @@ import com.telnyx.sdk.JSON;
   UpdateRegulatoryRequirement.JSON_PROPERTY_REQUIREMENT_ID,
   UpdateRegulatoryRequirement.JSON_PROPERTY_FIELD_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class UpdateRegulatoryRequirement {
   public static final String JSON_PROPERTY_REQUIREMENT_ID = "requirement_id";
   private UUID requirementId;
@@ -82,11 +80,11 @@ public class UpdateRegulatoryRequirement {
   }
 
    /**
-   * The value of the requirement, this could be an id to a resource or a string value.
+   * The value of the requirement. For address and document requirements, this should be the ID of the resource. For textual, this should be the value of the requirement.
    * @return fieldValue
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "45f45a04-b4be-4592-95b1-9306b9db2b21", value = "The value of the requirement, this could be an id to a resource or a string value.")
+  @ApiModelProperty(example = "45f45a04-b4be-4592-95b1-9306b9db2b21", value = "The value of the requirement. For address and document requirements, this should be the ID of the resource. For textual, this should be the value of the requirement.")
   @JsonProperty(JSON_PROPERTY_FIELD_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

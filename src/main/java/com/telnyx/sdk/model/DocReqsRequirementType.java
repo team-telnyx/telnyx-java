@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.telnyx.sdk.model.DocReqsRequirementTypeAcceptanceCriteria;
 import java.util.Arrays;
 import java.util.UUID;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -47,7 +45,7 @@ import com.telnyx.sdk.JSON;
   DocReqsRequirementType.JSON_PROPERTY_CREATED_AT,
   DocReqsRequirementType.JSON_PROPERTY_UPDATED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class DocReqsRequirementType {
   public static final String JSON_PROPERTY_ACCEPTANCE_CRITERIA = "acceptance_criteria";
   private DocReqsRequirementTypeAcceptanceCriteria acceptanceCriteria;
@@ -62,11 +60,11 @@ public class DocReqsRequirementType {
    * Defines the type of this requirement type
    */
   public enum TypeEnum {
-    DOCUMENT("document"),
+    DOCUMENT(String.valueOf("document")),
     
-    ADDRESS("address"),
+    ADDRESS(String.valueOf("address")),
     
-    TEXTUAL("textual");
+    TEXTUAL(String.valueOf("textual"));
 
     private String value;
 
@@ -190,11 +188,11 @@ public class DocReqsRequirementType {
   }
 
    /**
-   * Provides one or more examples of acceptable documents
+   * Provides one or more example of acceptable documents
    * @return example
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Utility bill, internet bill, phone bill, or lease", value = "Provides one or more examples of acceptable documents")
+  @ApiModelProperty(example = "Utility bill, internet bill, phone bill, or lease", value = "Provides one or more example of acceptable documents")
   @JsonProperty(JSON_PROPERTY_EXAMPLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

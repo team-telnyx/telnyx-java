@@ -1,9 +1,0 @@
-{
-  "type": "string",
-  "description": "Indicates the coverage of the termination regions.",
-  "enum": [
-    "global"
-  ],
-  "example": "global",
-  "default": "global"
-}

@@ -1,7 +1,0 @@
-{
-  "title": "Connection Active",
-  "type": "boolean",
-  "description": "Specifies whether the connection can be used.",
-  "default": true,
-  "example": false
-}

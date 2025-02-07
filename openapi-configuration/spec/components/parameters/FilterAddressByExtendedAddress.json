@@ -1,9 +1,0 @@
-{
-  "name": "filter[address.extended_address]",
-  "description": "Returns entries with matching name of the supplemental field for address information.",
-  "schema": {
-    "type": "string",
-    "example": "14th Floor"
-  },
-  "in": "query"
-}

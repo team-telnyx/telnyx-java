@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -41,7 +39,7 @@ import com.telnyx.sdk.JSON;
   ConferenceHoldRequest.JSON_PROPERTY_AUDIO_URL,
   ConferenceHoldRequest.JSON_PROPERTY_MEDIA_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ConferenceHoldRequest {
   public static final String JSON_PROPERTY_CALL_CONTROL_IDS = "call_control_ids";
   private List<String> callControlIds = null;
@@ -60,7 +58,7 @@ public class ConferenceHoldRequest {
     return this;
   }
 
-  public ConferenceHoldRequest addCallControlIdsItem(String callControlIdsItem) {
+  public ConferenceHoldRequest addcallControlIdsItem(String callControlIdsItem) {
     if (this.callControlIds == null) {
       this.callControlIds = new ArrayList<>();
     }

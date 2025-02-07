@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **201** | Successful response with details about an FQDN connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
+| **403** | Unauthorized |  -  |
 | **422** | Unprocessable entity |  -  |
 
 
@@ -155,8 +155,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with details about an FQDN connection. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## listFqdns
@@ -318,8 +318,8 @@ Name | Type | Description  | Notes
 | **200** | Successful response with details about an FQDN connection. |  -  |
 | **400** | Bad request, the request was unacceptable, often due to missing a required parameter. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 
 
 ## updateFqdn
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Successful response with details about an FQDN connection. |  -  |
 | **401** | Unauthorized |  -  |
-| **403** | Unauthenticated response. Happens when the current user cannot be authenticated. |  -  |
-| **404** | Resource not found |  -  |
+| **403** | Unauthorized |  -  |
+| **404** | Fax does not exist |  -  |
 | **422** | Unprocessable entity |  -  |
 

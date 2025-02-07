@@ -1,9 +1,0 @@
-{
-  "name": "media_name",
-  "description": "Uniquely identifies a media resource.",
-  "in": "path",
-  "required": true,
-  "schema": {
-    "type": "string"
-  }
-}

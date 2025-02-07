@@ -1,9 +1,0 @@
-{
-  "name": "filter[quantity]",
-  "description": "Filter orders by how many SIM cards were ordered.",
-  "schema": {
-    "type": "integer",
-    "example": 21
-  },
-  "in": "query"
-}

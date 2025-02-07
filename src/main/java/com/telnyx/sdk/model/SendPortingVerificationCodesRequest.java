@@ -27,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.telnyx.sdk.JSON;
 
@@ -40,7 +38,7 @@ import com.telnyx.sdk.JSON;
   SendPortingVerificationCodesRequest.JSON_PROPERTY_PHONE_NUMBERS,
   SendPortingVerificationCodesRequest.JSON_PROPERTY_VERIFICATION_METHOD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class SendPortingVerificationCodesRequest {
   public static final String JSON_PROPERTY_PHONE_NUMBERS = "phone_numbers";
   private List<String> phoneNumbers = null;
@@ -49,9 +47,9 @@ public class SendPortingVerificationCodesRequest {
    * Gets or Sets verificationMethod
    */
   public enum VerificationMethodEnum {
-    SMS("sms"),
+    SMS(String.valueOf("sms")),
     
-    CALL("call");
+    CALL(String.valueOf("call"));
 
     private String value;
 
@@ -91,7 +89,7 @@ public class SendPortingVerificationCodesRequest {
     return this;
   }
 
-  public SendPortingVerificationCodesRequest addPhoneNumbersItem(String phoneNumbersItem) {
+  public SendPortingVerificationCodesRequest addphoneNumbersItem(String phoneNumbersItem) {
     if (this.phoneNumbers == null) {
       this.phoneNumbers = new ArrayList<>();
     }

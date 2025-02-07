@@ -5,17 +5,17 @@
 ## Enum
 
 
-* `STARTCALLRECORDINGAPI` (value: `"StartCallRecordingAPI"`)
+* `START_CALL_RECORDING_API` (value: `"StartCallRecordingAPI"`)
 
-* `STARTCONFERENCERECORDINGAPI` (value: `"StartConferenceRecordingAPI"`)
+* `START_CONFERENCE_RECORDING_API` (value: `"StartConferenceRecordingAPI"`)
 
-* `OUTBOUNDAPI` (value: `"OutboundAPI"`)
+* `OUTBOUND_API` (value: `"OutboundAPI"`)
 
-* `DIALVERB` (value: `"DialVerb"`)
+* `DIAL_VERB` (value: `"DialVerb"`)
 
 * `CONFERENCE` (value: `"Conference"`)
 
-* `RECORDVERB` (value: `"RecordVerb"`)
+* `RECORD_VERB` (value: `"RecordVerb"`)
 
 * `TRUNKING` (value: `"Trunking"`)
 
