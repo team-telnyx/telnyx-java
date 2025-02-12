@@ -1,0 +1,29 @@
+
+
+# AvailablePhoneNumber
+
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**recordType** | [**RecordTypeEnum**](#RecordTypeEnum) |  |  [optional] |
+|**phoneNumber** | **String** |  |  [optional] |
+|**vanityFormat** | **String** |  |  [optional] |
+|**bestEffort** | **Boolean** | Specifies whether the phone number is an exact match based on the search criteria or not. |  [optional] |
+|**quickship** | **Boolean** | Specifies whether the phone number can receive calls immediately after purchase or not. |  [optional] |
+|**reservable** | **Boolean** | Specifies whether the phone number can be reserved before purchase or not. |  [optional] |
+|**regionInformation** | [**List&lt;RegionInformation&gt;**](RegionInformation.md) |  |  [optional] |
+|**costInformation** | [**CostInformation**](CostInformation.md) |  |  [optional] |
+|**features** | [**List&lt;Feature&gt;**](Feature.md) |  |  [optional] |
+
+
+
+## Enum: RecordTypeEnum
+
+| Name | Value |
+|---- | -----|
+| AVAILABLE_PHONE_NUMBER | &quot;available_phone_number&quot; |
+
+
+

@@ -2,7 +2,7 @@ lazy val root = (project in file(".")).
   settings(
     organization := "com.telnyx.sdk",
     name := "telnyx",
-    version := "4.0.4",
+    version := "3.9.0",
     scalaVersion := "2.11.4",
     scalacOptions ++= Seq("-feature"),
     Compile / javacOptions ++= Seq("-Xlint:deprecation"),

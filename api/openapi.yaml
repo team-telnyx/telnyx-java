@@ -3157,7 +3157,7 @@ paths:
       description: This API lists a paginated collection of bulk SIM card actions.
         A bulk SIM card action contains details about a collection of individual SIM
         card actions.
-      operationId: ListBulkSimCardActions
+      operationId: ListBulkSIMCardActions
       parameters:
       - description: The page number to load
         explode: true
@@ -3196,7 +3196,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListBulkSimCardActions_200_response'
+                $ref: '#/components/schemas/ListBulkSIMCardActions_200_response'
           description: Successful Response
         "401":
           description: Unauthorized
@@ -3217,7 +3217,7 @@ paths:
       description: This API fetches information about a bulk SIM card action. A bulk
         SIM card action contains details about a collection of individual SIM card
         actions.
-      operationId: GetBulkSimCardAction
+      operationId: GetBulkSIMCardAction
       parameters:
       - description: Identifies the resource.
         explode: false
@@ -3234,7 +3234,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetBulkSimCardAction_200_response'
+                $ref: '#/components/schemas/GetBulkSIMCardAction_200_response'
           description: Successful Response
         "401":
           description: Unauthorized
@@ -8465,7 +8465,7 @@ paths:
       x-latency-category: responsive
       x-accepts:
       - application/json
-  /connections/{connection_id}/active_calls:
+  /connections/{connection_id_wireless}/active_calls:
     get:
       description: |
         Lists all active calls for given connection. Acceptable connections are either SIP connections with webhook_url or xml_request_url, call control or texml. Returned results are cursor paginated.
@@ -9142,7 +9142,7 @@ paths:
       x-latency-category: responsive
       x-accepts:
       - application/json
-  /custom_storage_credentials/{connection_id}:
+  /custom_storage_credentials/{connection_id_wireless}:
     delete:
       description: Deletes a stored custom credentials configuration.
       operationId: DeleteCustomStorageCredentials
@@ -9748,7 +9748,7 @@ paths:
       x-latency-category: interactive
       x-accepts:
       - application/json
-  /dialogflow_connections/{connection_id}:
+  /dialogflow_connections/{connection_id_wireless}:
     delete:
       description: Deletes a stored Dialogflow Connection.
       operationId: DeleteDialogflowConnection
@@ -32453,6 +32453,14 @@ paths:
         schema:
           type: string
         style: simple
+      - description: The unique identifier of the SIPREC session
+        explode: false
+        in: path
+        name: siprec_sid
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         $ref: '#/components/requestBodies/TexmlUpdateSiprecSessionRequest'
       responses:
@@ -35635,17 +35643,6 @@ paths:
       description: Create a new WireGuard Peer. Current limitation of 5 peers per
         interface can be created.
       operationId: CreateWireguardPeer
-      parameters:
-      - description: Identifies the resource.
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          example: 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-          format: uuid
-          type: string
-        style: simple
       requestBody:
         content:
           application/json:
@@ -38595,13 +38592,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ListBulkSimCardActions_200_response'
+            $ref: '#/components/schemas/ListBulkSIMCardActions_200_response'
       description: Successful Response
     BulkSIMCardActionDetailedResponse:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/GetBulkSimCardAction_200_response'
+            $ref: '#/components/schemas/GetBulkSIMCardAction_200_response'
       description: Successful Response
     ListCallControlApplicationsResponse:
       content:
@@ -80736,7 +80733,7 @@ components:
         data:
           $ref: '#/components/schemas/BillingGroup'
       type: object
-    ListBulkSimCardActions_200_response:
+    ListBulkSIMCardActions_200_response:
       example:
         data:
         - settings: {}
@@ -80774,7 +80771,7 @@ components:
         meta:
           $ref: '#/components/schemas/PaginationMeta'
       type: object
-    GetBulkSimCardAction_200_response:
+    GetBulkSIMCardAction_200_response:
       example:
         data:
           settings: {}

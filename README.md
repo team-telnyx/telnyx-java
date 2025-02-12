@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>4.0.4</version>
+  <version>3.9.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -58,7 +58,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.telnyx.sdk:telnyx:4.0.4"
+     implementation "com.telnyx.sdk:telnyx:3.9.0"
   }
 ```
 
@@ -72,7 +72,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/telnyx-4.0.4.jar`
+- `target/telnyx-3.9.0.jar`
 - `target/lib/*.jar`
 
 ## Usage
@@ -248,19 +248,19 @@ Class | Method | HTTP request | Description
 *CallControlApplicationsApi* | [**listCallControlApplications**](docs/CallControlApplicationsApi.md#listCallControlApplications) | **GET** /call_control_applications | List call control applications
 *CallControlApplicationsApi* | [**retrieveCallControlApplication**](docs/CallControlApplicationsApi.md#retrieveCallControlApplication) | **GET** /call_control_applications/{id} | Retrieve a call control application
 *CallControlApplicationsApi* | [**updateCallControlApplication**](docs/CallControlApplicationsApi.md#updateCallControlApplication) | **PATCH** /call_control_applications/{id} | Update a call control application
-*CallInformationApi* | [**listConnectionActiveCalls**](docs/CallInformationApi.md#listConnectionActiveCalls) | **GET** /connections/{connection_id}/active_calls | List all active calls for given connection
+*CallInformationApi* | [**listConnectionActiveCalls**](docs/CallInformationApi.md#listConnectionActiveCalls) | **GET** /connections/{connection_id_wireless}/active_calls | List all active calls for given connection
 *CallInformationApi* | [**retrieveCallStatus**](docs/CallInformationApi.md#retrieveCallStatus) | **GET** /calls/{call_control_id} | Retrieve a call status
-*CallRecordingsApi* | [**createCustomStorageCredentials**](docs/CallRecordingsApi.md#createCustomStorageCredentials) | **POST** /custom_storage_credentials/{connection_id} | Create a custom storage credential
-*CallRecordingsApi* | [**deleteCustomStorageCredentials**](docs/CallRecordingsApi.md#deleteCustomStorageCredentials) | **DELETE** /custom_storage_credentials/{connection_id} | Delete a stored credential
+*CallRecordingsApi* | [**createCustomStorageCredentials**](docs/CallRecordingsApi.md#createCustomStorageCredentials) | **POST** /custom_storage_credentials/{connection_id_wireless} | Create a custom storage credential
+*CallRecordingsApi* | [**deleteCustomStorageCredentials**](docs/CallRecordingsApi.md#deleteCustomStorageCredentials) | **DELETE** /custom_storage_credentials/{connection_id_wireless} | Delete a stored credential
 *CallRecordingsApi* | [**deleteRecording**](docs/CallRecordingsApi.md#deleteRecording) | **DELETE** /recordings/{recording_id} | Delete a call recording
 *CallRecordingsApi* | [**deleteRecordingTranscription**](docs/CallRecordingsApi.md#deleteRecordingTranscription) | **DELETE** /recording_transcriptions/{recording_transcription_id} | Delete a recording transcription
 *CallRecordingsApi* | [**deleteRecordings**](docs/CallRecordingsApi.md#deleteRecordings) | **DELETE** /recordings/actions/delete | Delete a list of call recordings
-*CallRecordingsApi* | [**getCustomStorageCredentials**](docs/CallRecordingsApi.md#getCustomStorageCredentials) | **GET** /custom_storage_credentials/{connection_id} | Retrieve a stored credential
+*CallRecordingsApi* | [**getCustomStorageCredentials**](docs/CallRecordingsApi.md#getCustomStorageCredentials) | **GET** /custom_storage_credentials/{connection_id_wireless} | Retrieve a stored credential
 *CallRecordingsApi* | [**getRecording**](docs/CallRecordingsApi.md#getRecording) | **GET** /recordings/{recording_id} | Retrieve a call recording
 *CallRecordingsApi* | [**getRecordingTranscription**](docs/CallRecordingsApi.md#getRecordingTranscription) | **GET** /recording_transcriptions/{recording_transcription_id} | Retrieve a recording transcription
 *CallRecordingsApi* | [**getRecordingTranscriptions**](docs/CallRecordingsApi.md#getRecordingTranscriptions) | **GET** /recording_transcriptions | List all recording transcriptions
 *CallRecordingsApi* | [**getRecordings**](docs/CallRecordingsApi.md#getRecordings) | **GET** /recordings | List all call recordings
-*CallRecordingsApi* | [**updateCustomStorageCredentials**](docs/CallRecordingsApi.md#updateCustomStorageCredentials) | **PUT** /custom_storage_credentials/{connection_id} | Update a stored credential
+*CallRecordingsApi* | [**updateCustomStorageCredentials**](docs/CallRecordingsApi.md#updateCustomStorageCredentials) | **PUT** /custom_storage_credentials/{connection_id_wireless} | Update a stored credential
 *CampaignApi* | [**acceptCampaign**](docs/CampaignApi.md#acceptCampaign) | **POST** /campaign/acceptSharing/{campaignId} | Accept Shared Campaign
 *CampaignApi* | [**deactivateCampaign**](docs/CampaignApi.md#deactivateCampaign) | **DELETE** /campaign/{campaignId} | Deactivate My Campaign
 *CampaignApi* | [**getCampaign**](docs/CampaignApi.md#getCampaign) | **GET** /campaign/{campaignId} | Get My Campaign
@@ -340,10 +340,10 @@ Class | Method | HTTP request | Description
 *DataMigrationApi* | [**stopMigration**](docs/DataMigrationApi.md#stopMigration) | **POST** /storage/migrations/{id}/actions/stop | Stop a Migration
 *DebuggingApi* | [**listCallEvents**](docs/DebuggingApi.md#listCallEvents) | **GET** /call_events | List call events
 *DetailRecordsApi* | [**searchDetailRecords**](docs/DetailRecordsApi.md#searchDetailRecords) | **GET** /detail_records | Search detail records
-*DialogflowIntegrationApi* | [**createDialogflowConnection**](docs/DialogflowIntegrationApi.md#createDialogflowConnection) | **POST** /dialogflow_connections/{connection_id} | Create a Dialogflow Connection
-*DialogflowIntegrationApi* | [**deleteDialogflowConnection**](docs/DialogflowIntegrationApi.md#deleteDialogflowConnection) | **DELETE** /dialogflow_connections/{connection_id} | Delete stored Dialogflow Connection
-*DialogflowIntegrationApi* | [**getDialogflowConnection**](docs/DialogflowIntegrationApi.md#getDialogflowConnection) | **GET** /dialogflow_connections/{connection_id} | Retrieve stored Dialogflow Connection
-*DialogflowIntegrationApi* | [**updateDialogflowConnection**](docs/DialogflowIntegrationApi.md#updateDialogflowConnection) | **PUT** /dialogflow_connections/{connection_id} | Update stored Dialogflow Connection
+*DialogflowIntegrationApi* | [**createDialogflowConnection**](docs/DialogflowIntegrationApi.md#createDialogflowConnection) | **POST** /dialogflow_connections/{connection_id_wireless} | Create a Dialogflow Connection
+*DialogflowIntegrationApi* | [**deleteDialogflowConnection**](docs/DialogflowIntegrationApi.md#deleteDialogflowConnection) | **DELETE** /dialogflow_connections/{connection_id_wireless} | Delete stored Dialogflow Connection
+*DialogflowIntegrationApi* | [**getDialogflowConnection**](docs/DialogflowIntegrationApi.md#getDialogflowConnection) | **GET** /dialogflow_connections/{connection_id_wireless} | Retrieve stored Dialogflow Connection
+*DialogflowIntegrationApi* | [**updateDialogflowConnection**](docs/DialogflowIntegrationApi.md#updateDialogflowConnection) | **PUT** /dialogflow_connections/{connection_id_wireless} | Update stored Dialogflow Connection
 *DocumentsApi* | [**createDocument**](docs/DocumentsApi.md#createDocument) | **POST** /documents | Upload a document
 *DocumentsApi* | [**deleteDocument**](docs/DocumentsApi.md#deleteDocument) | **DELETE** /documents/{id} | Delete a document
 *DocumentsApi* | [**downloadDocument**](docs/DocumentsApi.md#downloadDocument) | **GET** /documents/{id}/download | Download a document
@@ -728,9 +728,9 @@ Class | Method | HTTP request | Description
 *ShortCodesApi* | [**listShortCodes**](docs/ShortCodesApi.md#listShortCodes) | **GET** /short_codes | List short codes
 *ShortCodesApi* | [**retrieveShortCode**](docs/ShortCodesApi.md#retrieveShortCode) | **GET** /short_codes/{id} | Retrieve a short code
 *ShortCodesApi* | [**updateShortCode**](docs/ShortCodesApi.md#updateShortCode) | **PATCH** /short_codes/{id} | Update short code
-*SimCardActionsApi* | [**getBulkSimCardAction**](docs/SimCardActionsApi.md#getBulkSimCardAction) | **GET** /bulk_sim_card_actions/{id} | Get bulk SIM card action details
+*SimCardActionsApi* | [**getBulkSIMCardAction**](docs/SimCardActionsApi.md#getBulkSIMCardAction) | **GET** /bulk_sim_card_actions/{id} | Get bulk SIM card action details
 *SimCardActionsApi* | [**getSimCardAction**](docs/SimCardActionsApi.md#getSimCardAction) | **GET** /sim_card_actions/{id} | Get SIM card action details
-*SimCardActionsApi* | [**listBulkSimCardActions**](docs/SimCardActionsApi.md#listBulkSimCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
+*SimCardActionsApi* | [**listBulkSIMCardActions**](docs/SimCardActionsApi.md#listBulkSIMCardActions) | **GET** /bulk_sim_card_actions | List bulk SIM card actions
 *SimCardActionsApi* | [**listSimCardActions**](docs/SimCardActionsApi.md#listSimCardActions) | **GET** /sim_card_actions | List SIM card actions
 *SimCardGroupActionsApi* | [**getSimCardGroupAction**](docs/SimCardGroupActionsApi.md#getSimCardGroupAction) | **GET** /sim_card_group_actions/{id} | Get SIM card group action details
 *SimCardGroupActionsApi* | [**getSimCardGroupActions**](docs/SimCardGroupActionsApi.md#getSimCardGroupActions) | **GET** /sim_card_group_actions | List SIM card group actions
@@ -1395,7 +1395,7 @@ Class | Method | HTTP request | Description
  - [GetAllTexmlApplicationsResponse](docs/GetAllTexmlApplicationsResponse.md)
  - [GetAutoRechargePrefs200Response](docs/GetAutoRechargePrefs200Response.md)
  - [GetBucketUsage200Response](docs/GetBucketUsage200Response.md)
- - [GetBulkSimCardAction200Response](docs/GetBulkSimCardAction200Response.md)
+ - [GetBulkSIMCardAction200Response](docs/GetBulkSIMCardAction200Response.md)
  - [GetChannelZones200Response](docs/GetChannelZones200Response.md)
  - [GetCivicAddressResponse](docs/GetCivicAddressResponse.md)
  - [GetCustomerServiceRecord201Response](docs/GetCustomerServiceRecord201Response.md)
