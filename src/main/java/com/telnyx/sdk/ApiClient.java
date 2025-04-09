@@ -1,5 +1,9 @@
 package com.telnyx.sdk;
 
+import com.telnyx.sdk.auth.ApiKeyAuth;
+import com.telnyx.sdk.auth.Authentication;
+import com.telnyx.sdk.auth.HttpBasicAuth;
+import com.telnyx.sdk.auth.HttpBearerAuth;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -10,81 +14,75 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import java.text.DateFormat;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.net.URI;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import java.security.cert.X509Certificate;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import org.glassfish.jersey.logging.LoggingFeature;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Date;
-import java.time.OffsetDateTime;
-
-import java.net.URLEncoder;
-
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-
-import java.text.DateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.telnyx.sdk.auth.Authentication;
-import com.telnyx.sdk.auth.HttpBasicAuth;
-import com.telnyx.sdk.auth.HttpBearerAuth;
-import com.telnyx.sdk.auth.ApiKeyAuth;
-
 /**
- * <p>ApiClient class.</p>
+ * <p>
+ * ApiClient class.
+ * </p>
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0")
 public class ApiClient extends JavaTimeFormatter {
+
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
   protected String basePath = "https://api.telnyx.com/v2";
   protected String userAgent;
-  private static final Logger log = Logger.getLogger(ApiClient.class.getName());
+  private static final Logger log = Logger.getLogger(
+      ApiClient.class.getName());
 
-  protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
-    new ServerConfiguration(
-      "https://api.telnyx.com/v2",
-      "Version 2.0.0 of the Telnyx API",
-      new HashMap<String, ServerVariable>()
-    )
-  ));
+  protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(
+      Arrays.asList(
+          new ServerConfiguration(
+              "https://api.telnyx.com/v2",
+              "Version 2.0.0 of the Telnyx API",
+              new HashMap<String, ServerVariable>())));
   protected Integer serverIndex = 0;
   protected Map<String, String> serverVariables = null;
-  protected Map<String, List<ServerConfiguration>> operationServers = new HashMap<String, List<ServerConfiguration>>() {{
-  }};
+  protected Map<String, List<ServerConfiguration>> operationServers = new HashMap<String, List<ServerConfiguration>>() {
+    {
+    }
+  };
   protected Map<String, Integer> operationServerIndex = new HashMap<String, Integer>();
   protected Map<String, Map<String, String>> operationServerVariables = new HashMap<String, Map<String, String>>();
   protected boolean debugging = false;
@@ -136,7 +134,8 @@ public class ApiClient extends JavaTimeFormatter {
     // Prevent the authentications from being modified.
     authentications = Collections.unmodifiableMap(authentications);
 
-    // Setup authentication lookup (key: authentication alias, value: authentication name)
+    // Setup authentication lookup (key: authentication alias, value: authentication
+    // name)
     authenticationLookup = new HashMap<String, String>();
   }
 
@@ -150,7 +149,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Getter for the field <code>httpClient</code>.</p>
+   * <p>
+   * Getter for the field <code>httpClient</code>.
+   * </p>
    *
    * @return a {@link jakarta.ws.rs.client.Client} object.
    */
@@ -159,7 +160,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Setter for the field <code>httpClient</code>.</p>
+   * <p>
+   * Setter for the field <code>httpClient</code>.
+   * </p>
    *
    * @param httpClient a {@link jakarta.ws.rs.client.Client} object.
    * @return a {@link org.openapitools.client.ApiClient} object.
@@ -170,7 +173,8 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * Returns the base URL to the location where the OpenAPI document is being served.
+   * Returns the base URL to the location where the OpenAPI document is being
+   * served.
    *
    * @return The base URL to the target host.
    */
@@ -190,7 +194,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Getter for the field <code>servers</code>.</p>
+   * <p>
+   * Getter for the field <code>servers</code>.
+   * </p>
    *
    * @return a {@link java.util.List} of servers.
    */
@@ -199,7 +205,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Setter for the field <code>servers</code>.</p>
+   * <p>
+   * Setter for the field <code>servers</code>.
+   * </p>
    *
    * @param servers a {@link java.util.List} of servers.
    * @return a {@link org.openapitools.client.ApiClient} object.
@@ -211,7 +219,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Getter for the field <code>serverIndex</code>.</p>
+   * <p>
+   * Getter for the field <code>serverIndex</code>.
+   * </p>
    *
    * @return a {@link java.lang.Integer} object.
    */
@@ -220,7 +230,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Setter for the field <code>serverIndex</code>.</p>
+   * <p>
+   * Setter for the field <code>serverIndex</code>.
+   * </p>
    *
    * @param serverIndex the server index
    * @return a {@link org.openapitools.client.ApiClient} object.
@@ -232,7 +244,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Getter for the field <code>serverVariables</code>.</p>
+   * <p>
+   * Getter for the field <code>serverVariables</code>.
+   * </p>
    *
    * @return a {@link java.util.Map} of server variables.
    */
@@ -241,7 +255,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Setter for the field <code>serverVariables</code>.</p>
+   * <p>
+   * Setter for the field <code>serverVariables</code>.
+   * </p>
    *
    * @param serverVariables a {@link java.util.Map} of server variables.
    * @return a {@link org.openapitools.client.ApiClient} object.
@@ -254,7 +270,7 @@ public class ApiClient extends JavaTimeFormatter {
 
   private void updateBasePath() {
     if (serverIndex != null) {
-        setBasePath(servers.get(serverIndex).URL(serverVariables));
+      setBasePath(servers.get(serverIndex).URL(serverVariables));
     }
   }
 
@@ -326,7 +342,8 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * Helper method to configure authentications which respects aliases of API keys.
+   * Helper method to configure authentications which respects aliases of API
+   * keys.
    *
    * @param secrets Hash map from authentication name to its secret.
    * @return a {@link org.openapitools.client.ApiClient} object.
@@ -337,7 +354,9 @@ public class ApiClient extends JavaTimeFormatter {
       if (auth instanceof ApiKeyAuth) {
         String name = authEntry.getKey();
         // respect x-auth-id-alias property
-        name = authenticationLookup.containsKey(name) ? authenticationLookup.get(name) : name;
+        name = authenticationLookup.containsKey(name)
+            ? authenticationLookup.get(name)
+            : name;
         if (secrets.containsKey(name)) {
           ((ApiKeyAuth) auth).setApiKey(secrets.get(name));
         }
@@ -395,14 +414,14 @@ public class ApiClient extends JavaTimeFormatter {
    *
    * @return User-Agent string
    */
-  public String getUserAgent(){
+  public String getUserAgent() {
     return userAgent;
   }
 
   /**
    * Add a default header.
    *
-   * @param key The header's key
+   * @param key   The header's key
    * @param value The header's value
    * @return a {@link org.openapitools.client.ApiClient} object.
    */
@@ -414,7 +433,7 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * Add a default cookie.
    *
-   * @param key The cookie's key
+   * @param key   The cookie's key
    * @param value The cookie's value
    * @return a {@link org.openapitools.client.ApiClient} object.
    */
@@ -508,7 +527,9 @@ public class ApiClient extends JavaTimeFormatter {
    */
   public ApiClient setConnectTimeout(int connectionTimeout) {
     this.connectionTimeout = connectionTimeout;
-    httpClient.property(ClientProperties.CONNECT_TIMEOUT, connectionTimeout);
+    httpClient.property(
+        ClientProperties.CONNECT_TIMEOUT,
+        connectionTimeout);
     return this;
   }
 
@@ -596,8 +617,8 @@ public class ApiClient extends JavaTimeFormatter {
       return formatOffsetDateTime((OffsetDateTime) param);
     } else if (param instanceof Collection) {
       StringBuilder b = new StringBuilder();
-      for(Object o : (Collection)param) {
-        if(b.length() > 0) {
+      for (Object o : (Collection) param) {
+        if (b.length() > 0) {
           b.append(',');
         }
         b.append(String.valueOf(o));
@@ -612,15 +633,22 @@ public class ApiClient extends JavaTimeFormatter {
    * Format to {@code Pair} objects.
    *
    * @param collectionFormat Collection format
+   * 
    * @param name Name
+   * 
    * @param value Value
+   * 
    * @return List of pairs
    */
-  public List<Pair> parameterToPairs(String collectionFormat, String name, Object value){
+  public List<Pair> parameterToPairs(
+      String collectionFormat,
+      String name,
+      Object value) {
     List<Pair> params = new ArrayList<Pair>();
 
     // preconditions
-    if (name == null || name.isEmpty() || value == null) return params;
+    if (name == null || name.isEmpty() || value == null)
+      return params;
 
     Collection valueCollection;
     if (value instanceof Collection) {
@@ -630,12 +658,14 @@ public class ApiClient extends JavaTimeFormatter {
       return params;
     }
 
-    if (valueCollection.isEmpty()){
+    if (valueCollection.isEmpty()) {
       return params;
     }
 
     // get the collection format (default: csv)
-    String format = (collectionFormat == null || collectionFormat.isEmpty() ? "csv" : collectionFormat);
+    String format = (collectionFormat == null || collectionFormat.isEmpty()
+        ? "csv"
+        : collectionFormat);
 
     // create the params based on the collection format
     if ("multi".equals(format)) {
@@ -658,7 +688,7 @@ public class ApiClient extends JavaTimeFormatter {
       delimiter = "|";
     }
 
-    StringBuilder sb = new StringBuilder() ;
+    StringBuilder sb = new StringBuilder();
     for (Object item : valueCollection) {
       sb.append(delimiter);
       sb.append(parameterToString(item));
@@ -672,10 +702,10 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * Check if the given MIME is a JSON MIME.
    * JSON MIME examples:
-   *   application/json
-   *   application/json; charset=UTF8
-   *   APPLICATION/JSON
-   *   application/vnd.company+json
+   * application/json
+   * application/json; charset=UTF8
+   * APPLICATION/JSON
+   * application/vnd.company+json
    * "* / *" is also default to JSON
    *
    * @param mime MIME
@@ -688,12 +718,12 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Select the Accept header's value from the given accepts array:
-   *   if JSON exists in the given array, use it;
-   *   otherwise use all of them (joining into a string)
+   * if JSON exists in the given array, use it;
+   * otherwise use all of them (joining into a string)
    *
    * @param accepts The accepts array to select from
    * @return The Accept header to use. If the given array is empty,
-   *   null will be returned (not to set the Accept header explicitly).
+   *         null will be returned (not to set the Accept header explicitly).
    */
   public String selectHeaderAccept(String[] accepts) {
     if (accepts.length == 0) {
@@ -709,12 +739,12 @@ public class ApiClient extends JavaTimeFormatter {
 
   /**
    * Select the Content-Type header's value from the given array:
-   *   if JSON exists in the given array, use it;
-   *   otherwise use the first one of the array.
+   * if JSON exists in the given array, use it;
+   * otherwise use the first one of the array.
    *
    * @param contentTypes The Content-Type array to select from
    * @return The Content-Type header to use. If the given array is empty,
-   *   JSON will be used.
+   *         JSON will be used.
    */
   public String selectHeaderContentType(String[] contentTypes) {
     if (contentTypes.length == 0) {
@@ -746,45 +776,82 @@ public class ApiClient extends JavaTimeFormatter {
    * Serialize the given Java object into string entity according the given
    * Content-Type (only JSON is supported for now).
    *
-   * @param obj Object
-   * @param formParams Form parameters
+   * @param obj         Object
+   * @param formParams  Form parameters
    * @param contentType Context type
    * @return Entity
    * @throws ApiException API exception
    */
-  public Entity<?> serialize(Object obj, Map<String, Object> formParams, String contentType, boolean isBodyNullable) throws ApiException {
+  public Entity<?> serialize(
+      Object obj,
+      Map<String, Object> formParams,
+      String contentType,
+      boolean isBodyNullable) throws ApiException {
     Entity<?> entity;
     if (contentType.startsWith("multipart/form-data")) {
       MultiPart multiPart = new MultiPart();
-      for (Entry<String, Object> param: formParams.entrySet()) {
+      for (Entry<String, Object> param : formParams.entrySet()) {
         if (param.getValue() instanceof File) {
           File file = (File) param.getValue();
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey())
-              .fileName(file.getName()).size(file.length()).build();
-          multiPart.bodyPart(new FormDataBodyPart(contentDisp, file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+              .fileName(file.getName())
+              .size(file.length())
+              .build();
+          multiPart.bodyPart(
+              new FormDataBodyPart(
+                  contentDisp,
+                  file,
+                  MediaType.APPLICATION_OCTET_STREAM_TYPE));
         } else {
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey()).build();
-          multiPart.bodyPart(new FormDataBodyPart(contentDisp, parameterToString(param.getValue())));
+          multiPart.bodyPart(
+              new FormDataBodyPart(
+                  contentDisp,
+                  parameterToString(param.getValue())));
         }
       }
-      entity = Entity.entity(multiPart, MediaType.MULTIPART_FORM_DATA_TYPE);
+      entity = Entity.entity(
+          multiPart,
+          MediaType.MULTIPART_FORM_DATA_TYPE);
     } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
       Form form = new Form();
-      for (Entry<String, Object> param: formParams.entrySet()) {
+      for (Entry<String, Object> param : formParams.entrySet()) {
         form.param(param.getKey(), parameterToString(param.getValue()));
       }
-      entity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+      entity = Entity.entity(
+          form,
+          MediaType.APPLICATION_FORM_URLENCODED_TYPE);
     } else {
       // We let jersey handle the serialization
       if (isBodyNullable) { // payload is nullable
         if (obj instanceof String) {
-          entity = Entity.entity(obj == null ? "null" : "\"" + ((String)obj).replaceAll("\"", Matcher.quoteReplacement("\\\"")) + "\"", contentType);
+          entity = Entity.entity(
+              obj == null
+                  ? "null"
+                  : "\"" +
+                      ((String) obj).replaceAll(
+                          "\"",
+                          Matcher.quoteReplacement("\\\""))
+                      +
+                      "\"",
+              contentType);
         } else {
-          entity = Entity.entity(obj == null ? "null" : obj, contentType);
+          entity = Entity.entity(
+              obj == null ? "null" : obj,
+              contentType);
         }
       } else {
         if (obj instanceof String) {
-          entity = Entity.entity(obj == null ? "" : "\"" + ((String)obj).replaceAll("\"", Matcher.quoteReplacement("\\\"")) + "\"", contentType);
+          entity = Entity.entity(
+              obj == null
+                  ? ""
+                  : "\"" +
+                      ((String) obj).replaceAll(
+                          "\"",
+                          Matcher.quoteReplacement("\\\""))
+                      +
+                      "\"",
+              contentType);
         } else {
           entity = Entity.entity(obj == null ? "" : obj, contentType);
         }
@@ -797,21 +864,32 @@ public class ApiClient extends JavaTimeFormatter {
    * Serialize the given Java object into string according the given
    * Content-Type (only JSON, HTTP form is supported for now).
    *
-   * @param obj Object
-   * @param formParams Form parameters
-   * @param contentType Context type
+   * @param obj            Object
+   * @param formParams     Form parameters
+   * @param contentType    Context type
    * @param isBodyNullable True if the body is nullable
    * @return String
    * @throws ApiException API exception
    */
-  public String serializeToString(Object obj, Map<String, Object> formParams, String contentType, boolean isBodyNullable) throws ApiException {
+  public String serializeToString(
+      Object obj,
+      Map<String, Object> formParams,
+      String contentType,
+      boolean isBodyNullable) throws ApiException {
     try {
       if (contentType.startsWith("multipart/form-data")) {
-        throw new ApiException("multipart/form-data not yet supported for serializeToString (http signature authentication)");
+        throw new ApiException(
+            "multipart/form-data not yet supported for serializeToString (http signature authentication)");
       } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
         String formString = "";
         for (Entry<String, Object> param : formParams.entrySet()) {
-          formString = param.getKey() + "=" + URLEncoder.encode(parameterToString(param.getValue()), "UTF-8") + "&";
+          formString = param.getKey() +
+              "=" +
+              URLEncoder.encode(
+                  parameterToString(param.getValue()),
+                  "UTF-8")
+              +
+              "&";
         }
 
         if (formString.length() == 0) { // empty string
@@ -821,27 +899,33 @@ public class ApiClient extends JavaTimeFormatter {
         }
       } else {
         if (isBodyNullable) {
-          return obj == null ? "null" : json.getMapper().writeValueAsString(obj);
+          return obj == null
+              ? "null"
+              : json.getMapper().writeValueAsString(obj);
         } else {
-          return obj == null ? "" : json.getMapper().writeValueAsString(obj);
+          return obj == null
+              ? ""
+              : json.getMapper().writeValueAsString(obj);
         }
       }
     } catch (Exception ex) {
-      throw new ApiException("Failed to perform serializeToString: " + ex.toString());
+      throw new ApiException(
+          "Failed to perform serializeToString: " + ex.toString());
     }
   }
 
   /**
    * Deserialize response body to Java object according to the Content-Type.
    *
-   * @param <T> Type
-   * @param response Response
+   * @param <T>        Type
+   * @param response   Response
    * @param returnType Return type
    * @return Deserialize object
    * @throws ApiException API exception
    */
   @SuppressWarnings("unchecked")
-  public <T> T deserialize(Response response, GenericType<T> returnType) throws ApiException {
+  public <T> T deserialize(Response response, GenericType<T> returnType)
+      throws ApiException {
     if (response == null || returnType == null) {
       return null;
     }
@@ -871,12 +955,17 @@ public class ApiClient extends JavaTimeFormatter {
    *
    * @param response Response
    * @return File
-   * @throws ApiException If fail to read file content from response and write to disk
+   * @throws ApiException If fail to read file content from response and write to
+   *                      disk
    */
-  public File downloadFileFromResponse(Response response) throws ApiException {
+  public File downloadFileFromResponse(Response response)
+      throws ApiException {
     try {
       File file = prepareDownloadFile(response);
-      Files.copy(response.readEntity(InputStream.class), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+      Files.copy(
+          response.readEntity(InputStream.class),
+          file.toPath(),
+          StandardCopyOption.REPLACE_EXISTING);
       return file;
     } catch (IOException e) {
       throw new ApiException(e);
@@ -884,7 +973,9 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Prepare the file for download from the response.</p>
+   * <p>
+   * Prepare the file for download from the response.
+   * </p>
    *
    * @param response a {@link jakarta.ws.rs.core.Response} object.
    * @return a {@link java.io.File} object.
@@ -892,10 +983,13 @@ public class ApiClient extends JavaTimeFormatter {
    */
   public File prepareDownloadFile(Response response) throws IOException {
     String filename = null;
-    String contentDisposition = (String) response.getHeaders().getFirst("Content-Disposition");
+    String contentDisposition = (String) response
+        .getHeaders()
+        .getFirst("Content-Disposition");
     if (contentDisposition != null && !"".equals(contentDisposition)) {
       // Get filename from the Content-Disposition header.
-      Pattern pattern = Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
+      Pattern pattern = Pattern.compile(
+          "filename=['\"]?([^'\"\\s]+)['\"]?");
       Matcher matcher = pattern.matcher(contentDisposition);
       if (matcher.find())
         filename = matcher.group(1);
@@ -920,27 +1014,33 @@ public class ApiClient extends JavaTimeFormatter {
     }
 
     if (tempFolderPath == null)
-      return Files.createTempFile(prefix, suffix).toFile();
+      return Files.createTempFile(
+          prefix,
+          suffix).toFile();
     else
-      return Files.createTempFile(Paths.get(tempFolderPath), prefix, suffix).toFile();
+      return Files.createTempFile(
+          Paths.get(tempFolderPath),
+          prefix,
+          suffix).toFile();
   }
 
   /**
    * Invoke API by sending HTTP request with the given options.
    *
-   * @param <T> Type
-   * @param operation The qualified name of the operation
-   * @param path The sub-path of the HTTP URL
-   * @param method The request method, one of "GET", "POST", "PUT", "HEAD" and "DELETE"
-   * @param queryParams The query parameters
-   * @param body The request body object
-   * @param headerParams The header parameters
-   * @param cookieParams The cookie parameters
-   * @param formParams The form parameters
-   * @param accept The request's Accept header
-   * @param contentType The request's Content-Type header
-   * @param authNames The authentications to apply
-   * @param returnType The return type into which to deserialize the response
+   * @param <T>            Type
+   * @param operation      The qualified name of the operation
+   * @param path           The sub-path of the HTTP URL
+   * @param method         The request method, one of "GET", "POST", "PUT", "HEAD"
+   *                       and "DELETE"
+   * @param queryParams    The query parameters
+   * @param body           The request body object
+   * @param headerParams   The header parameters
+   * @param cookieParams   The cookie parameters
+   * @param formParams     The form parameters
+   * @param accept         The request's Accept header
+   * @param contentType    The request's Content-Type header
+   * @param authNames      The authentications to apply
+   * @param returnType     The return type into which to deserialize the response
    * @param isBodyNullable True if the body is nullable
    * @return The response body in type of string
    * @throws ApiException API exception
@@ -958,22 +1058,24 @@ public class ApiClient extends JavaTimeFormatter {
       String contentType,
       String[] authNames,
       GenericType<T> returnType,
-      boolean isBodyNullable)
-      throws ApiException {
-
+      boolean isBodyNullable) throws ApiException {
     // Not using `.target(targetURL).path(path)` below,
     // to support (constant) query string in `path`, e.g. "/posts?draft=1"
     String targetURL;
     if (serverIndex != null && operationServers.containsKey(operation)) {
-      Integer index = operationServerIndex.containsKey(operation) ? operationServerIndex.get(operation) : serverIndex;
-      Map<String, String> variables = operationServerVariables.containsKey(operation) ?
-        operationServerVariables.get(operation) : serverVariables;
+      Integer index = operationServerIndex.containsKey(operation)
+          ? operationServerIndex.get(operation)
+          : serverIndex;
+      Map<String, String> variables = operationServerVariables.containsKey(operation)
+          ? operationServerVariables.get(operation)
+          : serverVariables;
       List<ServerConfiguration> serverConfigurations = operationServers.get(operation);
       if (index < 0 || index >= serverConfigurations.size()) {
         throw new ArrayIndexOutOfBoundsException(
             String.format(
                 "Invalid index %d when selecting the host settings. Must be less than %d",
-                index, serverConfigurations.size()));
+                index,
+                serverConfigurations.size()));
       }
       targetURL = serverConfigurations.get(index).URL(variables) + path;
     } else {
@@ -984,7 +1086,9 @@ public class ApiClient extends JavaTimeFormatter {
     if (queryParams != null) {
       for (Pair queryParam : queryParams) {
         if (queryParam.getValue() != null) {
-          target = target.queryParam(queryParam.getName(), escapeString(queryParam.getValue()));
+          target = target.queryParam(
+              queryParam.getName(),
+              escapeString(queryParam.getValue()));
         }
       }
     }
@@ -999,18 +1103,26 @@ public class ApiClient extends JavaTimeFormatter {
     for (Entry<String, String> entry : cookieParams.entrySet()) {
       String value = entry.getValue();
       if (value != null) {
-        invocationBuilder = invocationBuilder.cookie(entry.getKey(), value);
+        invocationBuilder = invocationBuilder.cookie(
+            entry.getKey(),
+            value);
       }
     }
 
     for (Entry<String, String> entry : defaultCookieMap.entrySet()) {
       String value = entry.getValue();
       if (value != null) {
-        invocationBuilder = invocationBuilder.cookie(entry.getKey(), value);
+        invocationBuilder = invocationBuilder.cookie(
+            entry.getKey(),
+            value);
       }
     }
 
-    Entity<?> entity = serialize(body, formParams, contentType, isBodyNullable);
+    Entity<?> entity = serialize(
+        body,
+        formParams,
+        contentType,
+        isBodyNullable);
 
     // put all headers in one place
     Map<String, String> allHeaderParams = new HashMap<>(defaultHeaderMap);
@@ -1029,7 +1141,9 @@ public class ApiClient extends JavaTimeFormatter {
     for (Entry<String, String> entry : allHeaderParams.entrySet()) {
       String value = entry.getValue();
       if (value != null) {
-        invocationBuilder = invocationBuilder.header(entry.getKey(), value);
+        invocationBuilder = invocationBuilder.header(
+            entry.getKey(),
+            value);
       }
     }
 
@@ -1039,7 +1153,8 @@ public class ApiClient extends JavaTimeFormatter {
       response = sendRequest(method, invocationBuilder, entity);
 
       int statusCode = response.getStatusInfo().getStatusCode();
-      Map<String, List<String>> responseHeaders = buildResponseHeaders(response);
+      Map<String, List<String>> responseHeaders = buildResponseHeaders(
+          response);
 
       if (response.getStatusInfo() == Status.NO_CONTENT) {
         return new ApiResponse<T>(statusCode, responseHeaders);
@@ -1047,33 +1162,52 @@ public class ApiClient extends JavaTimeFormatter {
         if (returnType == null) {
           return new ApiResponse<T>(statusCode, responseHeaders);
         } else {
-          return new ApiResponse<T>(statusCode, responseHeaders, deserialize(response, returnType));
+          return new ApiResponse<T>(
+              statusCode,
+              responseHeaders,
+              deserialize(response, returnType));
         }
       } else {
         String message = "error";
         String respBody = null;
         if (response.hasEntity()) {
           try {
-            respBody = String.valueOf(response.readEntity(String.class));
+            respBody = String.valueOf(
+                response.readEntity(String.class));
             message = respBody;
           } catch (RuntimeException e) {
             // e.printStackTrace();
           }
         }
-        throw new ApiException(
-            response.getStatus(), message, buildResponseHeaders(response), respBody);
+        if (response.getStatus() == 429) {
+          throw new RateLimitException(
+              response.getStatus(),
+              message,
+              buildResponseHeaders(response),
+              respBody);
+        } else {
+          throw new ApiException(
+              response.getStatus(),
+              message,
+              buildResponseHeaders(response),
+              respBody);
+        }
       }
     } finally {
       try {
         response.close();
       } catch (Exception e) {
-        // it's not critical, since the response object is local in method invokeAPI; that's fine,
+        // it's not critical, since the response object is local in method invokeAPI;
+        // that's fine,
         // just continue
       }
     }
   }
 
-  private Response sendRequest(String method, Invocation.Builder invocationBuilder, Entity<?> entity) {
+  private Response sendRequest(
+      String method,
+      Invocation.Builder invocationBuilder,
+      Entity<?> entity) {
     Response response;
     if ("POST".equals(method)) {
       response = invocationBuilder.post(entity);
@@ -1093,8 +1227,33 @@ public class ApiClient extends JavaTimeFormatter {
    * @deprecated Add qualified name of the operation as a first parameter.
    */
   @Deprecated
-  public <T> ApiResponse<T> invokeAPI(String path, String method, List<Pair> queryParams, Object body, Map<String, String> headerParams, Map<String, String> cookieParams, Map<String, Object> formParams, String accept, String contentType, String[] authNames, GenericType<T> returnType, boolean isBodyNullable) throws ApiException {
-    return invokeAPI(null, path, method, queryParams, body, headerParams, cookieParams, formParams, accept, contentType, authNames, returnType, isBodyNullable);
+  public <T> ApiResponse<T> invokeAPI(
+      String path,
+      String method,
+      List<Pair> queryParams,
+      Object body,
+      Map<String, String> headerParams,
+      Map<String, String> cookieParams,
+      Map<String, Object> formParams,
+      String accept,
+      String contentType,
+      String[] authNames,
+      GenericType<T> returnType,
+      boolean isBodyNullable) throws ApiException {
+    return invokeAPI(
+        null,
+        path,
+        method,
+        queryParams,
+        body,
+        headerParams,
+        cookieParams,
+        formParams,
+        accept,
+        contentType,
+        authNames,
+        returnType,
+        isBodyNullable);
   }
 
   /**
@@ -1122,17 +1281,33 @@ public class ApiClient extends JavaTimeFormatter {
     clientConfig.register(MultiPartFeature.class);
     clientConfig.register(json);
     clientConfig.register(JacksonFeature.class);
-    clientConfig.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
+    clientConfig.property(
+        HttpUrlConnectorProvider.SET_METHOD_WORKAROUND,
+        true);
     // turn off compliance validation to be able to send payloads with DELETE calls
-    clientConfig.property(ClientProperties.SUPPRESS_HTTP_COMPLIANCE_VALIDATION, true);
+    clientConfig.property(
+        ClientProperties.SUPPRESS_HTTP_COMPLIANCE_VALIDATION,
+        true);
     if (debugging) {
-      clientConfig.register(new LoggingFeature(java.util.logging.Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME), java.util.logging.Level.INFO, LoggingFeature.Verbosity.PAYLOAD_ANY, 1024*50 /* Log payloads up to 50K */));
-      clientConfig.property(LoggingFeature.LOGGING_FEATURE_VERBOSITY, LoggingFeature.Verbosity.PAYLOAD_ANY);
+      clientConfig.register(
+          new LoggingFeature(
+              java.util.logging.Logger.getLogger(
+                  LoggingFeature.DEFAULT_LOGGER_NAME),
+              java.util.logging.Level.INFO,
+              LoggingFeature.Verbosity.PAYLOAD_ANY,
+              1024 * 50
+          /* Log payloads up to 50K */
+          ));
+      clientConfig.property(
+          LoggingFeature.LOGGING_FEATURE_VERBOSITY,
+          LoggingFeature.Verbosity.PAYLOAD_ANY);
       // Set logger to ALL
-      java.util.logging.Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME).setLevel(java.util.logging.Level.ALL);
+      java.util.logging.Logger.getLogger(
+          LoggingFeature.DEFAULT_LOGGER_NAME).setLevel(java.util.logging.Level.ALL);
     } else {
       // suppress warnings for payloads with DELETE calls:
-      java.util.logging.Logger.getLogger("org.glassfish.jersey.client").setLevel(java.util.logging.Level.SEVERE);
+      java.util.logging.Logger.getLogger(
+          "org.glassfish.jersey.client").setLevel(java.util.logging.Level.SEVERE);
     }
 
     return clientConfig;
@@ -1141,12 +1316,16 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * Customize the client builder.
    *
-   * This method can be overridden to customize the API client. For example, this can be used to:
-   * 1. Set the hostname verifier to be used by the client to verify the endpoint's hostname
-   *    against its identification information.
+   * This method can be overridden to customize the API client. For example, this
+   * can be used to:
+   * 1. Set the hostname verifier to be used by the client to verify the
+   * endpoint's hostname
+   * against its identification information.
    * 2. Set the client-side key store.
-   * 3. Set the SSL context that will be used when creating secured transport connections to
-   *    server endpoints from web targets created by the client instance that is using this SSL context.
+   * 3. Set the SSL context that will be used when creating secured transport
+   * connections to
+   * server endpoints from web targets created by the client instance that is
+   * using this SSL context.
    * 4. Set the client-side trust store.
    *
    * To completely disable certificate validation (at your own risk), you can
@@ -1162,26 +1341,34 @@ public class ApiClient extends JavaTimeFormatter {
    * Disable X.509 certificate validation in TLS connections.
    *
    * Please note that trusting all certificates is extremely risky.
-   * This may be useful in a development environment with self-signed certificates.
+   * This may be useful in a development environment with self-signed
+   * certificates.
    *
    * @param clientBuilder a {@link jakarta.ws.rs.client.ClientBuilder} object.
-   * @throws java.security.KeyManagementException if any.
+   * @throws java.security.KeyManagementException   if any.
    * @throws java.security.NoSuchAlgorithmException if any.
    */
-  protected void disableCertificateValidation(ClientBuilder clientBuilder) throws KeyManagementException, NoSuchAlgorithmException {
+  protected void disableCertificateValidation(ClientBuilder clientBuilder)
+      throws KeyManagementException, NoSuchAlgorithmException {
     TrustManager[] trustAllCerts = new X509TrustManager[] {
-      new X509TrustManager() {
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-          return null;
-        }
-        @Override
-        public void checkClientTrusted(X509Certificate[] certs, String authType) {
-        }
-        @Override
-        public void checkServerTrusted(X509Certificate[] certs, String authType) {
-        }
-      }
+        new X509TrustManager() {
+          @Override
+          public X509Certificate[] getAcceptedIssuers() {
+            return null;
+          }
+
+          @Override
+          public void checkClientTrusted(
+              X509Certificate[] certs,
+              String authType) {
+          }
+
+          @Override
+          public void checkServerTrusted(
+              X509Certificate[] certs,
+              String authType) {
+          }
+        },
     };
     SSLContext sslContext = SSLContext.getInstance("TLS");
     sslContext.init(null, trustAllCerts, new SecureRandom());
@@ -1189,14 +1376,19 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /**
-   * <p>Build the response headers.</p>
+   * <p>
+   * Build the response headers.
+   * </p>
    *
    * @param response a {@link jakarta.ws.rs.core.Response} object.
    * @return a {@link java.util.Map} of response headers.
    */
-  protected Map<String, List<String>> buildResponseHeaders(Response response) {
+  protected Map<String, List<String>> buildResponseHeaders(
+      Response response) {
     Map<String, List<String>> responseHeaders = new HashMap<String, List<String>>();
-    for (Entry<String, List<Object>> entry: response.getHeaders().entrySet()) {
+    for (Entry<String, List<Object>> entry : response
+        .getHeaders()
+        .entrySet()) {
       List<Object> values = entry.getValue();
       List<String> headers = new ArrayList<String>();
       for (Object o : values) {
@@ -1210,21 +1402,33 @@ public class ApiClient extends JavaTimeFormatter {
   /**
    * Update query and header parameters based on authentication settings.
    *
-   * @param authNames The authentications to apply
-   * @param queryParams List of query parameters
+   * @param authNames    The authentications to apply
+   * @param queryParams  List of query parameters
    * @param headerParams Map of header parameters
    * @param cookieParams Map of cookie parameters
-   * @param method HTTP method (e.g. POST)
-   * @param uri HTTP URI
+   * @param method       HTTP method (e.g. POST)
+   * @param uri          HTTP URI
    */
-  protected void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams,
-                                     Map<String, String> cookieParams, String payload, String method, URI uri) throws ApiException {
+  protected void updateParamsForAuth(
+      String[] authNames,
+      List<Pair> queryParams,
+      Map<String, String> headerParams,
+      Map<String, String> cookieParams,
+      String payload,
+      String method,
+      URI uri) throws ApiException {
     for (String authName : authNames) {
       Authentication auth = authentications.get(authName);
       if (auth == null) {
         continue;
       }
-      auth.applyToParams(queryParams, headerParams, cookieParams, payload, method, uri);
+      auth.applyToParams(
+          queryParams,
+          headerParams,
+          cookieParams,
+          payload,
+          method,
+          uri);
     }
   }
 }
