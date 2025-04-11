@@ -1,4 +1,4 @@
-package com.telnyx.demo;
+package com.telnyx.sdk;
 
 import com.telnyx.sdk.ApiException;
 import java.util.List;
