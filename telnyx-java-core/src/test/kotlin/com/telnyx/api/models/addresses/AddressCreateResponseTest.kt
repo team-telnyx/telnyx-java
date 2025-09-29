@@ -1,0 +1,105 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.models.addresses
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.api.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class AddressCreateResponseTest {
+
+    @Test
+    fun create() {
+        val addressCreateResponse =
+            AddressCreateResponse.builder()
+                .data(
+                    Address.builder()
+                        .id("id")
+                        .addressBook(false)
+                        .administrativeArea("TX")
+                        .borough("Guadalajara")
+                        .businessName("Toy-O'Kon")
+                        .countryCode("US")
+                        .createdAt("2018-02-02T22:25:27.521Z")
+                        .customerReference("MY REF 001")
+                        .extendedAddress("14th Floor")
+                        .firstName("Alfred")
+                        .lastName("Foster")
+                        .locality("Austin")
+                        .neighborhood("Ciudad de los deportes")
+                        .phoneNumber("+12125559000")
+                        .postalCode("78701")
+                        .recordType("address")
+                        .streetAddress("600 Congress Avenue")
+                        .updatedAt("2018-02-02T22:25:27.521Z")
+                        .validateAddress(true)
+                        .build()
+                )
+                .build()
+
+        assertThat(addressCreateResponse.data())
+            .contains(
+                Address.builder()
+                    .id("id")
+                    .addressBook(false)
+                    .administrativeArea("TX")
+                    .borough("Guadalajara")
+                    .businessName("Toy-O'Kon")
+                    .countryCode("US")
+                    .createdAt("2018-02-02T22:25:27.521Z")
+                    .customerReference("MY REF 001")
+                    .extendedAddress("14th Floor")
+                    .firstName("Alfred")
+                    .lastName("Foster")
+                    .locality("Austin")
+                    .neighborhood("Ciudad de los deportes")
+                    .phoneNumber("+12125559000")
+                    .postalCode("78701")
+                    .recordType("address")
+                    .streetAddress("600 Congress Avenue")
+                    .updatedAt("2018-02-02T22:25:27.521Z")
+                    .validateAddress(true)
+                    .build()
+            )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val addressCreateResponse =
+            AddressCreateResponse.builder()
+                .data(
+                    Address.builder()
+                        .id("id")
+                        .addressBook(false)
+                        .administrativeArea("TX")
+                        .borough("Guadalajara")
+                        .businessName("Toy-O'Kon")
+                        .countryCode("US")
+                        .createdAt("2018-02-02T22:25:27.521Z")
+                        .customerReference("MY REF 001")
+                        .extendedAddress("14th Floor")
+                        .firstName("Alfred")
+                        .lastName("Foster")
+                        .locality("Austin")
+                        .neighborhood("Ciudad de los deportes")
+                        .phoneNumber("+12125559000")
+                        .postalCode("78701")
+                        .recordType("address")
+                        .streetAddress("600 Congress Avenue")
+                        .updatedAt("2018-02-02T22:25:27.521Z")
+                        .validateAddress(true)
+                        .build()
+                )
+                .build()
+
+        val roundtrippedAddressCreateResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(addressCreateResponse),
+                jacksonTypeRef<AddressCreateResponse>(),
+            )
+
+        assertThat(roundtrippedAddressCreateResponse).isEqualTo(addressCreateResponse)
+    }
+}

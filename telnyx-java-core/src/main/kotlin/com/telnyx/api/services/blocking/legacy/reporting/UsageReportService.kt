@@ -1,0 +1,112 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.blocking.legacy.reporting
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.telnyx.api.core.ClientOptions
+import com.telnyx.api.core.RequestOptions
+import com.telnyx.api.core.http.HttpResponseFor
+import com.telnyx.api.models.legacy.reporting.usagereports.UsageReportRetrieveSpeechToTextParams
+import com.telnyx.api.models.legacy.reporting.usagereports.UsageReportRetrieveSpeechToTextResponse
+import com.telnyx.api.services.blocking.legacy.reporting.usagereports.MessagingService
+import com.telnyx.api.services.blocking.legacy.reporting.usagereports.NumberLookupService
+import com.telnyx.api.services.blocking.legacy.reporting.usagereports.VoiceService
+import java.util.function.Consumer
+
+interface UsageReportService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageReportService
+
+    fun messaging(): MessagingService
+
+    fun numberLookup(): NumberLookupService
+
+    fun voice(): VoiceService
+
+    /**
+     * Generate and fetch speech to text usage report synchronously. This endpoint will both
+     * generate and fetch the speech to text report over a specified time period.
+     */
+    fun retrieveSpeechToText(): UsageReportRetrieveSpeechToTextResponse =
+        retrieveSpeechToText(UsageReportRetrieveSpeechToTextParams.none())
+
+    /** @see retrieveSpeechToText */
+    fun retrieveSpeechToText(
+        params: UsageReportRetrieveSpeechToTextParams =
+            UsageReportRetrieveSpeechToTextParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): UsageReportRetrieveSpeechToTextResponse
+
+    /** @see retrieveSpeechToText */
+    fun retrieveSpeechToText(
+        params: UsageReportRetrieveSpeechToTextParams = UsageReportRetrieveSpeechToTextParams.none()
+    ): UsageReportRetrieveSpeechToTextResponse = retrieveSpeechToText(params, RequestOptions.none())
+
+    /** @see retrieveSpeechToText */
+    fun retrieveSpeechToText(
+        requestOptions: RequestOptions
+    ): UsageReportRetrieveSpeechToTextResponse =
+        retrieveSpeechToText(UsageReportRetrieveSpeechToTextParams.none(), requestOptions)
+
+    /**
+     * A view of [UsageReportService] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): UsageReportService.WithRawResponse
+
+        fun messaging(): MessagingService.WithRawResponse
+
+        fun numberLookup(): NumberLookupService.WithRawResponse
+
+        fun voice(): VoiceService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/speech_to_text`, but
+         * is otherwise the same as [UsageReportService.retrieveSpeechToText].
+         */
+        @MustBeClosed
+        fun retrieveSpeechToText(): HttpResponseFor<UsageReportRetrieveSpeechToTextResponse> =
+            retrieveSpeechToText(UsageReportRetrieveSpeechToTextParams.none())
+
+        /** @see retrieveSpeechToText */
+        @MustBeClosed
+        fun retrieveSpeechToText(
+            params: UsageReportRetrieveSpeechToTextParams =
+                UsageReportRetrieveSpeechToTextParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<UsageReportRetrieveSpeechToTextResponse>
+
+        /** @see retrieveSpeechToText */
+        @MustBeClosed
+        fun retrieveSpeechToText(
+            params: UsageReportRetrieveSpeechToTextParams =
+                UsageReportRetrieveSpeechToTextParams.none()
+        ): HttpResponseFor<UsageReportRetrieveSpeechToTextResponse> =
+            retrieveSpeechToText(params, RequestOptions.none())
+
+        /** @see retrieveSpeechToText */
+        @MustBeClosed
+        fun retrieveSpeechToText(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<UsageReportRetrieveSpeechToTextResponse> =
+            retrieveSpeechToText(UsageReportRetrieveSpeechToTextParams.none(), requestOptions)
+    }
+}

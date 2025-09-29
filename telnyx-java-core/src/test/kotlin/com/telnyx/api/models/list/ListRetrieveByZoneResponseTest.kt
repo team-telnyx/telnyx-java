@@ -1,0 +1,102 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.models.list
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.api.core.jsonMapper
+import com.telnyx.api.models.authenticationproviders.PaginationMeta
+import kotlin.jvm.optionals.getOrNull
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class ListRetrieveByZoneResponseTest {
+
+    @Test
+    fun create() {
+        val listRetrieveByZoneResponse =
+            ListRetrieveByZoneResponse.builder()
+                .addData(
+                    ListRetrieveByZoneResponse.Data.builder()
+                        .numberOfChannels(7L)
+                        .addNumber(
+                            ListRetrieveByZoneResponse.Data.Number.builder()
+                                .country("FR")
+                                .number("+15554441234")
+                                .build()
+                        )
+                        .zoneId("1653e6a1-4bfd-4857-97c6-6a51e1c34477")
+                        .zoneName("Euro channel zone")
+                        .build()
+                )
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
+                .build()
+
+        assertThat(listRetrieveByZoneResponse.data().getOrNull())
+            .containsExactly(
+                ListRetrieveByZoneResponse.Data.builder()
+                    .numberOfChannels(7L)
+                    .addNumber(
+                        ListRetrieveByZoneResponse.Data.Number.builder()
+                            .country("FR")
+                            .number("+15554441234")
+                            .build()
+                    )
+                    .zoneId("1653e6a1-4bfd-4857-97c6-6a51e1c34477")
+                    .zoneName("Euro channel zone")
+                    .build()
+            )
+        assertThat(listRetrieveByZoneResponse.meta())
+            .contains(
+                PaginationMeta.builder()
+                    .pageNumber(2L)
+                    .pageSize(25L)
+                    .totalPages(3L)
+                    .totalResults(55L)
+                    .build()
+            )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val listRetrieveByZoneResponse =
+            ListRetrieveByZoneResponse.builder()
+                .addData(
+                    ListRetrieveByZoneResponse.Data.builder()
+                        .numberOfChannels(7L)
+                        .addNumber(
+                            ListRetrieveByZoneResponse.Data.Number.builder()
+                                .country("FR")
+                                .number("+15554441234")
+                                .build()
+                        )
+                        .zoneId("1653e6a1-4bfd-4857-97c6-6a51e1c34477")
+                        .zoneName("Euro channel zone")
+                        .build()
+                )
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
+                .build()
+
+        val roundtrippedListRetrieveByZoneResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(listRetrieveByZoneResponse),
+                jacksonTypeRef<ListRetrieveByZoneResponse>(),
+            )
+
+        assertThat(roundtrippedListRetrieveByZoneResponse).isEqualTo(listRetrieveByZoneResponse)
+    }
+}

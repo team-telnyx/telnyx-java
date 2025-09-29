@@ -1,0 +1,139 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async
+
+import com.telnyx.api.TestServerExtension
+import com.telnyx.api.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.api.models.simcarddatausagenotifications.SimCardDataUsageNotification
+import com.telnyx.api.models.simcarddatausagenotifications.SimCardDataUsageNotificationCreateParams
+import com.telnyx.api.models.simcarddatausagenotifications.SimCardDataUsageNotificationListParams
+import com.telnyx.api.models.simcarddatausagenotifications.SimCardDataUsageNotificationUpdateParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class SimCardDataUsageNotificationServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun create() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val simCardDataUsageNotificationServiceAsync = client.simCardDataUsageNotifications()
+
+        val simCardDataUsageNotificationFuture =
+            simCardDataUsageNotificationServiceAsync.create(
+                SimCardDataUsageNotificationCreateParams.builder()
+                    .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .threshold(
+                        SimCardDataUsageNotificationCreateParams.Threshold.builder()
+                            .amount("2048.1")
+                            .unit(SimCardDataUsageNotificationCreateParams.Threshold.Unit.MB)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val simCardDataUsageNotification = simCardDataUsageNotificationFuture.get()
+        simCardDataUsageNotification.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieve() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val simCardDataUsageNotificationServiceAsync = client.simCardDataUsageNotifications()
+
+        val simCardDataUsageNotificationFuture =
+            simCardDataUsageNotificationServiceAsync.retrieve(
+                "6a09cdc3-8948-47f0-aa62-74ac943d6c58"
+            )
+
+        val simCardDataUsageNotification = simCardDataUsageNotificationFuture.get()
+        simCardDataUsageNotification.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun update() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val simCardDataUsageNotificationServiceAsync = client.simCardDataUsageNotifications()
+
+        val simCardDataUsageNotificationFuture =
+            simCardDataUsageNotificationServiceAsync.update(
+                SimCardDataUsageNotificationUpdateParams.builder()
+                    .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .simCardDataUsageNotification(
+                        SimCardDataUsageNotification.builder()
+                            .id("79228acc-3f08-4e70-ac68-cb5aae8b537a")
+                            .createdAt("2018-02-02T22:25:27.521Z")
+                            .recordType("sim_card_data_usage_notification")
+                            .simCardId("b34c1683-cd85-4493-b9a5-315eb4bc5e19")
+                            .threshold(
+                                SimCardDataUsageNotification.Threshold.builder()
+                                    .amount("2048.0")
+                                    .unit(SimCardDataUsageNotification.Threshold.Unit.MB)
+                                    .build()
+                            )
+                            .updatedAt("2018-02-02T22:25:27.521Z")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val simCardDataUsageNotification = simCardDataUsageNotificationFuture.get()
+        simCardDataUsageNotification.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val simCardDataUsageNotificationServiceAsync = client.simCardDataUsageNotifications()
+
+        val simCardDataUsageNotificationsFuture =
+            simCardDataUsageNotificationServiceAsync.list(
+                SimCardDataUsageNotificationListParams.builder()
+                    .filterSimCardId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
+            )
+
+        val simCardDataUsageNotifications = simCardDataUsageNotificationsFuture.get()
+        simCardDataUsageNotifications.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val simCardDataUsageNotificationServiceAsync = client.simCardDataUsageNotifications()
+
+        val simCardDataUsageNotificationFuture =
+            simCardDataUsageNotificationServiceAsync.delete("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+
+        val simCardDataUsageNotification = simCardDataUsageNotificationFuture.get()
+        simCardDataUsageNotification.validate()
+    }
+}

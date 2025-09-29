@@ -1,0 +1,324 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async.externalconnections
+
+import com.telnyx.api.core.ClientOptions
+import com.telnyx.api.core.RequestOptions
+import com.telnyx.api.core.checkRequired
+import com.telnyx.api.core.handlers.errorBodyHandler
+import com.telnyx.api.core.handlers.errorHandler
+import com.telnyx.api.core.handlers.jsonHandler
+import com.telnyx.api.core.http.HttpMethod
+import com.telnyx.api.core.http.HttpRequest
+import com.telnyx.api.core.http.HttpResponse
+import com.telnyx.api.core.http.HttpResponse.Handler
+import com.telnyx.api.core.http.HttpResponseFor
+import com.telnyx.api.core.http.json
+import com.telnyx.api.core.http.parseable
+import com.telnyx.api.core.prepareAsync
+import com.telnyx.api.models.externalconnections.uploads.UploadCreateParams
+import com.telnyx.api.models.externalconnections.uploads.UploadCreateResponse
+import com.telnyx.api.models.externalconnections.uploads.UploadListParams
+import com.telnyx.api.models.externalconnections.uploads.UploadListResponse
+import com.telnyx.api.models.externalconnections.uploads.UploadPendingCountParams
+import com.telnyx.api.models.externalconnections.uploads.UploadPendingCountResponse
+import com.telnyx.api.models.externalconnections.uploads.UploadRefreshStatusParams
+import com.telnyx.api.models.externalconnections.uploads.UploadRefreshStatusResponse
+import com.telnyx.api.models.externalconnections.uploads.UploadRetrieveParams
+import com.telnyx.api.models.externalconnections.uploads.UploadRetrieveResponse
+import com.telnyx.api.models.externalconnections.uploads.UploadRetryParams
+import com.telnyx.api.models.externalconnections.uploads.UploadRetryResponse
+import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
+
+class UploadServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    UploadServiceAsync {
+
+    private val withRawResponse: UploadServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
+    override fun withRawResponse(): UploadServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UploadServiceAsync =
+        UploadServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun create(
+        params: UploadCreateParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<UploadCreateResponse> =
+        // post /external_connections/{id}/uploads
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+
+    override fun retrieve(
+        params: UploadRetrieveParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<UploadRetrieveResponse> =
+        // get /external_connections/{id}/uploads/{ticket_id}
+        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+
+    override fun list(
+        params: UploadListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<UploadListResponse> =
+        // get /external_connections/{id}/uploads
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun pendingCount(
+        params: UploadPendingCountParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<UploadPendingCountResponse> =
+        // get /external_connections/{id}/uploads/status
+        withRawResponse().pendingCount(params, requestOptions).thenApply { it.parse() }
+
+    override fun refreshStatus(
+        params: UploadRefreshStatusParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<UploadRefreshStatusResponse> =
+        // post /external_connections/{id}/uploads/refresh
+        withRawResponse().refreshStatus(params, requestOptions).thenApply { it.parse() }
+
+    override fun retry(
+        params: UploadRetryParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<UploadRetryResponse> =
+        // post /external_connections/{id}/uploads/{ticket_id}/retry
+        withRawResponse().retry(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        UploadServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): UploadServiceAsync.WithRawResponse =
+            UploadServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
+
+        private val createHandler: Handler<UploadCreateResponse> =
+            jsonHandler<UploadCreateResponse>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: UploadCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<UploadCreateResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("external_connections", params._pathParam(0), "uploads")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val retrieveHandler: Handler<UploadRetrieveResponse> =
+            jsonHandler<UploadRetrieveResponse>(clientOptions.jsonMapper)
+
+        override fun retrieve(
+            params: UploadRetrieveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<UploadRetrieveResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("ticketId", params.ticketId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "external_connections",
+                        params._pathParam(0),
+                        "uploads",
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<UploadListResponse> =
+            jsonHandler<UploadListResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: UploadListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<UploadListResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("external_connections", params._pathParam(0), "uploads")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val pendingCountHandler: Handler<UploadPendingCountResponse> =
+            jsonHandler<UploadPendingCountResponse>(clientOptions.jsonMapper)
+
+        override fun pendingCount(
+            params: UploadPendingCountParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<UploadPendingCountResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "external_connections",
+                        params._pathParam(0),
+                        "uploads",
+                        "status",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { pendingCountHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val refreshStatusHandler: Handler<UploadRefreshStatusResponse> =
+            jsonHandler<UploadRefreshStatusResponse>(clientOptions.jsonMapper)
+
+        override fun refreshStatus(
+            params: UploadRefreshStatusParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<UploadRefreshStatusResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "external_connections",
+                        params._pathParam(0),
+                        "uploads",
+                        "refresh",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { refreshStatusHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val retryHandler: Handler<UploadRetryResponse> =
+            jsonHandler<UploadRetryResponse>(clientOptions.jsonMapper)
+
+        override fun retry(
+            params: UploadRetryParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<UploadRetryResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("ticketId", params.ticketId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "external_connections",
+                        params._pathParam(0),
+                        "uploads",
+                        params._pathParam(1),
+                        "retry",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retryHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+    }
+}

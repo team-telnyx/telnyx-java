@@ -1,0 +1,162 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.blocking.bundlepricing
+
+import com.telnyx.api.TestServerExtension
+import com.telnyx.api.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.api.models.bundlepricing.userbundles.UserBundleCreateParams
+import com.telnyx.api.models.bundlepricing.userbundles.UserBundleDeactivateParams
+import com.telnyx.api.models.bundlepricing.userbundles.UserBundleListParams
+import com.telnyx.api.models.bundlepricing.userbundles.UserBundleListResourcesParams
+import com.telnyx.api.models.bundlepricing.userbundles.UserBundleListUnusedParams
+import com.telnyx.api.models.bundlepricing.userbundles.UserBundleRetrieveParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class UserBundleServiceTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun create() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val userBundleService = client.bundlePricing().userBundles()
+
+        val userBundle =
+            userBundleService.create(
+                UserBundleCreateParams.builder()
+                    .authorizationBearer("authorization_bearer")
+                    .idempotencyKey("12ade33a-21c0-473b-b055-b3c836e1c292")
+                    .addItem(
+                        UserBundleCreateParams.Item.builder()
+                            .billingBundleId("12ade33a-21c0-473b-b055-b3c836e1c292")
+                            .quantity(0L)
+                            .build()
+                    )
+                    .build()
+            )
+
+        userBundle.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieve() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val userBundleService = client.bundlePricing().userBundles()
+
+        val userBundle =
+            userBundleService.retrieve(
+                UserBundleRetrieveParams.builder()
+                    .userBundleId("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                    .authorizationBearer("authorization_bearer")
+                    .build()
+            )
+
+        userBundle.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val userBundleService = client.bundlePricing().userBundles()
+
+        val userBundles =
+            userBundleService.list(
+                UserBundleListParams.builder()
+                    .filter(
+                        UserBundleListParams.Filter.builder()
+                            .addCountryIso("US")
+                            .addResource("+15617819942")
+                            .build()
+                    )
+                    .page(UserBundleListParams.Page.builder().number(1L).size(1L).build())
+                    .authorizationBearer("authorization_bearer")
+                    .build()
+            )
+
+        userBundles.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun deactivate() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val userBundleService = client.bundlePricing().userBundles()
+
+        val response =
+            userBundleService.deactivate(
+                UserBundleDeactivateParams.builder()
+                    .userBundleId("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                    .authorizationBearer("authorization_bearer")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun listResources() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val userBundleService = client.bundlePricing().userBundles()
+
+        val response =
+            userBundleService.listResources(
+                UserBundleListResourcesParams.builder()
+                    .userBundleId("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                    .authorizationBearer("authorization_bearer")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun listUnused() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val userBundleService = client.bundlePricing().userBundles()
+
+        val response =
+            userBundleService.listUnused(
+                UserBundleListUnusedParams.builder()
+                    .filter(
+                        UserBundleListUnusedParams.Filter.builder()
+                            .addCountryIso("US")
+                            .addResource("+15617819942")
+                            .build()
+                    )
+                    .authorizationBearer("authorization_bearer")
+                    .build()
+            )
+
+        response.validate()
+    }
+}

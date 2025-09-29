@@ -1,0 +1,63 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async.rooms
+
+import com.telnyx.api.TestServerExtension
+import com.telnyx.api.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.api.models.rooms.actions.ActionGenerateJoinClientTokenParams
+import com.telnyx.api.models.rooms.actions.ActionRefreshClientTokenParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class ActionServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun generateJoinClientToken() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val actionServiceAsync = client.rooms().actions()
+
+        val responseFuture =
+            actionServiceAsync.generateJoinClientToken(
+                ActionGenerateJoinClientTokenParams.builder()
+                    .roomId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                    .refreshTokenTtlSecs(3600L)
+                    .tokenTtlSecs(600L)
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun refreshClientToken() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val actionServiceAsync = client.rooms().actions()
+
+        val responseFuture =
+            actionServiceAsync.refreshClientToken(
+                ActionRefreshClientTokenParams.builder()
+                    .roomId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                    .refreshToken(
+                        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ"
+                    )
+                    .tokenTtlSecs(600L)
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+}

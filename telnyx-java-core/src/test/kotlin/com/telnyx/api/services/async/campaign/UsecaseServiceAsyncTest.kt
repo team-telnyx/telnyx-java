@@ -1,0 +1,31 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async.campaign
+
+import com.telnyx.api.TestServerExtension
+import com.telnyx.api.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.api.models.campaign.usecase.UsecaseGetCostParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class UsecaseServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun getCost() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val usecaseServiceAsync = client.campaign().usecase()
+
+        val responseFuture =
+            usecaseServiceAsync.getCost(UsecaseGetCostParams.builder().usecase("usecase").build())
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+}

@@ -1,0 +1,138 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.models.bundlepricing.userbundles
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.api.core.jsonMapper
+import com.telnyx.api.models.bundlepricing.billingbundles.BillingBundleSummary
+import java.time.LocalDate
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class UserBundleTest {
+
+    @Test
+    fun create() {
+        val userBundle =
+            UserBundle.builder()
+                .id("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                .active(true)
+                .billingBundle(
+                    BillingBundleSummary.builder()
+                        .id("7ecd040e-6bac-4139-9160-3c0427d98fea")
+                        .costCode("BUNDLE-PRICING-BASIC-MRC")
+                        .createdAt(LocalDate.parse("2019-12-27"))
+                        .isPublic(true)
+                        .name("Australia Basic")
+                        .currency("USD")
+                        .mrcPrice(2.0f)
+                        .slug("basic-au-e4f8")
+                        .specs(
+                            listOf(
+                                "1 AU Number",
+                                "Emergency Calling",
+                                "All inbound and outbound calling billed pay-as-you-go",
+                            )
+                        )
+                        .build()
+                )
+                .createdAt(LocalDate.parse("2025-01-20"))
+                .addResource(
+                    UserBundleResource.builder()
+                        .id("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                        .createdAt(LocalDate.parse("2025-01-20"))
+                        .resource("+15617819942")
+                        .resourceType("number")
+                        .updatedAt(LocalDate.parse("2025-01-20"))
+                        .build()
+                )
+                .userId("16856d8c-cd59-4b08-9ac2-1ebb01d419e1")
+                .updatedAt(LocalDate.parse("2025-01-20"))
+                .build()
+
+        assertThat(userBundle.id()).isEqualTo("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+        assertThat(userBundle.active()).isEqualTo(true)
+        assertThat(userBundle.billingBundle())
+            .isEqualTo(
+                BillingBundleSummary.builder()
+                    .id("7ecd040e-6bac-4139-9160-3c0427d98fea")
+                    .costCode("BUNDLE-PRICING-BASIC-MRC")
+                    .createdAt(LocalDate.parse("2019-12-27"))
+                    .isPublic(true)
+                    .name("Australia Basic")
+                    .currency("USD")
+                    .mrcPrice(2.0f)
+                    .slug("basic-au-e4f8")
+                    .specs(
+                        listOf(
+                            "1 AU Number",
+                            "Emergency Calling",
+                            "All inbound and outbound calling billed pay-as-you-go",
+                        )
+                    )
+                    .build()
+            )
+        assertThat(userBundle.createdAt()).isEqualTo(LocalDate.parse("2025-01-20"))
+        assertThat(userBundle.resources())
+            .containsExactly(
+                UserBundleResource.builder()
+                    .id("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                    .createdAt(LocalDate.parse("2025-01-20"))
+                    .resource("+15617819942")
+                    .resourceType("number")
+                    .updatedAt(LocalDate.parse("2025-01-20"))
+                    .build()
+            )
+        assertThat(userBundle.userId()).isEqualTo("16856d8c-cd59-4b08-9ac2-1ebb01d419e1")
+        assertThat(userBundle.updatedAt()).contains(LocalDate.parse("2025-01-20"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val userBundle =
+            UserBundle.builder()
+                .id("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                .active(true)
+                .billingBundle(
+                    BillingBundleSummary.builder()
+                        .id("7ecd040e-6bac-4139-9160-3c0427d98fea")
+                        .costCode("BUNDLE-PRICING-BASIC-MRC")
+                        .createdAt(LocalDate.parse("2019-12-27"))
+                        .isPublic(true)
+                        .name("Australia Basic")
+                        .currency("USD")
+                        .mrcPrice(2.0f)
+                        .slug("basic-au-e4f8")
+                        .specs(
+                            listOf(
+                                "1 AU Number",
+                                "Emergency Calling",
+                                "All inbound and outbound calling billed pay-as-you-go",
+                            )
+                        )
+                        .build()
+                )
+                .createdAt(LocalDate.parse("2025-01-20"))
+                .addResource(
+                    UserBundleResource.builder()
+                        .id("ca1d2263-d1f1-43ac-ba53-248e7a4bb26a")
+                        .createdAt(LocalDate.parse("2025-01-20"))
+                        .resource("+15617819942")
+                        .resourceType("number")
+                        .updatedAt(LocalDate.parse("2025-01-20"))
+                        .build()
+                )
+                .userId("16856d8c-cd59-4b08-9ac2-1ebb01d419e1")
+                .updatedAt(LocalDate.parse("2025-01-20"))
+                .build()
+
+        val roundtrippedUserBundle =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(userBundle),
+                jacksonTypeRef<UserBundle>(),
+            )
+
+        assertThat(roundtrippedUserBundle).isEqualTo(userBundle)
+    }
+}

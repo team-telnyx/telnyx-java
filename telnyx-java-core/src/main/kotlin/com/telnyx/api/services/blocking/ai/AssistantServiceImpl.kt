@@ -1,0 +1,445 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.blocking.ai
+
+import com.telnyx.api.core.ClientOptions
+import com.telnyx.api.core.RequestOptions
+import com.telnyx.api.core.checkRequired
+import com.telnyx.api.core.handlers.errorBodyHandler
+import com.telnyx.api.core.handlers.errorHandler
+import com.telnyx.api.core.handlers.jsonHandler
+import com.telnyx.api.core.handlers.stringHandler
+import com.telnyx.api.core.http.HttpMethod
+import com.telnyx.api.core.http.HttpRequest
+import com.telnyx.api.core.http.HttpResponse
+import com.telnyx.api.core.http.HttpResponse.Handler
+import com.telnyx.api.core.http.HttpResponseFor
+import com.telnyx.api.core.http.json
+import com.telnyx.api.core.http.parseable
+import com.telnyx.api.core.prepare
+import com.telnyx.api.models.ai.assistants.AssistantChatParams
+import com.telnyx.api.models.ai.assistants.AssistantChatResponse
+import com.telnyx.api.models.ai.assistants.AssistantCloneParams
+import com.telnyx.api.models.ai.assistants.AssistantCloneResponse
+import com.telnyx.api.models.ai.assistants.AssistantCreateParams
+import com.telnyx.api.models.ai.assistants.AssistantCreateResponse
+import com.telnyx.api.models.ai.assistants.AssistantDeleteParams
+import com.telnyx.api.models.ai.assistants.AssistantDeleteResponse
+import com.telnyx.api.models.ai.assistants.AssistantGetTexmlParams
+import com.telnyx.api.models.ai.assistants.AssistantImportParams
+import com.telnyx.api.models.ai.assistants.AssistantListParams
+import com.telnyx.api.models.ai.assistants.AssistantRetrieveParams
+import com.telnyx.api.models.ai.assistants.AssistantRetrieveResponse
+import com.telnyx.api.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.api.models.ai.assistants.AssistantUpdateResponse
+import com.telnyx.api.models.ai.assistants.AssistantsList
+import com.telnyx.api.services.blocking.ai.assistants.CanaryDeployService
+import com.telnyx.api.services.blocking.ai.assistants.CanaryDeployServiceImpl
+import com.telnyx.api.services.blocking.ai.assistants.ScheduledEventService
+import com.telnyx.api.services.blocking.ai.assistants.ScheduledEventServiceImpl
+import com.telnyx.api.services.blocking.ai.assistants.TestService
+import com.telnyx.api.services.blocking.ai.assistants.TestServiceImpl
+import com.telnyx.api.services.blocking.ai.assistants.ToolService
+import com.telnyx.api.services.blocking.ai.assistants.ToolServiceImpl
+import com.telnyx.api.services.blocking.ai.assistants.VersionService
+import com.telnyx.api.services.blocking.ai.assistants.VersionServiceImpl
+import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
+
+class AssistantServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AssistantService {
+
+    private val withRawResponse: AssistantService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
+    private val tests: TestService by lazy { TestServiceImpl(clientOptions) }
+
+    private val canaryDeploys: CanaryDeployService by lazy {
+        CanaryDeployServiceImpl(clientOptions)
+    }
+
+    private val scheduledEvents: ScheduledEventService by lazy {
+        ScheduledEventServiceImpl(clientOptions)
+    }
+
+    private val tools: ToolService by lazy { ToolServiceImpl(clientOptions) }
+
+    private val versions: VersionService by lazy { VersionServiceImpl(clientOptions) }
+
+    override fun withRawResponse(): AssistantService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantService =
+        AssistantServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun tests(): TestService = tests
+
+    override fun canaryDeploys(): CanaryDeployService = canaryDeploys
+
+    override fun scheduledEvents(): ScheduledEventService = scheduledEvents
+
+    override fun tools(): ToolService = tools
+
+    override fun versions(): VersionService = versions
+
+    override fun create(
+        params: AssistantCreateParams,
+        requestOptions: RequestOptions,
+    ): AssistantCreateResponse =
+        // post /ai/assistants
+        withRawResponse().create(params, requestOptions).parse()
+
+    override fun retrieve(
+        params: AssistantRetrieveParams,
+        requestOptions: RequestOptions,
+    ): AssistantRetrieveResponse =
+        // get /ai/assistants/{assistant_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
+
+    override fun update(
+        params: AssistantUpdateParams,
+        requestOptions: RequestOptions,
+    ): AssistantUpdateResponse =
+        // post /ai/assistants/{assistant_id}
+        withRawResponse().update(params, requestOptions).parse()
+
+    override fun list(params: AssistantListParams, requestOptions: RequestOptions): AssistantsList =
+        // get /ai/assistants
+        withRawResponse().list(params, requestOptions).parse()
+
+    override fun delete(
+        params: AssistantDeleteParams,
+        requestOptions: RequestOptions,
+    ): AssistantDeleteResponse =
+        // delete /ai/assistants/{assistant_id}
+        withRawResponse().delete(params, requestOptions).parse()
+
+    override fun chat(
+        params: AssistantChatParams,
+        requestOptions: RequestOptions,
+    ): AssistantChatResponse =
+        // post /ai/assistants/{assistant_id}/chat
+        withRawResponse().chat(params, requestOptions).parse()
+
+    override fun clone(
+        params: AssistantCloneParams,
+        requestOptions: RequestOptions,
+    ): AssistantCloneResponse =
+        // post /ai/assistants/{assistant_id}/clone
+        withRawResponse().clone(params, requestOptions).parse()
+
+    override fun getTexml(params: AssistantGetTexmlParams, requestOptions: RequestOptions): String =
+        // get /ai/assistants/{assistant_id}/texml
+        withRawResponse().getTexml(params, requestOptions).parse()
+
+    override fun import_(
+        params: AssistantImportParams,
+        requestOptions: RequestOptions,
+    ): AssistantsList =
+        // post /ai/assistants/import
+        withRawResponse().import_(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        AssistantService.WithRawResponse {
+
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        private val tests: TestService.WithRawResponse by lazy {
+            TestServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val canaryDeploys: CanaryDeployService.WithRawResponse by lazy {
+            CanaryDeployServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val scheduledEvents: ScheduledEventService.WithRawResponse by lazy {
+            ScheduledEventServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val tools: ToolService.WithRawResponse by lazy {
+            ToolServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val versions: VersionService.WithRawResponse by lazy {
+            VersionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AssistantService.WithRawResponse =
+            AssistantServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
+
+        override fun tests(): TestService.WithRawResponse = tests
+
+        override fun canaryDeploys(): CanaryDeployService.WithRawResponse = canaryDeploys
+
+        override fun scheduledEvents(): ScheduledEventService.WithRawResponse = scheduledEvents
+
+        override fun tools(): ToolService.WithRawResponse = tools
+
+        override fun versions(): VersionService.WithRawResponse = versions
+
+        private val createHandler: Handler<AssistantCreateResponse> =
+            jsonHandler<AssistantCreateResponse>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: AssistantCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantCreateResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val retrieveHandler: Handler<AssistantRetrieveResponse> =
+            jsonHandler<AssistantRetrieveResponse>(clientOptions.jsonMapper)
+
+        override fun retrieve(
+            params: AssistantRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantRetrieveResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<AssistantUpdateResponse> =
+            jsonHandler<AssistantUpdateResponse>(clientOptions.jsonMapper)
+
+        override fun update(
+            params: AssistantUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantUpdateResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<AssistantsList> =
+            jsonHandler<AssistantsList>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: AssistantListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantsList> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val deleteHandler: Handler<AssistantDeleteResponse> =
+            jsonHandler<AssistantDeleteResponse>(clientOptions.jsonMapper)
+
+        override fun delete(
+            params: AssistantDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantDeleteResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { deleteHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val chatHandler: Handler<AssistantChatResponse> =
+            jsonHandler<AssistantChatResponse>(clientOptions.jsonMapper)
+
+        override fun chat(
+            params: AssistantChatParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantChatResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "chat")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { chatHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val cloneHandler: Handler<AssistantCloneResponse> =
+            jsonHandler<AssistantCloneResponse>(clientOptions.jsonMapper)
+
+        override fun clone(
+            params: AssistantCloneParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantCloneResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "clone")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { cloneHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getTexmlHandler: Handler<String> = stringHandler()
+
+        override fun getTexml(
+            params: AssistantGetTexmlParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<String> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "texml")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { getTexmlHandler.handle(it) }
+            }
+        }
+
+        private val importHandler: Handler<AssistantsList> =
+            jsonHandler<AssistantsList>(clientOptions.jsonMapper)
+
+        override fun import_(
+            params: AssistantImportParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantsList> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", "import")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { importHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+    }
+}

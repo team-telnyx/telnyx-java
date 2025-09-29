@@ -1,0 +1,133 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.blocking
+
+import com.telnyx.api.TestServerExtension
+import com.telnyx.api.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.api.models.oauthclients.OAuthClientCreateParams
+import com.telnyx.api.models.oauthclients.OAuthClientListParams
+import com.telnyx.api.models.oauthclients.OAuthClientUpdateParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class OAuthClientServiceTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun create() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthClientService = client.oauthClients()
+
+        val oauthClient =
+            oauthClientService.create(
+                OAuthClientCreateParams.builder()
+                    .addAllowedGrantType(
+                        OAuthClientCreateParams.AllowedGrantType.CLIENT_CREDENTIALS
+                    )
+                    .addAllowedScope("admin")
+                    .clientType(OAuthClientCreateParams.ClientType.PUBLIC)
+                    .name("My OAuth client")
+                    .logoUri("https://example.com")
+                    .policyUri("https://example.com")
+                    .addRedirectUris("https://example.com")
+                    .requirePkce(true)
+                    .tosUri("https://example.com")
+                    .build()
+            )
+
+        oauthClient.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieve() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthClientService = client.oauthClients()
+
+        val oauthClient = oauthClientService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+
+        oauthClient.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun update() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthClientService = client.oauthClients()
+
+        val oauthClient =
+            oauthClientService.update(
+                OAuthClientUpdateParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .addAllowedGrantType(
+                        OAuthClientUpdateParams.AllowedGrantType.CLIENT_CREDENTIALS
+                    )
+                    .addAllowedScope("admin")
+                    .logoUri("https://example.com")
+                    .name("name")
+                    .policyUri("https://example.com")
+                    .addRedirectUris("https://example.com")
+                    .requirePkce(true)
+                    .tosUri("https://example.com")
+                    .build()
+            )
+
+        oauthClient.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthClientService = client.oauthClients()
+
+        val oauthClients =
+            oauthClientService.list(
+                OAuthClientListParams.builder()
+                    .filterAllowedGrantTypesContains(
+                        OAuthClientListParams.FilterAllowedGrantTypesContains.CLIENT_CREDENTIALS
+                    )
+                    .filterClientId("filter[client_id]")
+                    .filterClientType(OAuthClientListParams.FilterClientType.CONFIDENTIAL)
+                    .filterName("filter[name]")
+                    .filterNameContains("filter[name][contains]")
+                    .filterVerified(true)
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
+            )
+
+        oauthClients.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthClientService = client.oauthClients()
+
+        oauthClientService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+    }
+}

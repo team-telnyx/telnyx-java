@@ -1,0 +1,296 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.blocking
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.telnyx.api.core.ClientOptions
+import com.telnyx.api.core.RequestOptions
+import com.telnyx.api.core.http.HttpResponseFor
+import com.telnyx.api.models.conferences.ConferenceCreateParams
+import com.telnyx.api.models.conferences.ConferenceCreateResponse
+import com.telnyx.api.models.conferences.ConferenceListParams
+import com.telnyx.api.models.conferences.ConferenceListParticipantsParams
+import com.telnyx.api.models.conferences.ConferenceListParticipantsResponse
+import com.telnyx.api.models.conferences.ConferenceListResponse
+import com.telnyx.api.models.conferences.ConferenceRetrieveParams
+import com.telnyx.api.models.conferences.ConferenceRetrieveResponse
+import com.telnyx.api.services.blocking.conferences.ActionService
+import java.util.function.Consumer
+
+interface ConferenceService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceService
+
+    fun actions(): ActionService
+
+    /**
+     * Create a conference from an existing call leg using a `call_control_id` and a conference
+     * name. Upon creating the conference, the call will be automatically bridged to the conference.
+     * Conferences will expire after all participants have left the conference or after 4 hours
+     * regardless of the number of active participants.
+     *
+     * **Expected Webhooks:**
+     * - `conference.created`
+     * - `conference.participant.joined`
+     * - `conference.participant.left`
+     * - `conference.ended`
+     * - `conference.recording.saved`
+     * - `conference.floor.changed`
+     */
+    fun create(params: ConferenceCreateParams): ConferenceCreateResponse =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: ConferenceCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConferenceCreateResponse
+
+    /** Retrieve an existing conference */
+    fun retrieve(id: String): ConferenceRetrieveResponse =
+        retrieve(id, ConferenceRetrieveParams.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        id: String,
+        params: ConferenceRetrieveParams = ConferenceRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConferenceRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieve */
+    fun retrieve(
+        id: String,
+        params: ConferenceRetrieveParams = ConferenceRetrieveParams.none(),
+    ): ConferenceRetrieveResponse = retrieve(id, params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        params: ConferenceRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConferenceRetrieveResponse
+
+    /** @see retrieve */
+    fun retrieve(params: ConferenceRetrieveParams): ConferenceRetrieveResponse =
+        retrieve(params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(id: String, requestOptions: RequestOptions): ConferenceRetrieveResponse =
+        retrieve(id, ConferenceRetrieveParams.none(), requestOptions)
+
+    /**
+     * Lists conferences. Conferences are created on demand, and will expire after all participants
+     * have left the conference or after 4 hours regardless of the number of active participants.
+     * Conferences are listed in descending order by `expires_at`.
+     */
+    fun list(): ConferenceListResponse = list(ConferenceListParams.none())
+
+    /** @see list */
+    fun list(
+        params: ConferenceListParams = ConferenceListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConferenceListResponse
+
+    /** @see list */
+    fun list(params: ConferenceListParams = ConferenceListParams.none()): ConferenceListResponse =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): ConferenceListResponse =
+        list(ConferenceListParams.none(), requestOptions)
+
+    /** Lists conference participants */
+    fun listParticipants(conferenceId: String): ConferenceListParticipantsResponse =
+        listParticipants(conferenceId, ConferenceListParticipantsParams.none())
+
+    /** @see listParticipants */
+    fun listParticipants(
+        conferenceId: String,
+        params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConferenceListParticipantsResponse =
+        listParticipants(params.toBuilder().conferenceId(conferenceId).build(), requestOptions)
+
+    /** @see listParticipants */
+    fun listParticipants(
+        conferenceId: String,
+        params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
+    ): ConferenceListParticipantsResponse =
+        listParticipants(conferenceId, params, RequestOptions.none())
+
+    /** @see listParticipants */
+    fun listParticipants(
+        params: ConferenceListParticipantsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConferenceListParticipantsResponse
+
+    /** @see listParticipants */
+    fun listParticipants(
+        params: ConferenceListParticipantsParams
+    ): ConferenceListParticipantsResponse = listParticipants(params, RequestOptions.none())
+
+    /** @see listParticipants */
+    fun listParticipants(
+        conferenceId: String,
+        requestOptions: RequestOptions,
+    ): ConferenceListParticipantsResponse =
+        listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
+
+    /** A view of [ConferenceService] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ConferenceService.WithRawResponse
+
+        fun actions(): ActionService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /conferences`, but is otherwise the same as
+         * [ConferenceService.create].
+         */
+        @MustBeClosed
+        fun create(params: ConferenceCreateParams): HttpResponseFor<ConferenceCreateResponse> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: ConferenceCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConferenceCreateResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /conferences/{id}`, but is otherwise the same as
+         * [ConferenceService.retrieve].
+         */
+        @MustBeClosed
+        fun retrieve(id: String): HttpResponseFor<ConferenceRetrieveResponse> =
+            retrieve(id, ConferenceRetrieveParams.none())
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            id: String,
+            params: ConferenceRetrieveParams = ConferenceRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConferenceRetrieveResponse> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            id: String,
+            params: ConferenceRetrieveParams = ConferenceRetrieveParams.none(),
+        ): HttpResponseFor<ConferenceRetrieveResponse> = retrieve(id, params, RequestOptions.none())
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            params: ConferenceRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConferenceRetrieveResponse>
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            params: ConferenceRetrieveParams
+        ): HttpResponseFor<ConferenceRetrieveResponse> = retrieve(params, RequestOptions.none())
+
+        /** @see retrieve */
+        @MustBeClosed
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ConferenceRetrieveResponse> =
+            retrieve(id, ConferenceRetrieveParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /conferences`, but is otherwise the same as
+         * [ConferenceService.list].
+         */
+        @MustBeClosed
+        fun list(): HttpResponseFor<ConferenceListResponse> = list(ConferenceListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: ConferenceListParams = ConferenceListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConferenceListResponse>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: ConferenceListParams = ConferenceListParams.none()
+        ): HttpResponseFor<ConferenceListResponse> = list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ConferenceListResponse> =
+            list(ConferenceListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /conferences/{conference_id}/participants`, but is
+         * otherwise the same as [ConferenceService.listParticipants].
+         */
+        @MustBeClosed
+        fun listParticipants(
+            conferenceId: String
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
+            listParticipants(conferenceId, ConferenceListParticipantsParams.none())
+
+        /** @see listParticipants */
+        @MustBeClosed
+        fun listParticipants(
+            conferenceId: String,
+            params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
+            listParticipants(params.toBuilder().conferenceId(conferenceId).build(), requestOptions)
+
+        /** @see listParticipants */
+        @MustBeClosed
+        fun listParticipants(
+            conferenceId: String,
+            params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
+            listParticipants(conferenceId, params, RequestOptions.none())
+
+        /** @see listParticipants */
+        @MustBeClosed
+        fun listParticipants(
+            params: ConferenceListParticipantsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConferenceListParticipantsResponse>
+
+        /** @see listParticipants */
+        @MustBeClosed
+        fun listParticipants(
+            params: ConferenceListParticipantsParams
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
+            listParticipants(params, RequestOptions.none())
+
+        /** @see listParticipants */
+        @MustBeClosed
+        fun listParticipants(
+            conferenceId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
+            listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
+    }
+}

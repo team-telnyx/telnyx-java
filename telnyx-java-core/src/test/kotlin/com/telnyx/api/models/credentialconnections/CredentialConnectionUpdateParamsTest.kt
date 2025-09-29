@@ -1,0 +1,214 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.models.credentialconnections
+
+import kotlin.jvm.optionals.getOrNull
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class CredentialConnectionUpdateParamsTest {
+
+    @Test
+    fun create() {
+        CredentialConnectionUpdateParams.builder()
+            .id("id")
+            .active(true)
+            .anchorsiteOverride(AnchorsiteOverride.LATENCY)
+            .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+            .connectionName("my name")
+            .defaultOnHoldComfortNoiseEnabled(false)
+            .dtmfType(DtmfType.RFC_2833)
+            .encodeContactHeaderEnabled(true)
+            .encryptedMedia(EncryptedMedia.SRTP)
+            .inbound(
+                CredentialInbound.builder()
+                    .aniNumberFormat(CredentialInbound.AniNumberFormat.PLUS_E_164)
+                    .channelLimit(10L)
+                    .addCodec("string")
+                    .dnisNumberFormat(CredentialInbound.DnisNumberFormat.PLUS_E164)
+                    .generateRingbackTone(true)
+                    .isupHeadersEnabled(true)
+                    .prackEnabled(true)
+                    .shakenStirEnabled(true)
+                    .sipCompactHeadersEnabled(true)
+                    .timeout1xxSecs(10L)
+                    .timeout2xxSecs(20L)
+                    .build()
+            )
+            .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .onnetT38PassthroughEnabled(true)
+            .outbound(
+                CredentialOutbound.builder()
+                    .aniOverride("always")
+                    .aniOverrideType(CredentialOutbound.AniOverrideType.ALWAYS)
+                    .callParkingEnabled(true)
+                    .channelLimit(10L)
+                    .generateRingbackTone(true)
+                    .instantRingbackEnabled(true)
+                    .localization("US")
+                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
+                    .build()
+            )
+            .password("my123secure456password789")
+            .rtcpSettings(
+                ConnectionRtcpSettings.builder()
+                    .captureEnabled(true)
+                    .port(ConnectionRtcpSettings.Port.RTCP_MUX)
+                    .reportFrequencySecs(10L)
+                    .build()
+            )
+            .sipUriCallingPreference(
+                CredentialConnectionUpdateParams.SipUriCallingPreference.DISABLED
+            )
+            .addTag("tag1")
+            .addTag("tag2")
+            .userName("myusername123")
+            .webhookApiVersion(CredentialConnectionUpdateParams.WebhookApiVersion._1)
+            .webhookEventFailoverUrl("https://failover.example.com")
+            .webhookEventUrl("https://example.com")
+            .webhookTimeoutSecs(25L)
+            .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params = CredentialConnectionUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            CredentialConnectionUpdateParams.builder()
+                .id("id")
+                .active(true)
+                .anchorsiteOverride(AnchorsiteOverride.LATENCY)
+                .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                .connectionName("my name")
+                .defaultOnHoldComfortNoiseEnabled(false)
+                .dtmfType(DtmfType.RFC_2833)
+                .encodeContactHeaderEnabled(true)
+                .encryptedMedia(EncryptedMedia.SRTP)
+                .inbound(
+                    CredentialInbound.builder()
+                        .aniNumberFormat(CredentialInbound.AniNumberFormat.PLUS_E_164)
+                        .channelLimit(10L)
+                        .addCodec("string")
+                        .dnisNumberFormat(CredentialInbound.DnisNumberFormat.PLUS_E164)
+                        .generateRingbackTone(true)
+                        .isupHeadersEnabled(true)
+                        .prackEnabled(true)
+                        .shakenStirEnabled(true)
+                        .sipCompactHeadersEnabled(true)
+                        .timeout1xxSecs(10L)
+                        .timeout2xxSecs(20L)
+                        .build()
+                )
+                .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .onnetT38PassthroughEnabled(true)
+                .outbound(
+                    CredentialOutbound.builder()
+                        .aniOverride("always")
+                        .aniOverrideType(CredentialOutbound.AniOverrideType.ALWAYS)
+                        .callParkingEnabled(true)
+                        .channelLimit(10L)
+                        .generateRingbackTone(true)
+                        .instantRingbackEnabled(true)
+                        .localization("US")
+                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
+                        .build()
+                )
+                .password("my123secure456password789")
+                .rtcpSettings(
+                    ConnectionRtcpSettings.builder()
+                        .captureEnabled(true)
+                        .port(ConnectionRtcpSettings.Port.RTCP_MUX)
+                        .reportFrequencySecs(10L)
+                        .build()
+                )
+                .sipUriCallingPreference(
+                    CredentialConnectionUpdateParams.SipUriCallingPreference.DISABLED
+                )
+                .addTag("tag1")
+                .addTag("tag2")
+                .userName("myusername123")
+                .webhookApiVersion(CredentialConnectionUpdateParams.WebhookApiVersion._1)
+                .webhookEventFailoverUrl("https://failover.example.com")
+                .webhookEventUrl("https://example.com")
+                .webhookTimeoutSecs(25L)
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.active()).contains(true)
+        assertThat(body.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
+        assertThat(body.androidPushCredentialId()).contains("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+        assertThat(body.connectionName()).contains("my name")
+        assertThat(body.defaultOnHoldComfortNoiseEnabled()).contains(false)
+        assertThat(body.dtmfType()).contains(DtmfType.RFC_2833)
+        assertThat(body.encodeContactHeaderEnabled()).contains(true)
+        assertThat(body.encryptedMedia()).contains(EncryptedMedia.SRTP)
+        assertThat(body.inbound())
+            .contains(
+                CredentialInbound.builder()
+                    .aniNumberFormat(CredentialInbound.AniNumberFormat.PLUS_E_164)
+                    .channelLimit(10L)
+                    .addCodec("string")
+                    .dnisNumberFormat(CredentialInbound.DnisNumberFormat.PLUS_E164)
+                    .generateRingbackTone(true)
+                    .isupHeadersEnabled(true)
+                    .prackEnabled(true)
+                    .shakenStirEnabled(true)
+                    .sipCompactHeadersEnabled(true)
+                    .timeout1xxSecs(10L)
+                    .timeout2xxSecs(20L)
+                    .build()
+            )
+        assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.onnetT38PassthroughEnabled()).contains(true)
+        assertThat(body.outbound())
+            .contains(
+                CredentialOutbound.builder()
+                    .aniOverride("always")
+                    .aniOverrideType(CredentialOutbound.AniOverrideType.ALWAYS)
+                    .callParkingEnabled(true)
+                    .channelLimit(10L)
+                    .generateRingbackTone(true)
+                    .instantRingbackEnabled(true)
+                    .localization("US")
+                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
+                    .build()
+            )
+        assertThat(body.password()).contains("my123secure456password789")
+        assertThat(body.rtcpSettings())
+            .contains(
+                ConnectionRtcpSettings.builder()
+                    .captureEnabled(true)
+                    .port(ConnectionRtcpSettings.Port.RTCP_MUX)
+                    .reportFrequencySecs(10L)
+                    .build()
+            )
+        assertThat(body.sipUriCallingPreference())
+            .contains(CredentialConnectionUpdateParams.SipUriCallingPreference.DISABLED)
+        assertThat(body.tags().getOrNull()).containsExactly("tag1", "tag2")
+        assertThat(body.userName()).contains("myusername123")
+        assertThat(body.webhookApiVersion())
+            .contains(CredentialConnectionUpdateParams.WebhookApiVersion._1)
+        assertThat(body.webhookEventFailoverUrl()).contains("https://failover.example.com")
+        assertThat(body.webhookEventUrl()).contains("https://example.com")
+        assertThat(body.webhookTimeoutSecs()).contains(25L)
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params = CredentialConnectionUpdateParams.builder().id("id").build()
+
+        val body = params._body()
+    }
+}

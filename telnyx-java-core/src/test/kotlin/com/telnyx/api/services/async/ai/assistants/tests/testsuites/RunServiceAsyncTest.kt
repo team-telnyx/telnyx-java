@@ -1,0 +1,61 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async.ai.assistants.tests.testsuites
+
+import com.telnyx.api.TestServerExtension
+import com.telnyx.api.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.api.models.ai.assistants.tests.testsuites.runs.RunListParams
+import com.telnyx.api.models.ai.assistants.tests.testsuites.runs.RunTriggerParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class RunServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val runServiceAsync = client.ai().assistants().tests().testSuites().runs()
+
+        val paginatedTestRunListFuture =
+            runServiceAsync.list(
+                RunListParams.builder()
+                    .suiteName("suite_name")
+                    .page(RunListParams.Page.builder().number(1L).size(1L).build())
+                    .status("status")
+                    .testSuiteRunId("test_suite_run_id")
+                    .build()
+            )
+
+        val paginatedTestRunList = paginatedTestRunListFuture.get()
+        paginatedTestRunList.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun trigger() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val runServiceAsync = client.ai().assistants().tests().testSuites().runs()
+
+        val testRunResponsesFuture =
+            runServiceAsync.trigger(
+                RunTriggerParams.builder()
+                    .suiteName("suite_name")
+                    .destinationVersionId("123e4567-e89b-12d3-a456-426614174000")
+                    .build()
+            )
+
+        val testRunResponses = testRunResponsesFuture.get()
+        testRunResponses.forEach { it.validate() }
+    }
+}
