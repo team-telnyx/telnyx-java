@@ -1,0 +1,75 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.services.async.phonenumbers
+
+import com.telnyx.sdk.TestServerExtension
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListParams
+import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class MessagingServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieve() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingServiceAsync = client.phoneNumbers().messaging()
+
+        val messagingFuture = messagingServiceAsync.retrieve("id")
+
+        val messaging = messagingFuture.get()
+        messaging.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun update() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingServiceAsync = client.phoneNumbers().messaging()
+
+        val messagingFuture =
+            messagingServiceAsync.update(
+                MessagingUpdateParams.builder()
+                    .id("id")
+                    .messagingProduct("P2P")
+                    .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                    .build()
+            )
+
+        val messaging = messagingFuture.get()
+        messaging.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingServiceAsync = client.phoneNumbers().messaging()
+
+        val messagingsFuture =
+            messagingServiceAsync.list(
+                MessagingListParams.builder()
+                    .page(MessagingListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
+
+        val messagings = messagingsFuture.get()
+        messagings.validate()
+    }
+}

@@ -1,0 +1,24 @@
+name: Release Doctor
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  release_doctor:
+    name: release doctor
+    runs-on: ubuntu-latest
+    if: github.repository == 'team-telnyx/telnyx-java' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || startsWith(github.head_ref, 'release-please') || github.head_ref == 'next')
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check release environment
+        run: |
+          bash ./bin/check-release-environment
+        env:
+          SONATYPE_USERNAME: ${{ secrets.TELNYX_SONATYPE_USERNAME || secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.TELNYX_SONATYPE_PASSWORD || secrets.SONATYPE_PASSWORD }}
+          GPG_SIGNING_KEY: ${{ secrets.TELNYX_SONATYPE_GPG_SIGNING_KEY || secrets.GPG_SIGNING_KEY }}
+          GPG_SIGNING_PASSWORD: ${{ secrets.TELNYX_SONATYPE_GPG_SIGNING_PASSWORD || secrets.GPG_SIGNING_PASSWORD }}
