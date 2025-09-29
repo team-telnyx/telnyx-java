@@ -1,0 +1,624 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.mobilepushcredentials
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.telnyx.sdk.core.ExcludeMissing
+import com.telnyx.sdk.core.JsonField
+import com.telnyx.sdk.core.JsonMissing
+import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.toImmutable
+import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Collections
+import java.util.Objects
+import kotlin.jvm.optionals.getOrNull
+
+class PushCredential
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
+private constructor(
+    private val id: JsonField<String>,
+    private val alias: JsonField<String>,
+    private val certificate: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val privateKey: JsonField<String>,
+    private val projectAccountJsonFile: JsonField<ProjectAccountJsonFile>,
+    private val recordType: JsonField<String>,
+    private val type: JsonField<String>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
+) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("alias") @ExcludeMissing alias: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("certificate")
+        @ExcludeMissing
+        certificate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("private_key")
+        @ExcludeMissing
+        privateKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("project_account_json_file")
+        @ExcludeMissing
+        projectAccountJsonFile: JsonField<ProjectAccountJsonFile> = JsonMissing.of(),
+        @JsonProperty("record_type")
+        @ExcludeMissing
+        recordType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        alias,
+        certificate,
+        createdAt,
+        privateKey,
+        projectAccountJsonFile,
+        recordType,
+        type,
+        updatedAt,
+        mutableMapOf(),
+    )
+
+    /**
+     * Unique identifier of a push credential
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * Alias to uniquely identify a credential
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun alias(): String = alias.getRequired("alias")
+
+    /**
+     * Apple certificate for sending push notifications. For iOS only
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun certificate(): String = certificate.getRequired("certificate")
+
+    /**
+     * ISO 8601 timestamp when the room was created
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * Apple private key for a given certificate for sending push notifications. For iOS only
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun privateKey(): String = privateKey.getRequired("private_key")
+
+    /**
+     * Google server key for sending push notifications. For Android only
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun projectAccountJsonFile(): ProjectAccountJsonFile =
+        projectAccountJsonFile.getRequired("project_account_json_file")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun recordType(): String = recordType.getRequired("record_type")
+
+    /**
+     * Type of mobile push credential. Either <code>ios</code> or <code>android</code>
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun type(): String = type.getRequired("type")
+
+    /**
+     * ISO 8601 timestamp when the room was updated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [alias].
+     *
+     * Unlike [alias], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("alias") @ExcludeMissing fun _alias(): JsonField<String> = alias
+
+    /**
+     * Returns the raw JSON value of [certificate].
+     *
+     * Unlike [certificate], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("certificate") @ExcludeMissing fun _certificate(): JsonField<String> = certificate
+
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+    /**
+     * Returns the raw JSON value of [privateKey].
+     *
+     * Unlike [privateKey], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("private_key") @ExcludeMissing fun _privateKey(): JsonField<String> = privateKey
+
+    /**
+     * Returns the raw JSON value of [projectAccountJsonFile].
+     *
+     * Unlike [projectAccountJsonFile], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("project_account_json_file")
+    @ExcludeMissing
+    fun _projectAccountJsonFile(): JsonField<ProjectAccountJsonFile> = projectAccountJsonFile
+
+    /**
+     * Returns the raw JSON value of [recordType].
+     *
+     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
+
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
+
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
+    @JsonAnyGetter
+    @ExcludeMissing
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of [PushCredential].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .alias()
+         * .certificate()
+         * .createdAt()
+         * .privateKey()
+         * .projectAccountJsonFile()
+         * .recordType()
+         * .type()
+         * .updatedAt()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [PushCredential]. */
+    class Builder internal constructor() {
+
+        private var id: JsonField<String>? = null
+        private var alias: JsonField<String>? = null
+        private var certificate: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var privateKey: JsonField<String>? = null
+        private var projectAccountJsonFile: JsonField<ProjectAccountJsonFile>? = null
+        private var recordType: JsonField<String>? = null
+        private var type: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+        @JvmSynthetic
+        internal fun from(pushCredential: PushCredential) = apply {
+            id = pushCredential.id
+            alias = pushCredential.alias
+            certificate = pushCredential.certificate
+            createdAt = pushCredential.createdAt
+            privateKey = pushCredential.privateKey
+            projectAccountJsonFile = pushCredential.projectAccountJsonFile
+            recordType = pushCredential.recordType
+            type = pushCredential.type
+            updatedAt = pushCredential.updatedAt
+            additionalProperties = pushCredential.additionalProperties.toMutableMap()
+        }
+
+        /** Unique identifier of a push credential */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** Alias to uniquely identify a credential */
+        fun alias(alias: String) = alias(JsonField.of(alias))
+
+        /**
+         * Sets [Builder.alias] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.alias] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun alias(alias: JsonField<String>) = apply { this.alias = alias }
+
+        /** Apple certificate for sending push notifications. For iOS only */
+        fun certificate(certificate: String) = certificate(JsonField.of(certificate))
+
+        /**
+         * Sets [Builder.certificate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.certificate] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun certificate(certificate: JsonField<String>) = apply { this.certificate = certificate }
+
+        /** ISO 8601 timestamp when the room was created */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * Apple private key for a given certificate for sending push notifications. For iOS only
+         */
+        fun privateKey(privateKey: String) = privateKey(JsonField.of(privateKey))
+
+        /**
+         * Sets [Builder.privateKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.privateKey] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun privateKey(privateKey: JsonField<String>) = apply { this.privateKey = privateKey }
+
+        /** Google server key for sending push notifications. For Android only */
+        fun projectAccountJsonFile(projectAccountJsonFile: ProjectAccountJsonFile) =
+            projectAccountJsonFile(JsonField.of(projectAccountJsonFile))
+
+        /**
+         * Sets [Builder.projectAccountJsonFile] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.projectAccountJsonFile] with a well-typed
+         * [ProjectAccountJsonFile] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun projectAccountJsonFile(projectAccountJsonFile: JsonField<ProjectAccountJsonFile>) =
+            apply {
+                this.projectAccountJsonFile = projectAccountJsonFile
+            }
+
+        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
+
+        /**
+         * Sets [Builder.recordType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
+
+        /** Type of mobile push credential. Either <code>ios</code> or <code>android</code> */
+        fun type(type: String) = type(JsonField.of(type))
+
+        /**
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun type(type: JsonField<String>) = apply { this.type = type }
+
+        /** ISO 8601 timestamp when the room was updated. */
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
+
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
+
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
+
+        /**
+         * Returns an immutable instance of [PushCredential].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .alias()
+         * .certificate()
+         * .createdAt()
+         * .privateKey()
+         * .projectAccountJsonFile()
+         * .recordType()
+         * .type()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PushCredential =
+            PushCredential(
+                checkRequired("id", id),
+                checkRequired("alias", alias),
+                checkRequired("certificate", certificate),
+                checkRequired("createdAt", createdAt),
+                checkRequired("privateKey", privateKey),
+                checkRequired("projectAccountJsonFile", projectAccountJsonFile),
+                checkRequired("recordType", recordType),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
+                additionalProperties.toMutableMap(),
+            )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): PushCredential = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        alias()
+        certificate()
+        createdAt()
+        privateKey()
+        projectAccountJsonFile().validate()
+        recordType()
+        type()
+        updatedAt()
+        validated = true
+    }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: TelnyxInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    @JvmSynthetic
+    internal fun validity(): Int =
+        (if (id.asKnown().isPresent) 1 else 0) +
+            (if (alias.asKnown().isPresent) 1 else 0) +
+            (if (certificate.asKnown().isPresent) 1 else 0) +
+            (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (privateKey.asKnown().isPresent) 1 else 0) +
+            (projectAccountJsonFile.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (recordType.asKnown().isPresent) 1 else 0) +
+            (if (type.asKnown().isPresent) 1 else 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0)
+
+    /** Google server key for sending push notifications. For Android only */
+    class ProjectAccountJsonFile
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ProjectAccountJsonFile].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ProjectAccountJsonFile]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(projectAccountJsonFile: ProjectAccountJsonFile) = apply {
+                additionalProperties = projectAccountJsonFile.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ProjectAccountJsonFile].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ProjectAccountJsonFile =
+                ProjectAccountJsonFile(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ProjectAccountJsonFile = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ProjectAccountJsonFile &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ProjectAccountJsonFile{additionalProperties=$additionalProperties}"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is PushCredential &&
+            id == other.id &&
+            alias == other.alias &&
+            certificate == other.certificate &&
+            createdAt == other.createdAt &&
+            privateKey == other.privateKey &&
+            projectAccountJsonFile == other.projectAccountJsonFile &&
+            recordType == other.recordType &&
+            type == other.type &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
+    }
+
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            alias,
+            certificate,
+            createdAt,
+            privateKey,
+            projectAccountJsonFile,
+            recordType,
+            type,
+            updatedAt,
+            additionalProperties,
+        )
+    }
+
+    override fun hashCode(): Int = hashCode
+
+    override fun toString() =
+        "PushCredential{id=$id, alias=$alias, certificate=$certificate, createdAt=$createdAt, privateKey=$privateKey, projectAccountJsonFile=$projectAccountJsonFile, recordType=$recordType, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+}

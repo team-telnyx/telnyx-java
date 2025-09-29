@@ -1,0 +1,233 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.services.async
+
+import com.telnyx.sdk.TestServerExtension
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
+import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
+import com.telnyx.sdk.models.messagingprofiles.UrlShortenerSettings
+import java.time.OffsetDateTime
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class MessagingProfileServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun create() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingProfileServiceAsync = client.messagingProfiles()
+
+        val messagingProfileFuture =
+            messagingProfileServiceAsync.create(
+                MessagingProfileCreateParams.builder()
+                    .name("My name")
+                    .addWhitelistedDestination("US")
+                    .alphaSender("sqF")
+                    .dailySpendLimit("269125115713")
+                    .dailySpendLimitEnabled(true)
+                    .enabled(true)
+                    .mmsFallBackToSms(true)
+                    .mmsTranscoding(true)
+                    .numberPoolSettings(
+                        NumberPoolSettings.builder()
+                            .longCodeWeight(1.0)
+                            .skipUnhealthy(true)
+                            .tollFreeWeight(10.0)
+                            .geomatch(false)
+                            .stickySender(false)
+                            .build()
+                    )
+                    .urlShortenerSettings(
+                        UrlShortenerSettings.builder()
+                            .domain("example.ex")
+                            .prefix("")
+                            .replaceBlacklistOnly(true)
+                            .sendWebhooks(false)
+                            .build()
+                    )
+                    .webhookApiVersion(MessagingProfileCreateParams.WebhookApiVersion._2)
+                    .webhookFailoverUrl("https://backup.example.com/hooks")
+                    .webhookUrl("https://www.example.com/hooks")
+                    .build()
+            )
+
+        val messagingProfile = messagingProfileFuture.get()
+        messagingProfile.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieve() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingProfileServiceAsync = client.messagingProfiles()
+
+        val messagingProfileFuture =
+            messagingProfileServiceAsync.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+
+        val messagingProfile = messagingProfileFuture.get()
+        messagingProfile.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun update() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingProfileServiceAsync = client.messagingProfiles()
+
+        val messagingProfileFuture =
+            messagingProfileServiceAsync.update(
+                MessagingProfileUpdateParams.builder()
+                    .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .bodyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .alphaSender("sqF")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .dailySpendLimit("269125115713")
+                    .dailySpendLimitEnabled(true)
+                    .enabled(true)
+                    .mmsFallBackToSms(true)
+                    .mmsTranscoding(true)
+                    .name("Updated Profile for Messages")
+                    .numberPoolSettings(
+                        NumberPoolSettings.builder()
+                            .longCodeWeight(2.0)
+                            .skipUnhealthy(false)
+                            .tollFreeWeight(10.0)
+                            .geomatch(false)
+                            .stickySender(true)
+                            .build()
+                    )
+                    .recordType(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .urlShortenerSettings(
+                        UrlShortenerSettings.builder()
+                            .domain("example.ex")
+                            .prefix("cmpny")
+                            .replaceBlacklistOnly(true)
+                            .sendWebhooks(false)
+                            .build()
+                    )
+                    .v1Secret("rP1VamejkU2v0qIUxntqLW2c")
+                    .webhookApiVersion(MessagingProfileUpdateParams.WebhookApiVersion._2)
+                    .webhookFailoverUrl("https://backup.example.com/hooks")
+                    .webhookUrl("https://www.example.com/hooks")
+                    .addWhitelistedDestination("US")
+                    .build()
+            )
+
+        val messagingProfile = messagingProfileFuture.get()
+        messagingProfile.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingProfileServiceAsync = client.messagingProfiles()
+
+        val messagingProfilesFuture =
+            messagingProfileServiceAsync.list(
+                MessagingProfileListParams.builder()
+                    .filter(MessagingProfileListParams.Filter.builder().name("name").build())
+                    .page(MessagingProfileListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
+
+        val messagingProfiles = messagingProfilesFuture.get()
+        messagingProfiles.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingProfileServiceAsync = client.messagingProfiles()
+
+        val messagingProfileFuture =
+            messagingProfileServiceAsync.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+
+        val messagingProfile = messagingProfileFuture.get()
+        messagingProfile.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun listPhoneNumbers() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingProfileServiceAsync = client.messagingProfiles()
+
+        val responseFuture =
+            messagingProfileServiceAsync.listPhoneNumbers(
+                MessagingProfileListPhoneNumbersParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .page(
+                        MessagingProfileListPhoneNumbersParams.Page.builder()
+                            .number(1L)
+                            .size(1L)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun listShortCodes() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val messagingProfileServiceAsync = client.messagingProfiles()
+
+        val responseFuture =
+            messagingProfileServiceAsync.listShortCodes(
+                MessagingProfileListShortCodesParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .page(
+                        MessagingProfileListShortCodesParams.Page.builder()
+                            .number(1L)
+                            .size(1L)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+}
