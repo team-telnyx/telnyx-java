@@ -67,7 +67,7 @@ private constructor(
      * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider
      *   will give default values for voice_id and model_id.
      *
-     *     **Supported Providers:**
+     *   **Supported Providers:**
      * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which
      *   provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g.,
      *   `AWS.Polly.Joanna-Neural`). Check the
@@ -402,7 +402,7 @@ private constructor(
          * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the
          *   provider will give default values for voice_id and model_id.
          *
-         *     **Supported Providers:**
+         *   **Supported Providers:**
          * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which
          *   provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g.,
          *   `AWS.Polly.Joanna-Neural`). Check the
@@ -916,7 +916,7 @@ private constructor(
          * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the
          *   provider will give default values for voice_id and model_id.
          *
-         *     **Supported Providers:**
+         *   **Supported Providers:**
          * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which
          *   provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g.,
          *   `AWS.Polly.Joanna-Neural`). Check the
@@ -1295,7 +1295,7 @@ private constructor(
              * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the
              *   provider will give default values for voice_id and model_id.
              *
-             *     **Supported Providers:**
+             *   **Supported Providers:**
              * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices,
              *   which provide more realistic, human-like speech, append `-Neural` to the `VoiceId`
              *   (e.g., `AWS.Polly.Joanna-Neural`). Check the
