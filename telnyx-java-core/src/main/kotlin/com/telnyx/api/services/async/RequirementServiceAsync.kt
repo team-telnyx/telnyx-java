@@ -1,0 +1,164 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async
+
+import com.telnyx.api.core.ClientOptions
+import com.telnyx.api.core.RequestOptions
+import com.telnyx.api.core.http.HttpResponseFor
+import com.telnyx.api.models.requirements.RequirementListParams
+import com.telnyx.api.models.requirements.RequirementListResponse
+import com.telnyx.api.models.requirements.RequirementRetrieveParams
+import com.telnyx.api.models.requirements.RequirementRetrieveResponse
+import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
+
+interface RequirementServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): RequirementServiceAsync
+
+    /** Retrieve a document requirement record */
+    fun retrieve(id: String): CompletableFuture<RequirementRetrieveResponse> =
+        retrieve(id, RequirementRetrieveParams.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        id: String,
+        params: RequirementRetrieveParams = RequirementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RequirementRetrieveResponse> =
+        retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieve */
+    fun retrieve(
+        id: String,
+        params: RequirementRetrieveParams = RequirementRetrieveParams.none(),
+    ): CompletableFuture<RequirementRetrieveResponse> = retrieve(id, params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        params: RequirementRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RequirementRetrieveResponse>
+
+    /** @see retrieve */
+    fun retrieve(
+        params: RequirementRetrieveParams
+    ): CompletableFuture<RequirementRetrieveResponse> = retrieve(params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RequirementRetrieveResponse> =
+        retrieve(id, RequirementRetrieveParams.none(), requestOptions)
+
+    /** List all requirements with filtering, sorting, and pagination */
+    fun list(): CompletableFuture<RequirementListResponse> = list(RequirementListParams.none())
+
+    /** @see list */
+    fun list(
+        params: RequirementListParams = RequirementListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RequirementListResponse>
+
+    /** @see list */
+    fun list(
+        params: RequirementListParams = RequirementListParams.none()
+    ): CompletableFuture<RequirementListResponse> = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): CompletableFuture<RequirementListResponse> =
+        list(RequirementListParams.none(), requestOptions)
+
+    /**
+     * A view of [RequirementServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RequirementServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /requirements/{id}`, but is otherwise the same as
+         * [RequirementServiceAsync.retrieve].
+         */
+        fun retrieve(id: String): CompletableFuture<HttpResponseFor<RequirementRetrieveResponse>> =
+            retrieve(id, RequirementRetrieveParams.none())
+
+        /** @see retrieve */
+        fun retrieve(
+            id: String,
+            params: RequirementRetrieveParams = RequirementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RequirementRetrieveResponse>> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieve */
+        fun retrieve(
+            id: String,
+            params: RequirementRetrieveParams = RequirementRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<RequirementRetrieveResponse>> =
+            retrieve(id, params, RequestOptions.none())
+
+        /** @see retrieve */
+        fun retrieve(
+            params: RequirementRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RequirementRetrieveResponse>>
+
+        /** @see retrieve */
+        fun retrieve(
+            params: RequirementRetrieveParams
+        ): CompletableFuture<HttpResponseFor<RequirementRetrieveResponse>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see retrieve */
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RequirementRetrieveResponse>> =
+            retrieve(id, RequirementRetrieveParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /requirements`, but is otherwise the same as
+         * [RequirementServiceAsync.list].
+         */
+        fun list(): CompletableFuture<HttpResponseFor<RequirementListResponse>> =
+            list(RequirementListParams.none())
+
+        /** @see list */
+        fun list(
+            params: RequirementListParams = RequirementListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RequirementListResponse>>
+
+        /** @see list */
+        fun list(
+            params: RequirementListParams = RequirementListParams.none()
+        ): CompletableFuture<HttpResponseFor<RequirementListResponse>> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<RequirementListResponse>> =
+            list(RequirementListParams.none(), requestOptions)
+    }
+}

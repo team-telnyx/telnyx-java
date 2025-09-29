@@ -1,0 +1,101 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async.portingorders
+
+import com.telnyx.api.TestServerExtension
+import com.telnyx.api.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.api.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberCreateParams
+import com.telnyx.api.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteParams
+import com.telnyx.api.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class AssociatedPhoneNumberServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun create() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val associatedPhoneNumberServiceAsync = client.portingOrders().associatedPhoneNumbers()
+
+        val associatedPhoneNumberFuture =
+            associatedPhoneNumberServiceAsync.create(
+                AssociatedPhoneNumberCreateParams.builder()
+                    .portingOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .action(AssociatedPhoneNumberCreateParams.Action.KEEP)
+                    .phoneNumberRange(
+                        AssociatedPhoneNumberCreateParams.PhoneNumberRange.builder()
+                            .endAt("+441234567899")
+                            .startAt("+441234567890")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val associatedPhoneNumber = associatedPhoneNumberFuture.get()
+        associatedPhoneNumber.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val associatedPhoneNumberServiceAsync = client.portingOrders().associatedPhoneNumbers()
+
+        val associatedPhoneNumbersFuture =
+            associatedPhoneNumberServiceAsync.list(
+                AssociatedPhoneNumberListParams.builder()
+                    .portingOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .filter(
+                        AssociatedPhoneNumberListParams.Filter.builder()
+                            .action(AssociatedPhoneNumberListParams.Filter.Action.KEEP)
+                            .phoneNumber("+441234567890")
+                            .build()
+                    )
+                    .page(
+                        AssociatedPhoneNumberListParams.Page.builder().number(1L).size(1L).build()
+                    )
+                    .sort(
+                        AssociatedPhoneNumberListParams.Sort.builder()
+                            .value(AssociatedPhoneNumberListParams.Sort.Value.CREATED_AT_DESC)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val associatedPhoneNumbers = associatedPhoneNumbersFuture.get()
+        associatedPhoneNumbers.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val associatedPhoneNumberServiceAsync = client.portingOrders().associatedPhoneNumbers()
+
+        val associatedPhoneNumberFuture =
+            associatedPhoneNumberServiceAsync.delete(
+                AssociatedPhoneNumberDeleteParams.builder()
+                    .portingOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .build()
+            )
+
+        val associatedPhoneNumber = associatedPhoneNumberFuture.get()
+        associatedPhoneNumber.validate()
+    }
+}

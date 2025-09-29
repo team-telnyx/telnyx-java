@@ -1,0 +1,390 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.async
+
+import com.telnyx.api.core.ClientOptions
+import com.telnyx.api.core.RequestOptions
+import com.telnyx.api.core.checkRequired
+import com.telnyx.api.core.handlers.emptyHandler
+import com.telnyx.api.core.handlers.errorBodyHandler
+import com.telnyx.api.core.handlers.errorHandler
+import com.telnyx.api.core.handlers.jsonHandler
+import com.telnyx.api.core.http.HttpMethod
+import com.telnyx.api.core.http.HttpRequest
+import com.telnyx.api.core.http.HttpResponse
+import com.telnyx.api.core.http.HttpResponse.Handler
+import com.telnyx.api.core.http.HttpResponseFor
+import com.telnyx.api.core.http.json
+import com.telnyx.api.core.http.parseable
+import com.telnyx.api.core.prepareAsync
+import com.telnyx.api.models.brand.BrandCreateParams
+import com.telnyx.api.models.brand.BrandDeleteParams
+import com.telnyx.api.models.brand.BrandDeleteResponse
+import com.telnyx.api.models.brand.BrandGetFeedbackParams
+import com.telnyx.api.models.brand.BrandGetFeedbackResponse
+import com.telnyx.api.models.brand.BrandListParams
+import com.telnyx.api.models.brand.BrandListResponse
+import com.telnyx.api.models.brand.BrandResend2faEmailParams
+import com.telnyx.api.models.brand.BrandRetrieveParams
+import com.telnyx.api.models.brand.BrandRetrieveResponse
+import com.telnyx.api.models.brand.BrandRevetParams
+import com.telnyx.api.models.brand.BrandRevetResponse
+import com.telnyx.api.models.brand.BrandUpdateParams
+import com.telnyx.api.models.brand.TelnyxBrand
+import com.telnyx.api.services.async.brand.ExternalVettingServiceAsync
+import com.telnyx.api.services.async.brand.ExternalVettingServiceAsyncImpl
+import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
+
+class BrandServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    BrandServiceAsync {
+
+    private val withRawResponse: BrandServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
+    private val externalVetting: ExternalVettingServiceAsync by lazy {
+        ExternalVettingServiceAsyncImpl(clientOptions)
+    }
+
+    override fun withRawResponse(): BrandServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandServiceAsync =
+        BrandServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun externalVetting(): ExternalVettingServiceAsync = externalVetting
+
+    override fun create(
+        params: BrandCreateParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<TelnyxBrand> =
+        // post /brand
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+
+    override fun retrieve(
+        params: BrandRetrieveParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandRetrieveResponse> =
+        // get /brand/{brandId}
+        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+
+    override fun update(
+        params: BrandUpdateParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<TelnyxBrand> =
+        // put /brand/{brandId}
+        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+
+    override fun list(
+        params: BrandListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandListResponse> =
+        // get /brand
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun delete(
+        params: BrandDeleteParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandDeleteResponse> =
+        // delete /brand/{brandId}
+        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+
+    override fun getFeedback(
+        params: BrandGetFeedbackParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandGetFeedbackResponse> =
+        // get /brand/feedback/{brandId}
+        withRawResponse().getFeedback(params, requestOptions).thenApply { it.parse() }
+
+    override fun resend2faEmail(
+        params: BrandResend2faEmailParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // post /brand/{brandId}/2faEmail
+        withRawResponse().resend2faEmail(params, requestOptions).thenAccept {}
+
+    override fun revet(
+        params: BrandRevetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandRevetResponse> =
+        // put /brand/{brandId}/revet
+        withRawResponse().revet(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        BrandServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        private val externalVetting: ExternalVettingServiceAsync.WithRawResponse by lazy {
+            ExternalVettingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BrandServiceAsync.WithRawResponse =
+            BrandServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
+
+        override fun externalVetting(): ExternalVettingServiceAsync.WithRawResponse =
+            externalVetting
+
+        private val createHandler: Handler<TelnyxBrand> =
+            jsonHandler<TelnyxBrand>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: BrandCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<TelnyxBrand>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val retrieveHandler: Handler<BrandRetrieveResponse> =
+            jsonHandler<BrandRetrieveResponse>(clientOptions.jsonMapper)
+
+        override fun retrieve(
+            params: BrandRetrieveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandRetrieveResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val updateHandler: Handler<TelnyxBrand> =
+            jsonHandler<TelnyxBrand>(clientOptions.jsonMapper)
+
+        override fun update(
+            params: BrandUpdateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<TelnyxBrand>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<BrandListResponse> =
+            jsonHandler<BrandListResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: BrandListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandListResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val deleteHandler: Handler<BrandDeleteResponse> =
+            jsonHandler<BrandDeleteResponse>(clientOptions.jsonMapper)
+
+        override fun delete(
+            params: BrandDeleteParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandDeleteResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { deleteHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val getFeedbackHandler: Handler<BrandGetFeedbackResponse> =
+            jsonHandler<BrandGetFeedbackResponse>(clientOptions.jsonMapper)
+
+        override fun getFeedback(
+            params: BrandGetFeedbackParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand", "feedback", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getFeedbackHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val resend2faEmailHandler: Handler<Void?> = emptyHandler()
+
+        override fun resend2faEmail(
+            params: BrandResend2faEmailParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand", params._pathParam(0), "2faEmail")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { resend2faEmailHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val revetHandler: Handler<BrandRevetResponse> =
+            jsonHandler<BrandRevetResponse>(clientOptions.jsonMapper)
+
+        override fun revet(
+            params: BrandRevetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandRevetResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("brand", params._pathParam(0), "revet")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { revetHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+    }
+}

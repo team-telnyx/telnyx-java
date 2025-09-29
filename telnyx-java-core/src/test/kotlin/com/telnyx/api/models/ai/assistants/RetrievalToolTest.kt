@@ -1,0 +1,57 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.models.ai.assistants
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.api.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class RetrievalToolTest {
+
+    @Test
+    fun create() {
+        val retrievalTool =
+            RetrievalTool.builder()
+                .retrieval(
+                    InferenceEmbeddingBucketIds.builder()
+                        .addBucketId("string")
+                        .maxNumResults(0L)
+                        .build()
+                )
+                .type(RetrievalTool.Type.RETRIEVAL)
+                .build()
+
+        assertThat(retrievalTool.retrieval())
+            .isEqualTo(
+                InferenceEmbeddingBucketIds.builder()
+                    .addBucketId("string")
+                    .maxNumResults(0L)
+                    .build()
+            )
+        assertThat(retrievalTool.type()).isEqualTo(RetrievalTool.Type.RETRIEVAL)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val retrievalTool =
+            RetrievalTool.builder()
+                .retrieval(
+                    InferenceEmbeddingBucketIds.builder()
+                        .addBucketId("string")
+                        .maxNumResults(0L)
+                        .build()
+                )
+                .type(RetrievalTool.Type.RETRIEVAL)
+                .build()
+
+        val roundtrippedRetrievalTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(retrievalTool),
+                jacksonTypeRef<RetrievalTool>(),
+            )
+
+        assertThat(roundtrippedRetrievalTool).isEqualTo(retrievalTool)
+    }
+}

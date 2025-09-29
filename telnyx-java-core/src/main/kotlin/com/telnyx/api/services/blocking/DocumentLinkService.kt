@@ -1,0 +1,84 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.api.services.blocking
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.telnyx.api.core.ClientOptions
+import com.telnyx.api.core.RequestOptions
+import com.telnyx.api.core.http.HttpResponseFor
+import com.telnyx.api.models.documentlinks.DocumentLinkListParams
+import com.telnyx.api.models.documentlinks.DocumentLinkListResponse
+import java.util.function.Consumer
+
+interface DocumentLinkService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): DocumentLinkService
+
+    /** List all documents links ordered by created_at descending. */
+    fun list(): DocumentLinkListResponse = list(DocumentLinkListParams.none())
+
+    /** @see list */
+    fun list(
+        params: DocumentLinkListParams = DocumentLinkListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DocumentLinkListResponse
+
+    /** @see list */
+    fun list(
+        params: DocumentLinkListParams = DocumentLinkListParams.none()
+    ): DocumentLinkListResponse = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): DocumentLinkListResponse =
+        list(DocumentLinkListParams.none(), requestOptions)
+
+    /**
+     * A view of [DocumentLinkService] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DocumentLinkService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /document_links`, but is otherwise the same as
+         * [DocumentLinkService.list].
+         */
+        @MustBeClosed
+        fun list(): HttpResponseFor<DocumentLinkListResponse> = list(DocumentLinkListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: DocumentLinkListParams = DocumentLinkListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DocumentLinkListResponse>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: DocumentLinkListParams = DocumentLinkListParams.none()
+        ): HttpResponseFor<DocumentLinkListResponse> = list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentLinkListResponse> =
+            list(DocumentLinkListParams.none(), requestOptions)
+    }
+}
