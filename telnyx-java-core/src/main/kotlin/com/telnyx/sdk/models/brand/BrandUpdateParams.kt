@@ -90,7 +90,8 @@ private constructor(
     /**
      * Business contact email.
      *
-     * Required if `entityType` will be changed to `PUBLIC_PROFIT`.
+     * Required if `entityType` will be changed to `PUBLIC_PROFIT`. Otherwise, it is recommended to
+     * either omit this field or set it to `null`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -562,7 +563,8 @@ private constructor(
         /**
          * Business contact email.
          *
-         * Required if `entityType` will be changed to `PUBLIC_PROFIT`.
+         * Required if `entityType` will be changed to `PUBLIC_PROFIT`. Otherwise, it is recommended
+         * to either omit this field or set it to `null`.
          */
         fun businessContactEmail(businessContactEmail: String) = apply {
             body.businessContactEmail(businessContactEmail)
@@ -1124,7 +1126,8 @@ private constructor(
         /**
          * Business contact email.
          *
-         * Required if `entityType` will be changed to `PUBLIC_PROFIT`.
+         * Required if `entityType` will be changed to `PUBLIC_PROFIT`. Otherwise, it is recommended
+         * to either omit this field or set it to `null`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1660,7 +1663,8 @@ private constructor(
             /**
              * Business contact email.
              *
-             * Required if `entityType` will be changed to `PUBLIC_PROFIT`.
+             * Required if `entityType` will be changed to `PUBLIC_PROFIT`. Otherwise, it is
+             * recommended to either omit this field or set it to `null`.
              */
             fun businessContactEmail(businessContactEmail: String) =
                 businessContactEmail(JsonField.of(businessContactEmail))
