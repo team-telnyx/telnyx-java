@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx-java)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx-java/0.0.1)
-[![javadoc](https://javadoc.io/badge2/com.telnyx.sdk/telnyx-java/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.telnyx.sdk/telnyx-java/0.0.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx-java)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx-java/5.0.0)
+[![javadoc](https://javadoc.io/badge2/com.telnyx.sdk/telnyx-java/5.0.0/javadoc.svg)](https://javadoc.io/doc/com.telnyx.sdk/telnyx-java/5.0.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.telnyx.sdk/telnyx-java/0.0.1).
+Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.telnyx.sdk/telnyx-java/5.0.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.telnyx.sdk/tel
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx-java:0.0.1")
+implementation("com.telnyx.sdk:telnyx-java:5.0.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.telnyx.sdk:telnyx-java:0.0.1")
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx-java</artifactId>
-  <version>0.0.1</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
