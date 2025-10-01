@@ -23,15 +23,15 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Update Advanced Order */
-class AdvancedOrderUpdateParams
+class AdvancedOrderUpdateRequirementGroupParams
 private constructor(
-    private val orderId: String?,
+    private val advancedOrderId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun orderId(): Optional<String> = Optional.ofNullable(orderId)
+    fun advancedOrderId(): Optional<String> = Optional.ofNullable(advancedOrderId)
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -153,34 +153,42 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): AdvancedOrderUpdateParams = builder().build()
+        @JvmStatic fun none(): AdvancedOrderUpdateRequirementGroupParams = builder().build()
 
         /**
-         * Returns a mutable builder for constructing an instance of [AdvancedOrderUpdateParams].
+         * Returns a mutable builder for constructing an instance of
+         * [AdvancedOrderUpdateRequirementGroupParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AdvancedOrderUpdateParams]. */
+    /** A builder for [AdvancedOrderUpdateRequirementGroupParams]. */
     class Builder internal constructor() {
 
-        private var orderId: String? = null
+        private var advancedOrderId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(advancedOrderUpdateParams: AdvancedOrderUpdateParams) = apply {
-            orderId = advancedOrderUpdateParams.orderId
-            body = advancedOrderUpdateParams.body.toBuilder()
-            additionalHeaders = advancedOrderUpdateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = advancedOrderUpdateParams.additionalQueryParams.toBuilder()
+        internal fun from(
+            advancedOrderUpdateRequirementGroupParams: AdvancedOrderUpdateRequirementGroupParams
+        ) = apply {
+            advancedOrderId = advancedOrderUpdateRequirementGroupParams.advancedOrderId
+            body = advancedOrderUpdateRequirementGroupParams.body.toBuilder()
+            additionalHeaders =
+                advancedOrderUpdateRequirementGroupParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                advancedOrderUpdateRequirementGroupParams.additionalQueryParams.toBuilder()
         }
 
-        fun orderId(orderId: String?) = apply { this.orderId = orderId }
+        fun advancedOrderId(advancedOrderId: String?) = apply {
+            this.advancedOrderId = advancedOrderId
+        }
 
-        /** Alias for calling [Builder.orderId] with `orderId.orElse(null)`. */
-        fun orderId(orderId: Optional<String>) = orderId(orderId.getOrNull())
+        /** Alias for calling [Builder.advancedOrderId] with `advancedOrderId.orElse(null)`. */
+        fun advancedOrderId(advancedOrderId: Optional<String>) =
+            advancedOrderId(advancedOrderId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -419,13 +427,13 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AdvancedOrderUpdateParams].
+         * Returns an immutable instance of [AdvancedOrderUpdateRequirementGroupParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): AdvancedOrderUpdateParams =
-            AdvancedOrderUpdateParams(
-                orderId,
+        fun build(): AdvancedOrderUpdateRequirementGroupParams =
+            AdvancedOrderUpdateRequirementGroupParams(
+                advancedOrderId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -436,7 +444,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> orderId ?: ""
+            0 -> advancedOrderId ?: ""
             else -> ""
         }
 
@@ -1193,16 +1201,16 @@ private constructor(
             return true
         }
 
-        return other is AdvancedOrderUpdateParams &&
-            orderId == other.orderId &&
+        return other is AdvancedOrderUpdateRequirementGroupParams &&
+            advancedOrderId == other.advancedOrderId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(orderId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(advancedOrderId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AdvancedOrderUpdateParams{orderId=$orderId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AdvancedOrderUpdateRequirementGroupParams{advancedOrderId=$advancedOrderId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

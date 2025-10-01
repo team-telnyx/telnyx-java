@@ -22,8 +22,8 @@ import com.telnyx.sdk.models.advancedorders.AdvancedOrderListParams
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveParams
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderRetrieveResponse
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateParams
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateResponse
+import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupParams
+import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -54,19 +54,19 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
         // get /advanced_orders/{order_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
-    override fun update(
-        params: AdvancedOrderUpdateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<AdvancedOrderUpdateResponse> =
-        // patch /advanced_orders/{order_id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
-
     override fun list(
         params: AdvancedOrderListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AdvancedOrderListResponse> =
         // get /advanced_orders
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun updateRequirementGroup(
+        params: AdvancedOrderUpdateRequirementGroupParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse> =
+        // patch /advanced_orders/{advanced-order-id}/requirement_group
+        withRawResponse().updateRequirementGroup(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AdvancedOrderServiceAsync.WithRawResponse {
@@ -145,40 +145,6 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val updateHandler: Handler<AdvancedOrderUpdateResponse> =
-            jsonHandler<AdvancedOrderUpdateResponse>(clientOptions.jsonMapper)
-
-        override fun update(
-            params: AdvancedOrderUpdateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("orderId", params.orderId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("advanced_orders", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { updateHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
         private val listHandler: Handler<AdvancedOrderListResponse> =
             jsonHandler<AdvancedOrderListResponse>(clientOptions.jsonMapper)
 
@@ -200,6 +166,41 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val updateRequirementGroupHandler:
+            Handler<AdvancedOrderUpdateRequirementGroupResponse> =
+            jsonHandler<AdvancedOrderUpdateRequirementGroupResponse>(clientOptions.jsonMapper)
+
+        override fun updateRequirementGroup(
+            params: AdvancedOrderUpdateRequirementGroupParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("advancedOrderId", params.advancedOrderId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("advanced_orders", params._pathParam(0), "requirement_group")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateRequirementGroupHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
