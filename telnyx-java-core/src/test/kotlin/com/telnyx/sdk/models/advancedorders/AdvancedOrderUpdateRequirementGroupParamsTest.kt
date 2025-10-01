@@ -6,18 +6,18 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AdvancedOrderUpdateParamsTest {
+internal class AdvancedOrderUpdateRequirementGroupParamsTest {
 
     @Test
     fun create() {
-        AdvancedOrderUpdateParams.builder()
-            .orderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        AdvancedOrderUpdateRequirementGroupParams.builder()
+            .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .areaCode("xxx")
             .comments("comments")
             .countryCode("xx")
             .customerReference("customer_reference")
-            .addFeature(AdvancedOrderUpdateParams.Feature.SMS)
-            .phoneNumberType(AdvancedOrderUpdateParams.PhoneNumberType.LOCAL)
+            .addFeature(AdvancedOrderUpdateRequirementGroupParams.Feature.SMS)
+            .phoneNumberType(AdvancedOrderUpdateRequirementGroupParams.PhoneNumberType.LOCAL)
             .quantity(1L)
             .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
             .build()
@@ -26,8 +26,8 @@ internal class AdvancedOrderUpdateParamsTest {
     @Test
     fun pathParams() {
         val params =
-            AdvancedOrderUpdateParams.builder()
-                .orderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            AdvancedOrderUpdateRequirementGroupParams.builder()
+                .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -38,14 +38,14 @@ internal class AdvancedOrderUpdateParamsTest {
     @Test
     fun body() {
         val params =
-            AdvancedOrderUpdateParams.builder()
-                .orderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            AdvancedOrderUpdateRequirementGroupParams.builder()
+                .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .areaCode("xxx")
                 .comments("comments")
                 .countryCode("xx")
                 .customerReference("customer_reference")
-                .addFeature(AdvancedOrderUpdateParams.Feature.SMS)
-                .phoneNumberType(AdvancedOrderUpdateParams.PhoneNumberType.LOCAL)
+                .addFeature(AdvancedOrderUpdateRequirementGroupParams.Feature.SMS)
+                .phoneNumberType(AdvancedOrderUpdateRequirementGroupParams.PhoneNumberType.LOCAL)
                 .quantity(1L)
                 .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                 .build()
@@ -57,8 +57,9 @@ internal class AdvancedOrderUpdateParamsTest {
         assertThat(body.countryCode()).contains("xx")
         assertThat(body.customerReference()).contains("customer_reference")
         assertThat(body.features().getOrNull())
-            .containsExactly(AdvancedOrderUpdateParams.Feature.SMS)
-        assertThat(body.phoneNumberType()).contains(AdvancedOrderUpdateParams.PhoneNumberType.LOCAL)
+            .containsExactly(AdvancedOrderUpdateRequirementGroupParams.Feature.SMS)
+        assertThat(body.phoneNumberType())
+            .contains(AdvancedOrderUpdateRequirementGroupParams.PhoneNumberType.LOCAL)
         assertThat(body.quantity()).contains(1L)
         assertThat(body.requirementGroupId()).contains("3fa85f64-5717-4562-b3fc-2c963f66afa6")
     }
@@ -66,8 +67,8 @@ internal class AdvancedOrderUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            AdvancedOrderUpdateParams.builder()
-                .orderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            AdvancedOrderUpdateRequirementGroupParams.builder()
+                .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
 
         val body = params._body()

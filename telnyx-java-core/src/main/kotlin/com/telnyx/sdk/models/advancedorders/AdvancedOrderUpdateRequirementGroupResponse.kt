@@ -12,7 +12,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** An Advanced Order Response */
-class AdvancedOrderUpdateResponse
+class AdvancedOrderUpdateRequirementGroupResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
 
@@ -33,19 +33,23 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [AdvancedOrderUpdateResponse].
+         * Returns a mutable builder for constructing an instance of
+         * [AdvancedOrderUpdateRequirementGroupResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AdvancedOrderUpdateResponse]. */
+    /** A builder for [AdvancedOrderUpdateRequirementGroupResponse]. */
     class Builder internal constructor() {
 
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(advancedOrderUpdateResponse: AdvancedOrderUpdateResponse) = apply {
-            additionalProperties = advancedOrderUpdateResponse.additionalProperties.toMutableMap()
+        internal fun from(
+            advancedOrderUpdateRequirementGroupResponse: AdvancedOrderUpdateRequirementGroupResponse
+        ) = apply {
+            additionalProperties =
+                advancedOrderUpdateRequirementGroupResponse.additionalProperties.toMutableMap()
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -68,17 +72,17 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
         }
 
         /**
-         * Returns an immutable instance of [AdvancedOrderUpdateResponse].
+         * Returns an immutable instance of [AdvancedOrderUpdateRequirementGroupResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): AdvancedOrderUpdateResponse =
-            AdvancedOrderUpdateResponse(additionalProperties.toMutableMap())
+        fun build(): AdvancedOrderUpdateRequirementGroupResponse =
+            AdvancedOrderUpdateRequirementGroupResponse(additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): AdvancedOrderUpdateResponse = apply {
+    fun validate(): AdvancedOrderUpdateRequirementGroupResponse = apply {
         if (validated) {
             return@apply
         }
@@ -106,7 +110,7 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
             return true
         }
 
-        return other is AdvancedOrderUpdateResponse &&
+        return other is AdvancedOrderUpdateRequirementGroupResponse &&
             additionalProperties == other.additionalProperties
     }
 
@@ -115,5 +119,5 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AdvancedOrderUpdateResponse{additionalProperties=$additionalProperties}"
+        "AdvancedOrderUpdateRequirementGroupResponse{additionalProperties=$additionalProperties}"
 }
