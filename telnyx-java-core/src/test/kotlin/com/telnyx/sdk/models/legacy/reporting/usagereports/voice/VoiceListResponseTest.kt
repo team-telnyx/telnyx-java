@@ -17,7 +17,7 @@ internal class VoiceListResponseTest {
         val voiceListResponse =
             VoiceListResponse.builder()
                 .addData(
-                    VoiceListResponse.Data.builder()
+                    CdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)
@@ -44,7 +44,7 @@ internal class VoiceListResponseTest {
 
         assertThat(voiceListResponse.data().getOrNull())
             .containsExactly(
-                VoiceListResponse.Data.builder()
+                CdrUsageReportResponseLegacy.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .aggregationType(0)
                     .addConnection(0L)
@@ -76,7 +76,7 @@ internal class VoiceListResponseTest {
         val voiceListResponse =
             VoiceListResponse.builder()
                 .addData(
-                    VoiceListResponse.Data.builder()
+                    CdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)

@@ -16,19 +16,17 @@ internal class OAuthClientListResponseTest {
         val oauthClientListResponse =
             OAuthClientListResponse.builder()
                 .addData(
-                    OAuthClientListResponse.Data.builder()
+                    OAuthClient.builder()
                         .clientId("client_id")
-                        .clientType(OAuthClientListResponse.Data.ClientType.PUBLIC)
+                        .clientType(OAuthClient.ClientType.PUBLIC)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .name("name")
                         .orgId("org_id")
-                        .recordType(OAuthClientListResponse.Data.RecordType.OAUTH_CLIENT)
+                        .recordType(OAuthClient.RecordType.OAUTH_CLIENT)
                         .requirePkce(true)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .userId("user_id")
-                        .addAllowedGrantType(
-                            OAuthClientListResponse.Data.AllowedGrantType.CLIENT_CREDENTIALS
-                        )
+                        .addAllowedGrantType(OAuthClient.AllowedGrantType.CLIENT_CREDENTIALS)
                         .addAllowedScope("string")
                         .clientSecret("client_secret")
                         .logoUri("https://example.com")
@@ -49,19 +47,17 @@ internal class OAuthClientListResponseTest {
 
         assertThat(oauthClientListResponse.data().getOrNull())
             .containsExactly(
-                OAuthClientListResponse.Data.builder()
+                OAuthClient.builder()
                     .clientId("client_id")
-                    .clientType(OAuthClientListResponse.Data.ClientType.PUBLIC)
+                    .clientType(OAuthClient.ClientType.PUBLIC)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .name("name")
                     .orgId("org_id")
-                    .recordType(OAuthClientListResponse.Data.RecordType.OAUTH_CLIENT)
+                    .recordType(OAuthClient.RecordType.OAUTH_CLIENT)
                     .requirePkce(true)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .userId("user_id")
-                    .addAllowedGrantType(
-                        OAuthClientListResponse.Data.AllowedGrantType.CLIENT_CREDENTIALS
-                    )
+                    .addAllowedGrantType(OAuthClient.AllowedGrantType.CLIENT_CREDENTIALS)
                     .addAllowedScope("string")
                     .clientSecret("client_secret")
                     .logoUri("https://example.com")
@@ -87,19 +83,17 @@ internal class OAuthClientListResponseTest {
         val oauthClientListResponse =
             OAuthClientListResponse.builder()
                 .addData(
-                    OAuthClientListResponse.Data.builder()
+                    OAuthClient.builder()
                         .clientId("client_id")
-                        .clientType(OAuthClientListResponse.Data.ClientType.PUBLIC)
+                        .clientType(OAuthClient.ClientType.PUBLIC)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .name("name")
                         .orgId("org_id")
-                        .recordType(OAuthClientListResponse.Data.RecordType.OAUTH_CLIENT)
+                        .recordType(OAuthClient.RecordType.OAUTH_CLIENT)
                         .requirePkce(true)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .userId("user_id")
-                        .addAllowedGrantType(
-                            OAuthClientListResponse.Data.AllowedGrantType.CLIENT_CREDENTIALS
-                        )
+                        .addAllowedGrantType(OAuthClient.AllowedGrantType.CLIENT_CREDENTIALS)
                         .addAllowedScope("string")
                         .clientSecret("client_secret")
                         .logoUri("https://example.com")
