@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.Filter
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,7 +16,7 @@ internal class VoiceListResponseTest {
         val voiceListResponse =
             VoiceListResponse.builder()
                 .addData(
-                    VoiceListResponse.Data.builder()
+                    CdrDetailedReqResponse.builder()
                         .id("123e4567-e89b-12d3-a456-426614174000")
                         .addCallType(0)
                         .addConnection(123L)
@@ -23,13 +24,13 @@ internal class VoiceListResponseTest {
                         .createdAt("2024-02-12T14:00:00Z")
                         .endTime("2024-02-12T23:59:59Z")
                         .addFilter(
-                            VoiceListResponse.Data.Filter.builder()
+                            Filter.builder()
                                 .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                                 .cld("+13129457420")
-                                .cldFilter(VoiceListResponse.Data.Filter.CldFilter.CONTAINS)
+                                .cldFilter(Filter.CldFilter.CONTAINS)
                                 .cli("+13129457420")
-                                .cliFilter(VoiceListResponse.Data.Filter.CliFilter.CONTAINS)
-                                .filterType(VoiceListResponse.Data.Filter.FilterType.AND)
+                                .cliFilter(Filter.CliFilter.CONTAINS)
+                                .filterType(Filter.FilterType.AND)
                                 .tagsList("tag1")
                                 .build()
                         )
@@ -60,7 +61,7 @@ internal class VoiceListResponseTest {
 
         assertThat(voiceListResponse.data().getOrNull())
             .containsExactly(
-                VoiceListResponse.Data.builder()
+                CdrDetailedReqResponse.builder()
                     .id("123e4567-e89b-12d3-a456-426614174000")
                     .addCallType(0)
                     .addConnection(123L)
@@ -68,13 +69,13 @@ internal class VoiceListResponseTest {
                     .createdAt("2024-02-12T14:00:00Z")
                     .endTime("2024-02-12T23:59:59Z")
                     .addFilter(
-                        VoiceListResponse.Data.Filter.builder()
+                        Filter.builder()
                             .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                             .cld("+13129457420")
-                            .cldFilter(VoiceListResponse.Data.Filter.CldFilter.CONTAINS)
+                            .cldFilter(Filter.CldFilter.CONTAINS)
                             .cli("+13129457420")
-                            .cliFilter(VoiceListResponse.Data.Filter.CliFilter.CONTAINS)
-                            .filterType(VoiceListResponse.Data.Filter.FilterType.AND)
+                            .cliFilter(Filter.CliFilter.CONTAINS)
+                            .filterType(Filter.FilterType.AND)
                             .tagsList("tag1")
                             .build()
                     )
@@ -110,7 +111,7 @@ internal class VoiceListResponseTest {
         val voiceListResponse =
             VoiceListResponse.builder()
                 .addData(
-                    VoiceListResponse.Data.builder()
+                    CdrDetailedReqResponse.builder()
                         .id("123e4567-e89b-12d3-a456-426614174000")
                         .addCallType(0)
                         .addConnection(123L)
@@ -118,13 +119,13 @@ internal class VoiceListResponseTest {
                         .createdAt("2024-02-12T14:00:00Z")
                         .endTime("2024-02-12T23:59:59Z")
                         .addFilter(
-                            VoiceListResponse.Data.Filter.builder()
+                            Filter.builder()
                                 .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                                 .cld("+13129457420")
-                                .cldFilter(VoiceListResponse.Data.Filter.CldFilter.CONTAINS)
+                                .cldFilter(Filter.CldFilter.CONTAINS)
                                 .cli("+13129457420")
-                                .cliFilter(VoiceListResponse.Data.Filter.CliFilter.CONTAINS)
-                                .filterType(VoiceListResponse.Data.Filter.FilterType.AND)
+                                .cliFilter(Filter.CliFilter.CONTAINS)
+                                .filterType(Filter.FilterType.AND)
                                 .tagsList("tag1")
                                 .build()
                         )

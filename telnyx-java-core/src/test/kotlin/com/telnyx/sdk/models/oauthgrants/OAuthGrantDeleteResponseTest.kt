@@ -15,11 +15,11 @@ internal class OAuthGrantDeleteResponseTest {
         val oauthGrantDeleteResponse =
             OAuthGrantDeleteResponse.builder()
                 .data(
-                    OAuthGrantDeleteResponse.Data.builder()
+                    OAuthGrant.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .clientId("client_id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .recordType(OAuthGrantDeleteResponse.Data.RecordType.OAUTH_GRANT)
+                        .recordType(OAuthGrant.RecordType.OAUTH_GRANT)
                         .addScope("string")
                         .lastUsedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
@@ -28,11 +28,11 @@ internal class OAuthGrantDeleteResponseTest {
 
         assertThat(oauthGrantDeleteResponse.data())
             .contains(
-                OAuthGrantDeleteResponse.Data.builder()
+                OAuthGrant.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .clientId("client_id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .recordType(OAuthGrantDeleteResponse.Data.RecordType.OAUTH_GRANT)
+                    .recordType(OAuthGrant.RecordType.OAUTH_GRANT)
                     .addScope("string")
                     .lastUsedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
@@ -45,11 +45,11 @@ internal class OAuthGrantDeleteResponseTest {
         val oauthGrantDeleteResponse =
             OAuthGrantDeleteResponse.builder()
                 .data(
-                    OAuthGrantDeleteResponse.Data.builder()
+                    OAuthGrant.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .clientId("client_id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .recordType(OAuthGrantDeleteResponse.Data.RecordType.OAUTH_GRANT)
+                        .recordType(OAuthGrant.RecordType.OAUTH_GRANT)
                         .addScope("string")
                         .lastUsedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()

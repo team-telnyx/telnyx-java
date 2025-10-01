@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.legacy.reporting.batchdetailrecords
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.Filter
 import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.MessagingCreateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -33,13 +34,13 @@ internal class MessagingServiceAsyncTest {
                     .addDirection(1)
                     .addDirection(2)
                     .addFilter(
-                        MessagingCreateParams.Filter.builder()
+                        Filter.builder()
                             .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                             .cld("+13129457420")
-                            .cldFilter(MessagingCreateParams.Filter.CldFilter.CONTAINS)
+                            .cldFilter(Filter.CldFilter.CONTAINS)
                             .cli("+13129457420")
-                            .cliFilter(MessagingCreateParams.Filter.CliFilter.CONTAINS)
-                            .filterType(MessagingCreateParams.Filter.FilterType.AND)
+                            .cliFilter(Filter.CliFilter.CONTAINS)
+                            .filterType(Filter.FilterType.AND)
                             .tagsList("tag1")
                             .build()
                     )

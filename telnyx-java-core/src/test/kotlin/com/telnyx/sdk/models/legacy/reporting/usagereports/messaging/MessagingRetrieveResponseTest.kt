@@ -16,7 +16,7 @@ internal class MessagingRetrieveResponseTest {
         val messagingRetrieveResponse =
             MessagingRetrieveResponse.builder()
                 .data(
-                    MessagingRetrieveResponse.Data.builder()
+                    MdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)
@@ -36,7 +36,7 @@ internal class MessagingRetrieveResponseTest {
 
         assertThat(messagingRetrieveResponse.data())
             .contains(
-                MessagingRetrieveResponse.Data.builder()
+                MdrUsageReportResponseLegacy.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .aggregationType(0)
                     .addConnection(0L)
@@ -60,7 +60,7 @@ internal class MessagingRetrieveResponseTest {
         val messagingRetrieveResponse =
             MessagingRetrieveResponse.builder()
                 .data(
-                    MessagingRetrieveResponse.Data.builder()
+                    MdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)

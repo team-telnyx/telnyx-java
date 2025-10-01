@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging
 
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.Filter
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -19,13 +20,13 @@ internal class MessagingCreateParamsTest {
             .addDirection(1)
             .addDirection(2)
             .addFilter(
-                MessagingCreateParams.Filter.builder()
+                Filter.builder()
                     .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                     .cld("+13129457420")
-                    .cldFilter(MessagingCreateParams.Filter.CldFilter.CONTAINS)
+                    .cldFilter(Filter.CldFilter.CONTAINS)
                     .cli("+13129457420")
-                    .cliFilter(MessagingCreateParams.Filter.CliFilter.CONTAINS)
-                    .filterType(MessagingCreateParams.Filter.FilterType.AND)
+                    .cliFilter(Filter.CliFilter.CONTAINS)
+                    .filterType(Filter.FilterType.AND)
                     .tagsList("tag1")
                     .build()
             )
@@ -53,13 +54,13 @@ internal class MessagingCreateParamsTest {
                 .addDirection(1)
                 .addDirection(2)
                 .addFilter(
-                    MessagingCreateParams.Filter.builder()
+                    Filter.builder()
                         .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                         .cld("+13129457420")
-                        .cldFilter(MessagingCreateParams.Filter.CldFilter.CONTAINS)
+                        .cldFilter(Filter.CldFilter.CONTAINS)
                         .cli("+13129457420")
-                        .cliFilter(MessagingCreateParams.Filter.CliFilter.CONTAINS)
-                        .filterType(MessagingCreateParams.Filter.FilterType.AND)
+                        .cliFilter(Filter.CliFilter.CONTAINS)
+                        .filterType(Filter.FilterType.AND)
                         .tagsList("tag1")
                         .build()
                 )
@@ -83,13 +84,13 @@ internal class MessagingCreateParamsTest {
         assertThat(body.directions().getOrNull()).containsExactly(1, 2)
         assertThat(body.filters().getOrNull())
             .containsExactly(
-                MessagingCreateParams.Filter.builder()
+                Filter.builder()
                     .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                     .cld("+13129457420")
-                    .cldFilter(MessagingCreateParams.Filter.CldFilter.CONTAINS)
+                    .cldFilter(Filter.CldFilter.CONTAINS)
                     .cli("+13129457420")
-                    .cliFilter(MessagingCreateParams.Filter.CliFilter.CONTAINS)
-                    .filterType(MessagingCreateParams.Filter.FilterType.AND)
+                    .cliFilter(Filter.CliFilter.CONTAINS)
+                    .filterType(Filter.FilterType.AND)
                     .tagsList("tag1")
                     .build()
             )

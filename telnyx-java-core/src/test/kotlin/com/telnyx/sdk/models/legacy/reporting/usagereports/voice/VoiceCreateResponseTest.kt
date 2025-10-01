@@ -16,7 +16,7 @@ internal class VoiceCreateResponseTest {
         val voiceCreateResponse =
             VoiceCreateResponse.builder()
                 .data(
-                    VoiceCreateResponse.Data.builder()
+                    CdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)
@@ -35,7 +35,7 @@ internal class VoiceCreateResponseTest {
 
         assertThat(voiceCreateResponse.data())
             .contains(
-                VoiceCreateResponse.Data.builder()
+                CdrUsageReportResponseLegacy.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .aggregationType(0)
                     .addConnection(0L)
@@ -58,7 +58,7 @@ internal class VoiceCreateResponseTest {
         val voiceCreateResponse =
             VoiceCreateResponse.builder()
                 .data(
-                    VoiceCreateResponse.Data.builder()
+                    CdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)
