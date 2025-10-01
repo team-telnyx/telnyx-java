@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.1.0 (2025-10-01)
+
+Full Changelog: [v5.0.0...v5.1.0](https://github.com/team-telnyx/telnyx-java/compare/v5.0.0...v5.1.0)
+
+### Features
+
+* **api:** manual updates ([829e8f9](https://github.com/team-telnyx/telnyx-java/commit/829e8f940783deeb5657ada2bd3ed6246c04d408))
+
+
+### Chores
+
+* trigger CI/CD ([fe12fa4](https://github.com/team-telnyx/telnyx-java/commit/fe12fa40977c8c22026606cefe9bc9e60244efec))
+
 ## 5.0.0 (2025-10-01)
 
 Full Changelog: [v0.0.1...v5.0.0](https://github.com/team-telnyx/telnyx-java/compare/v0.0.1...v5.0.0)
