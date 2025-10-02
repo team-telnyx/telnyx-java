@@ -55,7 +55,6 @@ import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.InterruptionSettings
 import com.telnyx.sdk.models.calls.actions.StopRecordingRequest
 import com.telnyx.sdk.models.calls.actions.TranscriptionConfig
-import com.telnyx.sdk.models.calls.actions.TranscriptionEngineAConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -121,25 +120,35 @@ internal class ActionServiceTest {
                         TranscriptionStartRequest.builder()
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                            .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.A)
+                            .transcriptionEngine(
+                                TranscriptionStartRequest.TranscriptionEngine.GOOGLE
+                            )
                             .transcriptionEngineConfig(
-                                TranscriptionEngineAConfig.builder()
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
                                     .enableSpeakerDiarization(true)
-                                    .addHint("Telnyx")
+                                    .addHint("string")
                                     .interimResults(true)
                                     .language(GoogleTranscriptionLanguage.EN)
                                     .maxSpeakerCount(4)
                                     .minSpeakerCount(4)
-                                    .model(TranscriptionEngineAConfig.Model.LATEST_LONG)
+                                    .model(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                            .Model
+                                            .LATEST_LONG
+                                    )
                                     .profanityFilter(true)
                                     .addSpeechContext(
-                                        TranscriptionEngineAConfig.SpeechContext.builder()
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                            .SpeechContext
+                                            .builder()
                                             .boost(1.0)
-                                            .addPhrase("Telnyx")
+                                            .addPhrase("string")
                                             .build()
                                     )
                                     .transcriptionEngine(
-                                        TranscriptionEngineAConfig.TranscriptionEngine.A
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                            .TranscriptionEngine
+                                            .GOOGLE
                                     )
                                     .useEnhanced(true)
                                     .build()
@@ -879,25 +888,35 @@ internal class ActionServiceTest {
                         TranscriptionStartRequest.builder()
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                            .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.A)
+                            .transcriptionEngine(
+                                TranscriptionStartRequest.TranscriptionEngine.GOOGLE
+                            )
                             .transcriptionEngineConfig(
-                                TranscriptionEngineAConfig.builder()
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
                                     .enableSpeakerDiarization(true)
-                                    .addHint("Telnyx")
+                                    .addHint("string")
                                     .interimResults(true)
                                     .language(GoogleTranscriptionLanguage.EN)
                                     .maxSpeakerCount(4)
                                     .minSpeakerCount(4)
-                                    .model(TranscriptionEngineAConfig.Model.LATEST_LONG)
+                                    .model(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                            .Model
+                                            .LATEST_LONG
+                                    )
                                     .profanityFilter(true)
                                     .addSpeechContext(
-                                        TranscriptionEngineAConfig.SpeechContext.builder()
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                            .SpeechContext
+                                            .builder()
                                             .boost(1.0)
-                                            .addPhrase("Telnyx")
+                                            .addPhrase("string")
                                             .build()
                                     )
                                     .transcriptionEngine(
-                                        TranscriptionEngineAConfig.TranscriptionEngine.A
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                            .TranscriptionEngine
+                                            .GOOGLE
                                     )
                                     .useEnhanced(true)
                                     .build()
