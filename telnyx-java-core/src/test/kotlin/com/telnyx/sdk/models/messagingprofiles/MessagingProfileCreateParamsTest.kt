@@ -18,6 +18,7 @@ internal class MessagingProfileCreateParamsTest {
             .enabled(true)
             .mmsFallBackToSms(true)
             .mmsTranscoding(true)
+            .mobileOnly(true)
             .numberPoolSettings(
                 NumberPoolSettings.builder()
                     .longCodeWeight(1.0)
@@ -53,6 +54,7 @@ internal class MessagingProfileCreateParamsTest {
                 .enabled(true)
                 .mmsFallBackToSms(true)
                 .mmsTranscoding(true)
+                .mobileOnly(true)
                 .numberPoolSettings(
                     NumberPoolSettings.builder()
                         .longCodeWeight(1.0)
@@ -85,6 +87,7 @@ internal class MessagingProfileCreateParamsTest {
         assertThat(body.enabled()).contains(true)
         assertThat(body.mmsFallBackToSms()).contains(true)
         assertThat(body.mmsTranscoding()).contains(true)
+        assertThat(body.mobileOnly()).contains(true)
         assertThat(body.numberPoolSettings())
             .contains(
                 NumberPoolSettings.builder()

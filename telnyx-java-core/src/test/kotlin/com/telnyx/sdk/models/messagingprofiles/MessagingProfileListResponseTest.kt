@@ -26,6 +26,7 @@ internal class MessagingProfileListResponseTest {
                         .enabled(true)
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)
+                        .mobileOnly(false)
                         .name("Profile for Messages")
                         .numberPoolSettings(
                             NumberPoolSettings.builder()
@@ -74,6 +75,7 @@ internal class MessagingProfileListResponseTest {
                     .enabled(true)
                     .mmsFallBackToSms(false)
                     .mmsTranscoding(false)
+                    .mobileOnly(false)
                     .name("Profile for Messages")
                     .numberPoolSettings(
                         NumberPoolSettings.builder()
@@ -127,6 +129,7 @@ internal class MessagingProfileListResponseTest {
                         .enabled(true)
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)
+                        .mobileOnly(false)
                         .name("Profile for Messages")
                         .numberPoolSettings(
                             NumberPoolSettings.builder()

@@ -31,6 +31,7 @@ private constructor(
     private val enabled: JsonField<Boolean>,
     private val mmsFallBackToSms: JsonField<Boolean>,
     private val mmsTranscoding: JsonField<Boolean>,
+    private val mobileOnly: JsonField<Boolean>,
     private val name: JsonField<String>,
     private val numberPoolSettings: JsonField<NumberPoolSettings>,
     private val recordType: JsonField<RecordType>,
@@ -66,6 +67,9 @@ private constructor(
         @JsonProperty("mms_transcoding")
         @ExcludeMissing
         mmsTranscoding: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("mobile_only")
+        @ExcludeMissing
+        mobileOnly: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("number_pool_settings")
         @ExcludeMissing
@@ -101,6 +105,7 @@ private constructor(
         enabled,
         mmsFallBackToSms,
         mmsTranscoding,
+        mobileOnly,
         name,
         numberPoolSettings,
         recordType,
@@ -179,6 +184,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun mmsTranscoding(): Optional<Boolean> = mmsTranscoding.getOptional("mms_transcoding")
+
+    /**
+     * Send messages only to mobile phone numbers.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mobileOnly(): Optional<Boolean> = mobileOnly.getOptional("mobile_only")
 
     /**
      * A user friendly name for the messaging profile.
@@ -349,6 +362,13 @@ private constructor(
     fun _mmsTranscoding(): JsonField<Boolean> = mmsTranscoding
 
     /**
+     * Returns the raw JSON value of [mobileOnly].
+     *
+     * Unlike [mobileOnly], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("mobile_only") @ExcludeMissing fun _mobileOnly(): JsonField<Boolean> = mobileOnly
+
+    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
@@ -466,6 +486,7 @@ private constructor(
         private var enabled: JsonField<Boolean> = JsonMissing.of()
         private var mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of()
         private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
+        private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
@@ -488,6 +509,7 @@ private constructor(
             enabled = messagingProfile.enabled
             mmsFallBackToSms = messagingProfile.mmsFallBackToSms
             mmsTranscoding = messagingProfile.mmsTranscoding
+            mobileOnly = messagingProfile.mobileOnly
             name = messagingProfile.name
             numberPoolSettings = messagingProfile.numberPoolSettings
             recordType = messagingProfile.recordType
@@ -615,6 +637,18 @@ private constructor(
         fun mmsTranscoding(mmsTranscoding: JsonField<Boolean>) = apply {
             this.mmsTranscoding = mmsTranscoding
         }
+
+        /** Send messages only to mobile phone numbers. */
+        fun mobileOnly(mobileOnly: Boolean) = mobileOnly(JsonField.of(mobileOnly))
+
+        /**
+         * Sets [Builder.mobileOnly] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mobileOnly] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun mobileOnly(mobileOnly: JsonField<Boolean>) = apply { this.mobileOnly = mobileOnly }
 
         /** A user friendly name for the messaging profile. */
         fun name(name: String) = name(JsonField.of(name))
@@ -841,6 +875,7 @@ private constructor(
                 enabled,
                 mmsFallBackToSms,
                 mmsTranscoding,
+                mobileOnly,
                 name,
                 numberPoolSettings,
                 recordType,
@@ -870,6 +905,7 @@ private constructor(
         enabled()
         mmsFallBackToSms()
         mmsTranscoding()
+        mobileOnly()
         name()
         numberPoolSettings().ifPresent { it.validate() }
         recordType().ifPresent { it.validate() }
@@ -906,6 +942,7 @@ private constructor(
             (if (enabled.asKnown().isPresent) 1 else 0) +
             (if (mmsFallBackToSms.asKnown().isPresent) 1 else 0) +
             (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
+            (if (mobileOnly.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1192,6 +1229,7 @@ private constructor(
             enabled == other.enabled &&
             mmsFallBackToSms == other.mmsFallBackToSms &&
             mmsTranscoding == other.mmsTranscoding &&
+            mobileOnly == other.mobileOnly &&
             name == other.name &&
             numberPoolSettings == other.numberPoolSettings &&
             recordType == other.recordType &&
@@ -1215,6 +1253,7 @@ private constructor(
             enabled,
             mmsFallBackToSms,
             mmsTranscoding,
+            mobileOnly,
             name,
             numberPoolSettings,
             recordType,
@@ -1232,5 +1271,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingProfile{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+        "MessagingProfile{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
 }

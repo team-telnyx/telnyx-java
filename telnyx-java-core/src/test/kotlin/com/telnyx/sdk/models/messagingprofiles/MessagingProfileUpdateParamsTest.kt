@@ -21,6 +21,7 @@ internal class MessagingProfileUpdateParamsTest {
             .enabled(true)
             .mmsFallBackToSms(true)
             .mmsTranscoding(true)
+            .mobileOnly(true)
             .name("Updated Profile for Messages")
             .numberPoolSettings(
                 NumberPoolSettings.builder()
@@ -74,6 +75,7 @@ internal class MessagingProfileUpdateParamsTest {
                 .enabled(true)
                 .mmsFallBackToSms(true)
                 .mmsTranscoding(true)
+                .mobileOnly(true)
                 .name("Updated Profile for Messages")
                 .numberPoolSettings(
                     NumberPoolSettings.builder()
@@ -111,6 +113,7 @@ internal class MessagingProfileUpdateParamsTest {
         assertThat(body.enabled()).contains(true)
         assertThat(body.mmsFallBackToSms()).contains(true)
         assertThat(body.mmsTranscoding()).contains(true)
+        assertThat(body.mobileOnly()).contains(true)
         assertThat(body.name()).contains("Updated Profile for Messages")
         assertThat(body.numberPoolSettings())
             .contains(
