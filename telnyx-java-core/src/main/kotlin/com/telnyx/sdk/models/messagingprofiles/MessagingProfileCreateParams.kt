@@ -99,6 +99,14 @@ private constructor(
     fun mmsTranscoding(): Optional<Boolean> = body.mmsTranscoding()
 
     /**
+     * Send messages only to mobile phone numbers.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mobileOnly(): Optional<Boolean> = body.mobileOnly()
+
+    /**
      * Number Pool allows you to send messages from a pool of numbers of different types, assigning
      * weights to each type. The pool consists of all the long code and toll free numbers assigned
      * to the messaging profile.
@@ -207,6 +215,13 @@ private constructor(
      * Unlike [mmsTranscoding], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _mmsTranscoding(): JsonField<Boolean> = body._mmsTranscoding()
+
+    /**
+     * Returns the raw JSON value of [mobileOnly].
+     *
+     * Unlike [mobileOnly], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mobileOnly(): JsonField<Boolean> = body._mobileOnly()
 
     /**
      * Returns the raw JSON value of [numberPoolSettings].
@@ -432,6 +447,18 @@ private constructor(
         fun mmsTranscoding(mmsTranscoding: JsonField<Boolean>) = apply {
             body.mmsTranscoding(mmsTranscoding)
         }
+
+        /** Send messages only to mobile phone numbers. */
+        fun mobileOnly(mobileOnly: Boolean) = apply { body.mobileOnly(mobileOnly) }
+
+        /**
+         * Sets [Builder.mobileOnly] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mobileOnly] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun mobileOnly(mobileOnly: JsonField<Boolean>) = apply { body.mobileOnly(mobileOnly) }
 
         /**
          * Number Pool allows you to send messages from a pool of numbers of different types,
@@ -706,6 +733,7 @@ private constructor(
         private val enabled: JsonField<Boolean>,
         private val mmsFallBackToSms: JsonField<Boolean>,
         private val mmsTranscoding: JsonField<Boolean>,
+        private val mobileOnly: JsonField<Boolean>,
         private val numberPoolSettings: JsonField<NumberPoolSettings>,
         private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
         private val webhookApiVersion: JsonField<WebhookApiVersion>,
@@ -736,6 +764,9 @@ private constructor(
             @JsonProperty("mms_transcoding")
             @ExcludeMissing
             mmsTranscoding: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("mobile_only")
+            @ExcludeMissing
+            mobileOnly: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("number_pool_settings")
             @ExcludeMissing
             numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of(),
@@ -760,6 +791,7 @@ private constructor(
             enabled,
             mmsFallBackToSms,
             mmsTranscoding,
+            mobileOnly,
             numberPoolSettings,
             urlShortenerSettings,
             webhookApiVersion,
@@ -838,6 +870,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun mmsTranscoding(): Optional<Boolean> = mmsTranscoding.getOptional("mms_transcoding")
+
+        /**
+         * Send messages only to mobile phone numbers.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mobileOnly(): Optional<Boolean> = mobileOnly.getOptional("mobile_only")
 
         /**
          * Number Pool allows you to send messages from a pool of numbers of different types,
@@ -969,6 +1009,15 @@ private constructor(
         fun _mmsTranscoding(): JsonField<Boolean> = mmsTranscoding
 
         /**
+         * Returns the raw JSON value of [mobileOnly].
+         *
+         * Unlike [mobileOnly], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mobile_only")
+        @ExcludeMissing
+        fun _mobileOnly(): JsonField<Boolean> = mobileOnly
+
+        /**
          * Returns the raw JSON value of [numberPoolSettings].
          *
          * Unlike [numberPoolSettings], this method doesn't throw if the JSON field has an
@@ -1054,6 +1103,7 @@ private constructor(
             private var enabled: JsonField<Boolean> = JsonMissing.of()
             private var mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of()
             private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
+            private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
             private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
             private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
             private var webhookApiVersion: JsonField<WebhookApiVersion> = JsonMissing.of()
@@ -1071,6 +1121,7 @@ private constructor(
                 enabled = body.enabled
                 mmsFallBackToSms = body.mmsFallBackToSms
                 mmsTranscoding = body.mmsTranscoding
+                mobileOnly = body.mobileOnly
                 numberPoolSettings = body.numberPoolSettings
                 urlShortenerSettings = body.urlShortenerSettings
                 webhookApiVersion = body.webhookApiVersion
@@ -1216,6 +1267,18 @@ private constructor(
             fun mmsTranscoding(mmsTranscoding: JsonField<Boolean>) = apply {
                 this.mmsTranscoding = mmsTranscoding
             }
+
+            /** Send messages only to mobile phone numbers. */
+            fun mobileOnly(mobileOnly: Boolean) = mobileOnly(JsonField.of(mobileOnly))
+
+            /**
+             * Sets [Builder.mobileOnly] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mobileOnly] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun mobileOnly(mobileOnly: JsonField<Boolean>) = apply { this.mobileOnly = mobileOnly }
 
             /**
              * Number Pool allows you to send messages from a pool of numbers of different types,
@@ -1378,6 +1441,7 @@ private constructor(
                     enabled,
                     mmsFallBackToSms,
                     mmsTranscoding,
+                    mobileOnly,
                     numberPoolSettings,
                     urlShortenerSettings,
                     webhookApiVersion,
@@ -1402,6 +1466,7 @@ private constructor(
             enabled()
             mmsFallBackToSms()
             mmsTranscoding()
+            mobileOnly()
             numberPoolSettings().ifPresent { it.validate() }
             urlShortenerSettings().ifPresent { it.validate() }
             webhookApiVersion().ifPresent { it.validate() }
@@ -1434,6 +1499,7 @@ private constructor(
                 (if (enabled.asKnown().isPresent) 1 else 0) +
                 (if (mmsFallBackToSms.asKnown().isPresent) 1 else 0) +
                 (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
+                (if (mobileOnly.asKnown().isPresent) 1 else 0) +
                 (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (webhookApiVersion.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1454,6 +1520,7 @@ private constructor(
                 enabled == other.enabled &&
                 mmsFallBackToSms == other.mmsFallBackToSms &&
                 mmsTranscoding == other.mmsTranscoding &&
+                mobileOnly == other.mobileOnly &&
                 numberPoolSettings == other.numberPoolSettings &&
                 urlShortenerSettings == other.urlShortenerSettings &&
                 webhookApiVersion == other.webhookApiVersion &&
@@ -1472,6 +1539,7 @@ private constructor(
                 enabled,
                 mmsFallBackToSms,
                 mmsTranscoding,
+                mobileOnly,
                 numberPoolSettings,
                 urlShortenerSettings,
                 webhookApiVersion,
@@ -1484,7 +1552,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, numberPoolSettings=$numberPoolSettings, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**
