@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.texml.accounts.conferences.participants
 
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -35,6 +36,12 @@ internal class ParticipantParticipantsParamsTest {
                 ParticipantParticipantsParams.ConferenceStatusCallbackMethod.GET
             )
             .conferenceTrim(ParticipantParticipantsParams.ConferenceTrim.TRIM_SILENCE)
+            .addCustomHeader(
+                ParticipantParticipantsParams.CustomHeader.builder()
+                    .name("X-Custom-Header")
+                    .value("custom-value")
+                    .build()
+            )
             .earlyMedia(true)
             .endConferenceOnExit(true)
             .from("+12065550200")
@@ -111,6 +118,12 @@ internal class ParticipantParticipantsParamsTest {
                     ParticipantParticipantsParams.ConferenceStatusCallbackMethod.GET
                 )
                 .conferenceTrim(ParticipantParticipantsParams.ConferenceTrim.TRIM_SILENCE)
+                .addCustomHeader(
+                    ParticipantParticipantsParams.CustomHeader.builder()
+                        .name("X-Custom-Header")
+                        .value("custom-value")
+                        .build()
+                )
                 .earlyMedia(true)
                 .endConferenceOnExit(true)
                 .from("+12065550200")
@@ -171,6 +184,13 @@ internal class ParticipantParticipantsParamsTest {
             .contains(ParticipantParticipantsParams.ConferenceStatusCallbackMethod.GET)
         assertThat(body.conferenceTrim())
             .contains(ParticipantParticipantsParams.ConferenceTrim.TRIM_SILENCE)
+        assertThat(body.customHeaders().getOrNull())
+            .containsExactly(
+                ParticipantParticipantsParams.CustomHeader.builder()
+                    .name("X-Custom-Header")
+                    .value("custom-value")
+                    .build()
+            )
         assertThat(body.earlyMedia()).contains(true)
         assertThat(body.endConferenceOnExit()).contains(true)
         assertThat(body.from()).contains("+12065550200")

@@ -12,9 +12,11 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -116,6 +118,15 @@ private constructor(
      */
     fun cancelPlaybackOnMachineDetection(): Optional<Boolean> =
         body.cancelPlaybackOnMachineDetection()
+
+    /**
+     * Custom HTTP headers to be sent with the call. Each header should be an object with 'name' and
+     * 'value' properties.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun customHeaders(): Optional<List<CustomHeader>> = body.customHeaders()
 
     /**
      * Allows you to chose between Premium and Standard detections.
@@ -392,6 +403,13 @@ private constructor(
      */
     fun _cancelPlaybackOnMachineDetection(): JsonField<Boolean> =
         body._cancelPlaybackOnMachineDetection()
+
+    /**
+     * Returns the raw JSON value of [customHeaders].
+     *
+     * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _customHeaders(): JsonField<List<CustomHeader>> = body._customHeaders()
 
     /**
      * Returns the raw JSON value of [detectionMode].
@@ -778,6 +796,34 @@ private constructor(
             apply {
                 body.cancelPlaybackOnMachineDetection(cancelPlaybackOnMachineDetection)
             }
+
+        /**
+         * Custom HTTP headers to be sent with the call. Each header should be an object with 'name'
+         * and 'value' properties.
+         */
+        fun customHeaders(customHeaders: List<CustomHeader>) = apply {
+            body.customHeaders(customHeaders)
+        }
+
+        /**
+         * Sets [Builder.customHeaders] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customHeaders] with a well-typed `List<CustomHeader>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun customHeaders(customHeaders: JsonField<List<CustomHeader>>) = apply {
+            body.customHeaders(customHeaders)
+        }
+
+        /**
+         * Adds a single [CustomHeader] to [customHeaders].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCustomHeader(customHeader: CustomHeader) = apply {
+            body.addCustomHeader(customHeader)
+        }
 
         /** Allows you to chose between Premium and Standard detections. */
         fun detectionMode(detectionMode: DetectionMode) = apply {
@@ -1334,6 +1380,7 @@ private constructor(
         private val callerId: JsonField<String>,
         private val cancelPlaybackOnDetectMessageEnd: JsonField<Boolean>,
         private val cancelPlaybackOnMachineDetection: JsonField<Boolean>,
+        private val customHeaders: JsonField<List<CustomHeader>>,
         private val detectionMode: JsonField<DetectionMode>,
         private val fallbackUrl: JsonField<String>,
         private val machineDetection: JsonField<MachineDetection>,
@@ -1387,6 +1434,9 @@ private constructor(
             @JsonProperty("CancelPlaybackOnMachineDetection")
             @ExcludeMissing
             cancelPlaybackOnMachineDetection: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("CustomHeaders")
+            @ExcludeMissing
+            customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
             @JsonProperty("DetectionMode")
             @ExcludeMissing
             detectionMode: JsonField<DetectionMode> = JsonMissing.of(),
@@ -1464,6 +1514,7 @@ private constructor(
             callerId,
             cancelPlaybackOnDetectMessageEnd,
             cancelPlaybackOnMachineDetection,
+            customHeaders,
             detectionMode,
             fallbackUrl,
             machineDetection,
@@ -1573,6 +1624,16 @@ private constructor(
          */
         fun cancelPlaybackOnMachineDetection(): Optional<Boolean> =
             cancelPlaybackOnMachineDetection.getOptional("CancelPlaybackOnMachineDetection")
+
+        /**
+         * Custom HTTP headers to be sent with the call. Each header should be an object with 'name'
+         * and 'value' properties.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun customHeaders(): Optional<List<CustomHeader>> =
+            customHeaders.getOptional("CustomHeaders")
 
         /**
          * Allows you to chose between Premium and Standard detections.
@@ -1872,6 +1933,16 @@ private constructor(
             cancelPlaybackOnMachineDetection
 
         /**
+         * Returns the raw JSON value of [customHeaders].
+         *
+         * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("CustomHeaders")
+        @ExcludeMissing
+        fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
+
+        /**
          * Returns the raw JSON value of [detectionMode].
          *
          * Unlike [detectionMode], this method doesn't throw if the JSON field has an unexpected
@@ -2142,6 +2213,7 @@ private constructor(
             private var callerId: JsonField<String> = JsonMissing.of()
             private var cancelPlaybackOnDetectMessageEnd: JsonField<Boolean> = JsonMissing.of()
             private var cancelPlaybackOnMachineDetection: JsonField<Boolean> = JsonMissing.of()
+            private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
             private var detectionMode: JsonField<DetectionMode> = JsonMissing.of()
             private var fallbackUrl: JsonField<String> = JsonMissing.of()
             private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
@@ -2180,6 +2252,7 @@ private constructor(
                 callerId = body.callerId
                 cancelPlaybackOnDetectMessageEnd = body.cancelPlaybackOnDetectMessageEnd
                 cancelPlaybackOnMachineDetection = body.cancelPlaybackOnMachineDetection
+                customHeaders = body.customHeaders.map { it.toMutableList() }
                 detectionMode = body.detectionMode
                 fallbackUrl = body.fallbackUrl
                 machineDetection = body.machineDetection
@@ -2349,6 +2422,36 @@ private constructor(
             fun cancelPlaybackOnMachineDetection(
                 cancelPlaybackOnMachineDetection: JsonField<Boolean>
             ) = apply { this.cancelPlaybackOnMachineDetection = cancelPlaybackOnMachineDetection }
+
+            /**
+             * Custom HTTP headers to be sent with the call. Each header should be an object with
+             * 'name' and 'value' properties.
+             */
+            fun customHeaders(customHeaders: List<CustomHeader>) =
+                customHeaders(JsonField.of(customHeaders))
+
+            /**
+             * Sets [Builder.customHeaders] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customHeaders] with a well-typed
+             * `List<CustomHeader>` value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun customHeaders(customHeaders: JsonField<List<CustomHeader>>) = apply {
+                this.customHeaders = customHeaders.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [CustomHeader] to [customHeaders].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addCustomHeader(customHeader: CustomHeader) = apply {
+                customHeaders =
+                    (customHeaders ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("customHeaders", it).add(customHeader)
+                    }
+            }
 
             /** Allows you to chose between Premium and Standard detections. */
             fun detectionMode(detectionMode: DetectionMode) =
@@ -2778,6 +2881,7 @@ private constructor(
                     callerId,
                     cancelPlaybackOnDetectMessageEnd,
                     cancelPlaybackOnMachineDetection,
+                    (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
                     detectionMode,
                     fallbackUrl,
                     machineDetection,
@@ -2822,6 +2926,7 @@ private constructor(
             callerId()
             cancelPlaybackOnDetectMessageEnd()
             cancelPlaybackOnMachineDetection()
+            customHeaders().ifPresent { it.forEach { it.validate() } }
             detectionMode().ifPresent { it.validate() }
             fallbackUrl()
             machineDetection().ifPresent { it.validate() }
@@ -2874,6 +2979,7 @@ private constructor(
                 (if (callerId.asKnown().isPresent) 1 else 0) +
                 (if (cancelPlaybackOnDetectMessageEnd.asKnown().isPresent) 1 else 0) +
                 (if (cancelPlaybackOnMachineDetection.asKnown().isPresent) 1 else 0) +
+                (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (detectionMode.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                 (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2914,6 +3020,7 @@ private constructor(
                 callerId == other.callerId &&
                 cancelPlaybackOnDetectMessageEnd == other.cancelPlaybackOnDetectMessageEnd &&
                 cancelPlaybackOnMachineDetection == other.cancelPlaybackOnMachineDetection &&
+                customHeaders == other.customHeaders &&
                 detectionMode == other.detectionMode &&
                 fallbackUrl == other.fallbackUrl &&
                 machineDetection == other.machineDetection &&
@@ -2952,6 +3059,7 @@ private constructor(
                 callerId,
                 cancelPlaybackOnDetectMessageEnd,
                 cancelPlaybackOnMachineDetection,
+                customHeaders,
                 detectionMode,
                 fallbackUrl,
                 machineDetection,
@@ -2983,7 +3091,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -3121,6 +3229,203 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    class CustomHeader
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val name: JsonField<String>,
+        private val value: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
+        ) : this(name, value, mutableMapOf())
+
+        /**
+         * The name of the custom header
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * The value of the custom header
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun value(): String = value.getRequired("value")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [CustomHeader].
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * .value()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [CustomHeader]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String>? = null
+            private var value: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(customHeader: CustomHeader) = apply {
+                name = customHeader.name
+                value = customHeader.value
+                additionalProperties = customHeader.additionalProperties.toMutableMap()
+            }
+
+            /** The name of the custom header */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The value of the custom header */
+            fun value(value: String) = value(JsonField.of(value))
+
+            /**
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun value(value: JsonField<String>) = apply { this.value = value }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CustomHeader].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * .value()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): CustomHeader =
+                CustomHeader(
+                    checkRequired("name", name),
+                    checkRequired("value", value),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CustomHeader = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            value()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (name.asKnown().isPresent) 1 else 0) + (if (value.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CustomHeader &&
+                name == other.name &&
+                value == other.value &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, value, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CustomHeader{name=$name, value=$value, additionalProperties=$additionalProperties}"
     }
 
     /** Allows you to chose between Premium and Standard detections. */

@@ -96,6 +96,12 @@ internal class CallServiceAsyncTest {
                     .callerId("Info")
                     .cancelPlaybackOnDetectMessageEnd(false)
                     .cancelPlaybackOnMachineDetection(false)
+                    .addCustomHeader(
+                        CallCallsParams.CustomHeader.builder()
+                            .name("X-Custom-Header")
+                            .value("custom-value")
+                            .build()
+                    )
                     .detectionMode(CallCallsParams.DetectionMode.PREMIUM)
                     .fallbackUrl("https://www.example.com/instructions-fallback.xml")
                     .machineDetection(CallCallsParams.MachineDetection.ENABLE)
