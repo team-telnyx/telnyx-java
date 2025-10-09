@@ -201,6 +201,8 @@ private constructor(
 
             @JvmField val VAPI = of("vapi")
 
+            @JvmField val RETELL = of("retell")
+
             @JvmStatic fun of(value: String) = ImportProvider(JsonField.of(value))
         }
 
@@ -208,6 +210,7 @@ private constructor(
         enum class Known {
             ELEVENLABS,
             VAPI,
+            RETELL,
         }
 
         /**
@@ -222,6 +225,7 @@ private constructor(
         enum class Value {
             ELEVENLABS,
             VAPI,
+            RETELL,
             /**
              * An enum member indicating that [ImportProvider] was instantiated with an unknown
              * value.
@@ -240,6 +244,7 @@ private constructor(
             when (this) {
                 ELEVENLABS -> Value.ELEVENLABS
                 VAPI -> Value.VAPI
+                RETELL -> Value.RETELL
                 else -> Value._UNKNOWN
             }
 
@@ -256,6 +261,7 @@ private constructor(
             when (this) {
                 ELEVENLABS -> Known.ELEVENLABS
                 VAPI -> Known.VAPI
+                RETELL -> Known.RETELL
                 else -> throw TelnyxInvalidDataException("Unknown ImportProvider: $value")
             }
 
