@@ -16,8 +16,7 @@ import kotlin.jvm.optionals.getOrNull
  * data.<br/> To enable a SIM card, it must be associated with a SIM card group.<br/> The API will
  * trigger an asynchronous operation called a SIM Card Action. Transitioning to the enabled state
  * may take a period of time. The status of the SIM Card Action can be followed through the
- * [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions)
- * API.
+ * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
  */
 class ActionEnableParams
 private constructor(
