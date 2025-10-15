@@ -36,7 +36,7 @@ internal class PhoneNumbersJobTest {
                                 .source(
                                     PhoneNumbersJob.FailedOperation.Error.Source.builder()
                                         .parameter("parameter")
-                                        .pointer("/base")
+                                        .pointer("/emergency_address_id")
                                         .build()
                                 )
                                 .build()
@@ -108,7 +108,7 @@ internal class PhoneNumbersJobTest {
                             .source(
                                 PhoneNumbersJob.FailedOperation.Error.Source.builder()
                                     .parameter("parameter")
-                                    .pointer("/base")
+                                    .pointer("/emergency_address_id")
                                     .build()
                             )
                             .build()
@@ -179,7 +179,7 @@ internal class PhoneNumbersJobTest {
                                 .source(
                                     PhoneNumbersJob.FailedOperation.Error.Source.builder()
                                         .parameter("parameter")
-                                        .pointer("/base")
+                                        .pointer("/emergency_address_id")
                                         .build()
                                 )
                                 .build()

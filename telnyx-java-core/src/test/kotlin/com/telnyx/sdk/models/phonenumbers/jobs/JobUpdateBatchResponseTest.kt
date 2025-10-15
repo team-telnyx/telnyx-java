@@ -37,7 +37,7 @@ internal class JobUpdateBatchResponseTest {
                                         .source(
                                             PhoneNumbersJob.FailedOperation.Error.Source.builder()
                                                 .parameter("parameter")
-                                                .pointer("/base")
+                                                .pointer("/emergency_address_id")
                                                 .build()
                                         )
                                         .build()
@@ -115,7 +115,7 @@ internal class JobUpdateBatchResponseTest {
                                     .source(
                                         PhoneNumbersJob.FailedOperation.Error.Source.builder()
                                             .parameter("parameter")
-                                            .pointer("/base")
+                                            .pointer("/emergency_address_id")
                                             .build()
                                     )
                                     .build()
@@ -197,7 +197,7 @@ internal class JobUpdateBatchResponseTest {
                                         .source(
                                             PhoneNumbersJob.FailedOperation.Error.Source.builder()
                                                 .parameter("parameter")
-                                                .pointer("/base")
+                                                .pointer("/emergency_address_id")
                                                 .build()
                                         )
                                         .build()
