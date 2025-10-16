@@ -26,6 +26,7 @@ private constructor(
     private val id: JsonField<String>,
     private val billingGroupId: JsonField<String>,
     private val callRecording: JsonField<OutboundCallRecording>,
+    private val callingWindow: JsonField<CallingWindow>,
     private val concurrentCallLimit: JsonField<Long>,
     private val connectionsCount: JsonField<Long>,
     private val createdAt: JsonField<String>,
@@ -53,6 +54,9 @@ private constructor(
         @JsonProperty("call_recording")
         @ExcludeMissing
         callRecording: JsonField<OutboundCallRecording> = JsonMissing.of(),
+        @JsonProperty("calling_window")
+        @ExcludeMissing
+        callingWindow: JsonField<CallingWindow> = JsonMissing.of(),
         @JsonProperty("concurrent_call_limit")
         @ExcludeMissing
         concurrentCallLimit: JsonField<Long> = JsonMissing.of(),
@@ -92,6 +96,7 @@ private constructor(
         id,
         billingGroupId,
         callRecording,
+        callingWindow,
         concurrentCallLimit,
         connectionsCount,
         createdAt,
@@ -140,6 +145,15 @@ private constructor(
      */
     fun callRecording(): Optional<OutboundCallRecording> =
         callRecording.getOptional("call_recording")
+
+    /**
+     * (BETA) Specifies the time window and call limits for calls made using this outbound voice
+     * profile. Note that all times are UTC in 24-hour clock time.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callingWindow(): Optional<CallingWindow> = callingWindow.getOptional("calling_window")
 
     /**
      * Must be no more than your global concurrent call limit. Null means no limit.
@@ -290,6 +304,15 @@ private constructor(
     @JsonProperty("call_recording")
     @ExcludeMissing
     fun _callRecording(): JsonField<OutboundCallRecording> = callRecording
+
+    /**
+     * Returns the raw JSON value of [callingWindow].
+     *
+     * Unlike [callingWindow], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("calling_window")
+    @ExcludeMissing
+    fun _callingWindow(): JsonField<CallingWindow> = callingWindow
 
     /**
      * Returns the raw JSON value of [concurrentCallLimit].
@@ -445,6 +468,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var billingGroupId: JsonField<String> = JsonMissing.of()
         private var callRecording: JsonField<OutboundCallRecording> = JsonMissing.of()
+        private var callingWindow: JsonField<CallingWindow> = JsonMissing.of()
         private var concurrentCallLimit: JsonField<Long> = JsonMissing.of()
         private var connectionsCount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
@@ -467,6 +491,7 @@ private constructor(
             id = outboundVoiceProfile.id
             billingGroupId = outboundVoiceProfile.billingGroupId
             callRecording = outboundVoiceProfile.callRecording
+            callingWindow = outboundVoiceProfile.callingWindow
             concurrentCallLimit = outboundVoiceProfile.concurrentCallLimit
             connectionsCount = outboundVoiceProfile.connectionsCount
             createdAt = outboundVoiceProfile.createdAt
@@ -541,6 +566,23 @@ private constructor(
          */
         fun callRecording(callRecording: JsonField<OutboundCallRecording>) = apply {
             this.callRecording = callRecording
+        }
+
+        /**
+         * (BETA) Specifies the time window and call limits for calls made using this outbound voice
+         * profile. Note that all times are UTC in 24-hour clock time.
+         */
+        fun callingWindow(callingWindow: CallingWindow) = callingWindow(JsonField.of(callingWindow))
+
+        /**
+         * Sets [Builder.callingWindow] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callingWindow] with a well-typed [CallingWindow] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callingWindow(callingWindow: JsonField<CallingWindow>) = apply {
+            this.callingWindow = callingWindow
         }
 
         /** Must be no more than your global concurrent call limit. Null means no limit. */
@@ -820,6 +862,7 @@ private constructor(
                 id,
                 billingGroupId,
                 callRecording,
+                callingWindow,
                 concurrentCallLimit,
                 connectionsCount,
                 createdAt,
@@ -849,6 +892,7 @@ private constructor(
         id()
         billingGroupId()
         callRecording().ifPresent { it.validate() }
+        callingWindow().ifPresent { it.validate() }
         concurrentCallLimit()
         connectionsCount()
         createdAt()
@@ -885,6 +929,7 @@ private constructor(
             (if (id.asKnown().isPresent) 1 else 0) +
             (if (billingGroupId.asKnown().isPresent) 1 else 0) +
             (callRecording.asKnown().getOrNull()?.validity() ?: 0) +
+            (callingWindow.asKnown().getOrNull()?.validity() ?: 0) +
             (if (concurrentCallLimit.asKnown().isPresent) 1 else 0) +
             (if (connectionsCount.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
@@ -900,6 +945,242 @@ private constructor(
             (usagePaymentMethod.asKnown().getOrNull()?.validity() ?: 0) +
             (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0)
 
+    /**
+     * (BETA) Specifies the time window and call limits for calls made using this outbound voice
+     * profile. Note that all times are UTC in 24-hour clock time.
+     */
+    class CallingWindow
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val callsPerCld: JsonField<Long>,
+        private val endTime: JsonField<String>,
+        private val startTime: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("calls_per_cld")
+            @ExcludeMissing
+            callsPerCld: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("end_time") @ExcludeMissing endTime: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("start_time")
+            @ExcludeMissing
+            startTime: JsonField<String> = JsonMissing.of(),
+        ) : this(callsPerCld, endTime, startTime, mutableMapOf())
+
+        /**
+         * (BETA) The maximum number of calls that can be initiated to a single called party (CLD)
+         * within the calling window. A null value means no limit.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun callsPerCld(): Optional<Long> = callsPerCld.getOptional("calls_per_cld")
+
+        /**
+         * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are no longer
+         * allowed to start.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun endTime(): Optional<String> = endTime.getOptional("end_time")
+
+        /**
+         * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are allowed to
+         * start.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun startTime(): Optional<String> = startTime.getOptional("start_time")
+
+        /**
+         * Returns the raw JSON value of [callsPerCld].
+         *
+         * Unlike [callsPerCld], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("calls_per_cld")
+        @ExcludeMissing
+        fun _callsPerCld(): JsonField<Long> = callsPerCld
+
+        /**
+         * Returns the raw JSON value of [endTime].
+         *
+         * Unlike [endTime], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("end_time") @ExcludeMissing fun _endTime(): JsonField<String> = endTime
+
+        /**
+         * Returns the raw JSON value of [startTime].
+         *
+         * Unlike [startTime], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("start_time") @ExcludeMissing fun _startTime(): JsonField<String> = startTime
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [CallingWindow]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [CallingWindow]. */
+        class Builder internal constructor() {
+
+            private var callsPerCld: JsonField<Long> = JsonMissing.of()
+            private var endTime: JsonField<String> = JsonMissing.of()
+            private var startTime: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(callingWindow: CallingWindow) = apply {
+                callsPerCld = callingWindow.callsPerCld
+                endTime = callingWindow.endTime
+                startTime = callingWindow.startTime
+                additionalProperties = callingWindow.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * (BETA) The maximum number of calls that can be initiated to a single called party
+             * (CLD) within the calling window. A null value means no limit.
+             */
+            fun callsPerCld(callsPerCld: Long) = callsPerCld(JsonField.of(callsPerCld))
+
+            /**
+             * Sets [Builder.callsPerCld] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callsPerCld] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun callsPerCld(callsPerCld: JsonField<Long>) = apply { this.callsPerCld = callsPerCld }
+
+            /**
+             * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are no longer
+             * allowed to start.
+             */
+            fun endTime(endTime: String) = endTime(JsonField.of(endTime))
+
+            /**
+             * Sets [Builder.endTime] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.endTime] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun endTime(endTime: JsonField<String>) = apply { this.endTime = endTime }
+
+            /**
+             * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are allowed to
+             * start.
+             */
+            fun startTime(startTime: String) = startTime(JsonField.of(startTime))
+
+            /**
+             * Sets [Builder.startTime] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.startTime] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun startTime(startTime: JsonField<String>) = apply { this.startTime = startTime }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CallingWindow].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): CallingWindow =
+                CallingWindow(callsPerCld, endTime, startTime, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CallingWindow = apply {
+            if (validated) {
+                return@apply
+            }
+
+            callsPerCld()
+            endTime()
+            startTime()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (callsPerCld.asKnown().isPresent) 1 else 0) +
+                (if (endTime.asKnown().isPresent) 1 else 0) +
+                (if (startTime.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CallingWindow &&
+                callsPerCld == other.callsPerCld &&
+                endTime == other.endTime &&
+                startTime == other.startTime &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(callsPerCld, endTime, startTime, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CallingWindow{callsPerCld=$callsPerCld, endTime=$endTime, startTime=$startTime, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -910,6 +1191,7 @@ private constructor(
             id == other.id &&
             billingGroupId == other.billingGroupId &&
             callRecording == other.callRecording &&
+            callingWindow == other.callingWindow &&
             concurrentCallLimit == other.concurrentCallLimit &&
             connectionsCount == other.connectionsCount &&
             createdAt == other.createdAt &&
@@ -933,6 +1215,7 @@ private constructor(
             id,
             billingGroupId,
             callRecording,
+            callingWindow,
             concurrentCallLimit,
             connectionsCount,
             createdAt,
@@ -954,5 +1237,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OutboundVoiceProfile{name=$name, id=$id, billingGroupId=$billingGroupId, callRecording=$callRecording, concurrentCallLimit=$concurrentCallLimit, connectionsCount=$connectionsCount, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, maxDestinationRate=$maxDestinationRate, recordType=$recordType, servicePlan=$servicePlan, tags=$tags, trafficType=$trafficType, updatedAt=$updatedAt, usagePaymentMethod=$usagePaymentMethod, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+        "OutboundVoiceProfile{name=$name, id=$id, billingGroupId=$billingGroupId, callRecording=$callRecording, callingWindow=$callingWindow, concurrentCallLimit=$concurrentCallLimit, connectionsCount=$connectionsCount, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, maxDestinationRate=$maxDestinationRate, recordType=$recordType, servicePlan=$servicePlan, tags=$tags, trafficType=$trafficType, updatedAt=$updatedAt, usagePaymentMethod=$usagePaymentMethod, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
 }

@@ -23,6 +23,13 @@ internal class OutboundVoiceProfileCreateParamsTest {
                     )
                     .build()
             )
+            .callingWindow(
+                OutboundVoiceProfileCreateParams.CallingWindow.builder()
+                    .callsPerCld(5L)
+                    .endTime("18:11:19.117Z")
+                    .startTime("18:11:19.117Z")
+                    .build()
+            )
             .concurrentCallLimit(10L)
             .dailySpendLimit("100.00")
             .dailySpendLimitEnabled(true)
@@ -52,6 +59,13 @@ internal class OutboundVoiceProfileCreateParamsTest {
                         )
                         .build()
                 )
+                .callingWindow(
+                    OutboundVoiceProfileCreateParams.CallingWindow.builder()
+                        .callsPerCld(5L)
+                        .endTime("18:11:19.117Z")
+                        .startTime("18:11:19.117Z")
+                        .build()
+                )
                 .concurrentCallLimit(10L)
                 .dailySpendLimit("100.00")
                 .dailySpendLimitEnabled(true)
@@ -77,6 +91,14 @@ internal class OutboundVoiceProfileCreateParamsTest {
                     .callRecordingType(
                         OutboundCallRecording.CallRecordingType.BY_CALLER_PHONE_NUMBER
                     )
+                    .build()
+            )
+        assertThat(body.callingWindow())
+            .contains(
+                OutboundVoiceProfileCreateParams.CallingWindow.builder()
+                    .callsPerCld(5L)
+                    .endTime("18:11:19.117Z")
+                    .startTime("18:11:19.117Z")
                     .build()
             )
         assertThat(body.concurrentCallLimit()).contains(10L)
