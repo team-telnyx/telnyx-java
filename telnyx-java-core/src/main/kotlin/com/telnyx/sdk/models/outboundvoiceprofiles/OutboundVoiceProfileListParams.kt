@@ -26,7 +26,7 @@ private constructor(
     /** Consolidated filter parameter (deepObject style). Originally: filter[name][contains] */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
     fun page(): Optional<Page> = Optional.ofNullable(page)
 
     /**
@@ -82,7 +82,7 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
-        /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
         fun page(page: Page?) = apply { this.page = page }
 
         /** Alias for calling [Builder.page] with `page.orElse(null)`. */
@@ -409,7 +409,7 @@ private constructor(
         override fun toString() = "Filter{name=$name, additionalProperties=$additionalProperties}"
     }
 
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
     class Page
     private constructor(
         private val number: Long?,
