@@ -423,10 +423,17 @@ private constructor(
                 )
         }
 
-        class PortingOrder private constructor(private val status: List<Status>?) {
+        class PortingOrder
+        private constructor(
+            private val status: List<Status>?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filter results by specific porting order statuses */
             fun status(): Optional<List<Status>> = Optional.ofNullable(status)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -440,10 +447,12 @@ private constructor(
             class Builder internal constructor() {
 
                 private var status: MutableList<Status>? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(portingOrder: PortingOrder) = apply {
                     status = portingOrder.status?.toMutableList()
+                    additionalProperties = portingOrder.additionalProperties.toBuilder()
                 }
 
                 /** Filter results by specific porting order statuses */
@@ -461,12 +470,64 @@ private constructor(
                     this.status = (this.status ?: mutableListOf()).apply { add(status) }
                 }
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [PortingOrder].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): PortingOrder = PortingOrder(status?.toImmutable())
+                fun build(): PortingOrder =
+                    PortingOrder(status?.toImmutable(), additionalProperties.build())
             }
 
             class Status @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -647,14 +708,17 @@ private constructor(
                     return true
                 }
 
-                return other is PortingOrder && status == other.status
+                return other is PortingOrder &&
+                    status == other.status &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(status) }
+            private val hashCode: Int by lazy { Objects.hash(status, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "PortingOrder{status=$status}"
+            override fun toString() =
+                "PortingOrder{status=$status, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

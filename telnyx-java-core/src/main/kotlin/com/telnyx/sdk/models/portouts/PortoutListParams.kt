@@ -553,13 +553,20 @@ private constructor(
 
         /** Filter by inserted_at date range using nested operations */
         class InsertedAt
-        private constructor(private val gte: OffsetDateTime?, private val lte: OffsetDateTime?) {
+        private constructor(
+            private val gte: OffsetDateTime?,
+            private val lte: OffsetDateTime?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filter by inserted_at date greater than or equal. */
             fun gte(): Optional<OffsetDateTime> = Optional.ofNullable(gte)
 
             /** Filter by inserted_at date less than or equal. */
             fun lte(): Optional<OffsetDateTime> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -574,11 +581,13 @@ private constructor(
 
                 private var gte: OffsetDateTime? = null
                 private var lte: OffsetDateTime? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(insertedAt: InsertedAt) = apply {
                     gte = insertedAt.gte
                     lte = insertedAt.lte
+                    additionalProperties = insertedAt.additionalProperties.toBuilder()
                 }
 
                 /** Filter by inserted_at date greater than or equal. */
@@ -593,12 +602,63 @@ private constructor(
                 /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                 fun lte(lte: Optional<OffsetDateTime>) = lte(lte.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [InsertedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): InsertedAt = InsertedAt(gte, lte)
+                fun build(): InsertedAt = InsertedAt(gte, lte, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -606,25 +666,36 @@ private constructor(
                     return true
                 }
 
-                return other is InsertedAt && gte == other.gte && lte == other.lte
+                return other is InsertedAt &&
+                    gte == other.gte &&
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(gte, lte) }
+            private val hashCode: Int by lazy { Objects.hash(gte, lte, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "InsertedAt{gte=$gte, lte=$lte}"
+            override fun toString() =
+                "InsertedAt{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
         /** Filter by ported_out_at date range using nested operations */
         class PortedOutAt
-        private constructor(private val gte: OffsetDateTime?, private val lte: OffsetDateTime?) {
+        private constructor(
+            private val gte: OffsetDateTime?,
+            private val lte: OffsetDateTime?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filter by ported_out_at date greater than or equal. */
             fun gte(): Optional<OffsetDateTime> = Optional.ofNullable(gte)
 
             /** Filter by ported_out_at date less than or equal. */
             fun lte(): Optional<OffsetDateTime> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -639,11 +710,13 @@ private constructor(
 
                 private var gte: OffsetDateTime? = null
                 private var lte: OffsetDateTime? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(portedOutAt: PortedOutAt) = apply {
                     gte = portedOutAt.gte
                     lte = portedOutAt.lte
+                    additionalProperties = portedOutAt.additionalProperties.toBuilder()
                 }
 
                 /** Filter by ported_out_at date greater than or equal. */
@@ -658,12 +731,63 @@ private constructor(
                 /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                 fun lte(lte: Optional<OffsetDateTime>) = lte(lte.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [PortedOutAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): PortedOutAt = PortedOutAt(gte, lte)
+                fun build(): PortedOutAt = PortedOutAt(gte, lte, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -671,14 +795,18 @@ private constructor(
                     return true
                 }
 
-                return other is PortedOutAt && gte == other.gte && lte == other.lte
+                return other is PortedOutAt &&
+                    gte == other.gte &&
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(gte, lte) }
+            private val hashCode: Int by lazy { Objects.hash(gte, lte, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "PortedOutAt{gte=$gte, lte=$lte}"
+            override fun toString() =
+                "PortedOutAt{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
         /** Filter by portout status. */

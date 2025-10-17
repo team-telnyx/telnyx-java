@@ -757,6 +757,7 @@ private constructor(
             private val contains: String?,
             private val endsWith: String?,
             private val startsWith: String?,
+            private val additionalProperties: QueryParams,
         ) {
 
             /**
@@ -777,6 +778,9 @@ private constructor(
              */
             fun startsWith(): Optional<String> = Optional.ofNullable(startsWith)
 
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
+
             fun toBuilder() = Builder().from(this)
 
             companion object {
@@ -791,12 +795,14 @@ private constructor(
                 private var contains: String? = null
                 private var endsWith: String? = null
                 private var startsWith: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(phoneNumber: PhoneNumber) = apply {
                     contains = phoneNumber.contains
                     endsWith = phoneNumber.endsWith
                     startsWith = phoneNumber.startsWith
+                    additionalProperties = phoneNumber.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -826,12 +832,64 @@ private constructor(
                 /** Alias for calling [Builder.startsWith] with `startsWith.orElse(null)`. */
                 fun startsWith(startsWith: Optional<String>) = startsWith(startsWith.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [PhoneNumber].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): PhoneNumber = PhoneNumber(contains, endsWith, startsWith)
+                fun build(): PhoneNumber =
+                    PhoneNumber(contains, endsWith, startsWith, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -842,15 +900,18 @@ private constructor(
                 return other is PhoneNumber &&
                     contains == other.contains &&
                     endsWith == other.endsWith &&
-                    startsWith == other.startsWith
+                    startsWith == other.startsWith &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains, endsWith, startsWith) }
+            private val hashCode: Int by lazy {
+                Objects.hash(contains, endsWith, startsWith, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PhoneNumber{contains=$contains, endsWith=$endsWith, startsWith=$startsWith}"
+                "PhoneNumber{contains=$contains, endsWith=$endsWith, startsWith=$startsWith, additionalProperties=$additionalProperties}"
         }
 
         /** Filter phone numbers by number type. */

@@ -469,13 +469,20 @@ private constructor(
                 )
         }
 
-        class AddressBook private constructor(private val eq: String?) {
+        class AddressBook
+        private constructor(
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * If present, only returns results with the <code>address_book</code> flag equal to the
              * given value.
              */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -489,9 +496,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
-                internal fun from(addressBook: AddressBook) = apply { eq = addressBook.eq }
+                internal fun from(addressBook: AddressBook) = apply {
+                    eq = addressBook.eq
+                    additionalProperties = addressBook.additionalProperties.toBuilder()
+                }
 
                 /**
                  * If present, only returns results with the <code>address_book</code> flag equal to
@@ -502,12 +513,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [AddressBook].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): AddressBook = AddressBook(eq)
+                fun build(): AddressBook = AddressBook(eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -515,14 +577,17 @@ private constructor(
                     return true
                 }
 
-                return other is AddressBook && eq == other.eq
+                return other is AddressBook &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "AddressBook{eq=$eq}"
+            override fun toString() =
+                "AddressBook{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -610,13 +675,20 @@ private constructor(
             }
 
             class UnionMember1
-            private constructor(private val contains: String?, private val eq: String?) {
+            private constructor(
+                private val contains: String?,
+                private val eq: String?,
+                private val additionalProperties: QueryParams,
+            ) {
 
                 /** Partial match for customer_reference. Matching is not case-sensitive. */
                 fun contains(): Optional<String> = Optional.ofNullable(contains)
 
                 /** Exact match for customer_reference. */
                 fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+                /** Query params to send with the request. */
+                fun _additionalProperties(): QueryParams = additionalProperties
 
                 fun toBuilder() = Builder().from(this)
 
@@ -631,11 +703,13 @@ private constructor(
 
                     private var contains: String? = null
                     private var eq: String? = null
+                    private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                     @JvmSynthetic
                     internal fun from(unionMember1: UnionMember1) = apply {
                         contains = unionMember1.contains
                         eq = unionMember1.eq
+                        additionalProperties = unionMember1.additionalProperties.toBuilder()
                     }
 
                     /** Partial match for customer_reference. Matching is not case-sensitive. */
@@ -650,12 +724,64 @@ private constructor(
                     /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                     fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                    fun additionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                        apply {
+                            this.additionalProperties.clear()
+                            putAllAdditionalProperties(additionalProperties)
+                        }
+
+                    fun putAdditionalProperty(key: String, value: String) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.put(key, values)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    fun putAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                    fun replaceAdditionalProperties(key: String, value: String) = apply {
+                        additionalProperties.replace(key, value)
+                    }
+
+                    fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.replace(key, values)
+                    }
+
+                    fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.replaceAll(additionalProperties)
+                    }
+
+                    fun replaceAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                    fun removeAdditionalProperties(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        additionalProperties.removeAll(keys)
+                    }
+
                     /**
                      * Returns an immutable instance of [UnionMember1].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): UnionMember1 = UnionMember1(contains, eq)
+                    fun build(): UnionMember1 =
+                        UnionMember1(contains, eq, additionalProperties.build())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -663,24 +789,37 @@ private constructor(
                         return true
                     }
 
-                    return other is UnionMember1 && contains == other.contains && eq == other.eq
+                    return other is UnionMember1 &&
+                        contains == other.contains &&
+                        eq == other.eq &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                private val hashCode: Int by lazy { Objects.hash(contains, eq) }
+                private val hashCode: Int by lazy {
+                    Objects.hash(contains, eq, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
-                override fun toString() = "UnionMember1{contains=$contains, eq=$eq}"
+                override fun toString() =
+                    "UnionMember1{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
             }
         }
 
-        class StreetAddress private constructor(private val contains: String?) {
+        class StreetAddress
+        private constructor(
+            private val contains: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * If present, addresses with <code>street_address</code> containing the given value
              * will be returned. Matching is not case-sensitive. Requires at least three characters.
              */
             fun contains(): Optional<String> = Optional.ofNullable(contains)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -694,10 +833,12 @@ private constructor(
             class Builder internal constructor() {
 
                 private var contains: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(streetAddress: StreetAddress) = apply {
                     contains = streetAddress.contains
+                    additionalProperties = streetAddress.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -710,12 +851,63 @@ private constructor(
                 /** Alias for calling [Builder.contains] with `contains.orElse(null)`. */
                 fun contains(contains: Optional<String>) = contains(contains.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [StreetAddress].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): StreetAddress = StreetAddress(contains)
+                fun build(): StreetAddress = StreetAddress(contains, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -723,14 +915,17 @@ private constructor(
                     return true
                 }
 
-                return other is StreetAddress && contains == other.contains
+                return other is StreetAddress &&
+                    contains == other.contains &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains) }
+            private val hashCode: Int by lazy { Objects.hash(contains, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "StreetAddress{contains=$contains}"
+            override fun toString() =
+                "StreetAddress{contains=$contains, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

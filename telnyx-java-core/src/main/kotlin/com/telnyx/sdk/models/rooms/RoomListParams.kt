@@ -392,6 +392,7 @@ private constructor(
             private val eq: LocalDate?,
             private val gte: LocalDate?,
             private val lte: LocalDate?,
+            private val additionalProperties: QueryParams,
         ) {
 
             /** ISO 8601 date for filtering rooms created on that date. */
@@ -402,6 +403,9 @@ private constructor(
 
             /** ISO 8601 date for filtering rooms created on or before that date. */
             fun lte(): Optional<LocalDate> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -417,12 +421,14 @@ private constructor(
                 private var eq: LocalDate? = null
                 private var gte: LocalDate? = null
                 private var lte: LocalDate? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(dateCreatedAt: DateCreatedAt) = apply {
                     eq = dateCreatedAt.eq
                     gte = dateCreatedAt.gte
                     lte = dateCreatedAt.lte
+                    additionalProperties = dateCreatedAt.additionalProperties.toBuilder()
                 }
 
                 /** ISO 8601 date for filtering rooms created on that date. */
@@ -443,12 +449,64 @@ private constructor(
                 /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                 fun lte(lte: Optional<LocalDate>) = lte(lte.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [DateCreatedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): DateCreatedAt = DateCreatedAt(eq, gte, lte)
+                fun build(): DateCreatedAt =
+                    DateCreatedAt(eq, gte, lte, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -459,14 +517,16 @@ private constructor(
                 return other is DateCreatedAt &&
                     eq == other.eq &&
                     gte == other.gte &&
-                    lte == other.lte
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq, gte, lte) }
+            private val hashCode: Int by lazy { Objects.hash(eq, gte, lte, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "DateCreatedAt{eq=$eq, gte=$gte, lte=$lte}"
+            override fun toString() =
+                "DateCreatedAt{eq=$eq, gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
         class DateUpdatedAt
@@ -474,6 +534,7 @@ private constructor(
             private val eq: LocalDate?,
             private val gte: LocalDate?,
             private val lte: LocalDate?,
+            private val additionalProperties: QueryParams,
         ) {
 
             /** ISO 8601 date for filtering rooms updated on that date. */
@@ -484,6 +545,9 @@ private constructor(
 
             /** ISO 8601 date for filtering rooms updated on or before that date. */
             fun lte(): Optional<LocalDate> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -499,12 +563,14 @@ private constructor(
                 private var eq: LocalDate? = null
                 private var gte: LocalDate? = null
                 private var lte: LocalDate? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(dateUpdatedAt: DateUpdatedAt) = apply {
                     eq = dateUpdatedAt.eq
                     gte = dateUpdatedAt.gte
                     lte = dateUpdatedAt.lte
+                    additionalProperties = dateUpdatedAt.additionalProperties.toBuilder()
                 }
 
                 /** ISO 8601 date for filtering rooms updated on that date. */
@@ -525,12 +591,64 @@ private constructor(
                 /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                 fun lte(lte: Optional<LocalDate>) = lte(lte.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [DateUpdatedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): DateUpdatedAt = DateUpdatedAt(eq, gte, lte)
+                fun build(): DateUpdatedAt =
+                    DateUpdatedAt(eq, gte, lte, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -541,14 +659,16 @@ private constructor(
                 return other is DateUpdatedAt &&
                     eq == other.eq &&
                     gte == other.gte &&
-                    lte == other.lte
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq, gte, lte) }
+            private val hashCode: Int by lazy { Objects.hash(eq, gte, lte, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "DateUpdatedAt{eq=$eq, gte=$gte, lte=$lte}"
+            override fun toString() =
+                "DateUpdatedAt{eq=$eq, gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

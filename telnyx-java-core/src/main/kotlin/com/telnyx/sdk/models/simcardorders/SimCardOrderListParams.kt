@@ -431,6 +431,7 @@ private constructor(
             private val locality: String?,
             private val postalCode: String?,
             private val streetAddress: String?,
+            private val additionalProperties: QueryParams,
         ) {
 
             /** Uniquely identifies the address for the order. */
@@ -458,6 +459,9 @@ private constructor(
             /** Returns entries with matching name of the street where the address is located. */
             fun streetAddress(): Optional<String> = Optional.ofNullable(streetAddress)
 
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
+
             fun toBuilder() = Builder().from(this)
 
             companion object {
@@ -476,6 +480,7 @@ private constructor(
                 private var locality: String? = null
                 private var postalCode: String? = null
                 private var streetAddress: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
@@ -486,6 +491,7 @@ private constructor(
                     locality = address.locality
                     postalCode = address.postalCode
                     streetAddress = address.streetAddress
+                    additionalProperties = address.additionalProperties.toBuilder()
                 }
 
                 /** Uniquely identifies the address for the order. */
@@ -553,6 +559,57 @@ private constructor(
                 fun streetAddress(streetAddress: Optional<String>) =
                     streetAddress(streetAddress.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Address].
                  *
@@ -567,6 +624,7 @@ private constructor(
                         locality,
                         postalCode,
                         streetAddress,
+                        additionalProperties.build(),
                     )
             }
 
@@ -582,7 +640,8 @@ private constructor(
                     extendedAddress == other.extendedAddress &&
                     locality == other.locality &&
                     postalCode == other.postalCode &&
-                    streetAddress == other.streetAddress
+                    streetAddress == other.streetAddress &&
+                    additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
@@ -594,22 +653,31 @@ private constructor(
                     locality,
                     postalCode,
                     streetAddress,
+                    additionalProperties,
                 )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{id=$id, administrativeArea=$administrativeArea, countryCode=$countryCode, extendedAddress=$extendedAddress, locality=$locality, postalCode=$postalCode, streetAddress=$streetAddress}"
+                "Address{id=$id, administrativeArea=$administrativeArea, countryCode=$countryCode, extendedAddress=$extendedAddress, locality=$locality, postalCode=$postalCode, streetAddress=$streetAddress, additionalProperties=$additionalProperties}"
         }
 
-        class Cost private constructor(private val amount: String?, private val currency: String?) {
+        class Cost
+        private constructor(
+            private val amount: String?,
+            private val currency: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** The total monetary amount of the order. */
             fun amount(): Optional<String> = Optional.ofNullable(amount)
 
             /** Filter by ISO 4217 currency string. */
             fun currency(): Optional<String> = Optional.ofNullable(currency)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -624,11 +692,13 @@ private constructor(
 
                 private var amount: String? = null
                 private var currency: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(cost: Cost) = apply {
                     amount = cost.amount
                     currency = cost.currency
+                    additionalProperties = cost.additionalProperties.toBuilder()
                 }
 
                 /** The total monetary amount of the order. */
@@ -643,12 +713,63 @@ private constructor(
                 /** Alias for calling [Builder.currency] with `currency.orElse(null)`. */
                 fun currency(currency: Optional<String>) = currency(currency.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Cost].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Cost = Cost(amount, currency)
+                fun build(): Cost = Cost(amount, currency, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -656,14 +777,20 @@ private constructor(
                     return true
                 }
 
-                return other is Cost && amount == other.amount && currency == other.currency
+                return other is Cost &&
+                    amount == other.amount &&
+                    currency == other.currency &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(amount, currency) }
+            private val hashCode: Int by lazy {
+                Objects.hash(amount, currency, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Cost{amount=$amount, currency=$currency}"
+            override fun toString() =
+                "Cost{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

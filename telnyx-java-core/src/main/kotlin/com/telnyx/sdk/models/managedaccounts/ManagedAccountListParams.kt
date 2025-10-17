@@ -408,7 +408,12 @@ private constructor(
             fun build(): Filter = Filter(email, organizationName, additionalProperties.build())
         }
 
-        class Email private constructor(private val contains: String?, private val eq: String?) {
+        class Email
+        private constructor(
+            private val contains: String?,
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * If present, email containing the given value will be returned. Matching is not
@@ -421,6 +426,9 @@ private constructor(
              * value given.
              */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -435,11 +443,13 @@ private constructor(
 
                 private var contains: String? = null
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(email: Email) = apply {
                     contains = email.contains
                     eq = email.eq
+                    additionalProperties = email.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -460,12 +470,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Email].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Email = Email(contains, eq)
+                fun build(): Email = Email(contains, eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -473,18 +534,26 @@ private constructor(
                     return true
                 }
 
-                return other is Email && contains == other.contains && eq == other.eq
+                return other is Email &&
+                    contains == other.contains &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains, eq) }
+            private val hashCode: Int by lazy { Objects.hash(contains, eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Email{contains=$contains, eq=$eq}"
+            override fun toString() =
+                "Email{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         class OrganizationName
-        private constructor(private val contains: String?, private val eq: String?) {
+        private constructor(
+            private val contains: String?,
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * If present, only returns results with the <code>organization_name</code> containing
@@ -497,6 +566,9 @@ private constructor(
              * exactly the value given.
              */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -511,11 +583,13 @@ private constructor(
 
                 private var contains: String? = null
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(organizationName: OrganizationName) = apply {
                     contains = organizationName.contains
                     eq = organizationName.eq
+                    additionalProperties = organizationName.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -537,12 +611,64 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [OrganizationName].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): OrganizationName = OrganizationName(contains, eq)
+                fun build(): OrganizationName =
+                    OrganizationName(contains, eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -550,14 +676,18 @@ private constructor(
                     return true
                 }
 
-                return other is OrganizationName && contains == other.contains && eq == other.eq
+                return other is OrganizationName &&
+                    contains == other.contains &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains, eq) }
+            private val hashCode: Int by lazy { Objects.hash(contains, eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "OrganizationName{contains=$contains, eq=$eq}"
+            override fun toString() =
+                "OrganizationName{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

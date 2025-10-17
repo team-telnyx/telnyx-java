@@ -437,10 +437,17 @@ private constructor(
             }
 
             /** Filtering operations */
-            class In private constructor(private val in_: String?) {
+            class In
+            private constructor(
+                private val in_: String?,
+                private val additionalProperties: QueryParams,
+            ) {
 
                 /** Filter by Global IP Assignment ID(s) separated by commas */
                 fun in_(): Optional<String> = Optional.ofNullable(in_)
+
+                /** Query params to send with the request. */
+                fun _additionalProperties(): QueryParams = additionalProperties
 
                 fun toBuilder() = Builder().from(this)
 
@@ -454,8 +461,13 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var in_: String? = null
+                    private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                    @JvmSynthetic internal fun from(in_: In) = apply { this.in_ = in_.in_ }
+                    @JvmSynthetic
+                    internal fun from(in_: In) = apply {
+                        this.in_ = in_.in_
+                        additionalProperties = in_.additionalProperties.toBuilder()
+                    }
 
                     /** Filter by Global IP Assignment ID(s) separated by commas */
                     fun in_(in_: String?) = apply { this.in_ = in_ }
@@ -463,12 +475,63 @@ private constructor(
                     /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
                     fun in_(in_: Optional<String>) = in_(in_.getOrNull())
 
+                    fun additionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                        apply {
+                            this.additionalProperties.clear()
+                            putAllAdditionalProperties(additionalProperties)
+                        }
+
+                    fun putAdditionalProperty(key: String, value: String) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.put(key, values)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    fun putAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                    fun replaceAdditionalProperties(key: String, value: String) = apply {
+                        additionalProperties.replace(key, value)
+                    }
+
+                    fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.replace(key, values)
+                    }
+
+                    fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.replaceAll(additionalProperties)
+                    }
+
+                    fun replaceAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                    fun removeAdditionalProperties(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        additionalProperties.removeAll(keys)
+                    }
+
                     /**
                      * Returns an immutable instance of [In].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): In = In(in_)
+                    fun build(): In = In(in_, additionalProperties.build())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -476,14 +539,16 @@ private constructor(
                         return true
                     }
 
-                    return other is In && in_ == other.in_
+                    return other is In &&
+                        in_ == other.in_ &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                private val hashCode: Int by lazy { Objects.hash(in_) }
+                private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
 
                 override fun hashCode(): Int = hashCode
 
-                override fun toString() = "In{in_=$in_}"
+                override fun toString() = "In{in_=$in_, additionalProperties=$additionalProperties}"
             }
         }
 
@@ -554,10 +619,17 @@ private constructor(
             }
 
             /** Filtering operations */
-            class In private constructor(private val in_: String?) {
+            class In
+            private constructor(
+                private val in_: String?,
+                private val additionalProperties: QueryParams,
+            ) {
 
                 /** Filter by Global IP ID(s) separated by commas */
                 fun in_(): Optional<String> = Optional.ofNullable(in_)
+
+                /** Query params to send with the request. */
+                fun _additionalProperties(): QueryParams = additionalProperties
 
                 fun toBuilder() = Builder().from(this)
 
@@ -571,8 +643,13 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var in_: String? = null
+                    private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                    @JvmSynthetic internal fun from(in_: In) = apply { this.in_ = in_.in_ }
+                    @JvmSynthetic
+                    internal fun from(in_: In) = apply {
+                        this.in_ = in_.in_
+                        additionalProperties = in_.additionalProperties.toBuilder()
+                    }
 
                     /** Filter by Global IP ID(s) separated by commas */
                     fun in_(in_: String?) = apply { this.in_ = in_ }
@@ -580,12 +657,63 @@ private constructor(
                     /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
                     fun in_(in_: Optional<String>) = in_(in_.getOrNull())
 
+                    fun additionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                        apply {
+                            this.additionalProperties.clear()
+                            putAllAdditionalProperties(additionalProperties)
+                        }
+
+                    fun putAdditionalProperty(key: String, value: String) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.put(key, values)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    fun putAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                    fun replaceAdditionalProperties(key: String, value: String) = apply {
+                        additionalProperties.replace(key, value)
+                    }
+
+                    fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.replace(key, values)
+                    }
+
+                    fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.replaceAll(additionalProperties)
+                    }
+
+                    fun replaceAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                    fun removeAdditionalProperties(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        additionalProperties.removeAll(keys)
+                    }
+
                     /**
                      * Returns an immutable instance of [In].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): In = In(in_)
+                    fun build(): In = In(in_, additionalProperties.build())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -593,14 +721,16 @@ private constructor(
                         return true
                     }
 
-                    return other is In && in_ == other.in_
+                    return other is In &&
+                        in_ == other.in_ &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                private val hashCode: Int by lazy { Objects.hash(in_) }
+                private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
 
                 override fun hashCode(): Int = hashCode
 
-                override fun toString() = "In{in_=$in_}"
+                override fun toString() = "In{in_=$in_, additionalProperties=$additionalProperties}"
             }
         }
 
