@@ -429,13 +429,20 @@ private constructor(
                 )
         }
 
-        class ConnectionName private constructor(private val contains: String?) {
+        class ConnectionName
+        private constructor(
+            private val contains: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * If present, connections with <code>connection_name</code> containing the given value
              * will be returned. Matching is not case-sensitive. Requires at least three characters.
              */
             fun contains(): Optional<String> = Optional.ofNullable(contains)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -449,10 +456,12 @@ private constructor(
             class Builder internal constructor() {
 
                 private var contains: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(connectionName: ConnectionName) = apply {
                     contains = connectionName.contains
+                    additionalProperties = connectionName.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -465,12 +474,63 @@ private constructor(
                 /** Alias for calling [Builder.contains] with `contains.orElse(null)`. */
                 fun contains(contains: Optional<String>) = contains(contains.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [ConnectionName].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): ConnectionName = ConnectionName(contains)
+                fun build(): ConnectionName = ConnectionName(contains, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -478,14 +538,17 @@ private constructor(
                     return true
                 }
 
-                return other is ConnectionName && contains == other.contains
+                return other is ConnectionName &&
+                    contains == other.contains &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains) }
+            private val hashCode: Int by lazy { Objects.hash(contains, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "ConnectionName{contains=$contains}"
+            override fun toString() =
+                "ConnectionName{contains=$contains, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -631,13 +694,20 @@ private constructor(
          * Phone number filter for connections. Note: Despite the 'contains' name, this requires a
          * full E164 match per the original specification.
          */
-        class PhoneNumber private constructor(private val contains: String?) {
+        class PhoneNumber
+        private constructor(
+            private val contains: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * If present, connections associated with the given phone_number will be returned. A
              * full match is necessary with a e164 format.
              */
             fun contains(): Optional<String> = Optional.ofNullable(contains)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -651,10 +721,12 @@ private constructor(
             class Builder internal constructor() {
 
                 private var contains: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(phoneNumber: PhoneNumber) = apply {
                     contains = phoneNumber.contains
+                    additionalProperties = phoneNumber.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -666,12 +738,63 @@ private constructor(
                 /** Alias for calling [Builder.contains] with `contains.orElse(null)`. */
                 fun contains(contains: Optional<String>) = contains(contains.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [PhoneNumber].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): PhoneNumber = PhoneNumber(contains)
+                fun build(): PhoneNumber = PhoneNumber(contains, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -679,14 +802,17 @@ private constructor(
                     return true
                 }
 
-                return other is PhoneNumber && contains == other.contains
+                return other is PhoneNumber &&
+                    contains == other.contains &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains) }
+            private val hashCode: Int by lazy { Objects.hash(contains, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "PhoneNumber{contains=$contains}"
+            override fun toString() =
+                "PhoneNumber{contains=$contains, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

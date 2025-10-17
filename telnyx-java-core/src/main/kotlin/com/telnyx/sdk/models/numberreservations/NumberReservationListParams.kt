@@ -382,13 +382,21 @@ private constructor(
         }
 
         /** Filter number reservations by date range. */
-        class CreatedAt private constructor(private val gt: String?, private val lt: String?) {
+        class CreatedAt
+        private constructor(
+            private val gt: String?,
+            private val lt: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filter number reservations later than this value. */
             fun gt(): Optional<String> = Optional.ofNullable(gt)
 
             /** Filter number reservations earlier than this value. */
             fun lt(): Optional<String> = Optional.ofNullable(lt)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -403,11 +411,13 @@ private constructor(
 
                 private var gt: String? = null
                 private var lt: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(createdAt: CreatedAt) = apply {
                     gt = createdAt.gt
                     lt = createdAt.lt
+                    additionalProperties = createdAt.additionalProperties.toBuilder()
                 }
 
                 /** Filter number reservations later than this value. */
@@ -422,12 +432,63 @@ private constructor(
                 /** Alias for calling [Builder.lt] with `lt.orElse(null)`. */
                 fun lt(lt: Optional<String>) = lt(lt.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [CreatedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): CreatedAt = CreatedAt(gt, lt)
+                fun build(): CreatedAt = CreatedAt(gt, lt, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -435,14 +496,18 @@ private constructor(
                     return true
                 }
 
-                return other is CreatedAt && gt == other.gt && lt == other.lt
+                return other is CreatedAt &&
+                    gt == other.gt &&
+                    lt == other.lt &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(gt, lt) }
+            private val hashCode: Int by lazy { Objects.hash(gt, lt, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "CreatedAt{gt=$gt, lt=$lt}"
+            override fun toString() =
+                "CreatedAt{gt=$gt, lt=$lt, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

@@ -462,10 +462,14 @@ private constructor(
                 )
         }
 
-        class AssociatedRecordType private constructor(private val eq: Eq?) {
+        class AssociatedRecordType
+        private constructor(private val eq: Eq?, private val additionalProperties: QueryParams) {
 
             /** Filter by the associated record type */
             fun eq(): Optional<Eq> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -481,10 +485,12 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: Eq? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(associatedRecordType: AssociatedRecordType) = apply {
                     eq = associatedRecordType.eq
+                    additionalProperties = associatedRecordType.additionalProperties.toBuilder()
                 }
 
                 /** Filter by the associated record type */
@@ -493,12 +499,64 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<Eq>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [AssociatedRecordType].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): AssociatedRecordType = AssociatedRecordType(eq)
+                fun build(): AssociatedRecordType =
+                    AssociatedRecordType(eq, additionalProperties.build())
             }
 
             /** Filter by the associated record type */
@@ -636,20 +694,27 @@ private constructor(
                     return true
                 }
 
-                return other is AssociatedRecordType && eq == other.eq
+                return other is AssociatedRecordType &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "AssociatedRecordType{eq=$eq}"
+            override fun toString() =
+                "AssociatedRecordType{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
-        class ChannelTypeId private constructor(private val eq: Eq?) {
+        class ChannelTypeId
+        private constructor(private val eq: Eq?, private val additionalProperties: QueryParams) {
 
             /** Filter by the id of a channel type */
             fun eq(): Optional<Eq> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -663,9 +728,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: Eq? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
-                internal fun from(channelTypeId: ChannelTypeId) = apply { eq = channelTypeId.eq }
+                internal fun from(channelTypeId: ChannelTypeId) = apply {
+                    eq = channelTypeId.eq
+                    additionalProperties = channelTypeId.additionalProperties.toBuilder()
+                }
 
                 /** Filter by the id of a channel type */
                 fun eq(eq: Eq?) = apply { this.eq = eq }
@@ -673,12 +742,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<Eq>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [ChannelTypeId].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): ChannelTypeId = ChannelTypeId(eq)
+                fun build(): ChannelTypeId = ChannelTypeId(eq, additionalProperties.build())
             }
 
             /** Filter by the id of a channel type */
@@ -828,20 +948,30 @@ private constructor(
                     return true
                 }
 
-                return other is ChannelTypeId && eq == other.eq
+                return other is ChannelTypeId &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "ChannelTypeId{eq=$eq}"
+            override fun toString() =
+                "ChannelTypeId{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
-        class NotificationChannel private constructor(private val eq: String?) {
+        class NotificationChannel
+        private constructor(
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filter by the id of a notification channel */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -857,10 +987,12 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(notificationChannel: NotificationChannel) = apply {
                     eq = notificationChannel.eq
+                    additionalProperties = notificationChannel.additionalProperties.toBuilder()
                 }
 
                 /** Filter by the id of a notification channel */
@@ -869,12 +1001,64 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [NotificationChannel].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): NotificationChannel = NotificationChannel(eq)
+                fun build(): NotificationChannel =
+                    NotificationChannel(eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -882,20 +1066,30 @@ private constructor(
                     return true
                 }
 
-                return other is NotificationChannel && eq == other.eq
+                return other is NotificationChannel &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "NotificationChannel{eq=$eq}"
+            override fun toString() =
+                "NotificationChannel{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
-        class NotificationEventConditionId private constructor(private val eq: String?) {
+        class NotificationEventConditionId
+        private constructor(
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filter by the id of a notification channel */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -912,11 +1106,14 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(notificationEventConditionId: NotificationEventConditionId) =
                     apply {
                         eq = notificationEventConditionId.eq
+                        additionalProperties =
+                            notificationEventConditionId.additionalProperties.toBuilder()
                     }
 
                 /** Filter by the id of a notification channel */
@@ -925,12 +1122,64 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [NotificationEventConditionId].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): NotificationEventConditionId = NotificationEventConditionId(eq)
+                fun build(): NotificationEventConditionId =
+                    NotificationEventConditionId(eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -938,20 +1187,30 @@ private constructor(
                     return true
                 }
 
-                return other is NotificationEventConditionId && eq == other.eq
+                return other is NotificationEventConditionId &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "NotificationEventConditionId{eq=$eq}"
+            override fun toString() =
+                "NotificationEventConditionId{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
-        class NotificationProfileId private constructor(private val eq: String?) {
+        class NotificationProfileId
+        private constructor(
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filter by the id of a notification profile */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -968,10 +1227,12 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(notificationProfileId: NotificationProfileId) = apply {
                     eq = notificationProfileId.eq
+                    additionalProperties = notificationProfileId.additionalProperties.toBuilder()
                 }
 
                 /** Filter by the id of a notification profile */
@@ -980,12 +1241,64 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [NotificationProfileId].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): NotificationProfileId = NotificationProfileId(eq)
+                fun build(): NotificationProfileId =
+                    NotificationProfileId(eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -993,20 +1306,27 @@ private constructor(
                     return true
                 }
 
-                return other is NotificationProfileId && eq == other.eq
+                return other is NotificationProfileId &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "NotificationProfileId{eq=$eq}"
+            override fun toString() =
+                "NotificationProfileId{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
-        class Status private constructor(private val eq: Eq?) {
+        class Status
+        private constructor(private val eq: Eq?, private val additionalProperties: QueryParams) {
 
             /** The status of a notification setting */
             fun eq(): Optional<Eq> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -1020,8 +1340,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: Eq? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                @JvmSynthetic internal fun from(status: Status) = apply { eq = status.eq }
+                @JvmSynthetic
+                internal fun from(status: Status) = apply {
+                    eq = status.eq
+                    additionalProperties = status.additionalProperties.toBuilder()
+                }
 
                 /** The status of a notification setting */
                 fun eq(eq: Eq?) = apply { this.eq = eq }
@@ -1029,12 +1354,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<Eq>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Status].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Status = Status(eq)
+                fun build(): Status = Status(eq, additionalProperties.build())
             }
 
             /** The status of a notification setting */
@@ -1208,14 +1584,16 @@ private constructor(
                     return true
                 }
 
-                return other is Status && eq == other.eq
+                return other is Status &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Status{eq=$eq}"
+            override fun toString() = "Status{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

@@ -414,6 +414,7 @@ private constructor(
             private val gte: OffsetDateTime?,
             private val lt: OffsetDateTime?,
             private val lte: OffsetDateTime?,
+            private val additionalProperties: QueryParams,
         ) {
 
             /** ISO 8601 date time for filtering faxes created after that date */
@@ -427,6 +428,9 @@ private constructor(
 
             /** ISO 8601 formatted date time for filtering faxes created on or before that date */
             fun lte(): Optional<OffsetDateTime> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -443,6 +447,7 @@ private constructor(
                 private var gte: OffsetDateTime? = null
                 private var lt: OffsetDateTime? = null
                 private var lte: OffsetDateTime? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(createdAt: CreatedAt) = apply {
@@ -450,6 +455,7 @@ private constructor(
                     gte = createdAt.gte
                     lt = createdAt.lt
                     lte = createdAt.lte
+                    additionalProperties = createdAt.additionalProperties.toBuilder()
                 }
 
                 /** ISO 8601 date time for filtering faxes created after that date */
@@ -478,12 +484,63 @@ private constructor(
                 /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                 fun lte(lte: Optional<OffsetDateTime>) = lte(lte.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [CreatedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): CreatedAt = CreatedAt(gt, gte, lt, lte)
+                fun build(): CreatedAt = CreatedAt(gt, gte, lt, lte, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -495,21 +552,32 @@ private constructor(
                     gt == other.gt &&
                     gte == other.gte &&
                     lt == other.lt &&
-                    lte == other.lte
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(gt, gte, lt, lte) }
+            private val hashCode: Int by lazy {
+                Objects.hash(gt, gte, lt, lte, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "CreatedAt{gt=$gt, gte=$gte, lt=$lt, lte=$lte}"
+            override fun toString() =
+                "CreatedAt{gt=$gt, gte=$gte, lt=$lt, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
         /** Direction filtering operations */
-        class Direction private constructor(private val eq: String?) {
+        class Direction
+        private constructor(
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** The direction, inbound or outbound, for filtering faxes sent from this account */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -523,8 +591,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                @JvmSynthetic internal fun from(direction: Direction) = apply { eq = direction.eq }
+                @JvmSynthetic
+                internal fun from(direction: Direction) = apply {
+                    eq = direction.eq
+                    additionalProperties = direction.additionalProperties.toBuilder()
+                }
 
                 /**
                  * The direction, inbound or outbound, for filtering faxes sent from this account
@@ -534,12 +607,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Direction].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Direction = Direction(eq)
+                fun build(): Direction = Direction(eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -547,21 +671,31 @@ private constructor(
                     return true
                 }
 
-                return other is Direction && eq == other.eq
+                return other is Direction &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Direction{eq=$eq}"
+            override fun toString() =
+                "Direction{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         /** From number filtering operations */
-        class From private constructor(private val eq: String?) {
+        class From
+        private constructor(
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** The phone number, in E.164 format for filtering faxes sent from this number */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -575,8 +709,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                @JvmSynthetic internal fun from(from: From) = apply { eq = from.eq }
+                @JvmSynthetic
+                internal fun from(from: From) = apply {
+                    eq = from.eq
+                    additionalProperties = from.additionalProperties.toBuilder()
+                }
 
                 /** The phone number, in E.164 format for filtering faxes sent from this number */
                 fun eq(eq: String?) = apply { this.eq = eq }
@@ -584,12 +723,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [From].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): From = From(eq)
+                fun build(): From = From(eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -597,21 +787,30 @@ private constructor(
                     return true
                 }
 
-                return other is From && eq == other.eq
+                return other is From &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "From{eq=$eq}"
+            override fun toString() = "From{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         /** To number filtering operations */
-        class To private constructor(private val eq: String?) {
+        class To
+        private constructor(
+            private val eq: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** The phone number, in E.164 format for filtering faxes sent to this number */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -625,8 +824,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                @JvmSynthetic internal fun from(to: To) = apply { eq = to.eq }
+                @JvmSynthetic
+                internal fun from(to: To) = apply {
+                    eq = to.eq
+                    additionalProperties = to.additionalProperties.toBuilder()
+                }
 
                 /** The phone number, in E.164 format for filtering faxes sent to this number */
                 fun eq(eq: String?) = apply { this.eq = eq }
@@ -634,12 +838,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [To].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): To = To(eq)
+                fun build(): To = To(eq, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -647,14 +902,16 @@ private constructor(
                     return true
                 }
 
-                return other is To && eq == other.eq
+                return other is To &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "To{eq=$eq}"
+            override fun toString() = "To{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

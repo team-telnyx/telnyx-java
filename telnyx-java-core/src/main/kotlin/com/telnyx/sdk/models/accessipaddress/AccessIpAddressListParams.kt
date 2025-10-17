@@ -488,6 +488,7 @@ private constructor(
                 private val gte: OffsetDateTime?,
                 private val lt: OffsetDateTime?,
                 private val lte: OffsetDateTime?,
+                private val additionalProperties: QueryParams,
             ) {
 
                 /** Filter for creation date-time greater than */
@@ -501,6 +502,9 @@ private constructor(
 
                 /** Filter for creation date-time less than or equal to */
                 fun lte(): Optional<OffsetDateTime> = Optional.ofNullable(lte)
+
+                /** Query params to send with the request. */
+                fun _additionalProperties(): QueryParams = additionalProperties
 
                 fun toBuilder() = Builder().from(this)
 
@@ -519,6 +523,7 @@ private constructor(
                     private var gte: OffsetDateTime? = null
                     private var lt: OffsetDateTime? = null
                     private var lte: OffsetDateTime? = null
+                    private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                     @JvmSynthetic
                     internal fun from(dateRangeFilter: DateRangeFilter) = apply {
@@ -526,6 +531,7 @@ private constructor(
                         gte = dateRangeFilter.gte
                         lt = dateRangeFilter.lt
                         lte = dateRangeFilter.lte
+                        additionalProperties = dateRangeFilter.additionalProperties.toBuilder()
                     }
 
                     /** Filter for creation date-time greater than */
@@ -552,12 +558,64 @@ private constructor(
                     /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                     fun lte(lte: Optional<OffsetDateTime>) = lte(lte.getOrNull())
 
+                    fun additionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                        apply {
+                            this.additionalProperties.clear()
+                            putAllAdditionalProperties(additionalProperties)
+                        }
+
+                    fun putAdditionalProperty(key: String, value: String) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.put(key, values)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    fun putAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                    fun replaceAdditionalProperties(key: String, value: String) = apply {
+                        additionalProperties.replace(key, value)
+                    }
+
+                    fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.replace(key, values)
+                    }
+
+                    fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.replaceAll(additionalProperties)
+                    }
+
+                    fun replaceAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                    fun removeAdditionalProperties(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        additionalProperties.removeAll(keys)
+                    }
+
                     /**
                      * Returns an immutable instance of [DateRangeFilter].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): DateRangeFilter = DateRangeFilter(gt, gte, lt, lte)
+                    fun build(): DateRangeFilter =
+                        DateRangeFilter(gt, gte, lt, lte, additionalProperties.build())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -569,14 +627,18 @@ private constructor(
                         gt == other.gt &&
                         gte == other.gte &&
                         lt == other.lt &&
-                        lte == other.lte
+                        lte == other.lte &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                private val hashCode: Int by lazy { Objects.hash(gt, gte, lt, lte) }
+                private val hashCode: Int by lazy {
+                    Objects.hash(gt, gte, lt, lte, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
-                override fun toString() = "DateRangeFilter{gt=$gt, gte=$gte, lt=$lt, lte=$lte}"
+                override fun toString() =
+                    "DateRangeFilter{gt=$gt, gte=$gte, lt=$lt, lte=$lte, additionalProperties=$additionalProperties}"
             }
         }
 
