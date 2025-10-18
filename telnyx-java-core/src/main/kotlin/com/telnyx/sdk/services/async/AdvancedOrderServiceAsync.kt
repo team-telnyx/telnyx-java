@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.advancedorders.AdvancedOrder
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateParams
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateResponse
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderListParams
@@ -31,23 +32,28 @@ interface AdvancedOrderServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AdvancedOrderServiceAsync
 
     /** Create Advanced Order */
-    fun create(): CompletableFuture<AdvancedOrderCreateResponse> =
-        create(AdvancedOrderCreateParams.none())
+    fun create(params: AdvancedOrderCreateParams): CompletableFuture<AdvancedOrderCreateResponse> =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: AdvancedOrderCreateParams = AdvancedOrderCreateParams.none(),
+        params: AdvancedOrderCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AdvancedOrderCreateResponse>
 
     /** @see create */
     fun create(
-        params: AdvancedOrderCreateParams = AdvancedOrderCreateParams.none()
-    ): CompletableFuture<AdvancedOrderCreateResponse> = create(params, RequestOptions.none())
+        advancedOrder: AdvancedOrder,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AdvancedOrderCreateResponse> =
+        create(
+            AdvancedOrderCreateParams.builder().advancedOrder(advancedOrder).build(),
+            requestOptions,
+        )
 
     /** @see create */
-    fun create(requestOptions: RequestOptions): CompletableFuture<AdvancedOrderCreateResponse> =
-        create(AdvancedOrderCreateParams.none(), requestOptions)
+    fun create(advancedOrder: AdvancedOrder): CompletableFuture<AdvancedOrderCreateResponse> =
+        create(advancedOrder, RequestOptions.none())
 
     /** Get Advanced Order */
     fun retrieve(orderId: String): CompletableFuture<AdvancedOrderRetrieveResponse> =
@@ -106,15 +112,15 @@ interface AdvancedOrderServiceAsync {
 
     /** Update Advanced Order */
     fun updateRequirementGroup(
-        advancedOrderId: String
+        advancedOrderId: String,
+        params: AdvancedOrderUpdateRequirementGroupParams,
     ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse> =
-        updateRequirementGroup(advancedOrderId, AdvancedOrderUpdateRequirementGroupParams.none())
+        updateRequirementGroup(advancedOrderId, params, RequestOptions.none())
 
     /** @see updateRequirementGroup */
     fun updateRequirementGroup(
         advancedOrderId: String,
-        params: AdvancedOrderUpdateRequirementGroupParams =
-            AdvancedOrderUpdateRequirementGroupParams.none(),
+        params: AdvancedOrderUpdateRequirementGroupParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse> =
         updateRequirementGroup(
@@ -124,34 +130,15 @@ interface AdvancedOrderServiceAsync {
 
     /** @see updateRequirementGroup */
     fun updateRequirementGroup(
-        advancedOrderId: String,
-        params: AdvancedOrderUpdateRequirementGroupParams =
-            AdvancedOrderUpdateRequirementGroupParams.none(),
-    ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse> =
-        updateRequirementGroup(advancedOrderId, params, RequestOptions.none())
-
-    /** @see updateRequirementGroup */
-    fun updateRequirementGroup(
-        params: AdvancedOrderUpdateRequirementGroupParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse>
-
-    /** @see updateRequirementGroup */
-    fun updateRequirementGroup(
         params: AdvancedOrderUpdateRequirementGroupParams
     ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse> =
         updateRequirementGroup(params, RequestOptions.none())
 
     /** @see updateRequirementGroup */
     fun updateRequirementGroup(
-        advancedOrderId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse> =
-        updateRequirementGroup(
-            advancedOrderId,
-            AdvancedOrderUpdateRequirementGroupParams.none(),
-            requestOptions,
-        )
+        params: AdvancedOrderUpdateRequirementGroupParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AdvancedOrderUpdateRequirementGroupResponse>
 
     /**
      * A view of [AdvancedOrderServiceAsync] that provides access to raw HTTP responses for each
@@ -172,26 +159,32 @@ interface AdvancedOrderServiceAsync {
          * Returns a raw HTTP response for `post /advanced_orders`, but is otherwise the same as
          * [AdvancedOrderServiceAsync.create].
          */
-        fun create(): CompletableFuture<HttpResponseFor<AdvancedOrderCreateResponse>> =
-            create(AdvancedOrderCreateParams.none())
-
-        /** @see create */
         fun create(
-            params: AdvancedOrderCreateParams = AdvancedOrderCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderCreateResponse>>
-
-        /** @see create */
-        fun create(
-            params: AdvancedOrderCreateParams = AdvancedOrderCreateParams.none()
+            params: AdvancedOrderCreateParams
         ): CompletableFuture<HttpResponseFor<AdvancedOrderCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            requestOptions: RequestOptions
+            params: AdvancedOrderCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AdvancedOrderCreateResponse>>
+
+        /** @see create */
+        fun create(
+            advancedOrder: AdvancedOrder,
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AdvancedOrderCreateResponse>> =
-            create(AdvancedOrderCreateParams.none(), requestOptions)
+            create(
+                AdvancedOrderCreateParams.builder().advancedOrder(advancedOrder).build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            advancedOrder: AdvancedOrder
+        ): CompletableFuture<HttpResponseFor<AdvancedOrderCreateResponse>> =
+            create(advancedOrder, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /advanced_orders/{order_id}`, but is otherwise the
@@ -267,18 +260,15 @@ interface AdvancedOrderServiceAsync {
          * [AdvancedOrderServiceAsync.updateRequirementGroup].
          */
         fun updateRequirementGroup(
-            advancedOrderId: String
+            advancedOrderId: String,
+            params: AdvancedOrderUpdateRequirementGroupParams,
         ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>> =
-            updateRequirementGroup(
-                advancedOrderId,
-                AdvancedOrderUpdateRequirementGroupParams.none(),
-            )
+            updateRequirementGroup(advancedOrderId, params, RequestOptions.none())
 
         /** @see updateRequirementGroup */
         fun updateRequirementGroup(
             advancedOrderId: String,
-            params: AdvancedOrderUpdateRequirementGroupParams =
-                AdvancedOrderUpdateRequirementGroupParams.none(),
+            params: AdvancedOrderUpdateRequirementGroupParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>> =
             updateRequirementGroup(
@@ -288,33 +278,14 @@ interface AdvancedOrderServiceAsync {
 
         /** @see updateRequirementGroup */
         fun updateRequirementGroup(
-            advancedOrderId: String,
-            params: AdvancedOrderUpdateRequirementGroupParams =
-                AdvancedOrderUpdateRequirementGroupParams.none(),
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>> =
-            updateRequirementGroup(advancedOrderId, params, RequestOptions.none())
-
-        /** @see updateRequirementGroup */
-        fun updateRequirementGroup(
-            params: AdvancedOrderUpdateRequirementGroupParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>>
-
-        /** @see updateRequirementGroup */
-        fun updateRequirementGroup(
             params: AdvancedOrderUpdateRequirementGroupParams
         ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>> =
             updateRequirementGroup(params, RequestOptions.none())
 
         /** @see updateRequirementGroup */
         fun updateRequirementGroup(
-            advancedOrderId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>> =
-            updateRequirementGroup(
-                advancedOrderId,
-                AdvancedOrderUpdateRequirementGroupParams.none(),
-                requestOptions,
-            )
+            params: AdvancedOrderUpdateRequirementGroupParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AdvancedOrderUpdateRequirementGroupResponse>>
     }
 }

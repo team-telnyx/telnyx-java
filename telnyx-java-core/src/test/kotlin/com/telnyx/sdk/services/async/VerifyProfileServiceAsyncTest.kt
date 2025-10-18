@@ -187,15 +187,15 @@ internal class VerifyProfileServiceAsyncTest {
                 .build()
         val verifyProfileServiceAsync = client.verifyProfiles()
 
-        val responseFuture =
+        val messageTemplateFuture =
             verifyProfileServiceAsync.createTemplate(
                 VerifyProfileCreateTemplateParams.builder()
                     .text("Your {{app_name}} verification code is: {{code}}.")
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val messageTemplate = messageTemplateFuture.get()
+        messageTemplate.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -224,7 +224,7 @@ internal class VerifyProfileServiceAsyncTest {
                 .build()
         val verifyProfileServiceAsync = client.verifyProfiles()
 
-        val responseFuture =
+        val messageTemplateFuture =
             verifyProfileServiceAsync.updateTemplate(
                 VerifyProfileUpdateTemplateParams.builder()
                     .templateId("12ade33a-21c0-473b-b055-b3c836e1c292")
@@ -232,7 +232,7 @@ internal class VerifyProfileServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val messageTemplate = messageTemplateFuture.get()
+        messageTemplate.validate()
     }
 }

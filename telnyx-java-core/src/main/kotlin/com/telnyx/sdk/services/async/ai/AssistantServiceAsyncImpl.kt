@@ -20,19 +20,17 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
 import com.telnyx.sdk.models.ai.assistants.AssistantChatResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantCloneParams
-import com.telnyx.sdk.models.ai.assistants.AssistantCloneResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantCreateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
-import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.assistants.ScheduledEventServiceAsync
@@ -86,14 +84,14 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun create(
         params: AssistantCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssistantCreateResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         // post /ai/assistants
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: AssistantRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssistantRetrieveResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         // get /ai/assistants/{assistant_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -128,7 +126,7 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun clone(
         params: AssistantCloneParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssistantCloneResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         // post /ai/assistants/{assistant_id}/clone
         withRawResponse().clone(params, requestOptions).thenApply { it.parse() }
 
@@ -189,13 +187,13 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
 
         override fun versions(): VersionServiceAsync.WithRawResponse = versions
 
-        private val createHandler: Handler<AssistantCreateResponse> =
-            jsonHandler<AssistantCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun create(
             params: AssistantCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssistantCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -220,13 +218,13 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val retrieveHandler: Handler<AssistantRetrieveResponse> =
-            jsonHandler<AssistantRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AssistantRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssistantRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("assistantId", params.assistantId().getOrNull())
@@ -385,13 +383,13 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val cloneHandler: Handler<AssistantCloneResponse> =
-            jsonHandler<AssistantCloneResponse>(clientOptions.jsonMapper)
+        private val cloneHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun clone(
             params: AssistantCloneParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssistantCloneResponse>> {
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("assistantId", params.assistantId().getOrNull())

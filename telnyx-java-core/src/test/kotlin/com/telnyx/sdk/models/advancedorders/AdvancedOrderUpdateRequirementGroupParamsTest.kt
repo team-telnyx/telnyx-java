@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.advancedorders
 
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,14 +11,18 @@ internal class AdvancedOrderUpdateRequirementGroupParamsTest {
     fun create() {
         AdvancedOrderUpdateRequirementGroupParams.builder()
             .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .areaCode("xxx")
-            .comments("comments")
-            .countryCode("xx")
-            .customerReference("customer_reference")
-            .addFeature(AdvancedOrderUpdateRequirementGroupParams.Feature.SMS)
-            .phoneNumberType(AdvancedOrderUpdateRequirementGroupParams.PhoneNumberType.LOCAL)
-            .quantity(1L)
-            .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+            .advancedOrder(
+                AdvancedOrder.builder()
+                    .areaCode("xxx")
+                    .comments("comments")
+                    .countryCode("xx")
+                    .customerReference("customer_reference")
+                    .addFeature(AdvancedOrder.Feature.SMS)
+                    .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                    .quantity(1L)
+                    .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                    .build()
+            )
             .build()
     }
 
@@ -28,6 +31,7 @@ internal class AdvancedOrderUpdateRequirementGroupParamsTest {
         val params =
             AdvancedOrderUpdateRequirementGroupParams.builder()
                 .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .advancedOrder(AdvancedOrder.builder().build())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -40,28 +44,35 @@ internal class AdvancedOrderUpdateRequirementGroupParamsTest {
         val params =
             AdvancedOrderUpdateRequirementGroupParams.builder()
                 .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .areaCode("xxx")
-                .comments("comments")
-                .countryCode("xx")
-                .customerReference("customer_reference")
-                .addFeature(AdvancedOrderUpdateRequirementGroupParams.Feature.SMS)
-                .phoneNumberType(AdvancedOrderUpdateRequirementGroupParams.PhoneNumberType.LOCAL)
-                .quantity(1L)
-                .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                .advancedOrder(
+                    AdvancedOrder.builder()
+                        .areaCode("xxx")
+                        .comments("comments")
+                        .countryCode("xx")
+                        .customerReference("customer_reference")
+                        .addFeature(AdvancedOrder.Feature.SMS)
+                        .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                        .quantity(1L)
+                        .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.areaCode()).contains("xxx")
-        assertThat(body.comments()).contains("comments")
-        assertThat(body.countryCode()).contains("xx")
-        assertThat(body.customerReference()).contains("customer_reference")
-        assertThat(body.features().getOrNull())
-            .containsExactly(AdvancedOrderUpdateRequirementGroupParams.Feature.SMS)
-        assertThat(body.phoneNumberType())
-            .contains(AdvancedOrderUpdateRequirementGroupParams.PhoneNumberType.LOCAL)
-        assertThat(body.quantity()).contains(1L)
-        assertThat(body.requirementGroupId()).contains("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+        assertThat(body)
+            .isEqualTo(
+                AdvancedOrder.builder()
+                    .areaCode("xxx")
+                    .comments("comments")
+                    .countryCode("xx")
+                    .customerReference("customer_reference")
+                    .addFeature(AdvancedOrder.Feature.SMS)
+                    .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                    .quantity(1L)
+                    .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                    .build()
+            )
     }
 
     @Test
@@ -69,8 +80,11 @@ internal class AdvancedOrderUpdateRequirementGroupParamsTest {
         val params =
             AdvancedOrderUpdateRequirementGroupParams.builder()
                 .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .advancedOrder(AdvancedOrder.builder().build())
                 .build()
 
         val body = params._body()
+
+        assertThat(body).isEqualTo(AdvancedOrder.builder().build())
     }
 }

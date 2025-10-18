@@ -48,7 +48,7 @@ internal class VerificationRequestEgressTest {
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
                 .doingBusinessAs("Acme Services")
-                .entityType(VerificationRequestEgress.EntityType.PRIVATE_PROFIT)
+                .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )
@@ -107,7 +107,7 @@ internal class VerificationRequestEgressTest {
         assertThat(verificationRequestEgress.businessRegistrationType()).contains("EIN")
         assertThat(verificationRequestEgress.doingBusinessAs()).contains("Acme Services")
         assertThat(verificationRequestEgress.entityType())
-            .contains(VerificationRequestEgress.EntityType.PRIVATE_PROFIT)
+            .contains(TollFreeVerificationEntityType.PRIVATE_PROFIT)
         assertThat(verificationRequestEgress.helpMessageResponse())
             .contains(
                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
@@ -164,7 +164,7 @@ internal class VerificationRequestEgressTest {
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
                 .doingBusinessAs("Acme Services")
-                .entityType(VerificationRequestEgress.EntityType.PRIVATE_PROFIT)
+                .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )

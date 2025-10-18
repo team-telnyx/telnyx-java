@@ -46,7 +46,7 @@ internal class TfVerificationRequestTest {
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
                 .doingBusinessAs("Acme Services")
-                .entityType(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+                .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )
@@ -100,7 +100,7 @@ internal class TfVerificationRequestTest {
         assertThat(tfVerificationRequest.businessRegistrationType()).contains("EIN")
         assertThat(tfVerificationRequest.doingBusinessAs()).contains("Acme Services")
         assertThat(tfVerificationRequest.entityType())
-            .contains(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+            .contains(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
         assertThat(tfVerificationRequest.helpMessageResponse())
             .contains(
                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
@@ -152,7 +152,7 @@ internal class TfVerificationRequestTest {
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
                 .doingBusinessAs("Acme Services")
-                .entityType(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+                .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )

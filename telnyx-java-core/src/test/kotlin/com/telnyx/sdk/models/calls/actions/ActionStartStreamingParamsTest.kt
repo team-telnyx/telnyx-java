@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.calls.actions
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.StreamBidirectionalCodec
 import com.telnyx.sdk.models.calls.StreamBidirectionalMode
+import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
 import org.assertj.core.api.Assertions.assertThat
@@ -27,9 +28,7 @@ internal class ActionStartStreamingParamsTest {
             .enableDialogflow(false)
             .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
             .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-            .streamBidirectionalSamplingRate(
-                ActionStartStreamingParams.StreamBidirectionalSamplingRate._16000
-            )
+            .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
             .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
             .streamCodec(StreamCodec.PCMA)
             .streamTrack(ActionStartStreamingParams.StreamTrack.BOTH_TRACKS)
@@ -62,9 +61,7 @@ internal class ActionStartStreamingParamsTest {
                 .enableDialogflow(false)
                 .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                 .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                .streamBidirectionalSamplingRate(
-                    ActionStartStreamingParams.StreamBidirectionalSamplingRate._16000
-                )
+                .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
                 .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                 .streamCodec(StreamCodec.PCMA)
                 .streamTrack(ActionStartStreamingParams.StreamTrack.BOTH_TRACKS)
@@ -86,7 +83,7 @@ internal class ActionStartStreamingParamsTest {
         assertThat(body.streamBidirectionalCodec()).contains(StreamBidirectionalCodec.G722)
         assertThat(body.streamBidirectionalMode()).contains(StreamBidirectionalMode.RTP)
         assertThat(body.streamBidirectionalSamplingRate())
-            .contains(ActionStartStreamingParams.StreamBidirectionalSamplingRate._16000)
+            .contains(StreamBidirectionalSamplingRate._16000)
         assertThat(body.streamBidirectionalTargetLegs())
             .contains(StreamBidirectionalTargetLegs.BOTH)
         assertThat(body.streamCodec()).contains(StreamCodec.PCMA)

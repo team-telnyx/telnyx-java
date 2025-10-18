@@ -5,9 +5,9 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.verifyprofiles.MessageTemplate
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileData
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileDeleteParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
@@ -17,7 +17,6 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -172,14 +171,13 @@ interface VerifyProfileServiceAsync {
     /** Create a new Verify profile message template. */
     fun createTemplate(
         params: VerifyProfileCreateTemplateParams
-    ): CompletableFuture<VerifyProfileCreateTemplateResponse> =
-        createTemplate(params, RequestOptions.none())
+    ): CompletableFuture<MessageTemplate> = createTemplate(params, RequestOptions.none())
 
     /** @see createTemplate */
     fun createTemplate(
         params: VerifyProfileCreateTemplateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VerifyProfileCreateTemplateResponse>
+    ): CompletableFuture<MessageTemplate>
 
     /** List all Verify profile message templates. */
     fun retrieveTemplates(): CompletableFuture<VerifyProfileRetrieveTemplatesResponse> =
@@ -207,7 +205,7 @@ interface VerifyProfileServiceAsync {
     fun updateTemplate(
         templateId: String,
         params: VerifyProfileUpdateTemplateParams,
-    ): CompletableFuture<VerifyProfileUpdateTemplateResponse> =
+    ): CompletableFuture<MessageTemplate> =
         updateTemplate(templateId, params, RequestOptions.none())
 
     /** @see updateTemplate */
@@ -215,20 +213,19 @@ interface VerifyProfileServiceAsync {
         templateId: String,
         params: VerifyProfileUpdateTemplateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VerifyProfileUpdateTemplateResponse> =
+    ): CompletableFuture<MessageTemplate> =
         updateTemplate(params.toBuilder().templateId(templateId).build(), requestOptions)
 
     /** @see updateTemplate */
     fun updateTemplate(
         params: VerifyProfileUpdateTemplateParams
-    ): CompletableFuture<VerifyProfileUpdateTemplateResponse> =
-        updateTemplate(params, RequestOptions.none())
+    ): CompletableFuture<MessageTemplate> = updateTemplate(params, RequestOptions.none())
 
     /** @see updateTemplate */
     fun updateTemplate(
         params: VerifyProfileUpdateTemplateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VerifyProfileUpdateTemplateResponse>
+    ): CompletableFuture<MessageTemplate>
 
     /**
      * A view of [VerifyProfileServiceAsync] that provides access to raw HTTP responses for each
@@ -416,14 +413,14 @@ interface VerifyProfileServiceAsync {
          */
         fun createTemplate(
             params: VerifyProfileCreateTemplateParams
-        ): CompletableFuture<HttpResponseFor<VerifyProfileCreateTemplateResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>> =
             createTemplate(params, RequestOptions.none())
 
         /** @see createTemplate */
         fun createTemplate(
             params: VerifyProfileCreateTemplateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VerifyProfileCreateTemplateResponse>>
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>>
 
         /**
          * Returns a raw HTTP response for `get /verify_profiles/templates`, but is otherwise the
@@ -460,7 +457,7 @@ interface VerifyProfileServiceAsync {
         fun updateTemplate(
             templateId: String,
             params: VerifyProfileUpdateTemplateParams,
-        ): CompletableFuture<HttpResponseFor<VerifyProfileUpdateTemplateResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>> =
             updateTemplate(templateId, params, RequestOptions.none())
 
         /** @see updateTemplate */
@@ -468,19 +465,19 @@ interface VerifyProfileServiceAsync {
             templateId: String,
             params: VerifyProfileUpdateTemplateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VerifyProfileUpdateTemplateResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>> =
             updateTemplate(params.toBuilder().templateId(templateId).build(), requestOptions)
 
         /** @see updateTemplate */
         fun updateTemplate(
             params: VerifyProfileUpdateTemplateParams
-        ): CompletableFuture<HttpResponseFor<VerifyProfileUpdateTemplateResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>> =
             updateTemplate(params, RequestOptions.none())
 
         /** @see updateTemplate */
         fun updateTemplate(
             params: VerifyProfileUpdateTemplateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VerifyProfileUpdateTemplateResponse>>
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>>
     }
 }

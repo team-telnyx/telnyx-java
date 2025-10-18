@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.ai.assistants.versions
+package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -14,26 +14,13 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.ai.assistants.AssistantTool
-import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
-import com.telnyx.sdk.models.ai.assistants.HangupTool
-import com.telnyx.sdk.models.ai.assistants.ImportMetadata
-import com.telnyx.sdk.models.ai.assistants.InsightSettings
-import com.telnyx.sdk.models.ai.assistants.MessagingSettings
-import com.telnyx.sdk.models.ai.assistants.PrivacySettings
-import com.telnyx.sdk.models.ai.assistants.RetrievalTool
-import com.telnyx.sdk.models.ai.assistants.TelephonySettings
-import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
-import com.telnyx.sdk.models.ai.assistants.TransferTool
-import com.telnyx.sdk.models.ai.assistants.VoiceSettings
-import com.telnyx.sdk.models.ai.assistants.WebhookTool
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class VersionPromoteResponse
+class InferenceEmbedding
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -458,7 +445,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [VersionPromoteResponse].
+         * Returns a mutable builder for constructing an instance of [InferenceEmbedding].
          *
          * The following fields are required:
          * ```java
@@ -472,7 +459,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [VersionPromoteResponse]. */
+    /** A builder for [InferenceEmbedding]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
@@ -497,27 +484,27 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(versionPromoteResponse: VersionPromoteResponse) = apply {
-            id = versionPromoteResponse.id
-            createdAt = versionPromoteResponse.createdAt
-            instructions = versionPromoteResponse.instructions
-            model = versionPromoteResponse.model
-            name = versionPromoteResponse.name
-            description = versionPromoteResponse.description
-            dynamicVariables = versionPromoteResponse.dynamicVariables
-            dynamicVariablesWebhookUrl = versionPromoteResponse.dynamicVariablesWebhookUrl
-            enabledFeatures = versionPromoteResponse.enabledFeatures.map { it.toMutableList() }
-            greeting = versionPromoteResponse.greeting
-            importMetadata = versionPromoteResponse.importMetadata
-            insightSettings = versionPromoteResponse.insightSettings
-            llmApiKeyRef = versionPromoteResponse.llmApiKeyRef
-            messagingSettings = versionPromoteResponse.messagingSettings
-            privacySettings = versionPromoteResponse.privacySettings
-            telephonySettings = versionPromoteResponse.telephonySettings
-            tools = versionPromoteResponse.tools.map { it.toMutableList() }
-            transcription = versionPromoteResponse.transcription
-            voiceSettings = versionPromoteResponse.voiceSettings
-            additionalProperties = versionPromoteResponse.additionalProperties.toMutableMap()
+        internal fun from(inferenceEmbedding: InferenceEmbedding) = apply {
+            id = inferenceEmbedding.id
+            createdAt = inferenceEmbedding.createdAt
+            instructions = inferenceEmbedding.instructions
+            model = inferenceEmbedding.model
+            name = inferenceEmbedding.name
+            description = inferenceEmbedding.description
+            dynamicVariables = inferenceEmbedding.dynamicVariables
+            dynamicVariablesWebhookUrl = inferenceEmbedding.dynamicVariablesWebhookUrl
+            enabledFeatures = inferenceEmbedding.enabledFeatures.map { it.toMutableList() }
+            greeting = inferenceEmbedding.greeting
+            importMetadata = inferenceEmbedding.importMetadata
+            insightSettings = inferenceEmbedding.insightSettings
+            llmApiKeyRef = inferenceEmbedding.llmApiKeyRef
+            messagingSettings = inferenceEmbedding.messagingSettings
+            privacySettings = inferenceEmbedding.privacySettings
+            telephonySettings = inferenceEmbedding.telephonySettings
+            tools = inferenceEmbedding.tools.map { it.toMutableList() }
+            transcription = inferenceEmbedding.transcription
+            voiceSettings = inferenceEmbedding.voiceSettings
+            additionalProperties = inferenceEmbedding.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -855,7 +842,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [VersionPromoteResponse].
+         * Returns an immutable instance of [InferenceEmbedding].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -870,8 +857,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): VersionPromoteResponse =
-            VersionPromoteResponse(
+        fun build(): InferenceEmbedding =
+            InferenceEmbedding(
                 checkRequired("id", id),
                 checkRequired("createdAt", createdAt),
                 checkRequired("instructions", instructions),
@@ -897,7 +884,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): VersionPromoteResponse = apply {
+    fun validate(): InferenceEmbedding = apply {
         if (validated) {
             return@apply
         }
@@ -1064,7 +1051,7 @@ private constructor(
             return true
         }
 
-        return other is VersionPromoteResponse &&
+        return other is InferenceEmbedding &&
             id == other.id &&
             createdAt == other.createdAt &&
             instructions == other.instructions &&
@@ -1115,5 +1102,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VersionPromoteResponse{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+        "InferenceEmbedding{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
 }

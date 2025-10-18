@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.phonenumbers.jobs
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.phonenumberblocks.jobs.JobError
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,19 +24,19 @@ internal class JobRetrieveResponseTest {
                             PhoneNumbersJob.FailedOperation.builder()
                                 .id("3388768018273")
                                 .addError(
-                                    PhoneNumbersJob.FailedOperation.Error.builder()
+                                    JobError.builder()
                                         .code("10015")
                                         .title("Bad Request")
                                         .detail("The field is invalid.")
                                         .meta(
-                                            PhoneNumbersJob.FailedOperation.Error.Meta.builder()
+                                            JobError.Meta.builder()
                                                 .url(
                                                     "https://developers.telnyx.com/docs/overview/errors/10015"
                                                 )
                                                 .build()
                                         )
                                         .source(
-                                            PhoneNumbersJob.FailedOperation.Error.Source.builder()
+                                            JobError.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("/emergency_address_id")
                                                 .build()
@@ -101,19 +102,19 @@ internal class JobRetrieveResponseTest {
                         PhoneNumbersJob.FailedOperation.builder()
                             .id("3388768018273")
                             .addError(
-                                PhoneNumbersJob.FailedOperation.Error.builder()
+                                JobError.builder()
                                     .code("10015")
                                     .title("Bad Request")
                                     .detail("The field is invalid.")
                                     .meta(
-                                        PhoneNumbersJob.FailedOperation.Error.Meta.builder()
+                                        JobError.Meta.builder()
                                             .url(
                                                 "https://developers.telnyx.com/docs/overview/errors/10015"
                                             )
                                             .build()
                                     )
                                     .source(
-                                        PhoneNumbersJob.FailedOperation.Error.Source.builder()
+                                        JobError.Source.builder()
                                             .parameter("parameter")
                                             .pointer("/emergency_address_id")
                                             .build()
@@ -183,19 +184,19 @@ internal class JobRetrieveResponseTest {
                             PhoneNumbersJob.FailedOperation.builder()
                                 .id("3388768018273")
                                 .addError(
-                                    PhoneNumbersJob.FailedOperation.Error.builder()
+                                    JobError.builder()
                                         .code("10015")
                                         .title("Bad Request")
                                         .detail("The field is invalid.")
                                         .meta(
-                                            PhoneNumbersJob.FailedOperation.Error.Meta.builder()
+                                            JobError.Meta.builder()
                                                 .url(
                                                     "https://developers.telnyx.com/docs/overview/errors/10015"
                                                 )
                                                 .build()
                                         )
                                         .source(
-                                            PhoneNumbersJob.FailedOperation.Error.Source.builder()
+                                            JobError.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("/emergency_address_id")
                                                 .build()

@@ -18,14 +18,12 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionListParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -44,14 +42,14 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
     override fun retrieve(
         params: VersionRetrieveParams,
         requestOptions: RequestOptions,
-    ): VersionRetrieveResponse =
+    ): InferenceEmbedding =
         // get /ai/assistants/{assistant_id}/versions/{version_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun update(
         params: VersionUpdateParams,
         requestOptions: RequestOptions,
-    ): VersionUpdateResponse =
+    ): InferenceEmbedding =
         // post /ai/assistants/{assistant_id}/versions/{version_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -67,7 +65,7 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
     override fun promote(
         params: VersionPromoteParams,
         requestOptions: RequestOptions,
-    ): VersionPromoteResponse =
+    ): InferenceEmbedding =
         // post /ai/assistants/{assistant_id}/versions/{version_id}/promote
         withRawResponse().promote(params, requestOptions).parse()
 
@@ -84,13 +82,13 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<VersionRetrieveResponse> =
-            jsonHandler<VersionRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: VersionRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VersionRetrieveResponse> {
+        ): HttpResponseFor<InferenceEmbedding> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("versionId", params.versionId().getOrNull())
@@ -120,13 +118,13 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val updateHandler: Handler<VersionUpdateResponse> =
-            jsonHandler<VersionUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun update(
             params: VersionUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VersionUpdateResponse> {
+        ): HttpResponseFor<InferenceEmbedding> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("versionId", params.versionId().getOrNull())
@@ -217,13 +215,13 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val promoteHandler: Handler<VersionPromoteResponse> =
-            jsonHandler<VersionPromoteResponse>(clientOptions.jsonMapper)
+        private val promoteHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun promote(
             params: VersionPromoteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VersionPromoteResponse> {
+        ): HttpResponseFor<InferenceEmbedding> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("versionId", params.versionId().getOrNull())

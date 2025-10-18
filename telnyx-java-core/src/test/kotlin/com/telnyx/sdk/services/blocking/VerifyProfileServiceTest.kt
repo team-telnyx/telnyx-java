@@ -181,14 +181,14 @@ internal class VerifyProfileServiceTest {
                 .build()
         val verifyProfileService = client.verifyProfiles()
 
-        val response =
+        val messageTemplate =
             verifyProfileService.createTemplate(
                 VerifyProfileCreateTemplateParams.builder()
                     .text("Your {{app_name}} verification code is: {{code}}.")
                     .build()
             )
 
-        response.validate()
+        messageTemplate.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -216,7 +216,7 @@ internal class VerifyProfileServiceTest {
                 .build()
         val verifyProfileService = client.verifyProfiles()
 
-        val response =
+        val messageTemplate =
             verifyProfileService.updateTemplate(
                 VerifyProfileUpdateTemplateParams.builder()
                     .templateId("12ade33a-21c0-473b-b055-b3c836e1c292")
@@ -224,6 +224,6 @@ internal class VerifyProfileServiceTest {
                     .build()
             )
 
-        response.validate()
+        messageTemplate.validate()
     }
 }

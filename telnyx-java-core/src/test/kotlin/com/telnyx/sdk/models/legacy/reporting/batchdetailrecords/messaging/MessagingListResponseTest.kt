@@ -46,7 +46,7 @@ internal class MessagingListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingListResponse.Meta.builder()
+                    BatchCsvPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)
@@ -87,7 +87,7 @@ internal class MessagingListResponseTest {
             )
         assertThat(messagingListResponse.meta())
             .contains(
-                MessagingListResponse.Meta.builder()
+                BatchCsvPaginationMeta.builder()
                     .pageNumber(2)
                     .pageSize(25)
                     .totalPages(3)
@@ -131,7 +131,7 @@ internal class MessagingListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingListResponse.Meta.builder()
+                    BatchCsvPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)

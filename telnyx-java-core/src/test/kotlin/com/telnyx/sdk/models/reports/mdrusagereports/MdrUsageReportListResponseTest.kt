@@ -49,7 +49,7 @@ internal class MdrUsageReportListResponseTest {
                         .build()
                 )
                 .meta(
-                    MdrUsageReportListResponse.Meta.builder()
+                    PaginationMetaReporting.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)
@@ -94,7 +94,7 @@ internal class MdrUsageReportListResponseTest {
             )
         assertThat(mdrUsageReportListResponse.meta())
             .contains(
-                MdrUsageReportListResponse.Meta.builder()
+                PaginationMetaReporting.builder()
                     .pageNumber(2)
                     .pageSize(25)
                     .totalPages(3)
@@ -142,7 +142,7 @@ internal class MdrUsageReportListResponseTest {
                         .build()
                 )
                 .meta(
-                    MdrUsageReportListResponse.Meta.builder()
+                    PaginationMetaReporting.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)

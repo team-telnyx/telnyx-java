@@ -34,7 +34,7 @@ internal class MessagingListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingListResponse.Meta.builder()
+                    StandardPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)
@@ -63,7 +63,7 @@ internal class MessagingListResponseTest {
             )
         assertThat(messagingListResponse.meta())
             .contains(
-                MessagingListResponse.Meta.builder()
+                StandardPaginationMeta.builder()
                     .pageNumber(2)
                     .pageSize(25)
                     .totalPages(3)
@@ -95,7 +95,7 @@ internal class MessagingListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingListResponse.Meta.builder()
+                    StandardPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)

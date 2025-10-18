@@ -18,14 +18,12 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionListParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,14 +43,14 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun retrieve(
         params: VersionRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VersionRetrieveResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         // get /ai/assistants/{assistant_id}/versions/{version_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: VersionUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VersionUpdateResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         // post /ai/assistants/{assistant_id}/versions/{version_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -73,7 +71,7 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun promote(
         params: VersionPromoteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VersionPromoteResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         // post /ai/assistants/{assistant_id}/versions/{version_id}/promote
         withRawResponse().promote(params, requestOptions).thenApply { it.parse() }
 
@@ -90,13 +88,13 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<VersionRetrieveResponse> =
-            jsonHandler<VersionRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: VersionRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VersionRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("versionId", params.versionId().getOrNull())
@@ -129,13 +127,13 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val updateHandler: Handler<VersionUpdateResponse> =
-            jsonHandler<VersionUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun update(
             params: VersionUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VersionUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("versionId", params.versionId().getOrNull())
@@ -235,13 +233,13 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val promoteHandler: Handler<VersionPromoteResponse> =
-            jsonHandler<VersionPromoteResponse>(clientOptions.jsonMapper)
+        private val promoteHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun promote(
             params: VersionPromoteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VersionPromoteResponse>> {
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("versionId", params.versionId().getOrNull())

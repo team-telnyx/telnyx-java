@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpda
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfPhoneNumber
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationStatus
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.TollFreeVerificationEntityType
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Url
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.UseCaseCategories
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Volume
@@ -68,7 +69,7 @@ internal class RequestServiceTest {
                     .businessRegistrationNumber("12-3456789")
                     .businessRegistrationType("EIN")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -156,7 +157,7 @@ internal class RequestServiceTest {
                             .businessRegistrationNumber("12-3456789")
                             .businessRegistrationType("EIN")
                             .doingBusinessAs("Acme Services")
-                            .entityType(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+                            .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                             .helpMessageResponse(
                                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                             )

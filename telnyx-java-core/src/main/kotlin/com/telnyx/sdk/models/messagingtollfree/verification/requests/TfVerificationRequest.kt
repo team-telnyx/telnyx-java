@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -49,7 +48,7 @@ private constructor(
     private val businessRegistrationNumber: JsonField<String>,
     private val businessRegistrationType: JsonField<String>,
     private val doingBusinessAs: JsonField<String>,
-    private val entityType: JsonField<EntityType>,
+    private val entityType: JsonField<TollFreeVerificationEntityType>,
     private val helpMessageResponse: JsonField<String>,
     private val optInConfirmationResponse: JsonField<String>,
     private val optInKeywords: JsonField<String>,
@@ -138,7 +137,7 @@ private constructor(
         doingBusinessAs: JsonField<String> = JsonMissing.of(),
         @JsonProperty("entityType")
         @ExcludeMissing
-        entityType: JsonField<EntityType> = JsonMissing.of(),
+        entityType: JsonField<TollFreeVerificationEntityType> = JsonMissing.of(),
         @JsonProperty("helpMessageResponse")
         @ExcludeMissing
         helpMessageResponse: JsonField<String> = JsonMissing.of(),
@@ -409,7 +408,8 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun entityType(): Optional<EntityType> = entityType.getOptional("entityType")
+    fun entityType(): Optional<TollFreeVerificationEntityType> =
+        entityType.getOptional("entityType")
 
     /**
      * The message returned when users text 'HELP'
@@ -699,7 +699,7 @@ private constructor(
      */
     @JsonProperty("entityType")
     @ExcludeMissing
-    fun _entityType(): JsonField<EntityType> = entityType
+    fun _entityType(): JsonField<TollFreeVerificationEntityType> = entityType
 
     /**
      * Returns the raw JSON value of [helpMessageResponse].
@@ -828,7 +828,7 @@ private constructor(
         private var businessRegistrationNumber: JsonField<String> = JsonMissing.of()
         private var businessRegistrationType: JsonField<String> = JsonMissing.of()
         private var doingBusinessAs: JsonField<String> = JsonMissing.of()
-        private var entityType: JsonField<EntityType> = JsonMissing.of()
+        private var entityType: JsonField<TollFreeVerificationEntityType> = JsonMissing.of()
         private var helpMessageResponse: JsonField<String> = JsonMissing.of()
         private var optInConfirmationResponse: JsonField<String> = JsonMissing.of()
         private var optInKeywords: JsonField<String> = JsonMissing.of()
@@ -1298,19 +1298,23 @@ private constructor(
         }
 
         /** Business entity classification */
-        fun entityType(entityType: EntityType?) = entityType(JsonField.ofNullable(entityType))
+        fun entityType(entityType: TollFreeVerificationEntityType?) =
+            entityType(JsonField.ofNullable(entityType))
 
         /** Alias for calling [Builder.entityType] with `entityType.orElse(null)`. */
-        fun entityType(entityType: Optional<EntityType>) = entityType(entityType.getOrNull())
+        fun entityType(entityType: Optional<TollFreeVerificationEntityType>) =
+            entityType(entityType.getOrNull())
 
         /**
          * Sets [Builder.entityType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.entityType] with a well-typed [EntityType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.entityType] with a well-typed
+         * [TollFreeVerificationEntityType] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun entityType(entityType: JsonField<EntityType>) = apply { this.entityType = entityType }
+        fun entityType(entityType: JsonField<TollFreeVerificationEntityType>) = apply {
+            this.entityType = entityType
+        }
 
         /** The message returned when users text 'HELP' */
         fun helpMessageResponse(helpMessageResponse: String?) =
@@ -1610,152 +1614,6 @@ private constructor(
             (if (privacyPolicyUrl.asKnown().isPresent) 1 else 0) +
             (if (termsAndConditionUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookUrl.asKnown().isPresent) 1 else 0)
-
-    /** Business entity classification */
-    class EntityType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val SOLE_PROPRIETOR = of("SOLE_PROPRIETOR")
-
-            @JvmField val PRIVATE_PROFIT = of("PRIVATE_PROFIT")
-
-            @JvmField val PUBLIC_PROFIT = of("PUBLIC_PROFIT")
-
-            @JvmField val NON_PROFIT = of("NON_PROFIT")
-
-            @JvmField val GOVERNMENT = of("GOVERNMENT")
-
-            @JvmStatic fun of(value: String) = EntityType(JsonField.of(value))
-        }
-
-        /** An enum containing [EntityType]'s known values. */
-        enum class Known {
-            SOLE_PROPRIETOR,
-            PRIVATE_PROFIT,
-            PUBLIC_PROFIT,
-            NON_PROFIT,
-            GOVERNMENT,
-        }
-
-        /**
-         * An enum containing [EntityType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [EntityType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            SOLE_PROPRIETOR,
-            PRIVATE_PROFIT,
-            PUBLIC_PROFIT,
-            NON_PROFIT,
-            GOVERNMENT,
-            /**
-             * An enum member indicating that [EntityType] was instantiated with an unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                SOLE_PROPRIETOR -> Value.SOLE_PROPRIETOR
-                PRIVATE_PROFIT -> Value.PRIVATE_PROFIT
-                PUBLIC_PROFIT -> Value.PUBLIC_PROFIT
-                NON_PROFIT -> Value.NON_PROFIT
-                GOVERNMENT -> Value.GOVERNMENT
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                SOLE_PROPRIETOR -> Known.SOLE_PROPRIETOR
-                PRIVATE_PROFIT -> Known.PRIVATE_PROFIT
-                PUBLIC_PROFIT -> Known.PUBLIC_PROFIT
-                NON_PROFIT -> Known.NON_PROFIT
-                GOVERNMENT -> Known.GOVERNMENT
-                else -> throw TelnyxInvalidDataException("Unknown EntityType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        fun validate(): EntityType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is EntityType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

@@ -16,7 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class VerifyProfileCreateTemplateResponse
+class MessageTemplate
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<VerifyProfileMessageTemplateResponse>,
@@ -59,26 +59,20 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [VerifyProfileCreateTemplateResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [MessageTemplate]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [VerifyProfileCreateTemplateResponse]. */
+    /** A builder for [MessageTemplate]. */
     class Builder internal constructor() {
 
         private var data: JsonField<VerifyProfileMessageTemplateResponse> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            verifyProfileCreateTemplateResponse: VerifyProfileCreateTemplateResponse
-        ) = apply {
-            data = verifyProfileCreateTemplateResponse.data
-            additionalProperties =
-                verifyProfileCreateTemplateResponse.additionalProperties.toMutableMap()
+        internal fun from(messageTemplate: MessageTemplate) = apply {
+            data = messageTemplate.data
+            additionalProperties = messageTemplate.additionalProperties.toMutableMap()
         }
 
         fun data(data: VerifyProfileMessageTemplateResponse) = data(JsonField.of(data))
@@ -112,17 +106,16 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [VerifyProfileCreateTemplateResponse].
+         * Returns an immutable instance of [MessageTemplate].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): VerifyProfileCreateTemplateResponse =
-            VerifyProfileCreateTemplateResponse(data, additionalProperties.toMutableMap())
+        fun build(): MessageTemplate = MessageTemplate(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): VerifyProfileCreateTemplateResponse = apply {
+    fun validate(): MessageTemplate = apply {
         if (validated) {
             return@apply
         }
@@ -151,7 +144,7 @@ private constructor(
             return true
         }
 
-        return other is VerifyProfileCreateTemplateResponse &&
+        return other is MessageTemplate &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -161,5 +154,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VerifyProfileCreateTemplateResponse{data=$data, additionalProperties=$additionalProperties}"
+        "MessageTemplate{data=$data, additionalProperties=$additionalProperties}"
 }

@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateParams
+import com.telnyx.sdk.models.advancedorders.AdvancedOrder
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderUpdateRequirementGroupParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -25,13 +25,13 @@ internal class AdvancedOrderServiceAsyncTest {
 
         val advancedOrderFuture =
             advancedOrderServiceAsync.create(
-                AdvancedOrderCreateParams.builder()
+                AdvancedOrder.builder()
                     .areaCode("xxx")
                     .comments("comments")
                     .countryCode("xx")
                     .customerReference("customer_reference")
-                    .addFeature(AdvancedOrderCreateParams.Feature.SMS)
-                    .phoneNumberType(AdvancedOrderCreateParams.PhoneNumberType.LOCAL)
+                    .addFeature(AdvancedOrder.Feature.SMS)
+                    .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
                     .quantity(1L)
                     .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .build()
@@ -88,16 +88,18 @@ internal class AdvancedOrderServiceAsyncTest {
             advancedOrderServiceAsync.updateRequirementGroup(
                 AdvancedOrderUpdateRequirementGroupParams.builder()
                     .advancedOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .areaCode("xxx")
-                    .comments("comments")
-                    .countryCode("xx")
-                    .customerReference("customer_reference")
-                    .addFeature(AdvancedOrderUpdateRequirementGroupParams.Feature.SMS)
-                    .phoneNumberType(
-                        AdvancedOrderUpdateRequirementGroupParams.PhoneNumberType.LOCAL
+                    .advancedOrder(
+                        AdvancedOrder.builder()
+                            .areaCode("xxx")
+                            .comments("comments")
+                            .countryCode("xx")
+                            .customerReference("customer_reference")
+                            .addFeature(AdvancedOrder.Feature.SMS)
+                            .phoneNumberType(AdvancedOrder.PhoneNumberType.LOCAL)
+                            .quantity(1L)
+                            .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                            .build()
                     )
-                    .quantity(1L)
-                    .requirementGroupId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .build()
             )
 

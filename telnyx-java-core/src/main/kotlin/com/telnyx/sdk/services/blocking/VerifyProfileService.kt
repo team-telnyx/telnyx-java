@@ -6,9 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.verifyprofiles.MessageTemplate
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileData
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileDeleteParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
@@ -18,7 +18,6 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateResponse
 import java.util.function.Consumer
 
 interface VerifyProfileService {
@@ -160,15 +159,14 @@ interface VerifyProfileService {
         delete(verifyProfileId, VerifyProfileDeleteParams.none(), requestOptions)
 
     /** Create a new Verify profile message template. */
-    fun createTemplate(
-        params: VerifyProfileCreateTemplateParams
-    ): VerifyProfileCreateTemplateResponse = createTemplate(params, RequestOptions.none())
+    fun createTemplate(params: VerifyProfileCreateTemplateParams): MessageTemplate =
+        createTemplate(params, RequestOptions.none())
 
     /** @see createTemplate */
     fun createTemplate(
         params: VerifyProfileCreateTemplateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerifyProfileCreateTemplateResponse
+    ): MessageTemplate
 
     /** List all Verify profile message templates. */
     fun retrieveTemplates(): VerifyProfileRetrieveTemplatesResponse =
@@ -193,27 +191,25 @@ interface VerifyProfileService {
     fun updateTemplate(
         templateId: String,
         params: VerifyProfileUpdateTemplateParams,
-    ): VerifyProfileUpdateTemplateResponse =
-        updateTemplate(templateId, params, RequestOptions.none())
+    ): MessageTemplate = updateTemplate(templateId, params, RequestOptions.none())
 
     /** @see updateTemplate */
     fun updateTemplate(
         templateId: String,
         params: VerifyProfileUpdateTemplateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerifyProfileUpdateTemplateResponse =
+    ): MessageTemplate =
         updateTemplate(params.toBuilder().templateId(templateId).build(), requestOptions)
 
     /** @see updateTemplate */
-    fun updateTemplate(
-        params: VerifyProfileUpdateTemplateParams
-    ): VerifyProfileUpdateTemplateResponse = updateTemplate(params, RequestOptions.none())
+    fun updateTemplate(params: VerifyProfileUpdateTemplateParams): MessageTemplate =
+        updateTemplate(params, RequestOptions.none())
 
     /** @see updateTemplate */
     fun updateTemplate(
         params: VerifyProfileUpdateTemplateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerifyProfileUpdateTemplateResponse
+    ): MessageTemplate
 
     /**
      * A view of [VerifyProfileService] that provides access to raw HTTP responses for each method.
@@ -412,15 +408,14 @@ interface VerifyProfileService {
         @MustBeClosed
         fun createTemplate(
             params: VerifyProfileCreateTemplateParams
-        ): HttpResponseFor<VerifyProfileCreateTemplateResponse> =
-            createTemplate(params, RequestOptions.none())
+        ): HttpResponseFor<MessageTemplate> = createTemplate(params, RequestOptions.none())
 
         /** @see createTemplate */
         @MustBeClosed
         fun createTemplate(
             params: VerifyProfileCreateTemplateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerifyProfileCreateTemplateResponse>
+        ): HttpResponseFor<MessageTemplate>
 
         /**
          * Returns a raw HTTP response for `get /verify_profiles/templates`, but is otherwise the
@@ -461,7 +456,7 @@ interface VerifyProfileService {
         fun updateTemplate(
             templateId: String,
             params: VerifyProfileUpdateTemplateParams,
-        ): HttpResponseFor<VerifyProfileUpdateTemplateResponse> =
+        ): HttpResponseFor<MessageTemplate> =
             updateTemplate(templateId, params, RequestOptions.none())
 
         /** @see updateTemplate */
@@ -470,21 +465,20 @@ interface VerifyProfileService {
             templateId: String,
             params: VerifyProfileUpdateTemplateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerifyProfileUpdateTemplateResponse> =
+        ): HttpResponseFor<MessageTemplate> =
             updateTemplate(params.toBuilder().templateId(templateId).build(), requestOptions)
 
         /** @see updateTemplate */
         @MustBeClosed
         fun updateTemplate(
             params: VerifyProfileUpdateTemplateParams
-        ): HttpResponseFor<VerifyProfileUpdateTemplateResponse> =
-            updateTemplate(params, RequestOptions.none())
+        ): HttpResponseFor<MessageTemplate> = updateTemplate(params, RequestOptions.none())
 
         /** @see updateTemplate */
         @MustBeClosed
         fun updateTemplate(
             params: VerifyProfileUpdateTemplateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerifyProfileUpdateTemplateResponse>
+        ): HttpResponseFor<MessageTemplate>
     }
 }

@@ -8,19 +8,17 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
 import com.telnyx.sdk.models.ai.assistants.AssistantChatResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantCloneParams
-import com.telnyx.sdk.models.ai.assistants.AssistantCloneResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantCreateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
-import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.ScheduledEventServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.TestServiceAsync
@@ -54,17 +52,17 @@ interface AssistantServiceAsync {
     fun versions(): VersionServiceAsync
 
     /** Create a new AI Assistant. */
-    fun create(params: AssistantCreateParams): CompletableFuture<AssistantCreateResponse> =
+    fun create(params: AssistantCreateParams): CompletableFuture<InferenceEmbedding> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: AssistantCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssistantCreateResponse>
+    ): CompletableFuture<InferenceEmbedding>
 
     /** Retrieve an AI Assistant configuration by `assistant_id`. */
-    fun retrieve(assistantId: String): CompletableFuture<AssistantRetrieveResponse> =
+    fun retrieve(assistantId: String): CompletableFuture<InferenceEmbedding> =
         retrieve(assistantId, AssistantRetrieveParams.none())
 
     /** @see retrieve */
@@ -72,31 +70,30 @@ interface AssistantServiceAsync {
         assistantId: String,
         params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssistantRetrieveResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         retrieve(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         assistantId: String,
         params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
-    ): CompletableFuture<AssistantRetrieveResponse> =
-        retrieve(assistantId, params, RequestOptions.none())
+    ): CompletableFuture<InferenceEmbedding> = retrieve(assistantId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: AssistantRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssistantRetrieveResponse>
+    ): CompletableFuture<InferenceEmbedding>
 
     /** @see retrieve */
-    fun retrieve(params: AssistantRetrieveParams): CompletableFuture<AssistantRetrieveResponse> =
+    fun retrieve(params: AssistantRetrieveParams): CompletableFuture<InferenceEmbedding> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         assistantId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssistantRetrieveResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
     /** Update an AI Assistant's attributes. */
@@ -224,7 +221,7 @@ interface AssistantServiceAsync {
     ): CompletableFuture<AssistantChatResponse>
 
     /** Clone an existing assistant, excluding telephony and messaging settings. */
-    fun clone(assistantId: String): CompletableFuture<AssistantCloneResponse> =
+    fun clone(assistantId: String): CompletableFuture<InferenceEmbedding> =
         clone(assistantId, AssistantCloneParams.none())
 
     /** @see clone */
@@ -232,30 +229,30 @@ interface AssistantServiceAsync {
         assistantId: String,
         params: AssistantCloneParams = AssistantCloneParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssistantCloneResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         clone(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see clone */
     fun clone(
         assistantId: String,
         params: AssistantCloneParams = AssistantCloneParams.none(),
-    ): CompletableFuture<AssistantCloneResponse> = clone(assistantId, params, RequestOptions.none())
+    ): CompletableFuture<InferenceEmbedding> = clone(assistantId, params, RequestOptions.none())
 
     /** @see clone */
     fun clone(
         params: AssistantCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssistantCloneResponse>
+    ): CompletableFuture<InferenceEmbedding>
 
     /** @see clone */
-    fun clone(params: AssistantCloneParams): CompletableFuture<AssistantCloneResponse> =
+    fun clone(params: AssistantCloneParams): CompletableFuture<InferenceEmbedding> =
         clone(params, RequestOptions.none())
 
     /** @see clone */
     fun clone(
         assistantId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssistantCloneResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         clone(assistantId, AssistantCloneParams.none(), requestOptions)
 
     /** Get an assistant texml by `assistant_id`. */
@@ -333,22 +330,20 @@ interface AssistantServiceAsync {
          */
         fun create(
             params: AssistantCreateParams
-        ): CompletableFuture<HttpResponseFor<AssistantCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: AssistantCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
 
         /**
          * Returns a raw HTTP response for `get /ai/assistants/{assistant_id}`, but is otherwise the
          * same as [AssistantServiceAsync.retrieve].
          */
-        fun retrieve(
-            assistantId: String
-        ): CompletableFuture<HttpResponseFor<AssistantRetrieveResponse>> =
+        fun retrieve(assistantId: String): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(assistantId, AssistantRetrieveParams.none())
 
         /** @see retrieve */
@@ -356,33 +351,33 @@ interface AssistantServiceAsync {
             assistantId: String,
             params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             assistantId: String,
             params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(assistantId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: AssistantRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
 
         /** @see retrieve */
         fun retrieve(
             params: AssistantRetrieveParams
-        ): CompletableFuture<HttpResponseFor<AssistantRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssistantRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
         /**
@@ -529,7 +524,7 @@ interface AssistantServiceAsync {
          * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/clone`, but is
          * otherwise the same as [AssistantServiceAsync.clone].
          */
-        fun clone(assistantId: String): CompletableFuture<HttpResponseFor<AssistantCloneResponse>> =
+        fun clone(assistantId: String): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             clone(assistantId, AssistantCloneParams.none())
 
         /** @see clone */
@@ -537,33 +532,33 @@ interface AssistantServiceAsync {
             assistantId: String,
             params: AssistantCloneParams = AssistantCloneParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantCloneResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             clone(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see clone */
         fun clone(
             assistantId: String,
             params: AssistantCloneParams = AssistantCloneParams.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantCloneResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             clone(assistantId, params, RequestOptions.none())
 
         /** @see clone */
         fun clone(
             params: AssistantCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantCloneResponse>>
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
 
         /** @see clone */
         fun clone(
             params: AssistantCloneParams
-        ): CompletableFuture<HttpResponseFor<AssistantCloneResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             clone(params, RequestOptions.none())
 
         /** @see clone */
         fun clone(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssistantCloneResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             clone(assistantId, AssistantCloneParams.none(), requestOptions)
 
         /**

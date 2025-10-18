@@ -13,15 +13,14 @@ internal class TranscriptionEngineBConfigTest {
     fun create() {
         val transcriptionEngineBConfig =
             TranscriptionEngineBConfig.builder()
-                .language(TranscriptionEngineBConfig.Language.EN)
+                .language(TelnyxTranscriptionLanguage.EN)
                 .transcriptionEngine(TranscriptionEngineBConfig.TranscriptionEngine.B)
                 .transcriptionModel(
                     TranscriptionEngineBConfig.TranscriptionModel.OPENAI_WHISPER_TINY
                 )
                 .build()
 
-        assertThat(transcriptionEngineBConfig.language())
-            .contains(TranscriptionEngineBConfig.Language.EN)
+        assertThat(transcriptionEngineBConfig.language()).contains(TelnyxTranscriptionLanguage.EN)
         assertThat(transcriptionEngineBConfig.transcriptionEngine())
             .contains(TranscriptionEngineBConfig.TranscriptionEngine.B)
         assertThat(transcriptionEngineBConfig.transcriptionModel())
@@ -33,7 +32,7 @@ internal class TranscriptionEngineBConfigTest {
         val jsonMapper = jsonMapper()
         val transcriptionEngineBConfig =
             TranscriptionEngineBConfig.builder()
-                .language(TranscriptionEngineBConfig.Language.EN)
+                .language(TelnyxTranscriptionLanguage.EN)
                 .transcriptionEngine(TranscriptionEngineBConfig.TranscriptionEngine.B)
                 .transcriptionModel(
                     TranscriptionEngineBConfig.TranscriptionModel.OPENAI_WHISPER_TINY

@@ -36,7 +36,7 @@ internal class OAuthClientListResponseTest {
                         .build()
                 )
                 .meta(
-                    OAuthClientListResponse.Meta.builder()
+                    PaginationMetaOAuth.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -68,7 +68,7 @@ internal class OAuthClientListResponseTest {
             )
         assertThat(oauthClientListResponse.meta())
             .contains(
-                OAuthClientListResponse.Meta.builder()
+                PaginationMetaOAuth.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -103,7 +103,7 @@ internal class OAuthClientListResponseTest {
                         .build()
                 )
                 .meta(
-                    OAuthClientListResponse.Meta.builder()
+                    PaginationMetaOAuth.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)

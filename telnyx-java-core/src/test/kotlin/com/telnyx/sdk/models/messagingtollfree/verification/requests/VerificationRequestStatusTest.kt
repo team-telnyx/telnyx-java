@@ -50,7 +50,7 @@ internal class VerificationRequestStatusTest {
                 .businessRegistrationType("EIN")
                 .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                 .doingBusinessAs("Acme Services")
-                .entityType(VerificationRequestStatus.EntityType.PRIVATE_PROFIT)
+                .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )
@@ -114,7 +114,7 @@ internal class VerificationRequestStatusTest {
             .contains(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
         assertThat(verificationRequestStatus.doingBusinessAs()).contains("Acme Services")
         assertThat(verificationRequestStatus.entityType())
-            .contains(VerificationRequestStatus.EntityType.PRIVATE_PROFIT)
+            .contains(TollFreeVerificationEntityType.PRIVATE_PROFIT)
         assertThat(verificationRequestStatus.helpMessageResponse())
             .contains(
                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
@@ -176,7 +176,7 @@ internal class VerificationRequestStatusTest {
                 .businessRegistrationType("EIN")
                 .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                 .doingBusinessAs("Acme Services")
-                .entityType(VerificationRequestStatus.EntityType.PRIVATE_PROFIT)
+                .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )

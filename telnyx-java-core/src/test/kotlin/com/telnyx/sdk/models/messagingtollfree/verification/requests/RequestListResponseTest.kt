@@ -55,7 +55,7 @@ internal class RequestListResponseTest {
                         .businessRegistrationType("EIN")
                         .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                         .doingBusinessAs("Acme Services")
-                        .entityType(VerificationRequestStatus.EntityType.PRIVATE_PROFIT)
+                        .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                         .helpMessageResponse(
                             "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                         )
@@ -116,7 +116,7 @@ internal class RequestListResponseTest {
                     .businessRegistrationType("EIN")
                     .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                     .doingBusinessAs("Acme Services")
-                    .entityType(VerificationRequestStatus.EntityType.PRIVATE_PROFIT)
+                    .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -181,7 +181,7 @@ internal class RequestListResponseTest {
                         .businessRegistrationType("EIN")
                         .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                         .doingBusinessAs("Acme Services")
-                        .entityType(VerificationRequestStatus.EntityType.PRIVATE_PROFIT)
+                        .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                         .helpMessageResponse(
                             "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                         )
