@@ -23,19 +23,19 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                             Job.FailedOperation.builder()
                                 .id("id")
                                 .addError(
-                                    Job.FailedOperation.Error.builder()
+                                    JobError.builder()
                                         .code("10007")
                                         .title("Unexpected error")
                                         .detail("An unexpected error occured.")
                                         .meta(
-                                            Job.FailedOperation.Error.Meta.builder()
+                                            JobError.Meta.builder()
                                                 .url(
                                                     "https://developers.telnyx.com/docs/overview/errors/10015"
                                                 )
                                                 .build()
                                         )
                                         .source(
-                                            Job.FailedOperation.Error.Source.builder()
+                                            JobError.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("/base")
                                                 .build()
@@ -69,19 +69,19 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                         Job.FailedOperation.builder()
                             .id("id")
                             .addError(
-                                Job.FailedOperation.Error.builder()
+                                JobError.builder()
                                     .code("10007")
                                     .title("Unexpected error")
                                     .detail("An unexpected error occured.")
                                     .meta(
-                                        Job.FailedOperation.Error.Meta.builder()
+                                        JobError.Meta.builder()
                                             .url(
                                                 "https://developers.telnyx.com/docs/overview/errors/10015"
                                             )
                                             .build()
                                     )
                                     .source(
-                                        Job.FailedOperation.Error.Source.builder()
+                                        JobError.Source.builder()
                                             .parameter("parameter")
                                             .pointer("/base")
                                             .build()
@@ -119,19 +119,19 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                             Job.FailedOperation.builder()
                                 .id("id")
                                 .addError(
-                                    Job.FailedOperation.Error.builder()
+                                    JobError.builder()
                                         .code("10007")
                                         .title("Unexpected error")
                                         .detail("An unexpected error occured.")
                                         .meta(
-                                            Job.FailedOperation.Error.Meta.builder()
+                                            JobError.Meta.builder()
                                                 .url(
                                                     "https://developers.telnyx.com/docs/overview/errors/10015"
                                                 )
                                                 .build()
                                         )
                                         .source(
-                                            Job.FailedOperation.Error.Source.builder()
+                                            JobError.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("/base")
                                                 .build()

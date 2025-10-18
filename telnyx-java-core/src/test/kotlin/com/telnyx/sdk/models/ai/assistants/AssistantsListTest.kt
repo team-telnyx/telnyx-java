@@ -16,7 +16,7 @@ internal class AssistantsListTest {
         val assistantsList =
             AssistantsList.builder()
                 .addData(
-                    AssistantsList.Data.builder()
+                    InferenceEmbedding.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .instructions("instructions")
@@ -24,7 +24,7 @@ internal class AssistantsListTest {
                         .name("name")
                         .description("description")
                         .dynamicVariables(
-                            AssistantsList.Data.DynamicVariables.builder()
+                            InferenceEmbedding.DynamicVariables.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -177,7 +177,7 @@ internal class AssistantsListTest {
 
         assertThat(assistantsList.data())
             .containsExactly(
-                AssistantsList.Data.builder()
+                InferenceEmbedding.builder()
                     .id("id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .instructions("instructions")
@@ -185,7 +185,7 @@ internal class AssistantsListTest {
                     .name("name")
                     .description("description")
                     .dynamicVariables(
-                        AssistantsList.Data.DynamicVariables.builder()
+                        InferenceEmbedding.DynamicVariables.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -329,7 +329,7 @@ internal class AssistantsListTest {
         val assistantsList =
             AssistantsList.builder()
                 .addData(
-                    AssistantsList.Data.builder()
+                    InferenceEmbedding.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .instructions("instructions")
@@ -337,7 +337,7 @@ internal class AssistantsListTest {
                         .name("name")
                         .description("description")
                         .dynamicVariables(
-                            AssistantsList.Data.DynamicVariables.builder()
+                            InferenceEmbedding.DynamicVariables.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

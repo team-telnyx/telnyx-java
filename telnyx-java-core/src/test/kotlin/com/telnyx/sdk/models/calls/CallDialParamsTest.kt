@@ -100,7 +100,7 @@ internal class CallDialParamsTest {
             )
             .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
             .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-            .streamBidirectionalSamplingRate(CallDialParams.StreamBidirectionalSamplingRate._16000)
+            .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
             .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
             .streamCodec(StreamCodec.PCMA)
             .streamEstablishBeforeCallOriginate(true)
@@ -244,9 +244,7 @@ internal class CallDialParamsTest {
                 )
                 .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                 .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                .streamBidirectionalSamplingRate(
-                    CallDialParams.StreamBidirectionalSamplingRate._16000
-                )
+                .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
                 .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                 .streamCodec(StreamCodec.PCMA)
                 .streamEstablishBeforeCallOriginate(true)
@@ -399,7 +397,7 @@ internal class CallDialParamsTest {
         assertThat(body.streamBidirectionalCodec()).contains(StreamBidirectionalCodec.G722)
         assertThat(body.streamBidirectionalMode()).contains(StreamBidirectionalMode.RTP)
         assertThat(body.streamBidirectionalSamplingRate())
-            .contains(CallDialParams.StreamBidirectionalSamplingRate._16000)
+            .contains(StreamBidirectionalSamplingRate._16000)
         assertThat(body.streamBidirectionalTargetLegs())
             .contains(StreamBidirectionalTargetLegs.BOTH)
         assertThat(body.streamCodec()).contains(StreamCodec.PCMA)

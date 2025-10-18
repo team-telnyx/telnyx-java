@@ -7,14 +7,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionListParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -36,50 +34,49 @@ interface VersionServiceAsync {
     fun retrieve(
         versionId: String,
         params: VersionRetrieveParams,
-    ): CompletableFuture<VersionRetrieveResponse> =
-        retrieve(versionId, params, RequestOptions.none())
+    ): CompletableFuture<InferenceEmbedding> = retrieve(versionId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         versionId: String,
         params: VersionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VersionRetrieveResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         retrieve(params.toBuilder().versionId(versionId).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: VersionRetrieveParams): CompletableFuture<VersionRetrieveResponse> =
+    fun retrieve(params: VersionRetrieveParams): CompletableFuture<InferenceEmbedding> =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: VersionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VersionRetrieveResponse>
+    ): CompletableFuture<InferenceEmbedding>
 
     /** Updates the configuration of a specific assistant version. Can not update main version */
     fun update(
         versionId: String,
         params: VersionUpdateParams,
-    ): CompletableFuture<VersionUpdateResponse> = update(versionId, params, RequestOptions.none())
+    ): CompletableFuture<InferenceEmbedding> = update(versionId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         versionId: String,
         params: VersionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VersionUpdateResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         update(params.toBuilder().versionId(versionId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: VersionUpdateParams): CompletableFuture<VersionUpdateResponse> =
+    fun update(params: VersionUpdateParams): CompletableFuture<InferenceEmbedding> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: VersionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VersionUpdateResponse>
+    ): CompletableFuture<InferenceEmbedding>
 
     /** Retrieves all versions of a specific assistant with complete configuration and metadata */
     fun list(assistantId: String): CompletableFuture<AssistantsList> =
@@ -146,25 +143,25 @@ interface VersionServiceAsync {
     fun promote(
         versionId: String,
         params: VersionPromoteParams,
-    ): CompletableFuture<VersionPromoteResponse> = promote(versionId, params, RequestOptions.none())
+    ): CompletableFuture<InferenceEmbedding> = promote(versionId, params, RequestOptions.none())
 
     /** @see promote */
     fun promote(
         versionId: String,
         params: VersionPromoteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VersionPromoteResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         promote(params.toBuilder().versionId(versionId).build(), requestOptions)
 
     /** @see promote */
-    fun promote(params: VersionPromoteParams): CompletableFuture<VersionPromoteResponse> =
+    fun promote(params: VersionPromoteParams): CompletableFuture<InferenceEmbedding> =
         promote(params, RequestOptions.none())
 
     /** @see promote */
     fun promote(
         params: VersionPromoteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VersionPromoteResponse>
+    ): CompletableFuture<InferenceEmbedding>
 
     /**
      * A view of [VersionServiceAsync] that provides access to raw HTTP responses for each method.
@@ -188,7 +185,7 @@ interface VersionServiceAsync {
         fun retrieve(
             versionId: String,
             params: VersionRetrieveParams,
-        ): CompletableFuture<HttpResponseFor<VersionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(versionId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -196,20 +193,20 @@ interface VersionServiceAsync {
             versionId: String,
             params: VersionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VersionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(params.toBuilder().versionId(versionId).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             params: VersionRetrieveParams
-        ): CompletableFuture<HttpResponseFor<VersionRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: VersionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VersionRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
 
         /**
          * Returns a raw HTTP response for `post
@@ -219,7 +216,7 @@ interface VersionServiceAsync {
         fun update(
             versionId: String,
             params: VersionUpdateParams,
-        ): CompletableFuture<HttpResponseFor<VersionUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(versionId, params, RequestOptions.none())
 
         /** @see update */
@@ -227,20 +224,20 @@ interface VersionServiceAsync {
             versionId: String,
             params: VersionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VersionUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(params.toBuilder().versionId(versionId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: VersionUpdateParams
-        ): CompletableFuture<HttpResponseFor<VersionUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: VersionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VersionUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
 
         /**
          * Returns a raw HTTP response for `get /ai/assistants/{assistant_id}/versions`, but is
@@ -317,7 +314,7 @@ interface VersionServiceAsync {
         fun promote(
             versionId: String,
             params: VersionPromoteParams,
-        ): CompletableFuture<HttpResponseFor<VersionPromoteResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             promote(versionId, params, RequestOptions.none())
 
         /** @see promote */
@@ -325,19 +322,19 @@ interface VersionServiceAsync {
             versionId: String,
             params: VersionPromoteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VersionPromoteResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             promote(params.toBuilder().versionId(versionId).build(), requestOptions)
 
         /** @see promote */
         fun promote(
             params: VersionPromoteParams
-        ): CompletableFuture<HttpResponseFor<VersionPromoteResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             promote(params, RequestOptions.none())
 
         /** @see promote */
         fun promote(
             params: VersionPromoteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VersionPromoteResponse>>
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
     }
 }

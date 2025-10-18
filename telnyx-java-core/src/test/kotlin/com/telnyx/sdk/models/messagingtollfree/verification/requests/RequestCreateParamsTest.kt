@@ -47,7 +47,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationNumber("12-3456789")
                     .businessRegistrationType("EIN")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
@@ -104,7 +104,7 @@ internal class RequestCreateParamsTest {
                         .businessRegistrationNumber("12-3456789")
                         .businessRegistrationType("EIN")
                         .doingBusinessAs("Acme Services")
-                        .entityType(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+                        .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                         .helpMessageResponse(
                             "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                         )
@@ -159,7 +159,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationNumber("12-3456789")
                     .businessRegistrationType("EIN")
                     .doingBusinessAs("Acme Services")
-                    .entityType(TfVerificationRequest.EntityType.SOLE_PROPRIETOR)
+                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )

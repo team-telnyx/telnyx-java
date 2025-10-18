@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
 import com.telnyx.sdk.models.calls.StreamBidirectionalCodec
 import com.telnyx.sdk.models.calls.StreamBidirectionalMode
+import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
 import com.telnyx.sdk.models.calls.actions.ActionAnswerParams
@@ -879,9 +880,7 @@ internal class ActionServiceAsyncTest {
                     .enableDialogflow(false)
                     .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                     .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                    .streamBidirectionalSamplingRate(
-                        ActionStartStreamingParams.StreamBidirectionalSamplingRate._16000
-                    )
+                    .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
                     .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                     .streamCodec(StreamCodec.PCMA)
                     .streamTrack(ActionStartStreamingParams.StreamTrack.BOTH_TRACKS)

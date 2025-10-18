@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.legacy.reporting.usagereports.voice
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.StandardPaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -33,7 +34,7 @@ internal class VoiceListResponseTest {
                         .build()
                 )
                 .meta(
-                    VoiceListResponse.Meta.builder()
+                    StandardPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)
@@ -61,7 +62,7 @@ internal class VoiceListResponseTest {
             )
         assertThat(voiceListResponse.meta())
             .contains(
-                VoiceListResponse.Meta.builder()
+                StandardPaginationMeta.builder()
                     .pageNumber(2)
                     .pageSize(25)
                     .totalPages(3)
@@ -92,7 +93,7 @@ internal class VoiceListResponseTest {
                         .build()
                 )
                 .meta(
-                    VoiceListResponse.Meta.builder()
+                    StandardPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)

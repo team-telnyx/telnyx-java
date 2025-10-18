@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
 import com.telnyx.sdk.models.calls.StreamBidirectionalCodec
 import com.telnyx.sdk.models.calls.StreamBidirectionalMode
+import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
@@ -182,9 +183,7 @@ internal class ServiceParamsTest {
                 )
                 .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                 .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                .streamBidirectionalSamplingRate(
-                    CallDialParams.StreamBidirectionalSamplingRate._16000
-                )
+                .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
                 .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                 .streamCodec(StreamCodec.PCMA)
                 .streamEstablishBeforeCallOriginate(true)

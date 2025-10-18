@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.Filter
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.BatchCsvPaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -50,7 +51,7 @@ internal class VoiceListResponseTest {
                         .build()
                 )
                 .meta(
-                    VoiceListResponse.Meta.builder()
+                    BatchCsvPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)
@@ -96,7 +97,7 @@ internal class VoiceListResponseTest {
             )
         assertThat(voiceListResponse.meta())
             .contains(
-                VoiceListResponse.Meta.builder()
+                BatchCsvPaginationMeta.builder()
                     .pageNumber(2)
                     .pageSize(25)
                     .totalPages(3)
@@ -145,7 +146,7 @@ internal class VoiceListResponseTest {
                         .build()
                 )
                 .meta(
-                    VoiceListResponse.Meta.builder()
+                    BatchCsvPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)

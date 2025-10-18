@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.oauthgrants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.oauthclients.PaginationMetaOAuth
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -26,7 +27,7 @@ internal class OAuthGrantListResponseTest {
                         .build()
                 )
                 .meta(
-                    OAuthGrantListResponse.Meta.builder()
+                    PaginationMetaOAuth.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -48,7 +49,7 @@ internal class OAuthGrantListResponseTest {
             )
         assertThat(oauthGrantListResponse.meta())
             .contains(
-                OAuthGrantListResponse.Meta.builder()
+                PaginationMetaOAuth.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -73,7 +74,7 @@ internal class OAuthGrantListResponseTest {
                         .build()
                 )
                 .meta(
-                    OAuthGrantListResponse.Meta.builder()
+                    PaginationMetaOAuth.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
