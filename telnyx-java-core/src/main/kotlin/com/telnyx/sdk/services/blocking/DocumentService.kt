@@ -18,6 +18,8 @@ import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
 import com.telnyx.sdk.models.documents.DocumentUpdateResponse
+import com.telnyx.sdk.models.documents.DocumentUploadJsonParams
+import com.telnyx.sdk.models.documents.DocumentUploadJsonResponse
 import com.telnyx.sdk.models.documents.DocumentUploadParams
 import com.telnyx.sdk.models.documents.DocumentUploadResponse
 import java.util.function.Consumer
@@ -225,6 +227,19 @@ interface DocumentService {
         params: DocumentUploadParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentUploadResponse
+
+    /**
+     * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
+     * they will be automatically deleted.
+     */
+    fun uploadJson(params: DocumentUploadJsonParams): DocumentUploadJsonResponse =
+        uploadJson(params, RequestOptions.none())
+
+    /** @see uploadJson */
+    fun uploadJson(
+        params: DocumentUploadJsonParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DocumentUploadJsonResponse
 
     /** A view of [DocumentService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -469,8 +484,8 @@ interface DocumentService {
             generateDownloadLink(id, DocumentGenerateDownloadLinkParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
-         * [DocumentService.upload].
+         * Returns a raw HTTP response for `post /documents?content-type=multipart`, but is
+         * otherwise the same as [DocumentService.upload].
          */
         @MustBeClosed
         fun upload(params: DocumentUploadParams): HttpResponseFor<DocumentUploadResponse> =
@@ -482,5 +497,21 @@ interface DocumentService {
             params: DocumentUploadParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentUploadResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
+         * [DocumentService.uploadJson].
+         */
+        @MustBeClosed
+        fun uploadJson(
+            params: DocumentUploadJsonParams
+        ): HttpResponseFor<DocumentUploadJsonResponse> = uploadJson(params, RequestOptions.none())
+
+        /** @see uploadJson */
+        @MustBeClosed
+        fun uploadJson(
+            params: DocumentUploadJsonParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DocumentUploadJsonResponse>
     }
 }

@@ -34,7 +34,7 @@ import java.util.Optional
  * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
  * they will be automatically deleted.
  */
-class DocumentUploadParams
+class DocumentUploadJsonParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -54,7 +54,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [DocumentUploadParams].
+         * Returns a mutable builder for constructing an instance of [DocumentUploadJsonParams].
          *
          * The following fields are required:
          * ```java
@@ -64,7 +64,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [DocumentUploadParams]. */
+    /** A builder for [DocumentUploadJsonParams]. */
     class Builder internal constructor() {
 
         private var body: Body? = null
@@ -72,10 +72,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(documentUploadParams: DocumentUploadParams) = apply {
-            body = documentUploadParams.body
-            additionalHeaders = documentUploadParams.additionalHeaders.toBuilder()
-            additionalQueryParams = documentUploadParams.additionalQueryParams.toBuilder()
+        internal fun from(documentUploadJsonParams: DocumentUploadJsonParams) = apply {
+            body = documentUploadJsonParams.body
+            additionalHeaders = documentUploadJsonParams.additionalHeaders.toBuilder()
+            additionalQueryParams = documentUploadJsonParams.additionalQueryParams.toBuilder()
         }
 
         fun body(body: Body) = apply { this.body = body }
@@ -193,7 +193,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [DocumentUploadParams].
+         * Returns an immutable instance of [DocumentUploadJsonParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -204,8 +204,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): DocumentUploadParams =
-            DocumentUploadParams(
+        fun build(): DocumentUploadJsonParams =
+            DocumentUploadJsonParams(
                 checkRequired("body", body),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -930,7 +930,7 @@ private constructor(
             return true
         }
 
-        return other is DocumentUploadParams &&
+        return other is DocumentUploadJsonParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -939,5 +939,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "DocumentUploadParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DocumentUploadJsonParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

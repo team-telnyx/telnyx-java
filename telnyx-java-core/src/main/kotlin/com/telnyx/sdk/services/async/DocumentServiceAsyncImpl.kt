@@ -14,7 +14,6 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
-import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.documents.DocumentDeleteParams
@@ -28,6 +27,8 @@ import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
 import com.telnyx.sdk.models.documents.DocumentUpdateResponse
+import com.telnyx.sdk.models.documents.DocumentUploadJsonParams
+import com.telnyx.sdk.models.documents.DocumentUploadJsonResponse
 import com.telnyx.sdk.models.documents.DocumentUploadParams
 import com.telnyx.sdk.models.documents.DocumentUploadResponse
 import java.util.concurrent.CompletableFuture
@@ -92,8 +93,15 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
         params: DocumentUploadParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DocumentUploadResponse> =
-        // post /documents
+        // post /documents?content-type=multipart
         withRawResponse().upload(params, requestOptions).thenApply { it.parse() }
+
+    override fun uploadJson(
+        params: DocumentUploadJsonParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<DocumentUploadJsonResponse> =
+        // post /documents
+        withRawResponse().uploadJson(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DocumentServiceAsync.WithRawResponse {
@@ -304,7 +312,8 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("documents")
-                    .body(multipartFormData(clientOptions.jsonMapper, params._body()))
+                    .putQueryParam("content-type", "multipart")
+                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -314,6 +323,37 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                     errorHandler.handle(response).parseable {
                         response
                             .use { uploadHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val uploadJsonHandler: Handler<DocumentUploadJsonResponse> =
+            jsonHandler<DocumentUploadJsonResponse>(clientOptions.jsonMapper)
+
+        override fun uploadJson(
+            params: DocumentUploadJsonParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("documents")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { uploadJsonHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

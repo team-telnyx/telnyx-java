@@ -5,13 +5,13 @@ package com.telnyx.sdk.models.documents
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class DocumentUploadParamsTest {
+internal class DocumentUploadJsonParamsTest {
 
     @Test
     fun create() {
-        DocumentUploadParams.builder()
+        DocumentUploadJsonParams.builder()
             .body(
-                DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
+                DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
                     .url("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
                     .customerReference("MY REF 001")
                     .filename("test-document.pdf")
@@ -23,9 +23,9 @@ internal class DocumentUploadParamsTest {
     @Test
     fun body() {
         val params =
-            DocumentUploadParams.builder()
+            DocumentUploadJsonParams.builder()
                 .body(
-                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
+                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )
@@ -39,8 +39,8 @@ internal class DocumentUploadParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                DocumentUploadParams.Body.ofDocServiceDocumentUploadUrl(
-                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
+                DocumentUploadJsonParams.Body.ofDocServiceDocumentUploadUrl(
+                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )
@@ -54,9 +54,9 @@ internal class DocumentUploadParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            DocumentUploadParams.builder()
+            DocumentUploadJsonParams.builder()
                 .body(
-                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
+                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )
@@ -68,8 +68,8 @@ internal class DocumentUploadParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                DocumentUploadParams.Body.ofDocServiceDocumentUploadUrl(
-                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
+                DocumentUploadJsonParams.Body.ofDocServiceDocumentUploadUrl(
+                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )
