@@ -205,12 +205,15 @@ private constructor(
                     it.code().ifPresent {
                         it.accept(
                             object : Filter.Code.Visitor<Unit> {
-                                override fun visitInteger(integer: Long) {
-                                    put("filter[code]", integer.toString())
+                                override fun visitOne(one: Long) {
+                                    put("filter[code]", one.toString())
                                 }
 
-                                override fun visitInteger(integer: List<Long>) {
-                                    put("filter[code]", integer.joinToString(",") { it.toString() })
+                                override fun visitListOfCodes(listOfCodes: List<Long>) {
+                                    put(
+                                        "filter[code]",
+                                        listOfCodes.joinToString(",") { it.toString() },
+                                    )
                                 }
                             }
                         )
@@ -263,11 +266,11 @@ private constructor(
             /** Alias for calling [Builder.code] with `code.orElse(null)`. */
             fun code(code: Optional<Code>) = code(code.getOrNull())
 
-            /** Alias for calling [code] with `Code.ofInteger(integer)`. */
-            fun code(integer: Long) = code(Code.ofInteger(integer))
+            /** Alias for calling [code] with `Code.ofOne(one)`. */
+            fun code(one: Long) = code(Code.ofOne(one))
 
-            /** Alias for calling [code] with `Code.ofInteger(integer)`. */
-            fun codeOfInteger(integer: List<Long>) = code(Code.ofInteger(integer))
+            /** Alias for calling [code] with `Code.ofListOfCodes(listOfCodes)`. */
+            fun codeOfListOfCodes(listOfCodes: List<Long>) = code(Code.ofListOfCodes(listOfCodes))
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -329,30 +332,30 @@ private constructor(
         /** Filter rejections of a specific code */
         class Code
         private constructor(
-            private val integer: Long? = null,
-            private val integer: List<Long>? = null,
+            private val one: Long? = null,
+            private val listOfCodes: List<Long>? = null,
         ) {
 
             /** Filter rejections of a specific code */
-            fun integer(): Optional<Long> = Optional.ofNullable(integer)
+            fun one(): Optional<Long> = Optional.ofNullable(one)
 
             /** Filter rejections in a list of codes */
-            fun integer(): Optional<List<Long>> = Optional.ofNullable(integer)
+            fun listOfCodes(): Optional<List<Long>> = Optional.ofNullable(listOfCodes)
 
-            fun isInteger(): Boolean = integer != null
+            fun isOne(): Boolean = one != null
 
-            fun isInteger(): Boolean = integer != null
+            fun isListOfCodes(): Boolean = listOfCodes != null
 
             /** Filter rejections of a specific code */
-            fun asInteger(): Long = integer.getOrThrow("integer")
+            fun asOne(): Long = one.getOrThrow("one")
 
             /** Filter rejections in a list of codes */
-            fun asInteger(): List<Long> = integer.getOrThrow("integer")
+            fun asListOfCodes(): List<Long> = listOfCodes.getOrThrow("listOfCodes")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    integer != null -> visitor.visitInteger(integer)
-                    integer != null -> visitor.visitInteger(integer)
+                    one != null -> visitor.visitOne(one)
+                    listOfCodes != null -> visitor.visitListOfCodes(listOfCodes)
                     else -> throw IllegalStateException("Invalid Code")
                 }
 
@@ -361,26 +364,27 @@ private constructor(
                     return true
                 }
 
-                return other is Code && integer == other.integer && integer == other.integer
+                return other is Code && one == other.one && listOfCodes == other.listOfCodes
             }
 
-            override fun hashCode(): Int = Objects.hash(integer, integer)
+            override fun hashCode(): Int = Objects.hash(one, listOfCodes)
 
             override fun toString(): String =
                 when {
-                    integer != null -> "Code{integer=$integer}"
-                    integer != null -> "Code{integer=$integer}"
+                    one != null -> "Code{one=$one}"
+                    listOfCodes != null -> "Code{listOfCodes=$listOfCodes}"
                     else -> throw IllegalStateException("Invalid Code")
                 }
 
             companion object {
 
                 /** Filter rejections of a specific code */
-                @JvmStatic fun ofInteger(integer: Long) = Code(integer = integer)
+                @JvmStatic fun ofOne(one: Long) = Code(one = one)
 
                 /** Filter rejections in a list of codes */
                 @JvmStatic
-                fun ofInteger(integer: List<Long>) = Code(integer = integer.toImmutable())
+                fun ofListOfCodes(listOfCodes: List<Long>) =
+                    Code(listOfCodes = listOfCodes.toImmutable())
             }
 
             /**
@@ -389,10 +393,10 @@ private constructor(
             interface Visitor<out T> {
 
                 /** Filter rejections of a specific code */
-                fun visitInteger(integer: Long): T
+                fun visitOne(one: Long): T
 
                 /** Filter rejections in a list of codes */
-                fun visitInteger(integer: List<Long>): T
+                fun visitListOfCodes(listOfCodes: List<Long>): T
             }
         }
 
