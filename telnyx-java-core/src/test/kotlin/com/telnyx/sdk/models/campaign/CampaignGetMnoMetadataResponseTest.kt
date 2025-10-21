@@ -13,9 +13,8 @@ internal class CampaignGetMnoMetadataResponseTest {
     fun create() {
         val campaignGetMnoMetadataResponse =
             CampaignGetMnoMetadataResponse.builder()
-                ._10999(
-                    CampaignGetMnoMetadataResponse._10999
-                        .builder()
+                .mno10999(
+                    CampaignGetMnoMetadataResponse.Mno10999.builder()
                         .minMsgSamples(1L)
                         .mno("mno")
                         .mnoReview(true)
@@ -30,10 +29,9 @@ internal class CampaignGetMnoMetadataResponseTest {
                 )
                 .build()
 
-        assertThat(campaignGetMnoMetadataResponse._10999())
+        assertThat(campaignGetMnoMetadataResponse.mno10999())
             .contains(
-                CampaignGetMnoMetadataResponse._10999
-                    .builder()
+                CampaignGetMnoMetadataResponse.Mno10999.builder()
                     .minMsgSamples(1L)
                     .mno("mno")
                     .mnoReview(true)
@@ -53,9 +51,8 @@ internal class CampaignGetMnoMetadataResponseTest {
         val jsonMapper = jsonMapper()
         val campaignGetMnoMetadataResponse =
             CampaignGetMnoMetadataResponse.builder()
-                ._10999(
-                    CampaignGetMnoMetadataResponse._10999
-                        .builder()
+                .mno10999(
+                    CampaignGetMnoMetadataResponse.Mno10999.builder()
                         .minMsgSamples(1L)
                         .mno("mno")
                         .mnoReview(true)
