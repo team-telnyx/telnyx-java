@@ -240,7 +240,7 @@ internal class PortingOrderServiceAsyncTest {
                     .page(PortingOrderListParams.Page.builder().number(1L).size(1L).build())
                     .sort(
                         PortingOrderListParams.Sort.builder()
-                            .value(PortingOrderListParams.Sort.Value.CREATED_AT)
+                            .value(PortingOrderListParams.Sort.Value_.CREATED_AT)
                             .build()
                     )
                     .build()

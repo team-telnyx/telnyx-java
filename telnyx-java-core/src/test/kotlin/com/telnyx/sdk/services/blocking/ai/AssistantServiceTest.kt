@@ -167,7 +167,9 @@ internal class AssistantServiceTest {
                                         VoiceSettings.BackgroundAudio.UnionMember0.Type
                                             .PREDEFINED_MEDIA
                                     )
-                                    .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE
+                                    )
                                     .build()
                             )
                             .voiceSpeed(0.0)
@@ -344,7 +346,9 @@ internal class AssistantServiceTest {
                                         VoiceSettings.BackgroundAudio.UnionMember0.Type
                                             .PREDEFINED_MEDIA
                                     )
-                                    .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE
+                                    )
                                     .build()
                             )
                             .voiceSpeed(0.0)

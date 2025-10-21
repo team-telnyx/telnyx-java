@@ -70,7 +70,7 @@ internal class PhoneNumberExtensionServiceAsyncTest {
                     .page(PhoneNumberExtensionListParams.Page.builder().number(1L).size(1L).build())
                     .sort(
                         PhoneNumberExtensionListParams.Sort.builder()
-                            .value(PhoneNumberExtensionListParams.Sort.Value.CREATED_AT_DESC)
+                            .value(PhoneNumberExtensionListParams.Sort.Value_.CREATED_AT_DESC)
                             .build()
                     )
                     .build()

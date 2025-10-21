@@ -14,12 +14,12 @@ internal class SimCardStatusTest {
         val simCardStatus =
             SimCardStatus.builder()
                 .reason("The SIM card is active, ready to connect to networks and consume data.")
-                .value(SimCardStatus.Value.ENABLED)
+                .value(SimCardStatus.Value_.ENABLED)
                 .build()
 
         assertThat(simCardStatus.reason())
             .contains("The SIM card is active, ready to connect to networks and consume data.")
-        assertThat(simCardStatus.value()).contains(SimCardStatus.Value.ENABLED)
+        assertThat(simCardStatus.value()).contains(SimCardStatus.Value_.ENABLED)
     }
 
     @Test
@@ -28,7 +28,7 @@ internal class SimCardStatusTest {
         val simCardStatus =
             SimCardStatus.builder()
                 .reason("The SIM card is active, ready to connect to networks and consume data.")
-                .value(SimCardStatus.Value.ENABLED)
+                .value(SimCardStatus.Value_.ENABLED)
                 .build()
 
         val roundtrippedSimCardStatus =

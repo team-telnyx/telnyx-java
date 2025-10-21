@@ -32,7 +32,7 @@ internal class VerificationCodeServiceTest {
                     .page(VerificationCodeListParams.Page.builder().number(1L).size(1L).build())
                     .sort(
                         VerificationCodeListParams.Sort.builder()
-                            .value(VerificationCodeListParams.Sort.Value.CREATED_AT)
+                            .value(VerificationCodeListParams.Sort.Value_.CREATED_AT)
                             .build()
                     )
                     .build()

@@ -204,7 +204,7 @@ internal class VersionServiceTest {
                                                     .PREDEFINED_MEDIA
                                             )
                                             .value(
-                                                VoiceSettings.BackgroundAudio.UnionMember0.Value
+                                                VoiceSettings.BackgroundAudio.UnionMember0.Value_
                                                     .SILENCE
                                             )
                                             .build()

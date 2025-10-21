@@ -551,14 +551,14 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val type: JsonField<Type>,
-            private val value: JsonField<Value>,
+            private val value: JsonField<Value_>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
                 @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-                @JsonProperty("value") @ExcludeMissing value: JsonField<Value> = JsonMissing.of(),
+                @JsonProperty("value") @ExcludeMissing value: JsonField<Value_> = JsonMissing.of(),
             ) : this(type, value, mutableMapOf())
 
             /**
@@ -577,7 +577,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun value(): Value = value.getRequired("value")
+            fun value(): Value_ = value.getRequired("value")
 
             /**
              * Returns the raw JSON value of [type].
@@ -591,7 +591,7 @@ private constructor(
              *
              * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Value> = value
+            @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Value_> = value
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -623,7 +623,7 @@ private constructor(
             class Builder internal constructor() {
 
                 private var type: JsonField<Type>? = null
-                private var value: JsonField<Value>? = null
+                private var value: JsonField<Value_>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -646,16 +646,16 @@ private constructor(
                 fun type(type: JsonField<Type>) = apply { this.type = type }
 
                 /** The predefined media to use. `silence` disables background audio. */
-                fun value(value: Value) = value(JsonField.of(value))
+                fun value(value: Value_) = value(JsonField.of(value))
 
                 /**
                  * Sets [Builder.value] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.value] with a well-typed [Value] value instead.
+                 * You should usually call [Builder.value] with a well-typed [Value_] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun value(value: JsonField<Value>) = apply { this.value = value }
+                fun value(value: JsonField<Value_>) = apply { this.value = value }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -857,7 +857,7 @@ private constructor(
             }
 
             /** The predefined media to use. `silence` disables background audio. */
-            class Value @JsonCreator private constructor(private val value: JsonField<String>) :
+            class Value_ @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
 
                 /**
@@ -876,19 +876,19 @@ private constructor(
 
                     @JvmField val OFFICE = of("office")
 
-                    @JvmStatic fun of(value: String) = Value(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
                 }
 
-                /** An enum containing [Value]'s known values. */
+                /** An enum containing [Value_]'s known values. */
                 enum class Known {
                     SILENCE,
                     OFFICE,
                 }
 
                 /**
-                 * An enum containing [Value]'s known values, as well as an [_UNKNOWN] member.
+                 * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
                  *
-                 * An instance of [Value] can contain an unknown value in a couple of cases:
+                 * An instance of [Value_] can contain an unknown value in a couple of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
                  *   new members that the SDK is unaware of.
@@ -898,7 +898,7 @@ private constructor(
                     SILENCE,
                     OFFICE,
                     /**
-                     * An enum member indicating that [Value] was instantiated with an unknown
+                     * An enum member indicating that [Value_] was instantiated with an unknown
                      * value.
                      */
                     _UNKNOWN,
@@ -931,7 +931,7 @@ private constructor(
                     when (this) {
                         SILENCE -> Known.SILENCE
                         OFFICE -> Known.OFFICE
-                        else -> throw TelnyxInvalidDataException("Unknown Value: $value")
+                        else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
                     }
 
                 /**
@@ -950,7 +950,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): Value = apply {
+                fun validate(): Value_ = apply {
                     if (validated) {
                         return@apply
                     }
@@ -980,7 +980,7 @@ private constructor(
                         return true
                     }
 
-                    return other is Value && value == other.value
+                    return other is Value_ && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
