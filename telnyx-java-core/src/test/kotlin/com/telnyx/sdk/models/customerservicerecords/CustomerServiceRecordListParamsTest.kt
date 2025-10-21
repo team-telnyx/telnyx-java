@@ -37,7 +37,7 @@ internal class CustomerServiceRecordListParamsTest {
             .page(CustomerServiceRecordListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 CustomerServiceRecordListParams.Sort.builder()
-                    .value(CustomerServiceRecordListParams.Sort.Value.CREATED_AT)
+                    .value(CustomerServiceRecordListParams.Sort.Value_.CREATED_AT)
                     .build()
             )
             .build()
@@ -72,7 +72,7 @@ internal class CustomerServiceRecordListParamsTest {
                 .page(CustomerServiceRecordListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     CustomerServiceRecordListParams.Sort.builder()
-                        .value(CustomerServiceRecordListParams.Sort.Value.CREATED_AT)
+                        .value(CustomerServiceRecordListParams.Sort.Value_.CREATED_AT)
                         .build()
                 )
                 .build()

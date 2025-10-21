@@ -123,7 +123,7 @@ internal class AssistantUpdateParamsTest {
                     .backgroundAudio(
                         VoiceSettings.BackgroundAudio.UnionMember0.builder()
                             .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
                             .build()
                     )
                     .voiceSpeed(0.0)
@@ -263,7 +263,7 @@ internal class AssistantUpdateParamsTest {
                                 .type(
                                     VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA
                                 )
-                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
                                 .build()
                         )
                         .voiceSpeed(0.0)
@@ -394,7 +394,7 @@ internal class AssistantUpdateParamsTest {
                     .backgroundAudio(
                         VoiceSettings.BackgroundAudio.UnionMember0.builder()
                             .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
                             .build()
                     )
                     .voiceSpeed(0.0)

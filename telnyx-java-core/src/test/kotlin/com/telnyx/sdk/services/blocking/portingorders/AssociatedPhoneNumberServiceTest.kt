@@ -66,7 +66,7 @@ internal class AssociatedPhoneNumberServiceTest {
                     )
                     .sort(
                         AssociatedPhoneNumberListParams.Sort.builder()
-                            .value(AssociatedPhoneNumberListParams.Sort.Value.CREATED_AT_DESC)
+                            .value(AssociatedPhoneNumberListParams.Sort.Value_.CREATED_AT_DESC)
                             .build()
                     )
                     .build()

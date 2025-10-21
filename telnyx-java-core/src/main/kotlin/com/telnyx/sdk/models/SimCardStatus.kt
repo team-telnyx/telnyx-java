@@ -21,14 +21,14 @@ class SimCardStatus
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val reason: JsonField<String>,
-    private val value: JsonField<Value>,
+    private val value: JsonField<Value_>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("value") @ExcludeMissing value: JsonField<Value> = JsonMissing.of(),
+        @JsonProperty("value") @ExcludeMissing value: JsonField<Value_> = JsonMissing.of(),
     ) : this(reason, value, mutableMapOf())
 
     /**
@@ -58,7 +58,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun value(): Optional<Value> = value.getOptional("value")
+    fun value(): Optional<Value_> = value.getOptional("value")
 
     /**
      * Returns the raw JSON value of [reason].
@@ -72,7 +72,7 @@ private constructor(
      *
      * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Value> = value
+    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Value_> = value
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -96,7 +96,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var reason: JsonField<String> = JsonMissing.of()
-        private var value: JsonField<Value> = JsonMissing.of()
+        private var value: JsonField<Value_> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -134,15 +134,15 @@ private constructor(
          *
          * Transitioning between the enabled and disabled states may take a period of time.
          */
-        fun value(value: Value) = value(JsonField.of(value))
+        fun value(value: Value_) = value(JsonField.of(value))
 
         /**
          * Sets [Builder.value] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.value] with a well-typed [Value] value instead. This
+         * You should usually call [Builder.value] with a well-typed [Value_] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun value(value: JsonField<Value>) = apply { this.value = value }
+        fun value(value: JsonField<Value_>) = apply { this.value = value }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -217,7 +217,7 @@ private constructor(
      *
      * Transitioning between the enabled and disabled states may take a period of time.
      */
-    class Value @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -247,10 +247,10 @@ private constructor(
 
             @JvmField val STANDBY = of("standby")
 
-            @JvmStatic fun of(value: String) = Value(JsonField.of(value))
+            @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
         }
 
-        /** An enum containing [Value]'s known values. */
+        /** An enum containing [Value_]'s known values. */
         enum class Known {
             REGISTERING,
             ENABLING,
@@ -263,9 +263,9 @@ private constructor(
         }
 
         /**
-         * An enum containing [Value]'s known values, as well as an [_UNKNOWN] member.
+         * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [Value] can contain an unknown value in a couple of cases:
+         * An instance of [Value_] can contain an unknown value in a couple of cases:
          * - It was deserialized from data that doesn't match any known member. For example, if the
          *   SDK is on an older version than the API, then the API may respond with new members that
          *   the SDK is unaware of.
@@ -280,7 +280,7 @@ private constructor(
             DATA_LIMIT_EXCEEDED,
             SETTING_STANDBY,
             STANDBY,
-            /** An enum member indicating that [Value] was instantiated with an unknown value. */
+            /** An enum member indicating that [Value_] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
@@ -323,7 +323,7 @@ private constructor(
                 DATA_LIMIT_EXCEEDED -> Known.DATA_LIMIT_EXCEEDED
                 SETTING_STANDBY -> Known.SETTING_STANDBY
                 STANDBY -> Known.STANDBY
-                else -> throw TelnyxInvalidDataException("Unknown Value: $value")
+                else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
             }
 
         /**
@@ -340,7 +340,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Value = apply {
+        fun validate(): Value_ = apply {
             if (validated) {
                 return@apply
             }
@@ -370,7 +370,7 @@ private constructor(
                 return true
             }
 
-            return other is Value && value == other.value
+            return other is Value_ && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

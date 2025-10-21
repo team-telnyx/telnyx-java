@@ -24,7 +24,7 @@ internal class ActionRemovePublicIpResponseTest {
                         .status(
                             SimCardAction.Status.builder()
                                 .reason("The data limit was exceeded.")
-                                .value(SimCardAction.Status.Value.COMPLETED)
+                                .value(SimCardAction.Status.Value_.COMPLETED)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -44,7 +44,7 @@ internal class ActionRemovePublicIpResponseTest {
                     .status(
                         SimCardAction.Status.builder()
                             .reason("The data limit was exceeded.")
-                            .value(SimCardAction.Status.Value.COMPLETED)
+                            .value(SimCardAction.Status.Value_.COMPLETED)
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -68,7 +68,7 @@ internal class ActionRemovePublicIpResponseTest {
                         .status(
                             SimCardAction.Status.builder()
                                 .reason("The data limit was exceeded.")
-                                .value(SimCardAction.Status.Value.COMPLETED)
+                                .value(SimCardAction.Status.Value_.COMPLETED)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

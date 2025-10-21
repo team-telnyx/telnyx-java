@@ -1244,13 +1244,13 @@ private constructor(
 
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     class Sort
-    private constructor(private val value: Value?, private val additionalProperties: QueryParams) {
+    private constructor(private val value: Value_?, private val additionalProperties: QueryParams) {
 
         /**
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order.
          */
-        fun value(): Optional<Value> = Optional.ofNullable(value)
+        fun value(): Optional<Value_> = Optional.ofNullable(value)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -1266,7 +1266,7 @@ private constructor(
         /** A builder for [Sort]. */
         class Builder internal constructor() {
 
-            private var value: Value? = null
+            private var value: Value_? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -1279,10 +1279,10 @@ private constructor(
              * Specifies the sort order for results. If not given, results are sorted by created_at
              * in descending order.
              */
-            fun value(value: Value?) = apply { this.value = value }
+            fun value(value: Value_?) = apply { this.value = value }
 
             /** Alias for calling [Builder.value] with `value.orElse(null)`. */
-            fun value(value: Optional<Value>) = value(value.getOrNull())
+            fun value(value: Optional<Value_>) = value(value.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -1345,7 +1345,7 @@ private constructor(
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order.
          */
-        class Value @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+        class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1363,19 +1363,19 @@ private constructor(
 
                 @JvmField val CREATED_AT_DESC = of("-created_at")
 
-                @JvmStatic fun of(value: String) = Value(JsonField.of(value))
+                @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
             }
 
-            /** An enum containing [Value]'s known values. */
+            /** An enum containing [Value_]'s known values. */
             enum class Known {
                 CREATED_AT,
                 CREATED_AT_DESC,
             }
 
             /**
-             * An enum containing [Value]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [Value] can contain an unknown value in a couple of cases:
+             * An instance of [Value_] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -1385,7 +1385,7 @@ private constructor(
                 CREATED_AT,
                 CREATED_AT_DESC,
                 /**
-                 * An enum member indicating that [Value] was instantiated with an unknown value.
+                 * An enum member indicating that [Value_] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -1417,7 +1417,7 @@ private constructor(
                 when (this) {
                     CREATED_AT -> Known.CREATED_AT
                     CREATED_AT_DESC -> Known.CREATED_AT_DESC
-                    else -> throw TelnyxInvalidDataException("Unknown Value: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
                 }
 
             /**
@@ -1436,7 +1436,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Value = apply {
+            fun validate(): Value_ = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1466,7 +1466,7 @@ private constructor(
                     return true
                 }
 
-                return other is Value && value == other.value
+                return other is Value_ && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
