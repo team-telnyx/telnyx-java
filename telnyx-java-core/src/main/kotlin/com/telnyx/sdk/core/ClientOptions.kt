@@ -94,6 +94,7 @@ private constructor(
      */
     @get:JvmName("maxRetries") val maxRetries: Int,
     @get:JvmName("apiKey") val apiKey: String,
+    private val publicKey: String?,
 ) {
 
     init {
@@ -110,6 +111,8 @@ private constructor(
     fun baseUrl(): String = baseUrl ?: PRODUCTION_URL
 
     fun baseUrlOverridden(): Boolean = baseUrl != null
+
+    fun publicKey(): Optional<String> = Optional.ofNullable(publicKey)
 
     fun toBuilder() = Builder().from(this)
 
@@ -151,6 +154,7 @@ private constructor(
         private var timeout: Timeout = Timeout.default()
         private var maxRetries: Int = 2
         private var apiKey: String? = null
+        private var publicKey: String? = null
 
         @JvmSynthetic
         internal fun from(clientOptions: ClientOptions) = apply {
@@ -166,6 +170,7 @@ private constructor(
             timeout = clientOptions.timeout
             maxRetries = clientOptions.maxRetries
             apiKey = clientOptions.apiKey
+            publicKey = clientOptions.publicKey
         }
 
         /**
@@ -274,6 +279,11 @@ private constructor(
 
         fun apiKey(apiKey: String) = apply { this.apiKey = apiKey }
 
+        fun publicKey(publicKey: String?) = apply { this.publicKey = publicKey }
+
+        /** Alias for calling [Builder.publicKey] with `publicKey.orElse(null)`. */
+        fun publicKey(publicKey: Optional<String>) = publicKey(publicKey.getOrNull())
+
         fun headers(headers: Headers) = apply {
             this.headers.clear()
             putAllHeaders(headers)
@@ -361,10 +371,11 @@ private constructor(
          *
          * See this table for the available options:
          *
-         * |Setter   |System property |Environment variable|Required|Default value                |
-         * |---------|----------------|--------------------|--------|-----------------------------|
-         * |`apiKey` |`telnyx.apiKey` |`TELNYX_API_KEY`    |true    |-                            |
-         * |`baseUrl`|`telnyx.baseUrl`|`TELNYX_BASE_URL`   |true    |`"https://api.telnyx.com/v2"`|
+         * |Setter     |System property   |Environment variable|Required|Default value                |
+         * |-----------|------------------|--------------------|--------|-----------------------------|
+         * |`apiKey`   |`telnyx.apiKey`   |`TELNYX_API_KEY`    |true    |-                            |
+         * |`publicKey`|`telnyx.publicKey`|`TELNYX_PUBLIC_KEY` |false   |-                            |
+         * |`baseUrl`  |`telnyx.baseUrl`  |`TELNYX_BASE_URL`   |true    |`"https://api.telnyx.com/v2"`|
          *
          * System properties take precedence over environment variables.
          */
@@ -374,6 +385,9 @@ private constructor(
             }
             (System.getProperty("telnyx.apiKey") ?: System.getenv("TELNYX_API_KEY"))?.let {
                 apiKey(it)
+            }
+            (System.getProperty("telnyx.publicKey") ?: System.getenv("TELNYX_PUBLIC_KEY"))?.let {
+                publicKey(it)
             }
         }
 
@@ -431,6 +445,7 @@ private constructor(
                 timeout,
                 maxRetries,
                 apiKey,
+                publicKey,
             )
         }
     }
