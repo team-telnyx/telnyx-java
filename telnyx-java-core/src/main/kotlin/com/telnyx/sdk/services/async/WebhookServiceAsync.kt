@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.webhooks.UnsafeUnwrapWebhookEvent
 import com.telnyx.sdk.models.webhooks.UnwrapWebhookEvent
 import java.util.function.Consumer
 
@@ -20,6 +21,13 @@ interface WebhookServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookServiceAsync
+
+    /**
+     * Unwraps a webhook event from its JSON representation.
+     *
+     * @throws TelnyxInvalidDataException if the body could not be parsed.
+     */
+    fun unsafeUnwrap(body: String): UnsafeUnwrapWebhookEvent
 
     /**
      * Unwraps a webhook event from its JSON representation.
