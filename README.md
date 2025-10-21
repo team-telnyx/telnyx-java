@@ -51,8 +51,8 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 
-// Configures using the `telnyx.apiKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -72,8 +72,8 @@ Configure the client using system properties or environment variables:
 import com.telnyx.sdk.client.TelnyxClient;
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 
-// Configures using the `telnyx.apiKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 ```
 
@@ -95,8 +95,8 @@ import com.telnyx.sdk.client.TelnyxClient;
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 
 TelnyxClient client = TelnyxOkHttpClient.builder()
-    // Configures using the `telnyx.apiKey` and `telnyx.baseUrl` system properties
-    // Or configures using the `TELNYX_API_KEY` and `TELNYX_BASE_URL` environment variables
+    // Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+    // Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
@@ -104,10 +104,11 @@ TelnyxClient client = TelnyxOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter    | System property  | Environment variable | Required | Default value                 |
-| --------- | ---------------- | -------------------- | -------- | ----------------------------- |
-| `apiKey`  | `telnyx.apiKey`  | `TELNYX_API_KEY`     | true     | -                             |
-| `baseUrl` | `telnyx.baseUrl` | `TELNYX_BASE_URL`    | true     | `"https://api.telnyx.com/v2"` |
+| Setter      | System property    | Environment variable | Required | Default value                 |
+| ----------- | ------------------ | -------------------- | -------- | ----------------------------- |
+| `apiKey`    | `telnyx.apiKey`    | `TELNYX_API_KEY`     | true     | -                             |
+| `publicKey` | `telnyx.publicKey` | `TELNYX_PUBLIC_KEY`  | false    | -                             |
+| `baseUrl`   | `telnyx.baseUrl`   | `TELNYX_BASE_URL`    | true     | `"https://api.telnyx.com/v2"` |
 
 System properties take precedence over environment variables.
 
@@ -155,8 +156,8 @@ import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `telnyx.apiKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -177,8 +178,8 @@ import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `telnyx.apiKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClientAsync client = TelnyxOkHttpClientAsync.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
