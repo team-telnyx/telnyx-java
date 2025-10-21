@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.webhooks.UnsafeUnwrapWebhookEvent
 import com.telnyx.sdk.models.webhooks.UnwrapWebhookEvent
 import java.util.function.Consumer
 
@@ -19,6 +20,18 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookService =
         WebhookServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    /**
+     * Unwraps a webhook event from its JSON representation.
+     *
+     * @throws TelnyxInvalidDataException if the body could not be parsed.
+     */
+    override fun unsafeUnwrap(body: String): UnsafeUnwrapWebhookEvent =
+        try {
+            clientOptions.jsonMapper.readValue(body, jacksonTypeRef<UnsafeUnwrapWebhookEvent>())
+        } catch (e: Exception) {
+            throw TelnyxInvalidDataException("Error parsing body", e)
+        }
 
     /**
      * Unwraps a webhook event from its JSON representation.
