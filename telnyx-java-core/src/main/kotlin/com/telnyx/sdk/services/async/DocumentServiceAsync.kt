@@ -17,6 +17,8 @@ import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
 import com.telnyx.sdk.models.documents.DocumentUpdateResponse
+import com.telnyx.sdk.models.documents.DocumentUploadJsonParams
+import com.telnyx.sdk.models.documents.DocumentUploadJsonResponse
 import com.telnyx.sdk.models.documents.DocumentUploadParams
 import com.telnyx.sdk.models.documents.DocumentUploadResponse
 import java.util.concurrent.CompletableFuture
@@ -235,6 +237,20 @@ interface DocumentServiceAsync {
         params: DocumentUploadParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DocumentUploadResponse>
+
+    /**
+     * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
+     * they will be automatically deleted.
+     */
+    fun uploadJson(
+        params: DocumentUploadJsonParams
+    ): CompletableFuture<DocumentUploadJsonResponse> = uploadJson(params, RequestOptions.none())
+
+    /** @see uploadJson */
+    fun uploadJson(
+        params: DocumentUploadJsonParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<DocumentUploadJsonResponse>
 
     /**
      * A view of [DocumentServiceAsync] that provides access to raw HTTP responses for each method.
@@ -466,8 +482,8 @@ interface DocumentServiceAsync {
             generateDownloadLink(id, DocumentGenerateDownloadLinkParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
-         * [DocumentServiceAsync.upload].
+         * Returns a raw HTTP response for `post /documents?content-type=multipart`, but is
+         * otherwise the same as [DocumentServiceAsync.upload].
          */
         fun upload(
             params: DocumentUploadParams
@@ -479,5 +495,20 @@ interface DocumentServiceAsync {
             params: DocumentUploadParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DocumentUploadResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
+         * [DocumentServiceAsync.uploadJson].
+         */
+        fun uploadJson(
+            params: DocumentUploadJsonParams
+        ): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>> =
+            uploadJson(params, RequestOptions.none())
+
+        /** @see uploadJson */
+        fun uploadJson(
+            params: DocumentUploadJsonParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>>
     }
 }

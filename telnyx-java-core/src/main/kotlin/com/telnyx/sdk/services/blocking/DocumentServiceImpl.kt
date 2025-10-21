@@ -14,7 +14,6 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
-import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.documents.DocumentDeleteParams
@@ -28,6 +27,8 @@ import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
 import com.telnyx.sdk.models.documents.DocumentUpdateResponse
+import com.telnyx.sdk.models.documents.DocumentUploadJsonParams
+import com.telnyx.sdk.models.documents.DocumentUploadJsonResponse
 import com.telnyx.sdk.models.documents.DocumentUploadParams
 import com.telnyx.sdk.models.documents.DocumentUploadResponse
 import java.util.function.Consumer
@@ -91,8 +92,15 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
         params: DocumentUploadParams,
         requestOptions: RequestOptions,
     ): DocumentUploadResponse =
-        // post /documents
+        // post /documents?content-type=multipart
         withRawResponse().upload(params, requestOptions).parse()
+
+    override fun uploadJson(
+        params: DocumentUploadJsonParams,
+        requestOptions: RequestOptions,
+    ): DocumentUploadJsonResponse =
+        // post /documents
+        withRawResponse().uploadJson(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DocumentService.WithRawResponse {
@@ -287,7 +295,8 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("documents")
-                    .body(multipartFormData(clientOptions.jsonMapper, params._body()))
+                    .putQueryParam("content-type", "multipart")
+                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -295,6 +304,34 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
             return errorHandler.handle(response).parseable {
                 response
                     .use { uploadHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val uploadJsonHandler: Handler<DocumentUploadJsonResponse> =
+            jsonHandler<DocumentUploadJsonResponse>(clientOptions.jsonMapper)
+
+        override fun uploadJson(
+            params: DocumentUploadJsonParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DocumentUploadJsonResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("documents")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { uploadJsonHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
