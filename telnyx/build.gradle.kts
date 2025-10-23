@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    api(project(":telnyx-java-client-okhttp"))
+    api(project(":telnyx-client-okhttp"))
 }
