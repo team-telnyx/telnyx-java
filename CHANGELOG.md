@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.2.0 (2025-10-23)
+
+Full Changelog: [v5.1.0...v5.2.0](https://github.com/team-telnyx/telnyx-java/compare/v5.1.0...v5.2.0)
+
+### Features
+
+* update runs-on ([a297cfa](https://github.com/team-telnyx/telnyx-java/commit/a297cfaf7f537753e4c9fd4efd1bb80423b2f149))
+* update runs-on tag ([c713594](https://github.com/team-telnyx/telnyx-java/commit/c713594c7e3af2abe728054ffbdf82d3484bf46a))
+
 ## 5.1.0 (2025-10-21)
 
 Full Changelog: [v5.0.0...v5.1.0](https://github.com/team-telnyx/telnyx-java/compare/v5.0.0...v5.1.0)
