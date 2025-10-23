@@ -10,12 +10,12 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AssistantCloneResponseTest {
+internal class InferenceEmbeddingTest {
 
     @Test
     fun create() {
-        val assistantCloneResponse =
-            AssistantCloneResponse.builder()
+        val inferenceEmbedding =
+            InferenceEmbedding.builder()
                 .id("id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .instructions("instructions")
@@ -23,7 +23,7 @@ internal class AssistantCloneResponseTest {
                 .name("name")
                 .description("description")
                 .dynamicVariables(
-                    AssistantCloneResponse.DynamicVariables.builder()
+                    InferenceEmbedding.DynamicVariables.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -140,7 +140,7 @@ internal class AssistantCloneResponseTest {
                                 .type(
                                     VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA
                                 )
-                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
                                 .build()
                         )
                         .voiceSpeed(0.0)
@@ -148,51 +148,51 @@ internal class AssistantCloneResponseTest {
                 )
                 .build()
 
-        assertThat(assistantCloneResponse.id()).isEqualTo("id")
-        assertThat(assistantCloneResponse.createdAt())
+        assertThat(inferenceEmbedding.id()).isEqualTo("id")
+        assertThat(inferenceEmbedding.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(assistantCloneResponse.instructions()).isEqualTo("instructions")
-        assertThat(assistantCloneResponse.model()).isEqualTo("model")
-        assertThat(assistantCloneResponse.name()).isEqualTo("name")
-        assertThat(assistantCloneResponse.description()).contains("description")
-        assertThat(assistantCloneResponse.dynamicVariables())
+        assertThat(inferenceEmbedding.instructions()).isEqualTo("instructions")
+        assertThat(inferenceEmbedding.model()).isEqualTo("model")
+        assertThat(inferenceEmbedding.name()).isEqualTo("name")
+        assertThat(inferenceEmbedding.description()).contains("description")
+        assertThat(inferenceEmbedding.dynamicVariables())
             .contains(
-                AssistantCloneResponse.DynamicVariables.builder()
+                InferenceEmbedding.DynamicVariables.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(assistantCloneResponse.dynamicVariablesWebhookUrl())
+        assertThat(inferenceEmbedding.dynamicVariablesWebhookUrl())
             .contains("dynamic_variables_webhook_url")
-        assertThat(assistantCloneResponse.enabledFeatures().getOrNull())
+        assertThat(inferenceEmbedding.enabledFeatures().getOrNull())
             .containsExactly(EnabledFeatures.TELEPHONY)
-        assertThat(assistantCloneResponse.greeting()).contains("greeting")
-        assertThat(assistantCloneResponse.importMetadata())
+        assertThat(inferenceEmbedding.greeting()).contains("greeting")
+        assertThat(inferenceEmbedding.importMetadata())
             .contains(
                 ImportMetadata.builder()
                     .importId("import_id")
                     .importProvider(ImportMetadata.ImportProvider.ELEVENLABS)
                     .build()
             )
-        assertThat(assistantCloneResponse.insightSettings())
+        assertThat(inferenceEmbedding.insightSettings())
             .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
-        assertThat(assistantCloneResponse.llmApiKeyRef()).contains("llm_api_key_ref")
-        assertThat(assistantCloneResponse.messagingSettings())
+        assertThat(inferenceEmbedding.llmApiKeyRef()).contains("llm_api_key_ref")
+        assertThat(inferenceEmbedding.messagingSettings())
             .contains(
                 MessagingSettings.builder()
                     .defaultMessagingProfileId("default_messaging_profile_id")
                     .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                     .build()
             )
-        assertThat(assistantCloneResponse.privacySettings())
+        assertThat(inferenceEmbedding.privacySettings())
             .contains(PrivacySettings.builder().dataRetention(true).build())
-        assertThat(assistantCloneResponse.telephonySettings())
+        assertThat(inferenceEmbedding.telephonySettings())
             .contains(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
                     .supportsUnauthenticatedWebCalls(true)
                     .build()
             )
-        assertThat(assistantCloneResponse.tools().getOrNull())
+        assertThat(inferenceEmbedding.tools().getOrNull())
             .containsExactly(
                 AssistantTool.ofWebhook(
                     WebhookTool.builder()
@@ -270,9 +270,9 @@ internal class AssistantCloneResponseTest {
                         .build()
                 )
             )
-        assertThat(assistantCloneResponse.transcription())
+        assertThat(inferenceEmbedding.transcription())
             .contains(TranscriptionSettings.builder().language("language").model("model").build())
-        assertThat(assistantCloneResponse.voiceSettings())
+        assertThat(inferenceEmbedding.voiceSettings())
             .contains(
                 VoiceSettings.builder()
                     .voice("voice")
@@ -280,7 +280,7 @@ internal class AssistantCloneResponseTest {
                     .backgroundAudio(
                         VoiceSettings.BackgroundAudio.UnionMember0.builder()
                             .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
                             .build()
                     )
                     .voiceSpeed(0.0)
@@ -291,8 +291,8 @@ internal class AssistantCloneResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val assistantCloneResponse =
-            AssistantCloneResponse.builder()
+        val inferenceEmbedding =
+            InferenceEmbedding.builder()
                 .id("id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .instructions("instructions")
@@ -300,7 +300,7 @@ internal class AssistantCloneResponseTest {
                 .name("name")
                 .description("description")
                 .dynamicVariables(
-                    AssistantCloneResponse.DynamicVariables.builder()
+                    InferenceEmbedding.DynamicVariables.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -417,7 +417,7 @@ internal class AssistantCloneResponseTest {
                                 .type(
                                     VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA
                                 )
-                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
                                 .build()
                         )
                         .voiceSpeed(0.0)
@@ -425,12 +425,12 @@ internal class AssistantCloneResponseTest {
                 )
                 .build()
 
-        val roundtrippedAssistantCloneResponse =
+        val roundtrippedInferenceEmbedding =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(assistantCloneResponse),
-                jacksonTypeRef<AssistantCloneResponse>(),
+                jsonMapper.writeValueAsString(inferenceEmbedding),
+                jacksonTypeRef<InferenceEmbedding>(),
             )
 
-        assertThat(roundtrippedAssistantCloneResponse).isEqualTo(assistantCloneResponse)
+        assertThat(roundtrippedInferenceEmbedding).isEqualTo(inferenceEmbedding)
     }
 }

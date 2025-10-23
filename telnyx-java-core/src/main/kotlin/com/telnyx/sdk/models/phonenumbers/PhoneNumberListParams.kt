@@ -707,10 +707,14 @@ private constructor(
         }
 
         /** Filter phone numbers by phone number type. */
-        class NumberType private constructor(private val eq: Eq?) {
+        class NumberType
+        private constructor(private val eq: Eq?, private val additionalProperties: QueryParams) {
 
             /** Filter phone numbers by phone number type. */
             fun eq(): Optional<Eq> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -724,9 +728,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: Eq? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
-                internal fun from(numberType: NumberType) = apply { eq = numberType.eq }
+                internal fun from(numberType: NumberType) = apply {
+                    eq = numberType.eq
+                    additionalProperties = numberType.additionalProperties.toBuilder()
+                }
 
                 /** Filter phone numbers by phone number type. */
                 fun eq(eq: Eq?) = apply { this.eq = eq }
@@ -734,12 +742,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<Eq>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [NumberType].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): NumberType = NumberType(eq)
+                fun build(): NumberType = NumberType(eq, additionalProperties.build())
             }
 
             /** Filter phone numbers by phone number type. */
@@ -895,14 +954,17 @@ private constructor(
                     return true
                 }
 
-                return other is NumberType && eq == other.eq
+                return other is NumberType &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "NumberType{eq=$eq}"
+            override fun toString() =
+                "NumberType{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -1217,6 +1279,7 @@ private constructor(
             private val endsWith: String?,
             private val eq: String?,
             private val startsWith: String?,
+            private val additionalProperties: QueryParams,
         ) {
 
             /** Filter contains connection name. Requires at least three characters. */
@@ -1230,6 +1293,9 @@ private constructor(
 
             /** Filter starts with connection name. Requires at least three characters. */
             fun startsWith(): Optional<String> = Optional.ofNullable(startsWith)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -1248,6 +1314,7 @@ private constructor(
                 private var endsWith: String? = null
                 private var eq: String? = null
                 private var startsWith: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(voiceConnectionName: VoiceConnectionName) = apply {
@@ -1255,6 +1322,7 @@ private constructor(
                     endsWith = voiceConnectionName.endsWith
                     eq = voiceConnectionName.eq
                     startsWith = voiceConnectionName.startsWith
+                    additionalProperties = voiceConnectionName.additionalProperties.toBuilder()
                 }
 
                 /** Filter contains connection name. Requires at least three characters. */
@@ -1281,13 +1349,70 @@ private constructor(
                 /** Alias for calling [Builder.startsWith] with `startsWith.orElse(null)`. */
                 fun startsWith(startsWith: Optional<String>) = startsWith(startsWith.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [VoiceConnectionName].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): VoiceConnectionName =
-                    VoiceConnectionName(contains, endsWith, eq, startsWith)
+                    VoiceConnectionName(
+                        contains,
+                        endsWith,
+                        eq,
+                        startsWith,
+                        additionalProperties.build(),
+                    )
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1299,15 +1424,18 @@ private constructor(
                     contains == other.contains &&
                     endsWith == other.endsWith &&
                     eq == other.eq &&
-                    startsWith == other.startsWith
+                    startsWith == other.startsWith &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains, endsWith, eq, startsWith) }
+            private val hashCode: Int by lazy {
+                Objects.hash(contains, endsWith, eq, startsWith, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "VoiceConnectionName{contains=$contains, endsWith=$endsWith, eq=$eq, startsWith=$startsWith}"
+                "VoiceConnectionName{contains=$contains, endsWith=$endsWith, eq=$eq, startsWith=$startsWith, additionalProperties=$additionalProperties}"
         }
 
         /** Filter by usage_payment_method. */

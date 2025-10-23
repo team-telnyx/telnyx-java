@@ -17,7 +17,7 @@ internal class MessagingListResponseTest {
         val messagingListResponse =
             MessagingListResponse.builder()
                 .addData(
-                    MessagingListResponse.Data.builder()
+                    MdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)
@@ -34,7 +34,7 @@ internal class MessagingListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingListResponse.Meta.builder()
+                    StandardPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)
@@ -45,7 +45,7 @@ internal class MessagingListResponseTest {
 
         assertThat(messagingListResponse.data().getOrNull())
             .containsExactly(
-                MessagingListResponse.Data.builder()
+                MdrUsageReportResponseLegacy.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .aggregationType(0)
                     .addConnection(0L)
@@ -63,7 +63,7 @@ internal class MessagingListResponseTest {
             )
         assertThat(messagingListResponse.meta())
             .contains(
-                MessagingListResponse.Meta.builder()
+                StandardPaginationMeta.builder()
                     .pageNumber(2)
                     .pageSize(25)
                     .totalPages(3)
@@ -78,7 +78,7 @@ internal class MessagingListResponseTest {
         val messagingListResponse =
             MessagingListResponse.builder()
                 .addData(
-                    MessagingListResponse.Data.builder()
+                    MdrUsageReportResponseLegacy.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .aggregationType(0)
                         .addConnection(0L)
@@ -95,7 +95,7 @@ internal class MessagingListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingListResponse.Meta.builder()
+                    StandardPaginationMeta.builder()
                         .pageNumber(2)
                         .pageSize(25)
                         .totalPages(3)

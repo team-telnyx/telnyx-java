@@ -48,11 +48,26 @@ internal class RequestListResponseTest {
                             "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                         )
                         .verificationStatus(TfVerificationStatus.VERIFIED)
+                        .ageGatedContent(false)
                         .businessAddr2("14th Floor")
+                        .businessRegistrationCountry("US")
+                        .businessRegistrationNumber("12-3456789")
+                        .businessRegistrationType("EIN")
                         .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                        .doingBusinessAs("Acme Services")
+                        .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
+                        .helpMessageResponse(
+                            "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                        )
+                        .optInConfirmationResponse(
+                            "You have successfully opted in to receive messages from Acme Corp"
+                        )
+                        .optInKeywords("START, YES, SUBSCRIBE")
+                        .privacyPolicyUrl("https://example.com/privacy")
                         .reason(
                             "Unfortunately, we have to cancel this request as we do not support non tollfree US numbers."
                         )
+                        .termsAndConditionUrl("https://example.com/terms")
                         .updatedAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                         .webhookUrl("http://example-webhook.com")
                         .build()
@@ -94,11 +109,26 @@ internal class RequestListResponseTest {
                         "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                     )
                     .verificationStatus(TfVerificationStatus.VERIFIED)
+                    .ageGatedContent(false)
                     .businessAddr2("14th Floor")
+                    .businessRegistrationCountry("US")
+                    .businessRegistrationNumber("12-3456789")
+                    .businessRegistrationType("EIN")
                     .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                    .doingBusinessAs("Acme Services")
+                    .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
+                    .helpMessageResponse(
+                        "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                    )
+                    .optInConfirmationResponse(
+                        "You have successfully opted in to receive messages from Acme Corp"
+                    )
+                    .optInKeywords("START, YES, SUBSCRIBE")
+                    .privacyPolicyUrl("https://example.com/privacy")
                     .reason(
                         "Unfortunately, we have to cancel this request as we do not support non tollfree US numbers."
                     )
+                    .termsAndConditionUrl("https://example.com/terms")
                     .updatedAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                     .webhookUrl("http://example-webhook.com")
                     .build()
@@ -144,11 +174,26 @@ internal class RequestListResponseTest {
                             "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                         )
                         .verificationStatus(TfVerificationStatus.VERIFIED)
+                        .ageGatedContent(false)
                         .businessAddr2("14th Floor")
+                        .businessRegistrationCountry("US")
+                        .businessRegistrationNumber("12-3456789")
+                        .businessRegistrationType("EIN")
                         .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                        .doingBusinessAs("Acme Services")
+                        .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
+                        .helpMessageResponse(
+                            "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                        )
+                        .optInConfirmationResponse(
+                            "You have successfully opted in to receive messages from Acme Corp"
+                        )
+                        .optInKeywords("START, YES, SUBSCRIBE")
+                        .privacyPolicyUrl("https://example.com/privacy")
                         .reason(
                             "Unfortunately, we have to cancel this request as we do not support non tollfree US numbers."
                         )
+                        .termsAndConditionUrl("https://example.com/terms")
                         .updatedAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                         .webhookUrl("http://example-webhook.com")
                         .build()

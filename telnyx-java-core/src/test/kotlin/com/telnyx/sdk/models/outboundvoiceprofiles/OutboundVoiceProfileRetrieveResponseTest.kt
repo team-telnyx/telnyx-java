@@ -30,6 +30,13 @@ internal class OutboundVoiceProfileRetrieveResponseTest {
                                 )
                                 .build()
                         )
+                        .callingWindow(
+                            OutboundVoiceProfile.CallingWindow.builder()
+                                .callsPerCld(5L)
+                                .endTime("20:00")
+                                .startTime("08:00")
+                                .build()
+                        )
                         .concurrentCallLimit(10L)
                         .connectionsCount(12L)
                         .createdAt("2018-02-02T22:25:27.521Z")
@@ -62,6 +69,13 @@ internal class OutboundVoiceProfileRetrieveResponseTest {
                             .callRecordingType(
                                 OutboundCallRecording.CallRecordingType.BY_CALLER_PHONE_NUMBER
                             )
+                            .build()
+                    )
+                    .callingWindow(
+                        OutboundVoiceProfile.CallingWindow.builder()
+                            .callsPerCld(5L)
+                            .endTime("20:00")
+                            .startTime("08:00")
                             .build()
                     )
                     .concurrentCallLimit(10L)
@@ -102,6 +116,13 @@ internal class OutboundVoiceProfileRetrieveResponseTest {
                                 .callRecordingType(
                                     OutboundCallRecording.CallRecordingType.BY_CALLER_PHONE_NUMBER
                                 )
+                                .build()
+                        )
+                        .callingWindow(
+                            OutboundVoiceProfile.CallingWindow.builder()
+                                .callsPerCld(5L)
+                                .endTime("20:00")
+                                .startTime("08:00")
                                 .build()
                         )
                         .concurrentCallLimit(10L)

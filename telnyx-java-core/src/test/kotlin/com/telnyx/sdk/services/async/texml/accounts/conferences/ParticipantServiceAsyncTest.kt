@@ -137,6 +137,12 @@ internal class ParticipantServiceAsyncTest {
                         ParticipantParticipantsParams.ConferenceStatusCallbackMethod.GET
                     )
                     .conferenceTrim(ParticipantParticipantsParams.ConferenceTrim.TRIM_SILENCE)
+                    .addCustomHeader(
+                        ParticipantParticipantsParams.CustomHeader.builder()
+                            .name("X-Custom-Header")
+                            .value("custom-value")
+                            .build()
+                    )
                     .earlyMedia(true)
                     .endConferenceOnExit(true)
                     .from("+12065550200")

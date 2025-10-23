@@ -861,6 +861,8 @@ private constructor(
 
                 @JvmField val DECLINED = of("declined")
 
+                @JvmField val EXPIRED = of("expired")
+
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }
 
@@ -870,6 +872,7 @@ private constructor(
                 UNAPPROVED,
                 PENDING_APPROVAL,
                 DECLINED,
+                EXPIRED,
             }
 
             /**
@@ -886,6 +889,7 @@ private constructor(
                 UNAPPROVED,
                 PENDING_APPROVAL,
                 DECLINED,
+                EXPIRED,
                 /**
                  * An enum member indicating that [Status] was instantiated with an unknown value.
                  */
@@ -905,6 +909,7 @@ private constructor(
                     UNAPPROVED -> Value.UNAPPROVED
                     PENDING_APPROVAL -> Value.PENDING_APPROVAL
                     DECLINED -> Value.DECLINED
+                    EXPIRED -> Value.EXPIRED
                     else -> Value._UNKNOWN
                 }
 
@@ -923,6 +928,7 @@ private constructor(
                     UNAPPROVED -> Known.UNAPPROVED
                     PENDING_APPROVAL -> Known.PENDING_APPROVAL
                     DECLINED -> Known.DECLINED
+                    EXPIRED -> Known.EXPIRED
                     else -> throw TelnyxInvalidDataException("Unknown Status: $value")
                 }
 
@@ -1037,6 +1043,8 @@ private constructor(
 
             @JvmField val DECLINED = of("declined")
 
+            @JvmField val EXPIRED = of("expired")
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -1046,6 +1054,7 @@ private constructor(
             UNAPPROVED,
             PENDING_APPROVAL,
             DECLINED,
+            EXPIRED,
         }
 
         /**
@@ -1062,6 +1071,7 @@ private constructor(
             UNAPPROVED,
             PENDING_APPROVAL,
             DECLINED,
+            EXPIRED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1079,6 +1089,7 @@ private constructor(
                 UNAPPROVED -> Value.UNAPPROVED
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 DECLINED -> Value.DECLINED
+                EXPIRED -> Value.EXPIRED
                 else -> Value._UNKNOWN
             }
 
@@ -1097,6 +1108,7 @@ private constructor(
                 UNAPPROVED -> Known.UNAPPROVED
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 DECLINED -> Known.DECLINED
+                EXPIRED -> Known.EXPIRED
                 else -> throw TelnyxInvalidDataException("Unknown Status: $value")
             }
 

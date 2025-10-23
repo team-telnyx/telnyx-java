@@ -37,7 +37,7 @@ internal class AssistantServiceTest {
                 .build()
         val assistantService = client.ai().assistants()
 
-        val assistant =
+        val inferenceEmbedding =
             assistantService.create(
                 AssistantCreateParams.builder()
                     .instructions("instructions")
@@ -167,7 +167,9 @@ internal class AssistantServiceTest {
                                         VoiceSettings.BackgroundAudio.UnionMember0.Type
                                             .PREDEFINED_MEDIA
                                     )
-                                    .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE
+                                    )
                                     .build()
                             )
                             .voiceSpeed(0.0)
@@ -176,7 +178,7 @@ internal class AssistantServiceTest {
                     .build()
             )
 
-        assistant.validate()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -189,7 +191,7 @@ internal class AssistantServiceTest {
                 .build()
         val assistantService = client.ai().assistants()
 
-        val assistant =
+        val inferenceEmbedding =
             assistantService.retrieve(
                 AssistantRetrieveParams.builder()
                     .assistantId("assistant_id")
@@ -200,7 +202,7 @@ internal class AssistantServiceTest {
                     .build()
             )
 
-        assistant.validate()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -344,7 +346,9 @@ internal class AssistantServiceTest {
                                         VoiceSettings.BackgroundAudio.UnionMember0.Type
                                             .PREDEFINED_MEDIA
                                     )
-                                    .value(VoiceSettings.BackgroundAudio.UnionMember0.Value.SILENCE)
+                                    .value(
+                                        VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE
+                                    )
                                     .build()
                             )
                             .voiceSpeed(0.0)
@@ -420,9 +424,9 @@ internal class AssistantServiceTest {
                 .build()
         val assistantService = client.ai().assistants()
 
-        val response = assistantService.clone("assistant_id")
+        val inferenceEmbedding = assistantService.clone("assistant_id")
 
-        response.validate()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")

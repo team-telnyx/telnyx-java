@@ -29,7 +29,7 @@ internal class ByPhoneNumberListResponseTest {
                         .build()
                 )
                 .meta(
-                    ByPhoneNumberListResponse.Meta.builder()
+                    VerifyMeta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -55,7 +55,7 @@ internal class ByPhoneNumberListResponseTest {
             )
         assertThat(byPhoneNumberListResponse.meta())
             .isEqualTo(
-                ByPhoneNumberListResponse.Meta.builder()
+                VerifyMeta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -84,7 +84,7 @@ internal class ByPhoneNumberListResponseTest {
                         .build()
                 )
                 .meta(
-                    ByPhoneNumberListResponse.Meta.builder()
+                    VerifyMeta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

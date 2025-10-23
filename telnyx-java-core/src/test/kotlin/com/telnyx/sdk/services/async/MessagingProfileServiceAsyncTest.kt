@@ -40,6 +40,7 @@ internal class MessagingProfileServiceAsyncTest {
                     .enabled(true)
                     .mmsFallBackToSms(true)
                     .mmsTranscoding(true)
+                    .mobileOnly(true)
                     .numberPoolSettings(
                         NumberPoolSettings.builder()
                             .longCodeWeight(1.0)
@@ -106,6 +107,7 @@ internal class MessagingProfileServiceAsyncTest {
                     .enabled(true)
                     .mmsFallBackToSms(true)
                     .mmsTranscoding(true)
+                    .mobileOnly(true)
                     .name("Updated Profile for Messages")
                     .numberPoolSettings(
                         NumberPoolSettings.builder()

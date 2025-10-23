@@ -108,7 +108,7 @@ internal class CustomerServiceRecordServiceAsyncTest {
                     )
                     .sort(
                         CustomerServiceRecordListParams.Sort.builder()
-                            .value(CustomerServiceRecordListParams.Sort.Value.CREATED_AT)
+                            .value(CustomerServiceRecordListParams.Sort.Value_.CREATED_AT)
                             .build()
                     )
                     .build()

@@ -20,27 +20,27 @@ import kotlin.jvm.optionals.getOrNull
 class CampaignGetMnoMetadataResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val _10999: JsonField<_10999>,
+    private val mno10999: JsonField<Mno10999>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("10999") @ExcludeMissing _10999: JsonField<_10999> = JsonMissing.of()
-    ) : this(_10999, mutableMapOf())
+        @JsonProperty("10999") @ExcludeMissing mno10999: JsonField<Mno10999> = JsonMissing.of()
+    ) : this(mno10999, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun _10999(): Optional<_10999> = _10999.getOptional("10999")
+    fun mno10999(): Optional<Mno10999> = mno10999.getOptional("10999")
 
     /**
-     * Returns the raw JSON value of [_10999].
+     * Returns the raw JSON value of [mno10999].
      *
-     * Unlike [_10999], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [mno10999], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("10999") @ExcludeMissing fun __10999(): JsonField<_10999> = _10999
+    @JsonProperty("10999") @ExcludeMissing fun _mno10999(): JsonField<Mno10999> = mno10999
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -66,25 +66,26 @@ private constructor(
     /** A builder for [CampaignGetMnoMetadataResponse]. */
     class Builder internal constructor() {
 
-        private var _10999: JsonField<_10999> = JsonMissing.of()
+        private var mno10999: JsonField<Mno10999> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(campaignGetMnoMetadataResponse: CampaignGetMnoMetadataResponse) = apply {
-            _10999 = campaignGetMnoMetadataResponse._10999
+            mno10999 = campaignGetMnoMetadataResponse.mno10999
             additionalProperties =
                 campaignGetMnoMetadataResponse.additionalProperties.toMutableMap()
         }
 
-        fun _10999(_10999: _10999) = _10999(JsonField.of(_10999))
+        fun mno10999(mno10999: Mno10999) = mno10999(JsonField.of(mno10999))
 
         /**
-         * Sets [Builder._10999] to an arbitrary JSON value.
+         * Sets [Builder.mno10999] to an arbitrary JSON value.
          *
-         * You should usually call [Builder._10999] with a well-typed [_10999] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.mno10999] with a well-typed [Mno10999] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun _10999(_10999: JsonField<_10999>) = apply { this._10999 = _10999 }
+        fun mno10999(mno10999: JsonField<Mno10999>) = apply { this.mno10999 = mno10999 }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -111,7 +112,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): CampaignGetMnoMetadataResponse =
-            CampaignGetMnoMetadataResponse(_10999, additionalProperties.toMutableMap())
+            CampaignGetMnoMetadataResponse(mno10999, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -121,7 +122,7 @@ private constructor(
             return@apply
         }
 
-        _10999().ifPresent { it.validate() }
+        mno10999().ifPresent { it.validate() }
         validated = true
     }
 
@@ -138,9 +139,9 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic internal fun validity(): Int = (_10999.asKnown().getOrNull()?.validity() ?: 0)
+    @JvmSynthetic internal fun validity(): Int = (mno10999.asKnown().getOrNull()?.validity() ?: 0)
 
-    class _10999
+    class Mno10999
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val minMsgSamples: JsonField<Long>,
@@ -363,7 +364,7 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [_10999].
+             * Returns a mutable builder for constructing an instance of [Mno10999].
              *
              * The following fields are required:
              * ```java
@@ -382,7 +383,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [_10999]. */
+        /** A builder for [Mno10999]. */
         class Builder internal constructor() {
 
             private var minMsgSamples: JsonField<Long>? = null
@@ -398,18 +399,18 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(_10999: _10999) = apply {
-                minMsgSamples = _10999.minMsgSamples
-                mno = _10999.mno
-                mnoReview = _10999.mnoReview
-                mnoSupport = _10999.mnoSupport
-                noEmbeddedLink = _10999.noEmbeddedLink
-                noEmbeddedPhone = _10999.noEmbeddedPhone
-                qualify = _10999.qualify
-                reqSubscriberHelp = _10999.reqSubscriberHelp
-                reqSubscriberOptin = _10999.reqSubscriberOptin
-                reqSubscriberOptout = _10999.reqSubscriberOptout
-                additionalProperties = _10999.additionalProperties.toMutableMap()
+            internal fun from(mno10999: Mno10999) = apply {
+                minMsgSamples = mno10999.minMsgSamples
+                mno = mno10999.mno
+                mnoReview = mno10999.mnoReview
+                mnoSupport = mno10999.mnoSupport
+                noEmbeddedLink = mno10999.noEmbeddedLink
+                noEmbeddedPhone = mno10999.noEmbeddedPhone
+                qualify = mno10999.qualify
+                reqSubscriberHelp = mno10999.reqSubscriberHelp
+                reqSubscriberOptin = mno10999.reqSubscriberOptin
+                reqSubscriberOptout = mno10999.reqSubscriberOptout
+                additionalProperties = mno10999.additionalProperties.toMutableMap()
             }
 
             fun minMsgSamples(minMsgSamples: Long) = minMsgSamples(JsonField.of(minMsgSamples))
@@ -559,7 +560,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [_10999].
+             * Returns an immutable instance of [Mno10999].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -579,8 +580,8 @@ private constructor(
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): _10999 =
-                _10999(
+            fun build(): Mno10999 =
+                Mno10999(
                     checkRequired("minMsgSamples", minMsgSamples),
                     checkRequired("mno", mno),
                     checkRequired("mnoReview", mnoReview),
@@ -597,7 +598,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): _10999 = apply {
+        fun validate(): Mno10999 = apply {
             if (validated) {
                 return@apply
             }
@@ -647,7 +648,7 @@ private constructor(
                 return true
             }
 
-            return other is _10999 &&
+            return other is Mno10999 &&
                 minMsgSamples == other.minMsgSamples &&
                 mno == other.mno &&
                 mnoReview == other.mnoReview &&
@@ -680,7 +681,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "_10999{minMsgSamples=$minMsgSamples, mno=$mno, mnoReview=$mnoReview, mnoSupport=$mnoSupport, noEmbeddedLink=$noEmbeddedLink, noEmbeddedPhone=$noEmbeddedPhone, qualify=$qualify, reqSubscriberHelp=$reqSubscriberHelp, reqSubscriberOptin=$reqSubscriberOptin, reqSubscriberOptout=$reqSubscriberOptout, additionalProperties=$additionalProperties}"
+            "Mno10999{minMsgSamples=$minMsgSamples, mno=$mno, mnoReview=$mnoReview, mnoSupport=$mnoSupport, noEmbeddedLink=$noEmbeddedLink, noEmbeddedPhone=$noEmbeddedPhone, qualify=$qualify, reqSubscriberHelp=$reqSubscriberHelp, reqSubscriberOptin=$reqSubscriberOptin, reqSubscriberOptout=$reqSubscriberOptout, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -689,14 +690,14 @@ private constructor(
         }
 
         return other is CampaignGetMnoMetadataResponse &&
-            _10999 == other._10999 &&
+            mno10999 == other.mno10999 &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(_10999, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(mno10999, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CampaignGetMnoMetadataResponse{_10999=$_10999, additionalProperties=$additionalProperties}"
+        "CampaignGetMnoMetadataResponse{mno10999=$mno10999, additionalProperties=$additionalProperties}"
 }

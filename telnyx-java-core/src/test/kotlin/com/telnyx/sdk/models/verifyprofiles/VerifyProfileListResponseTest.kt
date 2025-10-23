@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.verifyprofiles
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.verifications.byphonenumber.VerifyMeta
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -52,7 +53,7 @@ internal class VerifyProfileListResponseTest {
                         .build()
                 )
                 .meta(
-                    VerifyProfileListResponse.Meta.builder()
+                    VerifyMeta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -102,7 +103,7 @@ internal class VerifyProfileListResponseTest {
             )
         assertThat(verifyProfileListResponse.meta())
             .isEqualTo(
-                VerifyProfileListResponse.Meta.builder()
+                VerifyMeta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -155,7 +156,7 @@ internal class VerifyProfileListResponseTest {
                         .build()
                 )
                 .meta(
-                    VerifyProfileListResponse.Meta.builder()
+                    VerifyMeta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

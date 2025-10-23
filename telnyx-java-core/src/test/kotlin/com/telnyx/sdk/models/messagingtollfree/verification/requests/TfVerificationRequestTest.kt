@@ -40,7 +40,22 @@ internal class TfVerificationRequestTest {
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
+                .ageGatedContent(true)
                 .businessAddr2("14th Floor")
+                .businessRegistrationCountry("US")
+                .businessRegistrationNumber("12-3456789")
+                .businessRegistrationType("EIN")
+                .doingBusinessAs("Acme Services")
+                .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                .helpMessageResponse(
+                    "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                )
+                .optInConfirmationResponse(
+                    "You have successfully opted in to receive messages from Acme Corp"
+                )
+                .optInKeywords("START, YES, SUBSCRIBE")
+                .privacyPolicyUrl("https://example.com/privacy")
+                .termsAndConditionUrl("https://example.com/terms")
                 .webhookUrl("http://example-webhook.com")
                 .build()
 
@@ -78,7 +93,24 @@ internal class TfVerificationRequestTest {
             .isEqualTo(
                 "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
             )
+        assertThat(tfVerificationRequest.ageGatedContent()).contains(true)
         assertThat(tfVerificationRequest.businessAddr2()).contains("14th Floor")
+        assertThat(tfVerificationRequest.businessRegistrationCountry()).contains("US")
+        assertThat(tfVerificationRequest.businessRegistrationNumber()).contains("12-3456789")
+        assertThat(tfVerificationRequest.businessRegistrationType()).contains("EIN")
+        assertThat(tfVerificationRequest.doingBusinessAs()).contains("Acme Services")
+        assertThat(tfVerificationRequest.entityType())
+            .contains(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+        assertThat(tfVerificationRequest.helpMessageResponse())
+            .contains(
+                "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+            )
+        assertThat(tfVerificationRequest.optInConfirmationResponse())
+            .contains("You have successfully opted in to receive messages from Acme Corp")
+        assertThat(tfVerificationRequest.optInKeywords()).contains("START, YES, SUBSCRIBE")
+        assertThat(tfVerificationRequest.privacyPolicyUrl()).contains("https://example.com/privacy")
+        assertThat(tfVerificationRequest.termsAndConditionUrl())
+            .contains("https://example.com/terms")
         assertThat(tfVerificationRequest.webhookUrl()).contains("http://example-webhook.com")
     }
 
@@ -114,7 +146,22 @@ internal class TfVerificationRequestTest {
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
+                .ageGatedContent(true)
                 .businessAddr2("14th Floor")
+                .businessRegistrationCountry("US")
+                .businessRegistrationNumber("12-3456789")
+                .businessRegistrationType("EIN")
+                .doingBusinessAs("Acme Services")
+                .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                .helpMessageResponse(
+                    "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                )
+                .optInConfirmationResponse(
+                    "You have successfully opted in to receive messages from Acme Corp"
+                )
+                .optInKeywords("START, YES, SUBSCRIBE")
+                .privacyPolicyUrl("https://example.com/privacy")
+                .termsAndConditionUrl("https://example.com/terms")
                 .webhookUrl("http://example-webhook.com")
                 .build()
 

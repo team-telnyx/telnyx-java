@@ -9,19 +9,17 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
 import com.telnyx.sdk.models.ai.assistants.AssistantChatResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantCloneParams
-import com.telnyx.sdk.models.ai.assistants.AssistantCloneResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantCreateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
-import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
 import com.telnyx.sdk.services.blocking.ai.assistants.ScheduledEventService
 import com.telnyx.sdk.services.blocking.ai.assistants.TestService
@@ -54,17 +52,17 @@ interface AssistantService {
     fun versions(): VersionService
 
     /** Create a new AI Assistant. */
-    fun create(params: AssistantCreateParams): AssistantCreateResponse =
+    fun create(params: AssistantCreateParams): InferenceEmbedding =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: AssistantCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantCreateResponse
+    ): InferenceEmbedding
 
     /** Retrieve an AI Assistant configuration by `assistant_id`. */
-    fun retrieve(assistantId: String): AssistantRetrieveResponse =
+    fun retrieve(assistantId: String): InferenceEmbedding =
         retrieve(assistantId, AssistantRetrieveParams.none())
 
     /** @see retrieve */
@@ -72,27 +70,27 @@ interface AssistantService {
         assistantId: String,
         params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantRetrieveResponse =
+    ): InferenceEmbedding =
         retrieve(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         assistantId: String,
         params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
-    ): AssistantRetrieveResponse = retrieve(assistantId, params, RequestOptions.none())
+    ): InferenceEmbedding = retrieve(assistantId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: AssistantRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantRetrieveResponse
+    ): InferenceEmbedding
 
     /** @see retrieve */
-    fun retrieve(params: AssistantRetrieveParams): AssistantRetrieveResponse =
+    fun retrieve(params: AssistantRetrieveParams): InferenceEmbedding =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(assistantId: String, requestOptions: RequestOptions): AssistantRetrieveResponse =
+    fun retrieve(assistantId: String, requestOptions: RequestOptions): InferenceEmbedding =
         retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
     /** Update an AI Assistant's attributes. */
@@ -209,7 +207,7 @@ interface AssistantService {
     ): AssistantChatResponse
 
     /** Clone an existing assistant, excluding telephony and messaging settings. */
-    fun clone(assistantId: String): AssistantCloneResponse =
+    fun clone(assistantId: String): InferenceEmbedding =
         clone(assistantId, AssistantCloneParams.none())
 
     /** @see clone */
@@ -217,27 +215,27 @@ interface AssistantService {
         assistantId: String,
         params: AssistantCloneParams = AssistantCloneParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantCloneResponse =
+    ): InferenceEmbedding =
         clone(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see clone */
     fun clone(
         assistantId: String,
         params: AssistantCloneParams = AssistantCloneParams.none(),
-    ): AssistantCloneResponse = clone(assistantId, params, RequestOptions.none())
+    ): InferenceEmbedding = clone(assistantId, params, RequestOptions.none())
 
     /** @see clone */
     fun clone(
         params: AssistantCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantCloneResponse
+    ): InferenceEmbedding
 
     /** @see clone */
-    fun clone(params: AssistantCloneParams): AssistantCloneResponse =
+    fun clone(params: AssistantCloneParams): InferenceEmbedding =
         clone(params, RequestOptions.none())
 
     /** @see clone */
-    fun clone(assistantId: String, requestOptions: RequestOptions): AssistantCloneResponse =
+    fun clone(assistantId: String, requestOptions: RequestOptions): InferenceEmbedding =
         clone(assistantId, AssistantCloneParams.none(), requestOptions)
 
     /** Get an assistant texml by `assistant_id`. */
@@ -308,7 +306,7 @@ interface AssistantService {
          * [AssistantService.create].
          */
         @MustBeClosed
-        fun create(params: AssistantCreateParams): HttpResponseFor<AssistantCreateResponse> =
+        fun create(params: AssistantCreateParams): HttpResponseFor<InferenceEmbedding> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -316,14 +314,14 @@ interface AssistantService {
         fun create(
             params: AssistantCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantCreateResponse>
+        ): HttpResponseFor<InferenceEmbedding>
 
         /**
          * Returns a raw HTTP response for `get /ai/assistants/{assistant_id}`, but is otherwise the
          * same as [AssistantService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(assistantId: String): HttpResponseFor<AssistantRetrieveResponse> =
+        fun retrieve(assistantId: String): HttpResponseFor<InferenceEmbedding> =
             retrieve(assistantId, AssistantRetrieveParams.none())
 
         /** @see retrieve */
@@ -332,7 +330,7 @@ interface AssistantService {
             assistantId: String,
             params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantRetrieveResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             retrieve(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see retrieve */
@@ -340,7 +338,7 @@ interface AssistantService {
         fun retrieve(
             assistantId: String,
             params: AssistantRetrieveParams = AssistantRetrieveParams.none(),
-        ): HttpResponseFor<AssistantRetrieveResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             retrieve(assistantId, params, RequestOptions.none())
 
         /** @see retrieve */
@@ -348,11 +346,11 @@ interface AssistantService {
         fun retrieve(
             params: AssistantRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantRetrieveResponse>
+        ): HttpResponseFor<InferenceEmbedding>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: AssistantRetrieveParams): HttpResponseFor<AssistantRetrieveResponse> =
+        fun retrieve(params: AssistantRetrieveParams): HttpResponseFor<InferenceEmbedding> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -360,7 +358,7 @@ interface AssistantService {
         fun retrieve(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssistantRetrieveResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
         /**
@@ -513,7 +511,7 @@ interface AssistantService {
          * otherwise the same as [AssistantService.clone].
          */
         @MustBeClosed
-        fun clone(assistantId: String): HttpResponseFor<AssistantCloneResponse> =
+        fun clone(assistantId: String): HttpResponseFor<InferenceEmbedding> =
             clone(assistantId, AssistantCloneParams.none())
 
         /** @see clone */
@@ -522,7 +520,7 @@ interface AssistantService {
             assistantId: String,
             params: AssistantCloneParams = AssistantCloneParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantCloneResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             clone(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see clone */
@@ -530,19 +528,18 @@ interface AssistantService {
         fun clone(
             assistantId: String,
             params: AssistantCloneParams = AssistantCloneParams.none(),
-        ): HttpResponseFor<AssistantCloneResponse> =
-            clone(assistantId, params, RequestOptions.none())
+        ): HttpResponseFor<InferenceEmbedding> = clone(assistantId, params, RequestOptions.none())
 
         /** @see clone */
         @MustBeClosed
         fun clone(
             params: AssistantCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantCloneResponse>
+        ): HttpResponseFor<InferenceEmbedding>
 
         /** @see clone */
         @MustBeClosed
-        fun clone(params: AssistantCloneParams): HttpResponseFor<AssistantCloneResponse> =
+        fun clone(params: AssistantCloneParams): HttpResponseFor<InferenceEmbedding> =
             clone(params, RequestOptions.none())
 
         /** @see clone */
@@ -550,7 +547,7 @@ interface AssistantService {
         fun clone(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssistantCloneResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             clone(assistantId, AssistantCloneParams.none(), requestOptions)
 
         /**

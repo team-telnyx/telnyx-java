@@ -16,9 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.verifyprofiles.MessageTemplate
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileData
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileDeleteParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
@@ -28,7 +28,6 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -82,7 +81,7 @@ class VerifyProfileServiceImpl internal constructor(private val clientOptions: C
     override fun createTemplate(
         params: VerifyProfileCreateTemplateParams,
         requestOptions: RequestOptions,
-    ): VerifyProfileCreateTemplateResponse =
+    ): MessageTemplate =
         // post /verify_profiles/templates
         withRawResponse().createTemplate(params, requestOptions).parse()
 
@@ -96,7 +95,7 @@ class VerifyProfileServiceImpl internal constructor(private val clientOptions: C
     override fun updateTemplate(
         params: VerifyProfileUpdateTemplateParams,
         requestOptions: RequestOptions,
-    ): VerifyProfileUpdateTemplateResponse =
+    ): MessageTemplate =
         // patch /verify_profiles/templates/{template_id}
         withRawResponse().updateTemplate(params, requestOptions).parse()
 
@@ -260,13 +259,13 @@ class VerifyProfileServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val createTemplateHandler: Handler<VerifyProfileCreateTemplateResponse> =
-            jsonHandler<VerifyProfileCreateTemplateResponse>(clientOptions.jsonMapper)
+        private val createTemplateHandler: Handler<MessageTemplate> =
+            jsonHandler<MessageTemplate>(clientOptions.jsonMapper)
 
         override fun createTemplate(
             params: VerifyProfileCreateTemplateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VerifyProfileCreateTemplateResponse> {
+        ): HttpResponseFor<MessageTemplate> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -315,13 +314,13 @@ class VerifyProfileServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val updateTemplateHandler: Handler<VerifyProfileUpdateTemplateResponse> =
-            jsonHandler<VerifyProfileUpdateTemplateResponse>(clientOptions.jsonMapper)
+        private val updateTemplateHandler: Handler<MessageTemplate> =
+            jsonHandler<MessageTemplate>(clientOptions.jsonMapper)
 
         override fun updateTemplate(
             params: VerifyProfileUpdateTemplateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VerifyProfileUpdateTemplateResponse> {
+        ): HttpResponseFor<MessageTemplate> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("templateId", params.templateId().getOrNull())

@@ -406,13 +406,20 @@ private constructor(
         }
 
         class CreatedAt
-        private constructor(private val gt: OffsetDateTime?, private val lt: OffsetDateTime?) {
+        private constructor(
+            private val gt: OffsetDateTime?,
+            private val lt: OffsetDateTime?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filters records to those created after a specific date. */
             fun gt(): Optional<OffsetDateTime> = Optional.ofNullable(gt)
 
             /** Filters records to those created before a specific date. */
             fun lt(): Optional<OffsetDateTime> = Optional.ofNullable(lt)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -427,11 +434,13 @@ private constructor(
 
                 private var gt: OffsetDateTime? = null
                 private var lt: OffsetDateTime? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(createdAt: CreatedAt) = apply {
                     gt = createdAt.gt
                     lt = createdAt.lt
+                    additionalProperties = createdAt.additionalProperties.toBuilder()
                 }
 
                 /** Filters records to those created after a specific date. */
@@ -446,12 +455,63 @@ private constructor(
                 /** Alias for calling [Builder.lt] with `lt.orElse(null)`. */
                 fun lt(lt: Optional<OffsetDateTime>) = lt(lt.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [CreatedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): CreatedAt = CreatedAt(gt, lt)
+                fun build(): CreatedAt = CreatedAt(gt, lt, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -459,24 +519,35 @@ private constructor(
                     return true
                 }
 
-                return other is CreatedAt && gt == other.gt && lt == other.lt
+                return other is CreatedAt &&
+                    gt == other.gt &&
+                    lt == other.lt &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(gt, lt) }
+            private val hashCode: Int by lazy { Objects.hash(gt, lt, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "CreatedAt{gt=$gt, lt=$lt}"
+            override fun toString() =
+                "CreatedAt{gt=$gt, lt=$lt, additionalProperties=$additionalProperties}"
         }
 
         class PhoneNumber
-        private constructor(private val eq: String?, private val in_: List<String>?) {
+        private constructor(
+            private val eq: String?,
+            private val in_: List<String>?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filters records to those with a specified number. */
             fun eq(): Optional<String> = Optional.ofNullable(eq)
 
             /** Filters records to those with at least one number in the list. */
             fun in_(): Optional<List<String>> = Optional.ofNullable(in_)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -491,11 +562,13 @@ private constructor(
 
                 private var eq: String? = null
                 private var in_: MutableList<String>? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(phoneNumber: PhoneNumber) = apply {
                     eq = phoneNumber.eq
                     in_ = phoneNumber.in_?.toMutableList()
+                    additionalProperties = phoneNumber.additionalProperties.toBuilder()
                 }
 
                 /** Filters records to those with a specified number. */
@@ -519,12 +592,64 @@ private constructor(
                     this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
                 }
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [PhoneNumber].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): PhoneNumber = PhoneNumber(eq, in_?.toImmutable())
+                fun build(): PhoneNumber =
+                    PhoneNumber(eq, in_?.toImmutable(), additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -532,23 +657,35 @@ private constructor(
                     return true
                 }
 
-                return other is PhoneNumber && eq == other.eq && in_ == other.in_
+                return other is PhoneNumber &&
+                    eq == other.eq &&
+                    in_ == other.in_ &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq, in_) }
+            private val hashCode: Int by lazy { Objects.hash(eq, in_, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "PhoneNumber{eq=$eq, in_=$in_}"
+            override fun toString() =
+                "PhoneNumber{eq=$eq, in_=$in_, additionalProperties=$additionalProperties}"
         }
 
-        class Status private constructor(private val eq: Eq?, private val in_: List<In>?) {
+        class Status
+        private constructor(
+            private val eq: Eq?,
+            private val in_: List<In>?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Filters records to those with a specific status. */
             fun eq(): Optional<Eq> = Optional.ofNullable(eq)
 
             /** Filters records to those with a least one status in the list. */
             fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -563,11 +700,13 @@ private constructor(
 
                 private var eq: Eq? = null
                 private var in_: MutableList<In>? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(status: Status) = apply {
                     eq = status.eq
                     in_ = status.in_?.toMutableList()
+                    additionalProperties = status.additionalProperties.toBuilder()
                 }
 
                 /** Filters records to those with a specific status. */
@@ -591,12 +730,63 @@ private constructor(
                     this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
                 }
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Status].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Status = Status(eq, in_?.toImmutable())
+                fun build(): Status = Status(eq, in_?.toImmutable(), additionalProperties.build())
             }
 
             /** Filters records to those with a specific status. */
@@ -875,14 +1065,18 @@ private constructor(
                     return true
                 }
 
-                return other is Status && eq == other.eq && in_ == other.in_
+                return other is Status &&
+                    eq == other.eq &&
+                    in_ == other.in_ &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq, in_) }
+            private val hashCode: Int by lazy { Objects.hash(eq, in_, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Status{eq=$eq, in_=$in_}"
+            override fun toString() =
+                "Status{eq=$eq, in_=$in_, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1050,13 +1244,13 @@ private constructor(
 
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     class Sort
-    private constructor(private val value: Value?, private val additionalProperties: QueryParams) {
+    private constructor(private val value: Value_?, private val additionalProperties: QueryParams) {
 
         /**
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order.
          */
-        fun value(): Optional<Value> = Optional.ofNullable(value)
+        fun value(): Optional<Value_> = Optional.ofNullable(value)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -1072,7 +1266,7 @@ private constructor(
         /** A builder for [Sort]. */
         class Builder internal constructor() {
 
-            private var value: Value? = null
+            private var value: Value_? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -1085,10 +1279,10 @@ private constructor(
              * Specifies the sort order for results. If not given, results are sorted by created_at
              * in descending order.
              */
-            fun value(value: Value?) = apply { this.value = value }
+            fun value(value: Value_?) = apply { this.value = value }
 
             /** Alias for calling [Builder.value] with `value.orElse(null)`. */
-            fun value(value: Optional<Value>) = value(value.getOrNull())
+            fun value(value: Optional<Value_>) = value(value.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -1151,7 +1345,7 @@ private constructor(
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order.
          */
-        class Value @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+        class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1169,19 +1363,19 @@ private constructor(
 
                 @JvmField val CREATED_AT_DESC = of("-created_at")
 
-                @JvmStatic fun of(value: String) = Value(JsonField.of(value))
+                @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
             }
 
-            /** An enum containing [Value]'s known values. */
+            /** An enum containing [Value_]'s known values. */
             enum class Known {
                 CREATED_AT,
                 CREATED_AT_DESC,
             }
 
             /**
-             * An enum containing [Value]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [Value] can contain an unknown value in a couple of cases:
+             * An instance of [Value_] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -1191,7 +1385,7 @@ private constructor(
                 CREATED_AT,
                 CREATED_AT_DESC,
                 /**
-                 * An enum member indicating that [Value] was instantiated with an unknown value.
+                 * An enum member indicating that [Value_] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -1223,7 +1417,7 @@ private constructor(
                 when (this) {
                     CREATED_AT -> Known.CREATED_AT
                     CREATED_AT_DESC -> Known.CREATED_AT_DESC
-                    else -> throw TelnyxInvalidDataException("Unknown Value: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
                 }
 
             /**
@@ -1242,7 +1436,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Value = apply {
+            fun validate(): Value_ = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1272,7 +1466,7 @@ private constructor(
                     return true
                 }
 
-                return other is Value && value == other.value
+                return other is Value_ && value == other.value
             }
 
             override fun hashCode() = value.hashCode()

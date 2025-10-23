@@ -36,7 +36,7 @@ internal class VersionServiceAsyncTest {
                 .build()
         val versionServiceAsync = client.ai().assistants().versions()
 
-        val versionFuture =
+        val inferenceEmbeddingFuture =
             versionServiceAsync.retrieve(
                 VersionRetrieveParams.builder()
                     .assistantId("assistant_id")
@@ -45,8 +45,8 @@ internal class VersionServiceAsyncTest {
                     .build()
             )
 
-        val version = versionFuture.get()
-        version.validate()
+        val inferenceEmbedding = inferenceEmbeddingFuture.get()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -59,7 +59,7 @@ internal class VersionServiceAsyncTest {
                 .build()
         val versionServiceAsync = client.ai().assistants().versions()
 
-        val versionFuture =
+        val inferenceEmbeddingFuture =
             versionServiceAsync.update(
                 VersionUpdateParams.builder()
                     .assistantId("assistant_id")
@@ -205,7 +205,7 @@ internal class VersionServiceAsyncTest {
                                                     .PREDEFINED_MEDIA
                                             )
                                             .value(
-                                                VoiceSettings.BackgroundAudio.UnionMember0.Value
+                                                VoiceSettings.BackgroundAudio.UnionMember0.Value_
                                                     .SILENCE
                                             )
                                             .build()
@@ -218,8 +218,8 @@ internal class VersionServiceAsyncTest {
                     .build()
             )
 
-        val version = versionFuture.get()
-        version.validate()
+        val inferenceEmbedding = inferenceEmbeddingFuture.get()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -269,7 +269,7 @@ internal class VersionServiceAsyncTest {
                 .build()
         val versionServiceAsync = client.ai().assistants().versions()
 
-        val responseFuture =
+        val inferenceEmbeddingFuture =
             versionServiceAsync.promote(
                 VersionPromoteParams.builder()
                     .assistantId("assistant_id")
@@ -277,7 +277,7 @@ internal class VersionServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val inferenceEmbedding = inferenceEmbeddingFuture.get()
+        inferenceEmbedding.validate()
     }
 }

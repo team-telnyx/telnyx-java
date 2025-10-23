@@ -42,7 +42,22 @@ internal class VerificationRequestEgressTest {
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
                 .verificationRequestId("verificationRequestId")
+                .ageGatedContent(false)
                 .businessAddr2("14th Floor")
+                .businessRegistrationCountry("US")
+                .businessRegistrationNumber("12-3456789")
+                .businessRegistrationType("EIN")
+                .doingBusinessAs("Acme Services")
+                .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
+                .helpMessageResponse(
+                    "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                )
+                .optInConfirmationResponse(
+                    "You have successfully opted in to receive messages from Acme Corp"
+                )
+                .optInKeywords("START, YES, SUBSCRIBE")
+                .privacyPolicyUrl("https://example.com/privacy")
+                .termsAndConditionUrl("https://example.com/terms")
                 .verificationStatus(TfVerificationStatus.VERIFIED)
                 .webhookUrl("http://example-webhook.com")
                 .build()
@@ -85,7 +100,25 @@ internal class VerificationRequestEgressTest {
             )
         assertThat(verificationRequestEgress.verificationRequestId())
             .isEqualTo("verificationRequestId")
+        assertThat(verificationRequestEgress.ageGatedContent()).contains(false)
         assertThat(verificationRequestEgress.businessAddr2()).contains("14th Floor")
+        assertThat(verificationRequestEgress.businessRegistrationCountry()).contains("US")
+        assertThat(verificationRequestEgress.businessRegistrationNumber()).contains("12-3456789")
+        assertThat(verificationRequestEgress.businessRegistrationType()).contains("EIN")
+        assertThat(verificationRequestEgress.doingBusinessAs()).contains("Acme Services")
+        assertThat(verificationRequestEgress.entityType())
+            .contains(TollFreeVerificationEntityType.PRIVATE_PROFIT)
+        assertThat(verificationRequestEgress.helpMessageResponse())
+            .contains(
+                "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+            )
+        assertThat(verificationRequestEgress.optInConfirmationResponse())
+            .contains("You have successfully opted in to receive messages from Acme Corp")
+        assertThat(verificationRequestEgress.optInKeywords()).contains("START, YES, SUBSCRIBE")
+        assertThat(verificationRequestEgress.privacyPolicyUrl())
+            .contains("https://example.com/privacy")
+        assertThat(verificationRequestEgress.termsAndConditionUrl())
+            .contains("https://example.com/terms")
         assertThat(verificationRequestEgress.verificationStatus())
             .contains(TfVerificationStatus.VERIFIED)
         assertThat(verificationRequestEgress.webhookUrl()).contains("http://example-webhook.com")
@@ -125,7 +158,22 @@ internal class VerificationRequestEgressTest {
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
                 .verificationRequestId("verificationRequestId")
+                .ageGatedContent(false)
                 .businessAddr2("14th Floor")
+                .businessRegistrationCountry("US")
+                .businessRegistrationNumber("12-3456789")
+                .businessRegistrationType("EIN")
+                .doingBusinessAs("Acme Services")
+                .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
+                .helpMessageResponse(
+                    "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                )
+                .optInConfirmationResponse(
+                    "You have successfully opted in to receive messages from Acme Corp"
+                )
+                .optInKeywords("START, YES, SUBSCRIBE")
+                .privacyPolicyUrl("https://example.com/privacy")
+                .termsAndConditionUrl("https://example.com/terms")
                 .verificationStatus(TfVerificationStatus.VERIFIED)
                 .webhookUrl("http://example-webhook.com")
                 .build()

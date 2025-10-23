@@ -197,6 +197,11 @@ class TelnyxOkHttpClient private constructor() {
 
         fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
 
+        fun publicKey(publicKey: String?) = apply { clientOptions.publicKey(publicKey) }
+
+        /** Alias for calling [Builder.publicKey] with `publicKey.orElse(null)`. */
+        fun publicKey(publicKey: Optional<String>) = publicKey(publicKey.getOrNull())
+
         fun headers(headers: Headers) = apply { clientOptions.headers(headers) }
 
         fun headers(headers: Map<String, Iterable<String>>) = apply {

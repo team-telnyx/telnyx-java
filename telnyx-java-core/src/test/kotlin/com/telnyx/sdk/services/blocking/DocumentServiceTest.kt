@@ -13,6 +13,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.documents.DocServiceDocument
 import com.telnyx.sdk.models.documents.DocumentListParams
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
+import com.telnyx.sdk.models.documents.DocumentUploadJsonParams
 import com.telnyx.sdk.models.documents.DocumentUploadParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -185,6 +186,34 @@ internal class DocumentServiceTest {
                 DocumentUploadParams.builder()
                     .body(
                         DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
+                            .url(
+                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                            )
+                            .customerReference("MY REF 001")
+                            .filename("test-document.pdf")
+                            .build()
+                    )
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun uploadJson() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val documentService = client.documents()
+
+        val response =
+            documentService.uploadJson(
+                DocumentUploadJsonParams.builder()
+                    .body(
+                        DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
                             .url(
                                 "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                             )

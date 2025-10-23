@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.texml.accounts.calls
 
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -20,6 +21,12 @@ internal class CallCallsParamsTest {
             .callerId("Info")
             .cancelPlaybackOnDetectMessageEnd(false)
             .cancelPlaybackOnMachineDetection(false)
+            .addCustomHeader(
+                CallCallsParams.CustomHeader.builder()
+                    .name("X-Custom-Header")
+                    .value("custom-value")
+                    .build()
+            )
             .detectionMode(CallCallsParams.DetectionMode.PREMIUM)
             .fallbackUrl("https://www.example.com/instructions-fallback.xml")
             .machineDetection(CallCallsParams.MachineDetection.ENABLE)
@@ -76,6 +83,12 @@ internal class CallCallsParamsTest {
                 .callerId("Info")
                 .cancelPlaybackOnDetectMessageEnd(false)
                 .cancelPlaybackOnMachineDetection(false)
+                .addCustomHeader(
+                    CallCallsParams.CustomHeader.builder()
+                        .name("X-Custom-Header")
+                        .value("custom-value")
+                        .build()
+                )
                 .detectionMode(CallCallsParams.DetectionMode.PREMIUM)
                 .fallbackUrl("https://www.example.com/instructions-fallback.xml")
                 .machineDetection(CallCallsParams.MachineDetection.ENABLE)
@@ -114,6 +127,13 @@ internal class CallCallsParamsTest {
         assertThat(body.callerId()).contains("Info")
         assertThat(body.cancelPlaybackOnDetectMessageEnd()).contains(false)
         assertThat(body.cancelPlaybackOnMachineDetection()).contains(false)
+        assertThat(body.customHeaders().getOrNull())
+            .containsExactly(
+                CallCallsParams.CustomHeader.builder()
+                    .name("X-Custom-Header")
+                    .value("custom-value")
+                    .build()
+            )
         assertThat(body.detectionMode()).contains(CallCallsParams.DetectionMode.PREMIUM)
         assertThat(body.fallbackUrl()).contains("https://www.example.com/instructions-fallback.xml")
         assertThat(body.machineDetection()).contains(CallCallsParams.MachineDetection.ENABLE)

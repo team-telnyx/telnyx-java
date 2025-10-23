@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.oauthgrants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.oauthclients.PaginationMetaOAuth
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,17 +17,17 @@ internal class OAuthGrantListResponseTest {
         val oauthGrantListResponse =
             OAuthGrantListResponse.builder()
                 .addData(
-                    OAuthGrantListResponse.Data.builder()
+                    OAuthGrant.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .clientId("client_id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .recordType(OAuthGrantListResponse.Data.RecordType.OAUTH_GRANT)
+                        .recordType(OAuthGrant.RecordType.OAUTH_GRANT)
                         .addScope("string")
                         .lastUsedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
                 .meta(
-                    OAuthGrantListResponse.Meta.builder()
+                    PaginationMetaOAuth.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -37,18 +38,18 @@ internal class OAuthGrantListResponseTest {
 
         assertThat(oauthGrantListResponse.data().getOrNull())
             .containsExactly(
-                OAuthGrantListResponse.Data.builder()
+                OAuthGrant.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .clientId("client_id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .recordType(OAuthGrantListResponse.Data.RecordType.OAUTH_GRANT)
+                    .recordType(OAuthGrant.RecordType.OAUTH_GRANT)
                     .addScope("string")
                     .lastUsedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
         assertThat(oauthGrantListResponse.meta())
             .contains(
-                OAuthGrantListResponse.Meta.builder()
+                PaginationMetaOAuth.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -63,17 +64,17 @@ internal class OAuthGrantListResponseTest {
         val oauthGrantListResponse =
             OAuthGrantListResponse.builder()
                 .addData(
-                    OAuthGrantListResponse.Data.builder()
+                    OAuthGrant.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .clientId("client_id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .recordType(OAuthGrantListResponse.Data.RecordType.OAUTH_GRANT)
+                        .recordType(OAuthGrant.RecordType.OAUTH_GRANT)
                         .addScope("string")
                         .lastUsedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
                 .meta(
-                    OAuthGrantListResponse.Meta.builder()
+                    PaginationMetaOAuth.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)

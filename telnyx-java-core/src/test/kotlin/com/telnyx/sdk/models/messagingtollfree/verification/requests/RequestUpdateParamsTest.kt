@@ -42,7 +42,22 @@ internal class RequestUpdateParamsTest {
                     .useCaseSummary(
                         "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                     )
+                    .ageGatedContent(true)
                     .businessAddr2("14th Floor")
+                    .businessRegistrationCountry("US")
+                    .businessRegistrationNumber("12-3456789")
+                    .businessRegistrationType("EIN")
+                    .doingBusinessAs("Acme Services")
+                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .helpMessageResponse(
+                        "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                    )
+                    .optInConfirmationResponse(
+                        "You have successfully opted in to receive messages from Acme Corp"
+                    )
+                    .optInKeywords("START, YES, SUBSCRIBE")
+                    .privacyPolicyUrl("https://example.com/privacy")
+                    .termsAndConditionUrl("https://example.com/terms")
                     .webhookUrl("http://example-webhook.com")
                     .build()
             )
@@ -130,7 +145,22 @@ internal class RequestUpdateParamsTest {
                         .useCaseSummary(
                             "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                         )
+                        .ageGatedContent(true)
                         .businessAddr2("14th Floor")
+                        .businessRegistrationCountry("US")
+                        .businessRegistrationNumber("12-3456789")
+                        .businessRegistrationType("EIN")
+                        .doingBusinessAs("Acme Services")
+                        .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                        .helpMessageResponse(
+                            "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                        )
+                        .optInConfirmationResponse(
+                            "You have successfully opted in to receive messages from Acme Corp"
+                        )
+                        .optInKeywords("START, YES, SUBSCRIBE")
+                        .privacyPolicyUrl("https://example.com/privacy")
+                        .termsAndConditionUrl("https://example.com/terms")
                         .webhookUrl("http://example-webhook.com")
                         .build()
                 )
@@ -170,7 +200,22 @@ internal class RequestUpdateParamsTest {
                     .useCaseSummary(
                         "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                     )
+                    .ageGatedContent(true)
                     .businessAddr2("14th Floor")
+                    .businessRegistrationCountry("US")
+                    .businessRegistrationNumber("12-3456789")
+                    .businessRegistrationType("EIN")
+                    .doingBusinessAs("Acme Services")
+                    .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
+                    .helpMessageResponse(
+                        "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
+                    )
+                    .optInConfirmationResponse(
+                        "You have successfully opted in to receive messages from Acme Corp"
+                    )
+                    .optInKeywords("START, YES, SUBSCRIBE")
+                    .privacyPolicyUrl("https://example.com/privacy")
+                    .termsAndConditionUrl("https://example.com/terms")
                     .webhookUrl("http://example-webhook.com")
                     .build()
             )

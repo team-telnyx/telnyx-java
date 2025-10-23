@@ -11,7 +11,7 @@ import com.telnyx.sdk.models.calls.StreamBidirectionalCodec
 import com.telnyx.sdk.models.numberorders.NumberOrderWithPhoneNumbers
 import com.telnyx.sdk.models.numberorders.PhoneNumber
 import com.telnyx.sdk.models.webhooks.CallAiGatherEndedWebhookEvent
-import com.telnyx.sdk.models.webhooks.UnwrapWebhookEvent
+import com.telnyx.sdk.models.webhooks.UnsafeUnwrapWebhookEvent
 import java.time.OffsetDateTime
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -242,10 +242,10 @@ internal class ProGuardCompatibilityTest {
     }
 
     @Test
-    fun unwrapWebhookEventRoundtrip() {
+    fun unsafeUnwrapWebhookEventRoundtrip() {
         val jsonMapper = jsonMapper()
-        val unwrapWebhookEvent =
-            UnwrapWebhookEvent.ofCallAiGatherEnded(
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallAiGatherEnded(
                 CallAiGatherEndedWebhookEvent.builder()
                     .data(
                         CallAiGatherEndedWebhookEvent.Data.builder()
@@ -301,13 +301,13 @@ internal class ProGuardCompatibilityTest {
                     .build()
             )
 
-        val roundtrippedUnwrapWebhookEvent =
+        val roundtrippedUnsafeUnwrapWebhookEvent =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(unwrapWebhookEvent),
-                jacksonTypeRef<UnwrapWebhookEvent>(),
+                jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent),
+                jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
             )
 
-        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
+        assertThat(roundtrippedUnsafeUnwrapWebhookEvent).isEqualTo(unsafeUnwrapWebhookEvent)
     }
 
     @Test

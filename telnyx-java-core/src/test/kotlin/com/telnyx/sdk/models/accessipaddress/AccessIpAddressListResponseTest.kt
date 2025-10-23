@@ -27,7 +27,7 @@ internal class AccessIpAddressListResponseTest {
                         .build()
                 )
                 .meta(
-                    AccessIpAddressListResponse.Meta.builder()
+                    PaginationMetaCloudflareIpListSync.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -51,7 +51,7 @@ internal class AccessIpAddressListResponseTest {
             )
         assertThat(accessIpAddressListResponse.meta())
             .isEqualTo(
-                AccessIpAddressListResponse.Meta.builder()
+                PaginationMetaCloudflareIpListSync.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -78,7 +78,7 @@ internal class AccessIpAddressListResponseTest {
                         .build()
                 )
                 .meta(
-                    AccessIpAddressListResponse.Meta.builder()
+                    PaginationMetaCloudflareIpListSync.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)

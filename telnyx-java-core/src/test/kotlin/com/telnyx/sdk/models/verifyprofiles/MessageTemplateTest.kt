@@ -7,23 +7,23 @@ import com.telnyx.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class VerifyProfileUpdateTemplateResponseTest {
+internal class MessageTemplateTest {
 
     @Test
     fun create() {
-        val verifyProfileUpdateTemplateResponse =
-            VerifyProfileUpdateTemplateResponse.builder()
+        val messageTemplate =
+            MessageTemplate.builder()
                 .data(
-                    VerifyProfileUpdateTemplateResponse.Data.builder()
+                    VerifyProfileMessageTemplateResponse.builder()
                         .id("0abb5b4f-459f-445a-bfcd-488998b7572d")
                         .text("Your {{app_name}} verification code is: {{code}}.")
                         .build()
                 )
                 .build()
 
-        assertThat(verifyProfileUpdateTemplateResponse.data())
+        assertThat(messageTemplate.data())
             .contains(
-                VerifyProfileUpdateTemplateResponse.Data.builder()
+                VerifyProfileMessageTemplateResponse.builder()
                     .id("0abb5b4f-459f-445a-bfcd-488998b7572d")
                     .text("Your {{app_name}} verification code is: {{code}}.")
                     .build()
@@ -33,23 +33,22 @@ internal class VerifyProfileUpdateTemplateResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val verifyProfileUpdateTemplateResponse =
-            VerifyProfileUpdateTemplateResponse.builder()
+        val messageTemplate =
+            MessageTemplate.builder()
                 .data(
-                    VerifyProfileUpdateTemplateResponse.Data.builder()
+                    VerifyProfileMessageTemplateResponse.builder()
                         .id("0abb5b4f-459f-445a-bfcd-488998b7572d")
                         .text("Your {{app_name}} verification code is: {{code}}.")
                         .build()
                 )
                 .build()
 
-        val roundtrippedVerifyProfileUpdateTemplateResponse =
+        val roundtrippedMessageTemplate =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(verifyProfileUpdateTemplateResponse),
-                jacksonTypeRef<VerifyProfileUpdateTemplateResponse>(),
+                jsonMapper.writeValueAsString(messageTemplate),
+                jacksonTypeRef<MessageTemplate>(),
             )
 
-        assertThat(roundtrippedVerifyProfileUpdateTemplateResponse)
-            .isEqualTo(verifyProfileUpdateTemplateResponse)
+        assertThat(roundtrippedMessageTemplate).isEqualTo(messageTemplate)
     }
 }

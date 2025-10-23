@@ -21,7 +21,7 @@ internal class AssociatedPhoneNumberListParamsTest {
             .page(AssociatedPhoneNumberListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 AssociatedPhoneNumberListParams.Sort.builder()
-                    .value(AssociatedPhoneNumberListParams.Sort.Value.CREATED_AT_DESC)
+                    .value(AssociatedPhoneNumberListParams.Sort.Value_.CREATED_AT_DESC)
                     .build()
             )
             .build()
@@ -53,7 +53,7 @@ internal class AssociatedPhoneNumberListParamsTest {
                 .page(AssociatedPhoneNumberListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     AssociatedPhoneNumberListParams.Sort.builder()
-                        .value(AssociatedPhoneNumberListParams.Sort.Value.CREATED_AT_DESC)
+                        .value(AssociatedPhoneNumberListParams.Sort.Value_.CREATED_AT_DESC)
                         .build()
                 )
                 .build()

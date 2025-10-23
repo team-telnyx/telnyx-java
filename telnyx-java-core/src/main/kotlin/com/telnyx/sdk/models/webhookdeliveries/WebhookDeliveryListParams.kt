@@ -430,10 +430,17 @@ private constructor(
                 )
         }
 
-        class Attempts private constructor(private val contains: String?) {
+        class Attempts
+        private constructor(
+            private val contains: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Return only webhook_deliveries whose `attempts` component contains the given text */
             fun contains(): Optional<String> = Optional.ofNullable(contains)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -447,9 +454,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var contains: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
-                internal fun from(attempts: Attempts) = apply { contains = attempts.contains }
+                internal fun from(attempts: Attempts) = apply {
+                    contains = attempts.contains
+                    additionalProperties = attempts.additionalProperties.toBuilder()
+                }
 
                 /**
                  * Return only webhook_deliveries whose `attempts` component contains the given text
@@ -459,12 +470,63 @@ private constructor(
                 /** Alias for calling [Builder.contains] with `contains.orElse(null)`. */
                 fun contains(contains: Optional<String>) = contains(contains.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Attempts].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Attempts = Attempts(contains)
+                fun build(): Attempts = Attempts(contains, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -472,17 +534,25 @@ private constructor(
                     return true
                 }
 
-                return other is Attempts && contains == other.contains
+                return other is Attempts &&
+                    contains == other.contains &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains) }
+            private val hashCode: Int by lazy { Objects.hash(contains, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Attempts{contains=$contains}"
+            override fun toString() =
+                "Attempts{contains=$contains, additionalProperties=$additionalProperties}"
         }
 
-        class FinishedAt private constructor(private val gte: String?, private val lte: String?) {
+        class FinishedAt
+        private constructor(
+            private val gte: String?,
+            private val lte: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * Return only webhook_deliveries whose delivery finished later than or at given ISO
@@ -495,6 +565,9 @@ private constructor(
              * 8601 datetime
              */
             fun lte(): Optional<String> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -509,11 +582,13 @@ private constructor(
 
                 private var gte: String? = null
                 private var lte: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(finishedAt: FinishedAt) = apply {
                     gte = finishedAt.gte
                     lte = finishedAt.lte
+                    additionalProperties = finishedAt.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -534,12 +609,63 @@ private constructor(
                 /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                 fun lte(lte: Optional<String>) = lte(lte.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [FinishedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): FinishedAt = FinishedAt(gte, lte)
+                fun build(): FinishedAt = FinishedAt(gte, lte, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -547,17 +673,26 @@ private constructor(
                     return true
                 }
 
-                return other is FinishedAt && gte == other.gte && lte == other.lte
+                return other is FinishedAt &&
+                    gte == other.gte &&
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(gte, lte) }
+            private val hashCode: Int by lazy { Objects.hash(gte, lte, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "FinishedAt{gte=$gte, lte=$lte}"
+            override fun toString() =
+                "FinishedAt{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
-        class StartedAt private constructor(private val gte: String?, private val lte: String?) {
+        class StartedAt
+        private constructor(
+            private val gte: String?,
+            private val lte: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /**
              * Return only webhook_deliveries whose delivery started later than or at given ISO 8601
@@ -570,6 +705,9 @@ private constructor(
              * 8601 datetime
              */
             fun lte(): Optional<String> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -584,11 +722,13 @@ private constructor(
 
                 private var gte: String? = null
                 private var lte: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(startedAt: StartedAt) = apply {
                     gte = startedAt.gte
                     lte = startedAt.lte
+                    additionalProperties = startedAt.additionalProperties.toBuilder()
                 }
 
                 /**
@@ -609,12 +749,63 @@ private constructor(
                 /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
                 fun lte(lte: Optional<String>) = lte(lte.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [StartedAt].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): StartedAt = StartedAt(gte, lte)
+                fun build(): StartedAt = StartedAt(gte, lte, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -622,20 +813,28 @@ private constructor(
                     return true
                 }
 
-                return other is StartedAt && gte == other.gte && lte == other.lte
+                return other is StartedAt &&
+                    gte == other.gte &&
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(gte, lte) }
+            private val hashCode: Int by lazy { Objects.hash(gte, lte, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "StartedAt{gte=$gte, lte=$lte}"
+            override fun toString() =
+                "StartedAt{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
-        class Status private constructor(private val eq: Eq?) {
+        class Status
+        private constructor(private val eq: Eq?, private val additionalProperties: QueryParams) {
 
             /** Return only webhook_deliveries matching the given `status` */
             fun eq(): Optional<Eq> = Optional.ofNullable(eq)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -649,8 +848,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: Eq? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                @JvmSynthetic internal fun from(status: Status) = apply { eq = status.eq }
+                @JvmSynthetic
+                internal fun from(status: Status) = apply {
+                    eq = status.eq
+                    additionalProperties = status.additionalProperties.toBuilder()
+                }
 
                 /** Return only webhook_deliveries matching the given `status` */
                 fun eq(eq: Eq?) = apply { this.eq = eq }
@@ -658,12 +862,63 @@ private constructor(
                 /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
                 fun eq(eq: Optional<Eq>) = eq(eq.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Status].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Status = Status(eq)
+                fun build(): Status = Status(eq, additionalProperties.build())
             }
 
             /** Return only webhook_deliveries matching the given `status` */
@@ -801,20 +1056,29 @@ private constructor(
                     return true
                 }
 
-                return other is Status && eq == other.eq
+                return other is Status &&
+                    eq == other.eq &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq) }
+            private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Status{eq=$eq}"
+            override fun toString() = "Status{eq=$eq, additionalProperties=$additionalProperties}"
         }
 
-        class Webhook private constructor(private val contains: String?) {
+        class Webhook
+        private constructor(
+            private val contains: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Return only webhook deliveries whose `webhook` component contains the given text */
             fun contains(): Optional<String> = Optional.ofNullable(contains)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -828,9 +1092,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var contains: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
-                internal fun from(webhook: Webhook) = apply { contains = webhook.contains }
+                internal fun from(webhook: Webhook) = apply {
+                    contains = webhook.contains
+                    additionalProperties = webhook.additionalProperties.toBuilder()
+                }
 
                 /**
                  * Return only webhook deliveries whose `webhook` component contains the given text
@@ -840,12 +1108,63 @@ private constructor(
                 /** Alias for calling [Builder.contains] with `contains.orElse(null)`. */
                 fun contains(contains: Optional<String>) = contains(contains.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Webhook].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Webhook = Webhook(contains)
+                fun build(): Webhook = Webhook(contains, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -853,14 +1172,17 @@ private constructor(
                     return true
                 }
 
-                return other is Webhook && contains == other.contains
+                return other is Webhook &&
+                    contains == other.contains &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains) }
+            private val hashCode: Int by lazy { Objects.hash(contains, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Webhook{contains=$contains}"
+            override fun toString() =
+                "Webhook{contains=$contains, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

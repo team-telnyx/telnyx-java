@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice
 
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.Filter
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -20,13 +21,13 @@ internal class VoiceCreateParamsTest {
             .addConnection(456L)
             .fields(listOf("call_leg_id", "start_time", "end_time"))
             .addFilter(
-                VoiceCreateParams.Filter.builder()
+                Filter.builder()
                     .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                     .cld("+13129457420")
-                    .cldFilter(VoiceCreateParams.Filter.CldFilter.CONTAINS)
+                    .cldFilter(Filter.CldFilter.CONTAINS)
                     .cli("+13129457420")
-                    .cliFilter(VoiceCreateParams.Filter.CliFilter.CONTAINS)
-                    .filterType(VoiceCreateParams.Filter.FilterType.AND)
+                    .cliFilter(Filter.CliFilter.CONTAINS)
+                    .filterType(Filter.FilterType.AND)
                     .tagsList("tag1")
                     .build()
             )
@@ -54,13 +55,13 @@ internal class VoiceCreateParamsTest {
                 .addConnection(456L)
                 .fields(listOf("call_leg_id", "start_time", "end_time"))
                 .addFilter(
-                    VoiceCreateParams.Filter.builder()
+                    Filter.builder()
                         .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                         .cld("+13129457420")
-                        .cldFilter(VoiceCreateParams.Filter.CldFilter.CONTAINS)
+                        .cldFilter(Filter.CldFilter.CONTAINS)
                         .cli("+13129457420")
-                        .cliFilter(VoiceCreateParams.Filter.CliFilter.CONTAINS)
-                        .filterType(VoiceCreateParams.Filter.FilterType.AND)
+                        .cliFilter(Filter.CliFilter.CONTAINS)
+                        .filterType(Filter.FilterType.AND)
                         .tagsList("tag1")
                         .build()
                 )
@@ -85,13 +86,13 @@ internal class VoiceCreateParamsTest {
             .containsExactly("call_leg_id", "start_time", "end_time")
         assertThat(body.filters().getOrNull())
             .containsExactly(
-                VoiceCreateParams.Filter.builder()
+                Filter.builder()
                     .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                     .cld("+13129457420")
-                    .cldFilter(VoiceCreateParams.Filter.CldFilter.CONTAINS)
+                    .cldFilter(Filter.CldFilter.CONTAINS)
                     .cli("+13129457420")
-                    .cliFilter(VoiceCreateParams.Filter.CliFilter.CONTAINS)
-                    .filterType(VoiceCreateParams.Filter.FilterType.AND)
+                    .cliFilter(Filter.CliFilter.CONTAINS)
+                    .filterType(Filter.FilterType.AND)
                     .tagsList("tag1")
                     .build()
             )

@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking.legacy.reporting.batchdetailrecords
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.Filter
 import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice.VoiceCreateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -34,13 +35,13 @@ internal class VoiceServiceTest {
                     .addConnection(456L)
                     .fields(listOf("call_leg_id", "start_time", "end_time"))
                     .addFilter(
-                        VoiceCreateParams.Filter.builder()
+                        Filter.builder()
                             .billingGroup("adfaa016-f921-4b6c-97bb-e4c1dad231c5")
                             .cld("+13129457420")
-                            .cldFilter(VoiceCreateParams.Filter.CldFilter.CONTAINS)
+                            .cldFilter(Filter.CldFilter.CONTAINS)
                             .cli("+13129457420")
-                            .cliFilter(VoiceCreateParams.Filter.CliFilter.CONTAINS)
-                            .filterType(VoiceCreateParams.Filter.FilterType.AND)
+                            .cliFilter(Filter.CliFilter.CONTAINS)
+                            .filterType(Filter.FilterType.AND)
                             .tagsList("tag1")
                             .build()
                     )

@@ -74,7 +74,7 @@ internal class AdditionalDocumentServiceAsyncTest {
                     .page(AdditionalDocumentListParams.Page.builder().number(1L).size(1L).build())
                     .sort(
                         AdditionalDocumentListParams.Sort.builder()
-                            .value(AdditionalDocumentListParams.Sort.Value.CREATED_AT)
+                            .value(AdditionalDocumentListParams.Sort.Value_.CREATED_AT)
                             .build()
                     )
                     .build()

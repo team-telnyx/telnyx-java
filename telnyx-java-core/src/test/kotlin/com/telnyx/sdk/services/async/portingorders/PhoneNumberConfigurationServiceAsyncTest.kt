@@ -77,7 +77,7 @@ internal class PhoneNumberConfigurationServiceAsyncTest {
                     )
                     .sort(
                         PhoneNumberConfigurationListParams.Sort.builder()
-                            .value(PhoneNumberConfigurationListParams.Sort.Value.CREATED_AT)
+                            .value(PhoneNumberConfigurationListParams.Sort.Value_.CREATED_AT)
                             .build()
                     )
                     .build()

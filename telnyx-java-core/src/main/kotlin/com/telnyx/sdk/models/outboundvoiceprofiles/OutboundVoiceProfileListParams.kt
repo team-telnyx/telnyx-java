@@ -26,7 +26,7 @@ private constructor(
     /** Consolidated filter parameter (deepObject style). Originally: filter[name][contains] */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
     fun page(): Optional<Page> = Optional.ofNullable(page)
 
     /**
@@ -82,7 +82,7 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
-        /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
         fun page(page: Page?) = apply { this.page = page }
 
         /** Alias for calling [Builder.page] with `page.orElse(null)`. */
@@ -343,10 +343,17 @@ private constructor(
         }
 
         /** Name filtering operations */
-        class Name private constructor(private val contains: String?) {
+        class Name
+        private constructor(
+            private val contains: String?,
+            private val additionalProperties: QueryParams,
+        ) {
 
             /** Optional filter on outbound voice profile name. */
             fun contains(): Optional<String> = Optional.ofNullable(contains)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
 
             fun toBuilder() = Builder().from(this)
 
@@ -360,8 +367,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var contains: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-                @JvmSynthetic internal fun from(name: Name) = apply { contains = name.contains }
+                @JvmSynthetic
+                internal fun from(name: Name) = apply {
+                    contains = name.contains
+                    additionalProperties = name.additionalProperties.toBuilder()
+                }
 
                 /** Optional filter on outbound voice profile name. */
                 fun contains(contains: String?) = apply { this.contains = contains }
@@ -369,12 +381,63 @@ private constructor(
                 /** Alias for calling [Builder.contains] with `contains.orElse(null)`. */
                 fun contains(contains: Optional<String>) = contains(contains.getOrNull())
 
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
                 /**
                  * Returns an immutable instance of [Name].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Name = Name(contains)
+                fun build(): Name = Name(contains, additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -382,14 +445,17 @@ private constructor(
                     return true
                 }
 
-                return other is Name && contains == other.contains
+                return other is Name &&
+                    contains == other.contains &&
+                    additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(contains) }
+            private val hashCode: Int by lazy { Objects.hash(contains, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Name{contains=$contains}"
+            override fun toString() =
+                "Name{contains=$contains, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -409,7 +475,7 @@ private constructor(
         override fun toString() = "Filter{name=$name, additionalProperties=$additionalProperties}"
     }
 
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
     class Page
     private constructor(
         private val number: Long?,

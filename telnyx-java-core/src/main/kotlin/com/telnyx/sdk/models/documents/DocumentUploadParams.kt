@@ -4,20 +4,27 @@ package com.telnyx.sdk.models.documents
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.BaseDeserializer
 import com.telnyx.sdk.core.BaseSerializer
 import com.telnyx.sdk.core.ExcludeMissing
+import com.telnyx.sdk.core.JsonField
+import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.MultipartField
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -29,23 +36,12 @@ import java.util.Optional
  */
 class DocumentUploadParams
 private constructor(
-    private val body: MultipartField<Body>,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun body(): Body = body.value.getRequired("body")
-
-    /**
-     * Returns the raw multipart value of [body].
-     *
-     * Unlike [body], this method doesn't throw if the multipart field has an unexpected type.
-     */
-    @JsonProperty("body") @ExcludeMissing fun _body(): MultipartField<Body> = body
+    fun body(): Body = body
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -71,7 +67,7 @@ private constructor(
     /** A builder for [DocumentUploadParams]. */
     class Builder internal constructor() {
 
-        private var body: MultipartField<Body>? = null
+        private var body: Body? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -82,15 +78,7 @@ private constructor(
             additionalQueryParams = documentUploadParams.additionalQueryParams.toBuilder()
         }
 
-        fun body(body: Body) = body(MultipartField.of(body))
-
-        /**
-         * Sets [Builder.body] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.body] with a well-typed [Body] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun body(body: MultipartField<Body>) = apply { this.body = body }
+        fun body(body: Body) = apply { this.body = body }
 
         /**
          * Alias for calling [body] with
@@ -224,15 +212,13 @@ private constructor(
             )
     }
 
-    fun _body(): Map<String, MultipartField<*>> =
-        (mapOf("body" to _body()) +
-                _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
-            .toImmutable()
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
+    @JsonDeserialize(using = Body.Deserializer::class)
     @JsonSerialize(using = Body.Serializer::class)
     class Body
     private constructor(
@@ -301,6 +287,28 @@ private constructor(
                 false
             }
 
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitDocServiceDocumentUploadUrl(
+                        docServiceDocumentUploadUrl: DocServiceDocumentUploadUrl
+                    ) = docServiceDocumentUploadUrl.validity()
+
+                    override fun visitDocServiceDocumentUploadInline(
+                        docServiceDocumentUploadInline: DocServiceDocumentUploadInline
+                    ) = docServiceDocumentUploadInline.validity()
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -362,6 +370,34 @@ private constructor(
             }
         }
 
+        internal class Deserializer : BaseDeserializer<Body>(Body::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): Body {
+                val json = JsonValue.fromJsonNode(node)
+
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<DocServiceDocumentUploadUrl>())
+                                ?.let { Body(docServiceDocumentUploadUrl = it, _json = json) },
+                            tryDeserialize(node, jacksonTypeRef<DocServiceDocumentUploadInline>())
+                                ?.let { Body(docServiceDocumentUploadInline = it, _json = json) },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from boolean).
+                    0 -> Body(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                }
+            }
+        }
+
         internal class Serializer : BaseSerializer<Body>(Body::class) {
 
             override fun serialize(
@@ -381,12 +417,24 @@ private constructor(
         }
 
         class DocServiceDocumentUploadUrl
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val url: MultipartField<String>,
-            private val customerReference: MultipartField<String>,
-            private val filename: MultipartField<String>,
+            private val url: JsonField<String>,
+            private val customerReference: JsonField<String>,
+            private val filename: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("customer_reference")
+                @ExcludeMissing
+                customerReference: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("filename")
+                @ExcludeMissing
+                filename: JsonField<String> = JsonMissing.of(),
+            ) : this(url, customerReference, filename, mutableMapOf())
 
             /**
              * If the file is already hosted publicly, you can provide a URL and have the documents
@@ -396,7 +444,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun url(): String = url.value.getRequired("url")
+            fun url(): String = url.getRequired("url")
 
             /**
              * Optional reference string for customer tracking.
@@ -405,7 +453,7 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun customerReference(): Optional<String> =
-                customerReference.value.getOptional("customer_reference")
+                customerReference.getOptional("customer_reference")
 
             /**
              * The filename of the document.
@@ -413,35 +461,32 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun filename(): Optional<String> = filename.value.getOptional("filename")
+            fun filename(): Optional<String> = filename.getOptional("filename")
 
             /**
-             * Returns the raw multipart value of [url].
+             * Returns the raw JSON value of [url].
              *
-             * Unlike [url], this method doesn't throw if the multipart field has an unexpected
-             * type.
+             * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("url") @ExcludeMissing fun _url(): MultipartField<String> = url
+            @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
             /**
-             * Returns the raw multipart value of [customerReference].
+             * Returns the raw JSON value of [customerReference].
              *
-             * Unlike [customerReference], this method doesn't throw if the multipart field has an
+             * Unlike [customerReference], this method doesn't throw if the JSON field has an
              * unexpected type.
              */
             @JsonProperty("customer_reference")
             @ExcludeMissing
-            fun _customerReference(): MultipartField<String> = customerReference
+            fun _customerReference(): JsonField<String> = customerReference
 
             /**
-             * Returns the raw multipart value of [filename].
+             * Returns the raw JSON value of [filename].
              *
-             * Unlike [filename], this method doesn't throw if the multipart field has an unexpected
+             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
-            @JsonProperty("filename")
-            @ExcludeMissing
-            fun _filename(): MultipartField<String> = filename
+            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -472,9 +517,9 @@ private constructor(
             /** A builder for [DocServiceDocumentUploadUrl]. */
             class Builder internal constructor() {
 
-                private var url: MultipartField<String>? = null
-                private var customerReference: MultipartField<String> = MultipartField.of(null)
-                private var filename: MultipartField<String> = MultipartField.of(null)
+                private var url: JsonField<String>? = null
+                private var customerReference: JsonField<String> = JsonMissing.of()
+                private var filename: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -491,43 +536,43 @@ private constructor(
                  * If the file is already hosted publicly, you can provide a URL and have the
                  * documents service fetch it for you.
                  */
-                fun url(url: String) = url(MultipartField.of(url))
+                fun url(url: String) = url(JsonField.of(url))
 
                 /**
-                 * Sets [Builder.url] to an arbitrary multipart value.
+                 * Sets [Builder.url] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.url] with a well-typed [String] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun url(url: MultipartField<String>) = apply { this.url = url }
+                fun url(url: JsonField<String>) = apply { this.url = url }
 
                 /** Optional reference string for customer tracking. */
                 fun customerReference(customerReference: String) =
-                    customerReference(MultipartField.of(customerReference))
+                    customerReference(JsonField.of(customerReference))
 
                 /**
-                 * Sets [Builder.customerReference] to an arbitrary multipart value.
+                 * Sets [Builder.customerReference] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.customerReference] with a well-typed [String]
                  * value instead. This method is primarily for setting the field to an undocumented
                  * or not yet supported value.
                  */
-                fun customerReference(customerReference: MultipartField<String>) = apply {
+                fun customerReference(customerReference: JsonField<String>) = apply {
                     this.customerReference = customerReference
                 }
 
                 /** The filename of the document. */
-                fun filename(filename: String) = filename(MultipartField.of(filename))
+                fun filename(filename: String) = filename(JsonField.of(filename))
 
                 /**
-                 * Sets [Builder.filename] to an arbitrary multipart value.
+                 * Sets [Builder.filename] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.filename] with a well-typed [String] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun filename(filename: MultipartField<String>) = apply { this.filename = filename }
+                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -593,6 +638,18 @@ private constructor(
                     false
                 }
 
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (url.asKnown().isPresent) 1 else 0) +
+                    (if (customerReference.asKnown().isPresent) 1 else 0) +
+                    (if (filename.asKnown().isPresent) 1 else 0)
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -616,12 +673,24 @@ private constructor(
         }
 
         class DocServiceDocumentUploadInline
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val file: MultipartField<String>,
-            private val customerReference: MultipartField<String>,
-            private val filename: MultipartField<String>,
+            private val file: JsonField<String>,
+            private val customerReference: JsonField<String>,
+            private val filename: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("file") @ExcludeMissing file: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("customer_reference")
+                @ExcludeMissing
+                customerReference: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("filename")
+                @ExcludeMissing
+                filename: JsonField<String> = JsonMissing.of(),
+            ) : this(file, customerReference, filename, mutableMapOf())
 
             /**
              * The Base64 encoded contents of the file you are uploading.
@@ -630,7 +699,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun file(): String = file.value.getRequired("file")
+            fun file(): String = file.getRequired("file")
 
             /**
              * A customer reference string for customer look ups.
@@ -639,7 +708,7 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun customerReference(): Optional<String> =
-                customerReference.value.getOptional("customer_reference")
+                customerReference.getOptional("customer_reference")
 
             /**
              * The filename of the document.
@@ -647,35 +716,32 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun filename(): Optional<String> = filename.value.getOptional("filename")
+            fun filename(): Optional<String> = filename.getOptional("filename")
 
             /**
-             * Returns the raw multipart value of [file].
+             * Returns the raw JSON value of [file].
              *
-             * Unlike [file], this method doesn't throw if the multipart field has an unexpected
-             * type.
+             * Unlike [file], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("file") @ExcludeMissing fun _file(): MultipartField<String> = file
+            @JsonProperty("file") @ExcludeMissing fun _file(): JsonField<String> = file
 
             /**
-             * Returns the raw multipart value of [customerReference].
+             * Returns the raw JSON value of [customerReference].
              *
-             * Unlike [customerReference], this method doesn't throw if the multipart field has an
+             * Unlike [customerReference], this method doesn't throw if the JSON field has an
              * unexpected type.
              */
             @JsonProperty("customer_reference")
             @ExcludeMissing
-            fun _customerReference(): MultipartField<String> = customerReference
+            fun _customerReference(): JsonField<String> = customerReference
 
             /**
-             * Returns the raw multipart value of [filename].
+             * Returns the raw JSON value of [filename].
              *
-             * Unlike [filename], this method doesn't throw if the multipart field has an unexpected
+             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
-            @JsonProperty("filename")
-            @ExcludeMissing
-            fun _filename(): MultipartField<String> = filename
+            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -706,9 +772,9 @@ private constructor(
             /** A builder for [DocServiceDocumentUploadInline]. */
             class Builder internal constructor() {
 
-                private var file: MultipartField<String>? = null
-                private var customerReference: MultipartField<String> = MultipartField.of(null)
-                private var filename: MultipartField<String> = MultipartField.of(null)
+                private var file: JsonField<String>? = null
+                private var customerReference: JsonField<String> = JsonMissing.of()
+                private var filename: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -722,43 +788,43 @@ private constructor(
                     }
 
                 /** The Base64 encoded contents of the file you are uploading. */
-                fun file(file: String) = file(MultipartField.of(file))
+                fun file(file: String) = file(JsonField.of(file))
 
                 /**
-                 * Sets [Builder.file] to an arbitrary multipart value.
+                 * Sets [Builder.file] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.file] with a well-typed [String] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun file(file: MultipartField<String>) = apply { this.file = file }
+                fun file(file: JsonField<String>) = apply { this.file = file }
 
                 /** A customer reference string for customer look ups. */
                 fun customerReference(customerReference: String) =
-                    customerReference(MultipartField.of(customerReference))
+                    customerReference(JsonField.of(customerReference))
 
                 /**
-                 * Sets [Builder.customerReference] to an arbitrary multipart value.
+                 * Sets [Builder.customerReference] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.customerReference] with a well-typed [String]
                  * value instead. This method is primarily for setting the field to an undocumented
                  * or not yet supported value.
                  */
-                fun customerReference(customerReference: MultipartField<String>) = apply {
+                fun customerReference(customerReference: JsonField<String>) = apply {
                     this.customerReference = customerReference
                 }
 
                 /** The filename of the document. */
-                fun filename(filename: String) = filename(MultipartField.of(filename))
+                fun filename(filename: String) = filename(JsonField.of(filename))
 
                 /**
-                 * Sets [Builder.filename] to an arbitrary multipart value.
+                 * Sets [Builder.filename] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.filename] with a well-typed [String] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun filename(filename: MultipartField<String>) = apply { this.filename = filename }
+                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -823,6 +889,18 @@ private constructor(
                 } catch (e: TelnyxInvalidDataException) {
                     false
                 }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (file.asKnown().isPresent) 1 else 0) +
+                    (if (customerReference.asKnown().isPresent) 1 else 0) +
+                    (if (filename.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

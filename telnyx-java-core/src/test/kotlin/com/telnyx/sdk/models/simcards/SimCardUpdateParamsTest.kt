@@ -68,7 +68,7 @@ internal class SimCardUpdateParamsTest {
                             .reason(
                                 "The SIM card is active, ready to connect to networks and consume data."
                             )
-                            .value(SimCardStatus.Value.ENABLED)
+                            .value(SimCardStatus.Value_.ENABLED)
                             .build()
                     )
                     .tags(listOf("personal", "customers", "active-customers"))
@@ -153,7 +153,7 @@ internal class SimCardUpdateParamsTest {
                                 .reason(
                                     "The SIM card is active, ready to connect to networks and consume data."
                                 )
-                                .value(SimCardStatus.Value.ENABLED)
+                                .value(SimCardStatus.Value_.ENABLED)
                                 .build()
                         )
                         .tags(listOf("personal", "customers", "active-customers"))
@@ -222,7 +222,7 @@ internal class SimCardUpdateParamsTest {
                             .reason(
                                 "The SIM card is active, ready to connect to networks and consume data."
                             )
-                            .value(SimCardStatus.Value.ENABLED)
+                            .value(SimCardStatus.Value_.ENABLED)
                             .build()
                     )
                     .tags(listOf("personal", "customers", "active-customers"))

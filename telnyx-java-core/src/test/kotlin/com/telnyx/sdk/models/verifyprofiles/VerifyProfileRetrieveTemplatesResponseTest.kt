@@ -14,7 +14,7 @@ internal class VerifyProfileRetrieveTemplatesResponseTest {
         val verifyProfileRetrieveTemplatesResponse =
             VerifyProfileRetrieveTemplatesResponse.builder()
                 .addData(
-                    VerifyProfileRetrieveTemplatesResponse.Data.builder()
+                    VerifyProfileMessageTemplateResponse.builder()
                         .id("0abb5b4f-459f-445a-bfcd-488998b7572d")
                         .text("Your {{app_name}} verification code is: {{code}}.")
                         .build()
@@ -23,7 +23,7 @@ internal class VerifyProfileRetrieveTemplatesResponseTest {
 
         assertThat(verifyProfileRetrieveTemplatesResponse.data())
             .containsExactly(
-                VerifyProfileRetrieveTemplatesResponse.Data.builder()
+                VerifyProfileMessageTemplateResponse.builder()
                     .id("0abb5b4f-459f-445a-bfcd-488998b7572d")
                     .text("Your {{app_name}} verification code is: {{code}}.")
                     .build()
@@ -36,7 +36,7 @@ internal class VerifyProfileRetrieveTemplatesResponseTest {
         val verifyProfileRetrieveTemplatesResponse =
             VerifyProfileRetrieveTemplatesResponse.builder()
                 .addData(
-                    VerifyProfileRetrieveTemplatesResponse.Data.builder()
+                    VerifyProfileMessageTemplateResponse.builder()
                         .id("0abb5b4f-459f-445a-bfcd-488998b7572d")
                         .text("Your {{app_name}} verification code is: {{code}}.")
                         .build()

@@ -40,7 +40,7 @@ internal class ActionRequirementServiceTest {
                     .page(ActionRequirementListParams.Page.builder().number(1L).size(1L).build())
                     .sort(
                         ActionRequirementListParams.Sort.builder()
-                            .value(ActionRequirementListParams.Sort.Value.CREATED_AT)
+                            .value(ActionRequirementListParams.Sort.Value_.CREATED_AT)
                             .build()
                     )
                     .build()

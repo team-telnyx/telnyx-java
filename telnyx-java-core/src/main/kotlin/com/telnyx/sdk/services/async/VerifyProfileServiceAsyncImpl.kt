@@ -16,9 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.verifyprofiles.MessageTemplate
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileData
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileDeleteParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
@@ -28,7 +28,6 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -83,7 +82,7 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
     override fun createTemplate(
         params: VerifyProfileCreateTemplateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerifyProfileCreateTemplateResponse> =
+    ): CompletableFuture<MessageTemplate> =
         // post /verify_profiles/templates
         withRawResponse().createTemplate(params, requestOptions).thenApply { it.parse() }
 
@@ -97,7 +96,7 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
     override fun updateTemplate(
         params: VerifyProfileUpdateTemplateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerifyProfileUpdateTemplateResponse> =
+    ): CompletableFuture<MessageTemplate> =
         // patch /verify_profiles/templates/{template_id}
         withRawResponse().updateTemplate(params, requestOptions).thenApply { it.parse() }
 
@@ -276,13 +275,13 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val createTemplateHandler: Handler<VerifyProfileCreateTemplateResponse> =
-            jsonHandler<VerifyProfileCreateTemplateResponse>(clientOptions.jsonMapper)
+        private val createTemplateHandler: Handler<MessageTemplate> =
+            jsonHandler<MessageTemplate>(clientOptions.jsonMapper)
 
         override fun createTemplate(
             params: VerifyProfileCreateTemplateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerifyProfileCreateTemplateResponse>> {
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -337,13 +336,13 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val updateTemplateHandler: Handler<VerifyProfileUpdateTemplateResponse> =
-            jsonHandler<VerifyProfileUpdateTemplateResponse>(clientOptions.jsonMapper)
+        private val updateTemplateHandler: Handler<MessageTemplate> =
+            jsonHandler<MessageTemplate>(clientOptions.jsonMapper)
 
         override fun updateTemplate(
             params: VerifyProfileUpdateTemplateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerifyProfileUpdateTemplateResponse>> {
+        ): CompletableFuture<HttpResponseFor<MessageTemplate>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("templateId", params.templateId().getOrNull())

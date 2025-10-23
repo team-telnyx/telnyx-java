@@ -44,7 +44,18 @@ private constructor(
     private val useCase: JsonField<UseCaseCategories>,
     private val useCaseSummary: JsonField<String>,
     private val verificationRequestId: JsonField<String>,
+    private val ageGatedContent: JsonField<Boolean>,
     private val businessAddr2: JsonField<String>,
+    private val businessRegistrationCountry: JsonField<String>,
+    private val businessRegistrationNumber: JsonField<String>,
+    private val businessRegistrationType: JsonField<String>,
+    private val doingBusinessAs: JsonField<String>,
+    private val entityType: JsonField<TollFreeVerificationEntityType>,
+    private val helpMessageResponse: JsonField<String>,
+    private val optInConfirmationResponse: JsonField<String>,
+    private val optInKeywords: JsonField<String>,
+    private val privacyPolicyUrl: JsonField<String>,
+    private val termsAndConditionUrl: JsonField<String>,
     private val verificationStatus: JsonField<TfVerificationStatus>,
     private val webhookUrl: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -113,9 +124,42 @@ private constructor(
         @JsonProperty("verificationRequestId")
         @ExcludeMissing
         verificationRequestId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ageGatedContent")
+        @ExcludeMissing
+        ageGatedContent: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("businessAddr2")
         @ExcludeMissing
         businessAddr2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("businessRegistrationCountry")
+        @ExcludeMissing
+        businessRegistrationCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("businessRegistrationNumber")
+        @ExcludeMissing
+        businessRegistrationNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("businessRegistrationType")
+        @ExcludeMissing
+        businessRegistrationType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("doingBusinessAs")
+        @ExcludeMissing
+        doingBusinessAs: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("entityType")
+        @ExcludeMissing
+        entityType: JsonField<TollFreeVerificationEntityType> = JsonMissing.of(),
+        @JsonProperty("helpMessageResponse")
+        @ExcludeMissing
+        helpMessageResponse: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("optInConfirmationResponse")
+        @ExcludeMissing
+        optInConfirmationResponse: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("optInKeywords")
+        @ExcludeMissing
+        optInKeywords: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("privacyPolicyURL")
+        @ExcludeMissing
+        privacyPolicyUrl: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("termsAndConditionURL")
+        @ExcludeMissing
+        termsAndConditionUrl: JsonField<String> = JsonMissing.of(),
         @JsonProperty("verificationStatus")
         @ExcludeMissing
         verificationStatus: JsonField<TfVerificationStatus> = JsonMissing.of(),
@@ -142,7 +186,18 @@ private constructor(
         useCase,
         useCaseSummary,
         verificationRequestId,
+        ageGatedContent,
         businessAddr2,
+        businessRegistrationCountry,
+        businessRegistrationNumber,
+        businessRegistrationType,
+        doingBusinessAs,
+        entityType,
+        helpMessageResponse,
+        optInConfirmationResponse,
+        optInKeywords,
+        privacyPolicyUrl,
+        termsAndConditionUrl,
         verificationStatus,
         webhookUrl,
         mutableMapOf(),
@@ -286,7 +341,82 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun ageGatedContent(): Optional<Boolean> = ageGatedContent.getOptional("ageGatedContent")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun businessAddr2(): Optional<String> = businessAddr2.getOptional("businessAddr2")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun businessRegistrationCountry(): Optional<String> =
+        businessRegistrationCountry.getOptional("businessRegistrationCountry")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun businessRegistrationNumber(): Optional<String> =
+        businessRegistrationNumber.getOptional("businessRegistrationNumber")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun businessRegistrationType(): Optional<String> =
+        businessRegistrationType.getOptional("businessRegistrationType")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun doingBusinessAs(): Optional<String> = doingBusinessAs.getOptional("doingBusinessAs")
+
+    /**
+     * Business entity classification
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun entityType(): Optional<TollFreeVerificationEntityType> =
+        entityType.getOptional("entityType")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun helpMessageResponse(): Optional<String> =
+        helpMessageResponse.getOptional("helpMessageResponse")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun optInConfirmationResponse(): Optional<String> =
+        optInConfirmationResponse.getOptional("optInConfirmationResponse")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun optInKeywords(): Optional<String> = optInKeywords.getOptional("optInKeywords")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun privacyPolicyUrl(): Optional<String> = privacyPolicyUrl.getOptional("privacyPolicyURL")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun termsAndConditionUrl(): Optional<String> =
+        termsAndConditionUrl.getOptional("termsAndConditionURL")
 
     /**
      * Tollfree verification status
@@ -494,6 +624,15 @@ private constructor(
     fun _verificationRequestId(): JsonField<String> = verificationRequestId
 
     /**
+     * Returns the raw JSON value of [ageGatedContent].
+     *
+     * Unlike [ageGatedContent], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("ageGatedContent")
+    @ExcludeMissing
+    fun _ageGatedContent(): JsonField<Boolean> = ageGatedContent
+
+    /**
      * Returns the raw JSON value of [businessAddr2].
      *
      * Unlike [businessAddr2], this method doesn't throw if the JSON field has an unexpected type.
@@ -501,6 +640,103 @@ private constructor(
     @JsonProperty("businessAddr2")
     @ExcludeMissing
     fun _businessAddr2(): JsonField<String> = businessAddr2
+
+    /**
+     * Returns the raw JSON value of [businessRegistrationCountry].
+     *
+     * Unlike [businessRegistrationCountry], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("businessRegistrationCountry")
+    @ExcludeMissing
+    fun _businessRegistrationCountry(): JsonField<String> = businessRegistrationCountry
+
+    /**
+     * Returns the raw JSON value of [businessRegistrationNumber].
+     *
+     * Unlike [businessRegistrationNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("businessRegistrationNumber")
+    @ExcludeMissing
+    fun _businessRegistrationNumber(): JsonField<String> = businessRegistrationNumber
+
+    /**
+     * Returns the raw JSON value of [businessRegistrationType].
+     *
+     * Unlike [businessRegistrationType], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("businessRegistrationType")
+    @ExcludeMissing
+    fun _businessRegistrationType(): JsonField<String> = businessRegistrationType
+
+    /**
+     * Returns the raw JSON value of [doingBusinessAs].
+     *
+     * Unlike [doingBusinessAs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("doingBusinessAs")
+    @ExcludeMissing
+    fun _doingBusinessAs(): JsonField<String> = doingBusinessAs
+
+    /**
+     * Returns the raw JSON value of [entityType].
+     *
+     * Unlike [entityType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("entityType")
+    @ExcludeMissing
+    fun _entityType(): JsonField<TollFreeVerificationEntityType> = entityType
+
+    /**
+     * Returns the raw JSON value of [helpMessageResponse].
+     *
+     * Unlike [helpMessageResponse], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("helpMessageResponse")
+    @ExcludeMissing
+    fun _helpMessageResponse(): JsonField<String> = helpMessageResponse
+
+    /**
+     * Returns the raw JSON value of [optInConfirmationResponse].
+     *
+     * Unlike [optInConfirmationResponse], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("optInConfirmationResponse")
+    @ExcludeMissing
+    fun _optInConfirmationResponse(): JsonField<String> = optInConfirmationResponse
+
+    /**
+     * Returns the raw JSON value of [optInKeywords].
+     *
+     * Unlike [optInKeywords], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("optInKeywords")
+    @ExcludeMissing
+    fun _optInKeywords(): JsonField<String> = optInKeywords
+
+    /**
+     * Returns the raw JSON value of [privacyPolicyUrl].
+     *
+     * Unlike [privacyPolicyUrl], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("privacyPolicyURL")
+    @ExcludeMissing
+    fun _privacyPolicyUrl(): JsonField<String> = privacyPolicyUrl
+
+    /**
+     * Returns the raw JSON value of [termsAndConditionUrl].
+     *
+     * Unlike [termsAndConditionUrl], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("termsAndConditionURL")
+    @ExcludeMissing
+    fun _termsAndConditionUrl(): JsonField<String> = termsAndConditionUrl
 
     /**
      * Returns the raw JSON value of [verificationStatus].
@@ -588,7 +824,18 @@ private constructor(
         private var useCase: JsonField<UseCaseCategories>? = null
         private var useCaseSummary: JsonField<String>? = null
         private var verificationRequestId: JsonField<String>? = null
+        private var ageGatedContent: JsonField<Boolean> = JsonMissing.of()
         private var businessAddr2: JsonField<String> = JsonMissing.of()
+        private var businessRegistrationCountry: JsonField<String> = JsonMissing.of()
+        private var businessRegistrationNumber: JsonField<String> = JsonMissing.of()
+        private var businessRegistrationType: JsonField<String> = JsonMissing.of()
+        private var doingBusinessAs: JsonField<String> = JsonMissing.of()
+        private var entityType: JsonField<TollFreeVerificationEntityType> = JsonMissing.of()
+        private var helpMessageResponse: JsonField<String> = JsonMissing.of()
+        private var optInConfirmationResponse: JsonField<String> = JsonMissing.of()
+        private var optInKeywords: JsonField<String> = JsonMissing.of()
+        private var privacyPolicyUrl: JsonField<String> = JsonMissing.of()
+        private var termsAndConditionUrl: JsonField<String> = JsonMissing.of()
         private var verificationStatus: JsonField<TfVerificationStatus> = JsonMissing.of()
         private var webhookUrl: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -617,7 +864,18 @@ private constructor(
             useCase = verificationRequestEgress.useCase
             useCaseSummary = verificationRequestEgress.useCaseSummary
             verificationRequestId = verificationRequestEgress.verificationRequestId
+            ageGatedContent = verificationRequestEgress.ageGatedContent
             businessAddr2 = verificationRequestEgress.businessAddr2
+            businessRegistrationCountry = verificationRequestEgress.businessRegistrationCountry
+            businessRegistrationNumber = verificationRequestEgress.businessRegistrationNumber
+            businessRegistrationType = verificationRequestEgress.businessRegistrationType
+            doingBusinessAs = verificationRequestEgress.doingBusinessAs
+            entityType = verificationRequestEgress.entityType
+            helpMessageResponse = verificationRequestEgress.helpMessageResponse
+            optInConfirmationResponse = verificationRequestEgress.optInConfirmationResponse
+            optInKeywords = verificationRequestEgress.optInKeywords
+            privacyPolicyUrl = verificationRequestEgress.privacyPolicyUrl
+            termsAndConditionUrl = verificationRequestEgress.termsAndConditionUrl
             verificationStatus = verificationRequestEgress.verificationStatus
             webhookUrl = verificationRequestEgress.webhookUrl
             additionalProperties = verificationRequestEgress.additionalProperties.toMutableMap()
@@ -923,6 +1181,20 @@ private constructor(
             this.verificationRequestId = verificationRequestId
         }
 
+        fun ageGatedContent(ageGatedContent: Boolean) =
+            ageGatedContent(JsonField.of(ageGatedContent))
+
+        /**
+         * Sets [Builder.ageGatedContent] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ageGatedContent] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun ageGatedContent(ageGatedContent: JsonField<Boolean>) = apply {
+            this.ageGatedContent = ageGatedContent
+        }
+
         fun businessAddr2(businessAddr2: String) = businessAddr2(JsonField.of(businessAddr2))
 
         /**
@@ -934,6 +1206,146 @@ private constructor(
          */
         fun businessAddr2(businessAddr2: JsonField<String>) = apply {
             this.businessAddr2 = businessAddr2
+        }
+
+        fun businessRegistrationCountry(businessRegistrationCountry: String) =
+            businessRegistrationCountry(JsonField.of(businessRegistrationCountry))
+
+        /**
+         * Sets [Builder.businessRegistrationCountry] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.businessRegistrationCountry] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun businessRegistrationCountry(businessRegistrationCountry: JsonField<String>) = apply {
+            this.businessRegistrationCountry = businessRegistrationCountry
+        }
+
+        fun businessRegistrationNumber(businessRegistrationNumber: String) =
+            businessRegistrationNumber(JsonField.of(businessRegistrationNumber))
+
+        /**
+         * Sets [Builder.businessRegistrationNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.businessRegistrationNumber] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun businessRegistrationNumber(businessRegistrationNumber: JsonField<String>) = apply {
+            this.businessRegistrationNumber = businessRegistrationNumber
+        }
+
+        fun businessRegistrationType(businessRegistrationType: String) =
+            businessRegistrationType(JsonField.of(businessRegistrationType))
+
+        /**
+         * Sets [Builder.businessRegistrationType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.businessRegistrationType] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun businessRegistrationType(businessRegistrationType: JsonField<String>) = apply {
+            this.businessRegistrationType = businessRegistrationType
+        }
+
+        fun doingBusinessAs(doingBusinessAs: String) =
+            doingBusinessAs(JsonField.of(doingBusinessAs))
+
+        /**
+         * Sets [Builder.doingBusinessAs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.doingBusinessAs] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun doingBusinessAs(doingBusinessAs: JsonField<String>) = apply {
+            this.doingBusinessAs = doingBusinessAs
+        }
+
+        /** Business entity classification */
+        fun entityType(entityType: TollFreeVerificationEntityType) =
+            entityType(JsonField.of(entityType))
+
+        /**
+         * Sets [Builder.entityType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityType] with a well-typed
+         * [TollFreeVerificationEntityType] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun entityType(entityType: JsonField<TollFreeVerificationEntityType>) = apply {
+            this.entityType = entityType
+        }
+
+        fun helpMessageResponse(helpMessageResponse: String) =
+            helpMessageResponse(JsonField.of(helpMessageResponse))
+
+        /**
+         * Sets [Builder.helpMessageResponse] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.helpMessageResponse] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun helpMessageResponse(helpMessageResponse: JsonField<String>) = apply {
+            this.helpMessageResponse = helpMessageResponse
+        }
+
+        fun optInConfirmationResponse(optInConfirmationResponse: String) =
+            optInConfirmationResponse(JsonField.of(optInConfirmationResponse))
+
+        /**
+         * Sets [Builder.optInConfirmationResponse] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.optInConfirmationResponse] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun optInConfirmationResponse(optInConfirmationResponse: JsonField<String>) = apply {
+            this.optInConfirmationResponse = optInConfirmationResponse
+        }
+
+        fun optInKeywords(optInKeywords: String) = optInKeywords(JsonField.of(optInKeywords))
+
+        /**
+         * Sets [Builder.optInKeywords] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.optInKeywords] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun optInKeywords(optInKeywords: JsonField<String>) = apply {
+            this.optInKeywords = optInKeywords
+        }
+
+        fun privacyPolicyUrl(privacyPolicyUrl: String) =
+            privacyPolicyUrl(JsonField.of(privacyPolicyUrl))
+
+        /**
+         * Sets [Builder.privacyPolicyUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.privacyPolicyUrl] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun privacyPolicyUrl(privacyPolicyUrl: JsonField<String>) = apply {
+            this.privacyPolicyUrl = privacyPolicyUrl
+        }
+
+        fun termsAndConditionUrl(termsAndConditionUrl: String) =
+            termsAndConditionUrl(JsonField.of(termsAndConditionUrl))
+
+        /**
+         * Sets [Builder.termsAndConditionUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.termsAndConditionUrl] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun termsAndConditionUrl(termsAndConditionUrl: JsonField<String>) = apply {
+            this.termsAndConditionUrl = termsAndConditionUrl
         }
 
         /** Tollfree verification status */
@@ -1038,7 +1450,18 @@ private constructor(
                 checkRequired("useCase", useCase),
                 checkRequired("useCaseSummary", useCaseSummary),
                 checkRequired("verificationRequestId", verificationRequestId),
+                ageGatedContent,
                 businessAddr2,
+                businessRegistrationCountry,
+                businessRegistrationNumber,
+                businessRegistrationType,
+                doingBusinessAs,
+                entityType,
+                helpMessageResponse,
+                optInConfirmationResponse,
+                optInKeywords,
+                privacyPolicyUrl,
+                termsAndConditionUrl,
                 verificationStatus,
                 webhookUrl,
                 additionalProperties.toMutableMap(),
@@ -1073,7 +1496,18 @@ private constructor(
         useCase().validate()
         useCaseSummary()
         verificationRequestId()
+        ageGatedContent()
         businessAddr2()
+        businessRegistrationCountry()
+        businessRegistrationNumber()
+        businessRegistrationType()
+        doingBusinessAs()
+        entityType().ifPresent { it.validate() }
+        helpMessageResponse()
+        optInConfirmationResponse()
+        optInKeywords()
+        privacyPolicyUrl()
+        termsAndConditionUrl()
         verificationStatus().ifPresent { it.validate() }
         webhookUrl()
         validated = true
@@ -1115,7 +1549,18 @@ private constructor(
             (useCase.asKnown().getOrNull()?.validity() ?: 0) +
             (if (useCaseSummary.asKnown().isPresent) 1 else 0) +
             (if (verificationRequestId.asKnown().isPresent) 1 else 0) +
+            (if (ageGatedContent.asKnown().isPresent) 1 else 0) +
             (if (businessAddr2.asKnown().isPresent) 1 else 0) +
+            (if (businessRegistrationCountry.asKnown().isPresent) 1 else 0) +
+            (if (businessRegistrationNumber.asKnown().isPresent) 1 else 0) +
+            (if (businessRegistrationType.asKnown().isPresent) 1 else 0) +
+            (if (doingBusinessAs.asKnown().isPresent) 1 else 0) +
+            (entityType.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (helpMessageResponse.asKnown().isPresent) 1 else 0) +
+            (if (optInConfirmationResponse.asKnown().isPresent) 1 else 0) +
+            (if (optInKeywords.asKnown().isPresent) 1 else 0) +
+            (if (privacyPolicyUrl.asKnown().isPresent) 1 else 0) +
+            (if (termsAndConditionUrl.asKnown().isPresent) 1 else 0) +
             (verificationStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
@@ -1146,7 +1591,18 @@ private constructor(
             useCase == other.useCase &&
             useCaseSummary == other.useCaseSummary &&
             verificationRequestId == other.verificationRequestId &&
+            ageGatedContent == other.ageGatedContent &&
             businessAddr2 == other.businessAddr2 &&
+            businessRegistrationCountry == other.businessRegistrationCountry &&
+            businessRegistrationNumber == other.businessRegistrationNumber &&
+            businessRegistrationType == other.businessRegistrationType &&
+            doingBusinessAs == other.doingBusinessAs &&
+            entityType == other.entityType &&
+            helpMessageResponse == other.helpMessageResponse &&
+            optInConfirmationResponse == other.optInConfirmationResponse &&
+            optInKeywords == other.optInKeywords &&
+            privacyPolicyUrl == other.privacyPolicyUrl &&
+            termsAndConditionUrl == other.termsAndConditionUrl &&
             verificationStatus == other.verificationStatus &&
             webhookUrl == other.webhookUrl &&
             additionalProperties == other.additionalProperties
@@ -1175,7 +1631,18 @@ private constructor(
             useCase,
             useCaseSummary,
             verificationRequestId,
+            ageGatedContent,
             businessAddr2,
+            businessRegistrationCountry,
+            businessRegistrationNumber,
+            businessRegistrationType,
+            doingBusinessAs,
+            entityType,
+            helpMessageResponse,
+            optInConfirmationResponse,
+            optInKeywords,
+            privacyPolicyUrl,
+            termsAndConditionUrl,
             verificationStatus,
             webhookUrl,
             additionalProperties,
@@ -1185,5 +1652,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VerificationRequestEgress{id=$id, additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, isvReseller=$isvReseller, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, verificationRequestId=$verificationRequestId, businessAddr2=$businessAddr2, verificationStatus=$verificationStatus, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "VerificationRequestEgress{id=$id, additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, isvReseller=$isvReseller, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, verificationRequestId=$verificationRequestId, ageGatedContent=$ageGatedContent, businessAddr2=$businessAddr2, businessRegistrationCountry=$businessRegistrationCountry, businessRegistrationNumber=$businessRegistrationNumber, businessRegistrationType=$businessRegistrationType, doingBusinessAs=$doingBusinessAs, entityType=$entityType, helpMessageResponse=$helpMessageResponse, optInConfirmationResponse=$optInConfirmationResponse, optInKeywords=$optInKeywords, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionUrl=$termsAndConditionUrl, verificationStatus=$verificationStatus, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

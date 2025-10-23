@@ -8,14 +8,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionListParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveResponse
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
-import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateResponse
 import java.util.function.Consumer
 
 interface VersionService {
@@ -33,7 +31,7 @@ interface VersionService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VersionService
 
     /** Retrieves a specific version of an assistant by assistant_id and version_id */
-    fun retrieve(versionId: String, params: VersionRetrieveParams): VersionRetrieveResponse =
+    fun retrieve(versionId: String, params: VersionRetrieveParams): InferenceEmbedding =
         retrieve(versionId, params, RequestOptions.none())
 
     /** @see retrieve */
@@ -41,21 +39,21 @@ interface VersionService {
         versionId: String,
         params: VersionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VersionRetrieveResponse =
+    ): InferenceEmbedding =
         retrieve(params.toBuilder().versionId(versionId).build(), requestOptions)
 
     /** @see retrieve */
-    fun retrieve(params: VersionRetrieveParams): VersionRetrieveResponse =
+    fun retrieve(params: VersionRetrieveParams): InferenceEmbedding =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: VersionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VersionRetrieveResponse
+    ): InferenceEmbedding
 
     /** Updates the configuration of a specific assistant version. Can not update main version */
-    fun update(versionId: String, params: VersionUpdateParams): VersionUpdateResponse =
+    fun update(versionId: String, params: VersionUpdateParams): InferenceEmbedding =
         update(versionId, params, RequestOptions.none())
 
     /** @see update */
@@ -63,18 +61,17 @@ interface VersionService {
         versionId: String,
         params: VersionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VersionUpdateResponse =
-        update(params.toBuilder().versionId(versionId).build(), requestOptions)
+    ): InferenceEmbedding = update(params.toBuilder().versionId(versionId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: VersionUpdateParams): VersionUpdateResponse =
+    fun update(params: VersionUpdateParams): InferenceEmbedding =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: VersionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VersionUpdateResponse
+    ): InferenceEmbedding
 
     /** Retrieves all versions of a specific assistant with complete configuration and metadata */
     fun list(assistantId: String): AssistantsList = list(assistantId, VersionListParams.none())
@@ -127,7 +124,7 @@ interface VersionService {
      * any existing canary deploy configuration and send all live production traffic to this
      * version.
      */
-    fun promote(versionId: String, params: VersionPromoteParams): VersionPromoteResponse =
+    fun promote(versionId: String, params: VersionPromoteParams): InferenceEmbedding =
         promote(versionId, params, RequestOptions.none())
 
     /** @see promote */
@@ -135,18 +132,17 @@ interface VersionService {
         versionId: String,
         params: VersionPromoteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VersionPromoteResponse =
-        promote(params.toBuilder().versionId(versionId).build(), requestOptions)
+    ): InferenceEmbedding = promote(params.toBuilder().versionId(versionId).build(), requestOptions)
 
     /** @see promote */
-    fun promote(params: VersionPromoteParams): VersionPromoteResponse =
+    fun promote(params: VersionPromoteParams): InferenceEmbedding =
         promote(params, RequestOptions.none())
 
     /** @see promote */
     fun promote(
         params: VersionPromoteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VersionPromoteResponse
+    ): InferenceEmbedding
 
     /** A view of [VersionService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -167,8 +163,7 @@ interface VersionService {
         fun retrieve(
             versionId: String,
             params: VersionRetrieveParams,
-        ): HttpResponseFor<VersionRetrieveResponse> =
-            retrieve(versionId, params, RequestOptions.none())
+        ): HttpResponseFor<InferenceEmbedding> = retrieve(versionId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
@@ -176,12 +171,12 @@ interface VersionService {
             versionId: String,
             params: VersionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VersionRetrieveResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             retrieve(params.toBuilder().versionId(versionId).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: VersionRetrieveParams): HttpResponseFor<VersionRetrieveResponse> =
+        fun retrieve(params: VersionRetrieveParams): HttpResponseFor<InferenceEmbedding> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -189,7 +184,7 @@ interface VersionService {
         fun retrieve(
             params: VersionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VersionRetrieveResponse>
+        ): HttpResponseFor<InferenceEmbedding>
 
         /**
          * Returns a raw HTTP response for `post
@@ -200,7 +195,7 @@ interface VersionService {
         fun update(
             versionId: String,
             params: VersionUpdateParams,
-        ): HttpResponseFor<VersionUpdateResponse> = update(versionId, params, RequestOptions.none())
+        ): HttpResponseFor<InferenceEmbedding> = update(versionId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -208,12 +203,12 @@ interface VersionService {
             versionId: String,
             params: VersionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VersionUpdateResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             update(params.toBuilder().versionId(versionId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: VersionUpdateParams): HttpResponseFor<VersionUpdateResponse> =
+        fun update(params: VersionUpdateParams): HttpResponseFor<InferenceEmbedding> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -221,7 +216,7 @@ interface VersionService {
         fun update(
             params: VersionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VersionUpdateResponse>
+        ): HttpResponseFor<InferenceEmbedding>
 
         /**
          * Returns a raw HTTP response for `get /ai/assistants/{assistant_id}/versions`, but is
@@ -305,8 +300,7 @@ interface VersionService {
         fun promote(
             versionId: String,
             params: VersionPromoteParams,
-        ): HttpResponseFor<VersionPromoteResponse> =
-            promote(versionId, params, RequestOptions.none())
+        ): HttpResponseFor<InferenceEmbedding> = promote(versionId, params, RequestOptions.none())
 
         /** @see promote */
         @MustBeClosed
@@ -314,12 +308,12 @@ interface VersionService {
             versionId: String,
             params: VersionPromoteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VersionPromoteResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             promote(params.toBuilder().versionId(versionId).build(), requestOptions)
 
         /** @see promote */
         @MustBeClosed
-        fun promote(params: VersionPromoteParams): HttpResponseFor<VersionPromoteResponse> =
+        fun promote(params: VersionPromoteParams): HttpResponseFor<InferenceEmbedding> =
             promote(params, RequestOptions.none())
 
         /** @see promote */
@@ -327,6 +321,6 @@ interface VersionService {
         fun promote(
             params: VersionPromoteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VersionPromoteResponse>
+        ): HttpResponseFor<InferenceEmbedding>
     }
 }

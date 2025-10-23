@@ -36,7 +36,7 @@ internal class VersionServiceTest {
                 .build()
         val versionService = client.ai().assistants().versions()
 
-        val version =
+        val inferenceEmbedding =
             versionService.retrieve(
                 VersionRetrieveParams.builder()
                     .assistantId("assistant_id")
@@ -45,7 +45,7 @@ internal class VersionServiceTest {
                     .build()
             )
 
-        version.validate()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -58,7 +58,7 @@ internal class VersionServiceTest {
                 .build()
         val versionService = client.ai().assistants().versions()
 
-        val version =
+        val inferenceEmbedding =
             versionService.update(
                 VersionUpdateParams.builder()
                     .assistantId("assistant_id")
@@ -204,7 +204,7 @@ internal class VersionServiceTest {
                                                     .PREDEFINED_MEDIA
                                             )
                                             .value(
-                                                VoiceSettings.BackgroundAudio.UnionMember0.Value
+                                                VoiceSettings.BackgroundAudio.UnionMember0.Value_
                                                     .SILENCE
                                             )
                                             .build()
@@ -217,7 +217,7 @@ internal class VersionServiceTest {
                     .build()
             )
 
-        version.validate()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -263,7 +263,7 @@ internal class VersionServiceTest {
                 .build()
         val versionService = client.ai().assistants().versions()
 
-        val response =
+        val inferenceEmbedding =
             versionService.promote(
                 VersionPromoteParams.builder()
                     .assistantId("assistant_id")
@@ -271,6 +271,6 @@ internal class VersionServiceTest {
                     .build()
             )
 
-        response.validate()
+        inferenceEmbedding.validate()
     }
 }
