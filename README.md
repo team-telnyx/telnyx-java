@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/5.2.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/5.2.2)
 
 <!-- x-release-please-end -->
 
@@ -17,7 +17,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx:5.2.1")
+implementation("com.telnyx.sdk:telnyx:5.2.2")
 ```
 
 ### Maven
@@ -26,7 +26,7 @@ implementation("com.telnyx.sdk:telnyx:5.2.1")
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2</version>
 </dependency>
 ```
 

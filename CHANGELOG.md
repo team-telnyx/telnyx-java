@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.2 (2025-10-23)
+
+Full Changelog: [v5.2.1...v5.2.2](https://github.com/team-telnyx/telnyx-java/compare/v5.2.1...v5.2.2)
+
+### Bug Fixes
+
+* **client:** use the correct artifact_id ([b095b35](https://github.com/team-telnyx/telnyx-java/commit/b095b3518ac7b650948274516484882381c8acb7))
+* use correct project name ([c8705f4](https://github.com/team-telnyx/telnyx-java/commit/c8705f4610efc12614edb3ff6970d0be79b0f819))
+
+
+### Chores
+
+* remove unused files ([2ca6c46](https://github.com/team-telnyx/telnyx-java/commit/2ca6c464c6cde40d80fcb3fbdeeb3e1df801850f))
+
 ## 5.2.1 (2025-10-23)
 
 Full Changelog: [v5.2.0...v5.2.1](https://github.com/team-telnyx/telnyx-java/compare/v5.2.0...v5.2.1)
