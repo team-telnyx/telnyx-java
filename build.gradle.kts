@@ -8,7 +8,7 @@ repositories {
 
 allprojects {
     group = "com.telnyx.sdk"
-    version = "5.0.0" // x-release-please-version
+    version = "5.1.0" // x-release-please-version
 }
 
 subprojects {
