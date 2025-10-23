@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.2.1 (2025-10-23)
+
+Full Changelog: [v5.2.0...v5.2.1](https://github.com/team-telnyx/telnyx-java/compare/v5.2.0...v5.2.1)
+
+### Chores
+
+* **docs:** disable javadocs generation ([6b49acc](https://github.com/team-telnyx/telnyx-java/commit/6b49acc5a55686cf960ced04057568f548d23084))
+
 ## 5.2.0 (2025-10-23)
 
 Full Changelog: [v5.1.0...v5.2.0](https://github.com/team-telnyx/telnyx-java/compare/v5.1.0...v5.2.0)

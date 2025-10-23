@@ -2,20 +2,13 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx-java)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx-java/5.2.0)
-[![javadoc](https://javadoc.io/badge2/com.telnyx.sdk/telnyx-java/5.2.0/javadoc.svg)](https://javadoc.io/doc/com.telnyx.sdk/telnyx-java/5.2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx-java)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx-java/5.2.1)
 
 <!-- x-release-please-end -->
 
 The Telnyx Java SDK provides convenient access to the Telnyx REST API from applications written in Java.
 
 It is generated with [Stainless](https://www.stainless.com/).
-
-<!-- x-release-please-start-version -->
-
-Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.telnyx.sdk/telnyx-java/5.2.0).
-
-<!-- x-release-please-end -->
 
 ## Installation
 
@@ -24,7 +17,7 @@ Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.telnyx.sdk/tel
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx-java:5.2.0")
+implementation("com.telnyx.sdk:telnyx-java:5.2.1")
 ```
 
 ### Maven
@@ -33,7 +26,7 @@ implementation("com.telnyx.sdk:telnyx-java:5.2.0")
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx-java</artifactId>
-  <version>5.2.0</version>
+  <version>5.2.1</version>
 </dependency>
 ```
 
