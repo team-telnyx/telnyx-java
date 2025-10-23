@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx-java)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx-java/5.2.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/5.2.1)
 
 <!-- x-release-please-end -->
 
@@ -17,7 +17,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx-java:5.2.1")
+implementation("com.telnyx.sdk:telnyx:5.2.1")
 ```
 
 ### Maven
@@ -25,7 +25,7 @@ implementation("com.telnyx.sdk:telnyx-java:5.2.1")
 ```xml
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
-  <artifactId>telnyx-java</artifactId>
+  <artifactId>telnyx</artifactId>
   <version>5.2.1</version>
 </dependency>
 ```
@@ -231,7 +231,7 @@ AudioTranscribeParams params = AudioTranscribeParams.builder()
 AudioTranscribeResponse response = client.ai().audio().transcribe(params);
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt):
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt):
 
 ```java
 import com.telnyx.sdk.core.MultipartField;
@@ -254,7 +254,7 @@ AudioTranscribeResponse response = client.ai().audio().transcribe(params);
 
 The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
 
-These methods return [`HttpResponse`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/core/http/HttpResponse.kt):
+These methods return [`HttpResponse`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/http/HttpResponse.kt):
 
 ```java
 import com.telnyx.sdk.core.http.HttpResponse;
@@ -333,26 +333,26 @@ NumberOrderCreateResponse parsedNumberOrder = numberOrder.parse();
 
 The SDK throws custom unchecked exception types:
 
-- [`TelnyxServiceException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`TelnyxServiceException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                                                                                                                  |
-  | ------ | -------------------------------------------------------------------------------------------------------------------------- |
-  | 400    | [`BadRequestException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/BadRequestException.kt)                     |
-  | 401    | [`UnauthorizedException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/UnauthorizedException.kt)                 |
-  | 403    | [`PermissionDeniedException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/PermissionDeniedException.kt)         |
-  | 404    | [`NotFoundException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/NotFoundException.kt)                         |
-  | 422    | [`UnprocessableEntityException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/UnprocessableEntityException.kt)   |
-  | 429    | [`RateLimitException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/RateLimitException.kt)                       |
-  | 5xx    | [`InternalServerException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/InternalServerException.kt)             |
-  | others | [`UnexpectedStatusCodeException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/UnexpectedStatusCodeException.kt) |
+  | Status | Exception                                                                                                             |
+  | ------ | --------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/UnexpectedStatusCodeException.kt) |
 
-- [`TelnyxIoException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxIoException.kt): I/O networking errors.
+- [`TelnyxIoException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxIoException.kt): I/O networking errors.
 
-- [`TelnyxRetryableException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxRetryableException.kt): Generic error indicating a failure that could be retried by the client.
+- [`TelnyxRetryableException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxRetryableException.kt): Generic error indicating a failure that could be retried by the client.
 
-- [`TelnyxInvalidDataException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`TelnyxInvalidDataException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- [`TelnyxException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`TelnyxException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Logging
 
@@ -372,7 +372,7 @@ $ export TELNYX_LOG=debug
 
 ## ProGuard and R8
 
-Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `telnyx-java-core` is published with a [configuration file](telnyx-java-core/src/main/resources/META-INF/proguard/telnyx-java-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
+Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `telnyx-core` is published with a [configuration file](telnyx-core/src/main/resources/META-INF/proguard/telnyx-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
 
 ProGuard and R8 should automatically detect and use the published rules, but you can also manually copy the keep rules if necessary.
 
@@ -382,7 +382,7 @@ The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON seri
 
 The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
 
-If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`TelnyxOkHttpClient`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) or [`TelnyxOkHttpClientAsync`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt).
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`TelnyxOkHttpClient`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) or [`TelnyxOkHttpClientAsync`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt).
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
@@ -487,15 +487,15 @@ TelnyxClient client = TelnyxOkHttpClient.builder()
 
 The SDK consists of three artifacts:
 
-- `telnyx-java-core`
+- `telnyx-core`
   - Contains core SDK logic
   - Does not depend on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`TelnyxClient`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClient.kt), [`TelnyxClientAsync`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsync.kt), [`TelnyxClientImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt), and [`TelnyxClientAsyncImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), all of which can work with any HTTP client
-- `telnyx-java-client-okhttp`
+  - Exposes [`TelnyxClient`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClient.kt), [`TelnyxClientAsync`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsync.kt), [`TelnyxClientImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt), and [`TelnyxClientAsyncImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), all of which can work with any HTTP client
+- `telnyx-client-okhttp`
   - Depends on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`TelnyxOkHttpClient`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) and [`TelnyxOkHttpClientAsync`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt), which provide a way to construct [`TelnyxClientImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt) and [`TelnyxClientAsyncImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), respectively, using OkHttp
-- `telnyx-java`
-  - Depends on and exposes the APIs of both `telnyx-java-core` and `telnyx-java-client-okhttp`
+  - Exposes [`TelnyxOkHttpClient`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) and [`TelnyxOkHttpClientAsync`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt), which provide a way to construct [`TelnyxClientImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt) and [`TelnyxClientAsyncImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), respectively, using OkHttp
+- `telnyx`
+  - Depends on and exposes the APIs of both `telnyx-core` and `telnyx-client-okhttp`
   - Does not have its own logic
 
 This structure allows replacing the SDK's default HTTP client without pulling in unnecessary dependencies.
@@ -507,17 +507,17 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 
 To use a customized `OkHttpClient`:
 
-1. Replace your [`telnyx-java` dependency](#installation) with `telnyx-java-core`
-2. Copy `telnyx-java-client-okhttp`'s [`OkHttpClient`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/OkHttpClient.kt) class into your code and customize it
-3. Construct [`TelnyxClientImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt) or [`TelnyxClientAsyncImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), similarly to [`TelnyxOkHttpClient`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) or [`TelnyxOkHttpClientAsync`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt), using your customized client
+1. Replace your [`telnyx` dependency](#installation) with `telnyx-core`
+2. Copy `telnyx-client-okhttp`'s [`OkHttpClient`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`TelnyxClientImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt) or [`TelnyxClientAsyncImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), similarly to [`TelnyxOkHttpClient`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) or [`TelnyxOkHttpClientAsync`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt), using your customized client
 
 ### Completely custom HTTP client
 
 To use a completely custom HTTP client:
 
-1. Replace your [`telnyx-java` dependency](#installation) with `telnyx-java-core`
-2. Write a class that implements the [`HttpClient`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/core/http/HttpClient.kt) interface
-3. Construct [`TelnyxClientImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt) or [`TelnyxClientAsyncImpl`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), similarly to [`TelnyxOkHttpClient`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) or [`TelnyxOkHttpClientAsync`](telnyx-java-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt), using your new client class
+1. Replace your [`telnyx` dependency](#installation) with `telnyx-core`
+2. Write a class that implements the [`HttpClient`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/http/HttpClient.kt) interface
+3. Construct [`TelnyxClientImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientImpl.kt) or [`TelnyxClientAsyncImpl`](telnyx-core/src/main/kotlin/com/telnyx/sdk/client/TelnyxClientAsyncImpl.kt), similarly to [`TelnyxOkHttpClient`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClient.kt) or [`TelnyxOkHttpClientAsync`](telnyx-client-okhttp/src/main/kotlin/com/telnyx/sdk/client/okhttp/TelnyxOkHttpClientAsync.kt), using your new client class
 
 ## Undocumented API functionality
 
@@ -555,7 +555,7 @@ CallDialParams params = CallDialParams.builder()
 
 These properties can be accessed on the nested built object later using the `_additionalProperties()` method.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt) object to its setter:
 
 ```java
 import com.telnyx.sdk.core.JsonValue;
@@ -569,7 +569,7 @@ CallDialParams params = CallDialParams.builder()
     .build();
 ```
 
-The most straightforward way to create a [`JsonValue`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt) is using its `from(...)` method:
+The most straightforward way to create a [`JsonValue`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt) is using its `from(...)` method:
 
 ```java
 import com.telnyx.sdk.core.JsonValue;
@@ -610,7 +610,7 @@ JsonValue complexValue = JsonValue.from(Map.of(
 
 Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
 
-To forcibly omit a required parameter or property, pass [`JsonMissing`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt):
+To forcibly omit a required parameter or property, pass [`JsonMissing`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/Values.kt):
 
 ```java
 import com.telnyx.sdk.core.JsonMissing;
@@ -681,7 +681,7 @@ if (connectionId.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw [`TelnyxInvalidDataException`](telnyx-java-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxInvalidDataException.kt) only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`TelnyxInvalidDataException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
