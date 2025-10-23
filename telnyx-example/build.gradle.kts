@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":telnyx-java"))
+    implementation(project(":telnyx"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -17,9 +17,9 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 application {
-    // Use `./gradlew :telnyx-java-example:run` to run `Main`
-    // Use `./gradlew :telnyx-java-example:run -Pexample=Something` to run `SomethingExample`
-    mainClass = "com.telnyx.api.example.${
+    // Use `./gradlew :telnyx-example:run` to run `Main`
+    // Use `./gradlew :telnyx-example:run -Pexample=Something` to run `SomethingExample`
+    mainClass = "com.telnyx.sdk.example.${
         if (project.hasProperty("example"))
             "${project.property("example")}Example"
         else
