@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":telnyx-java"))
+    implementation(project(":telnyx"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
