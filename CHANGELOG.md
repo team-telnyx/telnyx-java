@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.3.0 (2025-10-24)
+
+Full Changelog: [v5.2.2...v5.3.0](https://github.com/team-telnyx/telnyx-java/compare/v5.2.2...v5.3.0)
+
+### Features
+
+* Update API description to comprehensive Telnyx platform overview ([31951cd](https://github.com/team-telnyx/telnyx-java/commit/31951cdab4a58cc8d74966b687b2e764b795908c))
+
 ## 5.2.2 (2025-10-23)
 
 Full Changelog: [v5.2.1...v5.2.2](https://github.com/team-telnyx/telnyx-java/compare/v5.2.1...v5.2.2)
