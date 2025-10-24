@@ -22,7 +22,7 @@ configure<MavenPublishBaseExtension> {
 
     pom {
         name.set("Telnyx API")
-        description.set("SIP trunking, SMS, MMS, Call Control and Telephony Data Services.")
+        description.set("Telnyx provides global communications and connectivity APIs for developers —\nincluding SIP trunking, programmable voice, SMS, MMS, WhatsApp Business\nMessaging, Call Control, Fax, Wireless (IoT & eSIM), Phone Numbers (DID\nprovisioning & porting), Emergency Services, and Network APIs for private\ninterconnects and edge connectivity. Build, scale, and manage voice, messaging,\nand data networks with Telnyx's carrier-grade global infrastructure and\nAPI-first platform.")
         url.set("https://www.github.com/team-telnyx/telnyx-java")
 
         licenses {
