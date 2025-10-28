@@ -285,6 +285,14 @@ private constructor(
     fun sipHeaders(): Optional<List<SipHeader>> = body.sipHeaders()
 
     /**
+     * Defines the SIP region to be used for the call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sipRegion(): Optional<SipRegion> = body.sipRegion()
+
+    /**
      * Defines SIP transport protocol to be used on the call.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -530,6 +538,13 @@ private constructor(
      * Unlike [sipHeaders], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _sipHeaders(): JsonField<List<SipHeader>> = body._sipHeaders()
+
+    /**
+     * Returns the raw JSON value of [sipRegion].
+     *
+     * Unlike [sipRegion], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _sipRegion(): JsonField<SipRegion> = body._sipRegion()
 
     /**
      * Returns the raw JSON value of [sipTransportProtocol].
@@ -1072,6 +1087,18 @@ private constructor(
          */
         fun addSipHeader(sipHeader: SipHeader) = apply { body.addSipHeader(sipHeader) }
 
+        /** Defines the SIP region to be used for the call. */
+        fun sipRegion(sipRegion: SipRegion) = apply { body.sipRegion(sipRegion) }
+
+        /**
+         * Sets [Builder.sipRegion] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sipRegion] with a well-typed [SipRegion] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { body.sipRegion(sipRegion) }
+
         /** Defines SIP transport protocol to be used on the call. */
         fun sipTransportProtocol(sipTransportProtocol: SipTransportProtocol) = apply {
             body.sipTransportProtocol(sipTransportProtocol)
@@ -1368,6 +1395,7 @@ private constructor(
         private val sipAuthPassword: JsonField<String>,
         private val sipAuthUsername: JsonField<String>,
         private val sipHeaders: JsonField<List<SipHeader>>,
+        private val sipRegion: JsonField<SipRegion>,
         private val sipTransportProtocol: JsonField<SipTransportProtocol>,
         private val soundModifications: JsonField<SoundModifications>,
         private val targetLegClientState: JsonField<String>,
@@ -1450,6 +1478,9 @@ private constructor(
             @JsonProperty("sip_headers")
             @ExcludeMissing
             sipHeaders: JsonField<List<SipHeader>> = JsonMissing.of(),
+            @JsonProperty("sip_region")
+            @ExcludeMissing
+            sipRegion: JsonField<SipRegion> = JsonMissing.of(),
             @JsonProperty("sip_transport_protocol")
             @ExcludeMissing
             sipTransportProtocol: JsonField<SipTransportProtocol> = JsonMissing.of(),
@@ -1497,6 +1528,7 @@ private constructor(
             sipAuthPassword,
             sipAuthUsername,
             sipHeaders,
+            sipRegion,
             sipTransportProtocol,
             soundModifications,
             targetLegClientState,
@@ -1744,6 +1776,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun sipHeaders(): Optional<List<SipHeader>> = sipHeaders.getOptional("sip_headers")
+
+        /**
+         * Defines the SIP region to be used for the call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sipRegion(): Optional<SipRegion> = sipRegion.getOptional("sip_region")
 
         /**
          * Defines SIP transport protocol to be used on the call.
@@ -2041,6 +2081,15 @@ private constructor(
         fun _sipHeaders(): JsonField<List<SipHeader>> = sipHeaders
 
         /**
+         * Returns the raw JSON value of [sipRegion].
+         *
+         * Unlike [sipRegion], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("sip_region")
+        @ExcludeMissing
+        fun _sipRegion(): JsonField<SipRegion> = sipRegion
+
+        /**
          * Returns the raw JSON value of [sipTransportProtocol].
          *
          * Unlike [sipTransportProtocol], this method doesn't throw if the JSON field has an
@@ -2164,6 +2213,7 @@ private constructor(
             private var sipAuthPassword: JsonField<String> = JsonMissing.of()
             private var sipAuthUsername: JsonField<String> = JsonMissing.of()
             private var sipHeaders: JsonField<MutableList<SipHeader>>? = null
+            private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
             private var sipTransportProtocol: JsonField<SipTransportProtocol> = JsonMissing.of()
             private var soundModifications: JsonField<SoundModifications> = JsonMissing.of()
             private var targetLegClientState: JsonField<String> = JsonMissing.of()
@@ -2200,6 +2250,7 @@ private constructor(
                 sipAuthPassword = body.sipAuthPassword
                 sipAuthUsername = body.sipAuthUsername
                 sipHeaders = body.sipHeaders.map { it.toMutableList() }
+                sipRegion = body.sipRegion
                 sipTransportProtocol = body.sipTransportProtocol
                 soundModifications = body.soundModifications
                 targetLegClientState = body.targetLegClientState
@@ -2650,6 +2701,18 @@ private constructor(
                     }
             }
 
+            /** Defines the SIP region to be used for the call. */
+            fun sipRegion(sipRegion: SipRegion) = sipRegion(JsonField.of(sipRegion))
+
+            /**
+             * Sets [Builder.sipRegion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sipRegion] with a well-typed [SipRegion] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sipRegion(sipRegion: JsonField<SipRegion>) = apply { this.sipRegion = sipRegion }
+
             /** Defines SIP transport protocol to be used on the call. */
             fun sipTransportProtocol(sipTransportProtocol: SipTransportProtocol) =
                 sipTransportProtocol(JsonField.of(sipTransportProtocol))
@@ -2826,6 +2889,7 @@ private constructor(
                     sipAuthPassword,
                     sipAuthUsername,
                     (sipHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    sipRegion,
                     sipTransportProtocol,
                     soundModifications,
                     targetLegClientState,
@@ -2869,6 +2933,7 @@ private constructor(
             sipAuthPassword()
             sipAuthUsername()
             sipHeaders().ifPresent { it.forEach { it.validate() } }
+            sipRegion().ifPresent { it.validate() }
             sipTransportProtocol().ifPresent { it.validate() }
             soundModifications().ifPresent { it.validate() }
             targetLegClientState()
@@ -2920,6 +2985,7 @@ private constructor(
                 (if (sipAuthPassword.asKnown().isPresent) 1 else 0) +
                 (if (sipAuthUsername.asKnown().isPresent) 1 else 0) +
                 (sipHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (sipRegion.asKnown().getOrNull()?.validity() ?: 0) +
                 (sipTransportProtocol.asKnown().getOrNull()?.validity() ?: 0) +
                 (soundModifications.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (targetLegClientState.asKnown().isPresent) 1 else 0) +
@@ -2959,6 +3025,7 @@ private constructor(
                 sipAuthPassword == other.sipAuthPassword &&
                 sipAuthUsername == other.sipAuthUsername &&
                 sipHeaders == other.sipHeaders &&
+                sipRegion == other.sipRegion &&
                 sipTransportProtocol == other.sipTransportProtocol &&
                 soundModifications == other.soundModifications &&
                 targetLegClientState == other.targetLegClientState &&
@@ -2996,6 +3063,7 @@ private constructor(
                 sipAuthPassword,
                 sipAuthUsername,
                 sipHeaders,
+                sipRegion,
                 sipTransportProtocol,
                 soundModifications,
                 targetLegClientState,
@@ -3010,7 +3078,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
+            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -4698,6 +4766,152 @@ private constructor(
             }
 
             return other is RecordTrim && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Defines the SIP region to be used for the call. */
+    class SipRegion @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val US = of("US")
+
+            @JvmField val EUROPE = of("Europe")
+
+            @JvmField val CANADA = of("Canada")
+
+            @JvmField val AUSTRALIA = of("Australia")
+
+            @JvmField val MIDDLE_EAST = of("Middle East")
+
+            @JvmStatic fun of(value: String) = SipRegion(JsonField.of(value))
+        }
+
+        /** An enum containing [SipRegion]'s known values. */
+        enum class Known {
+            US,
+            EUROPE,
+            CANADA,
+            AUSTRALIA,
+            MIDDLE_EAST,
+        }
+
+        /**
+         * An enum containing [SipRegion]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [SipRegion] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            US,
+            EUROPE,
+            CANADA,
+            AUSTRALIA,
+            MIDDLE_EAST,
+            /**
+             * An enum member indicating that [SipRegion] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                US -> Value.US
+                EUROPE -> Value.EUROPE
+                CANADA -> Value.CANADA
+                AUSTRALIA -> Value.AUSTRALIA
+                MIDDLE_EAST -> Value.MIDDLE_EAST
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                US -> Known.US
+                EUROPE -> Known.EUROPE
+                CANADA -> Known.CANADA
+                AUSTRALIA -> Known.AUSTRALIA
+                MIDDLE_EAST -> Known.MIDDLE_EAST
+                else -> throw TelnyxInvalidDataException("Unknown SipRegion: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): SipRegion = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SipRegion && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

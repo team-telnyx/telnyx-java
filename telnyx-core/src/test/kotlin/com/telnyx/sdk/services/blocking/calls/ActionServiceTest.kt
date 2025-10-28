@@ -1218,6 +1218,7 @@ internal class ActionServiceTest {
                     .addSipHeader(
                         SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("value").build()
                     )
+                    .sipRegion(ActionTransferParams.SipRegion.CANADA)
                     .sipTransportProtocol(ActionTransferParams.SipTransportProtocol.TLS)
                     .soundModifications(
                         SoundModifications.builder()
