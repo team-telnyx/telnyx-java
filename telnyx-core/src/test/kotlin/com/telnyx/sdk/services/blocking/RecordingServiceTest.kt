@@ -53,6 +53,7 @@ internal class RecordingServiceTest {
                                     .build()
                             )
                             .from("1234567890")
+                            .sipCallId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .to("1234567890")
                             .build()
                     )

@@ -21,7 +21,7 @@ private constructor(
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[conference_id],
      * filter[created_at][gte], filter[created_at][lte], filter[call_leg_id],
-     * filter[call_session_id], filter[from], filter[to], filter[connection_id]
+     * filter[call_session_id], filter[from], filter[to], filter[connection_id], filter[sip_call_id]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
@@ -63,7 +63,8 @@ private constructor(
         /**
          * Consolidated filter parameter (deepObject style). Originally: filter[conference_id],
          * filter[created_at][gte], filter[created_at][lte], filter[call_leg_id],
-         * filter[call_session_id], filter[from], filter[to], filter[connection_id]
+         * filter[call_session_id], filter[from], filter[to], filter[connection_id],
+         * filter[sip_call_id]
          */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
@@ -208,6 +209,7 @@ private constructor(
                         }
                     }
                     it.from().ifPresent { put("filter[from]", it) }
+                    it.sipCallId().ifPresent { put("filter[sip_call_id]", it) }
                     it.to().ifPresent { put("filter[to]", it) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -231,7 +233,7 @@ private constructor(
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[conference_id],
      * filter[created_at][gte], filter[created_at][lte], filter[call_leg_id],
-     * filter[call_session_id], filter[from], filter[to], filter[connection_id]
+     * filter[call_session_id], filter[from], filter[to], filter[connection_id], filter[sip_call_id]
      */
     class Filter
     private constructor(
@@ -241,6 +243,7 @@ private constructor(
         private val connectionId: String?,
         private val createdAt: CreatedAt?,
         private val from: String?,
+        private val sipCallId: String?,
         private val to: String?,
         private val additionalProperties: QueryParams,
     ) {
@@ -269,6 +272,12 @@ private constructor(
         fun from(): Optional<String> = Optional.ofNullable(from)
 
         /**
+         * If present, recordings will be filtered to those with a matching `sip_call_id` attribute.
+         * Matching is case-sensitive
+         */
+        fun sipCallId(): Optional<String> = Optional.ofNullable(sipCallId)
+
+        /**
          * If present, recordings will be filtered to those with a matching `to` attribute
          * (case-sensitive).
          */
@@ -294,6 +303,7 @@ private constructor(
             private var connectionId: String? = null
             private var createdAt: CreatedAt? = null
             private var from: String? = null
+            private var sipCallId: String? = null
             private var to: String? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -305,6 +315,7 @@ private constructor(
                 connectionId = filter.connectionId
                 createdAt = filter.createdAt
                 from = filter.from
+                sipCallId = filter.sipCallId
                 to = filter.to
                 additionalProperties = filter.additionalProperties.toBuilder()
             }
@@ -352,6 +363,15 @@ private constructor(
 
             /** Alias for calling [Builder.from] with `from.orElse(null)`. */
             fun from(from: Optional<String>) = from(from.getOrNull())
+
+            /**
+             * If present, recordings will be filtered to those with a matching `sip_call_id`
+             * attribute. Matching is case-sensitive
+             */
+            fun sipCallId(sipCallId: String?) = apply { this.sipCallId = sipCallId }
+
+            /** Alias for calling [Builder.sipCallId] with `sipCallId.orElse(null)`. */
+            fun sipCallId(sipCallId: Optional<String>) = sipCallId(sipCallId.getOrNull())
 
             /**
              * If present, recordings will be filtered to those with a matching `to` attribute
@@ -424,6 +444,7 @@ private constructor(
                     connectionId,
                     createdAt,
                     from,
+                    sipCallId,
                     to,
                     additionalProperties.build(),
                 )
@@ -569,6 +590,7 @@ private constructor(
                 connectionId == other.connectionId &&
                 createdAt == other.createdAt &&
                 from == other.from &&
+                sipCallId == other.sipCallId &&
                 to == other.to &&
                 additionalProperties == other.additionalProperties
         }
@@ -581,6 +603,7 @@ private constructor(
                 connectionId,
                 createdAt,
                 from,
+                sipCallId,
                 to,
                 additionalProperties,
             )
@@ -589,7 +612,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{callLegId=$callLegId, callSessionId=$callSessionId, conferenceId=$conferenceId, connectionId=$connectionId, createdAt=$createdAt, from=$from, to=$to, additionalProperties=$additionalProperties}"
+            "Filter{callLegId=$callLegId, callSessionId=$callSessionId, conferenceId=$conferenceId, connectionId=$connectionId, createdAt=$createdAt, from=$from, sipCallId=$sipCallId, to=$to, additionalProperties=$additionalProperties}"
     }
 
     /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
