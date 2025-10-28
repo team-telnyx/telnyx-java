@@ -56,6 +56,7 @@ internal class ActionTransferParamsTest {
             .addSipHeader(
                 SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("value").build()
             )
+            .sipRegion(ActionTransferParams.SipRegion.CANADA)
             .sipTransportProtocol(ActionTransferParams.SipTransportProtocol.TLS)
             .soundModifications(
                 SoundModifications.builder()
@@ -132,6 +133,7 @@ internal class ActionTransferParamsTest {
                 .addSipHeader(
                     SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("value").build()
                 )
+                .sipRegion(ActionTransferParams.SipRegion.CANADA)
                 .sipTransportProtocol(ActionTransferParams.SipTransportProtocol.TLS)
                 .soundModifications(
                     SoundModifications.builder()
@@ -197,6 +199,7 @@ internal class ActionTransferParamsTest {
             .containsExactly(
                 SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("value").build()
             )
+        assertThat(body.sipRegion()).contains(ActionTransferParams.SipRegion.CANADA)
         assertThat(body.sipTransportProtocol())
             .contains(ActionTransferParams.SipTransportProtocol.TLS)
         assertThat(body.soundModifications())

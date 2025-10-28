@@ -89,6 +89,7 @@ internal class CallDialParamsTest {
             .addSipHeader(
                 SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
             )
+            .sipRegion(CallDialParams.SipRegion.CANADA)
             .sipTransportProtocol(CallDialParams.SipTransportProtocol.TLS)
             .soundModifications(
                 SoundModifications.builder()
@@ -233,6 +234,7 @@ internal class CallDialParamsTest {
                 .addSipHeader(
                     SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
                 )
+                .sipRegion(CallDialParams.SipRegion.CANADA)
                 .sipTransportProtocol(CallDialParams.SipTransportProtocol.TLS)
                 .soundModifications(
                     SoundModifications.builder()
@@ -384,6 +386,7 @@ internal class CallDialParamsTest {
             .containsExactly(
                 SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
             )
+        assertThat(body.sipRegion()).contains(CallDialParams.SipRegion.CANADA)
         assertThat(body.sipTransportProtocol()).contains(CallDialParams.SipTransportProtocol.TLS)
         assertThat(body.soundModifications())
             .contains(

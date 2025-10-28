@@ -116,6 +116,7 @@ internal class CallServiceAsyncTest {
                     .addSipHeader(
                         SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
                     )
+                    .sipRegion(CallDialParams.SipRegion.CANADA)
                     .sipTransportProtocol(CallDialParams.SipTransportProtocol.TLS)
                     .soundModifications(
                         SoundModifications.builder()
