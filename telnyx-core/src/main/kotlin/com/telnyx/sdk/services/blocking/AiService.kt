@@ -17,6 +17,8 @@ import com.telnyx.sdk.services.blocking.ai.ClusterService
 import com.telnyx.sdk.services.blocking.ai.ConversationService
 import com.telnyx.sdk.services.blocking.ai.EmbeddingService
 import com.telnyx.sdk.services.blocking.ai.FineTuningService
+import com.telnyx.sdk.services.blocking.ai.IntegrationService
+import com.telnyx.sdk.services.blocking.ai.McpServerService
 import java.util.function.Consumer
 
 interface AiService {
@@ -46,6 +48,10 @@ interface AiService {
     fun embeddings(): EmbeddingService
 
     fun fineTuning(): FineTuningService
+
+    fun integrations(): IntegrationService
+
+    fun mcpServers(): McpServerService
 
     /**
      * This endpoint returns a list of Open Source and OpenAI models that are available for use. <br
@@ -112,6 +118,10 @@ interface AiService {
         fun embeddings(): EmbeddingService.WithRawResponse
 
         fun fineTuning(): FineTuningService.WithRawResponse
+
+        fun integrations(): IntegrationService.WithRawResponse
+
+        fun mcpServers(): McpServerService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
