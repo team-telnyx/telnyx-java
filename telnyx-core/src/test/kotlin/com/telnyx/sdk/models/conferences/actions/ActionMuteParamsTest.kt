@@ -13,6 +13,7 @@ internal class ActionMuteParamsTest {
         ActionMuteParams.builder()
             .id("id")
             .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+            .region(ActionMuteParams.Region.US)
             .build()
     }
 
@@ -31,12 +32,14 @@ internal class ActionMuteParamsTest {
             ActionMuteParams.builder()
                 .id("id")
                 .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                .region(ActionMuteParams.Region.US)
                 .build()
 
         val body = params._body()
 
         assertThat(body.callControlIds().getOrNull())
             .containsExactly("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+        assertThat(body.region()).contains(ActionMuteParams.Region.US)
     }
 
     @Test

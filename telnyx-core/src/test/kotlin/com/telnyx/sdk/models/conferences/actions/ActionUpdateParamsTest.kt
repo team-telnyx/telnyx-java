@@ -16,6 +16,7 @@ internal class ActionUpdateParamsTest {
                     .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .supervisorRole(UpdateConference.SupervisorRole.WHISPER)
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .region(UpdateConference.Region.US)
                     .addWhisperCallControlId(
                         "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ"
                     )
@@ -55,6 +56,7 @@ internal class ActionUpdateParamsTest {
                         .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                         .supervisorRole(UpdateConference.SupervisorRole.WHISPER)
                         .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                        .region(UpdateConference.Region.US)
                         .addWhisperCallControlId(
                             "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ"
                         )
@@ -73,6 +75,7 @@ internal class ActionUpdateParamsTest {
                     .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .supervisorRole(UpdateConference.SupervisorRole.WHISPER)
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .region(UpdateConference.Region.US)
                     .addWhisperCallControlId(
                         "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ"
                     )

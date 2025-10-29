@@ -15,6 +15,7 @@ internal class ActionRecordStartParamsTest {
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .customFileName("my_recording_file_name")
             .playBeep(true)
+            .region(ActionRecordStartParams.Region.US)
             .trim(ActionRecordStartParams.Trim.TRIM_SILENCE)
             .build()
     }
@@ -41,6 +42,7 @@ internal class ActionRecordStartParamsTest {
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .customFileName("my_recording_file_name")
                 .playBeep(true)
+                .region(ActionRecordStartParams.Region.US)
                 .trim(ActionRecordStartParams.Trim.TRIM_SILENCE)
                 .build()
 
@@ -50,6 +52,7 @@ internal class ActionRecordStartParamsTest {
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.customFileName()).contains("my_recording_file_name")
         assertThat(body.playBeep()).contains(true)
+        assertThat(body.region()).contains(ActionRecordStartParams.Region.US)
         assertThat(body.trim()).contains(ActionRecordStartParams.Trim.TRIM_SILENCE)
     }
 

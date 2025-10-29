@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking.conferences
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
-import com.telnyx.sdk.models.calls.actions.StopRecordingRequest
 import com.telnyx.sdk.models.conferences.actions.ActionHoldParams
 import com.telnyx.sdk.models.conferences.actions.ActionJoinParams
 import com.telnyx.sdk.models.conferences.actions.ActionLeaveParams
@@ -49,6 +48,7 @@ internal class ActionServiceTest {
                             )
                             .supervisorRole(UpdateConference.SupervisorRole.WHISPER)
                             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                            .region(UpdateConference.Region.US)
                             .addWhisperCallControlId(
                                 "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ"
                             )
@@ -80,6 +80,7 @@ internal class ActionServiceTest {
                     .audioUrl("http://example.com/message.wav")
                     .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .mediaName("my_media_uploaded_to_media_storage_api")
+                    .region(ActionHoldParams.Region.US)
                     .build()
             )
 
@@ -109,6 +110,7 @@ internal class ActionServiceTest {
                     .holdAudioUrl("http://www.example.com/audio.wav")
                     .holdMediaName("my_media_uploaded_to_media_storage_api")
                     .mute(true)
+                    .region(ActionJoinParams.Region.US)
                     .softEndConferenceOnExit(true)
                     .startConferenceOnEnter(true)
                     .supervisorRole(ActionJoinParams.SupervisorRole.WHISPER)
@@ -141,6 +143,7 @@ internal class ActionServiceTest {
                     .callControlId("c46e06d7-b78f-4b13-96b6-c576af9640ff")
                     .beepEnabled(ActionLeaveParams.BeepEnabled.NEVER)
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .region(ActionLeaveParams.Region.US)
                     .build()
             )
 
@@ -162,6 +165,7 @@ internal class ActionServiceTest {
                 ActionMuteParams.builder()
                     .id("id")
                     .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                    .region(ActionMuteParams.Region.US)
                     .build()
             )
 
@@ -186,6 +190,7 @@ internal class ActionServiceTest {
                     .addCallControlId("string")
                     .loop("infinity")
                     .mediaName("my_media_uploaded_to_media_storage_api")
+                    .region(ActionPlayParams.Region.US)
                     .build()
             )
 
@@ -208,6 +213,7 @@ internal class ActionServiceTest {
                     .id("id")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .recordingId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .region(ActionRecordPauseParams.Region.US)
                     .build()
             )
 
@@ -230,6 +236,7 @@ internal class ActionServiceTest {
                     .id("id")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .recordingId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .region(ActionRecordResumeParams.Region.US)
                     .build()
             )
 
@@ -254,6 +261,7 @@ internal class ActionServiceTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .customFileName("my_recording_file_name")
                     .playBeep(true)
+                    .region(ActionRecordStartParams.Region.US)
                     .trim(ActionRecordStartParams.Trim.TRIM_SILENCE)
                     .build()
             )
@@ -275,13 +283,10 @@ internal class ActionServiceTest {
             actionService.recordStop(
                 ActionRecordStopParams.builder()
                     .id("id")
-                    .stopRecordingRequest(
-                        StopRecordingRequest.builder()
-                            .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                            .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                            .recordingId("6e00ab49-9487-4364-8ad6-23965965afb2")
-                            .build()
-                    )
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .recordingId("6e00ab49-9487-4364-8ad6-23965965afb2")
+                    .region(ActionRecordStopParams.Region.US)
                     .build()
             )
 
@@ -308,6 +313,7 @@ internal class ActionServiceTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .language(ActionSpeakParams.Language.EN_US)
                     .payloadType(ActionSpeakParams.PayloadType.TEXT)
+                    .region(ActionSpeakParams.Region.US)
                     .voiceSettings(
                         ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
                     )
@@ -329,7 +335,11 @@ internal class ActionServiceTest {
 
         val response =
             actionService.stop(
-                ActionStopParams.builder().id("id").addCallControlId("string").build()
+                ActionStopParams.builder()
+                    .id("id")
+                    .addCallControlId("string")
+                    .region(ActionStopParams.Region.US)
+                    .build()
             )
 
         response.validate()
@@ -350,6 +360,7 @@ internal class ActionServiceTest {
                 ActionUnholdParams.builder()
                     .id("id")
                     .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                    .region(ActionUnholdParams.Region.US)
                     .build()
             )
 
@@ -371,6 +382,7 @@ internal class ActionServiceTest {
                 ActionUnmuteParams.builder()
                     .id("id")
                     .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                    .region(ActionUnmuteParams.Region.US)
                     .build()
             )
 

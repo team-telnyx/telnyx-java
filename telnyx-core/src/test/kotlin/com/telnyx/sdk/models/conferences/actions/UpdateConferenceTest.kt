@@ -17,6 +17,7 @@ internal class UpdateConferenceTest {
                 .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .supervisorRole(UpdateConference.SupervisorRole.WHISPER)
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                .region(UpdateConference.Region.US)
                 .addWhisperCallControlId(
                     "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ"
                 )
@@ -30,6 +31,7 @@ internal class UpdateConferenceTest {
         assertThat(updateConference.supervisorRole())
             .isEqualTo(UpdateConference.SupervisorRole.WHISPER)
         assertThat(updateConference.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
+        assertThat(updateConference.region()).contains(UpdateConference.Region.US)
         assertThat(updateConference.whisperCallControlIds().getOrNull())
             .containsExactly(
                 "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ",
@@ -45,6 +47,7 @@ internal class UpdateConferenceTest {
                 .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .supervisorRole(UpdateConference.SupervisorRole.WHISPER)
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                .region(UpdateConference.Region.US)
                 .addWhisperCallControlId(
                     "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ"
                 )

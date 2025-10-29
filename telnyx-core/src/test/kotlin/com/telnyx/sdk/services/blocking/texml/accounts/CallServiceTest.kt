@@ -120,6 +120,7 @@ internal class CallServiceTest {
                     .sendRecordingUrl(false)
                     .sipAuthPassword("1234")
                     .sipAuthUsername("user")
+                    .sipRegion(CallCallsParams.SipRegion.CANADA)
                     .statusCallback("https://www.example.com/statuscallback-listener")
                     .statusCallbackEvent(CallCallsParams.StatusCallbackEvent.INITIATED)
                     .statusCallbackMethod(CallCallsParams.StatusCallbackMethod.GET)
