@@ -49,7 +49,7 @@ internal class CallAiGatherEndedWebhookEventTest {
                                 .addMessageHistory(
                                     CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory
                                         .builder()
-                                        .content("Hello, I'm 29 and I live in Paris?")
+                                        .content("Hello, I am 29 and I live in Paris?")
                                         .role(
                                             CallAiGatherEndedWebhookEvent.Data.Payload
                                                 .MessageHistory
@@ -96,7 +96,7 @@ internal class CallAiGatherEndedWebhookEventTest {
                             )
                             .addMessageHistory(
                                 CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory.builder()
-                                    .content("Hello, I'm 29 and I live in Paris?")
+                                    .content("Hello, I am 29 and I live in Paris?")
                                     .role(
                                         CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory
                                             .Role
@@ -153,7 +153,7 @@ internal class CallAiGatherEndedWebhookEventTest {
                                 .addMessageHistory(
                                     CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory
                                         .builder()
-                                        .content("Hello, I'm 29 and I live in Paris?")
+                                        .content("Hello, I am 29 and I live in Paris?")
                                         .role(
                                             CallAiGatherEndedWebhookEvent.Data.Payload
                                                 .MessageHistory
