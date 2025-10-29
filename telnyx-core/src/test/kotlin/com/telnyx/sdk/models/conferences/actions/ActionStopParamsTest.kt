@@ -10,7 +10,11 @@ internal class ActionStopParamsTest {
 
     @Test
     fun create() {
-        ActionStopParams.builder().id("id").addCallControlId("string").build()
+        ActionStopParams.builder()
+            .id("id")
+            .addCallControlId("string")
+            .region(ActionStopParams.Region.US)
+            .build()
     }
 
     @Test
@@ -24,11 +28,17 @@ internal class ActionStopParamsTest {
 
     @Test
     fun body() {
-        val params = ActionStopParams.builder().id("id").addCallControlId("string").build()
+        val params =
+            ActionStopParams.builder()
+                .id("id")
+                .addCallControlId("string")
+                .region(ActionStopParams.Region.US)
+                .build()
 
         val body = params._body()
 
         assertThat(body.callControlIds().getOrNull()).containsExactly("string")
+        assertThat(body.region()).contains(ActionStopParams.Region.US)
     }
 
     @Test

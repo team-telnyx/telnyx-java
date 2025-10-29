@@ -20,6 +20,7 @@ internal class ConferenceCreateParamsTest {
             .holdAudioUrl("http://www.example.com/audio.wav")
             .holdMediaName("my_media_uploaded_to_media_storage_api")
             .maxParticipants(250L)
+            .region(ConferenceCreateParams.Region.US)
             .startConferenceOnCreate(false)
             .build()
     }
@@ -38,6 +39,7 @@ internal class ConferenceCreateParamsTest {
                 .holdAudioUrl("http://www.example.com/audio.wav")
                 .holdMediaName("my_media_uploaded_to_media_storage_api")
                 .maxParticipants(250L)
+                .region(ConferenceCreateParams.Region.US)
                 .startConferenceOnCreate(false)
                 .build()
 
@@ -54,6 +56,7 @@ internal class ConferenceCreateParamsTest {
         assertThat(body.holdAudioUrl()).contains("http://www.example.com/audio.wav")
         assertThat(body.holdMediaName()).contains("my_media_uploaded_to_media_storage_api")
         assertThat(body.maxParticipants()).contains(250L)
+        assertThat(body.region()).contains(ConferenceCreateParams.Region.US)
         assertThat(body.startConferenceOnCreate()).contains(false)
     }
 

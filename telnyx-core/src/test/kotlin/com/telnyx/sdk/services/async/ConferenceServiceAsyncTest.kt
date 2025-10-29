@@ -7,6 +7,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
 import com.telnyx.sdk.models.conferences.ConferenceListParams
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,6 +38,7 @@ internal class ConferenceServiceAsyncTest {
                     .holdAudioUrl("http://www.example.com/audio.wav")
                     .holdMediaName("my_media_uploaded_to_media_storage_api")
                     .maxParticipants(250L)
+                    .region(ConferenceCreateParams.Region.US)
                     .startConferenceOnCreate(false)
                     .build()
             )
@@ -55,7 +57,13 @@ internal class ConferenceServiceAsyncTest {
                 .build()
         val conferenceServiceAsync = client.conferences()
 
-        val conferenceFuture = conferenceServiceAsync.retrieve("id")
+        val conferenceFuture =
+            conferenceServiceAsync.retrieve(
+                ConferenceRetrieveParams.builder()
+                    .id("id")
+                    .region(ConferenceRetrieveParams.Region.AUSTRALIA)
+                    .build()
+            )
 
         val conference = conferenceFuture.get()
         conference.validate()
@@ -112,6 +120,7 @@ internal class ConferenceServiceAsyncTest {
                             .size(1L)
                             .build()
                     )
+                    .region(ConferenceListParams.Region.AUSTRALIA)
                     .build()
             )
 
@@ -149,6 +158,7 @@ internal class ConferenceServiceAsyncTest {
                             .size(1L)
                             .build()
                     )
+                    .region(ConferenceListParticipantsParams.Region.AUSTRALIA)
                     .build()
             )
 

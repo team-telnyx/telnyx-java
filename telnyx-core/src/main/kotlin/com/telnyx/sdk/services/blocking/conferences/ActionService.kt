@@ -301,25 +301,35 @@ interface ActionService {
      * **Expected Webhooks:**
      * - `conference.recording.saved`
      */
-    fun recordStop(id: String, params: ActionRecordStopParams): ActionRecordStopResponse =
-        recordStop(id, params, RequestOptions.none())
+    fun recordStop(id: String): ActionRecordStopResponse =
+        recordStop(id, ActionRecordStopParams.none())
 
     /** @see recordStop */
     fun recordStop(
         id: String,
-        params: ActionRecordStopParams,
+        params: ActionRecordStopParams = ActionRecordStopParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionRecordStopResponse = recordStop(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see recordStop */
-    fun recordStop(params: ActionRecordStopParams): ActionRecordStopResponse =
-        recordStop(params, RequestOptions.none())
+    fun recordStop(
+        id: String,
+        params: ActionRecordStopParams = ActionRecordStopParams.none(),
+    ): ActionRecordStopResponse = recordStop(id, params, RequestOptions.none())
 
     /** @see recordStop */
     fun recordStop(
         params: ActionRecordStopParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionRecordStopResponse
+
+    /** @see recordStop */
+    fun recordStop(params: ActionRecordStopParams): ActionRecordStopResponse =
+        recordStop(params, RequestOptions.none())
+
+    /** @see recordStop */
+    fun recordStop(id: String, requestOptions: RequestOptions): ActionRecordStopResponse =
+        recordStop(id, ActionRecordStopParams.none(), requestOptions)
 
     /** Convert text to speech and play it to all or some participants. */
     fun speak(id: String, params: ActionSpeakParams): ActionSpeakResponse =
@@ -769,19 +779,31 @@ interface ActionService {
          * otherwise the same as [ActionService.recordStop].
          */
         @MustBeClosed
-        fun recordStop(
-            id: String,
-            params: ActionRecordStopParams,
-        ): HttpResponseFor<ActionRecordStopResponse> = recordStop(id, params, RequestOptions.none())
+        fun recordStop(id: String): HttpResponseFor<ActionRecordStopResponse> =
+            recordStop(id, ActionRecordStopParams.none())
 
         /** @see recordStop */
         @MustBeClosed
         fun recordStop(
             id: String,
-            params: ActionRecordStopParams,
+            params: ActionRecordStopParams = ActionRecordStopParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ActionRecordStopResponse> =
             recordStop(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see recordStop */
+        @MustBeClosed
+        fun recordStop(
+            id: String,
+            params: ActionRecordStopParams = ActionRecordStopParams.none(),
+        ): HttpResponseFor<ActionRecordStopResponse> = recordStop(id, params, RequestOptions.none())
+
+        /** @see recordStop */
+        @MustBeClosed
+        fun recordStop(
+            params: ActionRecordStopParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionRecordStopResponse>
 
         /** @see recordStop */
         @MustBeClosed
@@ -791,9 +813,10 @@ interface ActionService {
         /** @see recordStop */
         @MustBeClosed
         fun recordStop(
-            params: ActionRecordStopParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionRecordStopResponse>
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionRecordStopResponse> =
+            recordStop(id, ActionRecordStopParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /conferences/{id}/actions/speak`, but is otherwise

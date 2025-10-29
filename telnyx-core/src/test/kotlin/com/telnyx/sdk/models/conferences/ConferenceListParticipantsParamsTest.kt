@@ -28,6 +28,7 @@ internal class ConferenceListParticipantsParamsTest {
                     .size(1L)
                     .build()
             )
+            .region(ConferenceListParticipantsParams.Region.AUSTRALIA)
             .build()
     }
 
@@ -62,6 +63,7 @@ internal class ConferenceListParticipantsParamsTest {
                         .size(1L)
                         .build()
                 )
+                .region(ConferenceListParticipantsParams.Region.AUSTRALIA)
                 .build()
 
         val queryParams = params._queryParams()
@@ -77,6 +79,7 @@ internal class ConferenceListParticipantsParamsTest {
                     .put("page[limit]", "1")
                     .put("page[number]", "1")
                     .put("page[size]", "1")
+                    .put("region", "Australia")
                     .build()
             )
     }
