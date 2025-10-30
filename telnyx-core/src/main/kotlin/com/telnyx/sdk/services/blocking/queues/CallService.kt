@@ -9,6 +9,7 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.queues.calls.CallListParams
 import com.telnyx.sdk.models.queues.calls.CallListResponse
+import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
 import com.telnyx.sdk.models.queues.calls.CallUpdateParams
@@ -93,6 +94,26 @@ interface CallService {
     /** @see list */
     fun list(queueName: String, requestOptions: RequestOptions): CallListResponse =
         list(queueName, CallListParams.none(), requestOptions)
+
+    /**
+     * Removes an inactive call from a queue. If the call is no longer active, use this command to
+     * remove it from the queue.
+     */
+    fun remove(callControlId: String, params: CallRemoveParams) =
+        remove(callControlId, params, RequestOptions.none())
+
+    /** @see remove */
+    fun remove(
+        callControlId: String,
+        params: CallRemoveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = remove(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+    /** @see remove */
+    fun remove(params: CallRemoveParams) = remove(params, RequestOptions.none())
+
+    /** @see remove */
+    fun remove(params: CallRemoveParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** A view of [CallService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -207,5 +228,33 @@ interface CallService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<CallListResponse> =
             list(queueName, CallListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete /queues/{queue_name}/calls/{call_control_id}`,
+         * but is otherwise the same as [CallService.remove].
+         */
+        @MustBeClosed
+        fun remove(callControlId: String, params: CallRemoveParams): HttpResponse =
+            remove(callControlId, params, RequestOptions.none())
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(
+            callControlId: String,
+            params: CallRemoveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            remove(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(params: CallRemoveParams): HttpResponse = remove(params, RequestOptions.none())
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(
+            params: CallRemoveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
     }
 }

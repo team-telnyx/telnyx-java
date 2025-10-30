@@ -8,6 +8,7 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.queues.calls.CallListParams
 import com.telnyx.sdk.models.queues.calls.CallListResponse
+import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
 import com.telnyx.sdk.models.queues.calls.CallUpdateParams
@@ -108,6 +109,31 @@ interface CallServiceAsync {
         queueName: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<CallListResponse> = list(queueName, CallListParams.none(), requestOptions)
+
+    /**
+     * Removes an inactive call from a queue. If the call is no longer active, use this command to
+     * remove it from the queue.
+     */
+    fun remove(callControlId: String, params: CallRemoveParams): CompletableFuture<Void?> =
+        remove(callControlId, params, RequestOptions.none())
+
+    /** @see remove */
+    fun remove(
+        callControlId: String,
+        params: CallRemoveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        remove(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+    /** @see remove */
+    fun remove(params: CallRemoveParams): CompletableFuture<Void?> =
+        remove(params, RequestOptions.none())
+
+    /** @see remove */
+    fun remove(
+        params: CallRemoveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
 
     /** A view of [CallServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -214,5 +240,32 @@ interface CallServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CallListResponse>> =
             list(queueName, CallListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete /queues/{queue_name}/calls/{call_control_id}`,
+         * but is otherwise the same as [CallServiceAsync.remove].
+         */
+        fun remove(
+            callControlId: String,
+            params: CallRemoveParams,
+        ): CompletableFuture<HttpResponse> = remove(callControlId, params, RequestOptions.none())
+
+        /** @see remove */
+        fun remove(
+            callControlId: String,
+            params: CallRemoveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            remove(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+        /** @see remove */
+        fun remove(params: CallRemoveParams): CompletableFuture<HttpResponse> =
+            remove(params, RequestOptions.none())
+
+        /** @see remove */
+        fun remove(
+            params: CallRemoveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
     }
 }

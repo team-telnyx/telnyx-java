@@ -19,6 +19,7 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.queues.calls.CallListParams
 import com.telnyx.sdk.models.queues.calls.CallListResponse
+import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
 import com.telnyx.sdk.models.queues.calls.CallUpdateParams
@@ -58,6 +59,13 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
     ): CompletableFuture<CallListResponse> =
         // get /queues/{queue_name}/calls
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun remove(
+        params: CallRemoveParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /queues/{queue_name}/calls/{call_control_id}
+        withRawResponse().remove(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CallServiceAsync.WithRawResponse {
@@ -161,6 +169,33 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                                     it.validate()
                                 }
                             }
+                    }
+                }
+        }
+
+        private val removeHandler: Handler<Void?> = emptyHandler()
+
+        override fun remove(
+            params: CallRemoveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("queues", params._pathParam(0), "calls", params._pathParam(1))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { removeHandler.handle(it) }
                     }
                 }
         }
