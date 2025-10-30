@@ -14,6 +14,7 @@ internal class ActionEnqueueParamsTest {
             .queueName("support")
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+            .keepAfterHangup(true)
             .maxSize(20L)
             .maxWaitTimeSecs(600L)
             .build()
@@ -40,6 +41,7 @@ internal class ActionEnqueueParamsTest {
                 .queueName("support")
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                .keepAfterHangup(true)
                 .maxSize(20L)
                 .maxWaitTimeSecs(600L)
                 .build()
@@ -49,6 +51,7 @@ internal class ActionEnqueueParamsTest {
         assertThat(body.queueName()).isEqualTo("support")
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
+        assertThat(body.keepAfterHangup()).contains(true)
         assertThat(body.maxSize()).contains(20L)
         assertThat(body.maxWaitTimeSecs()).contains(600L)
     }
