@@ -4,11 +4,13 @@ package com.telnyx.sdk.services.async.queues
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.queues.calls.CallListParams
 import com.telnyx.sdk.models.queues.calls.CallListResponse
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
+import com.telnyx.sdk.models.queues.calls.CallUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -50,6 +52,28 @@ interface CallServiceAsync {
         params: CallRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CallRetrieveResponse>
+
+    /** Update queued call's keep_after_hangup flag */
+    fun update(callControlId: String, params: CallUpdateParams): CompletableFuture<Void?> =
+        update(callControlId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        callControlId: String,
+        params: CallUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        update(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: CallUpdateParams): CompletableFuture<Void?> =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: CallUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
 
     /** Retrieve the list of calls in an existing queue */
     fun list(queueName: String): CompletableFuture<CallListResponse> =
@@ -124,6 +148,33 @@ interface CallServiceAsync {
             params: CallRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CallRetrieveResponse>>
+
+        /**
+         * Returns a raw HTTP response for `patch /queues/{queue_name}/calls/{call_control_id}`, but
+         * is otherwise the same as [CallServiceAsync.update].
+         */
+        fun update(
+            callControlId: String,
+            params: CallUpdateParams,
+        ): CompletableFuture<HttpResponse> = update(callControlId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            callControlId: String,
+            params: CallUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            update(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+        /** @see update */
+        fun update(params: CallUpdateParams): CompletableFuture<HttpResponse> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: CallUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `get /queues/{queue_name}/calls`, but is otherwise the

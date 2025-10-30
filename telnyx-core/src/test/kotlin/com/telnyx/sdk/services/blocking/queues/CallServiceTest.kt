@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.queues.calls.CallListParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
+import com.telnyx.sdk.models.queues.calls.CallUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -32,6 +33,25 @@ internal class CallServiceTest {
             )
 
         call.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun update() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val callService = client.queues().calls()
+
+        callService.update(
+            CallUpdateParams.builder()
+                .queueName("queue_name")
+                .callControlId("call_control_id")
+                .keepAfterHangup(true)
+                .build()
+        )
     }
 
     @Disabled("Prism tests are disabled")
