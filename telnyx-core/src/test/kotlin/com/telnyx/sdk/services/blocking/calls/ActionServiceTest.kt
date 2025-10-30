@@ -220,6 +220,7 @@ internal class ActionServiceTest {
                     .queueName("support")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .keepAfterHangup(true)
                     .maxSize(20L)
                     .maxWaitTimeSecs(600L)
                     .build()
