@@ -19,6 +19,7 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.queues.calls.CallListParams
 import com.telnyx.sdk.models.queues.calls.CallListResponse
+import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
 import com.telnyx.sdk.models.queues.calls.CallUpdateParams
@@ -51,6 +52,11 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun list(params: CallListParams, requestOptions: RequestOptions): CallListResponse =
         // get /queues/{queue_name}/calls
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun remove(params: CallRemoveParams, requestOptions: RequestOptions) {
+        // delete /queues/{queue_name}/calls/{call_control_id}
+        withRawResponse().remove(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CallService.WithRawResponse {
@@ -146,6 +152,30 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
                             it.validate()
                         }
                     }
+            }
+        }
+
+        private val removeHandler: Handler<Void?> = emptyHandler()
+
+        override fun remove(
+            params: CallRemoveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("queues", params._pathParam(0), "calls", params._pathParam(1))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { removeHandler.handle(it) }
             }
         }
     }
