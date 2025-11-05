@@ -422,11 +422,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.telnyx.sdk.models.calls.CallDialResponse;
+import com.telnyx.sdk.models.numberorders.NumberOrderCreateResponse;
 
-CallDialResponse response = client.calls().dial(
-  params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
-);
+NumberOrderCreateResponse numberOrder = client.numberOrders().create(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build());
 ```
 
 Or configure the default for all method calls at the client level:
