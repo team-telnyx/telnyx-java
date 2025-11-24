@@ -15,6 +15,8 @@ import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
@@ -299,6 +301,40 @@ interface AssistantServiceAsync {
         params: AssistantImportParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AssistantsList>
+
+    /**
+     * Send an SMS message for an assistant. This endpoint:
+     * 1. Validates the assistant exists and has messaging profile configured
+     * 2. If should_create_conversation is true, creates a new conversation with metadata
+     * 3. Sends the SMS message (If `text` is set, this will be sent. Otherwise, if this is the
+     *    first message in the conversation and the assistant has a `greeting` configured, this will
+     *    be sent. Otherwise the assistant will generate the text to send.)
+     * 4. Updates conversation metadata if provided
+     * 5. Returns the conversation ID
+     */
+    fun sendSms(
+        assistantId: String,
+        params: AssistantSendSmsParams,
+    ): CompletableFuture<AssistantSendSmsResponse> =
+        sendSms(assistantId, params, RequestOptions.none())
+
+    /** @see sendSms */
+    fun sendSms(
+        assistantId: String,
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AssistantSendSmsResponse> =
+        sendSms(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see sendSms */
+    fun sendSms(params: AssistantSendSmsParams): CompletableFuture<AssistantSendSmsResponse> =
+        sendSms(params, RequestOptions.none())
+
+    /** @see sendSms */
+    fun sendSms(
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AssistantSendSmsResponse>
 
     /**
      * A view of [AssistantServiceAsync] that provides access to raw HTTP responses for each method.
@@ -614,5 +650,35 @@ interface AssistantServiceAsync {
             params: AssistantImportParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AssistantsList>>
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/chat/sms`, but is
+         * otherwise the same as [AssistantServiceAsync.sendSms].
+         */
+        fun sendSms(
+            assistantId: String,
+            params: AssistantSendSmsParams,
+        ): CompletableFuture<HttpResponseFor<AssistantSendSmsResponse>> =
+            sendSms(assistantId, params, RequestOptions.none())
+
+        /** @see sendSms */
+        fun sendSms(
+            assistantId: String,
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AssistantSendSmsResponse>> =
+            sendSms(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see sendSms */
+        fun sendSms(
+            params: AssistantSendSmsParams
+        ): CompletableFuture<HttpResponseFor<AssistantSendSmsResponse>> =
+            sendSms(params, RequestOptions.none())
+
+        /** @see sendSms */
+        fun sendSms(
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AssistantSendSmsResponse>>
     }
 }

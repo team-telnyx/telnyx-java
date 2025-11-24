@@ -61,7 +61,8 @@ interface ShortCodeService {
 
     /**
      * Update the settings for a specific short code. To unbind a short code from a profile, set the
-     * `messaging_profile_id` to `null` or an empty string.
+     * `messaging_profile_id` to `null` or an empty string. To add or update tags, include the tags
+     * field as an array of strings.
      */
     fun update(id: String, params: ShortCodeUpdateParams): ShortCodeUpdateResponse =
         update(id, params, RequestOptions.none())

@@ -69,6 +69,14 @@ private constructor(
     fun androidPushCredentialId(): Optional<String> = body.androidPushCredentialId()
 
     /**
+     * Specifies if call cost webhooks should be sent for this connection.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> = body.callCostInWebhooks()
+
+    /**
      * When enabled, Telnyx will generate comfort noise when you place the call on hold. If
      * disabled, you will need to generate comfort noise or on hold music to avoid RTP timeout.
      *
@@ -228,6 +236,14 @@ private constructor(
      * unexpected type.
      */
     fun _androidPushCredentialId(): JsonField<String> = body._androidPushCredentialId()
+
+    /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _callCostInWebhooks(): JsonField<Boolean> = body._callCostInWebhooks()
 
     /**
      * Returns the raw JSON value of [defaultOnHoldComfortNoiseEnabled].
@@ -397,7 +413,7 @@ private constructor(
          * - [active]
          * - [anchorsiteOverride]
          * - [androidPushCredentialId]
-         * - [defaultOnHoldComfortNoiseEnabled]
+         * - [callCostInWebhooks]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -468,6 +484,22 @@ private constructor(
          */
         fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
             body.androidPushCredentialId(androidPushCredentialId)
+        }
+
+        /** Specifies if call cost webhooks should be sent for this connection. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
+        }
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
         }
 
         /**
@@ -920,6 +952,7 @@ private constructor(
         private val active: JsonField<Boolean>,
         private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
         private val androidPushCredentialId: JsonField<String>,
+        private val callCostInWebhooks: JsonField<Boolean>,
         private val defaultOnHoldComfortNoiseEnabled: JsonField<Boolean>,
         private val dtmfType: JsonField<DtmfType>,
         private val encodeContactHeaderEnabled: JsonField<Boolean>,
@@ -951,6 +984,9 @@ private constructor(
             @JsonProperty("android_push_credential_id")
             @ExcludeMissing
             androidPushCredentialId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("call_cost_in_webhooks")
+            @ExcludeMissing
+            callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("default_on_hold_comfort_noise_enabled")
             @ExcludeMissing
             defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of(),
@@ -1002,6 +1038,7 @@ private constructor(
             active,
             anchorsiteOverride,
             androidPushCredentialId,
+            callCostInWebhooks,
             defaultOnHoldComfortNoiseEnabled,
             dtmfType,
             encodeContactHeaderEnabled,
@@ -1056,6 +1093,15 @@ private constructor(
          */
         fun androidPushCredentialId(): Optional<String> =
             androidPushCredentialId.getOptional("android_push_credential_id")
+
+        /**
+         * Specifies if call cost webhooks should be sent for this connection.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun callCostInWebhooks(): Optional<Boolean> =
+            callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
         /**
          * When enabled, Telnyx will generate comfort noise when you place the call on hold. If
@@ -1234,6 +1280,16 @@ private constructor(
         @JsonProperty("android_push_credential_id")
         @ExcludeMissing
         fun _androidPushCredentialId(): JsonField<String> = androidPushCredentialId
+
+        /**
+         * Returns the raw JSON value of [callCostInWebhooks].
+         *
+         * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
 
         /**
          * Returns the raw JSON value of [defaultOnHoldComfortNoiseEnabled].
@@ -1418,6 +1474,7 @@ private constructor(
             private var active: JsonField<Boolean> = JsonMissing.of()
             private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
             private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
+            private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
             private var defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of()
             private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
             private var encodeContactHeaderEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -1442,6 +1499,7 @@ private constructor(
                 active = body.active
                 anchorsiteOverride = body.anchorsiteOverride
                 androidPushCredentialId = body.androidPushCredentialId
+                callCostInWebhooks = body.callCostInWebhooks
                 defaultOnHoldComfortNoiseEnabled = body.defaultOnHoldComfortNoiseEnabled
                 dtmfType = body.dtmfType
                 encodeContactHeaderEnabled = body.encodeContactHeaderEnabled
@@ -1527,6 +1585,21 @@ private constructor(
              */
             fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
                 this.androidPushCredentialId = androidPushCredentialId
+            }
+
+            /** Specifies if call cost webhooks should be sent for this connection. */
+            fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+                callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+            /**
+             * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+                this.callCostInWebhooks = callCostInWebhooks
             }
 
             /**
@@ -1864,6 +1937,7 @@ private constructor(
                     active,
                     anchorsiteOverride,
                     androidPushCredentialId,
+                    callCostInWebhooks,
                     defaultOnHoldComfortNoiseEnabled,
                     dtmfType,
                     encodeContactHeaderEnabled,
@@ -1895,6 +1969,7 @@ private constructor(
             active()
             anchorsiteOverride().ifPresent { it.validate() }
             androidPushCredentialId()
+            callCostInWebhooks()
             defaultOnHoldComfortNoiseEnabled()
             dtmfType().ifPresent { it.validate() }
             encodeContactHeaderEnabled()
@@ -1934,6 +2009,7 @@ private constructor(
                 (if (active.asKnown().isPresent) 1 else 0) +
                 (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
+                (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
                 (if (defaultOnHoldComfortNoiseEnabled.asKnown().isPresent) 1 else 0) +
                 (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (encodeContactHeaderEnabled.asKnown().isPresent) 1 else 0) +
@@ -1961,6 +2037,7 @@ private constructor(
                 active == other.active &&
                 anchorsiteOverride == other.anchorsiteOverride &&
                 androidPushCredentialId == other.androidPushCredentialId &&
+                callCostInWebhooks == other.callCostInWebhooks &&
                 defaultOnHoldComfortNoiseEnabled == other.defaultOnHoldComfortNoiseEnabled &&
                 dtmfType == other.dtmfType &&
                 encodeContactHeaderEnabled == other.encodeContactHeaderEnabled &&
@@ -1986,6 +2063,7 @@ private constructor(
                 active,
                 anchorsiteOverride,
                 androidPushCredentialId,
+                callCostInWebhooks,
                 defaultOnHoldComfortNoiseEnabled,
                 dtmfType,
                 encodeContactHeaderEnabled,
@@ -2009,7 +2087,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionName=$connectionName, active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, microsoftTeamsSbc=$microsoftTeamsSbc, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, rtcpSettings=$rtcpSettings, tags=$tags, transportProtocol=$transportProtocol, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+            "Body{connectionName=$connectionName, active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostInWebhooks=$callCostInWebhooks, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, microsoftTeamsSbc=$microsoftTeamsSbc, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, rtcpSettings=$rtcpSettings, tags=$tags, transportProtocol=$transportProtocol, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

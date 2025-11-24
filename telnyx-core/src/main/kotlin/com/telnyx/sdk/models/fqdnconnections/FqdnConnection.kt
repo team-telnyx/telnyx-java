@@ -32,6 +32,7 @@ private constructor(
     private val adjustDtmfTimestamp: JsonField<Boolean>,
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
     private val callCostEnabled: JsonField<Boolean>,
+    private val callCostInWebhooks: JsonField<Boolean>,
     private val createdAt: JsonField<String>,
     private val defaultOnHoldComfortNoiseEnabled: JsonField<Boolean>,
     private val dtmfType: JsonField<DtmfType>,
@@ -80,6 +81,9 @@ private constructor(
         @JsonProperty("call_cost_enabled")
         @ExcludeMissing
         callCostEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("default_on_hold_comfort_noise_enabled")
         @ExcludeMissing
@@ -154,6 +158,7 @@ private constructor(
         adjustDtmfTimestamp,
         anchorsiteOverride,
         callCostEnabled,
+        callCostInWebhooks,
         createdAt,
         defaultOnHoldComfortNoiseEnabled,
         dtmfType,
@@ -237,6 +242,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun callCostEnabled(): Optional<Boolean> = callCostEnabled.getOptional("call_cost_enabled")
+
+    /**
+     * Specifies if call cost webhooks should be sent for this connection.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> =
+        callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
     /**
      * ISO 8601 formatted date indicating when the resource was created.
@@ -536,6 +550,16 @@ private constructor(
     fun _callCostEnabled(): JsonField<Boolean> = callCostEnabled
 
     /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("call_cost_in_webhooks")
+    @ExcludeMissing
+    fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -819,6 +843,7 @@ private constructor(
         private var adjustDtmfTimestamp: JsonField<Boolean> = JsonMissing.of()
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
         private var callCostEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of()
         private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
@@ -858,6 +883,7 @@ private constructor(
             adjustDtmfTimestamp = fqdnConnection.adjustDtmfTimestamp
             anchorsiteOverride = fqdnConnection.anchorsiteOverride
             callCostEnabled = fqdnConnection.callCostEnabled
+            callCostInWebhooks = fqdnConnection.callCostInWebhooks
             createdAt = fqdnConnection.createdAt
             defaultOnHoldComfortNoiseEnabled = fqdnConnection.defaultOnHoldComfortNoiseEnabled
             dtmfType = fqdnConnection.dtmfType
@@ -973,6 +999,21 @@ private constructor(
          */
         fun callCostEnabled(callCostEnabled: JsonField<Boolean>) = apply {
             this.callCostEnabled = callCostEnabled
+        }
+
+        /** Specifies if call cost webhooks should be sent for this connection. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+            callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            this.callCostInWebhooks = callCostInWebhooks
         }
 
         /** ISO 8601 formatted date indicating when the resource was created. */
@@ -1462,6 +1503,7 @@ private constructor(
                 adjustDtmfTimestamp,
                 anchorsiteOverride,
                 callCostEnabled,
+                callCostInWebhooks,
                 createdAt,
                 defaultOnHoldComfortNoiseEnabled,
                 dtmfType,
@@ -1508,6 +1550,7 @@ private constructor(
         adjustDtmfTimestamp()
         anchorsiteOverride().ifPresent { it.validate() }
         callCostEnabled()
+        callCostInWebhooks()
         createdAt()
         defaultOnHoldComfortNoiseEnabled()
         dtmfType().ifPresent { it.validate() }
@@ -1561,6 +1604,7 @@ private constructor(
             (if (adjustDtmfTimestamp.asKnown().isPresent) 1 else 0) +
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
             (if (callCostEnabled.asKnown().isPresent) 1 else 0) +
+            (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (defaultOnHoldComfortNoiseEnabled.asKnown().isPresent) 1 else 0) +
             (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1603,6 +1647,7 @@ private constructor(
             adjustDtmfTimestamp == other.adjustDtmfTimestamp &&
             anchorsiteOverride == other.anchorsiteOverride &&
             callCostEnabled == other.callCostEnabled &&
+            callCostInWebhooks == other.callCostInWebhooks &&
             createdAt == other.createdAt &&
             defaultOnHoldComfortNoiseEnabled == other.defaultOnHoldComfortNoiseEnabled &&
             dtmfType == other.dtmfType &&
@@ -1643,6 +1688,7 @@ private constructor(
             adjustDtmfTimestamp,
             anchorsiteOverride,
             callCostEnabled,
+            callCostInWebhooks,
             createdAt,
             defaultOnHoldComfortNoiseEnabled,
             dtmfType,
@@ -1679,5 +1725,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, callCostEnabled=$callCostEnabled, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, callCostEnabled=$callCostEnabled, callCostInWebhooks=$callCostInWebhooks, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

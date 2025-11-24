@@ -151,10 +151,7 @@ private constructor(
     fun minP(): Optional<Double> = body.minP()
 
     /**
-     * The language model to chat with. If you are optimizing for speed + price, try
-     * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-     * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-     * [LLM Library](https://telnyx.com/products/llm-library).
+     * The language model to chat with.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -643,12 +640,7 @@ private constructor(
          */
         fun minP(minP: JsonField<Double>) = apply { body.minP(minP) }
 
-        /**
-         * The language model to chat with. If you are optimizing for speed + price, try
-         * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-         * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-         * [LLM Library](https://telnyx.com/products/llm-library).
-         */
+        /** The language model to chat with. */
         fun model(model: String) = apply { body.model(model) }
 
         /**
@@ -1186,10 +1178,7 @@ private constructor(
         fun minP(): Optional<Double> = minP.getOptional("min_p")
 
         /**
-         * The language model to chat with. If you are optimizing for speed + price, try
-         * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-         * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-         * [LLM Library](https://telnyx.com/products/llm-library).
+         * The language model to chat with.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1763,12 +1752,7 @@ private constructor(
              */
             fun minP(minP: JsonField<Double>) = apply { this.minP = minP }
 
-            /**
-             * The language model to chat with. If you are optimizing for speed + price, try
-             * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-             * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-             * [LLM Library](https://telnyx.com/products/llm-library).
-             */
+            /** The language model to chat with. */
             fun model(model: String) = model(JsonField.of(model))
 
             /**

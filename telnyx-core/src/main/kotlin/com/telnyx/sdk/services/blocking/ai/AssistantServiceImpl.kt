@@ -27,6 +27,8 @@ import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
@@ -136,6 +138,13 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
     ): AssistantsList =
         // post /ai/assistants/import
         withRawResponse().import_(params, requestOptions).parse()
+
+    override fun sendSms(
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions,
+    ): AssistantSendSmsResponse =
+        // post /ai/assistants/{assistant_id}/chat/sms
+        withRawResponse().sendSms(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AssistantService.WithRawResponse {
@@ -432,6 +441,37 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
             return errorHandler.handle(response).parseable {
                 response
                     .use { importHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val sendSmsHandler: Handler<AssistantSendSmsResponse> =
+            jsonHandler<AssistantSendSmsResponse>(clientOptions.jsonMapper)
+
+        override fun sendSms(
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantSendSmsResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "chat", "sms")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { sendSmsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

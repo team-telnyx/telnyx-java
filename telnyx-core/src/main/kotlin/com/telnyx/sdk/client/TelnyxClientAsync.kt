@@ -56,6 +56,7 @@ import com.telnyx.sdk.services.async.GlobalIpProtocolServiceAsync
 import com.telnyx.sdk.services.async.GlobalIpServiceAsync
 import com.telnyx.sdk.services.async.GlobalIpUsageServiceAsync
 import com.telnyx.sdk.services.async.InboundChannelServiceAsync
+import com.telnyx.sdk.services.async.InexplicitNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.IntegrationSecretServiceAsync
 import com.telnyx.sdk.services.async.InventoryCoverageServiceAsync
 import com.telnyx.sdk.services.async.InvoiceServiceAsync
@@ -500,6 +501,8 @@ interface TelnyxClientAsync {
 
     fun wellKnown(): WellKnownServiceAsync
 
+    fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -833,5 +836,7 @@ interface TelnyxClientAsync {
         fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse
 
         fun wellKnown(): WellKnownServiceAsync.WithRawResponse
+
+        fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse
     }
 }

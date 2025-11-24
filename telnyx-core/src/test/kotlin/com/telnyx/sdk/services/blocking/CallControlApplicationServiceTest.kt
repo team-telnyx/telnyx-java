@@ -35,6 +35,7 @@ internal class CallControlApplicationServiceTest {
                     .anchorsiteOverride(
                         CallControlApplicationCreateParams.AnchorsiteOverride.LATENCY
                     )
+                    .callCostInWebhooks(true)
                     .dtmfType(CallControlApplicationCreateParams.DtmfType.INBAND)
                     .firstCommandTimeout(true)
                     .firstCommandTimeoutSecs(10L)
@@ -100,6 +101,7 @@ internal class CallControlApplicationServiceTest {
                     .anchorsiteOverride(
                         CallControlApplicationUpdateParams.AnchorsiteOverride.LATENCY
                     )
+                    .callCostInWebhooks(true)
                     .dtmfType(CallControlApplicationUpdateParams.DtmfType.INBAND)
                     .firstCommandTimeout(true)
                     .firstCommandTimeoutSecs(10L)

@@ -12,17 +12,52 @@ internal class TranscriptionSettingsTest {
     @Test
     fun create() {
         val transcriptionSettings =
-            TranscriptionSettings.builder().language("language").model("model").build()
+            TranscriptionSettings.builder()
+                .language("language")
+                .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                .region("region")
+                .settings(
+                    TranscriptionSettings.Settings.builder()
+                        .eotThreshold(0.0)
+                        .eotTimeoutMs(0L)
+                        .numerals(true)
+                        .smartFormat(true)
+                        .build()
+                )
+                .build()
 
         assertThat(transcriptionSettings.language()).contains("language")
-        assertThat(transcriptionSettings.model()).contains("model")
+        assertThat(transcriptionSettings.model())
+            .contains(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+        assertThat(transcriptionSettings.region()).contains("region")
+        assertThat(transcriptionSettings.settings())
+            .contains(
+                TranscriptionSettings.Settings.builder()
+                    .eotThreshold(0.0)
+                    .eotTimeoutMs(0L)
+                    .numerals(true)
+                    .smartFormat(true)
+                    .build()
+            )
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val transcriptionSettings =
-            TranscriptionSettings.builder().language("language").model("model").build()
+            TranscriptionSettings.builder()
+                .language("language")
+                .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                .region("region")
+                .settings(
+                    TranscriptionSettings.Settings.builder()
+                        .eotThreshold(0.0)
+                        .eotTimeoutMs(0L)
+                        .numerals(true)
+                        .smartFormat(true)
+                        .build()
+                )
+                .build()
 
         val roundtrippedTranscriptionSettings =
             jsonMapper.readValue(

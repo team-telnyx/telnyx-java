@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
@@ -155,7 +156,19 @@ internal class AssistantServiceAsyncTest {
                             .build()
                     )
                     .transcription(
-                        TranscriptionSettings.builder().language("language").model("model").build()
+                        TranscriptionSettings.builder()
+                            .language("language")
+                            .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                            .region("region")
+                            .settings(
+                                TranscriptionSettings.Settings.builder()
+                                    .eotThreshold(0.0)
+                                    .eotTimeoutMs(0L)
+                                    .numerals(true)
+                                    .smartFormat(true)
+                                    .build()
+                            )
+                            .build()
                     )
                     .voiceSettings(
                         VoiceSettings.builder()
@@ -336,7 +349,19 @@ internal class AssistantServiceAsyncTest {
                             .build()
                     )
                     .transcription(
-                        TranscriptionSettings.builder().language("language").model("model").build()
+                        TranscriptionSettings.builder()
+                            .language("language")
+                            .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                            .region("region")
+                            .settings(
+                                TranscriptionSettings.Settings.builder()
+                                    .eotThreshold(0.0)
+                                    .eotTimeoutMs(0L)
+                                    .numerals(true)
+                                    .smartFormat(true)
+                                    .build()
+                            )
+                            .build()
                     )
                     .voiceSettings(
                         VoiceSettings.builder()
@@ -471,5 +496,35 @@ internal class AssistantServiceAsyncTest {
 
         val assistantsList = assistantsListFuture.get()
         assistantsList.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun sendSms() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val assistantServiceAsync = client.ai().assistants()
+
+        val responseFuture =
+            assistantServiceAsync.sendSms(
+                AssistantSendSmsParams.builder()
+                    .assistantId("assistant_id")
+                    .from("from")
+                    .text("text")
+                    .to("to")
+                    .conversationMetadata(
+                        AssistantSendSmsParams.ConversationMetadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .shouldCreateConversation(true)
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
     }
 }

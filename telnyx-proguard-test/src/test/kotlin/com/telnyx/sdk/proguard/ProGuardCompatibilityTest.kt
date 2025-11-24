@@ -207,6 +207,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.wirelessBlocklists()).isNotNull()
         assertThat(client.partnerCampaigns()).isNotNull()
         assertThat(client.wellKnown()).isNotNull()
+        assertThat(client.inexplicitNumberOrders()).isNotNull()
     }
 
     @Test

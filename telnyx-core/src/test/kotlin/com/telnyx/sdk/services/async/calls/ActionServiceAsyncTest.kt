@@ -747,7 +747,12 @@ internal class ActionServiceAsyncTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .direction(ActionStartNoiseSuppressionParams.Direction.BOTH)
                     .noiseSuppressionEngine(
-                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.A
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.DEEP_FILTER_NET
+                    )
+                    .noiseSuppressionEngineConfig(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
+                            .attenuationLimit(100L)
+                            .build()
                     )
                     .build()
             )

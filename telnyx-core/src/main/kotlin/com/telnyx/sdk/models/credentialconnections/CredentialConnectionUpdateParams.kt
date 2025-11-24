@@ -60,6 +60,14 @@ private constructor(
     fun androidPushCredentialId(): Optional<String> = body.androidPushCredentialId()
 
     /**
+     * Specifies if call cost webhooks should be sent for this connection.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> = body.callCostInWebhooks()
+
+    /**
      * A user-assigned name to help manage the connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -231,6 +239,14 @@ private constructor(
      * unexpected type.
      */
     fun _androidPushCredentialId(): JsonField<String> = body._androidPushCredentialId()
+
+    /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _callCostInWebhooks(): JsonField<Boolean> = body._callCostInWebhooks()
 
     /**
      * Returns the raw JSON value of [connectionName].
@@ -420,8 +436,8 @@ private constructor(
          * - [active]
          * - [anchorsiteOverride]
          * - [androidPushCredentialId]
+         * - [callCostInWebhooks]
          * - [connectionName]
-         * - [defaultOnHoldComfortNoiseEnabled]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -478,6 +494,22 @@ private constructor(
          */
         fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
             body.androidPushCredentialId(androidPushCredentialId)
+        }
+
+        /** Specifies if call cost webhooks should be sent for this connection. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
+        }
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
         }
 
         /** A user-assigned name to help manage the connection. */
@@ -952,6 +984,7 @@ private constructor(
         private val active: JsonField<Boolean>,
         private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
         private val androidPushCredentialId: JsonField<String>,
+        private val callCostInWebhooks: JsonField<Boolean>,
         private val connectionName: JsonField<String>,
         private val defaultOnHoldComfortNoiseEnabled: JsonField<Boolean>,
         private val dtmfType: JsonField<DtmfType>,
@@ -982,6 +1015,9 @@ private constructor(
             @JsonProperty("android_push_credential_id")
             @ExcludeMissing
             androidPushCredentialId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("call_cost_in_webhooks")
+            @ExcludeMissing
+            callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("connection_name")
             @ExcludeMissing
             connectionName: JsonField<String> = JsonMissing.of(),
@@ -1038,6 +1074,7 @@ private constructor(
             active,
             anchorsiteOverride,
             androidPushCredentialId,
+            callCostInWebhooks,
             connectionName,
             defaultOnHoldComfortNoiseEnabled,
             dtmfType,
@@ -1086,6 +1123,15 @@ private constructor(
          */
         fun androidPushCredentialId(): Optional<String> =
             androidPushCredentialId.getOptional("android_push_credential_id")
+
+        /**
+         * Specifies if call cost webhooks should be sent for this connection.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun callCostInWebhooks(): Optional<Boolean> =
+            callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
         /**
          * A user-assigned name to help manage the connection.
@@ -1271,6 +1317,16 @@ private constructor(
         @JsonProperty("android_push_credential_id")
         @ExcludeMissing
         fun _androidPushCredentialId(): JsonField<String> = androidPushCredentialId
+
+        /**
+         * Returns the raw JSON value of [callCostInWebhooks].
+         *
+         * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
 
         /**
          * Returns the raw JSON value of [connectionName].
@@ -1463,6 +1519,7 @@ private constructor(
             private var active: JsonField<Boolean> = JsonMissing.of()
             private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
             private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
+            private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
             private var connectionName: JsonField<String> = JsonMissing.of()
             private var defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of()
             private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
@@ -1489,6 +1546,7 @@ private constructor(
                 active = body.active
                 anchorsiteOverride = body.anchorsiteOverride
                 androidPushCredentialId = body.androidPushCredentialId
+                callCostInWebhooks = body.callCostInWebhooks
                 connectionName = body.connectionName
                 defaultOnHoldComfortNoiseEnabled = body.defaultOnHoldComfortNoiseEnabled
                 dtmfType = body.dtmfType
@@ -1561,6 +1619,21 @@ private constructor(
              */
             fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
                 this.androidPushCredentialId = androidPushCredentialId
+            }
+
+            /** Specifies if call cost webhooks should be sent for this connection. */
+            fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+                callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+            /**
+             * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+                this.callCostInWebhooks = callCostInWebhooks
             }
 
             /** A user-assigned name to help manage the connection. */
@@ -1921,6 +1994,7 @@ private constructor(
                     active,
                     anchorsiteOverride,
                     androidPushCredentialId,
+                    callCostInWebhooks,
                     connectionName,
                     defaultOnHoldComfortNoiseEnabled,
                     dtmfType,
@@ -1953,6 +2027,7 @@ private constructor(
             active()
             anchorsiteOverride().ifPresent { it.validate() }
             androidPushCredentialId()
+            callCostInWebhooks()
             connectionName()
             defaultOnHoldComfortNoiseEnabled()
             dtmfType().ifPresent { it.validate() }
@@ -1993,6 +2068,7 @@ private constructor(
             (if (active.asKnown().isPresent) 1 else 0) +
                 (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
+                (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
                 (if (connectionName.asKnown().isPresent) 1 else 0) +
                 (if (defaultOnHoldComfortNoiseEnabled.asKnown().isPresent) 1 else 0) +
                 (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2021,6 +2097,7 @@ private constructor(
                 active == other.active &&
                 anchorsiteOverride == other.anchorsiteOverride &&
                 androidPushCredentialId == other.androidPushCredentialId &&
+                callCostInWebhooks == other.callCostInWebhooks &&
                 connectionName == other.connectionName &&
                 defaultOnHoldComfortNoiseEnabled == other.defaultOnHoldComfortNoiseEnabled &&
                 dtmfType == other.dtmfType &&
@@ -2047,6 +2124,7 @@ private constructor(
                 active,
                 anchorsiteOverride,
                 androidPushCredentialId,
+                callCostInWebhooks,
                 connectionName,
                 defaultOnHoldComfortNoiseEnabled,
                 dtmfType,
@@ -2072,7 +2150,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, connectionName=$connectionName, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+            "Body{active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostInWebhooks=$callCostInWebhooks, connectionName=$connectionName, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
     }
 
     /**

@@ -110,6 +110,8 @@ import com.telnyx.sdk.services.blocking.GlobalIpUsageService
 import com.telnyx.sdk.services.blocking.GlobalIpUsageServiceImpl
 import com.telnyx.sdk.services.blocking.InboundChannelService
 import com.telnyx.sdk.services.blocking.InboundChannelServiceImpl
+import com.telnyx.sdk.services.blocking.InexplicitNumberOrderService
+import com.telnyx.sdk.services.blocking.InexplicitNumberOrderServiceImpl
 import com.telnyx.sdk.services.blocking.IntegrationSecretService
 import com.telnyx.sdk.services.blocking.IntegrationSecretServiceImpl
 import com.telnyx.sdk.services.blocking.InventoryCoverageService
@@ -880,6 +882,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         WellKnownServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val inexplicitNumberOrders: InexplicitNumberOrderService by lazy {
+        InexplicitNumberOrderServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1207,6 +1213,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun partnerCampaigns(): PartnerCampaignService = partnerCampaigns
 
     override fun wellKnown(): WellKnownService = wellKnown
+
+    override fun inexplicitNumberOrders(): InexplicitNumberOrderService = inexplicitNumberOrders
 
     override fun close() = clientOptions.close()
 
@@ -1840,6 +1848,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             WellKnownServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val inexplicitNumberOrders: InexplicitNumberOrderService.WithRawResponse by lazy {
+            InexplicitNumberOrderServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2213,5 +2225,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun partnerCampaigns(): PartnerCampaignService.WithRawResponse = partnerCampaigns
 
         override fun wellKnown(): WellKnownService.WithRawResponse = wellKnown
+
+        override fun inexplicitNumberOrders(): InexplicitNumberOrderService.WithRawResponse =
+            inexplicitNumberOrders
     }
 }

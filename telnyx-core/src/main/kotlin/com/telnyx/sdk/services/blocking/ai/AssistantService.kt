@@ -16,6 +16,8 @@ import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
@@ -280,6 +282,37 @@ interface AssistantService {
         params: AssistantImportParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AssistantsList
+
+    /**
+     * Send an SMS message for an assistant. This endpoint:
+     * 1. Validates the assistant exists and has messaging profile configured
+     * 2. If should_create_conversation is true, creates a new conversation with metadata
+     * 3. Sends the SMS message (If `text` is set, this will be sent. Otherwise, if this is the
+     *    first message in the conversation and the assistant has a `greeting` configured, this will
+     *    be sent. Otherwise the assistant will generate the text to send.)
+     * 4. Updates conversation metadata if provided
+     * 5. Returns the conversation ID
+     */
+    fun sendSms(assistantId: String, params: AssistantSendSmsParams): AssistantSendSmsResponse =
+        sendSms(assistantId, params, RequestOptions.none())
+
+    /** @see sendSms */
+    fun sendSms(
+        assistantId: String,
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AssistantSendSmsResponse =
+        sendSms(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see sendSms */
+    fun sendSms(params: AssistantSendSmsParams): AssistantSendSmsResponse =
+        sendSms(params, RequestOptions.none())
+
+    /** @see sendSms */
+    fun sendSms(
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AssistantSendSmsResponse
 
     /** A view of [AssistantService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -605,5 +638,37 @@ interface AssistantService {
             params: AssistantImportParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AssistantsList>
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/chat/sms`, but is
+         * otherwise the same as [AssistantService.sendSms].
+         */
+        @MustBeClosed
+        fun sendSms(
+            assistantId: String,
+            params: AssistantSendSmsParams,
+        ): HttpResponseFor<AssistantSendSmsResponse> =
+            sendSms(assistantId, params, RequestOptions.none())
+
+        /** @see sendSms */
+        @MustBeClosed
+        fun sendSms(
+            assistantId: String,
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AssistantSendSmsResponse> =
+            sendSms(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see sendSms */
+        @MustBeClosed
+        fun sendSms(params: AssistantSendSmsParams): HttpResponseFor<AssistantSendSmsResponse> =
+            sendSms(params, RequestOptions.none())
+
+        /** @see sendSms */
+        @MustBeClosed
+        fun sendSms(
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AssistantSendSmsResponse>
     }
 }
