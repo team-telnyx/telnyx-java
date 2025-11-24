@@ -26,6 +26,7 @@ private constructor(
     private val active: JsonField<Boolean>,
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
     private val applicationName: JsonField<String>,
+    private val callCostInWebhooks: JsonField<Boolean>,
     private val createdAt: JsonField<String>,
     private val dtmfType: JsonField<DtmfType>,
     private val firstCommandTimeout: JsonField<Boolean>,
@@ -53,6 +54,9 @@ private constructor(
         @JsonProperty("application_name")
         @ExcludeMissing
         applicationName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("dtmf_type") @ExcludeMissing dtmfType: JsonField<DtmfType> = JsonMissing.of(),
         @JsonProperty("first_command_timeout")
@@ -92,6 +96,7 @@ private constructor(
         active,
         anchorsiteOverride,
         applicationName,
+        callCostInWebhooks,
         createdAt,
         dtmfType,
         firstCommandTimeout,
@@ -141,6 +146,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun applicationName(): Optional<String> = applicationName.getOptional("application_name")
+
+    /**
+     * Specifies if call cost webhooks should be sent for this Call Control Application.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> =
+        callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
     /**
      * ISO 8601 formatted date of when the resource was created
@@ -291,6 +305,16 @@ private constructor(
     fun _applicationName(): JsonField<String> = applicationName
 
     /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("call_cost_in_webhooks")
+    @ExcludeMissing
+    fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -439,6 +463,7 @@ private constructor(
         private var active: JsonField<Boolean> = JsonMissing.of()
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
         private var applicationName: JsonField<String> = JsonMissing.of()
+        private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
         private var firstCommandTimeout: JsonField<Boolean> = JsonMissing.of()
@@ -461,6 +486,7 @@ private constructor(
             active = callControlApplication.active
             anchorsiteOverride = callControlApplication.anchorsiteOverride
             applicationName = callControlApplication.applicationName
+            callCostInWebhooks = callControlApplication.callCostInWebhooks
             createdAt = callControlApplication.createdAt
             dtmfType = callControlApplication.dtmfType
             firstCommandTimeout = callControlApplication.firstCommandTimeout
@@ -531,6 +557,21 @@ private constructor(
          */
         fun applicationName(applicationName: JsonField<String>) = apply {
             this.applicationName = applicationName
+        }
+
+        /** Specifies if call cost webhooks should be sent for this Call Control Application. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+            callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            this.callCostInWebhooks = callCostInWebhooks
         }
 
         /** ISO 8601 formatted date of when the resource was created */
@@ -799,6 +840,7 @@ private constructor(
                 active,
                 anchorsiteOverride,
                 applicationName,
+                callCostInWebhooks,
                 createdAt,
                 dtmfType,
                 firstCommandTimeout,
@@ -828,6 +870,7 @@ private constructor(
         active()
         anchorsiteOverride().ifPresent { it.validate() }
         applicationName()
+        callCostInWebhooks()
         createdAt()
         dtmfType().ifPresent { it.validate() }
         firstCommandTimeout()
@@ -864,6 +907,7 @@ private constructor(
             (if (active.asKnown().isPresent) 1 else 0) +
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
             (if (applicationName.asKnown().isPresent) 1 else 0) +
+            (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (firstCommandTimeout.asKnown().isPresent) 1 else 0) +
@@ -1422,6 +1466,7 @@ private constructor(
             active == other.active &&
             anchorsiteOverride == other.anchorsiteOverride &&
             applicationName == other.applicationName &&
+            callCostInWebhooks == other.callCostInWebhooks &&
             createdAt == other.createdAt &&
             dtmfType == other.dtmfType &&
             firstCommandTimeout == other.firstCommandTimeout &&
@@ -1445,6 +1490,7 @@ private constructor(
             active,
             anchorsiteOverride,
             applicationName,
+            callCostInWebhooks,
             createdAt,
             dtmfType,
             firstCommandTimeout,
@@ -1466,5 +1512,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CallControlApplication{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, applicationName=$applicationName, createdAt=$createdAt, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, inbound=$inbound, outbound=$outbound, recordType=$recordType, redactDtmfDebugLogging=$redactDtmfDebugLogging, tags=$tags, updatedAt=$updatedAt, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "CallControlApplication{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, applicationName=$applicationName, callCostInWebhooks=$callCostInWebhooks, createdAt=$createdAt, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, inbound=$inbound, outbound=$outbound, recordType=$recordType, redactDtmfDebugLogging=$redactDtmfDebugLogging, tags=$tags, updatedAt=$updatedAt, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

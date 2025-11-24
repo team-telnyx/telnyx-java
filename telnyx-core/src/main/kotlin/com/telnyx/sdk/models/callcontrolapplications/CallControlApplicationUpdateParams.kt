@@ -70,6 +70,14 @@ private constructor(
     fun anchorsiteOverride(): Optional<AnchorsiteOverride> = body.anchorsiteOverride()
 
     /**
+     * Specifies if call cost webhooks should be sent for this Call Control Application.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> = body.callCostInWebhooks()
+
+    /**
      * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits sent
      * to Telnyx will be accepted in all formats.
      *
@@ -177,6 +185,14 @@ private constructor(
      * type.
      */
     fun _anchorsiteOverride(): JsonField<AnchorsiteOverride> = body._anchorsiteOverride()
+
+    /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _callCostInWebhooks(): JsonField<Boolean> = body._callCostInWebhooks()
 
     /**
      * Returns the raw JSON value of [dtmfType].
@@ -311,7 +327,7 @@ private constructor(
          * - [webhookEventUrl]
          * - [active]
          * - [anchorsiteOverride]
-         * - [dtmfType]
+         * - [callCostInWebhooks]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -380,6 +396,22 @@ private constructor(
          */
         fun anchorsiteOverride(anchorsiteOverride: JsonField<AnchorsiteOverride>) = apply {
             body.anchorsiteOverride(anchorsiteOverride)
+        }
+
+        /** Specifies if call cost webhooks should be sent for this Call Control Application. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
+        }
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
         }
 
         /**
@@ -726,6 +758,7 @@ private constructor(
         private val webhookEventUrl: JsonField<String>,
         private val active: JsonField<Boolean>,
         private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
+        private val callCostInWebhooks: JsonField<Boolean>,
         private val dtmfType: JsonField<DtmfType>,
         private val firstCommandTimeout: JsonField<Boolean>,
         private val firstCommandTimeoutSecs: JsonField<Long>,
@@ -751,6 +784,9 @@ private constructor(
             @JsonProperty("anchorsite_override")
             @ExcludeMissing
             anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of(),
+            @JsonProperty("call_cost_in_webhooks")
+            @ExcludeMissing
+            callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("dtmf_type")
             @ExcludeMissing
             dtmfType: JsonField<DtmfType> = JsonMissing.of(),
@@ -784,6 +820,7 @@ private constructor(
             webhookEventUrl,
             active,
             anchorsiteOverride,
+            callCostInWebhooks,
             dtmfType,
             firstCommandTimeout,
             firstCommandTimeoutSecs,
@@ -832,6 +869,15 @@ private constructor(
          */
         fun anchorsiteOverride(): Optional<AnchorsiteOverride> =
             anchorsiteOverride.getOptional("anchorsite_override")
+
+        /**
+         * Specifies if call cost webhooks should be sent for this Call Control Application.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun callCostInWebhooks(): Optional<Boolean> =
+            callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
         /**
          * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF digits
@@ -955,6 +1001,16 @@ private constructor(
         @JsonProperty("anchorsite_override")
         @ExcludeMissing
         fun _anchorsiteOverride(): JsonField<AnchorsiteOverride> = anchorsiteOverride
+
+        /**
+         * Returns the raw JSON value of [callCostInWebhooks].
+         *
+         * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
 
         /**
          * Returns the raw JSON value of [dtmfType].
@@ -1081,6 +1137,7 @@ private constructor(
             private var webhookEventUrl: JsonField<String>? = null
             private var active: JsonField<Boolean> = JsonMissing.of()
             private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
+            private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
             private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
             private var firstCommandTimeout: JsonField<Boolean> = JsonMissing.of()
             private var firstCommandTimeoutSecs: JsonField<Long> = JsonMissing.of()
@@ -1099,6 +1156,7 @@ private constructor(
                 webhookEventUrl = body.webhookEventUrl
                 active = body.active
                 anchorsiteOverride = body.anchorsiteOverride
+                callCostInWebhooks = body.callCostInWebhooks
                 dtmfType = body.dtmfType
                 firstCommandTimeout = body.firstCommandTimeout
                 firstCommandTimeoutSecs = body.firstCommandTimeoutSecs
@@ -1174,6 +1232,21 @@ private constructor(
              */
             fun anchorsiteOverride(anchorsiteOverride: JsonField<AnchorsiteOverride>) = apply {
                 this.anchorsiteOverride = anchorsiteOverride
+            }
+
+            /** Specifies if call cost webhooks should be sent for this Call Control Application. */
+            fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+                callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+            /**
+             * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+                this.callCostInWebhooks = callCostInWebhooks
             }
 
             /**
@@ -1401,6 +1474,7 @@ private constructor(
                     checkRequired("webhookEventUrl", webhookEventUrl),
                     active,
                     anchorsiteOverride,
+                    callCostInWebhooks,
                     dtmfType,
                     firstCommandTimeout,
                     firstCommandTimeoutSecs,
@@ -1426,6 +1500,7 @@ private constructor(
             webhookEventUrl()
             active()
             anchorsiteOverride().ifPresent { it.validate() }
+            callCostInWebhooks()
             dtmfType().ifPresent { it.validate() }
             firstCommandTimeout()
             firstCommandTimeoutSecs()
@@ -1459,6 +1534,7 @@ private constructor(
                 (if (webhookEventUrl.asKnown().isPresent) 1 else 0) +
                 (if (active.asKnown().isPresent) 1 else 0) +
                 (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
                 (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (firstCommandTimeout.asKnown().isPresent) 1 else 0) +
                 (if (firstCommandTimeoutSecs.asKnown().isPresent) 1 else 0) +
@@ -1480,6 +1556,7 @@ private constructor(
                 webhookEventUrl == other.webhookEventUrl &&
                 active == other.active &&
                 anchorsiteOverride == other.anchorsiteOverride &&
+                callCostInWebhooks == other.callCostInWebhooks &&
                 dtmfType == other.dtmfType &&
                 firstCommandTimeout == other.firstCommandTimeout &&
                 firstCommandTimeoutSecs == other.firstCommandTimeoutSecs &&
@@ -1499,6 +1576,7 @@ private constructor(
                 webhookEventUrl,
                 active,
                 anchorsiteOverride,
+                callCostInWebhooks,
                 dtmfType,
                 firstCommandTimeout,
                 firstCommandTimeoutSecs,
@@ -1516,7 +1594,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{applicationName=$applicationName, webhookEventUrl=$webhookEventUrl, active=$active, anchorsiteOverride=$anchorsiteOverride, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, inbound=$inbound, outbound=$outbound, redactDtmfDebugLogging=$redactDtmfDebugLogging, tags=$tags, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+            "Body{applicationName=$applicationName, webhookEventUrl=$webhookEventUrl, active=$active, anchorsiteOverride=$anchorsiteOverride, callCostInWebhooks=$callCostInWebhooks, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, inbound=$inbound, outbound=$outbound, redactDtmfDebugLogging=$redactDtmfDebugLogging, tags=$tags, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
     }
 
     /**

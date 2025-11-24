@@ -27,6 +27,7 @@ private constructor(
     private val id: JsonField<String>,
     private val active: JsonField<Boolean>,
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
+    private val callCostInWebhooks: JsonField<Boolean>,
     private val createdAt: JsonField<String>,
     private val dtmfType: JsonField<DtmfType>,
     private val firstCommandTimeout: JsonField<Boolean>,
@@ -52,6 +53,9 @@ private constructor(
         @JsonProperty("anchorsite_override")
         @ExcludeMissing
         anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of(),
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("dtmf_type") @ExcludeMissing dtmfType: JsonField<DtmfType> = JsonMissing.of(),
         @JsonProperty("first_command_timeout")
@@ -87,6 +91,7 @@ private constructor(
         id,
         active,
         anchorsiteOverride,
+        callCostInWebhooks,
         createdAt,
         dtmfType,
         firstCommandTimeout,
@@ -131,6 +136,15 @@ private constructor(
      */
     fun anchorsiteOverride(): Optional<AnchorsiteOverride> =
         anchorsiteOverride.getOptional("anchorsite_override")
+
+    /**
+     * Specifies if call cost webhooks should be sent for this TeXML Application.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> =
+        callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
     /**
      * ISO 8601 formatted date indicating when the resource was created.
@@ -280,6 +294,16 @@ private constructor(
     fun _anchorsiteOverride(): JsonField<AnchorsiteOverride> = anchorsiteOverride
 
     /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("call_cost_in_webhooks")
+    @ExcludeMissing
+    fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -426,6 +450,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var active: JsonField<Boolean> = JsonMissing.of()
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
+        private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
         private var firstCommandTimeout: JsonField<Boolean> = JsonMissing.of()
@@ -448,6 +473,7 @@ private constructor(
             id = texmlApplication.id
             active = texmlApplication.active
             anchorsiteOverride = texmlApplication.anchorsiteOverride
+            callCostInWebhooks = texmlApplication.callCostInWebhooks
             createdAt = texmlApplication.createdAt
             dtmfType = texmlApplication.dtmfType
             firstCommandTimeout = texmlApplication.firstCommandTimeout
@@ -505,6 +531,21 @@ private constructor(
          */
         fun anchorsiteOverride(anchorsiteOverride: JsonField<AnchorsiteOverride>) = apply {
             this.anchorsiteOverride = anchorsiteOverride
+        }
+
+        /** Specifies if call cost webhooks should be sent for this TeXML Application. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+            callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            this.callCostInWebhooks = callCostInWebhooks
         }
 
         /** ISO 8601 formatted date indicating when the resource was created. */
@@ -753,6 +794,7 @@ private constructor(
                 id,
                 active,
                 anchorsiteOverride,
+                callCostInWebhooks,
                 createdAt,
                 dtmfType,
                 firstCommandTimeout,
@@ -782,6 +824,7 @@ private constructor(
         id()
         active()
         anchorsiteOverride().ifPresent { it.validate() }
+        callCostInWebhooks()
         createdAt()
         dtmfType().ifPresent { it.validate() }
         firstCommandTimeout()
@@ -818,6 +861,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (active.asKnown().isPresent) 1 else 0) +
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (firstCommandTimeout.asKnown().isPresent) 1 else 0) +
@@ -1773,6 +1817,7 @@ private constructor(
             id == other.id &&
             active == other.active &&
             anchorsiteOverride == other.anchorsiteOverride &&
+            callCostInWebhooks == other.callCostInWebhooks &&
             createdAt == other.createdAt &&
             dtmfType == other.dtmfType &&
             firstCommandTimeout == other.firstCommandTimeout &&
@@ -1796,6 +1841,7 @@ private constructor(
             id,
             active,
             anchorsiteOverride,
+            callCostInWebhooks,
             createdAt,
             dtmfType,
             firstCommandTimeout,
@@ -1818,5 +1864,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TexmlApplication{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, createdAt=$createdAt, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, friendlyName=$friendlyName, inbound=$inbound, outbound=$outbound, recordType=$recordType, statusCallback=$statusCallback, statusCallbackMethod=$statusCallbackMethod, tags=$tags, updatedAt=$updatedAt, voiceFallbackUrl=$voiceFallbackUrl, voiceMethod=$voiceMethod, voiceUrl=$voiceUrl, additionalProperties=$additionalProperties}"
+        "TexmlApplication{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, callCostInWebhooks=$callCostInWebhooks, createdAt=$createdAt, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, friendlyName=$friendlyName, inbound=$inbound, outbound=$outbound, recordType=$recordType, statusCallback=$statusCallback, statusCallbackMethod=$statusCallbackMethod, tags=$tags, updatedAt=$updatedAt, voiceFallbackUrl=$voiceFallbackUrl, voiceMethod=$voiceMethod, voiceUrl=$voiceUrl, additionalProperties=$additionalProperties}"
 }

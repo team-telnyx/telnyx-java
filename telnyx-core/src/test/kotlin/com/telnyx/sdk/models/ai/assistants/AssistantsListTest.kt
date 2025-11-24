@@ -150,7 +150,16 @@ internal class AssistantsListTest {
                         .transcription(
                             TranscriptionSettings.builder()
                                 .language("language")
-                                .model("model")
+                                .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                                .region("region")
+                                .settings(
+                                    TranscriptionSettings.Settings.builder()
+                                        .eotThreshold(0.0)
+                                        .eotTimeoutMs(0L)
+                                        .numerals(true)
+                                        .smartFormat(true)
+                                        .build()
+                                )
                                 .build()
                         )
                         .voiceSettings(
@@ -302,7 +311,19 @@ internal class AssistantsListTest {
                             .build()
                     )
                     .transcription(
-                        TranscriptionSettings.builder().language("language").model("model").build()
+                        TranscriptionSettings.builder()
+                            .language("language")
+                            .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                            .region("region")
+                            .settings(
+                                TranscriptionSettings.Settings.builder()
+                                    .eotThreshold(0.0)
+                                    .eotTimeoutMs(0L)
+                                    .numerals(true)
+                                    .smartFormat(true)
+                                    .build()
+                            )
+                            .build()
                     )
                     .voiceSettings(
                         VoiceSettings.builder()
@@ -466,7 +487,16 @@ internal class AssistantsListTest {
                         .transcription(
                             TranscriptionSettings.builder()
                                 .language("language")
-                                .model("model")
+                                .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                                .region("region")
+                                .settings(
+                                    TranscriptionSettings.Settings.builder()
+                                        .eotThreshold(0.0)
+                                        .eotTimeoutMs(0L)
+                                        .numerals(true)
+                                        .smartFormat(true)
+                                        .build()
+                                )
                                 .build()
                         )
                         .voiceSettings(

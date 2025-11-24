@@ -56,6 +56,7 @@ import com.telnyx.sdk.services.blocking.GlobalIpProtocolService
 import com.telnyx.sdk.services.blocking.GlobalIpService
 import com.telnyx.sdk.services.blocking.GlobalIpUsageService
 import com.telnyx.sdk.services.blocking.InboundChannelService
+import com.telnyx.sdk.services.blocking.InexplicitNumberOrderService
 import com.telnyx.sdk.services.blocking.IntegrationSecretService
 import com.telnyx.sdk.services.blocking.InventoryCoverageService
 import com.telnyx.sdk.services.blocking.InvoiceService
@@ -500,6 +501,8 @@ interface TelnyxClient {
 
     fun wellKnown(): WellKnownService
 
+    fun inexplicitNumberOrders(): InexplicitNumberOrderService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -829,5 +832,7 @@ interface TelnyxClient {
         fun partnerCampaigns(): PartnerCampaignService.WithRawResponse
 
         fun wellKnown(): WellKnownService.WithRawResponse
+
+        fun inexplicitNumberOrders(): InexplicitNumberOrderService.WithRawResponse
     }
 }

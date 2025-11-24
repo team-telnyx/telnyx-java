@@ -190,7 +190,16 @@ internal class VersionServiceTest {
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .language("language")
-                                    .model("model")
+                                    .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                                    .region("region")
+                                    .settings(
+                                        TranscriptionSettings.Settings.builder()
+                                            .eotThreshold(0.0)
+                                            .eotTimeoutMs(0L)
+                                            .numerals(true)
+                                            .smartFormat(true)
+                                            .build()
+                                    )
                                     .build()
                             )
                             .voiceSettings(

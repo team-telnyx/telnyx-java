@@ -25,6 +25,7 @@ private constructor(
     private val id: JsonField<String>,
     private val active: JsonField<Boolean>,
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
+    private val callCostInWebhooks: JsonField<Boolean>,
     private val connectionName: JsonField<String>,
     private val createdAt: JsonField<String>,
     private val defaultOnHoldComfortNoiseEnabled: JsonField<Boolean>,
@@ -55,6 +56,9 @@ private constructor(
         @JsonProperty("anchorsite_override")
         @ExcludeMissing
         anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of(),
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("connection_name")
         @ExcludeMissing
         connectionName: JsonField<String> = JsonMissing.of(),
@@ -107,6 +111,7 @@ private constructor(
         id,
         active,
         anchorsiteOverride,
+        callCostInWebhooks,
         connectionName,
         createdAt,
         defaultOnHoldComfortNoiseEnabled,
@@ -156,6 +161,15 @@ private constructor(
      */
     fun anchorsiteOverride(): Optional<AnchorsiteOverride> =
         anchorsiteOverride.getOptional("anchorsite_override")
+
+    /**
+     * Specifies if call cost webhooks should be sent for this connection.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> =
+        callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -352,6 +366,16 @@ private constructor(
     fun _anchorsiteOverride(): JsonField<AnchorsiteOverride> = anchorsiteOverride
 
     /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("call_cost_in_webhooks")
+    @ExcludeMissing
+    fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
+
+    /**
      * Returns the raw JSON value of [connectionName].
      *
      * Unlike [connectionName], this method doesn't throw if the JSON field has an unexpected type.
@@ -546,6 +570,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var active: JsonField<Boolean> = JsonMissing.of()
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
+        private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var connectionName: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -573,6 +598,7 @@ private constructor(
             id = credentialConnection.id
             active = credentialConnection.active
             anchorsiteOverride = credentialConnection.anchorsiteOverride
+            callCostInWebhooks = credentialConnection.callCostInWebhooks
             connectionName = credentialConnection.connectionName
             createdAt = credentialConnection.createdAt
             defaultOnHoldComfortNoiseEnabled = credentialConnection.defaultOnHoldComfortNoiseEnabled
@@ -635,6 +661,21 @@ private constructor(
          */
         fun anchorsiteOverride(anchorsiteOverride: JsonField<AnchorsiteOverride>) = apply {
             this.anchorsiteOverride = anchorsiteOverride
+        }
+
+        /** Specifies if call cost webhooks should be sent for this connection. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+            callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            this.callCostInWebhooks = callCostInWebhooks
         }
 
         fun connectionName(connectionName: String) = connectionName(JsonField.of(connectionName))
@@ -997,6 +1038,7 @@ private constructor(
                 id,
                 active,
                 anchorsiteOverride,
+                callCostInWebhooks,
                 connectionName,
                 createdAt,
                 defaultOnHoldComfortNoiseEnabled,
@@ -1031,6 +1073,7 @@ private constructor(
         id()
         active()
         anchorsiteOverride().ifPresent { it.validate() }
+        callCostInWebhooks()
         connectionName()
         createdAt()
         defaultOnHoldComfortNoiseEnabled()
@@ -1072,6 +1115,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (active.asKnown().isPresent) 1 else 0) +
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (connectionName.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (defaultOnHoldComfortNoiseEnabled.asKnown().isPresent) 1 else 0) +
@@ -1376,6 +1420,7 @@ private constructor(
             id == other.id &&
             active == other.active &&
             anchorsiteOverride == other.anchorsiteOverride &&
+            callCostInWebhooks == other.callCostInWebhooks &&
             connectionName == other.connectionName &&
             createdAt == other.createdAt &&
             defaultOnHoldComfortNoiseEnabled == other.defaultOnHoldComfortNoiseEnabled &&
@@ -1404,6 +1449,7 @@ private constructor(
             id,
             active,
             anchorsiteOverride,
+            callCostInWebhooks,
             connectionName,
             createdAt,
             defaultOnHoldComfortNoiseEnabled,
@@ -1431,5 +1477,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CredentialConnection{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, connectionName=$connectionName, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "CredentialConnection{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, callCostInWebhooks=$callCostInWebhooks, connectionName=$connectionName, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

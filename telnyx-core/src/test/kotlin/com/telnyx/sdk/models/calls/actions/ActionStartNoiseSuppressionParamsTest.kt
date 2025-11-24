@@ -14,7 +14,14 @@ internal class ActionStartNoiseSuppressionParamsTest {
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .direction(ActionStartNoiseSuppressionParams.Direction.BOTH)
-            .noiseSuppressionEngine(ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.A)
+            .noiseSuppressionEngine(
+                ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.DEEP_FILTER_NET
+            )
+            .noiseSuppressionEngineConfig(
+                ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
+                    .attenuationLimit(100L)
+                    .build()
+            )
             .build()
     }
 
@@ -36,7 +43,14 @@ internal class ActionStartNoiseSuppressionParamsTest {
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .direction(ActionStartNoiseSuppressionParams.Direction.BOTH)
-                .noiseSuppressionEngine(ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.A)
+                .noiseSuppressionEngine(
+                    ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.DEEP_FILTER_NET
+                )
+                .noiseSuppressionEngineConfig(
+                    ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
+                        .attenuationLimit(100L)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -45,7 +59,13 @@ internal class ActionStartNoiseSuppressionParamsTest {
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.direction()).contains(ActionStartNoiseSuppressionParams.Direction.BOTH)
         assertThat(body.noiseSuppressionEngine())
-            .contains(ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.A)
+            .contains(ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.DEEP_FILTER_NET)
+        assertThat(body.noiseSuppressionEngineConfig())
+            .contains(
+                ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
+                    .attenuationLimit(100L)
+                    .build()
+            )
     }
 
     @Test

@@ -16,6 +16,7 @@ internal class DocumentUploadResponseTest {
                 .data(
                     DocServiceDocument.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                         .contentType("application/pdf")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .customerReference("MY REF 001")
@@ -35,6 +36,7 @@ internal class DocumentUploadResponseTest {
             .contains(
                 DocServiceDocument.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                     .contentType("application/pdf")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .customerReference("MY REF 001")
@@ -56,6 +58,7 @@ internal class DocumentUploadResponseTest {
                 .data(
                     DocServiceDocument.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                         .contentType("application/pdf")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .customerReference("MY REF 001")

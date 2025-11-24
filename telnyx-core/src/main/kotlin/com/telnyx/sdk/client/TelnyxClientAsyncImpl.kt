@@ -110,6 +110,8 @@ import com.telnyx.sdk.services.async.GlobalIpUsageServiceAsync
 import com.telnyx.sdk.services.async.GlobalIpUsageServiceAsyncImpl
 import com.telnyx.sdk.services.async.InboundChannelServiceAsync
 import com.telnyx.sdk.services.async.InboundChannelServiceAsyncImpl
+import com.telnyx.sdk.services.async.InexplicitNumberOrderServiceAsync
+import com.telnyx.sdk.services.async.InexplicitNumberOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.IntegrationSecretServiceAsync
 import com.telnyx.sdk.services.async.IntegrationSecretServiceAsyncImpl
 import com.telnyx.sdk.services.async.InventoryCoverageServiceAsync
@@ -924,6 +926,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         WellKnownServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val inexplicitNumberOrders: InexplicitNumberOrderServiceAsync by lazy {
+        InexplicitNumberOrderServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1262,6 +1268,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun partnerCampaigns(): PartnerCampaignServiceAsync = partnerCampaigns
 
     override fun wellKnown(): WellKnownServiceAsync = wellKnown
+
+    override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync =
+        inexplicitNumberOrders
 
     override fun close() = clientOptions.close()
 
@@ -1912,6 +1921,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             WellKnownServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val inexplicitNumberOrders:
+            InexplicitNumberOrderServiceAsync.WithRawResponse by lazy {
+            InexplicitNumberOrderServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2300,5 +2314,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             partnerCampaigns
 
         override fun wellKnown(): WellKnownServiceAsync.WithRawResponse = wellKnown
+
+        override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse =
+            inexplicitNumberOrders
     }
 }

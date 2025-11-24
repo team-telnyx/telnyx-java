@@ -22,7 +22,8 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Update the settings for a specific short code. To unbind a short code from a profile, set the
- * `messaging_profile_id` to `null` or an empty string.
+ * `messaging_profile_id` to `null` or an empty string. To add or update tags, include the tags
+ * field as an array of strings.
  */
 class ShortCodeUpdateParams
 private constructor(
