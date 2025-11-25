@@ -1328,16 +1328,29 @@ private constructor(
     class Inbound
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val outboundVoiceProfileId: JsonField<String>,
         private val channelLimit: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("outbound_voice_profile_id")
+            @ExcludeMissing
+            outboundVoiceProfileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("channel_limit")
             @ExcludeMissing
-            channelLimit: JsonField<Long> = JsonMissing.of()
-        ) : this(channelLimit, mutableMapOf())
+            channelLimit: JsonField<Long> = JsonMissing.of(),
+        ) : this(outboundVoiceProfileId, channelLimit, mutableMapOf())
+
+        /**
+         * The ID of the outbound voice profile to use for inbound calls.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun outboundVoiceProfileId(): String =
+            outboundVoiceProfileId.getRequired("outbound_voice_profile_id")
 
         /**
          * When set, this will limit the number of concurrent inbound calls to phone numbers
@@ -1347,6 +1360,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun channelLimit(): Optional<Long> = channelLimit.getOptional("channel_limit")
+
+        /**
+         * Returns the raw JSON value of [outboundVoiceProfileId].
+         *
+         * Unlike [outboundVoiceProfileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("outbound_voice_profile_id")
+        @ExcludeMissing
+        fun _outboundVoiceProfileId(): JsonField<String> = outboundVoiceProfileId
 
         /**
          * Returns the raw JSON value of [channelLimit].
@@ -1372,20 +1395,44 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Inbound]. */
+            /**
+             * Returns a mutable builder for constructing an instance of [Inbound].
+             *
+             * The following fields are required:
+             * ```java
+             * .outboundVoiceProfileId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Inbound]. */
         class Builder internal constructor() {
 
+            private var outboundVoiceProfileId: JsonField<String>? = null
             private var channelLimit: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(inbound: Inbound) = apply {
+                outboundVoiceProfileId = inbound.outboundVoiceProfileId
                 channelLimit = inbound.channelLimit
                 additionalProperties = inbound.additionalProperties.toMutableMap()
+            }
+
+            /** The ID of the outbound voice profile to use for inbound calls. */
+            fun outboundVoiceProfileId(outboundVoiceProfileId: String) =
+                outboundVoiceProfileId(JsonField.of(outboundVoiceProfileId))
+
+            /**
+             * Sets [Builder.outboundVoiceProfileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.outboundVoiceProfileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun outboundVoiceProfileId(outboundVoiceProfileId: JsonField<String>) = apply {
+                this.outboundVoiceProfileId = outboundVoiceProfileId
             }
 
             /**
@@ -1428,8 +1475,20 @@ private constructor(
              * Returns an immutable instance of [Inbound].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .outboundVoiceProfileId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): Inbound = Inbound(channelLimit, additionalProperties.toMutableMap())
+            fun build(): Inbound =
+                Inbound(
+                    checkRequired("outboundVoiceProfileId", outboundVoiceProfileId),
+                    channelLimit,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1439,6 +1498,7 @@ private constructor(
                 return@apply
             }
 
+            outboundVoiceProfileId()
             channelLimit()
             validated = true
         }
@@ -1458,7 +1518,9 @@ private constructor(
          * Used for best match union deserialization.
          */
         @JvmSynthetic
-        internal fun validity(): Int = (if (channelLimit.asKnown().isPresent) 1 else 0)
+        internal fun validity(): Int =
+            (if (outboundVoiceProfileId.asKnown().isPresent) 1 else 0) +
+                (if (channelLimit.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1466,16 +1528,19 @@ private constructor(
             }
 
             return other is Inbound &&
+                outboundVoiceProfileId == other.outboundVoiceProfileId &&
                 channelLimit == other.channelLimit &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(channelLimit, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(outboundVoiceProfileId, channelLimit, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Inbound{channelLimit=$channelLimit, additionalProperties=$additionalProperties}"
+            "Inbound{outboundVoiceProfileId=$outboundVoiceProfileId, channelLimit=$channelLimit, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

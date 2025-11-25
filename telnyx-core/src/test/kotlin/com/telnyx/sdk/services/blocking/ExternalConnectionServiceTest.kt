@@ -39,7 +39,10 @@ internal class ExternalConnectionServiceTest {
                     )
                     .active(false)
                     .inbound(
-                        ExternalConnectionCreateParams.Inbound.builder().channelLimit(10L).build()
+                        ExternalConnectionCreateParams.Inbound.builder()
+                            .outboundVoiceProfileId("12345678-1234-1234-1234-123456789012")
+                            .channelLimit(10L)
+                            .build()
                     )
                     .addTag("tag1")
                     .addTag("tag2")
