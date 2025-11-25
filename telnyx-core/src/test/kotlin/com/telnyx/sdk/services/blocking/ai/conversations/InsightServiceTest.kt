@@ -89,7 +89,7 @@ internal class InsightServiceTest {
         val insights =
             insightService.list(
                 InsightListParams.builder()
-                    .page(InsightListParams.Page.builder().number(1L).size(1L).build())
+                    .page(InsightListParams.Page.builder().number(1L).size(0L).build())
                     .build()
             )
 

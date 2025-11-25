@@ -11,7 +11,7 @@ internal class InsightListParamsTest {
     @Test
     fun create() {
         InsightListParams.builder()
-            .page(InsightListParams.Page.builder().number(1L).size(1L).build())
+            .page(InsightListParams.Page.builder().number(1L).size(0L).build())
             .build()
     }
 
@@ -19,14 +19,14 @@ internal class InsightListParamsTest {
     fun queryParams() {
         val params =
             InsightListParams.builder()
-                .page(InsightListParams.Page.builder().number(1L).size(1L).build())
+                .page(InsightListParams.Page.builder().number(1L).size(0L).build())
                 .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
+                QueryParams.builder().put("page[number]", "1").put("page[size]", "0").build()
             )
     }
 

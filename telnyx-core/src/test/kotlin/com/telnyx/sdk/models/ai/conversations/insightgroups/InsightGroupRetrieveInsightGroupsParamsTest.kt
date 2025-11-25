@@ -12,7 +12,7 @@ internal class InsightGroupRetrieveInsightGroupsParamsTest {
     fun create() {
         InsightGroupRetrieveInsightGroupsParams.builder()
             .page(
-                InsightGroupRetrieveInsightGroupsParams.Page.builder().number(1L).size(1L).build()
+                InsightGroupRetrieveInsightGroupsParams.Page.builder().number(1L).size(0L).build()
             )
             .build()
     }
@@ -24,7 +24,7 @@ internal class InsightGroupRetrieveInsightGroupsParamsTest {
                 .page(
                     InsightGroupRetrieveInsightGroupsParams.Page.builder()
                         .number(1L)
-                        .size(1L)
+                        .size(0L)
                         .build()
                 )
                 .build()
@@ -33,7 +33,7 @@ internal class InsightGroupRetrieveInsightGroupsParamsTest {
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
+                QueryParams.builder().put("page[number]", "1").put("page[size]", "0").build()
             )
     }
 

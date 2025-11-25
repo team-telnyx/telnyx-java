@@ -111,7 +111,7 @@ internal class InsightGroupServiceAsyncTest {
                     .page(
                         InsightGroupRetrieveInsightGroupsParams.Page.builder()
                             .number(1L)
-                            .size(1L)
+                            .size(0L)
                             .build()
                     )
                     .build()
