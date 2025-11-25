@@ -19,7 +19,7 @@ internal class AuditEventListResponseTest {
                     AuditEventListResponse.Data.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .alternateResourceId("+14155551234")
-                        .changeMadeBy(AuditEventListResponse.Data.ChangeMadeBy.TELNYX)
+                        .changeMadeBy(AuditEventListResponse.Data.ChangeMadeBy.ORGANIZATION_MEMBER)
                         .changeType("update")
                         .addChange(
                             AuditEventListResponse.Data.Change.builder()
@@ -50,7 +50,7 @@ internal class AuditEventListResponseTest {
                 AuditEventListResponse.Data.builder()
                     .id("550e8400-e29b-41d4-a716-446655440000")
                     .alternateResourceId("+14155551234")
-                    .changeMadeBy(AuditEventListResponse.Data.ChangeMadeBy.TELNYX)
+                    .changeMadeBy(AuditEventListResponse.Data.ChangeMadeBy.ORGANIZATION_MEMBER)
                     .changeType("update")
                     .addChange(
                         AuditEventListResponse.Data.Change.builder()
@@ -86,7 +86,7 @@ internal class AuditEventListResponseTest {
                     AuditEventListResponse.Data.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .alternateResourceId("+14155551234")
-                        .changeMadeBy(AuditEventListResponse.Data.ChangeMadeBy.TELNYX)
+                        .changeMadeBy(AuditEventListResponse.Data.ChangeMadeBy.ORGANIZATION_MEMBER)
                         .changeType("update")
                         .addChange(
                             AuditEventListResponse.Data.Change.builder()

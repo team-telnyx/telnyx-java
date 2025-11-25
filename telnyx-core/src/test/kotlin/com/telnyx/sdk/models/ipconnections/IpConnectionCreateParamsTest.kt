@@ -28,7 +28,7 @@ internal class IpConnectionCreateParamsTest {
                 IpConnectionCreateParams.Inbound.builder()
                     .aniNumberFormat(IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
-                    .addCodec("string")
+                    .addCodec("G722")
                     .defaultRoutingMethod(
                         IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                     )
@@ -102,7 +102,7 @@ internal class IpConnectionCreateParamsTest {
                             IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164
                         )
                         .channelLimit(10L)
-                        .addCodec("string")
+                        .addCodec("G722")
                         .defaultRoutingMethod(
                             IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                         )
@@ -174,7 +174,7 @@ internal class IpConnectionCreateParamsTest {
                 IpConnectionCreateParams.Inbound.builder()
                     .aniNumberFormat(IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
-                    .addCodec("string")
+                    .addCodec("G722")
                     .defaultRoutingMethod(
                         IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                     )

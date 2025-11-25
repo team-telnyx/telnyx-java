@@ -48,7 +48,7 @@ internal class IpConnectionServiceTest {
                                 IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164
                             )
                             .channelLimit(10L)
-                            .addCodec("string")
+                            .addCodec("G722")
                             .defaultRoutingMethod(
                                 IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                             )
@@ -150,7 +150,7 @@ internal class IpConnectionServiceTest {
                         InboundIp.builder()
                             .aniNumberFormat(InboundIp.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
-                            .addCodec("string")
+                            .addCodec("G722")
                             .defaultPrimaryIpId("192.168.0.0")
                             .defaultRoutingMethod(InboundIp.DefaultRoutingMethod.SEQUENTIAL)
                             .defaultSecondaryIpId("192.168.0.0")
