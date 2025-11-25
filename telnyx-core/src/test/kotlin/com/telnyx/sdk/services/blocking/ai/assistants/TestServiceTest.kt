@@ -28,15 +28,26 @@ internal class TestServiceTest {
         val assistantTest =
             testService.create(
                 TestCreateParams.builder()
-                    .destination("x")
-                    .instructions("x")
-                    .name("x")
+                    .destination("+15551234567")
+                    .instructions(
+                        "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."
+                    )
+                    .name("Customer Support Bot Test")
                     .addRubric(
-                        TestCreateParams.Rubric.builder().criteria("criteria").name("name").build()
+                        TestCreateParams.Rubric.builder()
+                            .criteria("Assistant responds within 30 seconds")
+                            .name("Response Time")
+                            .build()
+                    )
+                    .addRubric(
+                        TestCreateParams.Rubric.builder()
+                            .criteria("Provides correct product information")
+                            .name("Accuracy")
+                            .build()
                     )
                     .description("description")
                     .maxDurationSeconds(1L)
-                    .telnyxConversationChannel(TelnyxConversationChannel.PHONE_CALL)
+                    .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
                     .testSuite("test_suite")
                     .build()
             )

@@ -11,15 +11,22 @@ internal class TestSuiteListResponseTest {
 
     @Test
     fun create() {
-        val testSuiteListResponse = TestSuiteListResponse.builder().addData("string").build()
+        val testSuiteListResponse =
+            TestSuiteListResponse.builder()
+                .data(listOf("customer-support", "sales-flow", "onboarding"))
+                .build()
 
-        assertThat(testSuiteListResponse.data()).containsExactly("string")
+        assertThat(testSuiteListResponse.data())
+            .containsExactly("customer-support", "sales-flow", "onboarding")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val testSuiteListResponse = TestSuiteListResponse.builder().addData("string").build()
+        val testSuiteListResponse =
+            TestSuiteListResponse.builder()
+                .data(listOf("customer-support", "sales-flow", "onboarding"))
+                .build()
 
         val roundtrippedTestSuiteListResponse =
             jsonMapper.readValue(

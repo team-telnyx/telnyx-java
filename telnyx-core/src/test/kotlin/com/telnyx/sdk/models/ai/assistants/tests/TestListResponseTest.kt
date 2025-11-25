@@ -17,10 +17,13 @@ internal class TestListResponseTest {
             TestListResponse.builder()
                 .addData(
                     AssistantTest.builder()
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
                         .name("Customer Support Bot Test")
                         .addRubric(
-                            AssistantTest.Rubric.builder().criteria("criteria").name("name").build()
+                            AssistantTest.Rubric.builder()
+                                .criteria("Responds within 30 seconds")
+                                .name("Response Time")
+                                .build()
                         )
                         .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
                         .testId("123e4567-e89b-12d3-a456-426614174000")
@@ -44,10 +47,13 @@ internal class TestListResponseTest {
         assertThat(testListResponse.data())
             .containsExactly(
                 AssistantTest.builder()
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
                     .name("Customer Support Bot Test")
                     .addRubric(
-                        AssistantTest.Rubric.builder().criteria("criteria").name("name").build()
+                        AssistantTest.Rubric.builder()
+                            .criteria("Responds within 30 seconds")
+                            .name("Response Time")
+                            .build()
                     )
                     .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
                     .testId("123e4567-e89b-12d3-a456-426614174000")
@@ -71,10 +77,13 @@ internal class TestListResponseTest {
             TestListResponse.builder()
                 .addData(
                     AssistantTest.builder()
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
                         .name("Customer Support Bot Test")
                         .addRubric(
-                            AssistantTest.Rubric.builder().criteria("criteria").name("name").build()
+                            AssistantTest.Rubric.builder()
+                                .criteria("Responds within 30 seconds")
+                                .name("Response Time")
+                                .build()
                         )
                         .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
                         .testId("123e4567-e89b-12d3-a456-426614174000")

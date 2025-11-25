@@ -14,9 +14,14 @@ internal class AssistantTestTest {
     fun create() {
         val assistantTest =
             AssistantTest.builder()
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
                 .name("Customer Support Bot Test")
-                .addRubric(AssistantTest.Rubric.builder().criteria("criteria").name("name").build())
+                .addRubric(
+                    AssistantTest.Rubric.builder()
+                        .criteria("Responds within 30 seconds")
+                        .name("Response Time")
+                        .build()
+                )
                 .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
                 .testId("123e4567-e89b-12d3-a456-426614174000")
                 .description("description")
@@ -27,11 +32,14 @@ internal class AssistantTestTest {
                 .build()
 
         assertThat(assistantTest.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
         assertThat(assistantTest.name()).isEqualTo("Customer Support Bot Test")
         assertThat(assistantTest.rubric())
             .containsExactly(
-                AssistantTest.Rubric.builder().criteria("criteria").name("name").build()
+                AssistantTest.Rubric.builder()
+                    .criteria("Responds within 30 seconds")
+                    .name("Response Time")
+                    .build()
             )
         assertThat(assistantTest.telnyxConversationChannel())
             .isEqualTo(TelnyxConversationChannel.WEB_CHAT)
@@ -48,9 +56,14 @@ internal class AssistantTestTest {
         val jsonMapper = jsonMapper()
         val assistantTest =
             AssistantTest.builder()
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2024-01-15T09:00:00Z"))
                 .name("Customer Support Bot Test")
-                .addRubric(AssistantTest.Rubric.builder().criteria("criteria").name("name").build())
+                .addRubric(
+                    AssistantTest.Rubric.builder()
+                        .criteria("Responds within 30 seconds")
+                        .name("Response Time")
+                        .build()
+                )
                 .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
                 .testId("123e4567-e89b-12d3-a456-426614174000")
                 .description("description")
