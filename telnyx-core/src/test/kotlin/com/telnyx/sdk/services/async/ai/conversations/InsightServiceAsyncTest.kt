@@ -93,7 +93,7 @@ internal class InsightServiceAsyncTest {
         val insightsFuture =
             insightServiceAsync.list(
                 InsightListParams.builder()
-                    .page(InsightListParams.Page.builder().number(1L).size(1L).build())
+                    .page(InsightListParams.Page.builder().number(1L).size(0L).build())
                     .build()
             )
 
