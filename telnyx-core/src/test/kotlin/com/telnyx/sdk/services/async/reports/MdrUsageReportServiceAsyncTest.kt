@@ -107,7 +107,7 @@ internal class MdrUsageReportServiceAsyncTest {
         val responseFuture =
             mdrUsageReportServiceAsync.fetchSync(
                 MdrUsageReportFetchSyncParams.builder()
-                    .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.NO_AGGREGATION)
+                    .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.PROFILE)
                     .endDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
                     .addProfile("My profile")
                     .startDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))

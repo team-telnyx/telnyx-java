@@ -25,7 +25,7 @@ class MdrUsageReportResponseLegacy
 private constructor(
     private val id: JsonField<String>,
     private val aggregationType: JsonField<Int>,
-    private val connections: JsonField<List<Long>>,
+    private val connections: JsonField<List<String>>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val endTime: JsonField<OffsetDateTime>,
     private val profiles: JsonField<List<String>>,
@@ -46,7 +46,7 @@ private constructor(
         aggregationType: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("connections")
         @ExcludeMissing
-        connections: JsonField<List<Long>> = JsonMissing.of(),
+        connections: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -104,7 +104,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun connections(): Optional<List<Long>> = connections.getOptional("connections")
+    fun connections(): Optional<List<String>> = connections.getOptional("connections")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -183,7 +183,7 @@ private constructor(
      */
     @JsonProperty("connections")
     @ExcludeMissing
-    fun _connections(): JsonField<List<Long>> = connections
+    fun _connections(): JsonField<List<String>> = connections
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -272,7 +272,7 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var aggregationType: JsonField<Int> = JsonMissing.of()
-        private var connections: JsonField<MutableList<Long>>? = null
+        private var connections: JsonField<MutableList<String>>? = null
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var endTime: JsonField<OffsetDateTime> = JsonMissing.of()
         private var profiles: JsonField<MutableList<String>>? = null
@@ -326,25 +326,25 @@ private constructor(
             this.aggregationType = aggregationType
         }
 
-        fun connections(connections: List<Long>) = connections(JsonField.of(connections))
+        fun connections(connections: List<String>) = connections(JsonField.of(connections))
 
         /**
          * Sets [Builder.connections] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.connections] with a well-typed `List<Long>` value
+         * You should usually call [Builder.connections] with a well-typed `List<String>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun connections(connections: JsonField<List<Long>>) = apply {
+        fun connections(connections: JsonField<List<String>>) = apply {
             this.connections = connections.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Long] to [connections].
+         * Adds a single [String] to [connections].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addConnection(connection: Long) = apply {
+        fun addConnection(connection: String) = apply {
             connections =
                 (connections ?: JsonField.of(mutableListOf())).also {
                     checkKnown("connections", it).add(connection)

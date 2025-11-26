@@ -20,7 +20,7 @@ internal class ReportListWdrsResponseTest {
                         .id("3ca7bd3d-7d82-4e07-9df4-009123068320")
                         .cost(
                             ReportListWdrsResponse.Data.Cost.builder()
-                                .amount("amount")
+                                .amount("0.1")
                                 .currency(ReportListWdrsResponse.Data.Cost.Currency.USD)
                                 .build()
                         )
@@ -38,7 +38,7 @@ internal class ReportListWdrsResponseTest {
                         .phoneNumber("+12345678910")
                         .rate(
                             ReportListWdrsResponse.Data.Rate.builder()
-                                .amount("amount")
+                                .amount("0.1")
                                 .currency(ReportListWdrsResponse.Data.Rate.Currency.USD)
                                 .build()
                         )
@@ -70,7 +70,7 @@ internal class ReportListWdrsResponseTest {
                     .id("3ca7bd3d-7d82-4e07-9df4-009123068320")
                     .cost(
                         ReportListWdrsResponse.Data.Cost.builder()
-                            .amount("amount")
+                            .amount("0.1")
                             .currency(ReportListWdrsResponse.Data.Cost.Currency.USD)
                             .build()
                     )
@@ -88,7 +88,7 @@ internal class ReportListWdrsResponseTest {
                     .phoneNumber("+12345678910")
                     .rate(
                         ReportListWdrsResponse.Data.Rate.builder()
-                            .amount("amount")
+                            .amount("0.1")
                             .currency(ReportListWdrsResponse.Data.Rate.Currency.USD)
                             .build()
                     )
@@ -125,7 +125,7 @@ internal class ReportListWdrsResponseTest {
                         .id("3ca7bd3d-7d82-4e07-9df4-009123068320")
                         .cost(
                             ReportListWdrsResponse.Data.Cost.builder()
-                                .amount("amount")
+                                .amount("0.1")
                                 .currency(ReportListWdrsResponse.Data.Cost.Currency.USD)
                                 .build()
                         )
@@ -143,7 +143,7 @@ internal class ReportListWdrsResponseTest {
                         .phoneNumber("+12345678910")
                         .rate(
                             ReportListWdrsResponse.Data.Rate.builder()
-                                .amount("amount")
+                                .amount("0.1")
                                 .currency(ReportListWdrsResponse.Data.Rate.Currency.USD)
                                 .build()
                         )

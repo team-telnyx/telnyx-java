@@ -34,7 +34,7 @@ internal class UsageReportServiceTest {
                     .filter("filter")
                     .format(UsageReportListParams.Format.CSV)
                     .managedAccounts(true)
-                    .page(UsageReportListParams.Page.builder().number(2L).size(5000L).build())
+                    .page(UsageReportListParams.Page.builder().number(1L).size(5000L).build())
                     .addSort("string")
                     .startDate("start_date")
                     .authorizationBearer("authorization_bearer")
