@@ -397,7 +397,10 @@ private constructor(
             }
 
             /** Unused */
-            fun fraud(fraud: String) = fraud(JsonField.of(fraud))
+            fun fraud(fraud: String?) = fraud(JsonField.ofNullable(fraud))
+
+            /** Alias for calling [Builder.fraud] with `fraud.orElse(null)`. */
+            fun fraud(fraud: Optional<String>) = fraud(fraud.getOrNull())
 
             /**
              * Sets [Builder.fraud] to an arbitrary JSON value.
@@ -932,7 +935,10 @@ private constructor(
                 }
 
                 /** Unused */
-                fun errorCode(errorCode: String) = errorCode(JsonField.of(errorCode))
+                fun errorCode(errorCode: String?) = errorCode(JsonField.ofNullable(errorCode))
+
+                /** Alias for calling [Builder.errorCode] with `errorCode.orElse(null)`. */
+                fun errorCode(errorCode: Optional<String>) = errorCode(errorCode.getOrNull())
 
                 /**
                  * Sets [Builder.errorCode] to an arbitrary JSON value.
