@@ -65,7 +65,7 @@ internal class ReportServiceAsyncTest {
                     .simCardId("877f80a6-e5b2-4687-9a04-88076265720f")
                     .simGroupId("f05a189f-7c46-4531-ac56-1460dc465a42")
                     .simGroupName("sim name")
-                    .addSort("string")
+                    .addSort("created_at")
                     .startDate("2021-05-01T00:00:00Z")
                     .build()
             )

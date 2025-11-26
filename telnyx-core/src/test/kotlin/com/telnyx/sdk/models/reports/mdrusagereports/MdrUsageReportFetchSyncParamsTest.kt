@@ -12,7 +12,7 @@ internal class MdrUsageReportFetchSyncParamsTest {
     @Test
     fun create() {
         MdrUsageReportFetchSyncParams.builder()
-            .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.NO_AGGREGATION)
+            .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.PROFILE)
             .endDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
             .addProfile("My profile")
             .startDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
@@ -23,7 +23,7 @@ internal class MdrUsageReportFetchSyncParamsTest {
     fun queryParams() {
         val params =
             MdrUsageReportFetchSyncParams.builder()
-                .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.NO_AGGREGATION)
+                .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.PROFILE)
                 .endDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
                 .addProfile("My profile")
                 .startDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
@@ -34,7 +34,7 @@ internal class MdrUsageReportFetchSyncParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("aggregation_type", "NO_AGGREGATION")
+                    .put("aggregation_type", "PROFILE")
                     .put("end_date", "2020-07-01T00:00:00-06:00")
                     .put("profiles", listOf("My profile").joinToString(","))
                     .put("start_date", "2020-07-01T00:00:00-06:00")
@@ -46,12 +46,12 @@ internal class MdrUsageReportFetchSyncParamsTest {
     fun queryParamsWithoutOptionalFields() {
         val params =
             MdrUsageReportFetchSyncParams.builder()
-                .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.NO_AGGREGATION)
+                .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.PROFILE)
                 .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("aggregation_type", "NO_AGGREGATION").build())
+            .isEqualTo(QueryParams.builder().put("aggregation_type", "PROFILE").build())
     }
 }

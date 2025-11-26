@@ -21,7 +21,7 @@ internal class ReportListWdrsParamsTest {
             .simCardId("877f80a6-e5b2-4687-9a04-88076265720f")
             .simGroupId("f05a189f-7c46-4531-ac56-1460dc465a42")
             .simGroupName("sim name")
-            .addSort("string")
+            .addSort("created_at")
             .startDate("2021-05-01T00:00:00Z")
             .build()
     }
@@ -40,7 +40,7 @@ internal class ReportListWdrsParamsTest {
                 .simCardId("877f80a6-e5b2-4687-9a04-88076265720f")
                 .simGroupId("f05a189f-7c46-4531-ac56-1460dc465a42")
                 .simGroupName("sim name")
-                .addSort("string")
+                .addSort("created_at")
                 .startDate("2021-05-01T00:00:00Z")
                 .build()
 
@@ -60,7 +60,7 @@ internal class ReportListWdrsParamsTest {
                     .put("sim_card_id", "877f80a6-e5b2-4687-9a04-88076265720f")
                     .put("sim_group_id", "f05a189f-7c46-4531-ac56-1460dc465a42")
                     .put("sim_group_name", "sim name")
-                    .put("sort", listOf("string").joinToString(","))
+                    .put("sort", listOf("created_at").joinToString(","))
                     .put("start_date", "2021-05-01T00:00:00Z")
                     .build()
             )

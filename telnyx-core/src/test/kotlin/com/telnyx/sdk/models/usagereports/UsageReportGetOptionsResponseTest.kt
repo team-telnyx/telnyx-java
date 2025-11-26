@@ -17,12 +17,21 @@ internal class UsageReportGetOptionsResponseTest {
                 .addData(
                     UsageReportGetOptionsResponse.Data.builder()
                         .product("wireless")
-                        .addProductDimension("string")
-                        .addProductMetric("string")
+                        .productDimensions(listOf("mnc", "mcc", "sim_card_id", "sim_group_name"))
+                        .productMetrics(
+                            listOf(
+                                "uplink_data_bytes",
+                                "downlink_data",
+                                "downlink_data_bytes",
+                                "uplink_data",
+                                "data_cost",
+                            )
+                        )
                         .addRecordType(
                             UsageReportGetOptionsResponse.Data.RecordType.builder()
-                                .addProductDimension("string")
-                                .addProductMetric("string")
+                                .productDimensions(listOf("direction", "currency", "message_type"))
+                                .addProductMetric("cost")
+                                .addProductMetric("billed_sec")
                                 .recordType("conversation_event")
                                 .build()
                         )
@@ -34,12 +43,21 @@ internal class UsageReportGetOptionsResponseTest {
             .containsExactly(
                 UsageReportGetOptionsResponse.Data.builder()
                     .product("wireless")
-                    .addProductDimension("string")
-                    .addProductMetric("string")
+                    .productDimensions(listOf("mnc", "mcc", "sim_card_id", "sim_group_name"))
+                    .productMetrics(
+                        listOf(
+                            "uplink_data_bytes",
+                            "downlink_data",
+                            "downlink_data_bytes",
+                            "uplink_data",
+                            "data_cost",
+                        )
+                    )
                     .addRecordType(
                         UsageReportGetOptionsResponse.Data.RecordType.builder()
-                            .addProductDimension("string")
-                            .addProductMetric("string")
+                            .productDimensions(listOf("direction", "currency", "message_type"))
+                            .addProductMetric("cost")
+                            .addProductMetric("billed_sec")
                             .recordType("conversation_event")
                             .build()
                     )
@@ -55,12 +73,21 @@ internal class UsageReportGetOptionsResponseTest {
                 .addData(
                     UsageReportGetOptionsResponse.Data.builder()
                         .product("wireless")
-                        .addProductDimension("string")
-                        .addProductMetric("string")
+                        .productDimensions(listOf("mnc", "mcc", "sim_card_id", "sim_group_name"))
+                        .productMetrics(
+                            listOf(
+                                "uplink_data_bytes",
+                                "downlink_data",
+                                "downlink_data_bytes",
+                                "uplink_data",
+                                "data_cost",
+                            )
+                        )
                         .addRecordType(
                             UsageReportGetOptionsResponse.Data.RecordType.builder()
-                                .addProductDimension("string")
-                                .addProductMetric("string")
+                                .productDimensions(listOf("direction", "currency", "message_type"))
+                                .addProductMetric("cost")
+                                .addProductMetric("billed_sec")
                                 .recordType("conversation_event")
                                 .build()
                         )

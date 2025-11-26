@@ -21,7 +21,8 @@ internal class CdrUsageReportFetchSyncResponseTest {
                         .aggregationType(
                             CdrUsageReportFetchSyncResponse.Data.AggregationType.NO_AGGREGATION
                         )
-                        .addConnection(0L)
+                        .addConnection(1234567890L)
+                        .addConnection(9876543210L)
                         .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .endTime(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .productBreakdown(
@@ -48,7 +49,8 @@ internal class CdrUsageReportFetchSyncResponseTest {
                     .aggregationType(
                         CdrUsageReportFetchSyncResponse.Data.AggregationType.NO_AGGREGATION
                     )
-                    .addConnection(0L)
+                    .addConnection(1234567890L)
+                    .addConnection(9876543210L)
                     .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                     .endTime(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                     .productBreakdown(
@@ -79,7 +81,8 @@ internal class CdrUsageReportFetchSyncResponseTest {
                         .aggregationType(
                             CdrUsageReportFetchSyncResponse.Data.AggregationType.NO_AGGREGATION
                         )
-                        .addConnection(0L)
+                        .addConnection(1234567890L)
+                        .addConnection(9876543210L)
                         .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .endTime(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .productBreakdown(
