@@ -14,13 +14,13 @@ internal class SoundModificationsTest {
         val soundModifications =
             SoundModifications.builder()
                 .octaves(0.1)
-                .pitch(0.0)
+                .pitch(0.8)
                 .semitone(-2.0)
                 .track("both")
                 .build()
 
         assertThat(soundModifications.octaves()).contains(0.1)
-        assertThat(soundModifications.pitch()).contains(0.0)
+        assertThat(soundModifications.pitch()).contains(0.8)
         assertThat(soundModifications.semitone()).contains(-2.0)
         assertThat(soundModifications.track()).contains("both")
     }
@@ -31,7 +31,7 @@ internal class SoundModificationsTest {
         val soundModifications =
             SoundModifications.builder()
                 .octaves(0.1)
-                .pitch(0.0)
+                .pitch(0.8)
                 .semitone(-2.0)
                 .track("both")
                 .build()
