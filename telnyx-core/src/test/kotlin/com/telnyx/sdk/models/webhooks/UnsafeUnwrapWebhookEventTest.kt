@@ -9950,7 +9950,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 )
                                 .callLegId("5ca81340-5beb-11eb-ae45-02420a0f8b69")
                                 .callSessionId("5ca81eee-5beb-11eb-ba6c-02420a0f8b69")
-                                .clientState("client_state")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("1240401930086254526")
                                 .transcriptionData(
                                     TranscriptionWebhookEvent.Data.Payload.TranscriptionData
@@ -10059,7 +10059,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     )
                                     .callLegId("5ca81340-5beb-11eb-ae45-02420a0f8b69")
                                     .callSessionId("5ca81eee-5beb-11eb-ba6c-02420a0f8b69")
-                                    .clientState("client_state")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("1240401930086254526")
                                     .transcriptionData(
                                         TranscriptionWebhookEvent.Data.Payload.TranscriptionData

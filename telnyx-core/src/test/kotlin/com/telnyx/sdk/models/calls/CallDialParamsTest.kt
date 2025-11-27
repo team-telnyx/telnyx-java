@@ -94,7 +94,7 @@ internal class CallDialParamsTest {
             .soundModifications(
                 SoundModifications.builder()
                     .octaves(0.1)
-                    .pitch(0.0)
+                    .pitch(0.8)
                     .semitone(-2.0)
                     .track("both")
                     .build()
@@ -239,7 +239,7 @@ internal class CallDialParamsTest {
                 .soundModifications(
                     SoundModifications.builder()
                         .octaves(0.1)
-                        .pitch(0.0)
+                        .pitch(0.8)
                         .semitone(-2.0)
                         .track("both")
                         .build()
@@ -392,7 +392,7 @@ internal class CallDialParamsTest {
             .contains(
                 SoundModifications.builder()
                     .octaves(0.1)
-                    .pitch(0.0)
+                    .pitch(0.8)
                     .semitone(-2.0)
                     .track("both")
                     .build()
