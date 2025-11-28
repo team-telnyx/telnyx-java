@@ -78,7 +78,9 @@ import com.telnyx.sdk.services.blocking.MessagingTollfreeService
 import com.telnyx.sdk.services.blocking.MessagingUrlDomainService
 import com.telnyx.sdk.services.blocking.MesssageService
 import com.telnyx.sdk.services.blocking.MobileNetworkOperatorService
+import com.telnyx.sdk.services.blocking.MobilePhoneNumberService
 import com.telnyx.sdk.services.blocking.MobilePushCredentialService
+import com.telnyx.sdk.services.blocking.MobileVoiceConnectionService
 import com.telnyx.sdk.services.blocking.NetworkCoverageService
 import com.telnyx.sdk.services.blocking.NetworkService
 import com.telnyx.sdk.services.blocking.NotificationChannelService
@@ -503,6 +505,10 @@ interface TelnyxClient {
 
     fun inexplicitNumberOrders(): InexplicitNumberOrderService
 
+    fun mobilePhoneNumbers(): MobilePhoneNumberService
+
+    fun mobileVoiceConnections(): MobileVoiceConnectionService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -834,5 +840,9 @@ interface TelnyxClient {
         fun wellKnown(): WellKnownService.WithRawResponse
 
         fun inexplicitNumberOrders(): InexplicitNumberOrderService.WithRawResponse
+
+        fun mobilePhoneNumbers(): MobilePhoneNumberService.WithRawResponse
+
+        fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse
     }
 }
