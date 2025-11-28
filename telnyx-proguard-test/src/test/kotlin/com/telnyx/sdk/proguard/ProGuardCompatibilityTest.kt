@@ -205,6 +205,8 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.partnerCampaigns()).isNotNull()
         assertThat(client.wellKnown()).isNotNull()
         assertThat(client.inexplicitNumberOrders()).isNotNull()
+        assertThat(client.mobilePhoneNumbers()).isNotNull()
+        assertThat(client.mobileVoiceConnections()).isNotNull()
     }
 
     @Test

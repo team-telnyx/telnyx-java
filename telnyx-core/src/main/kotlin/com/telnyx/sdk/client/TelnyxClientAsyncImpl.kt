@@ -154,8 +154,12 @@ import com.telnyx.sdk.services.async.MesssageServiceAsync
 import com.telnyx.sdk.services.async.MesssageServiceAsyncImpl
 import com.telnyx.sdk.services.async.MobileNetworkOperatorServiceAsync
 import com.telnyx.sdk.services.async.MobileNetworkOperatorServiceAsyncImpl
+import com.telnyx.sdk.services.async.MobilePhoneNumberServiceAsync
+import com.telnyx.sdk.services.async.MobilePhoneNumberServiceAsyncImpl
 import com.telnyx.sdk.services.async.MobilePushCredentialServiceAsync
 import com.telnyx.sdk.services.async.MobilePushCredentialServiceAsyncImpl
+import com.telnyx.sdk.services.async.MobileVoiceConnectionServiceAsync
+import com.telnyx.sdk.services.async.MobileVoiceConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.NetworkCoverageServiceAsync
 import com.telnyx.sdk.services.async.NetworkCoverageServiceAsyncImpl
 import com.telnyx.sdk.services.async.NetworkServiceAsync
@@ -930,6 +934,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         InexplicitNumberOrderServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val mobilePhoneNumbers: MobilePhoneNumberServiceAsync by lazy {
+        MobilePhoneNumberServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val mobileVoiceConnections: MobileVoiceConnectionServiceAsync by lazy {
+        MobileVoiceConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1271,6 +1283,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync =
         inexplicitNumberOrders
+
+    override fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync = mobilePhoneNumbers
+
+    override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync =
+        mobileVoiceConnections
 
     override fun close() = clientOptions.close()
 
@@ -1926,6 +1943,15 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             InexplicitNumberOrderServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val mobilePhoneNumbers: MobilePhoneNumberServiceAsync.WithRawResponse by lazy {
+            MobilePhoneNumberServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val mobileVoiceConnections:
+            MobileVoiceConnectionServiceAsync.WithRawResponse by lazy {
+            MobileVoiceConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2317,5 +2343,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse =
             inexplicitNumberOrders
+
+        override fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync.WithRawResponse =
+            mobilePhoneNumbers
+
+        override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse =
+            mobileVoiceConnections
     }
 }
