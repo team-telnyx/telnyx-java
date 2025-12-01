@@ -1516,13 +1516,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val LATENCY = of("\"Latency\"")
+            @JvmField val LATENCY = of("Latency")
 
-            @JvmField val CHICAGO_IL = of("\"Chicago, IL\"")
+            @JvmField val CHICAGO_IL = of("Chicago, IL")
 
-            @JvmField val ASHBURN_VA = of("\"Ashburn, VA\"")
+            @JvmField val ASHBURN_VA = of("Ashburn, VA")
 
-            @JvmField val SAN_JOSE_CA = of("\"San Jose, CA\"")
+            @JvmField val SAN_JOSE_CA = of("San Jose, CA")
+
+            @JvmField val LONDON_UK = of("London, UK")
+
+            @JvmField val CHENNAI_IN = of("Chennai, IN")
+
+            @JvmField val AMSTERDAM_NETHERLANDS = of("Amsterdam, Netherlands")
+
+            @JvmField val TORONTO_CANADA = of("Toronto, Canada")
+
+            @JvmField val SYDNEY_AUSTRALIA = of("Sydney, Australia")
 
             @JvmStatic fun of(value: String) = AnchorsiteOverride(JsonField.of(value))
         }
@@ -1533,6 +1543,11 @@ private constructor(
             CHICAGO_IL,
             ASHBURN_VA,
             SAN_JOSE_CA,
+            LONDON_UK,
+            CHENNAI_IN,
+            AMSTERDAM_NETHERLANDS,
+            TORONTO_CANADA,
+            SYDNEY_AUSTRALIA,
         }
 
         /**
@@ -1549,6 +1564,11 @@ private constructor(
             CHICAGO_IL,
             ASHBURN_VA,
             SAN_JOSE_CA,
+            LONDON_UK,
+            CHENNAI_IN,
+            AMSTERDAM_NETHERLANDS,
+            TORONTO_CANADA,
+            SYDNEY_AUSTRALIA,
             /**
              * An enum member indicating that [AnchorsiteOverride] was instantiated with an unknown
              * value.
@@ -1569,6 +1589,11 @@ private constructor(
                 CHICAGO_IL -> Value.CHICAGO_IL
                 ASHBURN_VA -> Value.ASHBURN_VA
                 SAN_JOSE_CA -> Value.SAN_JOSE_CA
+                LONDON_UK -> Value.LONDON_UK
+                CHENNAI_IN -> Value.CHENNAI_IN
+                AMSTERDAM_NETHERLANDS -> Value.AMSTERDAM_NETHERLANDS
+                TORONTO_CANADA -> Value.TORONTO_CANADA
+                SYDNEY_AUSTRALIA -> Value.SYDNEY_AUSTRALIA
                 else -> Value._UNKNOWN
             }
 
@@ -1587,6 +1612,11 @@ private constructor(
                 CHICAGO_IL -> Known.CHICAGO_IL
                 ASHBURN_VA -> Known.ASHBURN_VA
                 SAN_JOSE_CA -> Known.SAN_JOSE_CA
+                LONDON_UK -> Known.LONDON_UK
+                CHENNAI_IN -> Known.CHENNAI_IN
+                AMSTERDAM_NETHERLANDS -> Known.AMSTERDAM_NETHERLANDS
+                TORONTO_CANADA -> Known.TORONTO_CANADA
+                SYDNEY_AUSTRALIA -> Known.SYDNEY_AUSTRALIA
                 else -> throw TelnyxInvalidDataException("Unknown AnchorsiteOverride: $value")
             }
 

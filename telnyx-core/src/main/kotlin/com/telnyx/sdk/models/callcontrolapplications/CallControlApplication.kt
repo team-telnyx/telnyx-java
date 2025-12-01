@@ -129,9 +129,9 @@ private constructor(
     fun active(): Optional<Boolean> = active.getOptional("active")
 
     /**
-     * `Latency` directs Telnyx to route media through the site with the lowest round-trip time to
-     * the user's connection. Telnyx calculates this time using ICMP ping messages. This can be
-     * disabled by specifying a site to handle all media.
+     * <code>Latency</code> directs Telnyx to route media through the site with the lowest
+     * round-trip time to the user's connection. Telnyx calculates this time using ICMP ping
+     * messages. This can be disabled by specifying a site to handle all media.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -526,9 +526,9 @@ private constructor(
         fun active(active: JsonField<Boolean>) = apply { this.active = active }
 
         /**
-         * `Latency` directs Telnyx to route media through the site with the lowest round-trip time
-         * to the user's connection. Telnyx calculates this time using ICMP ping messages. This can
-         * be disabled by specifying a site to handle all media.
+         * <code>Latency</code> directs Telnyx to route media through the site with the lowest
+         * round-trip time to the user's connection. Telnyx calculates this time using ICMP ping
+         * messages. This can be disabled by specifying a site to handle all media.
          */
         fun anchorsiteOverride(anchorsiteOverride: AnchorsiteOverride) =
             anchorsiteOverride(JsonField.of(anchorsiteOverride))
@@ -924,9 +924,9 @@ private constructor(
             (if (webhookTimeoutSecs.asKnown().isPresent) 1 else 0)
 
     /**
-     * `Latency` directs Telnyx to route media through the site with the lowest round-trip time to
-     * the user's connection. Telnyx calculates this time using ICMP ping messages. This can be
-     * disabled by specifying a site to handle all media.
+     * <code>Latency</code> directs Telnyx to route media through the site with the lowest
+     * round-trip time to the user's connection. Telnyx calculates this time using ICMP ping
+     * messages. This can be disabled by specifying a site to handle all media.
      */
     class AnchorsiteOverride
     @JsonCreator
@@ -944,13 +944,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val LATENCY = of("\"Latency\"")
+            @JvmField val LATENCY = of("Latency")
 
-            @JvmField val CHICAGO_IL = of("\"Chicago, IL\"")
+            @JvmField val CHICAGO_IL = of("Chicago, IL")
 
-            @JvmField val ASHBURN_VA = of("\"Ashburn, VA\"")
+            @JvmField val ASHBURN_VA = of("Ashburn, VA")
 
-            @JvmField val SAN_JOSE_CA = of("\"San Jose, CA\"")
+            @JvmField val SAN_JOSE_CA = of("San Jose, CA")
+
+            @JvmField val LONDON_UK = of("London, UK")
+
+            @JvmField val CHENNAI_IN = of("Chennai, IN")
+
+            @JvmField val AMSTERDAM_NETHERLANDS = of("Amsterdam, Netherlands")
+
+            @JvmField val TORONTO_CANADA = of("Toronto, Canada")
+
+            @JvmField val SYDNEY_AUSTRALIA = of("Sydney, Australia")
 
             @JvmStatic fun of(value: String) = AnchorsiteOverride(JsonField.of(value))
         }
@@ -961,6 +971,11 @@ private constructor(
             CHICAGO_IL,
             ASHBURN_VA,
             SAN_JOSE_CA,
+            LONDON_UK,
+            CHENNAI_IN,
+            AMSTERDAM_NETHERLANDS,
+            TORONTO_CANADA,
+            SYDNEY_AUSTRALIA,
         }
 
         /**
@@ -977,6 +992,11 @@ private constructor(
             CHICAGO_IL,
             ASHBURN_VA,
             SAN_JOSE_CA,
+            LONDON_UK,
+            CHENNAI_IN,
+            AMSTERDAM_NETHERLANDS,
+            TORONTO_CANADA,
+            SYDNEY_AUSTRALIA,
             /**
              * An enum member indicating that [AnchorsiteOverride] was instantiated with an unknown
              * value.
@@ -997,6 +1017,11 @@ private constructor(
                 CHICAGO_IL -> Value.CHICAGO_IL
                 ASHBURN_VA -> Value.ASHBURN_VA
                 SAN_JOSE_CA -> Value.SAN_JOSE_CA
+                LONDON_UK -> Value.LONDON_UK
+                CHENNAI_IN -> Value.CHENNAI_IN
+                AMSTERDAM_NETHERLANDS -> Value.AMSTERDAM_NETHERLANDS
+                TORONTO_CANADA -> Value.TORONTO_CANADA
+                SYDNEY_AUSTRALIA -> Value.SYDNEY_AUSTRALIA
                 else -> Value._UNKNOWN
             }
 
@@ -1015,6 +1040,11 @@ private constructor(
                 CHICAGO_IL -> Known.CHICAGO_IL
                 ASHBURN_VA -> Known.ASHBURN_VA
                 SAN_JOSE_CA -> Known.SAN_JOSE_CA
+                LONDON_UK -> Known.LONDON_UK
+                CHENNAI_IN -> Known.CHENNAI_IN
+                AMSTERDAM_NETHERLANDS -> Known.AMSTERDAM_NETHERLANDS
+                TORONTO_CANADA -> Known.TORONTO_CANADA
+                SYDNEY_AUSTRALIA -> Known.SYDNEY_AUSTRALIA
                 else -> throw TelnyxInvalidDataException("Unknown AnchorsiteOverride: $value")
             }
 
