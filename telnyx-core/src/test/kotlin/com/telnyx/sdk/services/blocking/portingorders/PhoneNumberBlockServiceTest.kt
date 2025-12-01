@@ -79,7 +79,7 @@ internal class PhoneNumberBlockServiceTest {
                     .page(PhoneNumberBlockListParams.Page.builder().number(1L).size(1L).build())
                     .sort(
                         PhoneNumberBlockListParams.Sort.builder()
-                            .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT_DESC)
+                            .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT)
                             .build()
                     )
                     .build()

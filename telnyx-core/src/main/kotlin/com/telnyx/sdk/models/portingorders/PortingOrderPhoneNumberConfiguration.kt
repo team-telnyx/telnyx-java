@@ -183,7 +183,12 @@ private constructor(
         }
 
         /** identifies the billing group to set on the numbers when ported */
-        fun billingGroupId(billingGroupId: String) = billingGroupId(JsonField.of(billingGroupId))
+        fun billingGroupId(billingGroupId: String?) =
+            billingGroupId(JsonField.ofNullable(billingGroupId))
+
+        /** Alias for calling [Builder.billingGroupId] with `billingGroupId.orElse(null)`. */
+        fun billingGroupId(billingGroupId: Optional<String>) =
+            billingGroupId(billingGroupId.getOrNull())
 
         /**
          * Sets [Builder.billingGroupId] to an arbitrary JSON value.
@@ -197,7 +202,10 @@ private constructor(
         }
 
         /** identifies the connection to set on the numbers when ported */
-        fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
+        fun connectionId(connectionId: String?) = connectionId(JsonField.ofNullable(connectionId))
+
+        /** Alias for calling [Builder.connectionId] with `connectionId.orElse(null)`. */
+        fun connectionId(connectionId: Optional<String>) = connectionId(connectionId.getOrNull())
 
         /**
          * Sets [Builder.connectionId] to an arbitrary JSON value.
@@ -211,8 +219,14 @@ private constructor(
         }
 
         /** identifies the emergency address to set on the numbers when ported */
-        fun emergencyAddressId(emergencyAddressId: String) =
-            emergencyAddressId(JsonField.of(emergencyAddressId))
+        fun emergencyAddressId(emergencyAddressId: String?) =
+            emergencyAddressId(JsonField.ofNullable(emergencyAddressId))
+
+        /**
+         * Alias for calling [Builder.emergencyAddressId] with `emergencyAddressId.orElse(null)`.
+         */
+        fun emergencyAddressId(emergencyAddressId: Optional<String>) =
+            emergencyAddressId(emergencyAddressId.getOrNull())
 
         /**
          * Sets [Builder.emergencyAddressId] to an arbitrary JSON value.
@@ -226,8 +240,14 @@ private constructor(
         }
 
         /** identifies the messaging profile to set on the numbers when ported */
-        fun messagingProfileId(messagingProfileId: String) =
-            messagingProfileId(JsonField.of(messagingProfileId))
+        fun messagingProfileId(messagingProfileId: String?) =
+            messagingProfileId(JsonField.ofNullable(messagingProfileId))
+
+        /**
+         * Alias for calling [Builder.messagingProfileId] with `messagingProfileId.orElse(null)`.
+         */
+        fun messagingProfileId(messagingProfileId: Optional<String>) =
+            messagingProfileId(messagingProfileId.getOrNull())
 
         /**
          * Sets [Builder.messagingProfileId] to an arbitrary JSON value.

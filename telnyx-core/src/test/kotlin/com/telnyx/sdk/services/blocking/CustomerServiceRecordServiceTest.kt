@@ -28,7 +28,7 @@ internal class CustomerServiceRecordServiceTest {
         val customerServiceRecord =
             customerServiceRecordService.create(
                 CustomerServiceRecordCreateParams.builder()
-                    .phoneNumber("+1234567890")
+                    .phoneNumber("+13035553000")
                     .additionalData(
                         CustomerServiceRecordCreateParams.AdditionalData.builder()
                             .accountNumber("123456789")
@@ -128,7 +128,7 @@ internal class CustomerServiceRecordServiceTest {
         val response =
             customerServiceRecordService.verifyPhoneNumberCoverage(
                 CustomerServiceRecordVerifyPhoneNumberCoverageParams.builder()
-                    .addPhoneNumber("+1234567890")
+                    .addPhoneNumber("+13035553000")
                     .build()
             )
 

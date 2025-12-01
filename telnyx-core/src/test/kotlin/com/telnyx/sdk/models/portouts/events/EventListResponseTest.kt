@@ -31,7 +31,7 @@ internal class EventListResponseTest {
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
                                 .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
+                                .rejectionReason(null)
                                 .spid("987H")
                                 .status(
                                     EventListResponse.Data.Payload
@@ -74,7 +74,7 @@ internal class EventListResponseTest {
                             .attemptedPin("1234")
                             .carrierName("Testing Carrier")
                             .addPhoneNumber("+35312345678")
-                            .rejectionReason("rejection_reason")
+                            .rejectionReason(null)
                             .spid("987H")
                             .status(
                                 EventListResponse.Data.Payload.WebhookPortoutStatusChangedPayload
@@ -122,7 +122,7 @@ internal class EventListResponseTest {
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
                                 .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
+                                .rejectionReason(null)
                                 .spid("987H")
                                 .status(
                                     EventListResponse.Data.Payload

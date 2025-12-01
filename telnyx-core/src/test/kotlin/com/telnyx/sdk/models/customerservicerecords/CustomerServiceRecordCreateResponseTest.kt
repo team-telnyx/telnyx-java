@@ -18,7 +18,7 @@ internal class CustomerServiceRecordCreateResponseTest {
                     CustomerServiceRecord.builder()
                         .id("db7cebdb-21a8-4e89-8f51-e03ba6b799bb")
                         .createdAt(OffsetDateTime.parse("2023-01-01T00:00:00Z"))
-                        .errorMessage("error_message")
+                        .errorMessage(null)
                         .phoneNumber("+2003271000")
                         .recordType("customer_service_record")
                         .result(
@@ -55,7 +55,7 @@ internal class CustomerServiceRecordCreateResponseTest {
                 CustomerServiceRecord.builder()
                     .id("db7cebdb-21a8-4e89-8f51-e03ba6b799bb")
                     .createdAt(OffsetDateTime.parse("2023-01-01T00:00:00Z"))
-                    .errorMessage("error_message")
+                    .errorMessage(null)
                     .phoneNumber("+2003271000")
                     .recordType("customer_service_record")
                     .result(
@@ -96,7 +96,7 @@ internal class CustomerServiceRecordCreateResponseTest {
                     CustomerServiceRecord.builder()
                         .id("db7cebdb-21a8-4e89-8f51-e03ba6b799bb")
                         .createdAt(OffsetDateTime.parse("2023-01-01T00:00:00Z"))
-                        .errorMessage("error_message")
+                        .errorMessage(null)
                         .phoneNumber("+2003271000")
                         .recordType("customer_service_record")
                         .result(

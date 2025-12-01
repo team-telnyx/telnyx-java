@@ -267,7 +267,10 @@ private constructor(
          * The error message in case status is `failed`. This field would be null in case of
          * `pending` or `completed` status.
          */
-        fun errorMessage(errorMessage: String) = errorMessage(JsonField.of(errorMessage))
+        fun errorMessage(errorMessage: String?) = errorMessage(JsonField.ofNullable(errorMessage))
+
+        /** Alias for calling [Builder.errorMessage] with `errorMessage.orElse(null)`. */
+        fun errorMessage(errorMessage: Optional<String>) = errorMessage(errorMessage.getOrNull())
 
         /**
          * Sets [Builder.errorMessage] to an arbitrary JSON value.
@@ -308,7 +311,10 @@ private constructor(
          * The result of the CSR request. This field would be null in case of `pending` or `failed`
          * status.
          */
-        fun result(result: Result) = result(JsonField.of(result))
+        fun result(result: Result?) = result(JsonField.ofNullable(result))
+
+        /** Alias for calling [Builder.result] with `result.orElse(null)`. */
+        fun result(result: Optional<Result>) = result(result.getOrNull())
 
         /**
          * Sets [Builder.result] to an arbitrary JSON value.

@@ -20,7 +20,7 @@ internal class PhoneNumberExtensionListParamsTest {
             .page(PhoneNumberExtensionListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 PhoneNumberExtensionListParams.Sort.builder()
-                    .value(PhoneNumberExtensionListParams.Sort.Value_.CREATED_AT_DESC)
+                    .value(PhoneNumberExtensionListParams.Sort.Value_.CREATED_AT)
                     .build()
             )
             .build()
@@ -51,7 +51,7 @@ internal class PhoneNumberExtensionListParamsTest {
                 .page(PhoneNumberExtensionListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     PhoneNumberExtensionListParams.Sort.builder()
-                        .value(PhoneNumberExtensionListParams.Sort.Value_.CREATED_AT_DESC)
+                        .value(PhoneNumberExtensionListParams.Sort.Value_.CREATED_AT)
                         .build()
                 )
                 .build()
@@ -64,7 +64,7 @@ internal class PhoneNumberExtensionListParamsTest {
                     .put("filter[porting_phone_number_id]", "04f8f1b9-310c-4a3c-963e-7dfc54765140")
                     .put("page[number]", "1")
                     .put("page[size]", "1")
-                    .put("sort[value]", "-created_at")
+                    .put("sort[value]", "created_at")
                     .build()
             )
     }

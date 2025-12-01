@@ -14,6 +14,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 class PortingOrderEndUserLocation
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -198,8 +199,14 @@ private constructor(
         }
 
         /** State, province, or similar of billing address */
-        fun administrativeArea(administrativeArea: String) =
-            administrativeArea(JsonField.of(administrativeArea))
+        fun administrativeArea(administrativeArea: String?) =
+            administrativeArea(JsonField.ofNullable(administrativeArea))
+
+        /**
+         * Alias for calling [Builder.administrativeArea] with `administrativeArea.orElse(null)`.
+         */
+        fun administrativeArea(administrativeArea: Optional<String>) =
+            administrativeArea(administrativeArea.getOrNull())
 
         /**
          * Sets [Builder.administrativeArea] to an arbitrary JSON value.
@@ -213,7 +220,10 @@ private constructor(
         }
 
         /** ISO3166-1 alpha-2 country code of billing address */
-        fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
+        fun countryCode(countryCode: String?) = countryCode(JsonField.ofNullable(countryCode))
+
+        /** Alias for calling [Builder.countryCode] with `countryCode.orElse(null)`. */
+        fun countryCode(countryCode: Optional<String>) = countryCode(countryCode.getOrNull())
 
         /**
          * Sets [Builder.countryCode] to an arbitrary JSON value.
@@ -225,8 +235,12 @@ private constructor(
         fun countryCode(countryCode: JsonField<String>) = apply { this.countryCode = countryCode }
 
         /** Second line of billing address */
-        fun extendedAddress(extendedAddress: String) =
-            extendedAddress(JsonField.of(extendedAddress))
+        fun extendedAddress(extendedAddress: String?) =
+            extendedAddress(JsonField.ofNullable(extendedAddress))
+
+        /** Alias for calling [Builder.extendedAddress] with `extendedAddress.orElse(null)`. */
+        fun extendedAddress(extendedAddress: Optional<String>) =
+            extendedAddress(extendedAddress.getOrNull())
 
         /**
          * Sets [Builder.extendedAddress] to an arbitrary JSON value.
@@ -240,7 +254,10 @@ private constructor(
         }
 
         /** City or municipality of billing address */
-        fun locality(locality: String) = locality(JsonField.of(locality))
+        fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
+
+        /** Alias for calling [Builder.locality] with `locality.orElse(null)`. */
+        fun locality(locality: Optional<String>) = locality(locality.getOrNull())
 
         /**
          * Sets [Builder.locality] to an arbitrary JSON value.
@@ -251,7 +268,10 @@ private constructor(
         fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
         /** Postal Code of billing address */
-        fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+        fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
+
+        /** Alias for calling [Builder.postalCode] with `postalCode.orElse(null)`. */
+        fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.getOrNull())
 
         /**
          * Sets [Builder.postalCode] to an arbitrary JSON value.
@@ -263,7 +283,12 @@ private constructor(
         fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
         /** First line of billing address */
-        fun streetAddress(streetAddress: String) = streetAddress(JsonField.of(streetAddress))
+        fun streetAddress(streetAddress: String?) =
+            streetAddress(JsonField.ofNullable(streetAddress))
+
+        /** Alias for calling [Builder.streetAddress] with `streetAddress.orElse(null)`. */
+        fun streetAddress(streetAddress: Optional<String>) =
+            streetAddress(streetAddress.getOrNull())
 
         /**
          * Sets [Builder.streetAddress] to an arbitrary JSON value.

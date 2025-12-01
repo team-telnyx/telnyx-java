@@ -33,11 +33,9 @@ internal class ActionConfirmResponseTest {
                         .id("eef10fb8-f3df-4c67-97c5-e18179723222")
                         .activationSettings(
                             PortingOrderActivationSettings.builder()
-                                .activationStatus(
-                                    PortingOrderActivationSettings.ActivationStatus.NEW
-                                )
+                                .activationStatus(null)
                                 .fastPortEligible(true)
-                                .focDatetimeActual(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .focDatetimeActual(null)
                                 .focDatetimeRequested(OffsetDateTime.parse("2022-04-08T15:00:00Z"))
                                 .build()
                         )
@@ -89,10 +87,8 @@ internal class ActionConfirmResponseTest {
                         )
                         .misc(
                             PortingOrderMisc.builder()
-                                .newBillingPhoneNumber("new_billing_phone_number")
-                                .remainingNumbersAction(
-                                    PortingOrderMisc.RemainingNumbersAction.KEEP
-                                )
+                                .newBillingPhoneNumber(null)
+                                .remainingNumbersAction(null)
                                 .type(PortingOrderType.FULL)
                                 .build()
                         )
@@ -100,10 +96,10 @@ internal class ActionConfirmResponseTest {
                         .parentSupportKey("pr_4bec1a")
                         .phoneNumberConfiguration(
                             PortingOrderPhoneNumberConfiguration.builder()
-                                .billingGroupId("billing_group_id")
+                                .billingGroupId(null)
                                 .connectionId("1752379429071357070")
-                                .emergencyAddressId("emergency_address_id")
-                                .messagingProfileId("messaging_profile_id")
+                                .emergencyAddressId(null)
+                                .messagingProfileId(null)
                                 .addTag("string")
                                 .build()
                         )
@@ -134,8 +130,8 @@ internal class ActionConfirmResponseTest {
                         .updatedAt(OffsetDateTime.parse("2022-03-24T16:42:43Z"))
                         .userFeedback(
                             PortingOrderUserFeedback.builder()
-                                .userComment("user_comment")
-                                .userRating(0L)
+                                .userComment(null)
+                                .userRating(null)
                                 .build()
                         )
                         .userId("40d68ba2-0847-4df2-be9c-b0e0cb673e75")
@@ -157,9 +153,9 @@ internal class ActionConfirmResponseTest {
                     .id("eef10fb8-f3df-4c67-97c5-e18179723222")
                     .activationSettings(
                         PortingOrderActivationSettings.builder()
-                            .activationStatus(PortingOrderActivationSettings.ActivationStatus.NEW)
+                            .activationStatus(null)
                             .fastPortEligible(true)
-                            .focDatetimeActual(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .focDatetimeActual(null)
                             .focDatetimeRequested(OffsetDateTime.parse("2022-04-08T15:00:00Z"))
                             .build()
                     )
@@ -211,8 +207,8 @@ internal class ActionConfirmResponseTest {
                     )
                     .misc(
                         PortingOrderMisc.builder()
-                            .newBillingPhoneNumber("new_billing_phone_number")
-                            .remainingNumbersAction(PortingOrderMisc.RemainingNumbersAction.KEEP)
+                            .newBillingPhoneNumber(null)
+                            .remainingNumbersAction(null)
                             .type(PortingOrderType.FULL)
                             .build()
                     )
@@ -220,10 +216,10 @@ internal class ActionConfirmResponseTest {
                     .parentSupportKey("pr_4bec1a")
                     .phoneNumberConfiguration(
                         PortingOrderPhoneNumberConfiguration.builder()
-                            .billingGroupId("billing_group_id")
+                            .billingGroupId(null)
                             .connectionId("1752379429071357070")
-                            .emergencyAddressId("emergency_address_id")
-                            .messagingProfileId("messaging_profile_id")
+                            .emergencyAddressId(null)
+                            .messagingProfileId(null)
                             .addTag("string")
                             .build()
                     )
@@ -254,8 +250,8 @@ internal class ActionConfirmResponseTest {
                     .updatedAt(OffsetDateTime.parse("2022-03-24T16:42:43Z"))
                     .userFeedback(
                         PortingOrderUserFeedback.builder()
-                            .userComment("user_comment")
-                            .userRating(0L)
+                            .userComment(null)
+                            .userRating(null)
                             .build()
                     )
                     .userId("40d68ba2-0847-4df2-be9c-b0e0cb673e75")
@@ -282,11 +278,9 @@ internal class ActionConfirmResponseTest {
                         .id("eef10fb8-f3df-4c67-97c5-e18179723222")
                         .activationSettings(
                             PortingOrderActivationSettings.builder()
-                                .activationStatus(
-                                    PortingOrderActivationSettings.ActivationStatus.NEW
-                                )
+                                .activationStatus(null)
                                 .fastPortEligible(true)
-                                .focDatetimeActual(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .focDatetimeActual(null)
                                 .focDatetimeRequested(OffsetDateTime.parse("2022-04-08T15:00:00Z"))
                                 .build()
                         )
@@ -338,10 +332,8 @@ internal class ActionConfirmResponseTest {
                         )
                         .misc(
                             PortingOrderMisc.builder()
-                                .newBillingPhoneNumber("new_billing_phone_number")
-                                .remainingNumbersAction(
-                                    PortingOrderMisc.RemainingNumbersAction.KEEP
-                                )
+                                .newBillingPhoneNumber(null)
+                                .remainingNumbersAction(null)
                                 .type(PortingOrderType.FULL)
                                 .build()
                         )
@@ -349,10 +341,10 @@ internal class ActionConfirmResponseTest {
                         .parentSupportKey("pr_4bec1a")
                         .phoneNumberConfiguration(
                             PortingOrderPhoneNumberConfiguration.builder()
-                                .billingGroupId("billing_group_id")
+                                .billingGroupId(null)
                                 .connectionId("1752379429071357070")
-                                .emergencyAddressId("emergency_address_id")
-                                .messagingProfileId("messaging_profile_id")
+                                .emergencyAddressId(null)
+                                .messagingProfileId(null)
                                 .addTag("string")
                                 .build()
                         )
@@ -383,8 +375,8 @@ internal class ActionConfirmResponseTest {
                         .updatedAt(OffsetDateTime.parse("2022-03-24T16:42:43Z"))
                         .userFeedback(
                             PortingOrderUserFeedback.builder()
-                                .userComment("user_comment")
-                                .userRating(0L)
+                                .userComment(null)
+                                .userRating(null)
                                 .build()
                         )
                         .userId("40d68ba2-0847-4df2-be9c-b0e0cb673e75")
