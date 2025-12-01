@@ -230,7 +230,7 @@ internal class AssistantServiceAsyncTest {
                 .build()
         val assistantServiceAsync = client.ai().assistants()
 
-        val assistantFuture =
+        val inferenceEmbeddingFuture =
             assistantServiceAsync.update(
                 AssistantUpdateParams.builder()
                     .assistantId("assistant_id")
@@ -385,8 +385,8 @@ internal class AssistantServiceAsyncTest {
                     .build()
             )
 
-        val assistant = assistantFuture.get()
-        assistant.validate()
+        val inferenceEmbedding = inferenceEmbeddingFuture.get()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -133,8 +133,6 @@ internal class TestServiceTest {
                 .build()
         val testService = client.ai().assistants().tests()
 
-        val test = testService.delete("test_id")
-
-        test.validate()
+        testService.delete("test_id")
     }
 }

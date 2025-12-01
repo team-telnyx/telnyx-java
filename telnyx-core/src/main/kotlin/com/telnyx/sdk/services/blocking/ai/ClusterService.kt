@@ -11,7 +11,6 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
 import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
@@ -119,35 +118,40 @@ interface ClusterService {
     ): ClusterComputeResponse
 
     /** Fetch a cluster visualization */
-    fun fetchGraph(taskId: String): ClusterFetchGraphResponse =
+    @MustBeClosed
+    fun fetchGraph(taskId: String): HttpResponse =
         fetchGraph(taskId, ClusterFetchGraphParams.none())
 
     /** @see fetchGraph */
+    @MustBeClosed
     fun fetchGraph(
         taskId: String,
         params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ClusterFetchGraphResponse =
-        fetchGraph(params.toBuilder().taskId(taskId).build(), requestOptions)
+    ): HttpResponse = fetchGraph(params.toBuilder().taskId(taskId).build(), requestOptions)
 
     /** @see fetchGraph */
+    @MustBeClosed
     fun fetchGraph(
         taskId: String,
         params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
-    ): ClusterFetchGraphResponse = fetchGraph(taskId, params, RequestOptions.none())
+    ): HttpResponse = fetchGraph(taskId, params, RequestOptions.none())
 
     /** @see fetchGraph */
+    @MustBeClosed
     fun fetchGraph(
         params: ClusterFetchGraphParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ClusterFetchGraphResponse
+    ): HttpResponse
 
     /** @see fetchGraph */
-    fun fetchGraph(params: ClusterFetchGraphParams): ClusterFetchGraphResponse =
+    @MustBeClosed
+    fun fetchGraph(params: ClusterFetchGraphParams): HttpResponse =
         fetchGraph(params, RequestOptions.none())
 
     /** @see fetchGraph */
-    fun fetchGraph(taskId: String, requestOptions: RequestOptions): ClusterFetchGraphResponse =
+    @MustBeClosed
+    fun fetchGraph(taskId: String, requestOptions: RequestOptions): HttpResponse =
         fetchGraph(taskId, ClusterFetchGraphParams.none(), requestOptions)
 
     /** A view of [ClusterService] that provides access to raw HTTP responses for each method. */
@@ -289,7 +293,7 @@ interface ClusterService {
          * same as [ClusterService.fetchGraph].
          */
         @MustBeClosed
-        fun fetchGraph(taskId: String): HttpResponseFor<ClusterFetchGraphResponse> =
+        fun fetchGraph(taskId: String): HttpResponse =
             fetchGraph(taskId, ClusterFetchGraphParams.none())
 
         /** @see fetchGraph */
@@ -298,36 +302,30 @@ interface ClusterService {
             taskId: String,
             params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ClusterFetchGraphResponse> =
-            fetchGraph(params.toBuilder().taskId(taskId).build(), requestOptions)
+        ): HttpResponse = fetchGraph(params.toBuilder().taskId(taskId).build(), requestOptions)
 
         /** @see fetchGraph */
         @MustBeClosed
         fun fetchGraph(
             taskId: String,
             params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
-        ): HttpResponseFor<ClusterFetchGraphResponse> =
-            fetchGraph(taskId, params, RequestOptions.none())
+        ): HttpResponse = fetchGraph(taskId, params, RequestOptions.none())
 
         /** @see fetchGraph */
         @MustBeClosed
         fun fetchGraph(
             params: ClusterFetchGraphParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ClusterFetchGraphResponse>
+        ): HttpResponse
 
         /** @see fetchGraph */
         @MustBeClosed
-        fun fetchGraph(
-            params: ClusterFetchGraphParams
-        ): HttpResponseFor<ClusterFetchGraphResponse> = fetchGraph(params, RequestOptions.none())
+        fun fetchGraph(params: ClusterFetchGraphParams): HttpResponse =
+            fetchGraph(params, RequestOptions.none())
 
         /** @see fetchGraph */
         @MustBeClosed
-        fun fetchGraph(
-            taskId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ClusterFetchGraphResponse> =
+        fun fetchGraph(taskId: String, requestOptions: RequestOptions): HttpResponse =
             fetchGraph(taskId, ClusterFetchGraphParams.none(), requestOptions)
     }
 }

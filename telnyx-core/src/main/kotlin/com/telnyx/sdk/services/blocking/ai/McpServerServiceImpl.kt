@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -19,7 +20,6 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
@@ -69,12 +69,10 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
         // get /ai/mcp_servers
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: McpServerDeleteParams,
-        requestOptions: RequestOptions,
-    ): McpServerDeleteResponse =
+    override fun delete(params: McpServerDeleteParams, requestOptions: RequestOptions) {
         // delete /ai/mcp_servers/{mcp_server_id}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().delete(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         McpServerService.WithRawResponse {
@@ -205,13 +203,12 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val deleteHandler: Handler<McpServerDeleteResponse> =
-            jsonHandler<McpServerDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: McpServerDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<McpServerDeleteResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("mcpServerId", params.mcpServerId().getOrNull())
@@ -226,13 +223,7 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
     }

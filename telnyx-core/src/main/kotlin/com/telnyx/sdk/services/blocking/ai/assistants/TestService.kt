@@ -5,11 +5,11 @@ package com.telnyx.sdk.services.blocking.ai.assistants
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.tests.AssistantTest
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestListResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestRetrieveParams
@@ -120,32 +120,27 @@ interface TestService {
         list(TestListParams.none(), requestOptions)
 
     /** Permanently removes an assistant test and all associated data */
-    fun delete(testId: String): TestDeleteResponse = delete(testId, TestDeleteParams.none())
+    fun delete(testId: String) = delete(testId, TestDeleteParams.none())
 
     /** @see delete */
     fun delete(
         testId: String,
         params: TestDeleteParams = TestDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TestDeleteResponse = delete(params.toBuilder().testId(testId).build(), requestOptions)
+    ) = delete(params.toBuilder().testId(testId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        testId: String,
-        params: TestDeleteParams = TestDeleteParams.none(),
-    ): TestDeleteResponse = delete(testId, params, RequestOptions.none())
+    fun delete(testId: String, params: TestDeleteParams = TestDeleteParams.none()) =
+        delete(testId, params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        params: TestDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): TestDeleteResponse
+    fun delete(params: TestDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(params: TestDeleteParams): TestDeleteResponse = delete(params, RequestOptions.none())
+    fun delete(params: TestDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(testId: String, requestOptions: RequestOptions): TestDeleteResponse =
+    fun delete(testId: String, requestOptions: RequestOptions) =
         delete(testId, TestDeleteParams.none(), requestOptions)
 
     /** A view of [TestService] that provides access to raw HTTP responses for each method. */
@@ -291,8 +286,7 @@ interface TestService {
          * the same as [TestService.delete].
          */
         @MustBeClosed
-        fun delete(testId: String): HttpResponseFor<TestDeleteResponse> =
-            delete(testId, TestDeleteParams.none())
+        fun delete(testId: String): HttpResponse = delete(testId, TestDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
@@ -300,34 +294,29 @@ interface TestService {
             testId: String,
             params: TestDeleteParams = TestDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TestDeleteResponse> =
-            delete(params.toBuilder().testId(testId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().testId(testId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             testId: String,
             params: TestDeleteParams = TestDeleteParams.none(),
-        ): HttpResponseFor<TestDeleteResponse> = delete(testId, params, RequestOptions.none())
+        ): HttpResponse = delete(testId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: TestDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TestDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: TestDeleteParams): HttpResponseFor<TestDeleteResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(params: TestDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            testId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<TestDeleteResponse> =
+        fun delete(testId: String, requestOptions: RequestOptions): HttpResponse =
             delete(testId, TestDeleteParams.none(), requestOptions)
     }
 }

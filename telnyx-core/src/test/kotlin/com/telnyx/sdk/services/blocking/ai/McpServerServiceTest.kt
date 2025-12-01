@@ -114,8 +114,6 @@ internal class McpServerServiceTest {
                 .build()
         val mcpServerService = client.ai().mcpServers()
 
-        val mcpServer = mcpServerService.delete("mcp_server_id")
-
-        mcpServer.validate()
+        mcpServerService.delete("mcp_server_id")
     }
 }

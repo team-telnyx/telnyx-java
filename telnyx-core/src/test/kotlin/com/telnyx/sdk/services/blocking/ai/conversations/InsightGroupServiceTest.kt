@@ -63,9 +63,7 @@ internal class InsightGroupServiceTest {
                 .build()
         val insightGroupService = client.ai().conversations().insightGroups()
 
-        val insightGroup = insightGroupService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-
-        insightGroup.validate()
+        insightGroupService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 
     @Disabled("Prism tests are disabled")

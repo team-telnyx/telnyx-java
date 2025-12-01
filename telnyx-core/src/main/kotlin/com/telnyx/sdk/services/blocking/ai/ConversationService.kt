@@ -9,7 +9,6 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.Conversation
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
-import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageResponse
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
 import com.telnyx.sdk.models.ai.conversations.ConversationDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
@@ -186,28 +185,24 @@ interface ConversationService {
      * Add a new message to the conversation. Used to insert a new messages to a conversation
      * manually ( without using chat endpoint )
      */
-    fun addMessage(
-        conversationId: String,
-        params: ConversationAddMessageParams,
-    ): ConversationAddMessageResponse = addMessage(conversationId, params, RequestOptions.none())
+    fun addMessage(conversationId: String, params: ConversationAddMessageParams) =
+        addMessage(conversationId, params, RequestOptions.none())
 
     /** @see addMessage */
     fun addMessage(
         conversationId: String,
         params: ConversationAddMessageParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConversationAddMessageResponse =
-        addMessage(params.toBuilder().conversationId(conversationId).build(), requestOptions)
+    ) = addMessage(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
     /** @see addMessage */
-    fun addMessage(params: ConversationAddMessageParams): ConversationAddMessageResponse =
-        addMessage(params, RequestOptions.none())
+    fun addMessage(params: ConversationAddMessageParams) = addMessage(params, RequestOptions.none())
 
     /** @see addMessage */
     fun addMessage(
         params: ConversationAddMessageParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConversationAddMessageResponse
+    )
 
     /** Retrieve insights for a specific conversation */
     fun retrieveConversationsInsights(
@@ -468,10 +463,7 @@ interface ConversationService {
          * is otherwise the same as [ConversationService.addMessage].
          */
         @MustBeClosed
-        fun addMessage(
-            conversationId: String,
-            params: ConversationAddMessageParams,
-        ): HttpResponseFor<ConversationAddMessageResponse> =
+        fun addMessage(conversationId: String, params: ConversationAddMessageParams): HttpResponse =
             addMessage(conversationId, params, RequestOptions.none())
 
         /** @see addMessage */
@@ -480,14 +472,12 @@ interface ConversationService {
             conversationId: String,
             params: ConversationAddMessageParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConversationAddMessageResponse> =
+        ): HttpResponse =
             addMessage(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
         /** @see addMessage */
         @MustBeClosed
-        fun addMessage(
-            params: ConversationAddMessageParams
-        ): HttpResponseFor<ConversationAddMessageResponse> =
+        fun addMessage(params: ConversationAddMessageParams): HttpResponse =
             addMessage(params, RequestOptions.none())
 
         /** @see addMessage */
@@ -495,7 +485,7 @@ interface ConversationService {
         fun addMessage(
             params: ConversationAddMessageParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConversationAddMessageResponse>
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `get

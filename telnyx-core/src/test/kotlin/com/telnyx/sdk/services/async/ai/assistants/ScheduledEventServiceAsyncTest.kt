@@ -106,7 +106,7 @@ internal class ScheduledEventServiceAsyncTest {
                 .build()
         val scheduledEventServiceAsync = client.ai().assistants().scheduledEvents()
 
-        val scheduledEventFuture =
+        val future =
             scheduledEventServiceAsync.delete(
                 ScheduledEventDeleteParams.builder()
                     .assistantId("assistant_id")
@@ -114,7 +114,6 @@ internal class ScheduledEventServiceAsyncTest {
                     .build()
             )
 
-        val scheduledEvent = scheduledEventFuture.get()
-        scheduledEvent.validate()
+        val response = future.get()
     }
 }

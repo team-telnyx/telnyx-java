@@ -4,10 +4,10 @@ package com.telnyx.sdk.services.async.ai.conversations
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
@@ -129,7 +129,7 @@ interface InsightServiceAsync {
         list(InsightListParams.none(), requestOptions)
 
     /** Delete insight by ID */
-    fun delete(insightId: String): CompletableFuture<InsightDeleteResponse> =
+    fun delete(insightId: String): CompletableFuture<Void?> =
         delete(insightId, InsightDeleteParams.none())
 
     /** @see delete */
@@ -137,30 +137,27 @@ interface InsightServiceAsync {
         insightId: String,
         params: InsightDeleteParams = InsightDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightDeleteResponse> =
+    ): CompletableFuture<Void?> =
         delete(params.toBuilder().insightId(insightId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         insightId: String,
         params: InsightDeleteParams = InsightDeleteParams.none(),
-    ): CompletableFuture<InsightDeleteResponse> = delete(insightId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(insightId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: InsightDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(params: InsightDeleteParams): CompletableFuture<InsightDeleteResponse> =
+    fun delete(params: InsightDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        insightId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<InsightDeleteResponse> =
+    fun delete(insightId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(insightId, InsightDeleteParams.none(), requestOptions)
 
     /**
@@ -303,7 +300,7 @@ interface InsightServiceAsync {
          * Returns a raw HTTP response for `delete /ai/conversations/insights/{insight_id}`, but is
          * otherwise the same as [InsightServiceAsync.delete].
          */
-        fun delete(insightId: String): CompletableFuture<HttpResponseFor<InsightDeleteResponse>> =
+        fun delete(insightId: String): CompletableFuture<HttpResponse> =
             delete(insightId, InsightDeleteParams.none())
 
         /** @see delete */
@@ -311,33 +308,30 @@ interface InsightServiceAsync {
             insightId: String,
             params: InsightDeleteParams = InsightDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().insightId(insightId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             insightId: String,
             params: InsightDeleteParams = InsightDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<InsightDeleteResponse>> =
-            delete(insightId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(insightId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: InsightDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: InsightDeleteParams
-        ): CompletableFuture<HttpResponseFor<InsightDeleteResponse>> =
+        fun delete(params: InsightDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             insightId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InsightDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(insightId, InsightDeleteParams.none(), requestOptions)
     }
 }

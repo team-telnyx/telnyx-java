@@ -103,14 +103,11 @@ internal class ScheduledEventServiceTest {
                 .build()
         val scheduledEventService = client.ai().assistants().scheduledEvents()
 
-        val scheduledEvent =
-            scheduledEventService.delete(
-                ScheduledEventDeleteParams.builder()
-                    .assistantId("assistant_id")
-                    .eventId("event_id")
-                    .build()
-            )
-
-        scheduledEvent.validate()
+        scheduledEventService.delete(
+            ScheduledEventDeleteParams.builder()
+                .assistantId("assistant_id")
+                .eventId("event_id")
+                .build()
+        )
     }
 }

@@ -8,7 +8,6 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.Conversation
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
-import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageResponse
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
 import com.telnyx.sdk.models.ai.conversations.ConversationDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
@@ -199,27 +198,25 @@ interface ConversationServiceAsync {
     fun addMessage(
         conversationId: String,
         params: ConversationAddMessageParams,
-    ): CompletableFuture<ConversationAddMessageResponse> =
-        addMessage(conversationId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = addMessage(conversationId, params, RequestOptions.none())
 
     /** @see addMessage */
     fun addMessage(
         conversationId: String,
         params: ConversationAddMessageParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationAddMessageResponse> =
+    ): CompletableFuture<Void?> =
         addMessage(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
     /** @see addMessage */
-    fun addMessage(
-        params: ConversationAddMessageParams
-    ): CompletableFuture<ConversationAddMessageResponse> = addMessage(params, RequestOptions.none())
+    fun addMessage(params: ConversationAddMessageParams): CompletableFuture<Void?> =
+        addMessage(params, RequestOptions.none())
 
     /** @see addMessage */
     fun addMessage(
         params: ConversationAddMessageParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationAddMessageResponse>
+    ): CompletableFuture<Void?>
 
     /** Retrieve insights for a specific conversation */
     fun retrieveConversationsInsights(
@@ -474,7 +471,7 @@ interface ConversationServiceAsync {
         fun addMessage(
             conversationId: String,
             params: ConversationAddMessageParams,
-        ): CompletableFuture<HttpResponseFor<ConversationAddMessageResponse>> =
+        ): CompletableFuture<HttpResponse> =
             addMessage(conversationId, params, RequestOptions.none())
 
         /** @see addMessage */
@@ -482,20 +479,18 @@ interface ConversationServiceAsync {
             conversationId: String,
             params: ConversationAddMessageParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationAddMessageResponse>> =
+        ): CompletableFuture<HttpResponse> =
             addMessage(params.toBuilder().conversationId(conversationId).build(), requestOptions)
 
         /** @see addMessage */
-        fun addMessage(
-            params: ConversationAddMessageParams
-        ): CompletableFuture<HttpResponseFor<ConversationAddMessageResponse>> =
+        fun addMessage(params: ConversationAddMessageParams): CompletableFuture<HttpResponse> =
             addMessage(params, RequestOptions.none())
 
         /** @see addMessage */
         fun addMessage(
             params: ConversationAddMessageParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationAddMessageResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `get

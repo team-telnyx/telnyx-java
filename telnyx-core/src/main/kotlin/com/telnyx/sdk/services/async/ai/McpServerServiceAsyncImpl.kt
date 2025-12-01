@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -19,7 +20,6 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
@@ -73,9 +73,9 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun delete(
         params: McpServerDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<McpServerDeleteResponse> =
+    ): CompletableFuture<Void?> =
         // delete /ai/mcp_servers/{mcp_server_id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         McpServerServiceAsync.WithRawResponse {
@@ -218,13 +218,12 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val deleteHandler: Handler<McpServerDeleteResponse> =
-            jsonHandler<McpServerDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: McpServerDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<McpServerDeleteResponse>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("mcpServerId", params.mcpServerId().getOrNull())
@@ -241,13 +240,7 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

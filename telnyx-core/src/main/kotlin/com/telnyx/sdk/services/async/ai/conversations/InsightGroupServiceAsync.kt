@@ -4,9 +4,9 @@ package com.telnyx.sdk.services.async.ai.conversations
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsResponse
@@ -107,7 +107,7 @@ interface InsightGroupServiceAsync {
         update(groupId, InsightGroupUpdateParams.none(), requestOptions)
 
     /** Delete insight group by ID */
-    fun delete(groupId: String): CompletableFuture<InsightGroupDeleteResponse> =
+    fun delete(groupId: String): CompletableFuture<Void?> =
         delete(groupId, InsightGroupDeleteParams.none())
 
     /** @see delete */
@@ -115,31 +115,27 @@ interface InsightGroupServiceAsync {
         groupId: String,
         params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightGroupDeleteResponse> =
+    ): CompletableFuture<Void?> =
         delete(params.toBuilder().groupId(groupId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         groupId: String,
         params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
-    ): CompletableFuture<InsightGroupDeleteResponse> =
-        delete(groupId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(groupId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: InsightGroupDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightGroupDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(params: InsightGroupDeleteParams): CompletableFuture<InsightGroupDeleteResponse> =
+    fun delete(params: InsightGroupDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        groupId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<InsightGroupDeleteResponse> =
+    fun delete(groupId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(groupId, InsightGroupDeleteParams.none(), requestOptions)
 
     /** Create a new insight group */
@@ -284,9 +280,7 @@ interface InsightGroupServiceAsync {
          * Returns a raw HTTP response for `delete /ai/conversations/insight-groups/{group_id}`, but
          * is otherwise the same as [InsightGroupServiceAsync.delete].
          */
-        fun delete(
-            groupId: String
-        ): CompletableFuture<HttpResponseFor<InsightGroupDeleteResponse>> =
+        fun delete(groupId: String): CompletableFuture<HttpResponse> =
             delete(groupId, InsightGroupDeleteParams.none())
 
         /** @see delete */
@@ -294,33 +288,30 @@ interface InsightGroupServiceAsync {
             groupId: String,
             params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightGroupDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().groupId(groupId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             groupId: String,
             params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<InsightGroupDeleteResponse>> =
-            delete(groupId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(groupId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: InsightGroupDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightGroupDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: InsightGroupDeleteParams
-        ): CompletableFuture<HttpResponseFor<InsightGroupDeleteResponse>> =
+        fun delete(params: InsightGroupDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             groupId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InsightGroupDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(groupId, InsightGroupDeleteParams.none(), requestOptions)
 
         /**

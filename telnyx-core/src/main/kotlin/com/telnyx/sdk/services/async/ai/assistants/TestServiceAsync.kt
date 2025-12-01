@@ -4,11 +4,11 @@ package com.telnyx.sdk.services.async.ai.assistants
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.tests.AssistantTest
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestListResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestRetrieveParams
@@ -128,38 +128,33 @@ interface TestServiceAsync {
         list(TestListParams.none(), requestOptions)
 
     /** Permanently removes an assistant test and all associated data */
-    fun delete(testId: String): CompletableFuture<TestDeleteResponse> =
-        delete(testId, TestDeleteParams.none())
+    fun delete(testId: String): CompletableFuture<Void?> = delete(testId, TestDeleteParams.none())
 
     /** @see delete */
     fun delete(
         testId: String,
         params: TestDeleteParams = TestDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TestDeleteResponse> =
-        delete(params.toBuilder().testId(testId).build(), requestOptions)
+    ): CompletableFuture<Void?> = delete(params.toBuilder().testId(testId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         testId: String,
         params: TestDeleteParams = TestDeleteParams.none(),
-    ): CompletableFuture<TestDeleteResponse> = delete(testId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(testId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: TestDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TestDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(params: TestDeleteParams): CompletableFuture<TestDeleteResponse> =
+    fun delete(params: TestDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        testId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<TestDeleteResponse> =
+    fun delete(testId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(testId, TestDeleteParams.none(), requestOptions)
 
     /** A view of [TestServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -298,7 +293,7 @@ interface TestServiceAsync {
          * Returns a raw HTTP response for `delete /ai/assistants/tests/{test_id}`, but is otherwise
          * the same as [TestServiceAsync.delete].
          */
-        fun delete(testId: String): CompletableFuture<HttpResponseFor<TestDeleteResponse>> =
+        fun delete(testId: String): CompletableFuture<HttpResponse> =
             delete(testId, TestDeleteParams.none())
 
         /** @see delete */
@@ -306,33 +301,29 @@ interface TestServiceAsync {
             testId: String,
             params: TestDeleteParams = TestDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TestDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().testId(testId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             testId: String,
             params: TestDeleteParams = TestDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<TestDeleteResponse>> =
-            delete(testId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(testId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: TestDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TestDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: TestDeleteParams
-        ): CompletableFuture<HttpResponseFor<TestDeleteResponse>> =
+        fun delete(params: TestDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             testId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TestDeleteResponse>> =
-            delete(testId, TestDeleteParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponse> = delete(testId, TestDeleteParams.none(), requestOptions)
     }
 }

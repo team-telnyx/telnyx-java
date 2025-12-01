@@ -10,7 +10,6 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
 import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
@@ -131,7 +130,7 @@ interface ClusterServiceAsync {
     ): CompletableFuture<ClusterComputeResponse>
 
     /** Fetch a cluster visualization */
-    fun fetchGraph(taskId: String): CompletableFuture<ClusterFetchGraphResponse> =
+    fun fetchGraph(taskId: String): CompletableFuture<HttpResponse> =
         fetchGraph(taskId, ClusterFetchGraphParams.none())
 
     /** @see fetchGraph */
@@ -139,31 +138,30 @@ interface ClusterServiceAsync {
         taskId: String,
         params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ClusterFetchGraphResponse> =
+    ): CompletableFuture<HttpResponse> =
         fetchGraph(params.toBuilder().taskId(taskId).build(), requestOptions)
 
     /** @see fetchGraph */
     fun fetchGraph(
         taskId: String,
         params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
-    ): CompletableFuture<ClusterFetchGraphResponse> =
-        fetchGraph(taskId, params, RequestOptions.none())
+    ): CompletableFuture<HttpResponse> = fetchGraph(taskId, params, RequestOptions.none())
 
     /** @see fetchGraph */
     fun fetchGraph(
         params: ClusterFetchGraphParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ClusterFetchGraphResponse>
+    ): CompletableFuture<HttpResponse>
 
     /** @see fetchGraph */
-    fun fetchGraph(params: ClusterFetchGraphParams): CompletableFuture<ClusterFetchGraphResponse> =
+    fun fetchGraph(params: ClusterFetchGraphParams): CompletableFuture<HttpResponse> =
         fetchGraph(params, RequestOptions.none())
 
     /** @see fetchGraph */
     fun fetchGraph(
         taskId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ClusterFetchGraphResponse> =
+    ): CompletableFuture<HttpResponse> =
         fetchGraph(taskId, ClusterFetchGraphParams.none(), requestOptions)
 
     /**
@@ -303,9 +301,7 @@ interface ClusterServiceAsync {
          * Returns a raw HTTP response for `get /ai/clusters/{task_id}/graph`, but is otherwise the
          * same as [ClusterServiceAsync.fetchGraph].
          */
-        fun fetchGraph(
-            taskId: String
-        ): CompletableFuture<HttpResponseFor<ClusterFetchGraphResponse>> =
+        fun fetchGraph(taskId: String): CompletableFuture<HttpResponse> =
             fetchGraph(taskId, ClusterFetchGraphParams.none())
 
         /** @see fetchGraph */
@@ -313,33 +309,30 @@ interface ClusterServiceAsync {
             taskId: String,
             params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ClusterFetchGraphResponse>> =
+        ): CompletableFuture<HttpResponse> =
             fetchGraph(params.toBuilder().taskId(taskId).build(), requestOptions)
 
         /** @see fetchGraph */
         fun fetchGraph(
             taskId: String,
             params: ClusterFetchGraphParams = ClusterFetchGraphParams.none(),
-        ): CompletableFuture<HttpResponseFor<ClusterFetchGraphResponse>> =
-            fetchGraph(taskId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = fetchGraph(taskId, params, RequestOptions.none())
 
         /** @see fetchGraph */
         fun fetchGraph(
             params: ClusterFetchGraphParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ClusterFetchGraphResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see fetchGraph */
-        fun fetchGraph(
-            params: ClusterFetchGraphParams
-        ): CompletableFuture<HttpResponseFor<ClusterFetchGraphResponse>> =
+        fun fetchGraph(params: ClusterFetchGraphParams): CompletableFuture<HttpResponse> =
             fetchGraph(params, RequestOptions.none())
 
         /** @see fetchGraph */
         fun fetchGraph(
             taskId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ClusterFetchGraphResponse>> =
+        ): CompletableFuture<HttpResponse> =
             fetchGraph(taskId, ClusterFetchGraphParams.none(), requestOptions)
     }
 }

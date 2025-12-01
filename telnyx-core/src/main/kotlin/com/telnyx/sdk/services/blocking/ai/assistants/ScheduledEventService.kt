@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.blocking.ai.assistants
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventResponse
@@ -109,7 +109,7 @@ interface ScheduledEventService {
      * If the event is pending, this will cancel the event. Otherwise, this will simply remove the
      * record of the event.
      */
-    fun delete(eventId: String, params: ScheduledEventDeleteParams): ScheduledEventDeleteResponse =
+    fun delete(eventId: String, params: ScheduledEventDeleteParams) =
         delete(eventId, params, RequestOptions.none())
 
     /** @see delete */
@@ -117,18 +117,16 @@ interface ScheduledEventService {
         eventId: String,
         params: ScheduledEventDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ScheduledEventDeleteResponse =
-        delete(params.toBuilder().eventId(eventId).build(), requestOptions)
+    ) = delete(params.toBuilder().eventId(eventId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(params: ScheduledEventDeleteParams): ScheduledEventDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: ScheduledEventDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: ScheduledEventDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ScheduledEventDeleteResponse
+    )
 
     /**
      * A view of [ScheduledEventService] that provides access to raw HTTP responses for each method.
@@ -261,10 +259,7 @@ interface ScheduledEventService {
          * [ScheduledEventService.delete].
          */
         @MustBeClosed
-        fun delete(
-            eventId: String,
-            params: ScheduledEventDeleteParams,
-        ): HttpResponseFor<ScheduledEventDeleteResponse> =
+        fun delete(eventId: String, params: ScheduledEventDeleteParams): HttpResponse =
             delete(eventId, params, RequestOptions.none())
 
         /** @see delete */
@@ -273,20 +268,18 @@ interface ScheduledEventService {
             eventId: String,
             params: ScheduledEventDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ScheduledEventDeleteResponse> =
-            delete(params.toBuilder().eventId(eventId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().eventId(eventId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            params: ScheduledEventDeleteParams
-        ): HttpResponseFor<ScheduledEventDeleteResponse> = delete(params, RequestOptions.none())
+        fun delete(params: ScheduledEventDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: ScheduledEventDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ScheduledEventDeleteResponse>
+        ): HttpResponse
     }
 }

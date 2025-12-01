@@ -5,11 +5,11 @@ package com.telnyx.sdk.services.blocking.ai
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
@@ -125,35 +125,30 @@ interface McpServerService {
         list(McpServerListParams.none(), requestOptions)
 
     /** Delete a specific MCP server. */
-    fun delete(mcpServerId: String): McpServerDeleteResponse =
-        delete(mcpServerId, McpServerDeleteParams.none())
+    fun delete(mcpServerId: String) = delete(mcpServerId, McpServerDeleteParams.none())
 
     /** @see delete */
     fun delete(
         mcpServerId: String,
         params: McpServerDeleteParams = McpServerDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): McpServerDeleteResponse =
-        delete(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
+    ) = delete(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        mcpServerId: String,
-        params: McpServerDeleteParams = McpServerDeleteParams.none(),
-    ): McpServerDeleteResponse = delete(mcpServerId, params, RequestOptions.none())
+    fun delete(mcpServerId: String, params: McpServerDeleteParams = McpServerDeleteParams.none()) =
+        delete(mcpServerId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: McpServerDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): McpServerDeleteResponse
+    )
 
     /** @see delete */
-    fun delete(params: McpServerDeleteParams): McpServerDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: McpServerDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(mcpServerId: String, requestOptions: RequestOptions): McpServerDeleteResponse =
+    fun delete(mcpServerId: String, requestOptions: RequestOptions) =
         delete(mcpServerId, McpServerDeleteParams.none(), requestOptions)
 
     /** A view of [McpServerService] that provides access to raw HTTP responses for each method. */
@@ -301,7 +296,7 @@ interface McpServerService {
          * otherwise the same as [McpServerService.delete].
          */
         @MustBeClosed
-        fun delete(mcpServerId: String): HttpResponseFor<McpServerDeleteResponse> =
+        fun delete(mcpServerId: String): HttpResponse =
             delete(mcpServerId, McpServerDeleteParams.none())
 
         /** @see delete */
@@ -310,7 +305,7 @@ interface McpServerService {
             mcpServerId: String,
             params: McpServerDeleteParams = McpServerDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<McpServerDeleteResponse> =
+        ): HttpResponse =
             delete(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
         /** @see delete */
@@ -318,27 +313,23 @@ interface McpServerService {
         fun delete(
             mcpServerId: String,
             params: McpServerDeleteParams = McpServerDeleteParams.none(),
-        ): HttpResponseFor<McpServerDeleteResponse> =
-            delete(mcpServerId, params, RequestOptions.none())
+        ): HttpResponse = delete(mcpServerId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: McpServerDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<McpServerDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: McpServerDeleteParams): HttpResponseFor<McpServerDeleteResponse> =
+        fun delete(params: McpServerDeleteParams): HttpResponse =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            mcpServerId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<McpServerDeleteResponse> =
+        fun delete(mcpServerId: String, requestOptions: RequestOptions): HttpResponse =
             delete(mcpServerId, McpServerDeleteParams.none(), requestOptions)
     }
 }

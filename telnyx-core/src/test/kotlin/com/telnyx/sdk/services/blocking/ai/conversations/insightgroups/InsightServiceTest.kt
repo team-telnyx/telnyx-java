@@ -23,15 +23,12 @@ internal class InsightServiceTest {
                 .build()
         val insightService = client.ai().conversations().insightGroups().insights()
 
-        val response =
-            insightService.assign(
-                InsightAssignParams.builder()
-                    .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .insightId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .build()
-            )
-
-        response.validate()
+        insightService.assign(
+            InsightAssignParams.builder()
+                .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .insightId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .build()
+        )
     }
 
     @Disabled("Prism tests are disabled")
@@ -44,14 +41,11 @@ internal class InsightServiceTest {
                 .build()
         val insightService = client.ai().conversations().insightGroups().insights()
 
-        val response =
-            insightService.deleteUnassign(
-                InsightDeleteUnassignParams.builder()
-                    .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .insightId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .build()
-            )
-
-        response.validate()
+        insightService.deleteUnassign(
+            InsightDeleteUnassignParams.builder()
+                .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .insightId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .build()
+        )
     }
 }
