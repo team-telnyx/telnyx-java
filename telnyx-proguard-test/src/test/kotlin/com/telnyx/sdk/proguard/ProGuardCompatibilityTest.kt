@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.SubNumberOrderRegulatoryRequirementWithValue
 import com.telnyx.sdk.models.calls.StreamBidirectionalCodec
 import com.telnyx.sdk.models.numberorders.NumberOrderWithPhoneNumbers
 import com.telnyx.sdk.models.numberorders.PhoneNumber
+import com.telnyx.sdk.models.webhooks.CampaignStatusUpdateEvent
 import com.telnyx.sdk.models.webhooks.CampaignStatusUpdateWebhookEvent
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -246,7 +247,7 @@ internal class ProGuardCompatibilityTest {
         val jsonMapper = jsonMapper()
         val campaignStatusUpdateWebhookEvent =
             CampaignStatusUpdateWebhookEvent.ofCampaignStatusUpdateEvent(
-                CampaignStatusUpdateWebhookEvent.CampaignStatusUpdateEvent.builder()
+                CampaignStatusUpdateEvent.builder()
                     .brandId("d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5")
                     .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                     .createDate("createDate")
