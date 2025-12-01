@@ -111,9 +111,8 @@ internal class InsightServiceAsyncTest {
                 .build()
         val insightServiceAsync = client.ai().conversations().insights()
 
-        val insightFuture = insightServiceAsync.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val future = insightServiceAsync.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val insight = insightFuture.get()
-        insight.validate()
+        val response = future.get()
     }
 }

@@ -18,7 +18,6 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
@@ -99,7 +98,7 @@ interface AssistantServiceAsync {
         retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
     /** Update an AI Assistant's attributes. */
-    fun update(assistantId: String): CompletableFuture<AssistantUpdateResponse> =
+    fun update(assistantId: String): CompletableFuture<InferenceEmbedding> =
         update(assistantId, AssistantUpdateParams.none())
 
     /** @see update */
@@ -107,31 +106,30 @@ interface AssistantServiceAsync {
         assistantId: String,
         params: AssistantUpdateParams = AssistantUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssistantUpdateResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         update(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see update */
     fun update(
         assistantId: String,
         params: AssistantUpdateParams = AssistantUpdateParams.none(),
-    ): CompletableFuture<AssistantUpdateResponse> =
-        update(assistantId, params, RequestOptions.none())
+    ): CompletableFuture<InferenceEmbedding> = update(assistantId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: AssistantUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssistantUpdateResponse>
+    ): CompletableFuture<InferenceEmbedding>
 
     /** @see update */
-    fun update(params: AssistantUpdateParams): CompletableFuture<AssistantUpdateResponse> =
+    fun update(params: AssistantUpdateParams): CompletableFuture<InferenceEmbedding> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         assistantId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssistantUpdateResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         update(assistantId, AssistantUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of all AI Assistants configured by the user. */
@@ -420,9 +418,7 @@ interface AssistantServiceAsync {
          * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}`, but is otherwise
          * the same as [AssistantServiceAsync.update].
          */
-        fun update(
-            assistantId: String
-        ): CompletableFuture<HttpResponseFor<AssistantUpdateResponse>> =
+        fun update(assistantId: String): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(assistantId, AssistantUpdateParams.none())
 
         /** @see update */
@@ -430,33 +426,33 @@ interface AssistantServiceAsync {
             assistantId: String,
             params: AssistantUpdateParams = AssistantUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see update */
         fun update(
             assistantId: String,
             params: AssistantUpdateParams = AssistantUpdateParams.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(assistantId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: AssistantUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssistantUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
 
         /** @see update */
         fun update(
             params: AssistantUpdateParams
-        ): CompletableFuture<HttpResponseFor<AssistantUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssistantUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
             update(assistantId, AssistantUpdateParams.none(), requestOptions)
 
         /**

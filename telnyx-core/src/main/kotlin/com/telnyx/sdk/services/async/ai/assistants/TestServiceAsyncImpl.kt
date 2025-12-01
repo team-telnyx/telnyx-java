@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.assistants
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -19,7 +20,6 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.assistants.tests.AssistantTest
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestListResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestRetrieveParams
@@ -85,9 +85,9 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun delete(
         params: TestDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TestDeleteResponse> =
+    ): CompletableFuture<Void?> =
         // delete /ai/assistants/tests/{test_id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TestServiceAsync.WithRawResponse {
@@ -242,13 +242,12 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val deleteHandler: Handler<TestDeleteResponse> =
-            jsonHandler<TestDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: TestDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TestDeleteResponse>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("testId", params.testId().getOrNull())
@@ -265,13 +264,7 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

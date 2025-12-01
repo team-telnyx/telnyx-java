@@ -30,7 +30,6 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
@@ -99,7 +98,7 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
     override fun update(
         params: AssistantUpdateParams,
         requestOptions: RequestOptions,
-    ): AssistantUpdateResponse =
+    ): InferenceEmbedding =
         // post /ai/assistants/{assistant_id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -247,13 +246,13 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val updateHandler: Handler<AssistantUpdateResponse> =
-            jsonHandler<AssistantUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun update(
             params: AssistantUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssistantUpdateResponse> {
+        ): HttpResponseFor<InferenceEmbedding> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("assistantId", params.assistantId().getOrNull())

@@ -118,9 +118,8 @@ internal class McpServerServiceAsyncTest {
                 .build()
         val mcpServerServiceAsync = client.ai().mcpServers()
 
-        val mcpServerFuture = mcpServerServiceAsync.delete("mcp_server_id")
+        val future = mcpServerServiceAsync.delete("mcp_server_id")
 
-        val mcpServer = mcpServerFuture.get()
-        mcpServer.validate()
+        val response = future.get()
     }
 }

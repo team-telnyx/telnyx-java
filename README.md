@@ -258,9 +258,9 @@ These methods return [`HttpResponse`](telnyx-core/src/main/kotlin/com/telnyx/sdk
 
 ```java
 import com.telnyx.sdk.core.http.HttpResponse;
-import com.telnyx.sdk.models.documents.DocumentDownloadParams;
+import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams;
 
-HttpResponse response = client.documents().download("6a09cdc3-8948-47f0-aa62-74ac943d6c58");
+HttpResponse response = client.ai().clusters().fetchGraph("task_id");
 ```
 
 To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
@@ -271,7 +271,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-try (HttpResponse response = client.documents().download(params)) {
+try (HttpResponse response = client.ai().clusters().fetchGraph(params)) {
     Files.copy(
         response.body(),
         Paths.get(path),
@@ -290,7 +290,7 @@ import com.telnyx.sdk.core.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-try (HttpResponse response = client.documents().download(params)) {
+try (HttpResponse response = client.ai().clusters().fetchGraph(params)) {
     response.body().transferTo(Files.newOutputStream(Paths.get(path)));
 } catch (Exception e) {
     System.out.println("Something went wrong!");

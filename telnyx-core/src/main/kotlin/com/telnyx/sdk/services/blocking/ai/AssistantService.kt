@@ -19,7 +19,6 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
@@ -96,7 +95,7 @@ interface AssistantService {
         retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
     /** Update an AI Assistant's attributes. */
-    fun update(assistantId: String): AssistantUpdateResponse =
+    fun update(assistantId: String): InferenceEmbedding =
         update(assistantId, AssistantUpdateParams.none())
 
     /** @see update */
@@ -104,27 +103,27 @@ interface AssistantService {
         assistantId: String,
         params: AssistantUpdateParams = AssistantUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantUpdateResponse =
+    ): InferenceEmbedding =
         update(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see update */
     fun update(
         assistantId: String,
         params: AssistantUpdateParams = AssistantUpdateParams.none(),
-    ): AssistantUpdateResponse = update(assistantId, params, RequestOptions.none())
+    ): InferenceEmbedding = update(assistantId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: AssistantUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantUpdateResponse
+    ): InferenceEmbedding
 
     /** @see update */
-    fun update(params: AssistantUpdateParams): AssistantUpdateResponse =
+    fun update(params: AssistantUpdateParams): InferenceEmbedding =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(assistantId: String, requestOptions: RequestOptions): AssistantUpdateResponse =
+    fun update(assistantId: String, requestOptions: RequestOptions): InferenceEmbedding =
         update(assistantId, AssistantUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of all AI Assistants configured by the user. */
@@ -399,7 +398,7 @@ interface AssistantService {
          * the same as [AssistantService.update].
          */
         @MustBeClosed
-        fun update(assistantId: String): HttpResponseFor<AssistantUpdateResponse> =
+        fun update(assistantId: String): HttpResponseFor<InferenceEmbedding> =
             update(assistantId, AssistantUpdateParams.none())
 
         /** @see update */
@@ -408,7 +407,7 @@ interface AssistantService {
             assistantId: String,
             params: AssistantUpdateParams = AssistantUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantUpdateResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             update(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see update */
@@ -416,19 +415,18 @@ interface AssistantService {
         fun update(
             assistantId: String,
             params: AssistantUpdateParams = AssistantUpdateParams.none(),
-        ): HttpResponseFor<AssistantUpdateResponse> =
-            update(assistantId, params, RequestOptions.none())
+        ): HttpResponseFor<InferenceEmbedding> = update(assistantId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: AssistantUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantUpdateResponse>
+        ): HttpResponseFor<InferenceEmbedding>
 
         /** @see update */
         @MustBeClosed
-        fun update(params: AssistantUpdateParams): HttpResponseFor<AssistantUpdateResponse> =
+        fun update(params: AssistantUpdateParams): HttpResponseFor<InferenceEmbedding> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -436,7 +434,7 @@ interface AssistantService {
         fun update(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssistantUpdateResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             update(assistantId, AssistantUpdateParams.none(), requestOptions)
 
         /**

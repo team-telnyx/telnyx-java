@@ -19,7 +19,6 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.conversations.Conversation
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
-import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageResponse
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
 import com.telnyx.sdk.models.ai.conversations.ConversationDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
@@ -104,9 +103,9 @@ class ConversationServiceAsyncImpl internal constructor(private val clientOption
     override fun addMessage(
         params: ConversationAddMessageParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConversationAddMessageResponse> =
+    ): CompletableFuture<Void?> =
         // post /ai/conversations/{conversation_id}/message
-        withRawResponse().addMessage(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().addMessage(params, requestOptions).thenAccept {}
 
     override fun retrieveConversationsInsights(
         params: ConversationRetrieveConversationsInsightsParams,
@@ -303,13 +302,12 @@ class ConversationServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val addMessageHandler: Handler<ConversationAddMessageResponse> =
-            jsonHandler<ConversationAddMessageResponse>(clientOptions.jsonMapper)
+        private val addMessageHandler: Handler<Void?> = emptyHandler()
 
         override fun addMessage(
             params: ConversationAddMessageParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConversationAddMessageResponse>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conversationId", params.conversationId().getOrNull())
@@ -326,13 +324,7 @@ class ConversationServiceAsyncImpl internal constructor(private val clientOption
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { addMessageHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { addMessageHandler.handle(it) }
                     }
                 }
         }

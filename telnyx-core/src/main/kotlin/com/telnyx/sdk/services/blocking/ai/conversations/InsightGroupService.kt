@@ -5,9 +5,9 @@ package com.telnyx.sdk.services.blocking.ai.conversations
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsResponse
@@ -98,35 +98,32 @@ interface InsightGroupService {
         update(groupId, InsightGroupUpdateParams.none(), requestOptions)
 
     /** Delete insight group by ID */
-    fun delete(groupId: String): InsightGroupDeleteResponse =
-        delete(groupId, InsightGroupDeleteParams.none())
+    fun delete(groupId: String) = delete(groupId, InsightGroupDeleteParams.none())
 
     /** @see delete */
     fun delete(
         groupId: String,
         params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InsightGroupDeleteResponse =
-        delete(params.toBuilder().groupId(groupId).build(), requestOptions)
+    ) = delete(params.toBuilder().groupId(groupId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         groupId: String,
         params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
-    ): InsightGroupDeleteResponse = delete(groupId, params, RequestOptions.none())
+    ) = delete(groupId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: InsightGroupDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InsightGroupDeleteResponse
+    )
 
     /** @see delete */
-    fun delete(params: InsightGroupDeleteParams): InsightGroupDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: InsightGroupDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(groupId: String, requestOptions: RequestOptions): InsightGroupDeleteResponse =
+    fun delete(groupId: String, requestOptions: RequestOptions) =
         delete(groupId, InsightGroupDeleteParams.none(), requestOptions)
 
     /** Create a new insight group */
@@ -275,8 +272,7 @@ interface InsightGroupService {
          * is otherwise the same as [InsightGroupService.delete].
          */
         @MustBeClosed
-        fun delete(groupId: String): HttpResponseFor<InsightGroupDeleteResponse> =
-            delete(groupId, InsightGroupDeleteParams.none())
+        fun delete(groupId: String): HttpResponse = delete(groupId, InsightGroupDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
@@ -284,35 +280,30 @@ interface InsightGroupService {
             groupId: String,
             params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InsightGroupDeleteResponse> =
-            delete(params.toBuilder().groupId(groupId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().groupId(groupId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             groupId: String,
             params: InsightGroupDeleteParams = InsightGroupDeleteParams.none(),
-        ): HttpResponseFor<InsightGroupDeleteResponse> =
-            delete(groupId, params, RequestOptions.none())
+        ): HttpResponse = delete(groupId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: InsightGroupDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InsightGroupDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: InsightGroupDeleteParams): HttpResponseFor<InsightGroupDeleteResponse> =
+        fun delete(params: InsightGroupDeleteParams): HttpResponse =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            groupId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightGroupDeleteResponse> =
+        fun delete(groupId: String, requestOptions: RequestOptions): HttpResponse =
             delete(groupId, InsightGroupDeleteParams.none(), requestOptions)
 
         /**

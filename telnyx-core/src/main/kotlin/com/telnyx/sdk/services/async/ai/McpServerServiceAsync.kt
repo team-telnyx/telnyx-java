@@ -4,11 +4,11 @@ package com.telnyx.sdk.services.async.ai
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
@@ -133,7 +133,7 @@ interface McpServerServiceAsync {
         list(McpServerListParams.none(), requestOptions)
 
     /** Delete a specific MCP server. */
-    fun delete(mcpServerId: String): CompletableFuture<McpServerDeleteResponse> =
+    fun delete(mcpServerId: String): CompletableFuture<Void?> =
         delete(mcpServerId, McpServerDeleteParams.none())
 
     /** @see delete */
@@ -141,31 +141,27 @@ interface McpServerServiceAsync {
         mcpServerId: String,
         params: McpServerDeleteParams = McpServerDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerDeleteResponse> =
+    ): CompletableFuture<Void?> =
         delete(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         mcpServerId: String,
         params: McpServerDeleteParams = McpServerDeleteParams.none(),
-    ): CompletableFuture<McpServerDeleteResponse> =
-        delete(mcpServerId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(mcpServerId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: McpServerDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(params: McpServerDeleteParams): CompletableFuture<McpServerDeleteResponse> =
+    fun delete(params: McpServerDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        mcpServerId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<McpServerDeleteResponse> =
+    fun delete(mcpServerId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(mcpServerId, McpServerDeleteParams.none(), requestOptions)
 
     /**
@@ -312,9 +308,7 @@ interface McpServerServiceAsync {
          * Returns a raw HTTP response for `delete /ai/mcp_servers/{mcp_server_id}`, but is
          * otherwise the same as [McpServerServiceAsync.delete].
          */
-        fun delete(
-            mcpServerId: String
-        ): CompletableFuture<HttpResponseFor<McpServerDeleteResponse>> =
+        fun delete(mcpServerId: String): CompletableFuture<HttpResponse> =
             delete(mcpServerId, McpServerDeleteParams.none())
 
         /** @see delete */
@@ -322,33 +316,30 @@ interface McpServerServiceAsync {
             mcpServerId: String,
             params: McpServerDeleteParams = McpServerDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().mcpServerId(mcpServerId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             mcpServerId: String,
             params: McpServerDeleteParams = McpServerDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerDeleteResponse>> =
-            delete(mcpServerId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(mcpServerId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: McpServerDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: McpServerDeleteParams
-        ): CompletableFuture<HttpResponseFor<McpServerDeleteResponse>> =
+        fun delete(params: McpServerDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             mcpServerId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<McpServerDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(mcpServerId, McpServerDeleteParams.none(), requestOptions)
     }
 }

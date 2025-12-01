@@ -137,9 +137,8 @@ internal class TestServiceAsyncTest {
                 .build()
         val testServiceAsync = client.ai().assistants().tests()
 
-        val testFuture = testServiceAsync.delete("test_id")
+        val future = testServiceAsync.delete("test_id")
 
-        val test = testFuture.get()
-        test.validate()
+        val response = future.get()
     }
 }

@@ -2,17 +2,27 @@
 
 package com.telnyx.sdk.services.blocking.ai
 
+import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
+import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.parallel.ResourceLock
 
 @ExtendWith(TestServerExtension::class)
+@WireMockTest
+@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class ClusterServiceTest {
 
     @Disabled("Prism tests are disabled")
@@ -94,21 +104,21 @@ internal class ClusterServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
     @Test
-    fun fetchGraph() {
+    fun fetchGraph(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .apiKey("My API Key")
                 .build()
         val clusterService = client.ai().clusters()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val response =
             clusterService.fetchGraph(
                 ClusterFetchGraphParams.builder().taskId("task_id").clusterId(0L).build()
             )
 
-        response.validate()
+        assertThat(response.body()).hasContent("abc")
     }
 }
