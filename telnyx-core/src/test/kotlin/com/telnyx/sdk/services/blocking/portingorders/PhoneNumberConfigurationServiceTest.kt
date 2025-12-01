@@ -58,7 +58,7 @@ internal class PhoneNumberConfigurationServiceTest {
                                     .addStatus(
                                         PhoneNumberConfigurationListParams.Filter.PortingOrder
                                             .Status
-                                            .ACTIVATION_IN_PROGRESS
+                                            .IN_PROCESS
                                     )
                                     .build()
                             )

@@ -20,7 +20,7 @@ internal class PortingPhoneNumberListResponseTest {
                         .activationStatus(
                             PortingPhoneNumberListResponse.Data.ActivationStatus.ACTIVE
                         )
-                        .phoneNumber("phone_number")
+                        .phoneNumber("13035550987")
                         .phoneNumberType(PortingPhoneNumberListResponse.Data.PhoneNumberType.LOCAL)
                         .portabilityStatus(
                             PortingPhoneNumberListResponse.Data.PortabilityStatus.CONFIRMED
@@ -50,7 +50,7 @@ internal class PortingPhoneNumberListResponseTest {
             .containsExactly(
                 PortingPhoneNumberListResponse.Data.builder()
                     .activationStatus(PortingPhoneNumberListResponse.Data.ActivationStatus.ACTIVE)
-                    .phoneNumber("phone_number")
+                    .phoneNumber("13035550987")
                     .phoneNumberType(PortingPhoneNumberListResponse.Data.PhoneNumberType.LOCAL)
                     .portabilityStatus(
                         PortingPhoneNumberListResponse.Data.PortabilityStatus.CONFIRMED
@@ -87,7 +87,7 @@ internal class PortingPhoneNumberListResponseTest {
                         .activationStatus(
                             PortingPhoneNumberListResponse.Data.ActivationStatus.ACTIVE
                         )
-                        .phoneNumber("phone_number")
+                        .phoneNumber("13035550987")
                         .phoneNumberType(PortingPhoneNumberListResponse.Data.PhoneNumberType.LOCAL)
                         .portabilityStatus(
                             PortingPhoneNumberListResponse.Data.PortabilityStatus.CONFIRMED

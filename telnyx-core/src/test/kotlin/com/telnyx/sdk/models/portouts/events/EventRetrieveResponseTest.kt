@@ -29,7 +29,7 @@ internal class EventRetrieveResponseTest {
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
                                 .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
+                                .rejectionReason(null)
                                 .spid("987H")
                                 .status(
                                     EventRetrieveResponse.Data.Payload
@@ -65,7 +65,7 @@ internal class EventRetrieveResponseTest {
                             .attemptedPin("1234")
                             .carrierName("Testing Carrier")
                             .addPhoneNumber("+35312345678")
-                            .rejectionReason("rejection_reason")
+                            .rejectionReason(null)
                             .spid("987H")
                             .status(
                                 EventRetrieveResponse.Data.Payload
@@ -105,7 +105,7 @@ internal class EventRetrieveResponseTest {
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
                                 .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
+                                .rejectionReason(null)
                                 .spid("987H")
                                 .status(
                                     EventRetrieveResponse.Data.Payload

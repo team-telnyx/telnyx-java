@@ -1582,8 +1582,15 @@ private constructor(
                      * The reason why the order is being rejected by the user. If the order is
                      * authorized, this field can be left null
                      */
-                    fun rejectionReason(rejectionReason: String) =
-                        rejectionReason(JsonField.of(rejectionReason))
+                    fun rejectionReason(rejectionReason: String?) =
+                        rejectionReason(JsonField.ofNullable(rejectionReason))
+
+                    /**
+                     * Alias for calling [Builder.rejectionReason] with
+                     * `rejectionReason.orElse(null)`.
+                     */
+                    fun rejectionReason(rejectionReason: Optional<String>) =
+                        rejectionReason(rejectionReason.getOrNull())
 
                     /**
                      * Sets [Builder.rejectionReason] to an arbitrary JSON value.

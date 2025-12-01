@@ -17,7 +17,7 @@ internal class PhoneNumberConfigurationListParamsTest {
                         PhoneNumberConfigurationListParams.Filter.PortingOrder.builder()
                             .addStatus(
                                 PhoneNumberConfigurationListParams.Filter.PortingOrder.Status
-                                    .ACTIVATION_IN_PROGRESS
+                                    .IN_PROCESS
                             )
                             .build()
                     )
@@ -44,7 +44,7 @@ internal class PhoneNumberConfigurationListParamsTest {
                             PhoneNumberConfigurationListParams.Filter.PortingOrder.builder()
                                 .addStatus(
                                     PhoneNumberConfigurationListParams.Filter.PortingOrder.Status
-                                        .ACTIVATION_IN_PROGRESS
+                                        .IN_PROCESS
                                 )
                                 .build()
                         )
@@ -65,10 +65,7 @@ internal class PhoneNumberConfigurationListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put(
-                        "filter[porting_order][status]",
-                        listOf("activation-in-progress").joinToString(","),
-                    )
+                    .put("filter[porting_order][status]", listOf("in-process").joinToString(","))
                     .put(
                         "filter[porting_phone_number]",
                         listOf("5d6f7ede-1961-4717-bfb5-db392c5efc2d").joinToString(","),

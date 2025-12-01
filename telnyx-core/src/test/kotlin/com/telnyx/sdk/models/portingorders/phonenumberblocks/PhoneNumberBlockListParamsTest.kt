@@ -27,7 +27,7 @@ internal class PhoneNumberBlockListParamsTest {
             .page(PhoneNumberBlockListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 PhoneNumberBlockListParams.Sort.builder()
-                    .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT_DESC)
+                    .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT)
                     .build()
             )
             .build()
@@ -65,7 +65,7 @@ internal class PhoneNumberBlockListParamsTest {
                 .page(PhoneNumberBlockListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     PhoneNumberBlockListParams.Sort.builder()
-                        .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT_DESC)
+                        .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT)
                         .build()
                 )
                 .build()
@@ -86,7 +86,7 @@ internal class PhoneNumberBlockListParamsTest {
                     .put("filter[support_key]", "sr_a12345")
                     .put("page[number]", "1")
                     .put("page[size]", "1")
-                    .put("sort[value]", "-created_at")
+                    .put("sort[value]", "created_at")
                     .build()
             )
     }

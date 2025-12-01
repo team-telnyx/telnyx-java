@@ -166,8 +166,12 @@ private constructor(
         }
 
         /** Activation status */
-        fun activationStatus(activationStatus: ActivationStatus) =
-            activationStatus(JsonField.of(activationStatus))
+        fun activationStatus(activationStatus: ActivationStatus?) =
+            activationStatus(JsonField.ofNullable(activationStatus))
+
+        /** Alias for calling [Builder.activationStatus] with `activationStatus.orElse(null)`. */
+        fun activationStatus(activationStatus: Optional<ActivationStatus>) =
+            activationStatus(activationStatus.getOrNull())
 
         /**
          * Sets [Builder.activationStatus] to an arbitrary JSON value.
@@ -196,8 +200,12 @@ private constructor(
         }
 
         /** ISO 8601 formatted Date/Time of the FOC date */
-        fun focDatetimeActual(focDatetimeActual: OffsetDateTime) =
-            focDatetimeActual(JsonField.of(focDatetimeActual))
+        fun focDatetimeActual(focDatetimeActual: OffsetDateTime?) =
+            focDatetimeActual(JsonField.ofNullable(focDatetimeActual))
+
+        /** Alias for calling [Builder.focDatetimeActual] with `focDatetimeActual.orElse(null)`. */
+        fun focDatetimeActual(focDatetimeActual: Optional<OffsetDateTime>) =
+            focDatetimeActual(focDatetimeActual.getOrNull())
 
         /**
          * Sets [Builder.focDatetimeActual] to an arbitrary JSON value.
@@ -211,8 +219,15 @@ private constructor(
         }
 
         /** ISO 8601 formatted Date/Time requested for the FOC date */
-        fun focDatetimeRequested(focDatetimeRequested: OffsetDateTime) =
-            focDatetimeRequested(JsonField.of(focDatetimeRequested))
+        fun focDatetimeRequested(focDatetimeRequested: OffsetDateTime?) =
+            focDatetimeRequested(JsonField.ofNullable(focDatetimeRequested))
+
+        /**
+         * Alias for calling [Builder.focDatetimeRequested] with
+         * `focDatetimeRequested.orElse(null)`.
+         */
+        fun focDatetimeRequested(focDatetimeRequested: Optional<OffsetDateTime>) =
+            focDatetimeRequested(focDatetimeRequested.getOrNull())
 
         /**
          * Sets [Builder.focDatetimeRequested] to an arbitrary JSON value.

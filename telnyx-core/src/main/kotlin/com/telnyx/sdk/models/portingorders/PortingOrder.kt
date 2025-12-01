@@ -719,8 +719,15 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** A customer-specified group reference for customer bookkeeping purposes */
-        fun customerGroupReference(customerGroupReference: String) =
-            customerGroupReference(JsonField.of(customerGroupReference))
+        fun customerGroupReference(customerGroupReference: String?) =
+            customerGroupReference(JsonField.ofNullable(customerGroupReference))
+
+        /**
+         * Alias for calling [Builder.customerGroupReference] with
+         * `customerGroupReference.orElse(null)`.
+         */
+        fun customerGroupReference(customerGroupReference: Optional<String>) =
+            customerGroupReference(customerGroupReference.getOrNull())
 
         /**
          * Sets [Builder.customerGroupReference] to an arbitrary JSON value.
@@ -734,8 +741,12 @@ private constructor(
         }
 
         /** A customer-specified reference number for customer bookkeeping purposes */
-        fun customerReference(customerReference: String) =
-            customerReference(JsonField.of(customerReference))
+        fun customerReference(customerReference: String?) =
+            customerReference(JsonField.ofNullable(customerReference))
+
+        /** Alias for calling [Builder.customerReference] with `customerReference.orElse(null)`. */
+        fun customerReference(customerReference: Optional<String>) =
+            customerReference(customerReference.getOrNull())
 
         /**
          * Sets [Builder.customerReference] to an arbitrary JSON value.
@@ -799,7 +810,10 @@ private constructor(
             this.messaging = messaging
         }
 
-        fun misc(misc: PortingOrderMisc) = misc(JsonField.of(misc))
+        fun misc(misc: PortingOrderMisc?) = misc(JsonField.ofNullable(misc))
+
+        /** Alias for calling [Builder.misc] with `misc.orElse(null)`. */
+        fun misc(misc: Optional<PortingOrderMisc>) = misc(misc.getOrNull())
 
         /**
          * Sets [Builder.misc] to an arbitrary JSON value.
@@ -829,8 +843,12 @@ private constructor(
          * A key to reference for the porting order group when contacting Telnyx customer support.
          * This information is not available for porting orders in `draft` state
          */
-        fun parentSupportKey(parentSupportKey: String) =
-            parentSupportKey(JsonField.of(parentSupportKey))
+        fun parentSupportKey(parentSupportKey: String?) =
+            parentSupportKey(JsonField.ofNullable(parentSupportKey))
+
+        /** Alias for calling [Builder.parentSupportKey] with `parentSupportKey.orElse(null)`. */
+        fun parentSupportKey(parentSupportKey: Optional<String>) =
+            parentSupportKey(parentSupportKey.getOrNull())
 
         /**
          * Sets [Builder.parentSupportKey] to an arbitrary JSON value.
@@ -961,7 +979,10 @@ private constructor(
          * A key to reference this porting order when contacting Telnyx customer support. This
          * information is not available in draft porting orders.
          */
-        fun supportKey(supportKey: String) = supportKey(JsonField.of(supportKey))
+        fun supportKey(supportKey: String?) = supportKey(JsonField.ofNullable(supportKey))
+
+        /** Alias for calling [Builder.supportKey] with `supportKey.orElse(null)`. */
+        fun supportKey(supportKey: Optional<String>) = supportKey(supportKey.getOrNull())
 
         /**
          * Sets [Builder.supportKey] to an arbitrary JSON value.
@@ -1009,7 +1030,10 @@ private constructor(
          */
         fun userId(userId: JsonField<String>) = apply { this.userId = userId }
 
-        fun webhookUrl(webhookUrl: String) = webhookUrl(JsonField.of(webhookUrl))
+        fun webhookUrl(webhookUrl: String?) = webhookUrl(JsonField.ofNullable(webhookUrl))
+
+        /** Alias for calling [Builder.webhookUrl] with `webhookUrl.orElse(null)`. */
+        fun webhookUrl(webhookUrl: Optional<String>) = webhookUrl(webhookUrl.getOrNull())
 
         /**
          * Sets [Builder.webhookUrl] to an arbitrary JSON value.

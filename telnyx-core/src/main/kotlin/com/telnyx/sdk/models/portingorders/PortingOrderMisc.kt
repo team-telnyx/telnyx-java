@@ -133,8 +133,15 @@ private constructor(
          * phone number is being ported to Telnyx. This will be set on your account with your
          * current service provider and should be one of the numbers remaining on that account.
          */
-        fun newBillingPhoneNumber(newBillingPhoneNumber: String) =
-            newBillingPhoneNumber(JsonField.of(newBillingPhoneNumber))
+        fun newBillingPhoneNumber(newBillingPhoneNumber: String?) =
+            newBillingPhoneNumber(JsonField.ofNullable(newBillingPhoneNumber))
+
+        /**
+         * Alias for calling [Builder.newBillingPhoneNumber] with
+         * `newBillingPhoneNumber.orElse(null)`.
+         */
+        fun newBillingPhoneNumber(newBillingPhoneNumber: Optional<String>) =
+            newBillingPhoneNumber(newBillingPhoneNumber.getOrNull())
 
         /**
          * Sets [Builder.newBillingPhoneNumber] to an arbitrary JSON value.
@@ -151,8 +158,15 @@ private constructor(
          * Remaining numbers can be either kept with their current service provider or disconnected.
          * 'new_billing_telephone_number' is required when 'remaining_numbers_action' is 'keep'.
          */
-        fun remainingNumbersAction(remainingNumbersAction: RemainingNumbersAction) =
-            remainingNumbersAction(JsonField.of(remainingNumbersAction))
+        fun remainingNumbersAction(remainingNumbersAction: RemainingNumbersAction?) =
+            remainingNumbersAction(JsonField.ofNullable(remainingNumbersAction))
+
+        /**
+         * Alias for calling [Builder.remainingNumbersAction] with
+         * `remainingNumbersAction.orElse(null)`.
+         */
+        fun remainingNumbersAction(remainingNumbersAction: Optional<RemainingNumbersAction>) =
+            remainingNumbersAction(remainingNumbersAction.getOrNull())
 
         /**
          * Sets [Builder.remainingNumbersAction] to an arbitrary JSON value.

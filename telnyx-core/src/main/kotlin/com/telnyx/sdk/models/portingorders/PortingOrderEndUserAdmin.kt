@@ -14,6 +14,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 class PortingOrderEndUserAdmin
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -226,7 +227,12 @@ private constructor(
         }
 
         /** The authorized person's account number with the current service provider */
-        fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+        fun accountNumber(accountNumber: String?) =
+            accountNumber(JsonField.ofNullable(accountNumber))
+
+        /** Alias for calling [Builder.accountNumber] with `accountNumber.orElse(null)`. */
+        fun accountNumber(accountNumber: Optional<String>) =
+            accountNumber(accountNumber.getOrNull())
 
         /**
          * Sets [Builder.accountNumber] to an arbitrary JSON value.
@@ -240,7 +246,12 @@ private constructor(
         }
 
         /** Name of person authorizing the porting order */
-        fun authPersonName(authPersonName: String) = authPersonName(JsonField.of(authPersonName))
+        fun authPersonName(authPersonName: String?) =
+            authPersonName(JsonField.ofNullable(authPersonName))
+
+        /** Alias for calling [Builder.authPersonName] with `authPersonName.orElse(null)`. */
+        fun authPersonName(authPersonName: Optional<String>) =
+            authPersonName(authPersonName.getOrNull())
 
         /**
          * Sets [Builder.authPersonName] to an arbitrary JSON value.
@@ -254,8 +265,14 @@ private constructor(
         }
 
         /** Billing phone number associated with these phone numbers */
-        fun billingPhoneNumber(billingPhoneNumber: String) =
-            billingPhoneNumber(JsonField.of(billingPhoneNumber))
+        fun billingPhoneNumber(billingPhoneNumber: String?) =
+            billingPhoneNumber(JsonField.ofNullable(billingPhoneNumber))
+
+        /**
+         * Alias for calling [Builder.billingPhoneNumber] with `billingPhoneNumber.orElse(null)`.
+         */
+        fun billingPhoneNumber(billingPhoneNumber: Optional<String>) =
+            billingPhoneNumber(billingPhoneNumber.getOrNull())
 
         /**
          * Sets [Builder.billingPhoneNumber] to an arbitrary JSON value.
@@ -269,8 +286,14 @@ private constructor(
         }
 
         /** European business identification number. Applicable only in the European Union */
-        fun businessIdentifier(businessIdentifier: String) =
-            businessIdentifier(JsonField.of(businessIdentifier))
+        fun businessIdentifier(businessIdentifier: String?) =
+            businessIdentifier(JsonField.ofNullable(businessIdentifier))
+
+        /**
+         * Alias for calling [Builder.businessIdentifier] with `businessIdentifier.orElse(null)`.
+         */
+        fun businessIdentifier(businessIdentifier: Optional<String>) =
+            businessIdentifier(businessIdentifier.getOrNull())
 
         /**
          * Sets [Builder.businessIdentifier] to an arbitrary JSON value.
@@ -284,7 +307,10 @@ private constructor(
         }
 
         /** Person Name or Company name requesting the port */
-        fun entityName(entityName: String) = entityName(JsonField.of(entityName))
+        fun entityName(entityName: String?) = entityName(JsonField.ofNullable(entityName))
+
+        /** Alias for calling [Builder.entityName] with `entityName.orElse(null)`. */
+        fun entityName(entityName: Optional<String>) = entityName(entityName.getOrNull())
 
         /**
          * Sets [Builder.entityName] to an arbitrary JSON value.
@@ -296,7 +322,10 @@ private constructor(
         fun entityName(entityName: JsonField<String>) = apply { this.entityName = entityName }
 
         /** PIN/passcode possibly required by the old service provider for extra verification */
-        fun pinPasscode(pinPasscode: String) = pinPasscode(JsonField.of(pinPasscode))
+        fun pinPasscode(pinPasscode: String?) = pinPasscode(JsonField.ofNullable(pinPasscode))
+
+        /** Alias for calling [Builder.pinPasscode] with `pinPasscode.orElse(null)`. */
+        fun pinPasscode(pinPasscode: Optional<String>) = pinPasscode(pinPasscode.getOrNull())
 
         /**
          * Sets [Builder.pinPasscode] to an arbitrary JSON value.
@@ -308,7 +337,12 @@ private constructor(
         fun pinPasscode(pinPasscode: JsonField<String>) = apply { this.pinPasscode = pinPasscode }
 
         /** European tax identification number. Applicable only in the European Union */
-        fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
+        fun taxIdentifier(taxIdentifier: String?) =
+            taxIdentifier(JsonField.ofNullable(taxIdentifier))
+
+        /** Alias for calling [Builder.taxIdentifier] with `taxIdentifier.orElse(null)`. */
+        fun taxIdentifier(taxIdentifier: Optional<String>) =
+            taxIdentifier(taxIdentifier.getOrNull())
 
         /**
          * Sets [Builder.taxIdentifier] to an arbitrary JSON value.

@@ -349,7 +349,10 @@ private constructor(
          */
         fun messaging(messaging: JsonField<Messaging>) = apply { body.messaging(messaging) }
 
-        fun misc(misc: PortingOrderMisc) = apply { body.misc(misc) }
+        fun misc(misc: PortingOrderMisc?) = apply { body.misc(misc) }
+
+        /** Alias for calling [Builder.misc] with `misc.orElse(null)`. */
+        fun misc(misc: Optional<PortingOrderMisc>) = misc(misc.getOrNull())
 
         /**
          * Sets [Builder.misc] to an arbitrary JSON value.
@@ -995,7 +998,10 @@ private constructor(
              */
             fun messaging(messaging: JsonField<Messaging>) = apply { this.messaging = messaging }
 
-            fun misc(misc: PortingOrderMisc) = misc(JsonField.of(misc))
+            fun misc(misc: PortingOrderMisc?) = misc(JsonField.ofNullable(misc))
+
+            /** Alias for calling [Builder.misc] with `misc.orElse(null)`. */
+            fun misc(misc: Optional<PortingOrderMisc>) = misc(misc.getOrNull())
 
             /**
              * Sets [Builder.misc] to an arbitrary JSON value.
