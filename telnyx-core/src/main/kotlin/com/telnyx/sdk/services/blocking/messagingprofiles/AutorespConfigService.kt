@@ -9,7 +9,6 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutoRespConfigResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigCreateParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteParams
-import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigRetrieveParams
@@ -131,28 +130,24 @@ interface AutorespConfigService {
         list(profileId, AutorespConfigListParams.none(), requestOptions)
 
     /** Delete Auto-Response Setting */
-    fun delete(
-        autorespCfgId: String,
-        params: AutorespConfigDeleteParams,
-    ): AutorespConfigDeleteResponse = delete(autorespCfgId, params, RequestOptions.none())
+    fun delete(autorespCfgId: String, params: AutorespConfigDeleteParams): String =
+        delete(autorespCfgId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         autorespCfgId: String,
         params: AutorespConfigDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AutorespConfigDeleteResponse =
-        delete(params.toBuilder().autorespCfgId(autorespCfgId).build(), requestOptions)
+    ): String = delete(params.toBuilder().autorespCfgId(autorespCfgId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(params: AutorespConfigDeleteParams): AutorespConfigDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: AutorespConfigDeleteParams): String = delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: AutorespConfigDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AutorespConfigDeleteResponse
+    ): String
 
     /**
      * A view of [AutorespConfigService] that provides access to raw HTTP responses for each method.
@@ -321,8 +316,7 @@ interface AutorespConfigService {
         fun delete(
             autorespCfgId: String,
             params: AutorespConfigDeleteParams,
-        ): HttpResponseFor<AutorespConfigDeleteResponse> =
-            delete(autorespCfgId, params, RequestOptions.none())
+        ): HttpResponseFor<String> = delete(autorespCfgId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -330,20 +324,19 @@ interface AutorespConfigService {
             autorespCfgId: String,
             params: AutorespConfigDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AutorespConfigDeleteResponse> =
+        ): HttpResponseFor<String> =
             delete(params.toBuilder().autorespCfgId(autorespCfgId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            params: AutorespConfigDeleteParams
-        ): HttpResponseFor<AutorespConfigDeleteResponse> = delete(params, RequestOptions.none())
+        fun delete(params: AutorespConfigDeleteParams): HttpResponseFor<String> =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: AutorespConfigDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AutorespConfigDeleteResponse>
+        ): HttpResponseFor<String>
     }
 }

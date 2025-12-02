@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.campaignbuilder.CampaignBuilderCreateParams
-import com.telnyx.sdk.models.campaignbuilder.CampaignBuilderCreateResponse
 import com.telnyx.sdk.services.blocking.campaignbuilder.BrandService
 import com.telnyx.sdk.services.blocking.campaignbuilder.BrandServiceImpl
 import java.util.function.Consumer
@@ -40,7 +40,7 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
     override fun create(
         params: CampaignBuilderCreateParams,
         requestOptions: RequestOptions,
-    ): CampaignBuilderCreateResponse =
+    ): TelnyxCampaignCsp =
         // post /campaignBuilder
         withRawResponse().create(params, requestOptions).parse()
 
@@ -63,13 +63,13 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
 
         override fun brand(): BrandService.WithRawResponse = brand
 
-        private val createHandler: Handler<CampaignBuilderCreateResponse> =
-            jsonHandler<CampaignBuilderCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<TelnyxCampaignCsp> =
+            jsonHandler<TelnyxCampaignCsp>(clientOptions.jsonMapper)
 
         override fun create(
             params: CampaignBuilderCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignBuilderCreateResponse> {
+        ): HttpResponseFor<TelnyxCampaignCsp> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

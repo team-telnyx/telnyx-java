@@ -164,10 +164,9 @@ internal class BrandServiceAsyncTest {
                 .build()
         val brandServiceAsync = client.brand()
 
-        val brandFuture = brandServiceAsync.delete("brandId")
+        val future = brandServiceAsync.delete("brandId")
 
-        val brand = brandFuture.get()
-        brand.validate()
+        val response = future.get()
     }
 
     @Disabled("Prism tests are disabled")
@@ -211,9 +210,9 @@ internal class BrandServiceAsyncTest {
                 .build()
         val brandServiceAsync = client.brand()
 
-        val responseFuture = brandServiceAsync.revet("brandId")
+        val telnyxBrandFuture = brandServiceAsync.revet("brandId")
 
-        val response = responseFuture.get()
-        response.validate()
+        val telnyxBrand = telnyxBrandFuture.get()
+        telnyxBrand.validate()
     }
 }

@@ -215,9 +215,8 @@ internal class RequestServiceAsyncTest {
                 .build()
         val requestServiceAsync = client.messagingTollfree().verification().requests()
 
-        val requestFuture = requestServiceAsync.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val future = requestServiceAsync.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val request = requestFuture.get()
-        request.validate()
+        val response = future.get()
     }
 }

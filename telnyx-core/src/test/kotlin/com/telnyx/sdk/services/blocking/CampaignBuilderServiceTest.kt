@@ -22,7 +22,7 @@ internal class CampaignBuilderServiceTest {
                 .build()
         val campaignBuilderService = client.campaignBuilder()
 
-        val campaignBuilder =
+        val telnyxCampaignCsp =
             campaignBuilderService.create(
                 CampaignBuilderCreateParams.builder()
                     .brandId("brandId")
@@ -63,6 +63,6 @@ internal class CampaignBuilderServiceTest {
                     .build()
             )
 
-        campaignBuilder.validate()
+        telnyxCampaignCsp.validate()
     }
 }

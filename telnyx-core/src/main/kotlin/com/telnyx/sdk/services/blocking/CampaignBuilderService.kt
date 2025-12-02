@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.campaignbuilder.CampaignBuilderCreateParams
-import com.telnyx.sdk.models.campaignbuilder.CampaignBuilderCreateResponse
 import com.telnyx.sdk.services.blocking.campaignbuilder.BrandService
 import java.util.function.Consumer
 
@@ -37,14 +37,14 @@ interface CampaignBuilderService {
      * Costs section for
      * details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
      */
-    fun create(params: CampaignBuilderCreateParams): CampaignBuilderCreateResponse =
+    fun create(params: CampaignBuilderCreateParams): TelnyxCampaignCsp =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: CampaignBuilderCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignBuilderCreateResponse
+    ): TelnyxCampaignCsp
 
     /**
      * A view of [CampaignBuilderService] that provides access to raw HTTP responses for each
@@ -68,15 +68,14 @@ interface CampaignBuilderService {
          * [CampaignBuilderService.create].
          */
         @MustBeClosed
-        fun create(
-            params: CampaignBuilderCreateParams
-        ): HttpResponseFor<CampaignBuilderCreateResponse> = create(params, RequestOptions.none())
+        fun create(params: CampaignBuilderCreateParams): HttpResponseFor<TelnyxCampaignCsp> =
+            create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: CampaignBuilderCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignBuilderCreateResponse>
+        ): HttpResponseFor<TelnyxCampaignCsp>
     }
 }

@@ -43,7 +43,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
     override fun list(
         params: ExternalVettingListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ExternalVettingListResponse> =
+    ): CompletableFuture<List<ExternalVettingListResponse>> =
         // get /brand/{brandId}/externalVetting
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -74,13 +74,13 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<ExternalVettingListResponse> =
-            jsonHandler<ExternalVettingListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<ExternalVettingListResponse>> =
+            jsonHandler<List<ExternalVettingListResponse>>(clientOptions.jsonMapper)
 
         override fun list(
             params: ExternalVettingListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ExternalVettingListResponse>> {
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())
@@ -100,7 +100,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                             .use { listHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
-                                    it.validate()
+                                    it.forEach { it.validate() }
                                 }
                             }
                     }

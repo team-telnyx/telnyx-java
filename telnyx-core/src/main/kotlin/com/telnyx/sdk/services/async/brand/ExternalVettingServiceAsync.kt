@@ -29,7 +29,7 @@ interface ExternalVettingServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalVettingServiceAsync
 
     /** Get list of valid external vetting record for a given brand */
-    fun list(brandId: String): CompletableFuture<ExternalVettingListResponse> =
+    fun list(brandId: String): CompletableFuture<List<ExternalVettingListResponse>> =
         list(brandId, ExternalVettingListParams.none())
 
     /** @see list */
@@ -37,30 +37,32 @@ interface ExternalVettingServiceAsync {
         brandId: String,
         params: ExternalVettingListParams = ExternalVettingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingListResponse> =
+    ): CompletableFuture<List<ExternalVettingListResponse>> =
         list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see list */
     fun list(
         brandId: String,
         params: ExternalVettingListParams = ExternalVettingListParams.none(),
-    ): CompletableFuture<ExternalVettingListResponse> = list(brandId, params, RequestOptions.none())
+    ): CompletableFuture<List<ExternalVettingListResponse>> =
+        list(brandId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ExternalVettingListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingListResponse>
+    ): CompletableFuture<List<ExternalVettingListResponse>>
 
     /** @see list */
-    fun list(params: ExternalVettingListParams): CompletableFuture<ExternalVettingListResponse> =
-        list(params, RequestOptions.none())
+    fun list(
+        params: ExternalVettingListParams
+    ): CompletableFuture<List<ExternalVettingListResponse>> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         brandId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ExternalVettingListResponse> =
+    ): CompletableFuture<List<ExternalVettingListResponse>> =
         list(brandId, ExternalVettingListParams.none(), requestOptions)
 
     /**
@@ -137,7 +139,9 @@ interface ExternalVettingServiceAsync {
          * Returns a raw HTTP response for `get /brand/{brandId}/externalVetting`, but is otherwise
          * the same as [ExternalVettingServiceAsync.list].
          */
-        fun list(brandId: String): CompletableFuture<HttpResponseFor<ExternalVettingListResponse>> =
+        fun list(
+            brandId: String
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
             list(brandId, ExternalVettingListParams.none())
 
         /** @see list */
@@ -145,33 +149,33 @@ interface ExternalVettingServiceAsync {
             brandId: String,
             params: ExternalVettingListParams = ExternalVettingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
             list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see list */
         fun list(
             brandId: String,
             params: ExternalVettingListParams = ExternalVettingListParams.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
             list(brandId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: ExternalVettingListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingListResponse>>
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>>
 
         /** @see list */
         fun list(
             params: ExternalVettingListParams
-        ): CompletableFuture<HttpResponseFor<ExternalVettingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             brandId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ExternalVettingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
             list(brandId, ExternalVettingListParams.none(), requestOptions)
 
         /**

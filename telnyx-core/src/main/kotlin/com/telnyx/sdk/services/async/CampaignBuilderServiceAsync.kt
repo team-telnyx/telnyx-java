@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.campaignbuilder.CampaignBuilderCreateParams
-import com.telnyx.sdk.models.campaignbuilder.CampaignBuilderCreateResponse
 import com.telnyx.sdk.services.async.campaignbuilder.BrandServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -37,15 +37,14 @@ interface CampaignBuilderServiceAsync {
      * Costs section for
      * details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
      */
-    fun create(
-        params: CampaignBuilderCreateParams
-    ): CompletableFuture<CampaignBuilderCreateResponse> = create(params, RequestOptions.none())
+    fun create(params: CampaignBuilderCreateParams): CompletableFuture<TelnyxCampaignCsp> =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: CampaignBuilderCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignBuilderCreateResponse>
+    ): CompletableFuture<TelnyxCampaignCsp>
 
     /**
      * A view of [CampaignBuilderServiceAsync] that provides access to raw HTTP responses for each
@@ -70,13 +69,13 @@ interface CampaignBuilderServiceAsync {
          */
         fun create(
             params: CampaignBuilderCreateParams
-        ): CompletableFuture<HttpResponseFor<CampaignBuilderCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<TelnyxCampaignCsp>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: CampaignBuilderCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignBuilderCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<TelnyxCampaignCsp>>
     }
 }

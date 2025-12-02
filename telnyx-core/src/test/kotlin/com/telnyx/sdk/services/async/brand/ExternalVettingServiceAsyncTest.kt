@@ -26,7 +26,7 @@ internal class ExternalVettingServiceAsyncTest {
         val externalVettingsFuture = externalVettingServiceAsync.list("brandId")
 
         val externalVettings = externalVettingsFuture.get()
-        externalVettings.validate()
+        externalVettings.forEach { it.validate() }
     }
 
     @Disabled("Prism tests are disabled")

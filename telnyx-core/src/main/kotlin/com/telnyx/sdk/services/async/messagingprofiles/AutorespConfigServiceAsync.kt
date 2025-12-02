@@ -8,7 +8,6 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutoRespConfigResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigCreateParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteParams
-import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigRetrieveParams
@@ -144,27 +143,25 @@ interface AutorespConfigServiceAsync {
     fun delete(
         autorespCfgId: String,
         params: AutorespConfigDeleteParams,
-    ): CompletableFuture<AutorespConfigDeleteResponse> =
-        delete(autorespCfgId, params, RequestOptions.none())
+    ): CompletableFuture<String> = delete(autorespCfgId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         autorespCfgId: String,
         params: AutorespConfigDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AutorespConfigDeleteResponse> =
+    ): CompletableFuture<String> =
         delete(params.toBuilder().autorespCfgId(autorespCfgId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        params: AutorespConfigDeleteParams
-    ): CompletableFuture<AutorespConfigDeleteResponse> = delete(params, RequestOptions.none())
+    fun delete(params: AutorespConfigDeleteParams): CompletableFuture<String> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: AutorespConfigDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AutorespConfigDeleteResponse>
+    ): CompletableFuture<String>
 
     /**
      * A view of [AutorespConfigServiceAsync] that provides access to raw HTTP responses for each
@@ -324,7 +321,7 @@ interface AutorespConfigServiceAsync {
         fun delete(
             autorespCfgId: String,
             params: AutorespConfigDeleteParams,
-        ): CompletableFuture<HttpResponseFor<AutorespConfigDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<String>> =
             delete(autorespCfgId, params, RequestOptions.none())
 
         /** @see delete */
@@ -332,19 +329,17 @@ interface AutorespConfigServiceAsync {
             autorespCfgId: String,
             params: AutorespConfigDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AutorespConfigDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<String>> =
             delete(params.toBuilder().autorespCfgId(autorespCfgId).build(), requestOptions)
 
         /** @see delete */
-        fun delete(
-            params: AutorespConfigDeleteParams
-        ): CompletableFuture<HttpResponseFor<AutorespConfigDeleteResponse>> =
+        fun delete(params: AutorespConfigDeleteParams): CompletableFuture<HttpResponseFor<String>> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: AutorespConfigDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AutorespConfigDeleteResponse>>
+        ): CompletableFuture<HttpResponseFor<String>>
     }
 }

@@ -29,7 +29,7 @@ interface ExternalVettingService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalVettingService
 
     /** Get list of valid external vetting record for a given brand */
-    fun list(brandId: String): ExternalVettingListResponse =
+    fun list(brandId: String): List<ExternalVettingListResponse> =
         list(brandId, ExternalVettingListParams.none())
 
     /** @see list */
@@ -37,27 +37,27 @@ interface ExternalVettingService {
         brandId: String,
         params: ExternalVettingListParams = ExternalVettingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingListResponse =
+    ): List<ExternalVettingListResponse> =
         list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see list */
     fun list(
         brandId: String,
         params: ExternalVettingListParams = ExternalVettingListParams.none(),
-    ): ExternalVettingListResponse = list(brandId, params, RequestOptions.none())
+    ): List<ExternalVettingListResponse> = list(brandId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ExternalVettingListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingListResponse
+    ): List<ExternalVettingListResponse>
 
     /** @see list */
-    fun list(params: ExternalVettingListParams): ExternalVettingListResponse =
+    fun list(params: ExternalVettingListParams): List<ExternalVettingListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(brandId: String, requestOptions: RequestOptions): ExternalVettingListResponse =
+    fun list(brandId: String, requestOptions: RequestOptions): List<ExternalVettingListResponse> =
         list(brandId, ExternalVettingListParams.none(), requestOptions)
 
     /**
@@ -130,7 +130,7 @@ interface ExternalVettingService {
          * the same as [ExternalVettingService.list].
          */
         @MustBeClosed
-        fun list(brandId: String): HttpResponseFor<ExternalVettingListResponse> =
+        fun list(brandId: String): HttpResponseFor<List<ExternalVettingListResponse>> =
             list(brandId, ExternalVettingListParams.none())
 
         /** @see list */
@@ -139,7 +139,7 @@ interface ExternalVettingService {
             brandId: String,
             params: ExternalVettingListParams = ExternalVettingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingListResponse> =
+        ): HttpResponseFor<List<ExternalVettingListResponse>> =
             list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see list */
@@ -147,7 +147,7 @@ interface ExternalVettingService {
         fun list(
             brandId: String,
             params: ExternalVettingListParams = ExternalVettingListParams.none(),
-        ): HttpResponseFor<ExternalVettingListResponse> =
+        ): HttpResponseFor<List<ExternalVettingListResponse>> =
             list(brandId, params, RequestOptions.none())
 
         /** @see list */
@@ -155,19 +155,20 @@ interface ExternalVettingService {
         fun list(
             params: ExternalVettingListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingListResponse>
+        ): HttpResponseFor<List<ExternalVettingListResponse>>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: ExternalVettingListParams): HttpResponseFor<ExternalVettingListResponse> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: ExternalVettingListParams
+        ): HttpResponseFor<List<ExternalVettingListResponse>> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             brandId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ExternalVettingListResponse> =
+        ): HttpResponseFor<List<ExternalVettingListResponse>> =
             list(brandId, ExternalVettingListParams.none(), requestOptions)
 
         /**

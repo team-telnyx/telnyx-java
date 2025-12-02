@@ -8,6 +8,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
+import com.telnyx.sdk.core.handlers.stringHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
@@ -19,7 +20,6 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutoRespConfigResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigCreateParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteParams
-import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigRetrieveParams
@@ -73,7 +73,7 @@ internal constructor(private val clientOptions: ClientOptions) : AutorespConfigS
     override fun delete(
         params: AutorespConfigDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AutorespConfigDeleteResponse> =
+    ): CompletableFuture<String> =
         // delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}
         withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
 
@@ -234,13 +234,12 @@ internal constructor(private val clientOptions: ClientOptions) : AutorespConfigS
                 }
         }
 
-        private val deleteHandler: Handler<AutorespConfigDeleteResponse> =
-            jsonHandler<AutorespConfigDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<String> = stringHandler()
 
         override fun delete(
             params: AutorespConfigDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AutorespConfigDeleteResponse>> {
+        ): CompletableFuture<HttpResponseFor<String>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("autorespCfgId", params.autorespCfgId().getOrNull())
@@ -262,13 +261,7 @@ internal constructor(private val clientOptions: ClientOptions) : AutorespConfigS
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }
