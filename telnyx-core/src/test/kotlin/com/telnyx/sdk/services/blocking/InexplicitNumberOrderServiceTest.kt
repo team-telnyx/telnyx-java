@@ -34,6 +34,7 @@ internal class InexplicitNumberOrderServiceTest {
                             )
                             .phoneNumberType("phone_number_type")
                             .administrativeArea("administrative_area")
+                            .excludeHeldNumbers(true)
                             .addFeature("string")
                             .locality("locality")
                             .nationalDestinationCode("national_destination_code")
@@ -45,6 +46,7 @@ internal class InexplicitNumberOrderServiceTest {
                                     .startsWith("starts_with")
                                     .build()
                             )
+                            .quickship(true)
                             .strategy(
                                 InexplicitNumberOrderCreateParams.OrderingGroup.Strategy.ALWAYS
                             )
