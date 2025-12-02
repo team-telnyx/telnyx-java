@@ -8,7 +8,6 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandDeleteParams
-import com.telnyx.sdk.models.brand.BrandDeleteResponse
 import com.telnyx.sdk.models.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackResponse
 import com.telnyx.sdk.models.brand.BrandListParams
@@ -17,7 +16,6 @@ import com.telnyx.sdk.models.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.brand.BrandRevetParams
-import com.telnyx.sdk.models.brand.BrandRevetResponse
 import com.telnyx.sdk.models.brand.BrandUpdateParams
 import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.services.async.brand.ExternalVettingServiceAsync
@@ -135,7 +133,7 @@ interface BrandServiceAsync {
      * contains one or more active campaigns, the campaigns need to be inactive and at least 3
      * months old due to billing purposes.
      */
-    fun delete(brandId: String): CompletableFuture<BrandDeleteResponse> =
+    fun delete(brandId: String): CompletableFuture<Void?> =
         delete(brandId, BrandDeleteParams.none())
 
     /** @see delete */
@@ -143,30 +141,27 @@ interface BrandServiceAsync {
         brandId: String,
         params: BrandDeleteParams = BrandDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandDeleteResponse> =
+    ): CompletableFuture<Void?> =
         delete(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         brandId: String,
         params: BrandDeleteParams = BrandDeleteParams.none(),
-    ): CompletableFuture<BrandDeleteResponse> = delete(brandId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(brandId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: BrandDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(params: BrandDeleteParams): CompletableFuture<BrandDeleteResponse> =
+    fun delete(params: BrandDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        brandId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<BrandDeleteResponse> =
+    fun delete(brandId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(brandId, BrandDeleteParams.none(), requestOptions)
 
     /**
@@ -253,7 +248,7 @@ interface BrandServiceAsync {
      * This operation allows you to revet the brand. However, revetting is allowed once after the
      * successful brand registration and thereafter limited to once every 3 months.
      */
-    fun revet(brandId: String): CompletableFuture<BrandRevetResponse> =
+    fun revet(brandId: String): CompletableFuture<TelnyxBrand> =
         revet(brandId, BrandRevetParams.none())
 
     /** @see revet */
@@ -261,30 +256,27 @@ interface BrandServiceAsync {
         brandId: String,
         params: BrandRevetParams = BrandRevetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandRevetResponse> =
+    ): CompletableFuture<TelnyxBrand> =
         revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see revet */
     fun revet(
         brandId: String,
         params: BrandRevetParams = BrandRevetParams.none(),
-    ): CompletableFuture<BrandRevetResponse> = revet(brandId, params, RequestOptions.none())
+    ): CompletableFuture<TelnyxBrand> = revet(brandId, params, RequestOptions.none())
 
     /** @see revet */
     fun revet(
         params: BrandRevetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandRevetResponse>
+    ): CompletableFuture<TelnyxBrand>
 
     /** @see revet */
-    fun revet(params: BrandRevetParams): CompletableFuture<BrandRevetResponse> =
+    fun revet(params: BrandRevetParams): CompletableFuture<TelnyxBrand> =
         revet(params, RequestOptions.none())
 
     /** @see revet */
-    fun revet(
-        brandId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<BrandRevetResponse> =
+    fun revet(brandId: String, requestOptions: RequestOptions): CompletableFuture<TelnyxBrand> =
         revet(brandId, BrandRevetParams.none(), requestOptions)
 
     /** A view of [BrandServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -412,7 +404,7 @@ interface BrandServiceAsync {
          * Returns a raw HTTP response for `delete /brand/{brandId}`, but is otherwise the same as
          * [BrandServiceAsync.delete].
          */
-        fun delete(brandId: String): CompletableFuture<HttpResponseFor<BrandDeleteResponse>> =
+        fun delete(brandId: String): CompletableFuture<HttpResponse> =
             delete(brandId, BrandDeleteParams.none())
 
         /** @see delete */
@@ -420,33 +412,30 @@ interface BrandServiceAsync {
             brandId: String,
             params: BrandDeleteParams = BrandDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             brandId: String,
             params: BrandDeleteParams = BrandDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<BrandDeleteResponse>> =
-            delete(brandId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(brandId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: BrandDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: BrandDeleteParams
-        ): CompletableFuture<HttpResponseFor<BrandDeleteResponse>> =
+        fun delete(params: BrandDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             brandId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(brandId, BrandDeleteParams.none(), requestOptions)
 
         /**
@@ -534,7 +523,7 @@ interface BrandServiceAsync {
          * Returns a raw HTTP response for `put /brand/{brandId}/revet`, but is otherwise the same
          * as [BrandServiceAsync.revet].
          */
-        fun revet(brandId: String): CompletableFuture<HttpResponseFor<BrandRevetResponse>> =
+        fun revet(brandId: String): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
             revet(brandId, BrandRevetParams.none())
 
         /** @see revet */
@@ -542,33 +531,31 @@ interface BrandServiceAsync {
             brandId: String,
             params: BrandRevetParams = BrandRevetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandRevetResponse>> =
+        ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
             revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see revet */
         fun revet(
             brandId: String,
             params: BrandRevetParams = BrandRevetParams.none(),
-        ): CompletableFuture<HttpResponseFor<BrandRevetResponse>> =
+        ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
             revet(brandId, params, RequestOptions.none())
 
         /** @see revet */
         fun revet(
             params: BrandRevetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandRevetResponse>>
+        ): CompletableFuture<HttpResponseFor<TelnyxBrand>>
 
         /** @see revet */
-        fun revet(
-            params: BrandRevetParams
-        ): CompletableFuture<HttpResponseFor<BrandRevetResponse>> =
+        fun revet(params: BrandRevetParams): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
             revet(params, RequestOptions.none())
 
         /** @see revet */
         fun revet(
             brandId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandRevetResponse>> =
+        ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
             revet(brandId, BrandRevetParams.none(), requestOptions)
     }
 }

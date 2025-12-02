@@ -4,10 +4,10 @@ package com.telnyx.sdk.services.async.messagingtollfree.verification
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
@@ -138,38 +138,33 @@ interface RequestServiceAsync {
      * * `HTTP 400`: request exists but can't be deleted (i.e. not rejected)
      * * `HTTP 404`: request unknown or already deleted
      */
-    fun delete(id: String): CompletableFuture<RequestDeleteResponse> =
-        delete(id, RequestDeleteParams.none())
+    fun delete(id: String): CompletableFuture<Void?> = delete(id, RequestDeleteParams.none())
 
     /** @see delete */
     fun delete(
         id: String,
         params: RequestDeleteParams = RequestDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RequestDeleteResponse> =
-        delete(params.toBuilder().id(id).build(), requestOptions)
+    ): CompletableFuture<Void?> = delete(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         id: String,
         params: RequestDeleteParams = RequestDeleteParams.none(),
-    ): CompletableFuture<RequestDeleteResponse> = delete(id, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(id, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: RequestDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RequestDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(params: RequestDeleteParams): CompletableFuture<RequestDeleteResponse> =
+    fun delete(params: RequestDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        id: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<RequestDeleteResponse> =
+    fun delete(id: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(id, RequestDeleteParams.none(), requestOptions)
 
     /**
@@ -307,7 +302,7 @@ interface RequestServiceAsync {
          * Returns a raw HTTP response for `delete /messaging_tollfree/verification/requests/{id}`,
          * but is otherwise the same as [RequestServiceAsync.delete].
          */
-        fun delete(id: String): CompletableFuture<HttpResponseFor<RequestDeleteResponse>> =
+        fun delete(id: String): CompletableFuture<HttpResponse> =
             delete(id, RequestDeleteParams.none())
 
         /** @see delete */
@@ -315,33 +310,27 @@ interface RequestServiceAsync {
             id: String,
             params: RequestDeleteParams = RequestDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RequestDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             id: String,
             params: RequestDeleteParams = RequestDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<RequestDeleteResponse>> =
-            delete(id, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(id, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: RequestDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RequestDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: RequestDeleteParams
-        ): CompletableFuture<HttpResponseFor<RequestDeleteResponse>> =
+        fun delete(params: RequestDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
-        fun delete(
-            id: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RequestDeleteResponse>> =
+        fun delete(id: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
             delete(id, RequestDeleteParams.none(), requestOptions)
     }
 }

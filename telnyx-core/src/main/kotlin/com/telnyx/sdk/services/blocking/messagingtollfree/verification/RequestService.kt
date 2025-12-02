@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.blocking.messagingtollfree.verification
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
@@ -127,33 +127,27 @@ interface RequestService {
      * * `HTTP 400`: request exists but can't be deleted (i.e. not rejected)
      * * `HTTP 404`: request unknown or already deleted
      */
-    fun delete(id: String): RequestDeleteResponse = delete(id, RequestDeleteParams.none())
+    fun delete(id: String) = delete(id, RequestDeleteParams.none())
 
     /** @see delete */
     fun delete(
         id: String,
         params: RequestDeleteParams = RequestDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RequestDeleteResponse = delete(params.toBuilder().id(id).build(), requestOptions)
+    ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        id: String,
-        params: RequestDeleteParams = RequestDeleteParams.none(),
-    ): RequestDeleteResponse = delete(id, params, RequestOptions.none())
+    fun delete(id: String, params: RequestDeleteParams = RequestDeleteParams.none()) =
+        delete(id, params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        params: RequestDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): RequestDeleteResponse
+    fun delete(params: RequestDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(params: RequestDeleteParams): RequestDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: RequestDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(id: String, requestOptions: RequestOptions): RequestDeleteResponse =
+    fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, RequestDeleteParams.none(), requestOptions)
 
     /** A view of [RequestService] that provides access to raw HTTP responses for each method. */
@@ -293,9 +287,7 @@ interface RequestService {
          * Returns a raw HTTP response for `delete /messaging_tollfree/verification/requests/{id}`,
          * but is otherwise the same as [RequestService.delete].
          */
-        @MustBeClosed
-        fun delete(id: String): HttpResponseFor<RequestDeleteResponse> =
-            delete(id, RequestDeleteParams.none())
+        @MustBeClosed fun delete(id: String): HttpResponse = delete(id, RequestDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
@@ -303,34 +295,30 @@ interface RequestService {
             id: String,
             params: RequestDeleteParams = RequestDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RequestDeleteResponse> =
-            delete(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             id: String,
             params: RequestDeleteParams = RequestDeleteParams.none(),
-        ): HttpResponseFor<RequestDeleteResponse> = delete(id, params, RequestOptions.none())
+        ): HttpResponse = delete(id, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: RequestDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RequestDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: RequestDeleteParams): HttpResponseFor<RequestDeleteResponse> =
+        fun delete(params: RequestDeleteParams): HttpResponse =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RequestDeleteResponse> =
+        fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, RequestDeleteParams.none(), requestOptions)
     }
 }

@@ -160,9 +160,7 @@ internal class BrandServiceTest {
                 .build()
         val brandService = client.brand()
 
-        val brand = brandService.delete("brandId")
-
-        brand.validate()
+        brandService.delete("brandId")
     }
 
     @Disabled("Prism tests are disabled")
@@ -203,8 +201,8 @@ internal class BrandServiceTest {
                 .build()
         val brandService = client.brand()
 
-        val response = brandService.revet("brandId")
+        val telnyxBrand = brandService.revet("brandId")
 
-        response.validate()
+        telnyxBrand.validate()
     }
 }

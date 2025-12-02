@@ -11,13 +11,39 @@ internal class ExternalVettingListResponseTest {
 
     @Test
     fun create() {
-        val externalVettingListResponse = ExternalVettingListResponse.builder().build()
+        val externalVettingListResponse =
+            ExternalVettingListResponse.builder()
+                .createDate("createDate")
+                .evpId("evpId")
+                .vettedDate("vettedDate")
+                .vettingClass("vettingClass")
+                .vettingId("vettingId")
+                .vettingScore(0L)
+                .vettingToken("vettingToken")
+                .build()
+
+        assertThat(externalVettingListResponse.createDate()).contains("createDate")
+        assertThat(externalVettingListResponse.evpId()).contains("evpId")
+        assertThat(externalVettingListResponse.vettedDate()).contains("vettedDate")
+        assertThat(externalVettingListResponse.vettingClass()).contains("vettingClass")
+        assertThat(externalVettingListResponse.vettingId()).contains("vettingId")
+        assertThat(externalVettingListResponse.vettingScore()).contains(0L)
+        assertThat(externalVettingListResponse.vettingToken()).contains("vettingToken")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val externalVettingListResponse = ExternalVettingListResponse.builder().build()
+        val externalVettingListResponse =
+            ExternalVettingListResponse.builder()
+                .createDate("createDate")
+                .evpId("evpId")
+                .vettedDate("vettedDate")
+                .vettingClass("vettingClass")
+                .vettingId("vettingId")
+                .vettingScore(0L)
+                .vettingToken("vettingToken")
+                .build()
 
         val roundtrippedExternalVettingListResponse =
             jsonMapper.readValue(

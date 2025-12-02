@@ -19,7 +19,6 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandDeleteParams
-import com.telnyx.sdk.models.brand.BrandDeleteResponse
 import com.telnyx.sdk.models.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackResponse
 import com.telnyx.sdk.models.brand.BrandListParams
@@ -28,7 +27,6 @@ import com.telnyx.sdk.models.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.brand.BrandRevetParams
-import com.telnyx.sdk.models.brand.BrandRevetResponse
 import com.telnyx.sdk.models.brand.BrandUpdateParams
 import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.brand.ExternalVettingService
@@ -73,12 +71,10 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /brand
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: BrandDeleteParams,
-        requestOptions: RequestOptions,
-    ): BrandDeleteResponse =
+    override fun delete(params: BrandDeleteParams, requestOptions: RequestOptions) {
         // delete /brand/{brandId}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().delete(params, requestOptions)
+    }
 
     override fun getFeedback(
         params: BrandGetFeedbackParams,
@@ -92,10 +88,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         withRawResponse().resend2faEmail(params, requestOptions)
     }
 
-    override fun revet(
-        params: BrandRevetParams,
-        requestOptions: RequestOptions,
-    ): BrandRevetResponse =
+    override fun revet(params: BrandRevetParams, requestOptions: RequestOptions): TelnyxBrand =
         // put /brand/{brandId}/revet
         withRawResponse().revet(params, requestOptions).parse()
 
@@ -234,13 +227,12 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val deleteHandler: Handler<BrandDeleteResponse> =
-            jsonHandler<BrandDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: BrandDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandDeleteResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())
@@ -255,13 +247,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
 
@@ -319,13 +305,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val revetHandler: Handler<BrandRevetResponse> =
-            jsonHandler<BrandRevetResponse>(clientOptions.jsonMapper)
+        private val revetHandler: Handler<TelnyxBrand> =
+            jsonHandler<TelnyxBrand>(clientOptions.jsonMapper)
 
         override fun revet(
             params: BrandRevetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandRevetResponse> {
+        ): HttpResponseFor<TelnyxBrand> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())

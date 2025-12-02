@@ -8,6 +8,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
+import com.telnyx.sdk.core.handlers.stringHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
@@ -19,7 +20,6 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutoRespConfigResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigCreateParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteParams
-import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigDeleteResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListParams
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigListResponse
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigRetrieveParams
@@ -70,7 +70,7 @@ class AutorespConfigServiceImpl internal constructor(private val clientOptions: 
     override fun delete(
         params: AutorespConfigDeleteParams,
         requestOptions: RequestOptions,
-    ): AutorespConfigDeleteResponse =
+    ): String =
         // delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}
         withRawResponse().delete(params, requestOptions).parse()
 
@@ -219,13 +219,12 @@ class AutorespConfigServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val deleteHandler: Handler<AutorespConfigDeleteResponse> =
-            jsonHandler<AutorespConfigDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<String> = stringHandler()
 
         override fun delete(
             params: AutorespConfigDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AutorespConfigDeleteResponse> {
+        ): HttpResponseFor<String> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("autorespCfgId", params.autorespCfgId().getOrNull())
@@ -245,13 +244,7 @@ class AutorespConfigServiceImpl internal constructor(private val clientOptions: 
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
     }

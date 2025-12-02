@@ -9,7 +9,6 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandDeleteParams
-import com.telnyx.sdk.models.brand.BrandDeleteResponse
 import com.telnyx.sdk.models.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackResponse
 import com.telnyx.sdk.models.brand.BrandListParams
@@ -18,7 +17,6 @@ import com.telnyx.sdk.models.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.brand.BrandRevetParams
-import com.telnyx.sdk.models.brand.BrandRevetResponse
 import com.telnyx.sdk.models.brand.BrandUpdateParams
 import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.brand.ExternalVettingService
@@ -127,33 +125,27 @@ interface BrandService {
      * contains one or more active campaigns, the campaigns need to be inactive and at least 3
      * months old due to billing purposes.
      */
-    fun delete(brandId: String): BrandDeleteResponse = delete(brandId, BrandDeleteParams.none())
+    fun delete(brandId: String) = delete(brandId, BrandDeleteParams.none())
 
     /** @see delete */
     fun delete(
         brandId: String,
         params: BrandDeleteParams = BrandDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandDeleteResponse = delete(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ) = delete(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        brandId: String,
-        params: BrandDeleteParams = BrandDeleteParams.none(),
-    ): BrandDeleteResponse = delete(brandId, params, RequestOptions.none())
+    fun delete(brandId: String, params: BrandDeleteParams = BrandDeleteParams.none()) =
+        delete(brandId, params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        params: BrandDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandDeleteResponse
+    fun delete(params: BrandDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(params: BrandDeleteParams): BrandDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: BrandDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(brandId: String, requestOptions: RequestOptions): BrandDeleteResponse =
+    fun delete(brandId: String, requestOptions: RequestOptions) =
         delete(brandId, BrandDeleteParams.none(), requestOptions)
 
     /**
@@ -234,32 +226,30 @@ interface BrandService {
      * This operation allows you to revet the brand. However, revetting is allowed once after the
      * successful brand registration and thereafter limited to once every 3 months.
      */
-    fun revet(brandId: String): BrandRevetResponse = revet(brandId, BrandRevetParams.none())
+    fun revet(brandId: String): TelnyxBrand = revet(brandId, BrandRevetParams.none())
 
     /** @see revet */
     fun revet(
         brandId: String,
         params: BrandRevetParams = BrandRevetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRevetResponse = revet(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): TelnyxBrand = revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see revet */
-    fun revet(
-        brandId: String,
-        params: BrandRevetParams = BrandRevetParams.none(),
-    ): BrandRevetResponse = revet(brandId, params, RequestOptions.none())
+    fun revet(brandId: String, params: BrandRevetParams = BrandRevetParams.none()): TelnyxBrand =
+        revet(brandId, params, RequestOptions.none())
 
     /** @see revet */
     fun revet(
         params: BrandRevetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRevetResponse
+    ): TelnyxBrand
 
     /** @see revet */
-    fun revet(params: BrandRevetParams): BrandRevetResponse = revet(params, RequestOptions.none())
+    fun revet(params: BrandRevetParams): TelnyxBrand = revet(params, RequestOptions.none())
 
     /** @see revet */
-    fun revet(brandId: String, requestOptions: RequestOptions): BrandRevetResponse =
+    fun revet(brandId: String, requestOptions: RequestOptions): TelnyxBrand =
         revet(brandId, BrandRevetParams.none(), requestOptions)
 
     /** A view of [BrandService] that provides access to raw HTTP responses for each method. */
@@ -391,8 +381,7 @@ interface BrandService {
          * [BrandService.delete].
          */
         @MustBeClosed
-        fun delete(brandId: String): HttpResponseFor<BrandDeleteResponse> =
-            delete(brandId, BrandDeleteParams.none())
+        fun delete(brandId: String): HttpResponse = delete(brandId, BrandDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
@@ -400,34 +389,29 @@ interface BrandService {
             brandId: String,
             params: BrandDeleteParams = BrandDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandDeleteResponse> =
-            delete(params.toBuilder().brandId(brandId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             brandId: String,
             params: BrandDeleteParams = BrandDeleteParams.none(),
-        ): HttpResponseFor<BrandDeleteResponse> = delete(brandId, params, RequestOptions.none())
+        ): HttpResponse = delete(brandId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: BrandDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: BrandDeleteParams): HttpResponseFor<BrandDeleteResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(params: BrandDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            brandId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandDeleteResponse> =
+        fun delete(brandId: String, requestOptions: RequestOptions): HttpResponse =
             delete(brandId, BrandDeleteParams.none(), requestOptions)
 
         /**
@@ -521,7 +505,7 @@ interface BrandService {
          * as [BrandService.revet].
          */
         @MustBeClosed
-        fun revet(brandId: String): HttpResponseFor<BrandRevetResponse> =
+        fun revet(brandId: String): HttpResponseFor<TelnyxBrand> =
             revet(brandId, BrandRevetParams.none())
 
         /** @see revet */
@@ -530,7 +514,7 @@ interface BrandService {
             brandId: String,
             params: BrandRevetParams = BrandRevetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRevetResponse> =
+        ): HttpResponseFor<TelnyxBrand> =
             revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see revet */
@@ -538,26 +522,23 @@ interface BrandService {
         fun revet(
             brandId: String,
             params: BrandRevetParams = BrandRevetParams.none(),
-        ): HttpResponseFor<BrandRevetResponse> = revet(brandId, params, RequestOptions.none())
+        ): HttpResponseFor<TelnyxBrand> = revet(brandId, params, RequestOptions.none())
 
         /** @see revet */
         @MustBeClosed
         fun revet(
             params: BrandRevetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRevetResponse>
+        ): HttpResponseFor<TelnyxBrand>
 
         /** @see revet */
         @MustBeClosed
-        fun revet(params: BrandRevetParams): HttpResponseFor<BrandRevetResponse> =
+        fun revet(params: BrandRevetParams): HttpResponseFor<TelnyxBrand> =
             revet(params, RequestOptions.none())
 
         /** @see revet */
         @MustBeClosed
-        fun revet(
-            brandId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandRevetResponse> =
+        fun revet(brandId: String, requestOptions: RequestOptions): HttpResponseFor<TelnyxBrand> =
             revet(brandId, BrandRevetParams.none(), requestOptions)
     }
 }

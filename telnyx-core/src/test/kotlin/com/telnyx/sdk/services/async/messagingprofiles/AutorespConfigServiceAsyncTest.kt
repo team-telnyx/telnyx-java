@@ -147,6 +147,5 @@ internal class AutorespConfigServiceAsyncTest {
             )
 
         val autorespConfig = autorespConfigFuture.get()
-        autorespConfig.validate()
     }
 }

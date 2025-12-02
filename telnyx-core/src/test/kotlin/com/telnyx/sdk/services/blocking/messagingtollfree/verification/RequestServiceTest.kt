@@ -211,8 +211,6 @@ internal class RequestServiceTest {
                 .build()
         val requestService = client.messagingTollfree().verification().requests()
 
-        val request = requestService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-
-        request.validate()
+        requestService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 }
