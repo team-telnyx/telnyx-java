@@ -8,17 +8,22 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
+import com.telnyx.sdk.core.handlers.jsonHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -38,23 +43,23 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
     override fun create(
         params: NumberLookupCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
+    ): CompletableFuture<NumberLookupCreateResponse> =
         // post /legacy/reporting/usage_reports/number_lookup
-        withRawResponse().create(params, requestOptions).thenAccept {}
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: NumberLookupRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
+    ): CompletableFuture<NumberLookupRetrieveResponse> =
         // get /legacy/reporting/usage_reports/number_lookup/{id}
-        withRawResponse().retrieve(params, requestOptions).thenAccept {}
+        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: NumberLookupListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
+    ): CompletableFuture<NumberLookupListResponse> =
         // get /legacy/reporting/usage_reports/number_lookup
-        withRawResponse().list(params, requestOptions).thenAccept {}
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: NumberLookupDeleteParams,
@@ -76,12 +81,13 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<Void?> = emptyHandler()
+        private val createHandler: Handler<NumberLookupCreateResponse> =
+            jsonHandler<NumberLookupCreateResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: NumberLookupCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<NumberLookupCreateResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -95,17 +101,24 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { createHandler.handle(it) }
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }
 
-        private val retrieveHandler: Handler<Void?> = emptyHandler()
+        private val retrieveHandler: Handler<NumberLookupRetrieveResponse> =
+            jsonHandler<NumberLookupRetrieveResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: NumberLookupRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<NumberLookupRetrieveResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -127,17 +140,24 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { retrieveHandler.handle(it) }
+                        response
+                            .use { retrieveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }
 
-        private val listHandler: Handler<Void?> = emptyHandler()
+        private val listHandler: Handler<NumberLookupListResponse> =
+            jsonHandler<NumberLookupListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberLookupListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -150,7 +170,13 @@ class NumberLookupServiceAsyncImpl internal constructor(private val clientOption
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { listHandler.handle(it) }
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

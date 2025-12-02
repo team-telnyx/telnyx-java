@@ -8,17 +8,22 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
+import com.telnyx.sdk.core.handlers.jsonHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -34,20 +39,26 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberLookupService =
         NumberLookupServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(params: NumberLookupCreateParams, requestOptions: RequestOptions) {
+    override fun create(
+        params: NumberLookupCreateParams,
+        requestOptions: RequestOptions,
+    ): NumberLookupCreateResponse =
         // post /legacy/reporting/usage_reports/number_lookup
-        withRawResponse().create(params, requestOptions)
-    }
+        withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(params: NumberLookupRetrieveParams, requestOptions: RequestOptions) {
+    override fun retrieve(
+        params: NumberLookupRetrieveParams,
+        requestOptions: RequestOptions,
+    ): NumberLookupRetrieveResponse =
         // get /legacy/reporting/usage_reports/number_lookup/{id}
-        withRawResponse().retrieve(params, requestOptions)
-    }
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: NumberLookupListParams, requestOptions: RequestOptions) {
+    override fun list(
+        params: NumberLookupListParams,
+        requestOptions: RequestOptions,
+    ): NumberLookupListResponse =
         // get /legacy/reporting/usage_reports/number_lookup
-        withRawResponse().list(params, requestOptions)
-    }
+        withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: NumberLookupDeleteParams, requestOptions: RequestOptions) {
         // delete /legacy/reporting/usage_reports/number_lookup/{id}
@@ -67,12 +78,13 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<Void?> = emptyHandler()
+        private val createHandler: Handler<NumberLookupCreateResponse> =
+            jsonHandler<NumberLookupCreateResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: NumberLookupCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<NumberLookupCreateResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -84,16 +96,23 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { createHandler.handle(it) }
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
 
-        private val retrieveHandler: Handler<Void?> = emptyHandler()
+        private val retrieveHandler: Handler<NumberLookupRetrieveResponse> =
+            jsonHandler<NumberLookupRetrieveResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: NumberLookupRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<NumberLookupRetrieveResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -113,16 +132,23 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { retrieveHandler.handle(it) }
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
 
-        private val listHandler: Handler<Void?> = emptyHandler()
+        private val listHandler: Handler<NumberLookupListResponse> =
+            jsonHandler<NumberLookupListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberLookupListParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<NumberLookupListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -133,7 +159,13 @@ class NumberLookupServiceImpl internal constructor(private val clientOptions: Cl
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { listHandler.handle(it) }
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
 

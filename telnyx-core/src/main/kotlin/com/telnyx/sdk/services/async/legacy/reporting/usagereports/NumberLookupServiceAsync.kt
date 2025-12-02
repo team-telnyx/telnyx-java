@@ -5,10 +5,14 @@ package com.telnyx.sdk.services.async.legacy.reporting.usagereports
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,25 +31,26 @@ interface NumberLookupServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberLookupServiceAsync
 
     /** Submit a new telco data usage report */
-    fun create(): CompletableFuture<Void?> = create(NumberLookupCreateParams.none())
+    fun create(): CompletableFuture<NumberLookupCreateResponse> =
+        create(NumberLookupCreateParams.none())
 
     /** @see create */
     fun create(
         params: NumberLookupCreateParams = NumberLookupCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
+    ): CompletableFuture<NumberLookupCreateResponse>
 
     /** @see create */
     fun create(
         params: NumberLookupCreateParams = NumberLookupCreateParams.none()
-    ): CompletableFuture<Void?> = create(params, RequestOptions.none())
+    ): CompletableFuture<NumberLookupCreateResponse> = create(params, RequestOptions.none())
 
     /** @see create */
-    fun create(requestOptions: RequestOptions): CompletableFuture<Void?> =
+    fun create(requestOptions: RequestOptions): CompletableFuture<NumberLookupCreateResponse> =
         create(NumberLookupCreateParams.none(), requestOptions)
 
     /** Retrieve a specific telco data usage report by its ID */
-    fun retrieve(id: String): CompletableFuture<Void?> =
+    fun retrieve(id: String): CompletableFuture<NumberLookupRetrieveResponse> =
         retrieve(id, NumberLookupRetrieveParams.none())
 
     /** @see retrieve */
@@ -53,44 +58,49 @@ interface NumberLookupServiceAsync {
         id: String,
         params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): CompletableFuture<NumberLookupRetrieveResponse> =
+        retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
-    ): CompletableFuture<Void?> = retrieve(id, params, RequestOptions.none())
+    ): CompletableFuture<NumberLookupRetrieveResponse> = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: NumberLookupRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
+    ): CompletableFuture<NumberLookupRetrieveResponse>
 
     /** @see retrieve */
-    fun retrieve(params: NumberLookupRetrieveParams): CompletableFuture<Void?> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(
+        params: NumberLookupRetrieveParams
+    ): CompletableFuture<NumberLookupRetrieveResponse> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+    fun retrieve(
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<NumberLookupRetrieveResponse> =
         retrieve(id, NumberLookupRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of telco data usage reports */
-    fun list(): CompletableFuture<Void?> = list(NumberLookupListParams.none())
+    fun list(): CompletableFuture<NumberLookupListResponse> = list(NumberLookupListParams.none())
 
     /** @see list */
     fun list(
         params: NumberLookupListParams = NumberLookupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
+    ): CompletableFuture<NumberLookupListResponse>
 
     /** @see list */
     fun list(
         params: NumberLookupListParams = NumberLookupListParams.none()
-    ): CompletableFuture<Void?> = list(params, RequestOptions.none())
+    ): CompletableFuture<NumberLookupListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<Void?> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NumberLookupListResponse> =
         list(NumberLookupListParams.none(), requestOptions)
 
     /** Delete a specific telco data usage report by its ID */
@@ -142,28 +152,32 @@ interface NumberLookupServiceAsync {
          * Returns a raw HTTP response for `post /legacy/reporting/usage_reports/number_lookup`, but
          * is otherwise the same as [NumberLookupServiceAsync.create].
          */
-        fun create(): CompletableFuture<HttpResponse> = create(NumberLookupCreateParams.none())
+        fun create(): CompletableFuture<HttpResponseFor<NumberLookupCreateResponse>> =
+            create(NumberLookupCreateParams.none())
 
         /** @see create */
         fun create(
             params: NumberLookupCreateParams = NumberLookupCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<NumberLookupCreateResponse>>
 
         /** @see create */
         fun create(
             params: NumberLookupCreateParams = NumberLookupCreateParams.none()
-        ): CompletableFuture<HttpResponse> = create(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<NumberLookupCreateResponse>> =
+            create(params, RequestOptions.none())
 
         /** @see create */
-        fun create(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        fun create(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<NumberLookupCreateResponse>> =
             create(NumberLookupCreateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/number_lookup/{id}`,
          * but is otherwise the same as [NumberLookupServiceAsync.retrieve].
          */
-        fun retrieve(id: String): CompletableFuture<HttpResponse> =
+        fun retrieve(id: String): CompletableFuture<HttpResponseFor<NumberLookupRetrieveResponse>> =
             retrieve(id, NumberLookupRetrieveParams.none())
 
         /** @see retrieve */
@@ -171,48 +185,58 @@ interface NumberLookupServiceAsync {
             id: String,
             params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<NumberLookupRetrieveResponse>> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             id: String,
             params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
-        ): CompletableFuture<HttpResponse> = retrieve(id, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<NumberLookupRetrieveResponse>> =
+            retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: NumberLookupRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<NumberLookupRetrieveResponse>>
 
         /** @see retrieve */
-        fun retrieve(params: NumberLookupRetrieveParams): CompletableFuture<HttpResponse> =
+        fun retrieve(
+            params: NumberLookupRetrieveParams
+        ): CompletableFuture<HttpResponseFor<NumberLookupRetrieveResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
-        fun retrieve(id: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<NumberLookupRetrieveResponse>> =
             retrieve(id, NumberLookupRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/number_lookup`, but
          * is otherwise the same as [NumberLookupServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponse> = list(NumberLookupListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> =
+            list(NumberLookupListParams.none())
 
         /** @see list */
         fun list(
             params: NumberLookupListParams = NumberLookupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>>
 
         /** @see list */
         fun list(
             params: NumberLookupListParams = NumberLookupListParams.none()
-        ): CompletableFuture<HttpResponse> = list(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> =
+            list(params, RequestOptions.none())
 
         /** @see list */
-        fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<NumberLookupListResponse>> =
             list(NumberLookupListParams.none(), requestOptions)
 
         /**
