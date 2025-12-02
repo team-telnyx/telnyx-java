@@ -11,16 +11,16 @@ internal class VoicemailRequestTest {
 
     @Test
     fun create() {
-        val voicemailRequest = VoicemailRequest.builder().enabled(true).pin("pin").build()
+        val voicemailRequest = VoicemailRequest.builder().enabled(true).pin("1234").build()
 
         assertThat(voicemailRequest.enabled()).contains(true)
-        assertThat(voicemailRequest.pin()).contains("pin")
+        assertThat(voicemailRequest.pin()).contains("1234")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val voicemailRequest = VoicemailRequest.builder().enabled(true).pin("pin").build()
+        val voicemailRequest = VoicemailRequest.builder().enabled(true).pin("1234").build()
 
         val roundtrippedVoicemailRequest =
             jsonMapper.readValue(

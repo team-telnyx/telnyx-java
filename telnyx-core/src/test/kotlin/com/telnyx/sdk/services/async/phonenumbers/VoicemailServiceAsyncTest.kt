@@ -28,7 +28,7 @@ internal class VoicemailServiceAsyncTest {
             voicemailServiceAsync.create(
                 VoicemailCreateParams.builder()
                     .phoneNumberId("123455678900")
-                    .voicemailRequest(VoicemailRequest.builder().enabled(true).pin("pin").build())
+                    .voicemailRequest(VoicemailRequest.builder().enabled(true).pin("1234").build())
                     .build()
             )
 
@@ -66,7 +66,7 @@ internal class VoicemailServiceAsyncTest {
             voicemailServiceAsync.update(
                 VoicemailUpdateParams.builder()
                     .phoneNumberId("123455678900")
-                    .voicemailRequest(VoicemailRequest.builder().enabled(true).pin("pin").build())
+                    .voicemailRequest(VoicemailRequest.builder().enabled(true).pin("1234").build())
                     .build()
             )
 
