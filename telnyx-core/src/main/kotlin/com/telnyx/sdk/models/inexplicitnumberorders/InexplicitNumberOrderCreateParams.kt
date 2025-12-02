@@ -778,10 +778,12 @@ private constructor(
         private val countryIso: JsonField<CountryIso>,
         private val phoneNumberType: JsonField<String>,
         private val administrativeArea: JsonField<String>,
+        private val excludeHeldNumbers: JsonField<Boolean>,
         private val features: JsonField<List<String>>,
         private val locality: JsonField<String>,
         private val nationalDestinationCode: JsonField<String>,
         private val phoneNumber: JsonField<PhoneNumber>,
+        private val quickship: JsonField<Boolean>,
         private val strategy: JsonField<Strategy>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -800,6 +802,9 @@ private constructor(
             @JsonProperty("administrative_area")
             @ExcludeMissing
             administrativeArea: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("exclude_held_numbers")
+            @ExcludeMissing
+            excludeHeldNumbers: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("features")
             @ExcludeMissing
             features: JsonField<List<String>> = JsonMissing.of(),
@@ -812,6 +817,9 @@ private constructor(
             @JsonProperty("phone_number")
             @ExcludeMissing
             phoneNumber: JsonField<PhoneNumber> = JsonMissing.of(),
+            @JsonProperty("quickship")
+            @ExcludeMissing
+            quickship: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("strategy")
             @ExcludeMissing
             strategy: JsonField<Strategy> = JsonMissing.of(),
@@ -820,10 +828,12 @@ private constructor(
             countryIso,
             phoneNumberType,
             administrativeArea,
+            excludeHeldNumbers,
             features,
             locality,
             nationalDestinationCode,
             phoneNumber,
+            quickship,
             strategy,
             mutableMapOf(),
         )
@@ -862,6 +872,15 @@ private constructor(
             administrativeArea.getOptional("administrative_area")
 
         /**
+         * Filter to exclude phone numbers that are currently on hold/reserved for your account.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun excludeHeldNumbers(): Optional<Boolean> =
+            excludeHeldNumbers.getOptional("exclude_held_numbers")
+
+        /**
          * Filter for phone numbers that have the features to satisfy your use case (e.g.,
          * ["voice"])
          *
@@ -894,6 +913,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun phoneNumber(): Optional<PhoneNumber> = phoneNumber.getOptional("phone_number")
+
+        /**
+         * Filter to exclude phone numbers that need additional time after to purchase to activate.
+         * Only applicable for +1 toll_free numbers.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun quickship(): Optional<Boolean> = quickship.getOptional("quickship")
 
         /**
          * Ordering strategy. Define what action should be taken if we don't have enough phone
@@ -947,6 +975,16 @@ private constructor(
         fun _administrativeArea(): JsonField<String> = administrativeArea
 
         /**
+         * Returns the raw JSON value of [excludeHeldNumbers].
+         *
+         * Unlike [excludeHeldNumbers], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("exclude_held_numbers")
+        @ExcludeMissing
+        fun _excludeHeldNumbers(): JsonField<Boolean> = excludeHeldNumbers
+
+        /**
          * Returns the raw JSON value of [features].
          *
          * Unlike [features], this method doesn't throw if the JSON field has an unexpected type.
@@ -980,6 +1018,13 @@ private constructor(
         @JsonProperty("phone_number")
         @ExcludeMissing
         fun _phoneNumber(): JsonField<PhoneNumber> = phoneNumber
+
+        /**
+         * Returns the raw JSON value of [quickship].
+         *
+         * Unlike [quickship], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("quickship") @ExcludeMissing fun _quickship(): JsonField<Boolean> = quickship
 
         /**
          * Returns the raw JSON value of [strategy].
@@ -1022,10 +1067,12 @@ private constructor(
             private var countryIso: JsonField<CountryIso>? = null
             private var phoneNumberType: JsonField<String>? = null
             private var administrativeArea: JsonField<String> = JsonMissing.of()
+            private var excludeHeldNumbers: JsonField<Boolean> = JsonMissing.of()
             private var features: JsonField<MutableList<String>>? = null
             private var locality: JsonField<String> = JsonMissing.of()
             private var nationalDestinationCode: JsonField<String> = JsonMissing.of()
             private var phoneNumber: JsonField<PhoneNumber> = JsonMissing.of()
+            private var quickship: JsonField<Boolean> = JsonMissing.of()
             private var strategy: JsonField<Strategy> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1035,10 +1082,12 @@ private constructor(
                 countryIso = orderingGroup.countryIso
                 phoneNumberType = orderingGroup.phoneNumberType
                 administrativeArea = orderingGroup.administrativeArea
+                excludeHeldNumbers = orderingGroup.excludeHeldNumbers
                 features = orderingGroup.features.map { it.toMutableList() }
                 locality = orderingGroup.locality
                 nationalDestinationCode = orderingGroup.nationalDestinationCode
                 phoneNumber = orderingGroup.phoneNumber
+                quickship = orderingGroup.quickship
                 strategy = orderingGroup.strategy
                 additionalProperties = orderingGroup.additionalProperties.toMutableMap()
             }
@@ -1100,6 +1149,23 @@ private constructor(
              */
             fun administrativeArea(administrativeArea: JsonField<String>) = apply {
                 this.administrativeArea = administrativeArea
+            }
+
+            /**
+             * Filter to exclude phone numbers that are currently on hold/reserved for your account.
+             */
+            fun excludeHeldNumbers(excludeHeldNumbers: Boolean) =
+                excludeHeldNumbers(JsonField.of(excludeHeldNumbers))
+
+            /**
+             * Sets [Builder.excludeHeldNumbers] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.excludeHeldNumbers] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun excludeHeldNumbers(excludeHeldNumbers: JsonField<Boolean>) = apply {
+                this.excludeHeldNumbers = excludeHeldNumbers
             }
 
             /**
@@ -1173,6 +1239,21 @@ private constructor(
             }
 
             /**
+             * Filter to exclude phone numbers that need additional time after to purchase to
+             * activate. Only applicable for +1 toll_free numbers.
+             */
+            fun quickship(quickship: Boolean) = quickship(JsonField.of(quickship))
+
+            /**
+             * Sets [Builder.quickship] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.quickship] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun quickship(quickship: JsonField<Boolean>) = apply { this.quickship = quickship }
+
+            /**
              * Ordering strategy. Define what action should be taken if we don't have enough phone
              * numbers to fulfill your request. Allowable values are: always = proceed with ordering
              * phone numbers, regardless of current inventory levels; never = do not place any
@@ -1229,10 +1310,12 @@ private constructor(
                     checkRequired("countryIso", countryIso),
                     checkRequired("phoneNumberType", phoneNumberType),
                     administrativeArea,
+                    excludeHeldNumbers,
                     (features ?: JsonMissing.of()).map { it.toImmutable() },
                     locality,
                     nationalDestinationCode,
                     phoneNumber,
+                    quickship,
                     strategy,
                     additionalProperties.toMutableMap(),
                 )
@@ -1249,10 +1332,12 @@ private constructor(
             countryIso().validate()
             phoneNumberType()
             administrativeArea()
+            excludeHeldNumbers()
             features()
             locality()
             nationalDestinationCode()
             phoneNumber().ifPresent { it.validate() }
+            quickship()
             strategy().ifPresent { it.validate() }
             validated = true
         }
@@ -1277,10 +1362,12 @@ private constructor(
                 (countryIso.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (phoneNumberType.asKnown().isPresent) 1 else 0) +
                 (if (administrativeArea.asKnown().isPresent) 1 else 0) +
+                (if (excludeHeldNumbers.asKnown().isPresent) 1 else 0) +
                 (features.asKnown().getOrNull()?.size ?: 0) +
                 (if (locality.asKnown().isPresent) 1 else 0) +
                 (if (nationalDestinationCode.asKnown().isPresent) 1 else 0) +
                 (phoneNumber.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (quickship.asKnown().isPresent) 1 else 0) +
                 (strategy.asKnown().getOrNull()?.validity() ?: 0)
 
         /** Country where you would like to purchase phone numbers. Allowable values: US, CA */
@@ -1793,10 +1880,12 @@ private constructor(
                 countryIso == other.countryIso &&
                 phoneNumberType == other.phoneNumberType &&
                 administrativeArea == other.administrativeArea &&
+                excludeHeldNumbers == other.excludeHeldNumbers &&
                 features == other.features &&
                 locality == other.locality &&
                 nationalDestinationCode == other.nationalDestinationCode &&
                 phoneNumber == other.phoneNumber &&
+                quickship == other.quickship &&
                 strategy == other.strategy &&
                 additionalProperties == other.additionalProperties
         }
@@ -1807,10 +1896,12 @@ private constructor(
                 countryIso,
                 phoneNumberType,
                 administrativeArea,
+                excludeHeldNumbers,
                 features,
                 locality,
                 nationalDestinationCode,
                 phoneNumber,
+                quickship,
                 strategy,
                 additionalProperties,
             )
@@ -1819,7 +1910,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "OrderingGroup{countRequested=$countRequested, countryIso=$countryIso, phoneNumberType=$phoneNumberType, administrativeArea=$administrativeArea, features=$features, locality=$locality, nationalDestinationCode=$nationalDestinationCode, phoneNumber=$phoneNumber, strategy=$strategy, additionalProperties=$additionalProperties}"
+            "OrderingGroup{countRequested=$countRequested, countryIso=$countryIso, phoneNumberType=$phoneNumberType, administrativeArea=$administrativeArea, excludeHeldNumbers=$excludeHeldNumbers, features=$features, locality=$locality, nationalDestinationCode=$nationalDestinationCode, phoneNumber=$phoneNumber, quickship=$quickship, strategy=$strategy, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
