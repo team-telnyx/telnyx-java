@@ -20,7 +20,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         .globalIp(
                             GlobalIpLatencyRetrieveResponse.Data.GlobalIp.builder()
                                 .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                                .ipAddress("ip_address")
+                                .ipAddress("192.0.2.1")
                                 .build()
                         )
                         .meanLatency(
@@ -84,7 +84,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         )
                         .proberLocation(
                             GlobalIpLatencyRetrieveResponse.Data.ProberLocation.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
                                 .lat(52.370216)
                                 .lon(4.895168)
                                 .name("Amsterdam")
@@ -101,7 +101,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                     .globalIp(
                         GlobalIpLatencyRetrieveResponse.Data.GlobalIp.builder()
                             .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                            .ipAddress("ip_address")
+                            .ipAddress("192.0.2.1")
                             .build()
                     )
                     .meanLatency(
@@ -165,7 +165,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                     )
                     .proberLocation(
                         GlobalIpLatencyRetrieveResponse.Data.ProberLocation.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
                             .lat(52.370216)
                             .lon(4.895168)
                             .name("Amsterdam")
@@ -186,7 +186,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         .globalIp(
                             GlobalIpLatencyRetrieveResponse.Data.GlobalIp.builder()
                                 .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                                .ipAddress("ip_address")
+                                .ipAddress("192.0.2.1")
                                 .build()
                         )
                         .meanLatency(
@@ -250,7 +250,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         )
                         .proberLocation(
                             GlobalIpLatencyRetrieveResponse.Data.ProberLocation.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
                                 .lat(52.370216)
                                 .lon(4.895168)
                                 .name("Amsterdam")
