@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ips
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ConnectionsPaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -25,6 +26,14 @@ internal class IpListResponseTest {
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .build()
                 )
+                .meta(
+                    ConnectionsPaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
                 .build()
 
         assertThat(ipListResponse.data().getOrNull())
@@ -37,6 +46,15 @@ internal class IpListResponseTest {
                     .port(5060L)
                     .recordType("ip")
                     .updatedAt("2018-02-02T22:25:27.521Z")
+                    .build()
+            )
+        assertThat(ipListResponse.meta())
+            .contains(
+                ConnectionsPaginationMeta.builder()
+                    .pageNumber(2L)
+                    .pageSize(25L)
+                    .totalPages(3L)
+                    .totalResults(55L)
                     .build()
             )
     }
@@ -55,6 +73,14 @@ internal class IpListResponseTest {
                         .port(5060L)
                         .recordType("ip")
                         .updatedAt("2018-02-02T22:25:27.521Z")
+                        .build()
+                )
+                .meta(
+                    ConnectionsPaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
                         .build()
                 )
                 .build()
