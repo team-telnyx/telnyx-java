@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async.legacy.reporting.usagereports
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -24,7 +23,7 @@ internal class NumberLookupServiceAsyncTest {
                 .build()
         val numberLookupServiceAsync = client.legacy().reporting().usageReports().numberLookup()
 
-        val future =
+        val numberLookupFuture =
             numberLookupServiceAsync.create(
                 NumberLookupCreateParams.builder()
                     .aggregationType(NumberLookupCreateParams.AggregationType.ALL)
@@ -35,7 +34,8 @@ internal class NumberLookupServiceAsyncTest {
                     .build()
             )
 
-        val response = future.get()
+        val numberLookup = numberLookupFuture.get()
+        numberLookup.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -48,9 +48,10 @@ internal class NumberLookupServiceAsyncTest {
                 .build()
         val numberLookupServiceAsync = client.legacy().reporting().usageReports().numberLookup()
 
-        val future = numberLookupServiceAsync.retrieve("id")
+        val numberLookupFuture = numberLookupServiceAsync.retrieve("id")
 
-        val response = future.get()
+        val numberLookup = numberLookupFuture.get()
+        numberLookup.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -63,12 +64,10 @@ internal class NumberLookupServiceAsyncTest {
                 .build()
         val numberLookupServiceAsync = client.legacy().reporting().usageReports().numberLookup()
 
-        val future =
-            numberLookupServiceAsync.list(
-                NumberLookupListParams.builder().page(0).perPage(0).build()
-            )
+        val numberLookupsFuture = numberLookupServiceAsync.list()
 
-        val response = future.get()
+        val numberLookups = numberLookupsFuture.get()
+        numberLookups.validate()
     }
 
     @Disabled("Prism tests are disabled")
