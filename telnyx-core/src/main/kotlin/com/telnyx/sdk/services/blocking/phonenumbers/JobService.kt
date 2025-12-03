@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchResponse
+import com.telnyx.sdk.models.phonenumbers.jobs.JobListPage
 import com.telnyx.sdk.models.phonenumbers.jobs.JobListParams
-import com.telnyx.sdk.models.phonenumbers.jobs.JobListResponse
 import com.telnyx.sdk.models.phonenumbers.jobs.JobRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobRetrieveResponse
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateBatchParams
@@ -63,20 +63,20 @@ interface JobService {
         retrieve(id, JobRetrieveParams.none(), requestOptions)
 
     /** Lists the phone numbers jobs */
-    fun list(): JobListResponse = list(JobListParams.none())
+    fun list(): JobListPage = list(JobListParams.none())
 
     /** @see list */
     fun list(
         params: JobListParams = JobListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): JobListResponse
+    ): JobListPage
 
     /** @see list */
-    fun list(params: JobListParams = JobListParams.none()): JobListResponse =
+    fun list(params: JobListParams = JobListParams.none()): JobListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): JobListResponse =
+    fun list(requestOptions: RequestOptions): JobListPage =
         list(JobListParams.none(), requestOptions)
 
     /**
@@ -184,23 +184,23 @@ interface JobService {
          * Returns a raw HTTP response for `get /phone_numbers/jobs`, but is otherwise the same as
          * [JobService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<JobListResponse> = list(JobListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<JobListPage> = list(JobListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: JobListParams = JobListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<JobListResponse>
+        ): HttpResponseFor<JobListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: JobListParams = JobListParams.none()): HttpResponseFor<JobListResponse> =
+        fun list(params: JobListParams = JobListParams.none()): HttpResponseFor<JobListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<JobListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<JobListPage> =
             list(JobListParams.none(), requestOptions)
 
         /**

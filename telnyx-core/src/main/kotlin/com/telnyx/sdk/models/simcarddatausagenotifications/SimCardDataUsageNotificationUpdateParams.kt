@@ -14,13 +14,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Updates information for a SIM Card Data Usage Notification. */
 class SimCardDataUsageNotificationUpdateParams
 private constructor(
-    private val pathId: String?,
+    private val simCardDataUsageNotificationId: String?,
     private val simCardDataUsageNotification: SimCardDataUsageNotification,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
+    fun simCardDataUsageNotificationId(): Optional<String> =
+        Optional.ofNullable(simCardDataUsageNotificationId)
 
     /** The SIM card individual data usage notification information. */
     fun simCardDataUsageNotification(): SimCardDataUsageNotification = simCardDataUsageNotification
@@ -53,7 +54,7 @@ private constructor(
     /** A builder for [SimCardDataUsageNotificationUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathId: String? = null
+        private var simCardDataUsageNotificationId: String? = null
         private var simCardDataUsageNotification: SimCardDataUsageNotification? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -62,7 +63,8 @@ private constructor(
         internal fun from(
             simCardDataUsageNotificationUpdateParams: SimCardDataUsageNotificationUpdateParams
         ) = apply {
-            pathId = simCardDataUsageNotificationUpdateParams.pathId
+            simCardDataUsageNotificationId =
+                simCardDataUsageNotificationUpdateParams.simCardDataUsageNotificationId
             simCardDataUsageNotification =
                 simCardDataUsageNotificationUpdateParams.simCardDataUsageNotification
             additionalHeaders =
@@ -71,10 +73,16 @@ private constructor(
                 simCardDataUsageNotificationUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pathId(pathId: String?) = apply { this.pathId = pathId }
+        fun simCardDataUsageNotificationId(simCardDataUsageNotificationId: String?) = apply {
+            this.simCardDataUsageNotificationId = simCardDataUsageNotificationId
+        }
 
-        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
-        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
+        /**
+         * Alias for calling [Builder.simCardDataUsageNotificationId] with
+         * `simCardDataUsageNotificationId.orElse(null)`.
+         */
+        fun simCardDataUsageNotificationId(simCardDataUsageNotificationId: Optional<String>) =
+            simCardDataUsageNotificationId(simCardDataUsageNotificationId.getOrNull())
 
         /** The SIM card individual data usage notification information. */
         fun simCardDataUsageNotification(
@@ -193,7 +201,7 @@ private constructor(
          */
         fun build(): SimCardDataUsageNotificationUpdateParams =
             SimCardDataUsageNotificationUpdateParams(
-                pathId,
+                simCardDataUsageNotificationId,
                 checkRequired("simCardDataUsageNotification", simCardDataUsageNotification),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -204,7 +212,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathId ?: ""
+            0 -> simCardDataUsageNotificationId ?: ""
             else -> ""
         }
 
@@ -218,15 +226,20 @@ private constructor(
         }
 
         return other is SimCardDataUsageNotificationUpdateParams &&
-            pathId == other.pathId &&
+            simCardDataUsageNotificationId == other.simCardDataUsageNotificationId &&
             simCardDataUsageNotification == other.simCardDataUsageNotification &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathId, simCardDataUsageNotification, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            simCardDataUsageNotificationId,
+            simCardDataUsageNotification,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "SimCardDataUsageNotificationUpdateParams{pathId=$pathId, simCardDataUsageNotification=$simCardDataUsageNotification, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SimCardDataUsageNotificationUpdateParams{simCardDataUsageNotificationId=$simCardDataUsageNotificationId, simCardDataUsageNotification=$simCardDataUsageNotification, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

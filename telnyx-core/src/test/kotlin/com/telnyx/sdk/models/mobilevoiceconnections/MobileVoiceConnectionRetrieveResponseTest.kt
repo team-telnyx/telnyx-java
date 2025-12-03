@@ -15,31 +15,22 @@ internal class MobileVoiceConnectionRetrieveResponseTest {
         val mobileVoiceConnectionRetrieveResponse =
             MobileVoiceConnectionRetrieveResponse.builder()
                 .data(
-                    MobileVoiceConnectionRetrieveResponse.Data.builder()
+                    MobileVoiceConnection.builder()
                         .id("id")
                         .active(true)
                         .connectionName("connection_name")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .inbound(
-                            MobileVoiceConnectionRetrieveResponse.Data.Inbound.builder()
-                                .channelLimit(0L)
-                                .build()
-                        )
+                        .inbound(MobileVoiceConnection.Inbound.builder().channelLimit(0L).build())
                         .outbound(
-                            MobileVoiceConnectionRetrieveResponse.Data.Outbound.builder()
+                            MobileVoiceConnection.Outbound.builder()
                                 .channelLimit(0L)
                                 .outboundVoiceProfileId("outbound_voice_profile_id")
                                 .build()
                         )
-                        .recordType(
-                            MobileVoiceConnectionRetrieveResponse.Data.RecordType
-                                .MOBILE_VOICE_CONNECTION
-                        )
+                        .recordType(MobileVoiceConnection.RecordType.MOBILE_VOICE_CONNECTION)
                         .addTag("string")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .webhookApiVersion(
-                            MobileVoiceConnectionRetrieveResponse.Data.WebhookApiVersion._1
-                        )
+                        .webhookApiVersion(MobileVoiceConnection.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("webhook_event_failover_url")
                         .webhookEventUrl("webhook_event_url")
                         .webhookTimeoutSecs(0L)
@@ -49,31 +40,22 @@ internal class MobileVoiceConnectionRetrieveResponseTest {
 
         assertThat(mobileVoiceConnectionRetrieveResponse.data())
             .contains(
-                MobileVoiceConnectionRetrieveResponse.Data.builder()
+                MobileVoiceConnection.builder()
                     .id("id")
                     .active(true)
                     .connectionName("connection_name")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .inbound(
-                        MobileVoiceConnectionRetrieveResponse.Data.Inbound.builder()
-                            .channelLimit(0L)
-                            .build()
-                    )
+                    .inbound(MobileVoiceConnection.Inbound.builder().channelLimit(0L).build())
                     .outbound(
-                        MobileVoiceConnectionRetrieveResponse.Data.Outbound.builder()
+                        MobileVoiceConnection.Outbound.builder()
                             .channelLimit(0L)
                             .outboundVoiceProfileId("outbound_voice_profile_id")
                             .build()
                     )
-                    .recordType(
-                        MobileVoiceConnectionRetrieveResponse.Data.RecordType
-                            .MOBILE_VOICE_CONNECTION
-                    )
+                    .recordType(MobileVoiceConnection.RecordType.MOBILE_VOICE_CONNECTION)
                     .addTag("string")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .webhookApiVersion(
-                        MobileVoiceConnectionRetrieveResponse.Data.WebhookApiVersion._1
-                    )
+                    .webhookApiVersion(MobileVoiceConnection.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("webhook_event_failover_url")
                     .webhookEventUrl("webhook_event_url")
                     .webhookTimeoutSecs(0L)
@@ -87,31 +69,22 @@ internal class MobileVoiceConnectionRetrieveResponseTest {
         val mobileVoiceConnectionRetrieveResponse =
             MobileVoiceConnectionRetrieveResponse.builder()
                 .data(
-                    MobileVoiceConnectionRetrieveResponse.Data.builder()
+                    MobileVoiceConnection.builder()
                         .id("id")
                         .active(true)
                         .connectionName("connection_name")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .inbound(
-                            MobileVoiceConnectionRetrieveResponse.Data.Inbound.builder()
-                                .channelLimit(0L)
-                                .build()
-                        )
+                        .inbound(MobileVoiceConnection.Inbound.builder().channelLimit(0L).build())
                         .outbound(
-                            MobileVoiceConnectionRetrieveResponse.Data.Outbound.builder()
+                            MobileVoiceConnection.Outbound.builder()
                                 .channelLimit(0L)
                                 .outboundVoiceProfileId("outbound_voice_profile_id")
                                 .build()
                         )
-                        .recordType(
-                            MobileVoiceConnectionRetrieveResponse.Data.RecordType
-                                .MOBILE_VOICE_CONNECTION
-                        )
+                        .recordType(MobileVoiceConnection.RecordType.MOBILE_VOICE_CONNECTION)
                         .addTag("string")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .webhookApiVersion(
-                            MobileVoiceConnectionRetrieveResponse.Data.WebhookApiVersion._1
-                        )
+                        .webhookApiVersion(MobileVoiceConnection.WebhookApiVersion.V1)
                         .webhookEventFailoverUrl("webhook_event_failover_url")
                         .webhookEventUrl("webhook_event_url")
                         .webhookTimeoutSecs(0L)

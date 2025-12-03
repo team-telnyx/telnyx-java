@@ -47,7 +47,11 @@ internal class MessageCancelScheduledResponseTest {
                         .code("code")
                         .title("title")
                         .detail("detail")
-                        .meta(JsonValue.from(mapOf<String, Any>()))
+                        .meta(
+                            MessagingError.Meta.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .source(
                             MessagingError.Source.builder()
                                 .parameter("parameter")
@@ -134,7 +138,11 @@ internal class MessageCancelScheduledResponseTest {
                     .code("code")
                     .title("title")
                     .detail("detail")
-                    .meta(JsonValue.from(mapOf<String, Any>()))
+                    .meta(
+                        MessagingError.Meta.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .source(
                         MessagingError.Source.builder()
                             .parameter("parameter")
@@ -231,7 +239,11 @@ internal class MessageCancelScheduledResponseTest {
                         .code("code")
                         .title("title")
                         .detail("detail")
-                        .meta(JsonValue.from(mapOf<String, Any>()))
+                        .meta(
+                            MessagingError.Meta.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .source(
                             MessagingError.Source.builder()
                                 .parameter("parameter")

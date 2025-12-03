@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaign
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreate
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreateParams
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignDeleteParams
+import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignListPageAsync
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignListParams
-import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignListResponse
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignRetrieveParams
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -96,18 +96,18 @@ interface PhoneNumberCampaignServiceAsync {
 
     /** Create New Phone Number Campaign */
     fun update(
-        pathPhoneNumber: String,
+        campaignPhoneNumber: String,
         params: PhoneNumberCampaignUpdateParams,
     ): CompletableFuture<PhoneNumberCampaign> =
-        update(pathPhoneNumber, params, RequestOptions.none())
+        update(campaignPhoneNumber, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathPhoneNumber: String,
+        campaignPhoneNumber: String,
         params: PhoneNumberCampaignUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhoneNumberCampaign> =
-        update(params.toBuilder().pathPhoneNumber(pathPhoneNumber).build(), requestOptions)
+        update(params.toBuilder().campaignPhoneNumber(campaignPhoneNumber).build(), requestOptions)
 
     /** @see update */
     fun update(params: PhoneNumberCampaignUpdateParams): CompletableFuture<PhoneNumberCampaign> =
@@ -120,22 +120,22 @@ interface PhoneNumberCampaignServiceAsync {
     ): CompletableFuture<PhoneNumberCampaign>
 
     /** Retrieve All Phone Number Campaigns */
-    fun list(): CompletableFuture<PhoneNumberCampaignListResponse> =
+    fun list(): CompletableFuture<PhoneNumberCampaignListPageAsync> =
         list(PhoneNumberCampaignListParams.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberCampaignListResponse>
+    ): CompletableFuture<PhoneNumberCampaignListPageAsync>
 
     /** @see list */
     fun list(
         params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none()
-    ): CompletableFuture<PhoneNumberCampaignListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PhoneNumberCampaignListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PhoneNumberCampaignListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PhoneNumberCampaignListPageAsync> =
         list(PhoneNumberCampaignListParams.none(), requestOptions)
 
     /** This endpoint allows you to remove a campaign assignment from the supplied `phoneNumber`. */
@@ -267,18 +267,21 @@ interface PhoneNumberCampaignServiceAsync {
          * otherwise the same as [PhoneNumberCampaignServiceAsync.update].
          */
         fun update(
-            pathPhoneNumber: String,
+            campaignPhoneNumber: String,
             params: PhoneNumberCampaignUpdateParams,
         ): CompletableFuture<HttpResponseFor<PhoneNumberCampaign>> =
-            update(pathPhoneNumber, params, RequestOptions.none())
+            update(campaignPhoneNumber, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            pathPhoneNumber: String,
+            campaignPhoneNumber: String,
             params: PhoneNumberCampaignUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhoneNumberCampaign>> =
-            update(params.toBuilder().pathPhoneNumber(pathPhoneNumber).build(), requestOptions)
+            update(
+                params.toBuilder().campaignPhoneNumber(campaignPhoneNumber).build(),
+                requestOptions,
+            )
 
         /** @see update */
         fun update(
@@ -296,25 +299,25 @@ interface PhoneNumberCampaignServiceAsync {
          * Returns a raw HTTP response for `get /phone_number_campaigns`, but is otherwise the same
          * as [PhoneNumberCampaignServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListPageAsync>> =
             list(PhoneNumberCampaignListParams.none())
 
         /** @see list */
         fun list(
             params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListResponse>>
+        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListPageAsync>>
 
         /** @see list */
         fun list(
             params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none()
-        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListPageAsync>> =
             list(PhoneNumberCampaignListParams.none(), requestOptions)
 
         /**

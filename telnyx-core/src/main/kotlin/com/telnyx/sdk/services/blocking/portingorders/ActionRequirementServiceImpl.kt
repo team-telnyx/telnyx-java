@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateParams
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateResponse
+import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListPage
+import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListPageResponse
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListParams
-import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -38,7 +39,7 @@ class ActionRequirementServiceImpl internal constructor(private val clientOption
     override fun list(
         params: ActionRequirementListParams,
         requestOptions: RequestOptions,
-    ): ActionRequirementListResponse =
+    ): ActionRequirementListPage =
         // get /porting_orders/{porting_order_id}/action_requirements
         withRawResponse().list(params, requestOptions).parse()
 
@@ -62,13 +63,13 @@ class ActionRequirementServiceImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<ActionRequirementListResponse> =
-            jsonHandler<ActionRequirementListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ActionRequirementListPageResponse> =
+            jsonHandler<ActionRequirementListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ActionRequirementListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ActionRequirementListResponse> {
+        ): HttpResponseFor<ActionRequirementListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portingOrderId", params.portingOrderId().getOrNull())
@@ -88,6 +89,13 @@ class ActionRequirementServiceImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ActionRequirementListPage.builder()
+                            .service(ActionRequirementServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

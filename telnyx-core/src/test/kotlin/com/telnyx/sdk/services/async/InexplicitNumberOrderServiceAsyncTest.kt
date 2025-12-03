@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateParams
-import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -90,12 +89,9 @@ internal class InexplicitNumberOrderServiceAsyncTest {
                 .build()
         val inexplicitNumberOrderServiceAsync = client.inexplicitNumberOrders()
 
-        val inexplicitNumberOrdersFuture =
-            inexplicitNumberOrderServiceAsync.list(
-                InexplicitNumberOrderListParams.builder().pageNumber(1L).pageSize(1L).build()
-            )
+        val pageFuture = inexplicitNumberOrderServiceAsync.list()
 
-        val inexplicitNumberOrders = inexplicitNumberOrdersFuture.get()
-        inexplicitNumberOrders.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

@@ -86,8 +86,8 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
-        assertThat(assistantTool.sipRefer()).isEmpty
-        assertThat(assistantTool.dtmf()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
     }
 
     @Test
@@ -196,8 +196,8 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
-        assertThat(assistantTool.sipRefer()).isEmpty
-        assertThat(assistantTool.dtmf()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
     }
 
     @Test
@@ -240,7 +240,6 @@ internal class AssistantToolTest {
                         .voiceMode(AssistantTool.HandoffTool.Handoff.VoiceMode.UNIFIED)
                         .build()
                 )
-                .type(AssistantTool.HandoffTool.Type.HANDOFF)
                 .build()
 
         val assistantTool = AssistantTool.ofHandoff(handoff)
@@ -250,8 +249,8 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).contains(handoff)
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
-        assertThat(assistantTool.sipRefer()).isEmpty
-        assertThat(assistantTool.dtmf()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
     }
 
     @Test
@@ -271,7 +270,6 @@ internal class AssistantToolTest {
                             .voiceMode(AssistantTool.HandoffTool.Handoff.VoiceMode.UNIFIED)
                             .build()
                     )
-                    .type(AssistantTool.HandoffTool.Type.HANDOFF)
                     .build()
             )
 
@@ -299,8 +297,8 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).contains(hangup)
         assertThat(assistantTool.transfer()).isEmpty
-        assertThat(assistantTool.sipRefer()).isEmpty
-        assertThat(assistantTool.dtmf()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
     }
 
     @Test
@@ -357,8 +355,8 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).contains(transfer)
-        assertThat(assistantTool.sipRefer()).isEmpty
-        assertThat(assistantTool.dtmf()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
     }
 
     @Test
@@ -401,8 +399,8 @@ internal class AssistantToolTest {
     }
 
     @Test
-    fun ofSipRefer() {
-        val sipRefer =
+    fun ofRefer() {
+        val refer =
             AssistantTool.SipReferTool.builder()
                 .refer(
                     AssistantTool.SipReferTool.Refer.builder()
@@ -428,25 +426,24 @@ internal class AssistantToolTest {
                         )
                         .build()
                 )
-                .type(AssistantTool.SipReferTool.Type.REFER)
                 .build()
 
-        val assistantTool = AssistantTool.ofSipRefer(sipRefer)
+        val assistantTool = AssistantTool.ofRefer(refer)
 
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
-        assertThat(assistantTool.sipRefer()).contains(sipRefer)
-        assertThat(assistantTool.dtmf()).isEmpty
+        assertThat(assistantTool.refer()).contains(refer)
+        assertThat(assistantTool.sendDtmf()).isEmpty
     }
 
     @Test
-    fun ofSipReferRoundtrip() {
+    fun ofReferRoundtrip() {
         val jsonMapper = jsonMapper()
         val assistantTool =
-            AssistantTool.ofSipRefer(
+            AssistantTool.ofRefer(
                 AssistantTool.SipReferTool.builder()
                     .refer(
                         AssistantTool.SipReferTool.Refer.builder()
@@ -474,7 +471,6 @@ internal class AssistantToolTest {
                             )
                             .build()
                     )
-                    .type(AssistantTool.SipReferTool.Type.REFER)
                     .build()
             )
 
@@ -488,40 +484,38 @@ internal class AssistantToolTest {
     }
 
     @Test
-    fun ofDtmf() {
-        val dtmf =
+    fun ofSendDtmf() {
+        val sendDtmf =
             AssistantTool.DtmfTool.builder()
                 .sendDtmf(
                     AssistantTool.DtmfTool.SendDtmf.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .type(AssistantTool.DtmfTool.Type.SEND_DTMF)
                 .build()
 
-        val assistantTool = AssistantTool.ofDtmf(dtmf)
+        val assistantTool = AssistantTool.ofSendDtmf(sendDtmf)
 
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
-        assertThat(assistantTool.sipRefer()).isEmpty
-        assertThat(assistantTool.dtmf()).contains(dtmf)
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).contains(sendDtmf)
     }
 
     @Test
-    fun ofDtmfRoundtrip() {
+    fun ofSendDtmfRoundtrip() {
         val jsonMapper = jsonMapper()
         val assistantTool =
-            AssistantTool.ofDtmf(
+            AssistantTool.ofSendDtmf(
                 AssistantTool.DtmfTool.builder()
                     .sendDtmf(
                         AssistantTool.DtmfTool.SendDtmf.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
-                    .type(AssistantTool.DtmfTool.Type.SEND_DTMF)
                     .build()
             )
 

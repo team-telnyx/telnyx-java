@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListPage
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListParams
-import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveParams
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobUpdateParams
@@ -77,33 +77,33 @@ interface ActivationJobService {
     ): ActivationJobUpdateResponse
 
     /** Returns a list of your porting activation jobs. */
-    fun list(id: String): ActivationJobListResponse = list(id, ActivationJobListParams.none())
+    fun list(id: String): ActivationJobListPage = list(id, ActivationJobListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: ActivationJobListParams = ActivationJobListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActivationJobListResponse = list(params.toBuilder().id(id).build(), requestOptions)
+    ): ActivationJobListPage = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: ActivationJobListParams = ActivationJobListParams.none(),
-    ): ActivationJobListResponse = list(id, params, RequestOptions.none())
+    ): ActivationJobListPage = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ActivationJobListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActivationJobListResponse
+    ): ActivationJobListPage
 
     /** @see list */
-    fun list(params: ActivationJobListParams): ActivationJobListResponse =
+    fun list(params: ActivationJobListParams): ActivationJobListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): ActivationJobListResponse =
+    fun list(id: String, requestOptions: RequestOptions): ActivationJobListPage =
         list(id, ActivationJobListParams.none(), requestOptions)
 
     /**
@@ -193,7 +193,7 @@ interface ActivationJobService {
          * otherwise the same as [ActivationJobService.list].
          */
         @MustBeClosed
-        fun list(id: String): HttpResponseFor<ActivationJobListResponse> =
+        fun list(id: String): HttpResponseFor<ActivationJobListPage> =
             list(id, ActivationJobListParams.none())
 
         /** @see list */
@@ -202,7 +202,7 @@ interface ActivationJobService {
             id: String,
             params: ActivationJobListParams = ActivationJobListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActivationJobListResponse> =
+        ): HttpResponseFor<ActivationJobListPage> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
@@ -210,18 +210,18 @@ interface ActivationJobService {
         fun list(
             id: String,
             params: ActivationJobListParams = ActivationJobListParams.none(),
-        ): HttpResponseFor<ActivationJobListResponse> = list(id, params, RequestOptions.none())
+        ): HttpResponseFor<ActivationJobListPage> = list(id, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ActivationJobListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActivationJobListResponse>
+        ): HttpResponseFor<ActivationJobListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: ActivationJobListParams): HttpResponseFor<ActivationJobListResponse> =
+        fun list(params: ActivationJobListParams): HttpResponseFor<ActivationJobListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -229,7 +229,7 @@ interface ActivationJobService {
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ActivationJobListResponse> =
+        ): HttpResponseFor<ActivationJobListPage> =
             list(id, ActivationJobListParams.none(), requestOptions)
     }
 }

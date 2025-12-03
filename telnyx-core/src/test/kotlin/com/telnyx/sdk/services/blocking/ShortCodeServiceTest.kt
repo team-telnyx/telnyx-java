@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.shortcodes.ShortCodeListParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -59,18 +58,8 @@ internal class ShortCodeServiceTest {
                 .build()
         val shortCodeService = client.shortCodes()
 
-        val shortCodes =
-            shortCodeService.list(
-                ShortCodeListParams.builder()
-                    .filter(
-                        ShortCodeListParams.Filter.builder()
-                            .messagingProfileId("messaging_profile_id")
-                            .build()
-                    )
-                    .page(ShortCodeListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = shortCodeService.list()
 
-        shortCodes.validate()
+        page.response().validate()
     }
 }

@@ -36,12 +36,12 @@ import java.util.Optional
  */
 class DocumentUploadParams
 private constructor(
-    private val body: Body,
+    private val document: Document,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun body(): Body = body
+    fun document(): Document = document
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -58,7 +58,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .document()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -67,32 +67,32 @@ private constructor(
     /** A builder for [DocumentUploadParams]. */
     class Builder internal constructor() {
 
-        private var body: Body? = null
+        private var document: Document? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(documentUploadParams: DocumentUploadParams) = apply {
-            body = documentUploadParams.body
+            document = documentUploadParams.document
             additionalHeaders = documentUploadParams.additionalHeaders.toBuilder()
             additionalQueryParams = documentUploadParams.additionalQueryParams.toBuilder()
         }
 
-        fun body(body: Body) = apply { this.body = body }
+        fun document(document: Document) = apply { this.document = document }
 
         /**
-         * Alias for calling [body] with
-         * `Body.ofDocServiceDocumentUploadUrl(docServiceDocumentUploadUrl)`.
+         * Alias for calling [document] with
+         * `Document.ofDocServiceDocumentUploadUrl(docServiceDocumentUploadUrl)`.
          */
-        fun body(docServiceDocumentUploadUrl: Body.DocServiceDocumentUploadUrl) =
-            body(Body.ofDocServiceDocumentUploadUrl(docServiceDocumentUploadUrl))
+        fun document(docServiceDocumentUploadUrl: Document.DocServiceDocumentUploadUrl) =
+            document(Document.ofDocServiceDocumentUploadUrl(docServiceDocumentUploadUrl))
 
         /**
-         * Alias for calling [body] with
-         * `Body.ofDocServiceDocumentUploadInline(docServiceDocumentUploadInline)`.
+         * Alias for calling [document] with
+         * `Document.ofDocServiceDocumentUploadInline(docServiceDocumentUploadInline)`.
          */
-        fun body(docServiceDocumentUploadInline: Body.DocServiceDocumentUploadInline) =
-            body(Body.ofDocServiceDocumentUploadInline(docServiceDocumentUploadInline))
+        fun document(docServiceDocumentUploadInline: Document.DocServiceDocumentUploadInline) =
+            document(Document.ofDocServiceDocumentUploadInline(docServiceDocumentUploadInline))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -199,28 +199,28 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .document()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DocumentUploadParams =
             DocumentUploadParams(
-                checkRequired("body", body),
+                checkRequired("document", document),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): Document = document
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(using = Body.Deserializer::class)
-    @JsonSerialize(using = Body.Serializer::class)
-    class Body
+    @JsonDeserialize(using = Document.Deserializer::class)
+    @JsonSerialize(using = Document.Serializer::class)
+    class Document
     private constructor(
         private val docServiceDocumentUploadUrl: DocServiceDocumentUploadUrl? = null,
         private val docServiceDocumentUploadInline: DocServiceDocumentUploadInline? = null,
@@ -256,7 +256,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body = apply {
+        fun validate(): Document = apply {
             if (validated) {
                 return@apply
             }
@@ -314,7 +314,7 @@ private constructor(
                 return true
             }
 
-            return other is Body &&
+            return other is Document &&
                 docServiceDocumentUploadUrl == other.docServiceDocumentUploadUrl &&
                 docServiceDocumentUploadInline == other.docServiceDocumentUploadInline
         }
@@ -325,11 +325,11 @@ private constructor(
         override fun toString(): String =
             when {
                 docServiceDocumentUploadUrl != null ->
-                    "Body{docServiceDocumentUploadUrl=$docServiceDocumentUploadUrl}"
+                    "Document{docServiceDocumentUploadUrl=$docServiceDocumentUploadUrl}"
                 docServiceDocumentUploadInline != null ->
-                    "Body{docServiceDocumentUploadInline=$docServiceDocumentUploadInline}"
-                _json != null -> "Body{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid Body")
+                    "Document{docServiceDocumentUploadInline=$docServiceDocumentUploadInline}"
+                _json != null -> "Document{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid Document")
             }
 
         companion object {
@@ -337,15 +337,17 @@ private constructor(
             @JvmStatic
             fun ofDocServiceDocumentUploadUrl(
                 docServiceDocumentUploadUrl: DocServiceDocumentUploadUrl
-            ) = Body(docServiceDocumentUploadUrl = docServiceDocumentUploadUrl)
+            ) = Document(docServiceDocumentUploadUrl = docServiceDocumentUploadUrl)
 
             @JvmStatic
             fun ofDocServiceDocumentUploadInline(
                 docServiceDocumentUploadInline: DocServiceDocumentUploadInline
-            ) = Body(docServiceDocumentUploadInline = docServiceDocumentUploadInline)
+            ) = Document(docServiceDocumentUploadInline = docServiceDocumentUploadInline)
         }
 
-        /** An interface that defines how to map each variant of [Body] to a value of type [T]. */
+        /**
+         * An interface that defines how to map each variant of [Document] to a value of type [T].
+         */
         interface Visitor<out T> {
 
             fun visitDocServiceDocumentUploadUrl(
@@ -357,30 +359,33 @@ private constructor(
             ): T
 
             /**
-             * Maps an unknown variant of [Body] to a value of type [T].
+             * Maps an unknown variant of [Document] to a value of type [T].
              *
-             * An instance of [Body] can contain an unknown variant if it was deserialized from data
-             * that doesn't match any known variant. For example, if the SDK is on an older version
-             * than the API, then the API may respond with new variants that the SDK is unaware of.
+             * An instance of [Document] can contain an unknown variant if it was deserialized from
+             * data that doesn't match any known variant. For example, if the SDK is on an older
+             * version than the API, then the API may respond with new variants that the SDK is
+             * unaware of.
              *
              * @throws TelnyxInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown Body: $json")
+                throw TelnyxInvalidDataException("Unknown Document: $json")
             }
         }
 
-        internal class Deserializer : BaseDeserializer<Body>(Body::class) {
+        internal class Deserializer : BaseDeserializer<Document>(Document::class) {
 
-            override fun ObjectCodec.deserialize(node: JsonNode): Body {
+            override fun ObjectCodec.deserialize(node: JsonNode): Document {
                 val json = JsonValue.fromJsonNode(node)
 
                 val bestMatches =
                     sequenceOf(
                             tryDeserialize(node, jacksonTypeRef<DocServiceDocumentUploadUrl>())
-                                ?.let { Body(docServiceDocumentUploadUrl = it, _json = json) },
+                                ?.let { Document(docServiceDocumentUploadUrl = it, _json = json) },
                             tryDeserialize(node, jacksonTypeRef<DocServiceDocumentUploadInline>())
-                                ?.let { Body(docServiceDocumentUploadInline = it, _json = json) },
+                                ?.let {
+                                    Document(docServiceDocumentUploadInline = it, _json = json)
+                                },
                         )
                         .filterNotNull()
                         .allMaxBy { it.validity() }
@@ -388,7 +393,7 @@ private constructor(
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
                     // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Body(_json = json)
+                    0 -> Document(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
                     // completely valid match, or simply the first match if none are completely
@@ -398,10 +403,10 @@ private constructor(
             }
         }
 
-        internal class Serializer : BaseSerializer<Body>(Body::class) {
+        internal class Serializer : BaseSerializer<Document>(Document::class) {
 
             override fun serialize(
-                value: Body,
+                value: Document,
                 generator: JsonGenerator,
                 provider: SerializerProvider,
             ) {
@@ -411,7 +416,7 @@ private constructor(
                     value.docServiceDocumentUploadInline != null ->
                         generator.writeObject(value.docServiceDocumentUploadInline)
                     value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid Body")
+                    else -> throw IllegalStateException("Invalid Document")
                 }
             }
         }
@@ -931,13 +936,13 @@ private constructor(
         }
 
         return other is DocumentUploadParams &&
-            body == other.body &&
+            document == other.document &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(document, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "DocumentUploadParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DocumentUploadParams{document=$document, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

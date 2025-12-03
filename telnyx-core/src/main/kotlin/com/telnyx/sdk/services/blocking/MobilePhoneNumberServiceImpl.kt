@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListPage
+import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListPageResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListParams
-import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
@@ -54,7 +55,7 @@ class MobilePhoneNumberServiceImpl internal constructor(private val clientOption
     override fun list(
         params: MobilePhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): MobilePhoneNumberListResponse =
+    ): MobilePhoneNumberListPage =
         // get /v2/mobile_phone_numbers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -132,13 +133,13 @@ class MobilePhoneNumberServiceImpl internal constructor(private val clientOption
             }
         }
 
-        private val listHandler: Handler<MobilePhoneNumberListResponse> =
-            jsonHandler<MobilePhoneNumberListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MobilePhoneNumberListPageResponse> =
+            jsonHandler<MobilePhoneNumberListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MobilePhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MobilePhoneNumberListResponse> {
+        ): HttpResponseFor<MobilePhoneNumberListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -155,6 +156,13 @@ class MobilePhoneNumberServiceImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MobilePhoneNumberListPage.builder()
+                            .service(MobilePhoneNumberServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

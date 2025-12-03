@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListPageAsync
+import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListPageResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListParams
-import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
@@ -57,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
     override fun list(
         params: MobilePhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MobilePhoneNumberListResponse> =
+    ): CompletableFuture<MobilePhoneNumberListPageAsync> =
         // get /v2/mobile_phone_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -141,13 +142,13 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
                 }
         }
 
-        private val listHandler: Handler<MobilePhoneNumberListResponse> =
-            jsonHandler<MobilePhoneNumberListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MobilePhoneNumberListPageResponse> =
+            jsonHandler<MobilePhoneNumberListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MobilePhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListResponse>> {
+        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -166,6 +167,14 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MobilePhoneNumberListPageAsync.builder()
+                                    .service(MobilePhoneNumberServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

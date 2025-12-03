@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
 import com.telnyx.sdk.models.globalips.GlobalIpCreateResponse
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteParams
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteResponse
+import com.telnyx.sdk.models.globalips.GlobalIpListPage
 import com.telnyx.sdk.models.globalips.GlobalIpListParams
-import com.telnyx.sdk.models.globalips.GlobalIpListResponse
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveParams
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveResponse
 import java.util.function.Consumer
@@ -78,20 +78,20 @@ interface GlobalIpService {
         retrieve(id, GlobalIpRetrieveParams.none(), requestOptions)
 
     /** List all Global IPs. */
-    fun list(): GlobalIpListResponse = list(GlobalIpListParams.none())
+    fun list(): GlobalIpListPage = list(GlobalIpListParams.none())
 
     /** @see list */
     fun list(
         params: GlobalIpListParams = GlobalIpListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): GlobalIpListResponse
+    ): GlobalIpListPage
 
     /** @see list */
-    fun list(params: GlobalIpListParams = GlobalIpListParams.none()): GlobalIpListResponse =
+    fun list(params: GlobalIpListParams = GlobalIpListParams.none()): GlobalIpListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): GlobalIpListResponse =
+    fun list(requestOptions: RequestOptions): GlobalIpListPage =
         list(GlobalIpListParams.none(), requestOptions)
 
     /** Delete a Global IP. */
@@ -208,24 +208,24 @@ interface GlobalIpService {
          * [GlobalIpService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<GlobalIpListResponse> = list(GlobalIpListParams.none())
+        fun list(): HttpResponseFor<GlobalIpListPage> = list(GlobalIpListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: GlobalIpListParams = GlobalIpListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<GlobalIpListResponse>
+        ): HttpResponseFor<GlobalIpListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: GlobalIpListParams = GlobalIpListParams.none()
-        ): HttpResponseFor<GlobalIpListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<GlobalIpListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<GlobalIpListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<GlobalIpListPage> =
             list(GlobalIpListParams.none(), requestOptions)
 
         /**

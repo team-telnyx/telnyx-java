@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking.simcardgroups
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.simcardgroups.actions.ActionListParams
 import com.telnyx.sdk.models.simcardgroups.actions.ActionSetPrivateWirelessGatewayParams
 import com.telnyx.sdk.models.simcardgroups.actions.ActionSetWirelessBlocklistParams
 import org.junit.jupiter.api.Disabled
@@ -39,18 +38,9 @@ internal class ActionServiceTest {
                 .build()
         val actionService = client.simCardGroups().actions()
 
-        val actions =
-            actionService.list(
-                ActionListParams.builder()
-                    .filterSimCardGroupId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
-                    .filterStatus(ActionListParams.FilterStatus.IN_PROGRESS)
-                    .filterType(ActionListParams.FilterType.SET_PRIVATE_WIRELESS_GATEWAY)
-                    .pageNumber(1L)
-                    .pageSize(1L)
-                    .build()
-            )
+        val page = actionService.list()
 
-        actions.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

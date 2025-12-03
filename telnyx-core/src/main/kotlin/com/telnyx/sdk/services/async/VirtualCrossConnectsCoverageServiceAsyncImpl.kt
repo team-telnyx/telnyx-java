@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListPageAsync
+import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListPageResponse
 import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListParams
-import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,7 +41,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: VirtualCrossConnectsCoverageListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VirtualCrossConnectsCoverageListResponse> =
+    ): CompletableFuture<VirtualCrossConnectsCoverageListPageAsync> =
         // get /virtual_cross_connects_coverage
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -57,13 +58,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<VirtualCrossConnectsCoverageListResponse> =
-            jsonHandler<VirtualCrossConnectsCoverageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VirtualCrossConnectsCoverageListPageResponse> =
+            jsonHandler<VirtualCrossConnectsCoverageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VirtualCrossConnectsCoverageListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListResponse>> {
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -82,6 +83,16 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                VirtualCrossConnectsCoverageListPageAsync.builder()
+                                    .service(
+                                        VirtualCrossConnectsCoverageServiceAsyncImpl(clientOptions)
+                                    )
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

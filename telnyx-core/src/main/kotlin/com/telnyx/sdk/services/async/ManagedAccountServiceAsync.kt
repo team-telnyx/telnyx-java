@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsResponse
+import com.telnyx.sdk.models.managedaccounts.ManagedAccountListPageAsync
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountListParams
-import com.telnyx.sdk.models.managedaccounts.ManagedAccountListResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateGlobalChannelLimitParams
@@ -128,22 +128,22 @@ interface ManagedAccountServiceAsync {
      * Lists the accounts managed by the current user. Users need to be explictly approved by Telnyx
      * in order to become manager accounts.
      */
-    fun list(): CompletableFuture<ManagedAccountListResponse> =
+    fun list(): CompletableFuture<ManagedAccountListPageAsync> =
         list(ManagedAccountListParams.none())
 
     /** @see list */
     fun list(
         params: ManagedAccountListParams = ManagedAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ManagedAccountListResponse>
+    ): CompletableFuture<ManagedAccountListPageAsync>
 
     /** @see list */
     fun list(
         params: ManagedAccountListParams = ManagedAccountListParams.none()
-    ): CompletableFuture<ManagedAccountListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<ManagedAccountListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ManagedAccountListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ManagedAccountListPageAsync> =
         list(ManagedAccountListParams.none(), requestOptions)
 
     /**
@@ -348,25 +348,25 @@ interface ManagedAccountServiceAsync {
          * Returns a raw HTTP response for `get /managed_accounts`, but is otherwise the same as
          * [ManagedAccountServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ManagedAccountListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<ManagedAccountListPageAsync>> =
             list(ManagedAccountListParams.none())
 
         /** @see list */
         fun list(
             params: ManagedAccountListParams = ManagedAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ManagedAccountListResponse>>
+        ): CompletableFuture<HttpResponseFor<ManagedAccountListPageAsync>>
 
         /** @see list */
         fun list(
             params: ManagedAccountListParams = ManagedAccountListParams.none()
-        ): CompletableFuture<HttpResponseFor<ManagedAccountListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ManagedAccountListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ManagedAccountListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ManagedAccountListPageAsync>> =
             list(ManagedAccountListParams.none(), requestOptions)
 
         /**

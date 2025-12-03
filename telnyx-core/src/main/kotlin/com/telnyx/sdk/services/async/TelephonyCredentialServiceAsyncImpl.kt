@@ -22,8 +22,9 @@ import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateRespo
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateTokenParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialDeleteParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialDeleteResponse
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListPageAsync
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListPageResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListParams
-import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
@@ -73,7 +74,7 @@ internal constructor(private val clientOptions: ClientOptions) : TelephonyCreden
     override fun list(
         params: TelephonyCredentialListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TelephonyCredentialListResponse> =
+    ): CompletableFuture<TelephonyCredentialListPageAsync> =
         // get /telephony_credentials
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -202,13 +203,13 @@ internal constructor(private val clientOptions: ClientOptions) : TelephonyCreden
                 }
         }
 
-        private val listHandler: Handler<TelephonyCredentialListResponse> =
-            jsonHandler<TelephonyCredentialListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TelephonyCredentialListPageResponse> =
+            jsonHandler<TelephonyCredentialListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: TelephonyCredentialListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListResponse>> {
+        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -227,6 +228,14 @@ internal constructor(private val clientOptions: ClientOptions) : TelephonyCreden
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                TelephonyCredentialListPageAsync.builder()
+                                    .service(TelephonyCredentialServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

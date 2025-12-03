@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateResponse
+import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListPageAsync
+import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListPageResponse
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListParams
-import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListResponse
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -60,7 +61,7 @@ internal constructor(private val clientOptions: ClientOptions) : InexplicitNumbe
     override fun list(
         params: InexplicitNumberOrderListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InexplicitNumberOrderListResponse> =
+    ): CompletableFuture<InexplicitNumberOrderListPageAsync> =
         // get /inexplicit_number_orders
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -141,13 +142,13 @@ internal constructor(private val clientOptions: ClientOptions) : InexplicitNumbe
                 }
         }
 
-        private val listHandler: Handler<InexplicitNumberOrderListResponse> =
-            jsonHandler<InexplicitNumberOrderListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InexplicitNumberOrderListPageResponse> =
+            jsonHandler<InexplicitNumberOrderListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InexplicitNumberOrderListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListResponse>> {
+        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -166,6 +167,14 @@ internal constructor(private val clientOptions: ClientOptions) : InexplicitNumbe
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                InexplicitNumberOrderListPageAsync.builder()
+                                    .service(InexplicitNumberOrderServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

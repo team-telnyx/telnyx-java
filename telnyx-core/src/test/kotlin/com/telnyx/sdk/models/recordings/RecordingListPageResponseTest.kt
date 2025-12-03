@@ -1,0 +1,132 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.recordings
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import kotlin.jvm.optionals.getOrNull
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class RecordingListPageResponseTest {
+
+    @Test
+    fun create() {
+        val recordingListPageResponse =
+            RecordingListPageResponse.builder()
+                .addData(
+                    RecordingResponseData.builder()
+                        .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                        .callControlId("v3:e-31OnvjEM7Y4wvxr3TKNk8M3QyLcGZPiUIzCGtwQtOtEjY-B0urkw")
+                        .callLegId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                        .callSessionId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                        .channels(RecordingResponseData.Channels.DUAL)
+                        .conferenceId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                        .createdAt("2018-02-02T22:25:27.521Z")
+                        .downloadUrls(
+                            RecordingResponseData.DownloadUrls.builder()
+                                .mp3("mp3")
+                                .wav("wav")
+                                .build()
+                        )
+                        .durationMillis(60000)
+                        .recordType(RecordingResponseData.RecordType.RECORDING)
+                        .recordingEndedAt("2019-01-23T18:10:02.574Z")
+                        .recordingStartedAt("2019-01-23T18:10:02.574Z")
+                        .source(RecordingResponseData.Source.CONFERENCE)
+                        .status(RecordingResponseData.Status.COMPLETED)
+                        .updatedAt("2018-02-02T22:25:27.521Z")
+                        .build()
+                )
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
+                .build()
+
+        assertThat(recordingListPageResponse.data().getOrNull())
+            .containsExactly(
+                RecordingResponseData.builder()
+                    .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                    .callControlId("v3:e-31OnvjEM7Y4wvxr3TKNk8M3QyLcGZPiUIzCGtwQtOtEjY-B0urkw")
+                    .callLegId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                    .callSessionId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                    .channels(RecordingResponseData.Channels.DUAL)
+                    .conferenceId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                    .createdAt("2018-02-02T22:25:27.521Z")
+                    .downloadUrls(
+                        RecordingResponseData.DownloadUrls.builder().mp3("mp3").wav("wav").build()
+                    )
+                    .durationMillis(60000)
+                    .recordType(RecordingResponseData.RecordType.RECORDING)
+                    .recordingEndedAt("2019-01-23T18:10:02.574Z")
+                    .recordingStartedAt("2019-01-23T18:10:02.574Z")
+                    .source(RecordingResponseData.Source.CONFERENCE)
+                    .status(RecordingResponseData.Status.COMPLETED)
+                    .updatedAt("2018-02-02T22:25:27.521Z")
+                    .build()
+            )
+        assertThat(recordingListPageResponse.meta())
+            .contains(
+                PaginationMeta.builder()
+                    .pageNumber(2L)
+                    .pageSize(25L)
+                    .totalPages(3L)
+                    .totalResults(55L)
+                    .build()
+            )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val recordingListPageResponse =
+            RecordingListPageResponse.builder()
+                .addData(
+                    RecordingResponseData.builder()
+                        .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                        .callControlId("v3:e-31OnvjEM7Y4wvxr3TKNk8M3QyLcGZPiUIzCGtwQtOtEjY-B0urkw")
+                        .callLegId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                        .callSessionId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                        .channels(RecordingResponseData.Channels.DUAL)
+                        .conferenceId("84a97d76-e40f-11ed-9074-02420a0daa69")
+                        .createdAt("2018-02-02T22:25:27.521Z")
+                        .downloadUrls(
+                            RecordingResponseData.DownloadUrls.builder()
+                                .mp3("mp3")
+                                .wav("wav")
+                                .build()
+                        )
+                        .durationMillis(60000)
+                        .recordType(RecordingResponseData.RecordType.RECORDING)
+                        .recordingEndedAt("2019-01-23T18:10:02.574Z")
+                        .recordingStartedAt("2019-01-23T18:10:02.574Z")
+                        .source(RecordingResponseData.Source.CONFERENCE)
+                        .status(RecordingResponseData.Status.COMPLETED)
+                        .updatedAt("2018-02-02T22:25:27.521Z")
+                        .build()
+                )
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
+                .build()
+
+        val roundtrippedRecordingListPageResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(recordingListPageResponse),
+                jacksonTypeRef<RecordingListPageResponse>(),
+            )
+
+        assertThat(roundtrippedRecordingListPageResponse).isEqualTo(recordingListPageResponse)
+    }
+}

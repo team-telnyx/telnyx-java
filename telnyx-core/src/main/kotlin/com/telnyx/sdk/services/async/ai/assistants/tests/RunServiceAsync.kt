@@ -5,11 +5,11 @@ package com.telnyx.sdk.services.async.ai.assistants.tests
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.assistants.tests.runs.RunListPageAsync
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunListParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunTriggerParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.TestRunResponse
-import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.PaginatedTestRunList
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -52,7 +52,7 @@ interface RunServiceAsync {
     /**
      * Retrieves paginated execution history for a specific assistant test with filtering options
      */
-    fun list(testId: String): CompletableFuture<PaginatedTestRunList> =
+    fun list(testId: String): CompletableFuture<RunListPageAsync> =
         list(testId, RunListParams.none())
 
     /** @see list */
@@ -60,30 +60,28 @@ interface RunServiceAsync {
         testId: String,
         params: RunListParams = RunListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PaginatedTestRunList> =
+    ): CompletableFuture<RunListPageAsync> =
         list(params.toBuilder().testId(testId).build(), requestOptions)
 
     /** @see list */
     fun list(
         testId: String,
         params: RunListParams = RunListParams.none(),
-    ): CompletableFuture<PaginatedTestRunList> = list(testId, params, RequestOptions.none())
+    ): CompletableFuture<RunListPageAsync> = list(testId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RunListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PaginatedTestRunList>
+    ): CompletableFuture<RunListPageAsync>
 
     /** @see list */
-    fun list(params: RunListParams): CompletableFuture<PaginatedTestRunList> =
+    fun list(params: RunListParams): CompletableFuture<RunListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        testId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PaginatedTestRunList> = list(testId, RunListParams.none(), requestOptions)
+    fun list(testId: String, requestOptions: RequestOptions): CompletableFuture<RunListPageAsync> =
+        list(testId, RunListParams.none(), requestOptions)
 
     /** Initiates immediate execution of a specific assistant test */
     fun trigger(testId: String): CompletableFuture<TestRunResponse> =
@@ -163,7 +161,7 @@ interface RunServiceAsync {
          * Returns a raw HTTP response for `get /ai/assistants/tests/{test_id}/runs`, but is
          * otherwise the same as [RunServiceAsync.list].
          */
-        fun list(testId: String): CompletableFuture<HttpResponseFor<PaginatedTestRunList>> =
+        fun list(testId: String): CompletableFuture<HttpResponseFor<RunListPageAsync>> =
             list(testId, RunListParams.none())
 
         /** @see list */
@@ -171,31 +169,31 @@ interface RunServiceAsync {
             testId: String,
             params: RunListParams = RunListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PaginatedTestRunList>> =
+        ): CompletableFuture<HttpResponseFor<RunListPageAsync>> =
             list(params.toBuilder().testId(testId).build(), requestOptions)
 
         /** @see list */
         fun list(
             testId: String,
             params: RunListParams = RunListParams.none(),
-        ): CompletableFuture<HttpResponseFor<PaginatedTestRunList>> =
+        ): CompletableFuture<HttpResponseFor<RunListPageAsync>> =
             list(testId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: RunListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PaginatedTestRunList>>
+        ): CompletableFuture<HttpResponseFor<RunListPageAsync>>
 
         /** @see list */
-        fun list(params: RunListParams): CompletableFuture<HttpResponseFor<PaginatedTestRunList>> =
+        fun list(params: RunListParams): CompletableFuture<HttpResponseFor<RunListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             testId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PaginatedTestRunList>> =
+        ): CompletableFuture<HttpResponseFor<RunListPageAsync>> =
             list(testId, RunListParams.none(), requestOptions)
 
         /**

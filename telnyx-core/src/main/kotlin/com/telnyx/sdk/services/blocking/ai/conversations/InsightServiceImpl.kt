@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPage
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPageResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
@@ -60,10 +61,7 @@ class InsightServiceImpl internal constructor(private val clientOptions: ClientO
         // put /ai/conversations/insights/{insight_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: InsightListParams,
-        requestOptions: RequestOptions,
-    ): InsightListResponse =
+    override fun list(params: InsightListParams, requestOptions: RequestOptions): InsightListPage =
         // get /ai/conversations/insights
         withRawResponse().list(params, requestOptions).parse()
 
@@ -174,13 +172,13 @@ class InsightServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<InsightListResponse> =
-            jsonHandler<InsightListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InsightListPageResponse> =
+            jsonHandler<InsightListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InsightListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightListResponse> {
+        ): HttpResponseFor<InsightListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -197,6 +195,13 @@ class InsightServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InsightListPage.builder()
+                            .service(InsightServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

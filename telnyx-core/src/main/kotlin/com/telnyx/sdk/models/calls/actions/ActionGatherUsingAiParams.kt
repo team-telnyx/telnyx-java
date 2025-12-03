@@ -61,8 +61,11 @@ private constructor(
      * The parameters described as a JSON Schema object that needs to be gathered by the voice
      * assistant. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
      * for documentation about the format
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun _parameters(): JsonValue = body._parameters()
+    fun parameters(): Parameters = body.parameters()
 
     /**
      * Assistant configuration including choice of LLM, custom instructions, and tools.
@@ -198,6 +201,13 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun voiceSettings(): Optional<VoiceSettings> = body.voiceSettings()
+
+    /**
+     * Returns the raw JSON value of [parameters].
+     *
+     * Unlike [parameters], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _parameters(): JsonField<Parameters> = body._parameters()
 
     /**
      * Returns the raw JSON value of [assistant].
@@ -359,7 +369,16 @@ private constructor(
          * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
          * documentation about the format
          */
-        fun parameters(parameters: JsonValue) = apply { body.parameters(parameters) }
+        fun parameters(parameters: Parameters) = apply { body.parameters(parameters) }
+
+        /**
+         * Sets [Builder.parameters] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.parameters] with a well-typed [Parameters] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun parameters(parameters: JsonField<Parameters>) = apply { body.parameters(parameters) }
 
         /** Assistant configuration including choice of LLM, custom instructions, and tools. */
         fun assistant(assistant: Assistant) = apply { body.assistant(assistant) }
@@ -770,7 +789,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val parameters: JsonValue,
+        private val parameters: JsonField<Parameters>,
         private val assistant: JsonField<Assistant>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
@@ -789,7 +808,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("parameters") @ExcludeMissing parameters: JsonValue = JsonMissing.of(),
+            @JsonProperty("parameters")
+            @ExcludeMissing
+            parameters: JsonField<Parameters> = JsonMissing.of(),
             @JsonProperty("assistant")
             @ExcludeMissing
             assistant: JsonField<Assistant> = JsonMissing.of(),
@@ -850,8 +871,11 @@ private constructor(
          * assistant. See the
          * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
          * documentation about the format
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        @JsonProperty("parameters") @ExcludeMissing fun _parameters(): JsonValue = parameters
+        fun parameters(): Parameters = parameters.getRequired("parameters")
 
         /**
          * Assistant configuration including choice of LLM, custom instructions, and tools.
@@ -996,6 +1020,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
+
+        /**
+         * Returns the raw JSON value of [parameters].
+         *
+         * Unlike [parameters], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("parameters")
+        @ExcludeMissing
+        fun _parameters(): JsonField<Parameters> = parameters
 
         /**
          * Returns the raw JSON value of [assistant].
@@ -1143,7 +1176,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var parameters: JsonValue? = null
+            private var parameters: JsonField<Parameters>? = null
             private var assistant: JsonField<Assistant> = JsonMissing.of()
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
@@ -1184,7 +1217,18 @@ private constructor(
              * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
              * documentation about the format
              */
-            fun parameters(parameters: JsonValue) = apply { this.parameters = parameters }
+            fun parameters(parameters: Parameters) = parameters(JsonField.of(parameters))
+
+            /**
+             * Sets [Builder.parameters] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.parameters] with a well-typed [Parameters] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun parameters(parameters: JsonField<Parameters>) = apply {
+                this.parameters = parameters
+            }
 
             /** Assistant configuration including choice of LLM, custom instructions, and tools. */
             fun assistant(assistant: Assistant) = assistant(JsonField.of(assistant))
@@ -1502,6 +1546,7 @@ private constructor(
                 return@apply
             }
 
+            parameters().validate()
             assistant().ifPresent { it.validate() }
             clientState()
             commandId()
@@ -1534,7 +1579,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (assistant.asKnown().getOrNull()?.validity() ?: 0) +
+            (parameters.asKnown().getOrNull()?.validity() ?: 0) +
+                (assistant.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
@@ -1595,6 +1641,110 @@ private constructor(
 
         override fun toString() =
             "Body{parameters=$parameters, assistant=$assistant, clientState=$clientState, commandId=$commandId, greeting=$greeting, interruptionSettings=$interruptionSettings, language=$language, messageHistory=$messageHistory, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, sendPartialResults=$sendPartialResults, transcription=$transcription, userResponseTimeoutMs=$userResponseTimeoutMs, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The parameters described as a JSON Schema object that needs to be gathered by the voice
+     * assistant. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
+     * for documentation about the format
+     */
+    class Parameters
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Parameters]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Parameters]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(parameters: Parameters) = apply {
+                additionalProperties = parameters.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Parameters].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Parameters = Parameters(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Parameters = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Parameters && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Parameters{additionalProperties=$additionalProperties}"
     }
 
     class MessageHistory
@@ -2078,7 +2228,7 @@ private constructor(
                         .toList()
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants.
+                    // all the possible variants (e.g. deserializing from boolean).
                     0 -> VoiceSettings(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first

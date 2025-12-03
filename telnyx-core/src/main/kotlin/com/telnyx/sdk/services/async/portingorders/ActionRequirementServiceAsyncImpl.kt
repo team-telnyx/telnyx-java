@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateParams
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateResponse
+import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListPageAsync
+import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListPageResponse
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListParams
-import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -41,7 +42,7 @@ internal constructor(private val clientOptions: ClientOptions) : ActionRequireme
     override fun list(
         params: ActionRequirementListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ActionRequirementListResponse> =
+    ): CompletableFuture<ActionRequirementListPageAsync> =
         // get /porting_orders/{porting_order_id}/action_requirements
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -65,13 +66,13 @@ internal constructor(private val clientOptions: ClientOptions) : ActionRequireme
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<ActionRequirementListResponse> =
-            jsonHandler<ActionRequirementListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ActionRequirementListPageResponse> =
+            jsonHandler<ActionRequirementListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ActionRequirementListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ActionRequirementListResponse>> {
+        ): CompletableFuture<HttpResponseFor<ActionRequirementListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portingOrderId", params.portingOrderId().getOrNull())
@@ -93,6 +94,14 @@ internal constructor(private val clientOptions: ClientOptions) : ActionRequireme
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ActionRequirementListPageAsync.builder()
+                                    .service(ActionRequirementServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

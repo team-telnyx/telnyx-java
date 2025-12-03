@@ -16,10 +16,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.portouts.PortoutListPage
+import com.telnyx.sdk.models.portouts.PortoutListPageResponse
 import com.telnyx.sdk.models.portouts.PortoutListParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesResponse
-import com.telnyx.sdk.models.portouts.PortoutListResponse
 import com.telnyx.sdk.models.portouts.PortoutRetrieveParams
 import com.telnyx.sdk.models.portouts.PortoutRetrieveResponse
 import com.telnyx.sdk.models.portouts.PortoutUpdateStatusParams
@@ -72,10 +73,7 @@ class PortoutServiceImpl internal constructor(private val clientOptions: ClientO
         // get /portouts/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: PortoutListParams,
-        requestOptions: RequestOptions,
-    ): PortoutListResponse =
+    override fun list(params: PortoutListParams, requestOptions: RequestOptions): PortoutListPage =
         // get /portouts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -161,13 +159,13 @@ class PortoutServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<PortoutListResponse> =
-            jsonHandler<PortoutListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PortoutListPageResponse> =
+            jsonHandler<PortoutListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PortoutListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortoutListResponse> {
+        ): HttpResponseFor<PortoutListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -184,6 +182,13 @@ class PortoutServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        PortoutListPage.builder()
+                            .service(PortoutServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateResponse
+import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListPageAsync
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListParams
-import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListResponse
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -84,21 +84,21 @@ interface CsvDownloadServiceAsync {
         retrieve(id, CsvDownloadRetrieveParams.none(), requestOptions)
 
     /** List CSV downloads */
-    fun list(): CompletableFuture<CsvDownloadListResponse> = list(CsvDownloadListParams.none())
+    fun list(): CompletableFuture<CsvDownloadListPageAsync> = list(CsvDownloadListParams.none())
 
     /** @see list */
     fun list(
         params: CsvDownloadListParams = CsvDownloadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CsvDownloadListResponse>
+    ): CompletableFuture<CsvDownloadListPageAsync>
 
     /** @see list */
     fun list(
         params: CsvDownloadListParams = CsvDownloadListParams.none()
-    ): CompletableFuture<CsvDownloadListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CsvDownloadListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CsvDownloadListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CsvDownloadListPageAsync> =
         list(CsvDownloadListParams.none(), requestOptions)
 
     /**
@@ -186,25 +186,25 @@ interface CsvDownloadServiceAsync {
          * Returns a raw HTTP response for `get /phone_numbers/csv_downloads`, but is otherwise the
          * same as [CsvDownloadServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CsvDownloadListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CsvDownloadListPageAsync>> =
             list(CsvDownloadListParams.none())
 
         /** @see list */
         fun list(
             params: CsvDownloadListParams = CsvDownloadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CsvDownloadListResponse>>
+        ): CompletableFuture<HttpResponseFor<CsvDownloadListPageAsync>>
 
         /** @see list */
         fun list(
             params: CsvDownloadListParams = CsvDownloadListParams.none()
-        ): CompletableFuture<HttpResponseFor<CsvDownloadListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CsvDownloadListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CsvDownloadListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CsvDownloadListPageAsync>> =
             list(CsvDownloadListParams.none(), requestOptions)
     }
 }

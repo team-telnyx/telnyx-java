@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteResponse
+import com.telnyx.sdk.models.oauthgrants.OAuthGrantListPage
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantListParams
-import com.telnyx.sdk.models.oauthgrants.OAuthGrantListResponse
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveResponse
 import java.util.function.Consumer
@@ -60,20 +60,20 @@ interface OAuthGrantService {
         retrieve(id, OAuthGrantRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of OAuth grants for the authenticated user */
-    fun list(): OAuthGrantListResponse = list(OAuthGrantListParams.none())
+    fun list(): OAuthGrantListPage = list(OAuthGrantListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthGrantListParams = OAuthGrantListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OAuthGrantListResponse
+    ): OAuthGrantListPage
 
     /** @see list */
-    fun list(params: OAuthGrantListParams = OAuthGrantListParams.none()): OAuthGrantListResponse =
+    fun list(params: OAuthGrantListParams = OAuthGrantListParams.none()): OAuthGrantListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): OAuthGrantListResponse =
+    fun list(requestOptions: RequestOptions): OAuthGrantListPage =
         list(OAuthGrantListParams.none(), requestOptions)
 
     /** Revoke an OAuth grant */
@@ -168,24 +168,24 @@ interface OAuthGrantService {
          * [OAuthGrantService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<OAuthGrantListResponse> = list(OAuthGrantListParams.none())
+        fun list(): HttpResponseFor<OAuthGrantListPage> = list(OAuthGrantListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthGrantListParams = OAuthGrantListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OAuthGrantListResponse>
+        ): HttpResponseFor<OAuthGrantListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthGrantListParams = OAuthGrantListParams.none()
-        ): HttpResponseFor<OAuthGrantListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<OAuthGrantListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthGrantListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthGrantListPage> =
             list(OAuthGrantListParams.none(), requestOptions)
 
         /**

@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListPageAsync
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListParams
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListResponse
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMePageAsync
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeParams
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusResponse
@@ -111,22 +111,22 @@ interface PartnerCampaignServiceAsync {
      * accepted. In other words, shared but pending campaigns are currently omitted from the
      * response from this endpoint.
      */
-    fun list(): CompletableFuture<PartnerCampaignListResponse> =
+    fun list(): CompletableFuture<PartnerCampaignListPageAsync> =
         list(PartnerCampaignListParams.none())
 
     /** @see list */
     fun list(
         params: PartnerCampaignListParams = PartnerCampaignListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PartnerCampaignListResponse>
+    ): CompletableFuture<PartnerCampaignListPageAsync>
 
     /** @see list */
     fun list(
         params: PartnerCampaignListParams = PartnerCampaignListParams.none()
-    ): CompletableFuture<PartnerCampaignListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PartnerCampaignListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PartnerCampaignListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PartnerCampaignListPageAsync> =
         list(PartnerCampaignListParams.none(), requestOptions)
 
     /**
@@ -136,25 +136,25 @@ interface PartnerCampaignServiceAsync {
      * accepted. In other words, shared but pending campaigns are currently omitted from the
      * response from this endpoint.
      */
-    fun listSharedByMe(): CompletableFuture<PartnerCampaignListSharedByMeResponse> =
+    fun listSharedByMe(): CompletableFuture<PartnerCampaignListSharedByMePageAsync> =
         listSharedByMe(PartnerCampaignListSharedByMeParams.none())
 
     /** @see listSharedByMe */
     fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams = PartnerCampaignListSharedByMeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PartnerCampaignListSharedByMeResponse>
+    ): CompletableFuture<PartnerCampaignListSharedByMePageAsync>
 
     /** @see listSharedByMe */
     fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams = PartnerCampaignListSharedByMeParams.none()
-    ): CompletableFuture<PartnerCampaignListSharedByMeResponse> =
+    ): CompletableFuture<PartnerCampaignListSharedByMePageAsync> =
         listSharedByMe(params, RequestOptions.none())
 
     /** @see listSharedByMe */
     fun listSharedByMe(
         requestOptions: RequestOptions
-    ): CompletableFuture<PartnerCampaignListSharedByMeResponse> =
+    ): CompletableFuture<PartnerCampaignListSharedByMePageAsync> =
         listSharedByMe(PartnerCampaignListSharedByMeParams.none(), requestOptions)
 
     /** Get Sharing Status */
@@ -308,25 +308,25 @@ interface PartnerCampaignServiceAsync {
          * Returns a raw HTTP response for `get /partner_campaigns`, but is otherwise the same as
          * [PartnerCampaignServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PartnerCampaignListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PartnerCampaignListPageAsync>> =
             list(PartnerCampaignListParams.none())
 
         /** @see list */
         fun list(
             params: PartnerCampaignListParams = PartnerCampaignListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListResponse>>
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListPageAsync>>
 
         /** @see list */
         fun list(
             params: PartnerCampaignListParams = PartnerCampaignListParams.none()
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListPageAsync>> =
             list(PartnerCampaignListParams.none(), requestOptions)
 
         /**
@@ -334,7 +334,7 @@ interface PartnerCampaignServiceAsync {
          * same as [PartnerCampaignServiceAsync.listSharedByMe].
          */
         fun listSharedByMe():
-            CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMeResponse>> =
+            CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMePageAsync>> =
             listSharedByMe(PartnerCampaignListSharedByMeParams.none())
 
         /** @see listSharedByMe */
@@ -342,18 +342,18 @@ interface PartnerCampaignServiceAsync {
             params: PartnerCampaignListSharedByMeParams =
                 PartnerCampaignListSharedByMeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMeResponse>>
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMePageAsync>>
 
         /** @see listSharedByMe */
         fun listSharedByMe(
             params: PartnerCampaignListSharedByMeParams = PartnerCampaignListSharedByMeParams.none()
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMeResponse>> =
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMePageAsync>> =
             listSharedByMe(params, RequestOptions.none())
 
         /** @see listSharedByMe */
         fun listSharedByMe(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMeResponse>> =
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMePageAsync>> =
             listSharedByMe(PartnerCampaignListSharedByMeParams.none(), requestOptions)
 
         /**

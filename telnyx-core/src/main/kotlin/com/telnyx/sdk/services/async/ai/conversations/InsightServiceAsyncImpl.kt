@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPageAsync
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPageResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
@@ -64,7 +65,7 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: InsightListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InsightListResponse> =
+    ): CompletableFuture<InsightListPageAsync> =
         // get /ai/conversations/insights
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -186,13 +187,13 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<InsightListResponse> =
-            jsonHandler<InsightListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InsightListPageResponse> =
+            jsonHandler<InsightListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InsightListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InsightListResponse>> {
+        ): CompletableFuture<HttpResponseFor<InsightListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -211,6 +212,14 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                InsightListPageAsync.builder()
+                                    .service(InsightServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

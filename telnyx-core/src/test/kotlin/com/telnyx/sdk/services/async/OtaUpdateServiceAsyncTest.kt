@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,21 +37,9 @@ internal class OtaUpdateServiceAsyncTest {
                 .build()
         val otaUpdateServiceAsync = client.otaUpdates()
 
-        val otaUpdatesFuture =
-            otaUpdateServiceAsync.list(
-                OtaUpdateListParams.builder()
-                    .filter(
-                        OtaUpdateListParams.Filter.builder()
-                            .simCardId("sim_card_id")
-                            .status(OtaUpdateListParams.Filter.Status.IN_PROGRESS)
-                            .type(OtaUpdateListParams.Filter.Type.SIM_CARD_NETWORK_PREFERENCES)
-                            .build()
-                    )
-                    .page(OtaUpdateListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = otaUpdateServiceAsync.list()
 
-        val otaUpdates = otaUpdatesFuture.get()
-        otaUpdates.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

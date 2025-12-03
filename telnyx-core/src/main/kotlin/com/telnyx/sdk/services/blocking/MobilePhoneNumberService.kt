@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListPage
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListParams
-import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
@@ -92,21 +92,21 @@ interface MobilePhoneNumberService {
         update(id, MobilePhoneNumberUpdateParams.none(), requestOptions)
 
     /** List Mobile Phone Numbers */
-    fun list(): MobilePhoneNumberListResponse = list(MobilePhoneNumberListParams.none())
+    fun list(): MobilePhoneNumberListPage = list(MobilePhoneNumberListParams.none())
 
     /** @see list */
     fun list(
         params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MobilePhoneNumberListResponse
+    ): MobilePhoneNumberListPage
 
     /** @see list */
     fun list(
         params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none()
-    ): MobilePhoneNumberListResponse = list(params, RequestOptions.none())
+    ): MobilePhoneNumberListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MobilePhoneNumberListResponse =
+    fun list(requestOptions: RequestOptions): MobilePhoneNumberListPage =
         list(MobilePhoneNumberListParams.none(), requestOptions)
 
     /**
@@ -222,7 +222,7 @@ interface MobilePhoneNumberService {
          * as [MobilePhoneNumberService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MobilePhoneNumberListResponse> =
+        fun list(): HttpResponseFor<MobilePhoneNumberListPage> =
             list(MobilePhoneNumberListParams.none())
 
         /** @see list */
@@ -230,17 +230,17 @@ interface MobilePhoneNumberService {
         fun list(
             params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MobilePhoneNumberListResponse>
+        ): HttpResponseFor<MobilePhoneNumberListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none()
-        ): HttpResponseFor<MobilePhoneNumberListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MobilePhoneNumberListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MobilePhoneNumberListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MobilePhoneNumberListPage> =
             list(MobilePhoneNumberListParams.none(), requestOptions)
     }
 }

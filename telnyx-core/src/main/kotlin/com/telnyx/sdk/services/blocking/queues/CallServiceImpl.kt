@@ -17,8 +17,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.queues.calls.CallListPage
+import com.telnyx.sdk.models.queues.calls.CallListPageResponse
 import com.telnyx.sdk.models.queues.calls.CallListParams
-import com.telnyx.sdk.models.queues.calls.CallListResponse
 import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
@@ -49,7 +50,7 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
         withRawResponse().update(params, requestOptions)
     }
 
-    override fun list(params: CallListParams, requestOptions: RequestOptions): CallListResponse =
+    override fun list(params: CallListParams, requestOptions: RequestOptions): CallListPage =
         // get /queues/{queue_name}/calls
         withRawResponse().list(params, requestOptions).parse()
 
@@ -125,13 +126,13 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<CallListResponse> =
-            jsonHandler<CallListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CallListPageResponse> =
+            jsonHandler<CallListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CallListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CallListResponse> {
+        ): HttpResponseFor<CallListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("queueName", params.queueName().getOrNull())
@@ -151,6 +152,13 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CallListPage.builder()
+                            .service(CallServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

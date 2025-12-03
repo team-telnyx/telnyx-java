@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async.queues
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.queues.calls.CallListParams
 import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallUpdateParams
@@ -69,24 +68,10 @@ internal class CallServiceAsyncTest {
                 .build()
         val callServiceAsync = client.queues().calls()
 
-        val callsFuture =
-            callServiceAsync.list(
-                CallListParams.builder()
-                    .queueName("queue_name")
-                    .page(
-                        CallListParams.Page.builder()
-                            .after("after")
-                            .before("before")
-                            .limit(1L)
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture = callServiceAsync.list("queue_name")
 
-        val calls = callsFuture.get()
-        calls.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -45,14 +44,9 @@ internal class ChannelZoneServiceAsyncTest {
                 .build()
         val channelZoneServiceAsync = client.channelZones()
 
-        val channelZonesFuture =
-            channelZoneServiceAsync.list(
-                ChannelZoneListParams.builder()
-                    .page(ChannelZoneListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = channelZoneServiceAsync.list()
 
-        val channelZones = channelZonesFuture.get()
-        channelZones.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

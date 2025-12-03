@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.queues.calls.CallListPage
 import com.telnyx.sdk.models.queues.calls.CallListParams
-import com.telnyx.sdk.models.queues.calls.CallListResponse
 import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
@@ -69,30 +69,30 @@ interface CallService {
     fun update(params: CallUpdateParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** Retrieve the list of calls in an existing queue */
-    fun list(queueName: String): CallListResponse = list(queueName, CallListParams.none())
+    fun list(queueName: String): CallListPage = list(queueName, CallListParams.none())
 
     /** @see list */
     fun list(
         queueName: String,
         params: CallListParams = CallListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallListResponse = list(params.toBuilder().queueName(queueName).build(), requestOptions)
+    ): CallListPage = list(params.toBuilder().queueName(queueName).build(), requestOptions)
 
     /** @see list */
-    fun list(queueName: String, params: CallListParams = CallListParams.none()): CallListResponse =
+    fun list(queueName: String, params: CallListParams = CallListParams.none()): CallListPage =
         list(queueName, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CallListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallListResponse
+    ): CallListPage
 
     /** @see list */
-    fun list(params: CallListParams): CallListResponse = list(params, RequestOptions.none())
+    fun list(params: CallListParams): CallListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(queueName: String, requestOptions: RequestOptions): CallListResponse =
+    fun list(queueName: String, requestOptions: RequestOptions): CallListPage =
         list(queueName, CallListParams.none(), requestOptions)
 
     /**
@@ -190,7 +190,7 @@ interface CallService {
          * same as [CallService.list].
          */
         @MustBeClosed
-        fun list(queueName: String): HttpResponseFor<CallListResponse> =
+        fun list(queueName: String): HttpResponseFor<CallListPage> =
             list(queueName, CallListParams.none())
 
         /** @see list */
@@ -199,7 +199,7 @@ interface CallService {
             queueName: String,
             params: CallListParams = CallListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallListResponse> =
+        ): HttpResponseFor<CallListPage> =
             list(params.toBuilder().queueName(queueName).build(), requestOptions)
 
         /** @see list */
@@ -207,26 +207,23 @@ interface CallService {
         fun list(
             queueName: String,
             params: CallListParams = CallListParams.none(),
-        ): HttpResponseFor<CallListResponse> = list(queueName, params, RequestOptions.none())
+        ): HttpResponseFor<CallListPage> = list(queueName, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CallListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallListResponse>
+        ): HttpResponseFor<CallListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: CallListParams): HttpResponseFor<CallListResponse> =
+        fun list(params: CallListParams): HttpResponseFor<CallListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            queueName: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CallListResponse> =
+        fun list(queueName: String, requestOptions: RequestOptions): HttpResponseFor<CallListPage> =
             list(queueName, CallListParams.none(), requestOptions)
 
         /**

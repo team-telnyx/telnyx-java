@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListPage
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListParams
-import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListResponse
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingRetrieveResponse
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateParams
@@ -90,20 +90,20 @@ interface MessagingService {
         update(id, MessagingUpdateParams.none(), requestOptions)
 
     /** List phone numbers with messaging settings */
-    fun list(): MessagingListResponse = list(MessagingListParams.none())
+    fun list(): MessagingListPage = list(MessagingListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingListParams = MessagingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingListResponse
+    ): MessagingListPage
 
     /** @see list */
-    fun list(params: MessagingListParams = MessagingListParams.none()): MessagingListResponse =
+    fun list(params: MessagingListParams = MessagingListParams.none()): MessagingListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MessagingListResponse =
+    fun list(requestOptions: RequestOptions): MessagingListPage =
         list(MessagingListParams.none(), requestOptions)
 
     /** A view of [MessagingService] that provides access to raw HTTP responses for each method. */
@@ -209,24 +209,24 @@ interface MessagingService {
          * as [MessagingService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MessagingListResponse> = list(MessagingListParams.none())
+        fun list(): HttpResponseFor<MessagingListPage> = list(MessagingListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingListParams = MessagingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingListResponse>
+        ): HttpResponseFor<MessagingListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingListParams = MessagingListParams.none()
-        ): HttpResponseFor<MessagingListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MessagingListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingListPage> =
             list(MessagingListParams.none(), requestOptions)
     }
 }

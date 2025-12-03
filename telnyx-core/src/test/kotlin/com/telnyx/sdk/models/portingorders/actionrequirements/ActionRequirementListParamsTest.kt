@@ -23,7 +23,7 @@ internal class ActionRequirementListParamsTest {
             .page(ActionRequirementListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 ActionRequirementListParams.Sort.builder()
-                    .value(ActionRequirementListParams.Sort.Value_.CREATED_AT)
+                    .value(ActionRequirementListParams.Sort.SortValue.CREATED_AT)
                     .build()
             )
             .build()
@@ -57,7 +57,7 @@ internal class ActionRequirementListParamsTest {
                 .page(ActionRequirementListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     ActionRequirementListParams.Sort.builder()
-                        .value(ActionRequirementListParams.Sort.Value_.CREATED_AT)
+                        .value(ActionRequirementListParams.Sort.SortValue.CREATED_AT)
                         .build()
                 )
                 .build()

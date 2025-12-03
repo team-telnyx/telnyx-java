@@ -71,7 +71,7 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
         ): HttpResponseFor<ActionAcceptSuggestionsResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("pathId", params.pathId().getOrNull())
+            checkRequired("addressUuid", params.addressUuid().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

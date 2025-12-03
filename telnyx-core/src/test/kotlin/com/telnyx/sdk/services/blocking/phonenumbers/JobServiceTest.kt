@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking.phonenumbers
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchParams
-import com.telnyx.sdk.models.phonenumbers.jobs.JobListParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateBatchParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateEmergencySettingsBatchParams
 import com.telnyx.sdk.models.phonenumbers.voice.CallForwarding
@@ -45,20 +44,9 @@ internal class JobServiceTest {
                 .build()
         val jobService = client.phoneNumbers().jobs()
 
-        val jobs =
-            jobService.list(
-                JobListParams.builder()
-                    .filter(
-                        JobListParams.Filter.builder()
-                            .type(JobListParams.Filter.Type.UPDATE_EMERGENCY_SETTINGS)
-                            .build()
-                    )
-                    .page(JobListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(JobListParams.Sort.CREATED_AT)
-                    .build()
-            )
+        val page = jobService.list()
 
-        jobs.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

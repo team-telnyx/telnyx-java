@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a document. */
 class DocumentUpdateParams
 private constructor(
-    private val pathId: String?,
+    private val documentId: String?,
     private val docServiceDocument: DocServiceDocument,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
+    fun documentId(): Optional<String> = Optional.ofNullable(documentId)
 
     fun docServiceDocument(): DocServiceDocument = docServiceDocument
 
@@ -51,23 +51,23 @@ private constructor(
     /** A builder for [DocumentUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathId: String? = null
+        private var documentId: String? = null
         private var docServiceDocument: DocServiceDocument? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(documentUpdateParams: DocumentUpdateParams) = apply {
-            pathId = documentUpdateParams.pathId
+            documentId = documentUpdateParams.documentId
             docServiceDocument = documentUpdateParams.docServiceDocument
             additionalHeaders = documentUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = documentUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pathId(pathId: String?) = apply { this.pathId = pathId }
+        fun documentId(documentId: String?) = apply { this.documentId = documentId }
 
-        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
-        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
+        /** Alias for calling [Builder.documentId] with `documentId.orElse(null)`. */
+        fun documentId(documentId: Optional<String>) = documentId(documentId.getOrNull())
 
         fun docServiceDocument(docServiceDocument: DocServiceDocument) = apply {
             this.docServiceDocument = docServiceDocument
@@ -185,7 +185,7 @@ private constructor(
          */
         fun build(): DocumentUpdateParams =
             DocumentUpdateParams(
-                pathId,
+                documentId,
                 checkRequired("docServiceDocument", docServiceDocument),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -196,7 +196,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathId ?: ""
+            0 -> documentId ?: ""
             else -> ""
         }
 
@@ -210,15 +210,15 @@ private constructor(
         }
 
         return other is DocumentUpdateParams &&
-            pathId == other.pathId &&
+            documentId == other.documentId &&
             docServiceDocument == other.docServiceDocument &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathId, docServiceDocument, additionalHeaders, additionalQueryParams)
+        Objects.hash(documentId, docServiceDocument, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "DocumentUpdateParams{pathId=$pathId, docServiceDocument=$docServiceDocument, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DocumentUpdateParams{documentId=$documentId, docServiceDocument=$docServiceDocument, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

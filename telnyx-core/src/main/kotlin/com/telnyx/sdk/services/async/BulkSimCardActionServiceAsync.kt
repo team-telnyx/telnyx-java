@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListPageAsync
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListParams
-import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListResponse
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveParams
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -71,22 +71,22 @@ interface BulkSimCardActionServiceAsync {
      * This API lists a paginated collection of bulk SIM card actions. A bulk SIM card action
      * contains details about a collection of individual SIM card actions.
      */
-    fun list(): CompletableFuture<BulkSimCardActionListResponse> =
+    fun list(): CompletableFuture<BulkSimCardActionListPageAsync> =
         list(BulkSimCardActionListParams.none())
 
     /** @see list */
     fun list(
         params: BulkSimCardActionListParams = BulkSimCardActionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BulkSimCardActionListResponse>
+    ): CompletableFuture<BulkSimCardActionListPageAsync>
 
     /** @see list */
     fun list(
         params: BulkSimCardActionListParams = BulkSimCardActionListParams.none()
-    ): CompletableFuture<BulkSimCardActionListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<BulkSimCardActionListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<BulkSimCardActionListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<BulkSimCardActionListPageAsync> =
         list(BulkSimCardActionListParams.none(), requestOptions)
 
     /**
@@ -151,25 +151,25 @@ interface BulkSimCardActionServiceAsync {
          * Returns a raw HTTP response for `get /bulk_sim_card_actions`, but is otherwise the same
          * as [BulkSimCardActionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<BulkSimCardActionListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<BulkSimCardActionListPageAsync>> =
             list(BulkSimCardActionListParams.none())
 
         /** @see list */
         fun list(
             params: BulkSimCardActionListParams = BulkSimCardActionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListResponse>>
+        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListPageAsync>>
 
         /** @see list */
         fun list(
             params: BulkSimCardActionListParams = BulkSimCardActionListParams.none()
-        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListPageAsync>> =
             list(BulkSimCardActionListParams.none(), requestOptions)
     }
 }

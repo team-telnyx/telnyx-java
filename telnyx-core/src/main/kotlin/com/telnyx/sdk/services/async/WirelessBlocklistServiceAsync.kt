@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteResponse
+import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPageAsync
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateParams
@@ -101,22 +101,22 @@ interface WirelessBlocklistServiceAsync {
         update(WirelessBlocklistUpdateParams.none(), requestOptions)
 
     /** Get all Wireless Blocklists belonging to the user. */
-    fun list(): CompletableFuture<WirelessBlocklistListResponse> =
+    fun list(): CompletableFuture<WirelessBlocklistListPageAsync> =
         list(WirelessBlocklistListParams.none())
 
     /** @see list */
     fun list(
         params: WirelessBlocklistListParams = WirelessBlocklistListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WirelessBlocklistListResponse>
+    ): CompletableFuture<WirelessBlocklistListPageAsync>
 
     /** @see list */
     fun list(
         params: WirelessBlocklistListParams = WirelessBlocklistListParams.none()
-    ): CompletableFuture<WirelessBlocklistListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<WirelessBlocklistListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<WirelessBlocklistListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<WirelessBlocklistListPageAsync> =
         list(WirelessBlocklistListParams.none(), requestOptions)
 
     /** Deletes the Wireless Blocklist. */
@@ -258,25 +258,25 @@ interface WirelessBlocklistServiceAsync {
          * Returns a raw HTTP response for `get /wireless_blocklists`, but is otherwise the same as
          * [WirelessBlocklistServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<WirelessBlocklistListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<WirelessBlocklistListPageAsync>> =
             list(WirelessBlocklistListParams.none())
 
         /** @see list */
         fun list(
             params: WirelessBlocklistListParams = WirelessBlocklistListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListResponse>>
+        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListPageAsync>>
 
         /** @see list */
         fun list(
             params: WirelessBlocklistListParams = WirelessBlocklistListParams.none()
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListResponse>> =
+        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListResponse>> =
+        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListPageAsync>> =
             list(WirelessBlocklistListParams.none(), requestOptions)
 
         /**

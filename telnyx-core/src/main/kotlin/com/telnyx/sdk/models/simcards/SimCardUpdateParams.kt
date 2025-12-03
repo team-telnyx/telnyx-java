@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Updates SIM card data */
 class SimCardUpdateParams
 private constructor(
-    private val pathId: String?,
+    private val simCardId: String?,
     private val simCard: SimCard,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
+    fun simCardId(): Optional<String> = Optional.ofNullable(simCardId)
 
     fun simCard(): SimCard = simCard
 
@@ -50,23 +50,23 @@ private constructor(
     /** A builder for [SimCardUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathId: String? = null
+        private var simCardId: String? = null
         private var simCard: SimCard? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(simCardUpdateParams: SimCardUpdateParams) = apply {
-            pathId = simCardUpdateParams.pathId
+            simCardId = simCardUpdateParams.simCardId
             simCard = simCardUpdateParams.simCard
             additionalHeaders = simCardUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = simCardUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pathId(pathId: String?) = apply { this.pathId = pathId }
+        fun simCardId(simCardId: String?) = apply { this.simCardId = simCardId }
 
-        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
-        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
+        /** Alias for calling [Builder.simCardId] with `simCardId.orElse(null)`. */
+        fun simCardId(simCardId: Optional<String>) = simCardId(simCardId.getOrNull())
 
         fun simCard(simCard: SimCard) = apply { this.simCard = simCard }
 
@@ -182,7 +182,7 @@ private constructor(
          */
         fun build(): SimCardUpdateParams =
             SimCardUpdateParams(
-                pathId,
+                simCardId,
                 checkRequired("simCard", simCard),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -193,7 +193,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathId ?: ""
+            0 -> simCardId ?: ""
             else -> ""
         }
 
@@ -207,15 +207,15 @@ private constructor(
         }
 
         return other is SimCardUpdateParams &&
-            pathId == other.pathId &&
+            simCardId == other.simCardId &&
             simCard == other.simCard &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathId, simCard, additionalHeaders, additionalQueryParams)
+        Objects.hash(simCardId, simCard, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SimCardUpdateParams{pathId=$pathId, simCard=$simCard, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SimCardUpdateParams{simCardId=$simCardId, simCard=$simCard, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

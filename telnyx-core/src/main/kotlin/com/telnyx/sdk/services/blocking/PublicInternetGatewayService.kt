@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateP
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateResponse
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayDeleteParams
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayDeleteResponse
+import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListPage
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListParams
-import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListResponse
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetrieveParams
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetrieveResponse
 import java.util.function.Consumer
@@ -86,21 +86,21 @@ interface PublicInternetGatewayService {
         retrieve(id, PublicInternetGatewayRetrieveParams.none(), requestOptions)
 
     /** List all Public Internet Gateways. */
-    fun list(): PublicInternetGatewayListResponse = list(PublicInternetGatewayListParams.none())
+    fun list(): PublicInternetGatewayListPage = list(PublicInternetGatewayListParams.none())
 
     /** @see list */
     fun list(
         params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicInternetGatewayListResponse
+    ): PublicInternetGatewayListPage
 
     /** @see list */
     fun list(
         params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none()
-    ): PublicInternetGatewayListResponse = list(params, RequestOptions.none())
+    ): PublicInternetGatewayListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PublicInternetGatewayListResponse =
+    fun list(requestOptions: RequestOptions): PublicInternetGatewayListPage =
         list(PublicInternetGatewayListParams.none(), requestOptions)
 
     /** Delete a Public Internet Gateway. */
@@ -232,7 +232,7 @@ interface PublicInternetGatewayService {
          * same as [PublicInternetGatewayService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PublicInternetGatewayListResponse> =
+        fun list(): HttpResponseFor<PublicInternetGatewayListPage> =
             list(PublicInternetGatewayListParams.none())
 
         /** @see list */
@@ -240,19 +240,17 @@ interface PublicInternetGatewayService {
         fun list(
             params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicInternetGatewayListResponse>
+        ): HttpResponseFor<PublicInternetGatewayListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none()
-        ): HttpResponseFor<PublicInternetGatewayListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PublicInternetGatewayListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<PublicInternetGatewayListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PublicInternetGatewayListPage> =
             list(PublicInternetGatewayListParams.none(), requestOptions)
 
         /**

@@ -30,13 +30,13 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ActionBridgeParams
 private constructor(
-    private val pathCallControlId: String?,
+    private val callControlIdToBridge: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathCallControlId(): Optional<String> = Optional.ofNullable(pathCallControlId)
+    fun callControlIdToBridge(): Optional<String> = Optional.ofNullable(callControlIdToBridge)
 
     /**
      * The Call Control ID of the call you want to bridge with, can't be used together with queue
@@ -45,7 +45,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun bodyCallControlId(): String = body.bodyCallControlId()
+    fun callControlId(): String = body.callControlId()
 
     /**
      * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded
@@ -205,12 +205,11 @@ private constructor(
     fun videoRoomId(): Optional<String> = body.videoRoomId()
 
     /**
-     * Returns the raw JSON value of [bodyCallControlId].
+     * Returns the raw JSON value of [callControlId].
      *
-     * Unlike [bodyCallControlId], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [callControlId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _bodyCallControlId(): JsonField<String> = body._bodyCallControlId()
+    fun _callControlId(): JsonField<String> = body._callControlId()
 
     /**
      * Returns the raw JSON value of [clientState].
@@ -352,7 +351,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .bodyCallControlId()
+         * .callControlId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -361,33 +360,36 @@ private constructor(
     /** A builder for [ActionBridgeParams]. */
     class Builder internal constructor() {
 
-        private var pathCallControlId: String? = null
+        private var callControlIdToBridge: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(actionBridgeParams: ActionBridgeParams) = apply {
-            pathCallControlId = actionBridgeParams.pathCallControlId
+            callControlIdToBridge = actionBridgeParams.callControlIdToBridge
             body = actionBridgeParams.body.toBuilder()
             additionalHeaders = actionBridgeParams.additionalHeaders.toBuilder()
             additionalQueryParams = actionBridgeParams.additionalQueryParams.toBuilder()
         }
 
-        fun pathCallControlId(pathCallControlId: String?) = apply {
-            this.pathCallControlId = pathCallControlId
+        fun callControlIdToBridge(callControlIdToBridge: String?) = apply {
+            this.callControlIdToBridge = callControlIdToBridge
         }
 
-        /** Alias for calling [Builder.pathCallControlId] with `pathCallControlId.orElse(null)`. */
-        fun pathCallControlId(pathCallControlId: Optional<String>) =
-            pathCallControlId(pathCallControlId.getOrNull())
+        /**
+         * Alias for calling [Builder.callControlIdToBridge] with
+         * `callControlIdToBridge.orElse(null)`.
+         */
+        fun callControlIdToBridge(callControlIdToBridge: Optional<String>) =
+            callControlIdToBridge(callControlIdToBridge.getOrNull())
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [bodyCallControlId]
+         * - [callControlId]
          * - [clientState]
          * - [commandId]
          * - [muteDtmf]
@@ -400,19 +402,17 @@ private constructor(
          * The Call Control ID of the call you want to bridge with, can't be used together with
          * queue parameter or video_room_id parameter.
          */
-        fun bodyCallControlId(bodyCallControlId: String) = apply {
-            body.bodyCallControlId(bodyCallControlId)
-        }
+        fun callControlId(callControlId: String) = apply { body.callControlId(callControlId) }
 
         /**
-         * Sets [Builder.bodyCallControlId] to an arbitrary JSON value.
+         * Sets [Builder.callControlId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.bodyCallControlId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.callControlId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun bodyCallControlId(bodyCallControlId: JsonField<String>) = apply {
-            body.bodyCallControlId(bodyCallControlId)
+        fun callControlId(callControlId: JsonField<String>) = apply {
+            body.callControlId(callControlId)
         }
 
         /**
@@ -820,14 +820,14 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .bodyCallControlId()
+         * .callControlId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ActionBridgeParams =
             ActionBridgeParams(
-                pathCallControlId,
+                callControlIdToBridge,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -838,7 +838,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathCallControlId ?: ""
+            0 -> callControlIdToBridge ?: ""
             else -> ""
         }
 
@@ -849,7 +849,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val bodyCallControlId: JsonField<String>,
+        private val callControlId: JsonField<String>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val muteDtmf: JsonField<MuteDtmf>,
@@ -874,7 +874,7 @@ private constructor(
         private constructor(
             @JsonProperty("call_control_id")
             @ExcludeMissing
-            bodyCallControlId: JsonField<String> = JsonMissing.of(),
+            callControlId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("client_state")
             @ExcludeMissing
             clientState: JsonField<String> = JsonMissing.of(),
@@ -923,7 +923,7 @@ private constructor(
             @ExcludeMissing
             videoRoomId: JsonField<String> = JsonMissing.of(),
         ) : this(
-            bodyCallControlId,
+            callControlId,
             clientState,
             commandId,
             muteDtmf,
@@ -951,7 +951,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun bodyCallControlId(): String = bodyCallControlId.getRequired("call_control_id")
+        fun callControlId(): String = callControlId.getRequired("call_control_id")
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -1116,14 +1116,14 @@ private constructor(
         fun videoRoomId(): Optional<String> = videoRoomId.getOptional("video_room_id")
 
         /**
-         * Returns the raw JSON value of [bodyCallControlId].
+         * Returns the raw JSON value of [callControlId].
          *
-         * Unlike [bodyCallControlId], this method doesn't throw if the JSON field has an unexpected
+         * Unlike [callControlId], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
         @JsonProperty("call_control_id")
         @ExcludeMissing
-        fun _bodyCallControlId(): JsonField<String> = bodyCallControlId
+        fun _callControlId(): JsonField<String> = callControlId
 
         /**
          * Returns the raw JSON value of [clientState].
@@ -1295,7 +1295,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .bodyCallControlId()
+             * .callControlId()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1304,7 +1304,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var bodyCallControlId: JsonField<String>? = null
+            private var callControlId: JsonField<String>? = null
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var muteDtmf: JsonField<MuteDtmf> = JsonMissing.of()
@@ -1326,7 +1326,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                bodyCallControlId = body.bodyCallControlId
+                callControlId = body.callControlId
                 clientState = body.clientState
                 commandId = body.commandId
                 muteDtmf = body.muteDtmf
@@ -1351,18 +1351,17 @@ private constructor(
              * The Call Control ID of the call you want to bridge with, can't be used together with
              * queue parameter or video_room_id parameter.
              */
-            fun bodyCallControlId(bodyCallControlId: String) =
-                bodyCallControlId(JsonField.of(bodyCallControlId))
+            fun callControlId(callControlId: String) = callControlId(JsonField.of(callControlId))
 
             /**
-             * Sets [Builder.bodyCallControlId] to an arbitrary JSON value.
+             * Sets [Builder.callControlId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.bodyCallControlId] with a well-typed [String] value
+             * You should usually call [Builder.callControlId] with a well-typed [String] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun bodyCallControlId(bodyCallControlId: JsonField<String>) = apply {
-                this.bodyCallControlId = bodyCallControlId
+            fun callControlId(callControlId: JsonField<String>) = apply {
+                this.callControlId = callControlId
             }
 
             /**
@@ -1680,14 +1679,14 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .bodyCallControlId()
+             * .callControlId()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
                 Body(
-                    checkRequired("bodyCallControlId", bodyCallControlId),
+                    checkRequired("callControlId", callControlId),
                     clientState,
                     commandId,
                     muteDtmf,
@@ -1716,7 +1715,7 @@ private constructor(
                 return@apply
             }
 
-            bodyCallControlId()
+            callControlId()
             clientState()
             commandId()
             muteDtmf().ifPresent { it.validate() }
@@ -1753,7 +1752,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (bodyCallControlId.asKnown().isPresent) 1 else 0) +
+            (if (callControlId.asKnown().isPresent) 1 else 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (muteDtmf.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1778,7 +1777,7 @@ private constructor(
             }
 
             return other is Body &&
-                bodyCallControlId == other.bodyCallControlId &&
+                callControlId == other.callControlId &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 muteDtmf == other.muteDtmf &&
@@ -1801,7 +1800,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                bodyCallControlId,
+                callControlId,
                 clientState,
                 commandId,
                 muteDtmf,
@@ -1826,7 +1825,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{bodyCallControlId=$bodyCallControlId, clientState=$clientState, commandId=$commandId, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
+            "Body{callControlId=$callControlId, clientState=$clientState, commandId=$commandId, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2976,15 +2975,15 @@ private constructor(
         }
 
         return other is ActionBridgeParams &&
-            pathCallControlId == other.pathCallControlId &&
+            callControlIdToBridge == other.callControlIdToBridge &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathCallControlId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(callControlIdToBridge, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActionBridgeParams{pathCallControlId=$pathCallControlId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActionBridgeParams{callControlIdToBridge=$callControlIdToBridge, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

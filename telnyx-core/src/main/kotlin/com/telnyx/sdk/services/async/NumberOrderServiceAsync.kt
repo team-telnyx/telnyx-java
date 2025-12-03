@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateParams
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateResponse
+import com.telnyx.sdk.models.numberorders.NumberOrderListPageAsync
 import com.telnyx.sdk.models.numberorders.NumberOrderListParams
-import com.telnyx.sdk.models.numberorders.NumberOrderListResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveParams
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderUpdateParams
@@ -123,21 +123,21 @@ interface NumberOrderServiceAsync {
         update(numberOrderId, NumberOrderUpdateParams.none(), requestOptions)
 
     /** Get a paginated list of number orders. */
-    fun list(): CompletableFuture<NumberOrderListResponse> = list(NumberOrderListParams.none())
+    fun list(): CompletableFuture<NumberOrderListPageAsync> = list(NumberOrderListParams.none())
 
     /** @see list */
     fun list(
         params: NumberOrderListParams = NumberOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberOrderListResponse>
+    ): CompletableFuture<NumberOrderListPageAsync>
 
     /** @see list */
     fun list(
         params: NumberOrderListParams = NumberOrderListParams.none()
-    ): CompletableFuture<NumberOrderListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<NumberOrderListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NumberOrderListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NumberOrderListPageAsync> =
         list(NumberOrderListParams.none(), requestOptions)
 
     /**
@@ -270,25 +270,25 @@ interface NumberOrderServiceAsync {
          * Returns a raw HTTP response for `get /number_orders`, but is otherwise the same as
          * [NumberOrderServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NumberOrderListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<NumberOrderListPageAsync>> =
             list(NumberOrderListParams.none())
 
         /** @see list */
         fun list(
             params: NumberOrderListParams = NumberOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberOrderListResponse>>
+        ): CompletableFuture<HttpResponseFor<NumberOrderListPageAsync>>
 
         /** @see list */
         fun list(
             params: NumberOrderListParams = NumberOrderListParams.none()
-        ): CompletableFuture<HttpResponseFor<NumberOrderListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NumberOrderListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NumberOrderListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NumberOrderListPageAsync>> =
             list(NumberOrderListParams.none(), requestOptions)
     }
 }

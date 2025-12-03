@@ -24,7 +24,7 @@ class AssistantDeleteResponse
 private constructor(
     private val id: JsonField<String>,
     private val deleted: JsonField<Boolean>,
-    private val object_: JsonField<String>,
+    private val modelObject: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -32,8 +32,8 @@ private constructor(
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("deleted") @ExcludeMissing deleted: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-    ) : this(id, deleted, object_, mutableMapOf())
+        @JsonProperty("object") @ExcludeMissing modelObject: JsonField<String> = JsonMissing.of(),
+    ) : this(id, deleted, modelObject, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -51,7 +51,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun object_(): String = object_.getRequired("object")
+    fun modelObject(): String = modelObject.getRequired("object")
 
     /**
      * Returns the raw JSON value of [id].
@@ -68,11 +68,11 @@ private constructor(
     @JsonProperty("deleted") @ExcludeMissing fun _deleted(): JsonField<Boolean> = deleted
 
     /**
-     * Returns the raw JSON value of [object_].
+     * Returns the raw JSON value of [modelObject].
      *
-     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [modelObject], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object") @ExcludeMissing fun _modelObject(): JsonField<String> = modelObject
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -95,7 +95,7 @@ private constructor(
          * ```java
          * .id()
          * .deleted()
-         * .object_()
+         * .modelObject()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -106,14 +106,14 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var deleted: JsonField<Boolean>? = null
-        private var object_: JsonField<String>? = null
+        private var modelObject: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(assistantDeleteResponse: AssistantDeleteResponse) = apply {
             id = assistantDeleteResponse.id
             deleted = assistantDeleteResponse.deleted
-            object_ = assistantDeleteResponse.object_
+            modelObject = assistantDeleteResponse.modelObject
             additionalProperties = assistantDeleteResponse.additionalProperties.toMutableMap()
         }
 
@@ -137,15 +137,16 @@ private constructor(
          */
         fun deleted(deleted: JsonField<Boolean>) = apply { this.deleted = deleted }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun modelObject(modelObject: String) = modelObject(JsonField.of(modelObject))
 
         /**
-         * Sets [Builder.object_] to an arbitrary JSON value.
+         * Sets [Builder.modelObject] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.modelObject] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun modelObject(modelObject: JsonField<String>) = apply { this.modelObject = modelObject }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -175,7 +176,7 @@ private constructor(
          * ```java
          * .id()
          * .deleted()
-         * .object_()
+         * .modelObject()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -184,7 +185,7 @@ private constructor(
             AssistantDeleteResponse(
                 checkRequired("id", id),
                 checkRequired("deleted", deleted),
-                checkRequired("object_", object_),
+                checkRequired("modelObject", modelObject),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -198,7 +199,7 @@ private constructor(
 
         id()
         deleted()
-        object_()
+        modelObject()
         validated = true
     }
 
@@ -219,7 +220,7 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (deleted.asKnown().isPresent) 1 else 0) +
-            (if (object_.asKnown().isPresent) 1 else 0)
+            (if (modelObject.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -229,14 +230,16 @@ private constructor(
         return other is AssistantDeleteResponse &&
             id == other.id &&
             deleted == other.deleted &&
-            object_ == other.object_ &&
+            modelObject == other.modelObject &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(id, deleted, object_, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(id, deleted, modelObject, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AssistantDeleteResponse{id=$id, deleted=$deleted, object_=$object_, additionalProperties=$additionalProperties}"
+        "AssistantDeleteResponse{id=$id, deleted=$deleted, modelObject=$modelObject, additionalProperties=$additionalProperties}"
 }

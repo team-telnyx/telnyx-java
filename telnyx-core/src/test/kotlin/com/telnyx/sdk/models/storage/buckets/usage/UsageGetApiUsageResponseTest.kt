@@ -22,7 +22,8 @@ internal class UsageGetApiUsageResponseTest {
                                 .bytesReceived(0L)
                                 .bytesSent(0L)
                                 .category(
-                                    UsageGetApiUsageResponse.Data.Category.InnerCategory.LIST_BUCKET
+                                    UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
+                                        .LIST_BUCKET
                                 )
                                 .ops(0L)
                                 .successfulOps(0L)
@@ -49,7 +50,8 @@ internal class UsageGetApiUsageResponseTest {
                             .bytesReceived(0L)
                             .bytesSent(0L)
                             .category(
-                                UsageGetApiUsageResponse.Data.Category.InnerCategory.LIST_BUCKET
+                                UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
+                                    .LIST_BUCKET
                             )
                             .ops(0L)
                             .successfulOps(0L)
@@ -80,7 +82,8 @@ internal class UsageGetApiUsageResponseTest {
                                 .bytesReceived(0L)
                                 .bytesSent(0L)
                                 .category(
-                                    UsageGetApiUsageResponse.Data.Category.InnerCategory.LIST_BUCKET
+                                    UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
+                                        .LIST_BUCKET
                                 )
                                 .ops(0L)
                                 .successfulOps(0L)

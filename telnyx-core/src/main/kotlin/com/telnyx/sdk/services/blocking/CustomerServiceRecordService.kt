@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordCreateParams
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordCreateResponse
+import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListPage
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListParams
-import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListResponse
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordRetrieveParams
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordRetrieveResponse
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyPhoneNumberCoverageParams
@@ -85,21 +85,21 @@ interface CustomerServiceRecordService {
         )
 
     /** List customer service records. */
-    fun list(): CustomerServiceRecordListResponse = list(CustomerServiceRecordListParams.none())
+    fun list(): CustomerServiceRecordListPage = list(CustomerServiceRecordListParams.none())
 
     /** @see list */
     fun list(
         params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CustomerServiceRecordListResponse
+    ): CustomerServiceRecordListPage
 
     /** @see list */
     fun list(
         params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none()
-    ): CustomerServiceRecordListResponse = list(params, RequestOptions.none())
+    ): CustomerServiceRecordListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CustomerServiceRecordListResponse =
+    fun list(requestOptions: RequestOptions): CustomerServiceRecordListPage =
         list(CustomerServiceRecordListParams.none(), requestOptions)
 
     /** Verify the coverage for a list of phone numbers. */
@@ -209,7 +209,7 @@ interface CustomerServiceRecordService {
          * same as [CustomerServiceRecordService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CustomerServiceRecordListResponse> =
+        fun list(): HttpResponseFor<CustomerServiceRecordListPage> =
             list(CustomerServiceRecordListParams.none())
 
         /** @see list */
@@ -217,19 +217,17 @@ interface CustomerServiceRecordService {
         fun list(
             params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CustomerServiceRecordListResponse>
+        ): HttpResponseFor<CustomerServiceRecordListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none()
-        ): HttpResponseFor<CustomerServiceRecordListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CustomerServiceRecordListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CustomerServiceRecordListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CustomerServiceRecordListPage> =
             list(CustomerServiceRecordListParams.none(), requestOptions)
 
         /**

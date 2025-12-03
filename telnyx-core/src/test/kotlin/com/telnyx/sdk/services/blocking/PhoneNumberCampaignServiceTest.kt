@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreate
-import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignListParams
 import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -63,7 +62,7 @@ internal class PhoneNumberCampaignServiceTest {
         val phoneNumberCampaign =
             phoneNumberCampaignService.update(
                 PhoneNumberCampaignUpdateParams.builder()
-                    .pathPhoneNumber("phoneNumber")
+                    .campaignPhoneNumber("phoneNumber")
                     .phoneNumberCampaignCreate(
                         PhoneNumberCampaignCreate.builder()
                             .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
@@ -86,24 +85,9 @@ internal class PhoneNumberCampaignServiceTest {
                 .build()
         val phoneNumberCampaignService = client.phoneNumberCampaigns()
 
-        val phoneNumberCampaigns =
-            phoneNumberCampaignService.list(
-                PhoneNumberCampaignListParams.builder()
-                    .filter(
-                        PhoneNumberCampaignListParams.Filter.builder()
-                            .tcrBrandId("BRANDID")
-                            .tcrCampaignId("CAMPID3")
-                            .telnyxBrandId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
-                            .telnyxCampaignId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
-                            .build()
-                    )
-                    .page(0L)
-                    .recordsPerPage(0L)
-                    .sort(PhoneNumberCampaignListParams.Sort.ASSIGNMENT_STATUS)
-                    .build()
-            )
+        val page = phoneNumberCampaignService.list()
 
-        phoneNumberCampaigns.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateResponse
+import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListPage
+import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListPageResponse
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListParams
-import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListResponse
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveResponse
 import java.util.function.Consumer
@@ -56,7 +57,7 @@ internal constructor(private val clientOptions: ClientOptions) : InexplicitNumbe
     override fun list(
         params: InexplicitNumberOrderListParams,
         requestOptions: RequestOptions,
-    ): InexplicitNumberOrderListResponse =
+    ): InexplicitNumberOrderListPage =
         // get /inexplicit_number_orders
         withRawResponse().list(params, requestOptions).parse()
 
@@ -131,13 +132,13 @@ internal constructor(private val clientOptions: ClientOptions) : InexplicitNumbe
             }
         }
 
-        private val listHandler: Handler<InexplicitNumberOrderListResponse> =
-            jsonHandler<InexplicitNumberOrderListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InexplicitNumberOrderListPageResponse> =
+            jsonHandler<InexplicitNumberOrderListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InexplicitNumberOrderListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InexplicitNumberOrderListResponse> {
+        ): HttpResponseFor<InexplicitNumberOrderListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -154,6 +155,13 @@ internal constructor(private val clientOptions: ClientOptions) : InexplicitNumbe
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InexplicitNumberOrderListPage.builder()
+                            .service(InexplicitNumberOrderServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

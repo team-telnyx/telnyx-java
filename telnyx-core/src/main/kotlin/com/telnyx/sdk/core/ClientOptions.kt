@@ -3,14 +3,21 @@
 package com.telnyx.sdk.core
 
 import com.fasterxml.jackson.databind.json.JsonMapper
+import com.telnyx.sdk.core.http.AsyncStreamResponse
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.HttpClient
+import com.telnyx.sdk.core.http.OAuth2HttpClient
 import com.telnyx.sdk.core.http.PhantomReachableClosingHttpClient
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.http.RetryingHttpClient
 import java.time.Clock
 import java.time.Duration
 import java.util.Optional
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.ThreadFactory
+import java.util.concurrent.atomic.AtomicLong
 import kotlin.jvm.optionals.getOrNull
 
 /** A class representing the SDK client configuration. */
@@ -40,6 +47,14 @@ private constructor(
      * needs to be overridden.
      */
     @get:JvmName("jsonMapper") val jsonMapper: JsonMapper,
+    /**
+     * The executor to use for running [AsyncStreamResponse.Handler] callbacks.
+     *
+     * Defaults to a dedicated cached thread pool.
+     *
+     * This class takes ownership of the executor and shuts it down, if possible, when closed.
+     */
+    @get:JvmName("streamHandlerExecutor") val streamHandlerExecutor: Executor,
     /**
      * The interface to use for delaying execution, like during retries.
      *
@@ -93,8 +108,10 @@ private constructor(
      * Defaults to 2.
      */
     @get:JvmName("maxRetries") val maxRetries: Int,
-    @get:JvmName("apiKey") val apiKey: String,
+    private val apiKey: String?,
     private val publicKey: String?,
+    private val clientId: String?,
+    private val clientSecret: String?,
 ) {
 
     init {
@@ -112,7 +129,13 @@ private constructor(
 
     fun baseUrlOverridden(): Boolean = baseUrl != null
 
+    fun apiKey(): Optional<String> = Optional.ofNullable(apiKey)
+
     fun publicKey(): Optional<String> = Optional.ofNullable(publicKey)
+
+    fun clientId(): Optional<String> = Optional.ofNullable(clientId)
+
+    fun clientSecret(): Optional<String> = Optional.ofNullable(clientSecret)
 
     fun toBuilder() = Builder().from(this)
 
@@ -126,7 +149,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .httpClient()
-         * .apiKey()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -145,6 +167,7 @@ private constructor(
         private var httpClient: HttpClient? = null
         private var checkJacksonVersionCompatibility: Boolean = true
         private var jsonMapper: JsonMapper = jsonMapper()
+        private var streamHandlerExecutor: Executor? = null
         private var sleeper: Sleeper? = null
         private var clock: Clock = Clock.systemUTC()
         private var baseUrl: String? = null
@@ -155,12 +178,15 @@ private constructor(
         private var maxRetries: Int = 2
         private var apiKey: String? = null
         private var publicKey: String? = null
+        private var clientId: String? = null
+        private var clientSecret: String? = null
 
         @JvmSynthetic
         internal fun from(clientOptions: ClientOptions) = apply {
             httpClient = clientOptions.originalHttpClient
             checkJacksonVersionCompatibility = clientOptions.checkJacksonVersionCompatibility
             jsonMapper = clientOptions.jsonMapper
+            streamHandlerExecutor = clientOptions.streamHandlerExecutor
             sleeper = clientOptions.sleeper
             clock = clientOptions.clock
             baseUrl = clientOptions.baseUrl
@@ -171,6 +197,8 @@ private constructor(
             maxRetries = clientOptions.maxRetries
             apiKey = clientOptions.apiKey
             publicKey = clientOptions.publicKey
+            clientId = clientOptions.clientId
+            clientSecret = clientOptions.clientSecret
         }
 
         /**
@@ -202,6 +230,20 @@ private constructor(
          * rarely needs to be overridden.
          */
         fun jsonMapper(jsonMapper: JsonMapper) = apply { this.jsonMapper = jsonMapper }
+
+        /**
+         * The executor to use for running [AsyncStreamResponse.Handler] callbacks.
+         *
+         * Defaults to a dedicated cached thread pool.
+         *
+         * This class takes ownership of the executor and shuts it down, if possible, when closed.
+         */
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor =
+                if (streamHandlerExecutor is ExecutorService)
+                    PhantomReachableExecutorService(streamHandlerExecutor)
+                else streamHandlerExecutor
+        }
 
         /**
          * The interface to use for delaying execution, like during retries.
@@ -277,12 +319,25 @@ private constructor(
          */
         fun maxRetries(maxRetries: Int) = apply { this.maxRetries = maxRetries }
 
-        fun apiKey(apiKey: String) = apply { this.apiKey = apiKey }
+        fun apiKey(apiKey: String?) = apply { this.apiKey = apiKey }
+
+        /** Alias for calling [Builder.apiKey] with `apiKey.orElse(null)`. */
+        fun apiKey(apiKey: Optional<String>) = apiKey(apiKey.getOrNull())
 
         fun publicKey(publicKey: String?) = apply { this.publicKey = publicKey }
 
         /** Alias for calling [Builder.publicKey] with `publicKey.orElse(null)`. */
         fun publicKey(publicKey: Optional<String>) = publicKey(publicKey.getOrNull())
+
+        fun clientId(clientId: String?) = apply { this.clientId = clientId }
+
+        /** Alias for calling [Builder.clientId] with `clientId.orElse(null)`. */
+        fun clientId(clientId: Optional<String>) = clientId(clientId.getOrNull())
+
+        fun clientSecret(clientSecret: String?) = apply { this.clientSecret = clientSecret }
+
+        /** Alias for calling [Builder.clientSecret] with `clientSecret.orElse(null)`. */
+        fun clientSecret(clientSecret: Optional<String>) = clientSecret(clientSecret.getOrNull())
 
         fun headers(headers: Headers) = apply {
             this.headers.clear()
@@ -371,11 +426,13 @@ private constructor(
          *
          * See this table for the available options:
          *
-         * |Setter     |System property   |Environment variable|Required|Default value                |
-         * |-----------|------------------|--------------------|--------|-----------------------------|
-         * |`apiKey`   |`telnyx.apiKey`   |`TELNYX_API_KEY`    |true    |-                            |
-         * |`publicKey`|`telnyx.publicKey`|`TELNYX_PUBLIC_KEY` |false   |-                            |
-         * |`baseUrl`  |`telnyx.baseUrl`  |`TELNYX_BASE_URL`   |true    |`"https://api.telnyx.com/v2"`|
+         * |Setter        |System property      |Environment variable  |Required|Default value                |
+         * |--------------|---------------------|----------------------|--------|-----------------------------|
+         * |`apiKey`      |`telnyx.apiKey`      |`TELNYX_API_KEY`      |false   |-                            |
+         * |`publicKey`   |`telnyx.publicKey`   |`TELNYX_PUBLIC_KEY`   |false   |-                            |
+         * |`clientId`    |`telnyx.clientId`    |`TELNYX_CLIENT_ID`    |false   |-                            |
+         * |`clientSecret`|`telnyx.clientSecret`|`TELNYX_CLIENT_SECRET`|false   |-                            |
+         * |`baseUrl`     |`telnyx.baseUrl`     |`TELNYX_BASE_URL`     |true    |`"https://api.telnyx.com/v2"`|
          *
          * System properties take precedence over environment variables.
          */
@@ -389,6 +446,11 @@ private constructor(
             (System.getProperty("telnyx.publicKey") ?: System.getenv("TELNYX_PUBLIC_KEY"))?.let {
                 publicKey(it)
             }
+            (System.getProperty("telnyx.clientId") ?: System.getenv("TELNYX_CLIENT_ID"))?.let {
+                clientId(it)
+            }
+            (System.getProperty("telnyx.clientSecret") ?: System.getenv("TELNYX_CLIENT_SECRET"))
+                ?.let { clientSecret(it) }
         }
 
         /**
@@ -399,15 +461,31 @@ private constructor(
          * The following fields are required:
          * ```java
          * .httpClient()
-         * .apiKey()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ClientOptions {
             val httpClient = checkRequired("httpClient", httpClient)
+            val streamHandlerExecutor =
+                streamHandlerExecutor
+                    ?: PhantomReachableExecutorService(
+                        Executors.newCachedThreadPool(
+                            object : ThreadFactory {
+
+                                private val threadFactory: ThreadFactory =
+                                    Executors.defaultThreadFactory()
+                                private val count = AtomicLong(0)
+
+                                override fun newThread(runnable: Runnable): Thread =
+                                    threadFactory.newThread(runnable).also {
+                                        it.name =
+                                            "telnyx-stream-handler-thread-${count.getAndIncrement()}"
+                                    }
+                            }
+                        )
+                    )
             val sleeper = sleeper ?: PhantomReachableSleeper(DefaultSleeper())
-            val apiKey = checkRequired("apiKey", apiKey)
 
             val headers = Headers.builder()
             val queryParams = QueryParams.builder()
@@ -418,7 +496,7 @@ private constructor(
             headers.put("X-Stainless-Package-Version", getPackageVersion())
             headers.put("X-Stainless-Runtime", "JRE")
             headers.put("X-Stainless-Runtime-Version", getJavaVersion())
-            apiKey.let {
+            apiKey?.let {
                 if (!it.isEmpty()) {
                     headers.put("Authorization", "Bearer $it")
                 }
@@ -429,13 +507,30 @@ private constructor(
             return ClientOptions(
                 httpClient,
                 RetryingHttpClient.builder()
-                    .httpClient(httpClient)
+                    .httpClient(
+                        if (clientId != null && clientSecret != null) {
+                            OAuth2HttpClient.builder()
+                                .httpClient(httpClient)
+                                .tokenUrl(
+                                    (baseUrl ?: PRODUCTION_URL) +
+                                        "https://api.telnyx.com/v2/oauth/token"
+                                )
+                                .clientId(clientId!!)
+                                .clientSecret(clientSecret!!)
+                                .jsonMapper(jsonMapper)
+                                .clock(clock)
+                                .build()
+                        } else {
+                            httpClient
+                        }
+                    )
                     .sleeper(sleeper)
                     .clock(clock)
                     .maxRetries(maxRetries)
                     .build(),
                 checkJacksonVersionCompatibility,
                 jsonMapper,
+                streamHandlerExecutor,
                 sleeper,
                 clock,
                 baseUrl,
@@ -446,6 +541,8 @@ private constructor(
                 maxRetries,
                 apiKey,
                 publicKey,
+                clientId,
+                clientSecret,
             )
         }
     }
@@ -462,6 +559,7 @@ private constructor(
      */
     fun close() {
         httpClient.close()
+        (streamHandlerExecutor as? ExecutorService)?.shutdown()
         sleeper.close()
     }
 }

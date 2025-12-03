@@ -4,8 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
-import com.telnyx.sdk.models.connections.ConnectionListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,27 +37,10 @@ internal class ConnectionServiceAsyncTest {
                 .build()
         val connectionServiceAsync = client.connections()
 
-        val connectionsFuture =
-            connectionServiceAsync.list(
-                ConnectionListParams.builder()
-                    .filter(
-                        ConnectionListParams.Filter.builder()
-                            .connectionName(
-                                ConnectionListParams.Filter.ConnectionName.builder()
-                                    .contains("contains")
-                                    .build()
-                            )
-                            .fqdn("fqdn")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
-                            .build()
-                    )
-                    .page(ConnectionListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(ConnectionListParams.Sort.CONNECTION_NAME)
-                    .build()
-            )
+        val pageFuture = connectionServiceAsync.list()
 
-        val connections = connectionsFuture.get()
-        connections.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -72,23 +53,9 @@ internal class ConnectionServiceAsyncTest {
                 .build()
         val connectionServiceAsync = client.connections()
 
-        val responseFuture =
-            connectionServiceAsync.listActiveCalls(
-                ConnectionListActiveCallsParams.builder()
-                    .connectionId("1293384261075731461")
-                    .page(
-                        ConnectionListActiveCallsParams.Page.builder()
-                            .after("after")
-                            .before("before")
-                            .limit(1L)
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture = connectionServiceAsync.listActiveCalls("1293384261075731461")
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

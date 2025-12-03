@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.rooms.RoomCreateParams
 import com.telnyx.sdk.models.rooms.RoomCreateResponse
 import com.telnyx.sdk.models.rooms.RoomDeleteParams
+import com.telnyx.sdk.models.rooms.RoomListPage
 import com.telnyx.sdk.models.rooms.RoomListParams
-import com.telnyx.sdk.models.rooms.RoomListResponse
 import com.telnyx.sdk.models.rooms.RoomRetrieveParams
 import com.telnyx.sdk.models.rooms.RoomRetrieveResponse
 import com.telnyx.sdk.models.rooms.RoomUpdateParams
@@ -115,20 +115,20 @@ interface RoomService {
         update(roomId, RoomUpdateParams.none(), requestOptions)
 
     /** View a list of rooms. */
-    fun list(): RoomListResponse = list(RoomListParams.none())
+    fun list(): RoomListPage = list(RoomListParams.none())
 
     /** @see list */
     fun list(
         params: RoomListParams = RoomListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RoomListResponse
+    ): RoomListPage
 
     /** @see list */
-    fun list(params: RoomListParams = RoomListParams.none()): RoomListResponse =
+    fun list(params: RoomListParams = RoomListParams.none()): RoomListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RoomListResponse =
+    fun list(requestOptions: RequestOptions): RoomListPage =
         list(RoomListParams.none(), requestOptions)
 
     /**
@@ -289,24 +289,23 @@ interface RoomService {
          * Returns a raw HTTP response for `get /rooms`, but is otherwise the same as
          * [RoomService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<RoomListResponse> = list(RoomListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<RoomListPage> = list(RoomListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RoomListParams = RoomListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RoomListResponse>
+        ): HttpResponseFor<RoomListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: RoomListParams = RoomListParams.none()
-        ): HttpResponseFor<RoomListResponse> = list(params, RequestOptions.none())
+        fun list(params: RoomListParams = RoomListParams.none()): HttpResponseFor<RoomListPage> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomListPage> =
             list(RoomListParams.none(), requestOptions)
 
         /**

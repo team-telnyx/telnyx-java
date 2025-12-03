@@ -20,7 +20,7 @@ internal class PortingOrderStatusTest {
                         .description("Entity name does not match that on the CSR")
                         .build()
                 )
-                .value(PortingOrderStatus.Value_.PORTED)
+                .value(PortingOrderStatus.PortingOrderStatusValue.PORTED)
                 .build()
 
         assertThat(portingOrderStatus.details().getOrNull())
@@ -30,7 +30,8 @@ internal class PortingOrderStatusTest {
                     .description("Entity name does not match that on the CSR")
                     .build()
             )
-        assertThat(portingOrderStatus.value()).contains(PortingOrderStatus.Value_.PORTED)
+        assertThat(portingOrderStatus.value())
+            .contains(PortingOrderStatus.PortingOrderStatusValue.PORTED)
     }
 
     @Test
@@ -44,7 +45,7 @@ internal class PortingOrderStatusTest {
                         .description("Entity name does not match that on the CSR")
                         .build()
                 )
-                .value(PortingOrderStatus.Value_.PORTED)
+                .value(PortingOrderStatus.PortingOrderStatusValue.PORTED)
                 .build()
 
         val roundtrippedPortingOrderStatus =

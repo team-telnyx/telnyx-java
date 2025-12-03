@@ -5,8 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressCreateParams
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -60,21 +58,9 @@ internal class AccessIpAddressServiceTest {
                 .build()
         val accessIpAddressService = client.accessIpAddress()
 
-        val accessIpAddresses =
-            accessIpAddressService.list(
-                AccessIpAddressListParams.builder()
-                    .filter(
-                        AccessIpAddressListParams.Filter.builder()
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .ipAddress("ip_address")
-                            .ipSource("ip_source")
-                            .build()
-                    )
-                    .page(AccessIpAddressListParams.Page.builder().number(0L).size(250L).build())
-                    .build()
-            )
+        val page = accessIpAddressService.list()
 
-        accessIpAddresses.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

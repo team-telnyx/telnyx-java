@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsParams
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsResponse
+import com.telnyx.sdk.models.usagereports.UsageReportListPageAsync
 import com.telnyx.sdk.models.usagereports.UsageReportListParams
-import com.telnyx.sdk.models.usagereports.UsageReportListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,14 +27,14 @@ interface UsageReportServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageReportServiceAsync
 
     /** Get Telnyx usage data by product, broken out by the specified dimensions */
-    fun list(params: UsageReportListParams): CompletableFuture<UsageReportListResponse> =
+    fun list(params: UsageReportListParams): CompletableFuture<UsageReportListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: UsageReportListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UsageReportListResponse>
+    ): CompletableFuture<UsageReportListPageAsync>
 
     /**
      * Get the Usage Reports options for querying usage, including the products available and their
@@ -81,14 +81,14 @@ interface UsageReportServiceAsync {
          */
         fun list(
             params: UsageReportListParams
-        ): CompletableFuture<HttpResponseFor<UsageReportListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UsageReportListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: UsageReportListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UsageReportListResponse>>
+        ): CompletableFuture<HttpResponseFor<UsageReportListPageAsync>>
 
         /**
          * Returns a raw HTTP response for `get /usage_reports/options`, but is otherwise the same

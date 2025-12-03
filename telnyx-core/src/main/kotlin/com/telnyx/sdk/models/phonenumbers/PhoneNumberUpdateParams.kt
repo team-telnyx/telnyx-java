@@ -24,13 +24,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a phone number */
 class PhoneNumberUpdateParams
 private constructor(
-    private val pathId: String?,
+    private val phoneNumberId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
+    fun phoneNumberId(): Optional<String> = Optional.ofNullable(phoneNumberId)
 
     /**
      * Identifies the type of resource.
@@ -38,7 +38,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun bodyId(): Optional<String> = body.bodyId()
+    fun id(): Optional<String> = body.id()
 
     /**
      * Identifies the billing group associated with the phone number.
@@ -91,11 +91,11 @@ private constructor(
     fun tags(): Optional<List<String>> = body.tags()
 
     /**
-     * Returns the raw JSON value of [bodyId].
+     * Returns the raw JSON value of [id].
      *
-     * Unlike [bodyId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _bodyId(): JsonField<String> = body._bodyId()
+    fun _id(): JsonField<String> = body._id()
 
     /**
      * Returns the raw JSON value of [billingGroupId].
@@ -161,30 +161,31 @@ private constructor(
     /** A builder for [PhoneNumberUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathId: String? = null
+        private var phoneNumberId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(phoneNumberUpdateParams: PhoneNumberUpdateParams) = apply {
-            pathId = phoneNumberUpdateParams.pathId
+            phoneNumberId = phoneNumberUpdateParams.phoneNumberId
             body = phoneNumberUpdateParams.body.toBuilder()
             additionalHeaders = phoneNumberUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = phoneNumberUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pathId(pathId: String?) = apply { this.pathId = pathId }
+        fun phoneNumberId(phoneNumberId: String?) = apply { this.phoneNumberId = phoneNumberId }
 
-        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
-        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
+        /** Alias for calling [Builder.phoneNumberId] with `phoneNumberId.orElse(null)`. */
+        fun phoneNumberId(phoneNumberId: Optional<String>) =
+            phoneNumberId(phoneNumberId.getOrNull())
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [bodyId]
+         * - [id]
          * - [billingGroupId]
          * - [connectionId]
          * - [customerReference]
@@ -194,15 +195,15 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /** Identifies the type of resource. */
-        fun bodyId(bodyId: String) = apply { body.bodyId(bodyId) }
+        fun id(id: String) = apply { body.id(id) }
 
         /**
-         * Sets [Builder.bodyId] to an arbitrary JSON value.
+         * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.bodyId] with a well-typed [String] value instead. This
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun bodyId(bodyId: JsonField<String>) = apply { body.bodyId(bodyId) }
+        fun id(id: JsonField<String>) = apply { body.id(id) }
 
         /** Identifies the billing group associated with the phone number. */
         fun billingGroupId(billingGroupId: String) = apply { body.billingGroupId(billingGroupId) }
@@ -422,7 +423,7 @@ private constructor(
          */
         fun build(): PhoneNumberUpdateParams =
             PhoneNumberUpdateParams(
-                pathId,
+                phoneNumberId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -433,7 +434,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathId ?: ""
+            0 -> phoneNumberId ?: ""
             else -> ""
         }
 
@@ -444,7 +445,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val bodyId: JsonField<String>,
+        private val id: JsonField<String>,
         private val billingGroupId: JsonField<String>,
         private val connectionId: JsonField<String>,
         private val customerReference: JsonField<String>,
@@ -456,7 +457,7 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("id") @ExcludeMissing bodyId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("billing_group_id")
             @ExcludeMissing
             billingGroupId: JsonField<String> = JsonMissing.of(),
@@ -474,7 +475,7 @@ private constructor(
             hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
         ) : this(
-            bodyId,
+            id,
             billingGroupId,
             connectionId,
             customerReference,
@@ -490,7 +491,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun bodyId(): Optional<String> = bodyId.getOptional("id")
+        fun id(): Optional<String> = id.getOptional("id")
 
         /**
          * Identifies the billing group associated with the phone number.
@@ -545,11 +546,11 @@ private constructor(
         fun tags(): Optional<List<String>> = tags.getOptional("tags")
 
         /**
-         * Returns the raw JSON value of [bodyId].
+         * Returns the raw JSON value of [id].
          *
-         * Unlike [bodyId], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("id") @ExcludeMissing fun _bodyId(): JsonField<String> = bodyId
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
          * Returns the raw JSON value of [billingGroupId].
@@ -628,7 +629,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var bodyId: JsonField<String> = JsonMissing.of()
+            private var id: JsonField<String> = JsonMissing.of()
             private var billingGroupId: JsonField<String> = JsonMissing.of()
             private var connectionId: JsonField<String> = JsonMissing.of()
             private var customerReference: JsonField<String> = JsonMissing.of()
@@ -639,7 +640,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                bodyId = body.bodyId
+                id = body.id
                 billingGroupId = body.billingGroupId
                 connectionId = body.connectionId
                 customerReference = body.customerReference
@@ -650,16 +651,16 @@ private constructor(
             }
 
             /** Identifies the type of resource. */
-            fun bodyId(bodyId: String) = bodyId(JsonField.of(bodyId))
+            fun id(id: String) = id(JsonField.of(id))
 
             /**
-             * Sets [Builder.bodyId] to an arbitrary JSON value.
+             * Sets [Builder.id] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.bodyId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun bodyId(bodyId: JsonField<String>) = apply { this.bodyId = bodyId }
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Identifies the billing group associated with the phone number. */
             fun billingGroupId(billingGroupId: String) =
@@ -789,7 +790,7 @@ private constructor(
              */
             fun build(): Body =
                 Body(
-                    bodyId,
+                    id,
                     billingGroupId,
                     connectionId,
                     customerReference,
@@ -807,7 +808,7 @@ private constructor(
                 return@apply
             }
 
-            bodyId()
+            id()
             billingGroupId()
             connectionId()
             customerReference()
@@ -833,7 +834,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (bodyId.asKnown().isPresent) 1 else 0) +
+            (if (id.asKnown().isPresent) 1 else 0) +
                 (if (billingGroupId.asKnown().isPresent) 1 else 0) +
                 (if (connectionId.asKnown().isPresent) 1 else 0) +
                 (if (customerReference.asKnown().isPresent) 1 else 0) +
@@ -847,7 +848,7 @@ private constructor(
             }
 
             return other is Body &&
-                bodyId == other.bodyId &&
+                id == other.id &&
                 billingGroupId == other.billingGroupId &&
                 connectionId == other.connectionId &&
                 customerReference == other.customerReference &&
@@ -859,7 +860,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                bodyId,
+                id,
                 billingGroupId,
                 connectionId,
                 customerReference,
@@ -873,7 +874,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{bodyId=$bodyId, billingGroupId=$billingGroupId, connectionId=$connectionId, customerReference=$customerReference, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, tags=$tags, additionalProperties=$additionalProperties}"
+            "Body{id=$id, billingGroupId=$billingGroupId, connectionId=$connectionId, customerReference=$customerReference, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, tags=$tags, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -882,15 +883,15 @@ private constructor(
         }
 
         return other is PhoneNumberUpdateParams &&
-            pathId == other.pathId &&
+            phoneNumberId == other.phoneNumberId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(phoneNumberId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "PhoneNumberUpdateParams{pathId=$pathId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PhoneNumberUpdateParams{phoneNumberId=$phoneNumberId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

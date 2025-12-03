@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateParam
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteResponse
+import com.telnyx.sdk.models.notificationchannels.NotificationChannelListPage
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelListParams
-import com.telnyx.sdk.models.notificationchannels.NotificationChannelListResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelUpdateParams
@@ -101,17 +101,21 @@ interface NotificationChannelService {
 
     /** Update a notification channel. */
     fun update(
-        pathId: String,
+        notificationChannelId: String,
         params: NotificationChannelUpdateParams,
-    ): NotificationChannelUpdateResponse = update(pathId, params, RequestOptions.none())
+    ): NotificationChannelUpdateResponse =
+        update(notificationChannelId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        notificationChannelId: String,
         params: NotificationChannelUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): NotificationChannelUpdateResponse =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(
+            params.toBuilder().notificationChannelId(notificationChannelId).build(),
+            requestOptions,
+        )
 
     /** @see update */
     fun update(params: NotificationChannelUpdateParams): NotificationChannelUpdateResponse =
@@ -124,21 +128,21 @@ interface NotificationChannelService {
     ): NotificationChannelUpdateResponse
 
     /** List notification channels. */
-    fun list(): NotificationChannelListResponse = list(NotificationChannelListParams.none())
+    fun list(): NotificationChannelListPage = list(NotificationChannelListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationChannelListParams = NotificationChannelListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NotificationChannelListResponse
+    ): NotificationChannelListPage
 
     /** @see list */
     fun list(
         params: NotificationChannelListParams = NotificationChannelListParams.none()
-    ): NotificationChannelListResponse = list(params, RequestOptions.none())
+    ): NotificationChannelListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NotificationChannelListResponse =
+    fun list(requestOptions: RequestOptions): NotificationChannelListPage =
         list(NotificationChannelListParams.none(), requestOptions)
 
     /** Delete a notification channel. */
@@ -289,19 +293,22 @@ interface NotificationChannelService {
          */
         @MustBeClosed
         fun update(
-            pathId: String,
+            notificationChannelId: String,
             params: NotificationChannelUpdateParams,
         ): HttpResponseFor<NotificationChannelUpdateResponse> =
-            update(pathId, params, RequestOptions.none())
+            update(notificationChannelId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            notificationChannelId: String,
             params: NotificationChannelUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<NotificationChannelUpdateResponse> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(
+                params.toBuilder().notificationChannelId(notificationChannelId).build(),
+                requestOptions,
+            )
 
         /** @see update */
         @MustBeClosed
@@ -322,7 +329,7 @@ interface NotificationChannelService {
          * as [NotificationChannelService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NotificationChannelListResponse> =
+        fun list(): HttpResponseFor<NotificationChannelListPage> =
             list(NotificationChannelListParams.none())
 
         /** @see list */
@@ -330,17 +337,17 @@ interface NotificationChannelService {
         fun list(
             params: NotificationChannelListParams = NotificationChannelListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NotificationChannelListResponse>
+        ): HttpResponseFor<NotificationChannelListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NotificationChannelListParams = NotificationChannelListParams.none()
-        ): HttpResponseFor<NotificationChannelListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NotificationChannelListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationChannelListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationChannelListPage> =
             list(NotificationChannelListParams.none(), requestOptions)
 
         /**
