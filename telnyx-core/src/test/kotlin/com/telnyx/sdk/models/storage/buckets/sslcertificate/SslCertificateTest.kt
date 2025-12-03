@@ -15,7 +15,7 @@ internal class SslCertificateTest {
         val sslCertificate =
             SslCertificate.builder()
                 .id("id")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                 .issuedBy(
                     SslCertificate.IssuedBy.builder()
                         .commonName("common_name")
@@ -30,13 +30,13 @@ internal class SslCertificateTest {
                         .organizationUnit("organization_unit")
                         .build()
                 )
-                .validFrom(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .validTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .validFrom(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
+                .validTo(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                 .build()
 
         assertThat(sslCertificate.id()).contains("id")
         assertThat(sslCertificate.createdAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .contains(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
         assertThat(sslCertificate.issuedBy())
             .contains(
                 SslCertificate.IssuedBy.builder()
@@ -54,9 +54,8 @@ internal class SslCertificateTest {
                     .build()
             )
         assertThat(sslCertificate.validFrom())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(sslCertificate.validTo())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .contains(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
+        assertThat(sslCertificate.validTo()).contains(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
     }
 
     @Test
@@ -65,7 +64,7 @@ internal class SslCertificateTest {
         val sslCertificate =
             SslCertificate.builder()
                 .id("id")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                 .issuedBy(
                     SslCertificate.IssuedBy.builder()
                         .commonName("common_name")
@@ -80,8 +79,8 @@ internal class SslCertificateTest {
                         .organizationUnit("organization_unit")
                         .build()
                 )
-                .validFrom(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .validTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .validFrom(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
+                .validTo(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                 .build()
 
         val roundtrippedSslCertificate =

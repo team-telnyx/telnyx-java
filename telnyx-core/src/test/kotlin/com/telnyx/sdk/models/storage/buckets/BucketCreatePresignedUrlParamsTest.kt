@@ -9,7 +9,7 @@ internal class BucketCreatePresignedUrlParamsTest {
 
     @Test
     fun create() {
-        BucketCreatePresignedUrlParams.builder().bucketName("").objectName("").ttl(1L).build()
+        BucketCreatePresignedUrlParams.builder().bucketName("").objectName("").ttl(60L).build()
     }
 
     @Test
@@ -25,11 +25,11 @@ internal class BucketCreatePresignedUrlParamsTest {
     @Test
     fun body() {
         val params =
-            BucketCreatePresignedUrlParams.builder().bucketName("").objectName("").ttl(1L).build()
+            BucketCreatePresignedUrlParams.builder().bucketName("").objectName("").ttl(60L).build()
 
         val body = params._body()
 
-        assertThat(body.ttl()).contains(1L)
+        assertThat(body.ttl()).contains(60L)
     }
 
     @Test

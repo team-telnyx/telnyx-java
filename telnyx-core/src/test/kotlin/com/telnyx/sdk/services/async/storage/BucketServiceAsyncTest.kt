@@ -27,7 +27,7 @@ internal class BucketServiceAsyncTest {
                 BucketCreatePresignedUrlParams.builder()
                     .bucketName("")
                     .objectName("")
-                    .ttl(1L)
+                    .ttl(60L)
                     .build()
             )
 

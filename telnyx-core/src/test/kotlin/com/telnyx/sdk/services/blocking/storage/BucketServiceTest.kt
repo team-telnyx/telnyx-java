@@ -27,7 +27,7 @@ internal class BucketServiceTest {
                 BucketCreatePresignedUrlParams.builder()
                     .bucketName("")
                     .objectName("")
-                    .ttl(1L)
+                    .ttl(60L)
                     .build()
             )
 
