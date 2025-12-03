@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateResponse
+import com.telnyx.sdk.models.numberreservations.NumberReservationListPage
 import com.telnyx.sdk.models.numberreservations.NumberReservationListParams
-import com.telnyx.sdk.models.numberreservations.NumberReservationListResponse
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveResponse
 import com.telnyx.sdk.services.blocking.numberreservations.ActionService
@@ -89,21 +89,21 @@ interface NumberReservationService {
         retrieve(numberReservationId, NumberReservationRetrieveParams.none(), requestOptions)
 
     /** Gets a paginated list of phone number reservations. */
-    fun list(): NumberReservationListResponse = list(NumberReservationListParams.none())
+    fun list(): NumberReservationListPage = list(NumberReservationListParams.none())
 
     /** @see list */
     fun list(
         params: NumberReservationListParams = NumberReservationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberReservationListResponse
+    ): NumberReservationListPage
 
     /** @see list */
     fun list(
         params: NumberReservationListParams = NumberReservationListParams.none()
-    ): NumberReservationListResponse = list(params, RequestOptions.none())
+    ): NumberReservationListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NumberReservationListResponse =
+    fun list(requestOptions: RequestOptions): NumberReservationListPage =
         list(NumberReservationListParams.none(), requestOptions)
 
     /**
@@ -208,7 +208,7 @@ interface NumberReservationService {
          * [NumberReservationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NumberReservationListResponse> =
+        fun list(): HttpResponseFor<NumberReservationListPage> =
             list(NumberReservationListParams.none())
 
         /** @see list */
@@ -216,17 +216,17 @@ interface NumberReservationService {
         fun list(
             params: NumberReservationListParams = NumberReservationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberReservationListResponse>
+        ): HttpResponseFor<NumberReservationListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NumberReservationListParams = NumberReservationListParams.none()
-        ): HttpResponseFor<NumberReservationListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NumberReservationListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberReservationListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberReservationListPage> =
             list(NumberReservationListParams.none(), requestOptions)
     }
 }

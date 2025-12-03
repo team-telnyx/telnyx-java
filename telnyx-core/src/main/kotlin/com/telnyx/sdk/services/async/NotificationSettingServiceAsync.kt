@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateParam
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteResponse
+import com.telnyx.sdk.models.notificationsettings.NotificationSettingListPageAsync
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingListParams
-import com.telnyx.sdk.models.notificationsettings.NotificationSettingListResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -109,22 +109,22 @@ interface NotificationSettingServiceAsync {
         retrieve(id, NotificationSettingRetrieveParams.none(), requestOptions)
 
     /** List notification settings. */
-    fun list(): CompletableFuture<NotificationSettingListResponse> =
+    fun list(): CompletableFuture<NotificationSettingListPageAsync> =
         list(NotificationSettingListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationSettingListParams = NotificationSettingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NotificationSettingListResponse>
+    ): CompletableFuture<NotificationSettingListPageAsync>
 
     /** @see list */
     fun list(
         params: NotificationSettingListParams = NotificationSettingListParams.none()
-    ): CompletableFuture<NotificationSettingListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<NotificationSettingListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NotificationSettingListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NotificationSettingListPageAsync> =
         list(NotificationSettingListParams.none(), requestOptions)
 
     /** Delete a notification setting. */
@@ -269,25 +269,25 @@ interface NotificationSettingServiceAsync {
          * Returns a raw HTTP response for `get /notification_settings`, but is otherwise the same
          * as [NotificationSettingServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NotificationSettingListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<NotificationSettingListPageAsync>> =
             list(NotificationSettingListParams.none())
 
         /** @see list */
         fun list(
             params: NotificationSettingListParams = NotificationSettingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NotificationSettingListResponse>>
+        ): CompletableFuture<HttpResponseFor<NotificationSettingListPageAsync>>
 
         /** @see list */
         fun list(
             params: NotificationSettingListParams = NotificationSettingListParams.none()
-        ): CompletableFuture<HttpResponseFor<NotificationSettingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NotificationSettingListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NotificationSettingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NotificationSettingListPageAsync>> =
             list(NotificationSettingListParams.none(), requestOptions)
 
         /**

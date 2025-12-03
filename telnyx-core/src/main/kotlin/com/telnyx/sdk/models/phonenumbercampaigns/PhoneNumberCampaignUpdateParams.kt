@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Create New Phone Number Campaign */
 class PhoneNumberCampaignUpdateParams
 private constructor(
-    private val pathPhoneNumber: String?,
+    private val campaignPhoneNumber: String?,
     private val phoneNumberCampaignCreate: PhoneNumberCampaignCreate,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathPhoneNumber(): Optional<String> = Optional.ofNullable(pathPhoneNumber)
+    fun campaignPhoneNumber(): Optional<String> = Optional.ofNullable(campaignPhoneNumber)
 
     fun phoneNumberCampaignCreate(): PhoneNumberCampaignCreate = phoneNumberCampaignCreate
 
@@ -52,7 +52,7 @@ private constructor(
     /** A builder for [PhoneNumberCampaignUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathPhoneNumber: String? = null
+        private var campaignPhoneNumber: String? = null
         private var phoneNumberCampaignCreate: PhoneNumberCampaignCreate? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -60,7 +60,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(phoneNumberCampaignUpdateParams: PhoneNumberCampaignUpdateParams) =
             apply {
-                pathPhoneNumber = phoneNumberCampaignUpdateParams.pathPhoneNumber
+                campaignPhoneNumber = phoneNumberCampaignUpdateParams.campaignPhoneNumber
                 phoneNumberCampaignCreate =
                     phoneNumberCampaignUpdateParams.phoneNumberCampaignCreate
                 additionalHeaders = phoneNumberCampaignUpdateParams.additionalHeaders.toBuilder()
@@ -68,13 +68,15 @@ private constructor(
                     phoneNumberCampaignUpdateParams.additionalQueryParams.toBuilder()
             }
 
-        fun pathPhoneNumber(pathPhoneNumber: String?) = apply {
-            this.pathPhoneNumber = pathPhoneNumber
+        fun campaignPhoneNumber(campaignPhoneNumber: String?) = apply {
+            this.campaignPhoneNumber = campaignPhoneNumber
         }
 
-        /** Alias for calling [Builder.pathPhoneNumber] with `pathPhoneNumber.orElse(null)`. */
-        fun pathPhoneNumber(pathPhoneNumber: Optional<String>) =
-            pathPhoneNumber(pathPhoneNumber.getOrNull())
+        /**
+         * Alias for calling [Builder.campaignPhoneNumber] with `campaignPhoneNumber.orElse(null)`.
+         */
+        fun campaignPhoneNumber(campaignPhoneNumber: Optional<String>) =
+            campaignPhoneNumber(campaignPhoneNumber.getOrNull())
 
         fun phoneNumberCampaignCreate(phoneNumberCampaignCreate: PhoneNumberCampaignCreate) =
             apply {
@@ -193,7 +195,7 @@ private constructor(
          */
         fun build(): PhoneNumberCampaignUpdateParams =
             PhoneNumberCampaignUpdateParams(
-                pathPhoneNumber,
+                campaignPhoneNumber,
                 checkRequired("phoneNumberCampaignCreate", phoneNumberCampaignCreate),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -204,7 +206,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathPhoneNumber ?: ""
+            0 -> campaignPhoneNumber ?: ""
             else -> ""
         }
 
@@ -218,7 +220,7 @@ private constructor(
         }
 
         return other is PhoneNumberCampaignUpdateParams &&
-            pathPhoneNumber == other.pathPhoneNumber &&
+            campaignPhoneNumber == other.campaignPhoneNumber &&
             phoneNumberCampaignCreate == other.phoneNumberCampaignCreate &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -226,12 +228,12 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
-            pathPhoneNumber,
+            campaignPhoneNumber,
             phoneNumberCampaignCreate,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "PhoneNumberCampaignUpdateParams{pathPhoneNumber=$pathPhoneNumber, phoneNumberCampaignCreate=$phoneNumberCampaignCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PhoneNumberCampaignUpdateParams{campaignPhoneNumber=$campaignPhoneNumber, phoneNumberCampaignCreate=$phoneNumberCampaignCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

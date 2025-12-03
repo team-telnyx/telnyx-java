@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.externalconnections
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.externalconnections.releases.ReleaseListPageAsync
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseListParams
-import com.telnyx.sdk.models.externalconnections.releases.ReleaseListResponse
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveParams
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -56,7 +56,7 @@ interface ReleaseServiceAsync {
      * created when you change the `connection_id` of a phone number that is currently on Microsoft
      * Teams.
      */
-    fun list(id: String): CompletableFuture<ReleaseListResponse> =
+    fun list(id: String): CompletableFuture<ReleaseListPageAsync> =
         list(id, ReleaseListParams.none())
 
     /** @see list */
@@ -64,27 +64,27 @@ interface ReleaseServiceAsync {
         id: String,
         params: ReleaseListParams = ReleaseListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReleaseListResponse> =
+    ): CompletableFuture<ReleaseListPageAsync> =
         list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: ReleaseListParams = ReleaseListParams.none(),
-    ): CompletableFuture<ReleaseListResponse> = list(id, params, RequestOptions.none())
+    ): CompletableFuture<ReleaseListPageAsync> = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ReleaseListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReleaseListResponse>
+    ): CompletableFuture<ReleaseListPageAsync>
 
     /** @see list */
-    fun list(params: ReleaseListParams): CompletableFuture<ReleaseListResponse> =
+    fun list(params: ReleaseListParams): CompletableFuture<ReleaseListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<ReleaseListResponse> =
+    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<ReleaseListPageAsync> =
         list(id, ReleaseListParams.none(), requestOptions)
 
     /**
@@ -135,7 +135,7 @@ interface ReleaseServiceAsync {
          * Returns a raw HTTP response for `get /external_connections/{id}/releases`, but is
          * otherwise the same as [ReleaseServiceAsync.list].
          */
-        fun list(id: String): CompletableFuture<HttpResponseFor<ReleaseListResponse>> =
+        fun list(id: String): CompletableFuture<HttpResponseFor<ReleaseListPageAsync>> =
             list(id, ReleaseListParams.none())
 
         /** @see list */
@@ -143,33 +143,33 @@ interface ReleaseServiceAsync {
             id: String,
             params: ReleaseListParams = ReleaseListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReleaseListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReleaseListPageAsync>> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         fun list(
             id: String,
             params: ReleaseListParams = ReleaseListParams.none(),
-        ): CompletableFuture<HttpResponseFor<ReleaseListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReleaseListPageAsync>> =
             list(id, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: ReleaseListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReleaseListResponse>>
+        ): CompletableFuture<HttpResponseFor<ReleaseListPageAsync>>
 
         /** @see list */
         fun list(
             params: ReleaseListParams
-        ): CompletableFuture<HttpResponseFor<ReleaseListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReleaseListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReleaseListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ReleaseListPageAsync>> =
             list(id, ReleaseListParams.none(), requestOptions)
     }
 }

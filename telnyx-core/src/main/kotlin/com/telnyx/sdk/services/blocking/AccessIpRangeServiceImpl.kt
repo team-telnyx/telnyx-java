@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.accessipranges.AccessIpRange
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeCreateParams
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeDeleteParams
+import com.telnyx.sdk.models.accessipranges.AccessIpRangeListPage
+import com.telnyx.sdk.models.accessipranges.AccessIpRangeListPageResponse
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeListParams
-import com.telnyx.sdk.models.accessipranges.AccessIpRangeListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -46,7 +47,7 @@ class AccessIpRangeServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: AccessIpRangeListParams,
         requestOptions: RequestOptions,
-    ): AccessIpRangeListResponse =
+    ): AccessIpRangeListPage =
         // get /access_ip_ranges
         withRawResponse().list(params, requestOptions).parse()
 
@@ -98,13 +99,13 @@ class AccessIpRangeServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<AccessIpRangeListResponse> =
-            jsonHandler<AccessIpRangeListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccessIpRangeListPageResponse> =
+            jsonHandler<AccessIpRangeListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccessIpRangeListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccessIpRangeListResponse> {
+        ): HttpResponseFor<AccessIpRangeListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,6 +122,13 @@ class AccessIpRangeServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AccessIpRangeListPage.builder()
+                            .service(AccessIpRangeServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

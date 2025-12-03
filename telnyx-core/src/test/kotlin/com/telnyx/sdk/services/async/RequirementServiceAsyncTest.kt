@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.requirements.RequirementListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,22 +38,9 @@ internal class RequirementServiceAsyncTest {
                 .build()
         val requirementServiceAsync = client.requirements()
 
-        val requirementsFuture =
-            requirementServiceAsync.list(
-                RequirementListParams.builder()
-                    .filter(
-                        RequirementListParams.Filter.builder()
-                            .action(RequirementListParams.Filter.Action.PORTING)
-                            .countryCode("US")
-                            .phoneNumberType(RequirementListParams.Filter.PhoneNumberType.LOCAL)
-                            .build()
-                    )
-                    .page(RequirementListParams.Page.builder().number(1L).size(1L).build())
-                    .addSort(RequirementListParams.Sort.COUNTRY_CODE)
-                    .build()
-            )
+        val pageFuture = requirementServiceAsync.list()
 
-        val requirements = requirementsFuture.get()
-        requirements.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

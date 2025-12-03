@@ -72,18 +72,11 @@ internal class CampaignServiceAsyncTest {
                 .build()
         val campaignServiceAsync = client.campaign()
 
-        val campaignsFuture =
-            campaignServiceAsync.list(
-                CampaignListParams.builder()
-                    .brandId("brandId")
-                    .page(0L)
-                    .recordsPerPage(0L)
-                    .sort(CampaignListParams.Sort.ASSIGNED_PHONE_NUMBERS_COUNT)
-                    .build()
-            )
+        val pageFuture =
+            campaignServiceAsync.list(CampaignListParams.builder().brandId("brandId").build())
 
-        val campaigns = campaignsFuture.get()
-        campaigns.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

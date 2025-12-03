@@ -4,8 +4,6 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.auditevents.AuditEventListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,20 +21,8 @@ internal class AuditEventServiceTest {
                 .build()
         val auditEventService = client.auditEvents()
 
-        val auditEvents =
-            auditEventService.list(
-                AuditEventListParams.builder()
-                    .filter(
-                        AuditEventListParams.Filter.builder()
-                            .createdAfter(OffsetDateTime.parse("2021-01-01T00:00:00Z"))
-                            .createdBefore(OffsetDateTime.parse("2021-01-01T00:00:00Z"))
-                            .build()
-                    )
-                    .page(AuditEventListParams.Page.builder().number(1L).size(10L).build())
-                    .sort(AuditEventListParams.Sort.DESC)
-                    .build()
-            )
+        val page = auditEventService.list()
 
-        auditEvents.validate()
+        page.response().validate()
     }
 }

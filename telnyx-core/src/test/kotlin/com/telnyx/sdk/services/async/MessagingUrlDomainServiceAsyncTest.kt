@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,14 +21,9 @@ internal class MessagingUrlDomainServiceAsyncTest {
                 .build()
         val messagingUrlDomainServiceAsync = client.messagingUrlDomains()
 
-        val messagingUrlDomainsFuture =
-            messagingUrlDomainServiceAsync.list(
-                MessagingUrlDomainListParams.builder()
-                    .page(MessagingUrlDomainListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = messagingUrlDomainServiceAsync.list()
 
-        val messagingUrlDomains = messagingUrlDomainsFuture.get()
-        messagingUrlDomains.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

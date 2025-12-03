@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.auditevents.AuditEventListPage
+import com.telnyx.sdk.models.auditevents.AuditEventListPageResponse
 import com.telnyx.sdk.models.auditevents.AuditEventListParams
-import com.telnyx.sdk.models.auditevents.AuditEventListResponse
 import java.util.function.Consumer
 
 class AuditEventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,7 +34,7 @@ class AuditEventServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: AuditEventListParams,
         requestOptions: RequestOptions,
-    ): AuditEventListResponse =
+    ): AuditEventListPage =
         // get /audit_events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -50,13 +51,13 @@ class AuditEventServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<AuditEventListResponse> =
-            jsonHandler<AuditEventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AuditEventListPageResponse> =
+            jsonHandler<AuditEventListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AuditEventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AuditEventListResponse> {
+        ): HttpResponseFor<AuditEventListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -73,6 +74,13 @@ class AuditEventServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AuditEventListPage.builder()
+                            .service(AuditEventServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

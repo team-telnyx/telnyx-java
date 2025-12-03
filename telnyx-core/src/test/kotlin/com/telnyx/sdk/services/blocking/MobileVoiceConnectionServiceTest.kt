@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateParams
-import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -39,7 +38,7 @@ internal class MobileVoiceConnectionServiceTest {
                             .build()
                     )
                     .addTag("string")
-                    .webhookApiVersion(MobileVoiceConnectionCreateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(MobileVoiceConnectionCreateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("webhook_event_failover_url")
                     .webhookEventUrl("webhook_event_url")
                     .webhookTimeoutSecs(0L)
@@ -90,7 +89,7 @@ internal class MobileVoiceConnectionServiceTest {
                             .build()
                     )
                     .addTag("string")
-                    .webhookApiVersion(MobileVoiceConnectionUpdateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(MobileVoiceConnectionUpdateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("webhook_event_failover_url")
                     .webhookEventUrl("webhook_event_url")
                     .webhookTimeoutSecs(0L)
@@ -110,17 +109,9 @@ internal class MobileVoiceConnectionServiceTest {
                 .build()
         val mobileVoiceConnectionService = client.mobileVoiceConnections()
 
-        val mobileVoiceConnections =
-            mobileVoiceConnectionService.list(
-                MobileVoiceConnectionListParams.builder()
-                    .filterConnectionNameContains("filter[connection_name][contains]")
-                    .pageNumber(0L)
-                    .pageSize(0L)
-                    .sort("sort")
-                    .build()
-            )
+        val page = mobileVoiceConnectionService.list()
 
-        mobileVoiceConnections.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

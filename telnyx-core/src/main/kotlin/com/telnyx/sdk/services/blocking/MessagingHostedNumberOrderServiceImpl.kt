@@ -24,8 +24,9 @@ import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOr
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCreateVerificationCodesResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteResponse
+import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListPage
+import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListPageResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListParams
-import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderValidateCodesParams
@@ -73,7 +74,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingHosted
     override fun list(
         params: MessagingHostedNumberOrderListParams,
         requestOptions: RequestOptions,
-    ): MessagingHostedNumberOrderListResponse =
+    ): MessagingHostedNumberOrderListPage =
         // get /messaging_hosted_number_orders
         withRawResponse().list(params, requestOptions).parse()
 
@@ -182,13 +183,13 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingHosted
             }
         }
 
-        private val listHandler: Handler<MessagingHostedNumberOrderListResponse> =
-            jsonHandler<MessagingHostedNumberOrderListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingHostedNumberOrderListPageResponse> =
+            jsonHandler<MessagingHostedNumberOrderListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingHostedNumberOrderListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingHostedNumberOrderListResponse> {
+        ): HttpResponseFor<MessagingHostedNumberOrderListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -205,6 +206,13 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingHosted
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MessagingHostedNumberOrderListPage.builder()
+                            .service(MessagingHostedNumberOrderServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

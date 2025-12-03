@@ -18,10 +18,10 @@ internal class AiRetrieveModelsResponseTest {
                         .id("id")
                         .created(0L)
                         .ownedBy("owned_by")
-                        .object_("object")
+                        .modelObject("object")
                         .build()
                 )
-                .object_("object")
+                .modelObject("object")
                 .build()
 
         assertThat(aiRetrieveModelsResponse.data())
@@ -30,10 +30,10 @@ internal class AiRetrieveModelsResponseTest {
                     .id("id")
                     .created(0L)
                     .ownedBy("owned_by")
-                    .object_("object")
+                    .modelObject("object")
                     .build()
             )
-        assertThat(aiRetrieveModelsResponse.object_()).contains("object")
+        assertThat(aiRetrieveModelsResponse.modelObject()).contains("object")
     }
 
     @Test
@@ -46,10 +46,10 @@ internal class AiRetrieveModelsResponseTest {
                         .id("id")
                         .created(0L)
                         .ownedBy("owned_by")
-                        .object_("object")
+                        .modelObject("object")
                         .build()
                 )
-                .object_("object")
+                .modelObject("object")
                 .build()
 
         val roundtrippedAiRetrieveModelsResponse =

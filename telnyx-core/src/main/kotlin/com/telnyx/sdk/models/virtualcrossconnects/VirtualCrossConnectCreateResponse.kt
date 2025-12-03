@@ -11,12 +11,11 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.globalipassignments.Record
 import com.telnyx.sdk.models.networks.InterfaceStatus
-import com.telnyx.sdk.models.publicinternetgateways.Interface
-import com.telnyx.sdk.models.publicinternetgateways.RegionIn
+import com.telnyx.sdk.models.publicinternetgateways.NetworkInterface
+import com.telnyx.sdk.models.publicinternetgateways.NetworkInterfaceRegion
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -157,12 +156,12 @@ private constructor(
         private val networkId: JsonField<String>,
         private val status: JsonField<InterfaceStatus>,
         private val regionCode: JsonField<String>,
+        private val bandwidthMbps: JsonField<Double>,
         private val bgpAsn: JsonField<Double>,
         private val cloudProvider: JsonField<CloudProvider>,
         private val cloudProviderRegion: JsonField<String>,
-        private val primaryCloudAccountId: JsonField<String>,
-        private val bandwidthMbps: JsonField<Double>,
         private val primaryBgpKey: JsonField<String>,
+        private val primaryCloudAccountId: JsonField<String>,
         private val primaryCloudIp: JsonField<String>,
         private val primaryEnabled: JsonField<Boolean>,
         private val primaryRoutingAnnouncement: JsonField<Boolean>,
@@ -199,6 +198,9 @@ private constructor(
             @JsonProperty("region_code")
             @ExcludeMissing
             regionCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("bandwidth_mbps")
+            @ExcludeMissing
+            bandwidthMbps: JsonField<Double> = JsonMissing.of(),
             @JsonProperty("bgp_asn") @ExcludeMissing bgpAsn: JsonField<Double> = JsonMissing.of(),
             @JsonProperty("cloud_provider")
             @ExcludeMissing
@@ -206,15 +208,12 @@ private constructor(
             @JsonProperty("cloud_provider_region")
             @ExcludeMissing
             cloudProviderRegion: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("primary_cloud_account_id")
-            @ExcludeMissing
-            primaryCloudAccountId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("bandwidth_mbps")
-            @ExcludeMissing
-            bandwidthMbps: JsonField<Double> = JsonMissing.of(),
             @JsonProperty("primary_bgp_key")
             @ExcludeMissing
             primaryBgpKey: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("primary_cloud_account_id")
+            @ExcludeMissing
+            primaryCloudAccountId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("primary_cloud_ip")
             @ExcludeMissing
             primaryCloudIp: JsonField<String> = JsonMissing.of(),
@@ -255,12 +254,12 @@ private constructor(
             networkId,
             status,
             regionCode,
+            bandwidthMbps,
             bgpAsn,
             cloudProvider,
             cloudProviderRegion,
-            primaryCloudAccountId,
-            bandwidthMbps,
             primaryBgpKey,
+            primaryCloudAccountId,
             primaryCloudIp,
             primaryEnabled,
             primaryRoutingAnnouncement,
@@ -283,10 +282,11 @@ private constructor(
                 .updatedAt(updatedAt)
                 .build()
 
-        fun toInterface(): Interface =
-            Interface.builder().name(name).networkId(networkId).status(status).build()
+        fun toNetworkInterface(): NetworkInterface =
+            NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
 
-        fun toRegionIn(): RegionIn = RegionIn.builder().regionCode(regionCode).build()
+        fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
+            NetworkInterfaceRegion.builder().regionCode(regionCode).build()
 
         /**
          * Identifies the resource.
@@ -353,42 +353,6 @@ private constructor(
         fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
 
         /**
-         * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value will be
-         * assigned by Telnyx.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun bgpAsn(): Double = bgpAsn.getRequired("bgp_asn")
-
-        /**
-         * The Virtual Private Cloud with which you would like to establish a cross connect.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun cloudProvider(): CloudProvider = cloudProvider.getRequired("cloud_provider")
-
-        /**
-         * The region where your Virtual Private Cloud hosts are located.<br /><br />The available
-         * regions can be found using the /virtual_cross_connect_regions endpoint.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun cloudProviderRegion(): String = cloudProviderRegion.getRequired("cloud_provider_region")
-
-        /**
-         * The identifier for your Virtual Private Cloud. The number will be different based upon
-         * your Cloud provider.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun primaryCloudAccountId(): String =
-            primaryCloudAccountId.getRequired("primary_cloud_account_id")
-
-        /**
          * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br
          * /><br />The available bandwidths can be found using the /virtual_cross_connect_regions
          * endpoint.
@@ -399,12 +363,49 @@ private constructor(
         fun bandwidthMbps(): Optional<Double> = bandwidthMbps.getOptional("bandwidth_mbps")
 
         /**
+         * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value will be
+         * assigned by Telnyx.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun bgpAsn(): Optional<Double> = bgpAsn.getOptional("bgp_asn")
+
+        /**
+         * The Virtual Private Cloud with which you would like to establish a cross connect.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun cloudProvider(): Optional<CloudProvider> = cloudProvider.getOptional("cloud_provider")
+
+        /**
+         * The region where your Virtual Private Cloud hosts are located.<br /><br />The available
+         * regions can be found using the /virtual_cross_connect_regions endpoint.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun cloudProviderRegion(): Optional<String> =
+            cloudProviderRegion.getOptional("cloud_provider_region")
+
+        /**
          * The authentication key for BGP peer configuration.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun primaryBgpKey(): Optional<String> = primaryBgpKey.getOptional("primary_bgp_key")
+
+        /**
+         * The identifier for your Virtual Private Cloud. The number will be different based upon
+         * your Cloud provider.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun primaryCloudAccountId(): Optional<String> =
+            primaryCloudAccountId.getOptional("primary_cloud_account_id")
 
         /**
          * The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is
@@ -572,6 +573,16 @@ private constructor(
         fun _regionCode(): JsonField<String> = regionCode
 
         /**
+         * Returns the raw JSON value of [bandwidthMbps].
+         *
+         * Unlike [bandwidthMbps], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("bandwidth_mbps")
+        @ExcludeMissing
+        fun _bandwidthMbps(): JsonField<Double> = bandwidthMbps
+
+        /**
          * Returns the raw JSON value of [bgpAsn].
          *
          * Unlike [bgpAsn], this method doesn't throw if the JSON field has an unexpected type.
@@ -599,26 +610,6 @@ private constructor(
         fun _cloudProviderRegion(): JsonField<String> = cloudProviderRegion
 
         /**
-         * Returns the raw JSON value of [primaryCloudAccountId].
-         *
-         * Unlike [primaryCloudAccountId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("primary_cloud_account_id")
-        @ExcludeMissing
-        fun _primaryCloudAccountId(): JsonField<String> = primaryCloudAccountId
-
-        /**
-         * Returns the raw JSON value of [bandwidthMbps].
-         *
-         * Unlike [bandwidthMbps], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("bandwidth_mbps")
-        @ExcludeMissing
-        fun _bandwidthMbps(): JsonField<Double> = bandwidthMbps
-
-        /**
          * Returns the raw JSON value of [primaryBgpKey].
          *
          * Unlike [primaryBgpKey], this method doesn't throw if the JSON field has an unexpected
@@ -627,6 +618,16 @@ private constructor(
         @JsonProperty("primary_bgp_key")
         @ExcludeMissing
         fun _primaryBgpKey(): JsonField<String> = primaryBgpKey
+
+        /**
+         * Returns the raw JSON value of [primaryCloudAccountId].
+         *
+         * Unlike [primaryCloudAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("primary_cloud_account_id")
+        @ExcludeMissing
+        fun _primaryCloudAccountId(): JsonField<String> = primaryCloudAccountId
 
         /**
          * Returns the raw JSON value of [primaryCloudIp].
@@ -749,17 +750,7 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Data].
-             *
-             * The following fields are required:
-             * ```java
-             * .bgpAsn()
-             * .cloudProvider()
-             * .cloudProviderRegion()
-             * .primaryCloudAccountId()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Data]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -774,12 +765,12 @@ private constructor(
             private var networkId: JsonField<String> = JsonMissing.of()
             private var status: JsonField<InterfaceStatus> = JsonMissing.of()
             private var regionCode: JsonField<String> = JsonMissing.of()
-            private var bgpAsn: JsonField<Double>? = null
-            private var cloudProvider: JsonField<CloudProvider>? = null
-            private var cloudProviderRegion: JsonField<String>? = null
-            private var primaryCloudAccountId: JsonField<String>? = null
             private var bandwidthMbps: JsonField<Double> = JsonMissing.of()
+            private var bgpAsn: JsonField<Double> = JsonMissing.of()
+            private var cloudProvider: JsonField<CloudProvider> = JsonMissing.of()
+            private var cloudProviderRegion: JsonField<String> = JsonMissing.of()
             private var primaryBgpKey: JsonField<String> = JsonMissing.of()
+            private var primaryCloudAccountId: JsonField<String> = JsonMissing.of()
             private var primaryCloudIp: JsonField<String> = JsonMissing.of()
             private var primaryEnabled: JsonField<Boolean> = JsonMissing.of()
             private var primaryRoutingAnnouncement: JsonField<Boolean> = JsonMissing.of()
@@ -803,12 +794,12 @@ private constructor(
                 networkId = data.networkId
                 status = data.status
                 regionCode = data.regionCode
+                bandwidthMbps = data.bandwidthMbps
                 bgpAsn = data.bgpAsn
                 cloudProvider = data.cloudProvider
                 cloudProviderRegion = data.cloudProviderRegion
-                primaryCloudAccountId = data.primaryCloudAccountId
-                bandwidthMbps = data.bandwidthMbps
                 primaryBgpKey = data.primaryBgpKey
+                primaryCloudAccountId = data.primaryCloudAccountId
                 primaryCloudIp = data.primaryCloudIp
                 primaryEnabled = data.primaryEnabled
                 primaryRoutingAnnouncement = data.primaryRoutingAnnouncement
@@ -920,6 +911,24 @@ private constructor(
             fun regionCode(regionCode: JsonField<String>) = apply { this.regionCode = regionCode }
 
             /**
+             * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
+             * Connect.<br /><br />The available bandwidths can be found using the
+             * /virtual_cross_connect_regions endpoint.
+             */
+            fun bandwidthMbps(bandwidthMbps: Double) = bandwidthMbps(JsonField.of(bandwidthMbps))
+
+            /**
+             * Sets [Builder.bandwidthMbps] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bandwidthMbps] with a well-typed [Double] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun bandwidthMbps(bandwidthMbps: JsonField<Double>) = apply {
+                this.bandwidthMbps = bandwidthMbps
+            }
+
+            /**
              * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value will
              * be assigned by Telnyx.
              */
@@ -967,6 +976,20 @@ private constructor(
                 this.cloudProviderRegion = cloudProviderRegion
             }
 
+            /** The authentication key for BGP peer configuration. */
+            fun primaryBgpKey(primaryBgpKey: String) = primaryBgpKey(JsonField.of(primaryBgpKey))
+
+            /**
+             * Sets [Builder.primaryBgpKey] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.primaryBgpKey] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun primaryBgpKey(primaryBgpKey: JsonField<String>) = apply {
+                this.primaryBgpKey = primaryBgpKey
+            }
+
             /**
              * The identifier for your Virtual Private Cloud. The number will be different based
              * upon your Cloud provider.
@@ -983,38 +1006,6 @@ private constructor(
              */
             fun primaryCloudAccountId(primaryCloudAccountId: JsonField<String>) = apply {
                 this.primaryCloudAccountId = primaryCloudAccountId
-            }
-
-            /**
-             * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-             * Connect.<br /><br />The available bandwidths can be found using the
-             * /virtual_cross_connect_regions endpoint.
-             */
-            fun bandwidthMbps(bandwidthMbps: Double) = bandwidthMbps(JsonField.of(bandwidthMbps))
-
-            /**
-             * Sets [Builder.bandwidthMbps] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.bandwidthMbps] with a well-typed [Double] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun bandwidthMbps(bandwidthMbps: JsonField<Double>) = apply {
-                this.bandwidthMbps = bandwidthMbps
-            }
-
-            /** The authentication key for BGP peer configuration. */
-            fun primaryBgpKey(primaryBgpKey: String) = primaryBgpKey(JsonField.of(primaryBgpKey))
-
-            /**
-             * Sets [Builder.primaryBgpKey] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.primaryBgpKey] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun primaryBgpKey(primaryBgpKey: JsonField<String>) = apply {
-                this.primaryBgpKey = primaryBgpKey
             }
 
             /**
@@ -1229,16 +1220,6 @@ private constructor(
              * Returns an immutable instance of [Data].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .bgpAsn()
-             * .cloudProvider()
-             * .cloudProviderRegion()
-             * .primaryCloudAccountId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Data =
                 Data(
@@ -1250,12 +1231,12 @@ private constructor(
                     networkId,
                     status,
                     regionCode,
-                    checkRequired("bgpAsn", bgpAsn),
-                    checkRequired("cloudProvider", cloudProvider),
-                    checkRequired("cloudProviderRegion", cloudProviderRegion),
-                    checkRequired("primaryCloudAccountId", primaryCloudAccountId),
                     bandwidthMbps,
+                    bgpAsn,
+                    cloudProvider,
+                    cloudProviderRegion,
                     primaryBgpKey,
+                    primaryCloudAccountId,
                     primaryCloudIp,
                     primaryEnabled,
                     primaryRoutingAnnouncement,
@@ -1286,12 +1267,12 @@ private constructor(
             networkId()
             status().ifPresent { it.validate() }
             regionCode()
-            bgpAsn()
-            cloudProvider().validate()
-            cloudProviderRegion()
-            primaryCloudAccountId()
             bandwidthMbps()
+            bgpAsn()
+            cloudProvider().ifPresent { it.validate() }
+            cloudProviderRegion()
             primaryBgpKey()
+            primaryCloudAccountId()
             primaryCloudIp()
             primaryEnabled()
             primaryRoutingAnnouncement()
@@ -1330,12 +1311,12 @@ private constructor(
                 (if (networkId.asKnown().isPresent) 1 else 0) +
                 (status.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (regionCode.asKnown().isPresent) 1 else 0) +
+                (if (bandwidthMbps.asKnown().isPresent) 1 else 0) +
                 (if (bgpAsn.asKnown().isPresent) 1 else 0) +
                 (cloudProvider.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (cloudProviderRegion.asKnown().isPresent) 1 else 0) +
-                (if (primaryCloudAccountId.asKnown().isPresent) 1 else 0) +
-                (if (bandwidthMbps.asKnown().isPresent) 1 else 0) +
                 (if (primaryBgpKey.asKnown().isPresent) 1 else 0) +
+                (if (primaryCloudAccountId.asKnown().isPresent) 1 else 0) +
                 (if (primaryCloudIp.asKnown().isPresent) 1 else 0) +
                 (if (primaryEnabled.asKnown().isPresent) 1 else 0) +
                 (if (primaryRoutingAnnouncement.asKnown().isPresent) 1 else 0) +
@@ -1724,12 +1705,12 @@ private constructor(
                 networkId == other.networkId &&
                 status == other.status &&
                 regionCode == other.regionCode &&
+                bandwidthMbps == other.bandwidthMbps &&
                 bgpAsn == other.bgpAsn &&
                 cloudProvider == other.cloudProvider &&
                 cloudProviderRegion == other.cloudProviderRegion &&
-                primaryCloudAccountId == other.primaryCloudAccountId &&
-                bandwidthMbps == other.bandwidthMbps &&
                 primaryBgpKey == other.primaryBgpKey &&
+                primaryCloudAccountId == other.primaryCloudAccountId &&
                 primaryCloudIp == other.primaryCloudIp &&
                 primaryEnabled == other.primaryEnabled &&
                 primaryRoutingAnnouncement == other.primaryRoutingAnnouncement &&
@@ -1754,12 +1735,12 @@ private constructor(
                 networkId,
                 status,
                 regionCode,
+                bandwidthMbps,
                 bgpAsn,
                 cloudProvider,
                 cloudProviderRegion,
-                primaryCloudAccountId,
-                bandwidthMbps,
                 primaryBgpKey,
+                primaryCloudAccountId,
                 primaryCloudIp,
                 primaryEnabled,
                 primaryRoutingAnnouncement,
@@ -1778,7 +1759,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, regionCode=$regionCode, bgpAsn=$bgpAsn, cloudProvider=$cloudProvider, cloudProviderRegion=$cloudProviderRegion, primaryCloudAccountId=$primaryCloudAccountId, bandwidthMbps=$bandwidthMbps, primaryBgpKey=$primaryBgpKey, primaryCloudIp=$primaryCloudIp, primaryEnabled=$primaryEnabled, primaryRoutingAnnouncement=$primaryRoutingAnnouncement, primaryTelnyxIp=$primaryTelnyxIp, region=$region, secondaryBgpKey=$secondaryBgpKey, secondaryCloudAccountId=$secondaryCloudAccountId, secondaryCloudIp=$secondaryCloudIp, secondaryEnabled=$secondaryEnabled, secondaryRoutingAnnouncement=$secondaryRoutingAnnouncement, secondaryTelnyxIp=$secondaryTelnyxIp, additionalProperties=$additionalProperties}"
+            "Data{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, regionCode=$regionCode, bandwidthMbps=$bandwidthMbps, bgpAsn=$bgpAsn, cloudProvider=$cloudProvider, cloudProviderRegion=$cloudProviderRegion, primaryBgpKey=$primaryBgpKey, primaryCloudAccountId=$primaryCloudAccountId, primaryCloudIp=$primaryCloudIp, primaryEnabled=$primaryEnabled, primaryRoutingAnnouncement=$primaryRoutingAnnouncement, primaryTelnyxIp=$primaryTelnyxIp, region=$region, secondaryBgpKey=$secondaryBgpKey, secondaryCloudAccountId=$secondaryCloudAccountId, secondaryCloudIp=$secondaryCloudIp, secondaryEnabled=$secondaryEnabled, secondaryRoutingAnnouncement=$secondaryRoutingAnnouncement, secondaryTelnyxIp=$secondaryTelnyxIp, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

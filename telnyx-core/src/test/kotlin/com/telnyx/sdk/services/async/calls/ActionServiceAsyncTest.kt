@@ -56,6 +56,7 @@ import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.InterruptionSettings
 import com.telnyx.sdk.models.calls.actions.StopRecordingRequest
 import com.telnyx.sdk.models.calls.actions.TranscriptionConfig
+import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -125,31 +126,23 @@ internal class ActionServiceAsyncTest {
                                 TranscriptionStartRequest.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                                TranscriptionEngineGoogleConfig.builder()
                                     .enableSpeakerDiarization(true)
                                     .addHint("string")
                                     .interimResults(true)
                                     .language(GoogleTranscriptionLanguage.EN)
                                     .maxSpeakerCount(4)
                                     .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
-                                    )
+                                    .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                                     .profanityFilter(true)
                                     .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
-                                            .builder()
+                                        TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                             .boost(1.0)
                                             .addPhrase("string")
                                             .build()
                                     )
                                     .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                        TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                                     )
                                     .useEnhanced(true)
                                     .build()
@@ -179,8 +172,8 @@ internal class ActionServiceAsyncTest {
         val responseFuture =
             actionServiceAsync.bridge(
                 ActionBridgeParams.builder()
-                    .pathCallControlId("call_control_id")
-                    .bodyCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                    .callControlIdToBridge("call_control_id")
+                    .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .muteDtmf(ActionBridgeParams.MuteDtmf.OPPOSITE)
@@ -278,42 +271,23 @@ internal class ActionServiceAsyncTest {
                 ActionGatherUsingAiParams.builder()
                     .callControlId("call_control_id")
                     .parameters(
-                        JsonValue.from(
-                            mapOf(
-                                "properties" to
-                                    mapOf(
-                                        "age" to
-                                            mapOf(
-                                                "description" to "The age of the customer.",
-                                                "type" to "integer",
-                                            ),
-                                        "location" to
-                                            mapOf(
-                                                "description" to "The location of the customer.",
-                                                "type" to "string",
-                                            ),
-                                    ),
-                                "required" to listOf("age", "location"),
-                                "type" to "object",
-                            )
-                        )
+                        ActionGatherUsingAiParams.Parameters.builder()
+                            .putAdditionalProperty("properties", JsonValue.from("bar"))
+                            .putAdditionalProperty("required", JsonValue.from("bar"))
+                            .putAdditionalProperty("type", JsonValue.from("bar"))
+                            .build()
                     )
                     .assistant(
                         Assistant.builder()
                             .instructions("You are a friendly voice assistant.")
                             .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
                             .openaiApiKeyRef("my_openai_api_key")
-                            .addTool(
-                                Assistant.Tool.BookAppointmentTool.builder()
-                                    .bookAppointment(
-                                        Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
-                                            .apiKeyRef("my_calcom_api_key")
-                                            .eventTypeId(0L)
-                                            .attendeeName("attendee_name")
-                                            .attendeeTimezone("attendee_timezone")
-                                            .build()
-                                    )
-                                    .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
+                            .addBookAppointmentTool(
+                                Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                                    .apiKeyRef("my_calcom_api_key")
+                                    .eventTypeId(0L)
+                                    .attendeeName("attendee_name")
+                                    .attendeeTimezone("attendee_timezone")
                                     .build()
                             )
                             .build()
@@ -619,7 +593,7 @@ internal class ActionServiceAsyncTest {
             actionServiceAsync.sendSipInfo(
                 ActionSendSipInfoParams.builder()
                     .callControlId("call_control_id")
-                    .body("{\"key\": \"value\", \"numValue\": 100}")
+                    .sipInfoBody("{\"key\": \"value\", \"numValue\": 100}")
                     .contentType("application/json")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
@@ -886,7 +860,7 @@ internal class ActionServiceAsyncTest {
                     .enableDialogflow(false)
                     .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                     .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                    .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
+                    .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
                     .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                     .streamCodec(StreamCodec.PCMA)
                     .streamTrack(ActionStartStreamingParams.StreamTrack.BOTH_TRACKS)
@@ -920,31 +894,23 @@ internal class ActionServiceAsyncTest {
                                 TranscriptionStartRequest.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                                TranscriptionEngineGoogleConfig.builder()
                                     .enableSpeakerDiarization(true)
                                     .addHint("string")
                                     .interimResults(true)
                                     .language(GoogleTranscriptionLanguage.EN)
                                     .maxSpeakerCount(4)
                                     .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
-                                    )
+                                    .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                                     .profanityFilter(true)
                                     .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
-                                            .builder()
+                                        TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                             .boost(1.0)
                                             .addPhrase("string")
                                             .build()
                                     )
                                     .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                        TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                                     )
                                     .useEnhanced(true)
                                     .build()

@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.brand
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportParams
-import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportResponse
+import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportsParams
+import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportsResponse
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingListParams
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingListResponse
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingOrderParams
@@ -70,30 +70,30 @@ interface ExternalVettingServiceAsync {
      * provider. If the vetting provider confirms validity of the record, it will be saved with the
      * brand and will be considered for future campaign qualification.
      */
-    fun import_(
+    fun imports(
         brandId: String,
-        params: ExternalVettingImportParams,
-    ): CompletableFuture<ExternalVettingImportResponse> =
-        import_(brandId, params, RequestOptions.none())
+        params: ExternalVettingImportsParams,
+    ): CompletableFuture<ExternalVettingImportsResponse> =
+        imports(brandId, params, RequestOptions.none())
 
-    /** @see import_ */
-    fun import_(
+    /** @see imports */
+    fun imports(
         brandId: String,
-        params: ExternalVettingImportParams,
+        params: ExternalVettingImportsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingImportResponse> =
-        import_(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): CompletableFuture<ExternalVettingImportsResponse> =
+        imports(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see import_ */
-    fun import_(
-        params: ExternalVettingImportParams
-    ): CompletableFuture<ExternalVettingImportResponse> = import_(params, RequestOptions.none())
+    /** @see imports */
+    fun imports(
+        params: ExternalVettingImportsParams
+    ): CompletableFuture<ExternalVettingImportsResponse> = imports(params, RequestOptions.none())
 
-    /** @see import_ */
-    fun import_(
-        params: ExternalVettingImportParams,
+    /** @see imports */
+    fun imports(
+        params: ExternalVettingImportsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingImportResponse>
+    ): CompletableFuture<ExternalVettingImportsResponse>
 
     /** Order new external vetting for a brand */
     fun order(
@@ -180,33 +180,33 @@ interface ExternalVettingServiceAsync {
 
         /**
          * Returns a raw HTTP response for `put /brand/{brandId}/externalVetting`, but is otherwise
-         * the same as [ExternalVettingServiceAsync.import_].
+         * the same as [ExternalVettingServiceAsync.imports].
          */
-        fun import_(
+        fun imports(
             brandId: String,
-            params: ExternalVettingImportParams,
-        ): CompletableFuture<HttpResponseFor<ExternalVettingImportResponse>> =
-            import_(brandId, params, RequestOptions.none())
+            params: ExternalVettingImportsParams,
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>> =
+            imports(brandId, params, RequestOptions.none())
 
-        /** @see import_ */
-        fun import_(
+        /** @see imports */
+        fun imports(
             brandId: String,
-            params: ExternalVettingImportParams,
+            params: ExternalVettingImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingImportResponse>> =
-            import_(params.toBuilder().brandId(brandId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>> =
+            imports(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see import_ */
-        fun import_(
-            params: ExternalVettingImportParams
-        ): CompletableFuture<HttpResponseFor<ExternalVettingImportResponse>> =
-            import_(params, RequestOptions.none())
+        /** @see imports */
+        fun imports(
+            params: ExternalVettingImportsParams
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>> =
+            imports(params, RequestOptions.none())
 
-        /** @see import_ */
-        fun import_(
-            params: ExternalVettingImportParams,
+        /** @see imports */
+        fun imports(
+            params: ExternalVettingImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingImportResponse>>
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>>
 
         /**
          * Returns a raw HTTP response for `post /brand/{brandId}/externalVetting`, but is otherwise

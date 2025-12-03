@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.numberorderphonenumbers.UpdateRegulatoryRequirement
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateParams
-import com.telnyx.sdk.models.numberorders.NumberOrderListParams
 import com.telnyx.sdk.models.numberorders.NumberOrderUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -107,28 +106,9 @@ internal class NumberOrderServiceAsyncTest {
                 .build()
         val numberOrderServiceAsync = client.numberOrders()
 
-        val numberOrdersFuture =
-            numberOrderServiceAsync.list(
-                NumberOrderListParams.builder()
-                    .filter(
-                        NumberOrderListParams.Filter.builder()
-                            .createdAt(
-                                NumberOrderListParams.Filter.CreatedAt.builder()
-                                    .gt("gt")
-                                    .lt("lt")
-                                    .build()
-                            )
-                            .customerReference("customer_reference")
-                            .phoneNumbersCount("phone_numbers_count")
-                            .requirementsMet(true)
-                            .status("status")
-                            .build()
-                    )
-                    .page(NumberOrderListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = numberOrderServiceAsync.list()
 
-        val numberOrders = numberOrdersFuture.get()
-        numberOrders.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

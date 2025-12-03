@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.invoices.InvoiceListPage
 import com.telnyx.sdk.models.invoices.InvoiceListParams
-import com.telnyx.sdk.models.invoices.InvoiceListResponse
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveParams
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveResponse
 import java.util.function.Consumer
@@ -57,20 +57,20 @@ interface InvoiceService {
         retrieve(id, InvoiceRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of invoices. */
-    fun list(): InvoiceListResponse = list(InvoiceListParams.none())
+    fun list(): InvoiceListPage = list(InvoiceListParams.none())
 
     /** @see list */
     fun list(
         params: InvoiceListParams = InvoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InvoiceListResponse
+    ): InvoiceListPage
 
     /** @see list */
-    fun list(params: InvoiceListParams = InvoiceListParams.none()): InvoiceListResponse =
+    fun list(params: InvoiceListParams = InvoiceListParams.none()): InvoiceListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InvoiceListResponse =
+    fun list(requestOptions: RequestOptions): InvoiceListPage =
         list(InvoiceListParams.none(), requestOptions)
 
     /** A view of [InvoiceService] that provides access to raw HTTP responses for each method. */
@@ -131,25 +131,24 @@ interface InvoiceService {
          * Returns a raw HTTP response for `get /invoices`, but is otherwise the same as
          * [InvoiceService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<InvoiceListResponse> = list(InvoiceListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<InvoiceListPage> = list(InvoiceListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InvoiceListParams = InvoiceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InvoiceListResponse>
+        ): HttpResponseFor<InvoiceListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InvoiceListParams = InvoiceListParams.none()
-        ): HttpResponseFor<InvoiceListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<InvoiceListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InvoiceListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InvoiceListPage> =
             list(InvoiceListParams.none(), requestOptions)
     }
 }

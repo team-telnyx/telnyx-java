@@ -10,7 +10,7 @@ internal class SimCardDataUsageNotificationUpdateParamsTest {
     @Test
     fun create() {
         SimCardDataUsageNotificationUpdateParams.builder()
-            .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+            .simCardDataUsageNotificationId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .simCardDataUsageNotification(
                 SimCardDataUsageNotification.builder()
                     .id("79228acc-3f08-4e70-ac68-cb5aae8b537a")
@@ -33,7 +33,7 @@ internal class SimCardDataUsageNotificationUpdateParamsTest {
     fun pathParams() {
         val params =
             SimCardDataUsageNotificationUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .simCardDataUsageNotificationId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .simCardDataUsageNotification(SimCardDataUsageNotification.builder().build())
                 .build()
 
@@ -46,7 +46,7 @@ internal class SimCardDataUsageNotificationUpdateParamsTest {
     fun body() {
         val params =
             SimCardDataUsageNotificationUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .simCardDataUsageNotificationId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .simCardDataUsageNotification(
                     SimCardDataUsageNotification.builder()
                         .id("79228acc-3f08-4e70-ac68-cb5aae8b537a")
@@ -88,7 +88,7 @@ internal class SimCardDataUsageNotificationUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             SimCardDataUsageNotificationUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .simCardDataUsageNotificationId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .simCardDataUsageNotification(SimCardDataUsageNotification.builder().build())
                 .build()
 

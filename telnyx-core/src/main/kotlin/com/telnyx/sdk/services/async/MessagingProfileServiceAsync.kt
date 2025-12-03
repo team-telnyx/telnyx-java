@@ -9,12 +9,12 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersResponse
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
@@ -51,23 +51,23 @@ interface MessagingProfileServiceAsync {
     ): CompletableFuture<MessagingProfileCreateResponse>
 
     /** Retrieve a messaging profile */
-    fun retrieve(id: String): CompletableFuture<MessagingProfileRetrieveResponse> =
-        retrieve(id, MessagingProfileRetrieveParams.none())
+    fun retrieve(messagingProfileId: String): CompletableFuture<MessagingProfileRetrieveResponse> =
+        retrieve(messagingProfileId, MessagingProfileRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessagingProfileRetrieveResponse> =
-        retrieve(params.toBuilder().id(id).build(), requestOptions)
+        retrieve(params.toBuilder().messagingProfileId(messagingProfileId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
     ): CompletableFuture<MessagingProfileRetrieveResponse> =
-        retrieve(id, params, RequestOptions.none())
+        retrieve(messagingProfileId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
@@ -82,29 +82,29 @@ interface MessagingProfileServiceAsync {
 
     /** @see retrieve */
     fun retrieve(
-        id: String,
+        messagingProfileId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileRetrieveResponse> =
-        retrieve(id, MessagingProfileRetrieveParams.none(), requestOptions)
+        retrieve(messagingProfileId, MessagingProfileRetrieveParams.none(), requestOptions)
 
     /** Update a messaging profile */
-    fun update(pathId: String): CompletableFuture<MessagingProfileUpdateResponse> =
-        update(pathId, MessagingProfileUpdateParams.none())
+    fun update(messagingProfileId: String): CompletableFuture<MessagingProfileUpdateResponse> =
+        update(messagingProfileId, MessagingProfileUpdateParams.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        messagingProfileId: String,
         params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessagingProfileUpdateResponse> =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(params.toBuilder().messagingProfileId(messagingProfileId).build(), requestOptions)
 
     /** @see update */
     fun update(
-        pathId: String,
+        messagingProfileId: String,
         params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
     ): CompletableFuture<MessagingProfileUpdateResponse> =
-        update(pathId, params, RequestOptions.none())
+        update(messagingProfileId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
@@ -119,47 +119,48 @@ interface MessagingProfileServiceAsync {
 
     /** @see update */
     fun update(
-        pathId: String,
+        messagingProfileId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileUpdateResponse> =
-        update(pathId, MessagingProfileUpdateParams.none(), requestOptions)
+        update(messagingProfileId, MessagingProfileUpdateParams.none(), requestOptions)
 
     /** List messaging profiles */
-    fun list(): CompletableFuture<MessagingProfileListResponse> =
+    fun list(): CompletableFuture<MessagingProfileListPageAsync> =
         list(MessagingProfileListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingProfileListParams = MessagingProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingProfileListResponse>
+    ): CompletableFuture<MessagingProfileListPageAsync>
 
     /** @see list */
     fun list(
         params: MessagingProfileListParams = MessagingProfileListParams.none()
-    ): CompletableFuture<MessagingProfileListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<MessagingProfileListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingProfileListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingProfileListPageAsync> =
         list(MessagingProfileListParams.none(), requestOptions)
 
     /** Delete a messaging profile */
-    fun delete(id: String): CompletableFuture<MessagingProfileDeleteResponse> =
-        delete(id, MessagingProfileDeleteParams.none())
+    fun delete(messagingProfileId: String): CompletableFuture<MessagingProfileDeleteResponse> =
+        delete(messagingProfileId, MessagingProfileDeleteParams.none())
 
     /** @see delete */
     fun delete(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessagingProfileDeleteResponse> =
-        delete(params.toBuilder().id(id).build(), requestOptions)
+        delete(params.toBuilder().messagingProfileId(messagingProfileId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
-    ): CompletableFuture<MessagingProfileDeleteResponse> = delete(id, params, RequestOptions.none())
+    ): CompletableFuture<MessagingProfileDeleteResponse> =
+        delete(messagingProfileId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -174,88 +175,106 @@ interface MessagingProfileServiceAsync {
 
     /** @see delete */
     fun delete(
-        id: String,
+        messagingProfileId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileDeleteResponse> =
-        delete(id, MessagingProfileDeleteParams.none(), requestOptions)
+        delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
     /** List phone numbers associated with a messaging profile */
-    fun listPhoneNumbers(id: String): CompletableFuture<MessagingProfileListPhoneNumbersResponse> =
-        listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none())
+    fun listPhoneNumbers(
+        messagingProfileId: String
+    ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
+        listPhoneNumbers(messagingProfileId, MessagingProfileListPhoneNumbersParams.none())
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListPhoneNumbersParams =
             MessagingProfileListPhoneNumbersParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingProfileListPhoneNumbersResponse> =
-        listPhoneNumbers(params.toBuilder().id(id).build(), requestOptions)
+    ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
+        listPhoneNumbers(
+            params.toBuilder().messagingProfileId(messagingProfileId).build(),
+            requestOptions,
+        )
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListPhoneNumbersParams =
             MessagingProfileListPhoneNumbersParams.none(),
-    ): CompletableFuture<MessagingProfileListPhoneNumbersResponse> =
-        listPhoneNumbers(id, params, RequestOptions.none())
+    ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
+        listPhoneNumbers(messagingProfileId, params, RequestOptions.none())
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingProfileListPhoneNumbersResponse>
+    ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync>
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams
-    ): CompletableFuture<MessagingProfileListPhoneNumbersResponse> =
+    ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
         listPhoneNumbers(params, RequestOptions.none())
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
-        id: String,
+        messagingProfileId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingProfileListPhoneNumbersResponse> =
-        listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none(), requestOptions)
+    ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
+        listPhoneNumbers(
+            messagingProfileId,
+            MessagingProfileListPhoneNumbersParams.none(),
+            requestOptions,
+        )
 
     /** List short codes associated with a messaging profile */
-    fun listShortCodes(id: String): CompletableFuture<MessagingProfileListShortCodesResponse> =
-        listShortCodes(id, MessagingProfileListShortCodesParams.none())
+    fun listShortCodes(
+        messagingProfileId: String
+    ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =
+        listShortCodes(messagingProfileId, MessagingProfileListShortCodesParams.none())
 
     /** @see listShortCodes */
     fun listShortCodes(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListShortCodesParams = MessagingProfileListShortCodesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingProfileListShortCodesResponse> =
-        listShortCodes(params.toBuilder().id(id).build(), requestOptions)
+    ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =
+        listShortCodes(
+            params.toBuilder().messagingProfileId(messagingProfileId).build(),
+            requestOptions,
+        )
 
     /** @see listShortCodes */
     fun listShortCodes(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListShortCodesParams = MessagingProfileListShortCodesParams.none(),
-    ): CompletableFuture<MessagingProfileListShortCodesResponse> =
-        listShortCodes(id, params, RequestOptions.none())
+    ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =
+        listShortCodes(messagingProfileId, params, RequestOptions.none())
 
     /** @see listShortCodes */
     fun listShortCodes(
         params: MessagingProfileListShortCodesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingProfileListShortCodesResponse>
+    ): CompletableFuture<MessagingProfileListShortCodesPageAsync>
 
     /** @see listShortCodes */
     fun listShortCodes(
         params: MessagingProfileListShortCodesParams
-    ): CompletableFuture<MessagingProfileListShortCodesResponse> =
+    ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =
         listShortCodes(params, RequestOptions.none())
 
     /** @see listShortCodes */
     fun listShortCodes(
-        id: String,
+        messagingProfileId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingProfileListShortCodesResponse> =
-        listShortCodes(id, MessagingProfileListShortCodesParams.none(), requestOptions)
+    ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =
+        listShortCodes(
+            messagingProfileId,
+            MessagingProfileListShortCodesParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [MessagingProfileServiceAsync] that provides access to raw HTTP responses for each
@@ -294,24 +313,27 @@ interface MessagingProfileServiceAsync {
          * as [MessagingProfileServiceAsync.retrieve].
          */
         fun retrieve(
-            id: String
+            messagingProfileId: String
         ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveResponse>> =
-            retrieve(id, MessagingProfileRetrieveParams.none())
+            retrieve(messagingProfileId, MessagingProfileRetrieveParams.none())
 
         /** @see retrieve */
         fun retrieve(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveResponse>> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+            retrieve(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see retrieve */
         fun retrieve(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveResponse>> =
-            retrieve(id, params, RequestOptions.none())
+            retrieve(messagingProfileId, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
@@ -327,34 +349,37 @@ interface MessagingProfileServiceAsync {
 
         /** @see retrieve */
         fun retrieve(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveResponse>> =
-            retrieve(id, MessagingProfileRetrieveParams.none(), requestOptions)
+            retrieve(messagingProfileId, MessagingProfileRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /messaging_profiles/{id}`, but is otherwise the
          * same as [MessagingProfileServiceAsync.update].
          */
         fun update(
-            pathId: String
+            messagingProfileId: String
         ): CompletableFuture<HttpResponseFor<MessagingProfileUpdateResponse>> =
-            update(pathId, MessagingProfileUpdateParams.none())
+            update(messagingProfileId, MessagingProfileUpdateParams.none())
 
         /** @see update */
         fun update(
-            pathId: String,
+            messagingProfileId: String,
             params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MessagingProfileUpdateResponse>> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see update */
         fun update(
-            pathId: String,
+            messagingProfileId: String,
             params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
         ): CompletableFuture<HttpResponseFor<MessagingProfileUpdateResponse>> =
-            update(pathId, params, RequestOptions.none())
+            update(messagingProfileId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
@@ -370,57 +395,62 @@ interface MessagingProfileServiceAsync {
 
         /** @see update */
         fun update(
-            pathId: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<MessagingProfileUpdateResponse>> =
-            update(pathId, MessagingProfileUpdateParams.none(), requestOptions)
+            update(messagingProfileId, MessagingProfileUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /messaging_profiles`, but is otherwise the same as
          * [MessagingProfileServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MessagingProfileListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<MessagingProfileListPageAsync>> =
             list(MessagingProfileListParams.none())
 
         /** @see list */
         fun list(
             params: MessagingProfileListParams = MessagingProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListResponse>>
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPageAsync>>
 
         /** @see list */
         fun list(
             params: MessagingProfileListParams = MessagingProfileListParams.none()
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPageAsync>> =
             list(MessagingProfileListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /messaging_profiles/{id}`, but is otherwise the
          * same as [MessagingProfileServiceAsync.delete].
          */
-        fun delete(id: String): CompletableFuture<HttpResponseFor<MessagingProfileDeleteResponse>> =
-            delete(id, MessagingProfileDeleteParams.none())
+        fun delete(
+            messagingProfileId: String
+        ): CompletableFuture<HttpResponseFor<MessagingProfileDeleteResponse>> =
+            delete(messagingProfileId, MessagingProfileDeleteParams.none())
 
         /** @see delete */
         fun delete(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MessagingProfileDeleteResponse>> =
-            delete(params.toBuilder().id(id).build(), requestOptions)
+            delete(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see delete */
         fun delete(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
         ): CompletableFuture<HttpResponseFor<MessagingProfileDeleteResponse>> =
-            delete(id, params, RequestOptions.none())
+            delete(messagingProfileId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
@@ -436,99 +466,113 @@ interface MessagingProfileServiceAsync {
 
         /** @see delete */
         fun delete(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<MessagingProfileDeleteResponse>> =
-            delete(id, MessagingProfileDeleteParams.none(), requestOptions)
+            delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /messaging_profiles/{id}/phone_numbers`, but is
          * otherwise the same as [MessagingProfileServiceAsync.listPhoneNumbers].
          */
         fun listPhoneNumbers(
-            id: String
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersResponse>> =
-            listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none())
+            messagingProfileId: String
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersPageAsync>> =
+            listPhoneNumbers(messagingProfileId, MessagingProfileListPhoneNumbersParams.none())
 
         /** @see listPhoneNumbers */
         fun listPhoneNumbers(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListPhoneNumbersParams =
                 MessagingProfileListPhoneNumbersParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersResponse>> =
-            listPhoneNumbers(params.toBuilder().id(id).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersPageAsync>> =
+            listPhoneNumbers(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see listPhoneNumbers */
         fun listPhoneNumbers(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListPhoneNumbersParams =
                 MessagingProfileListPhoneNumbersParams.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersResponse>> =
-            listPhoneNumbers(id, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersPageAsync>> =
+            listPhoneNumbers(messagingProfileId, params, RequestOptions.none())
 
         /** @see listPhoneNumbers */
         fun listPhoneNumbers(
             params: MessagingProfileListPhoneNumbersParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersResponse>>
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersPageAsync>>
 
         /** @see listPhoneNumbers */
         fun listPhoneNumbers(
             params: MessagingProfileListPhoneNumbersParams
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersPageAsync>> =
             listPhoneNumbers(params, RequestOptions.none())
 
         /** @see listPhoneNumbers */
         fun listPhoneNumbers(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersResponse>> =
-            listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersPageAsync>> =
+            listPhoneNumbers(
+                messagingProfileId,
+                MessagingProfileListPhoneNumbersParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /messaging_profiles/{id}/short_codes`, but is
          * otherwise the same as [MessagingProfileServiceAsync.listShortCodes].
          */
         fun listShortCodes(
-            id: String
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesResponse>> =
-            listShortCodes(id, MessagingProfileListShortCodesParams.none())
+            messagingProfileId: String
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesPageAsync>> =
+            listShortCodes(messagingProfileId, MessagingProfileListShortCodesParams.none())
 
         /** @see listShortCodes */
         fun listShortCodes(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListShortCodesParams =
                 MessagingProfileListShortCodesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesResponse>> =
-            listShortCodes(params.toBuilder().id(id).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesPageAsync>> =
+            listShortCodes(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see listShortCodes */
         fun listShortCodes(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListShortCodesParams =
                 MessagingProfileListShortCodesParams.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesResponse>> =
-            listShortCodes(id, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesPageAsync>> =
+            listShortCodes(messagingProfileId, params, RequestOptions.none())
 
         /** @see listShortCodes */
         fun listShortCodes(
             params: MessagingProfileListShortCodesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesResponse>>
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesPageAsync>>
 
         /** @see listShortCodes */
         fun listShortCodes(
             params: MessagingProfileListShortCodesParams
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesPageAsync>> =
             listShortCodes(params, RequestOptions.none())
 
         /** @see listShortCodes */
         fun listShortCodes(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesResponse>> =
-            listShortCodes(id, MessagingProfileListShortCodesParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesPageAsync>> =
+            listShortCodes(
+                messagingProfileId,
+                MessagingProfileListShortCodesParams.none(),
+                requestOptions,
+            )
     }
 }

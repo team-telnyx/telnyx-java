@@ -4,8 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListParams
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -63,17 +61,10 @@ internal class PartnerCampaignServiceAsyncTest {
                 .build()
         val partnerCampaignServiceAsync = client.partnerCampaigns()
 
-        val partnerCampaignsFuture =
-            partnerCampaignServiceAsync.list(
-                PartnerCampaignListParams.builder()
-                    .page(0L)
-                    .recordsPerPage(0L)
-                    .sort(PartnerCampaignListParams.Sort.ASSIGNED_PHONE_NUMBERS_COUNT)
-                    .build()
-            )
+        val pageFuture = partnerCampaignServiceAsync.list()
 
-        val partnerCampaigns = partnerCampaignsFuture.get()
-        partnerCampaigns.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -86,13 +77,10 @@ internal class PartnerCampaignServiceAsyncTest {
                 .build()
         val partnerCampaignServiceAsync = client.partnerCampaigns()
 
-        val responseFuture =
-            partnerCampaignServiceAsync.listSharedByMe(
-                PartnerCampaignListSharedByMeParams.builder().page(0L).recordsPerPage(0L).build()
-            )
+        val pageFuture = partnerCampaignServiceAsync.listSharedByMe()
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

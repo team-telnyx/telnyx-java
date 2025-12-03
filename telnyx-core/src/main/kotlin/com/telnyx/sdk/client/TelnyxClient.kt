@@ -39,7 +39,7 @@ import com.telnyx.sdk.services.blocking.DocumentLinkService
 import com.telnyx.sdk.services.blocking.DocumentService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointService
-import com.telnyx.sdk.services.blocking.EnumService
+import com.telnyx.sdk.services.blocking.EnumerationService
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.FaxApplicationService
 import com.telnyx.sdk.services.blocking.FaxService
@@ -279,7 +279,7 @@ interface TelnyxClient {
 
     fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService
 
-    fun enum_(): EnumService
+    fun enumeration(): EnumerationService
 
     fun externalConnections(): ExternalConnectionService
 
@@ -614,7 +614,7 @@ interface TelnyxClient {
 
         fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService.WithRawResponse
 
-        fun enum_(): EnumService.WithRawResponse
+        fun enumeration(): EnumerationService.WithRawResponse
 
         fun externalConnections(): ExternalConnectionService.WithRawResponse
 

@@ -554,23 +554,109 @@ private constructor(
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
         fun addTool(webhook: WebhookTool) = apply { body.addTool(webhook) }
 
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * WebhookTool.builder()
+         *     .type(WebhookTool.Type.WEBHOOK)
+         *     .webhook(webhook)
+         *     .build()
+         * ```
+         */
+        fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams) = apply {
+            body.addWebhookTool(webhook)
+        }
+
         /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
         fun addTool(retrieval: RetrievalTool) = apply { body.addTool(retrieval) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * RetrievalTool.builder()
+         *     .type(RetrievalTool.Type.RETRIEVAL)
+         *     .retrieval(retrieval)
+         *     .build()
+         * ```
+         */
+        fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) = apply {
+            body.addRetrievalTool(retrieval)
+        }
 
         /** Alias for calling [addTool] with `AssistantTool.ofHandoff(handoff)`. */
         fun addTool(handoff: AssistantTool.HandoffTool) = apply { body.addTool(handoff) }
 
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.HandoffTool.builder()
+         *     .handoff(handoff)
+         *     .build()
+         * ```
+         */
+        fun addHandoffTool(handoff: AssistantTool.HandoffTool.Handoff) = apply {
+            body.addHandoffTool(handoff)
+        }
+
         /** Alias for calling [addTool] with `AssistantTool.ofHangup(hangup)`. */
         fun addTool(hangup: HangupTool) = apply { body.addTool(hangup) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * HangupTool.builder()
+         *     .type(HangupTool.Type.HANGUP)
+         *     .hangup(hangup)
+         *     .build()
+         * ```
+         */
+        fun addHangupTool(hangup: HangupToolParams) = apply { body.addHangupTool(hangup) }
 
         /** Alias for calling [addTool] with `AssistantTool.ofTransfer(transfer)`. */
         fun addTool(transfer: TransferTool) = apply { body.addTool(transfer) }
 
-        /** Alias for calling [addTool] with `AssistantTool.ofSipRefer(sipRefer)`. */
-        fun addTool(sipRefer: AssistantTool.SipReferTool) = apply { body.addTool(sipRefer) }
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * TransferTool.builder()
+         *     .type(TransferTool.Type.TRANSFER)
+         *     .transfer(transfer)
+         *     .build()
+         * ```
+         */
+        fun addTransferTool(transfer: InferenceEmbeddingTransferToolParams) = apply {
+            body.addTransferTool(transfer)
+        }
 
-        /** Alias for calling [addTool] with `AssistantTool.ofDtmf(dtmf)`. */
-        fun addTool(dtmf: AssistantTool.DtmfTool) = apply { body.addTool(dtmf) }
+        /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */
+        fun addTool(refer: AssistantTool.SipReferTool) = apply { body.addTool(refer) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.SipReferTool.builder()
+         *     .refer(refer)
+         *     .build()
+         * ```
+         */
+        fun addReferTool(refer: AssistantTool.SipReferTool.Refer) = apply {
+            body.addReferTool(refer)
+        }
+
+        /** Alias for calling [addTool] with `AssistantTool.ofSendDtmf(sendDtmf)`. */
+        fun addTool(sendDtmf: AssistantTool.DtmfTool) = apply { body.addTool(sendDtmf) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.DtmfTool.builder()
+         *     .sendDtmf(sendDtmf)
+         *     .build()
+         * ```
+         */
+        fun addSendDtmfTool(sendDtmf: AssistantTool.DtmfTool.SendDtmf) = apply {
+            body.addSendDtmfTool(sendDtmf)
+        }
 
         fun transcription(transcription: TranscriptionSettings) = apply {
             body.transcription(transcription)
@@ -1423,25 +1509,118 @@ private constructor(
             /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
             fun addTool(webhook: WebhookTool) = addTool(AssistantTool.ofWebhook(webhook))
 
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * WebhookTool.builder()
+             *     .type(WebhookTool.Type.WEBHOOK)
+             *     .webhook(webhook)
+             *     .build()
+             * ```
+             */
+            fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams) =
+                addTool(
+                    WebhookTool.builder().type(WebhookTool.Type.WEBHOOK).webhook(webhook).build()
+                )
+
             /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
             fun addTool(retrieval: RetrievalTool) = addTool(AssistantTool.ofRetrieval(retrieval))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * RetrievalTool.builder()
+             *     .type(RetrievalTool.Type.RETRIEVAL)
+             *     .retrieval(retrieval)
+             *     .build()
+             * ```
+             */
+            fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) =
+                addTool(
+                    RetrievalTool.builder()
+                        .type(RetrievalTool.Type.RETRIEVAL)
+                        .retrieval(retrieval)
+                        .build()
+                )
 
             /** Alias for calling [addTool] with `AssistantTool.ofHandoff(handoff)`. */
             fun addTool(handoff: AssistantTool.HandoffTool) =
                 addTool(AssistantTool.ofHandoff(handoff))
 
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.HandoffTool.builder()
+             *     .handoff(handoff)
+             *     .build()
+             * ```
+             */
+            fun addHandoffTool(handoff: AssistantTool.HandoffTool.Handoff) =
+                addTool(AssistantTool.HandoffTool.builder().handoff(handoff).build())
+
             /** Alias for calling [addTool] with `AssistantTool.ofHangup(hangup)`. */
             fun addTool(hangup: HangupTool) = addTool(AssistantTool.ofHangup(hangup))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * HangupTool.builder()
+             *     .type(HangupTool.Type.HANGUP)
+             *     .hangup(hangup)
+             *     .build()
+             * ```
+             */
+            fun addHangupTool(hangup: HangupToolParams) =
+                addTool(HangupTool.builder().type(HangupTool.Type.HANGUP).hangup(hangup).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofTransfer(transfer)`. */
             fun addTool(transfer: TransferTool) = addTool(AssistantTool.ofTransfer(transfer))
 
-            /** Alias for calling [addTool] with `AssistantTool.ofSipRefer(sipRefer)`. */
-            fun addTool(sipRefer: AssistantTool.SipReferTool) =
-                addTool(AssistantTool.ofSipRefer(sipRefer))
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * TransferTool.builder()
+             *     .type(TransferTool.Type.TRANSFER)
+             *     .transfer(transfer)
+             *     .build()
+             * ```
+             */
+            fun addTransferTool(transfer: InferenceEmbeddingTransferToolParams) =
+                addTool(
+                    TransferTool.builder()
+                        .type(TransferTool.Type.TRANSFER)
+                        .transfer(transfer)
+                        .build()
+                )
 
-            /** Alias for calling [addTool] with `AssistantTool.ofDtmf(dtmf)`. */
-            fun addTool(dtmf: AssistantTool.DtmfTool) = addTool(AssistantTool.ofDtmf(dtmf))
+            /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */
+            fun addTool(refer: AssistantTool.SipReferTool) = addTool(AssistantTool.ofRefer(refer))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.SipReferTool.builder()
+             *     .refer(refer)
+             *     .build()
+             * ```
+             */
+            fun addReferTool(refer: AssistantTool.SipReferTool.Refer) =
+                addTool(AssistantTool.SipReferTool.builder().refer(refer).build())
+
+            /** Alias for calling [addTool] with `AssistantTool.ofSendDtmf(sendDtmf)`. */
+            fun addTool(sendDtmf: AssistantTool.DtmfTool) =
+                addTool(AssistantTool.ofSendDtmf(sendDtmf))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.DtmfTool.builder()
+             *     .sendDtmf(sendDtmf)
+             *     .build()
+             * ```
+             */
+            fun addSendDtmfTool(sendDtmf: AssistantTool.DtmfTool.SendDtmf) =
+                addTool(AssistantTool.DtmfTool.builder().sendDtmf(sendDtmf).build())
 
             fun transcription(transcription: TranscriptionSettings) =
                 transcription(JsonField.of(transcription))

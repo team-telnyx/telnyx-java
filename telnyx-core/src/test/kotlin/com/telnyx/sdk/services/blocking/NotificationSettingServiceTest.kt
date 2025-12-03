@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.notificationsettings.NotificationSetting
-import com.telnyx.sdk.models.notificationsettings.NotificationSettingListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -74,58 +73,9 @@ internal class NotificationSettingServiceTest {
                 .build()
         val notificationSettingService = client.notificationSettings()
 
-        val notificationSettings =
-            notificationSettingService.list(
-                NotificationSettingListParams.builder()
-                    .filter(
-                        NotificationSettingListParams.Filter.builder()
-                            .associatedRecordType(
-                                NotificationSettingListParams.Filter.AssociatedRecordType.builder()
-                                    .eq(
-                                        NotificationSettingListParams.Filter.AssociatedRecordType.Eq
-                                            .PHONE_NUMBER
-                                    )
-                                    .build()
-                            )
-                            .channelTypeId(
-                                NotificationSettingListParams.Filter.ChannelTypeId.builder()
-                                    .eq(
-                                        NotificationSettingListParams.Filter.ChannelTypeId.Eq
-                                            .WEBHOOK
-                                    )
-                                    .build()
-                            )
-                            .notificationChannel(
-                                NotificationSettingListParams.Filter.NotificationChannel.builder()
-                                    .eq("12455643-3cf1-4683-ad23-1cd32f7d5e0a")
-                                    .build()
-                            )
-                            .notificationEventConditionId(
-                                NotificationSettingListParams.Filter.NotificationEventConditionId
-                                    .builder()
-                                    .eq("12455643-3cf1-4683-ad23-1cd32f7d5e0a")
-                                    .build()
-                            )
-                            .notificationProfileId(
-                                NotificationSettingListParams.Filter.NotificationProfileId.builder()
-                                    .eq("12455643-3cf1-4683-ad23-1cd32f7d5e0a")
-                                    .build()
-                            )
-                            .status(
-                                NotificationSettingListParams.Filter.Status.builder()
-                                    .eq(
-                                        NotificationSettingListParams.Filter.Status.Eq
-                                            .ENABLE_RECEIVED
-                                    )
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(NotificationSettingListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = notificationSettingService.list()
 
-        notificationSettings.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

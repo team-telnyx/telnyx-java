@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreat
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreateResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteResponse
+import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListPageAsync
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListParams
-import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderUpdateParams
@@ -121,24 +121,24 @@ interface AuthenticationProviderServiceAsync {
         update(id, AuthenticationProviderUpdateParams.none(), requestOptions)
 
     /** Returns a list of your SSO authentication providers. */
-    fun list(): CompletableFuture<AuthenticationProviderListResponse> =
+    fun list(): CompletableFuture<AuthenticationProviderListPageAsync> =
         list(AuthenticationProviderListParams.none())
 
     /** @see list */
     fun list(
         params: AuthenticationProviderListParams = AuthenticationProviderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AuthenticationProviderListResponse>
+    ): CompletableFuture<AuthenticationProviderListPageAsync>
 
     /** @see list */
     fun list(
         params: AuthenticationProviderListParams = AuthenticationProviderListParams.none()
-    ): CompletableFuture<AuthenticationProviderListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<AuthenticationProviderListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<AuthenticationProviderListResponse> =
+    ): CompletableFuture<AuthenticationProviderListPageAsync> =
         list(AuthenticationProviderListParams.none(), requestOptions)
 
     /** Deletes an existing authentication provider. */
@@ -301,25 +301,25 @@ interface AuthenticationProviderServiceAsync {
          * Returns a raw HTTP response for `get /authentication_providers`, but is otherwise the
          * same as [AuthenticationProviderServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AuthenticationProviderListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<AuthenticationProviderListPageAsync>> =
             list(AuthenticationProviderListParams.none())
 
         /** @see list */
         fun list(
             params: AuthenticationProviderListParams = AuthenticationProviderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListResponse>>
+        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListPageAsync>>
 
         /** @see list */
         fun list(
             params: AuthenticationProviderListParams = AuthenticationProviderListParams.none()
-        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListPageAsync>> =
             list(AuthenticationProviderListParams.none(), requestOptions)
 
         /**

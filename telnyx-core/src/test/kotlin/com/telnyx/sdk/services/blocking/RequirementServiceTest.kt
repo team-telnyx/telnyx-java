@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.requirements.RequirementListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,21 +36,8 @@ internal class RequirementServiceTest {
                 .build()
         val requirementService = client.requirements()
 
-        val requirements =
-            requirementService.list(
-                RequirementListParams.builder()
-                    .filter(
-                        RequirementListParams.Filter.builder()
-                            .action(RequirementListParams.Filter.Action.PORTING)
-                            .countryCode("US")
-                            .phoneNumberType(RequirementListParams.Filter.PhoneNumberType.LOCAL)
-                            .build()
-                    )
-                    .page(RequirementListParams.Page.builder().number(1L).size(1L).build())
-                    .addSort(RequirementListParams.Sort.COUNTRY_CODE)
-                    .build()
-            )
+        val page = requirementService.list()
 
-        requirements.validate()
+        page.response().validate()
     }
 }

@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking.bundlepricing
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListParams
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -44,20 +43,8 @@ internal class BillingBundleServiceTest {
                 .build()
         val billingBundleService = client.bundlePricing().billingBundles()
 
-        val billingBundles =
-            billingBundleService.list(
-                BillingBundleListParams.builder()
-                    .filter(
-                        BillingBundleListParams.Filter.builder()
-                            .addCountryIso("US")
-                            .addResource("+15617819942")
-                            .build()
-                    )
-                    .page(BillingBundleListParams.Page.builder().number(1L).size(1L).build())
-                    .authorizationBearer("authorization_bearer")
-                    .build()
-            )
+        val page = billingBundleService.list()
 
-        billingBundles.validate()
+        page.response().validate()
     }
 }

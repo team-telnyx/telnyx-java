@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreat
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreateResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationDeleteParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationDeleteResponse
+import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListPage
+import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListPageResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListParams
-import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationRetrieveParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationRetrieveResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdateParams
@@ -67,7 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : CallControlAppl
     override fun list(
         params: CallControlApplicationListParams,
         requestOptions: RequestOptions,
-    ): CallControlApplicationListResponse =
+    ): CallControlApplicationListPage =
         // get /call_control_applications
         withRawResponse().list(params, requestOptions).parse()
 
@@ -180,13 +181,13 @@ internal constructor(private val clientOptions: ClientOptions) : CallControlAppl
             }
         }
 
-        private val listHandler: Handler<CallControlApplicationListResponse> =
-            jsonHandler<CallControlApplicationListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CallControlApplicationListPageResponse> =
+            jsonHandler<CallControlApplicationListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CallControlApplicationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CallControlApplicationListResponse> {
+        ): HttpResponseFor<CallControlApplicationListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -203,6 +204,13 @@ internal constructor(private val clientOptions: ClientOptions) : CallControlAppl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CallControlApplicationListPage.builder()
+                            .service(CallControlApplicationServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

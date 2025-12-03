@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsParams
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsResponse
+import com.telnyx.sdk.models.usagereports.UsageReportListPageAsync
+import com.telnyx.sdk.models.usagereports.UsageReportListPageResponse
 import com.telnyx.sdk.models.usagereports.UsageReportListParams
-import com.telnyx.sdk.models.usagereports.UsageReportListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -36,7 +37,7 @@ class UsageReportServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: UsageReportListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UsageReportListResponse> =
+    ): CompletableFuture<UsageReportListPageAsync> =
         // get /usage_reports
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -60,13 +61,13 @@ class UsageReportServiceAsyncImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<UsageReportListResponse> =
-            jsonHandler<UsageReportListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UsageReportListPageResponse> =
+            jsonHandler<UsageReportListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UsageReportListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UsageReportListResponse>> {
+        ): CompletableFuture<HttpResponseFor<UsageReportListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -85,6 +86,14 @@ class UsageReportServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                UsageReportListPageAsync.builder()
+                                    .service(UsageReportServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

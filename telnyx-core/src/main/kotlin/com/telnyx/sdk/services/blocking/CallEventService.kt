@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.callevents.CallEventListPage
 import com.telnyx.sdk.models.callevents.CallEventListParams
-import com.telnyx.sdk.models.callevents.CallEventListResponse
 import java.util.function.Consumer
 
 interface CallEventService {
@@ -31,20 +31,20 @@ interface CallEventService {
      *
      * **Note**: Only one `filter[occurred_at]` can be passed.
      */
-    fun list(): CallEventListResponse = list(CallEventListParams.none())
+    fun list(): CallEventListPage = list(CallEventListParams.none())
 
     /** @see list */
     fun list(
         params: CallEventListParams = CallEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallEventListResponse
+    ): CallEventListPage
 
     /** @see list */
-    fun list(params: CallEventListParams = CallEventListParams.none()): CallEventListResponse =
+    fun list(params: CallEventListParams = CallEventListParams.none()): CallEventListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CallEventListResponse =
+    fun list(requestOptions: RequestOptions): CallEventListPage =
         list(CallEventListParams.none(), requestOptions)
 
     /** A view of [CallEventService] that provides access to raw HTTP responses for each method. */
@@ -62,24 +62,24 @@ interface CallEventService {
          * [CallEventService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CallEventListResponse> = list(CallEventListParams.none())
+        fun list(): HttpResponseFor<CallEventListPage> = list(CallEventListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CallEventListParams = CallEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallEventListResponse>
+        ): HttpResponseFor<CallEventListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CallEventListParams = CallEventListParams.none()
-        ): HttpResponseFor<CallEventListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CallEventListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CallEventListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CallEventListPage> =
             list(CallEventListParams.none(), requestOptions)
     }
 }

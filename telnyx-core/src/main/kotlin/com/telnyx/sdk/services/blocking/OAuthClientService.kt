@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.oauthclients.OAuthClientCreateParams
 import com.telnyx.sdk.models.oauthclients.OAuthClientCreateResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientDeleteParams
+import com.telnyx.sdk.models.oauthclients.OAuthClientListPage
 import com.telnyx.sdk.models.oauthclients.OAuthClientListParams
-import com.telnyx.sdk.models.oauthclients.OAuthClientListResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientRetrieveParams
 import com.telnyx.sdk.models.oauthclients.OAuthClientRetrieveResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientUpdateParams
@@ -104,21 +104,20 @@ interface OAuthClientService {
         update(id, OAuthClientUpdateParams.none(), requestOptions)
 
     /** Retrieve a paginated list of OAuth clients for the authenticated user */
-    fun list(): OAuthClientListResponse = list(OAuthClientListParams.none())
+    fun list(): OAuthClientListPage = list(OAuthClientListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthClientListParams = OAuthClientListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OAuthClientListResponse
+    ): OAuthClientListPage
 
     /** @see list */
-    fun list(
-        params: OAuthClientListParams = OAuthClientListParams.none()
-    ): OAuthClientListResponse = list(params, RequestOptions.none())
+    fun list(params: OAuthClientListParams = OAuthClientListParams.none()): OAuthClientListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): OAuthClientListResponse =
+    fun list(requestOptions: RequestOptions): OAuthClientListPage =
         list(OAuthClientListParams.none(), requestOptions)
 
     /** Delete an OAuth client */
@@ -272,24 +271,24 @@ interface OAuthClientService {
          * [OAuthClientService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<OAuthClientListResponse> = list(OAuthClientListParams.none())
+        fun list(): HttpResponseFor<OAuthClientListPage> = list(OAuthClientListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthClientListParams = OAuthClientListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OAuthClientListResponse>
+        ): HttpResponseFor<OAuthClientListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthClientListParams = OAuthClientListParams.none()
-        ): HttpResponseFor<OAuthClientListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<OAuthClientListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthClientListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthClientListPage> =
             list(OAuthClientListParams.none(), requestOptions)
 
         /**

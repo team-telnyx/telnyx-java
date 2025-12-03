@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreat
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreateResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationDeleteParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationDeleteResponse
+import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListPage
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListParams
-import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationRetrieveParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationRetrieveResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdateParams
@@ -103,21 +103,21 @@ interface CallControlApplicationService {
     ): CallControlApplicationUpdateResponse
 
     /** Return a list of call control applications. */
-    fun list(): CallControlApplicationListResponse = list(CallControlApplicationListParams.none())
+    fun list(): CallControlApplicationListPage = list(CallControlApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: CallControlApplicationListParams = CallControlApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CallControlApplicationListResponse
+    ): CallControlApplicationListPage
 
     /** @see list */
     fun list(
         params: CallControlApplicationListParams = CallControlApplicationListParams.none()
-    ): CallControlApplicationListResponse = list(params, RequestOptions.none())
+    ): CallControlApplicationListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CallControlApplicationListResponse =
+    fun list(requestOptions: RequestOptions): CallControlApplicationListPage =
         list(CallControlApplicationListParams.none(), requestOptions)
 
     /** Deletes a call control application. */
@@ -272,7 +272,7 @@ interface CallControlApplicationService {
          * same as [CallControlApplicationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CallControlApplicationListResponse> =
+        fun list(): HttpResponseFor<CallControlApplicationListPage> =
             list(CallControlApplicationListParams.none())
 
         /** @see list */
@@ -280,19 +280,17 @@ interface CallControlApplicationService {
         fun list(
             params: CallControlApplicationListParams = CallControlApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CallControlApplicationListResponse>
+        ): HttpResponseFor<CallControlApplicationListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CallControlApplicationListParams = CallControlApplicationListParams.none()
-        ): HttpResponseFor<CallControlApplicationListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CallControlApplicationListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CallControlApplicationListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CallControlApplicationListPage> =
             list(CallControlApplicationListParams.none(), requestOptions)
 
         /**

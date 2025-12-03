@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.usagereports
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,72 +14,8 @@ internal class UsageReportListResponseTest {
     fun create() {
         val usageReportListResponse =
             UsageReportListResponse.builder()
-                .addData(
-                    UsageReportListResponse.Data.builder()
-                        .putAdditionalProperty("product", JsonValue.from("bar"))
-                        .putAdditionalProperty("cost", JsonValue.from("bar"))
-                        .putAdditionalProperty("parts", JsonValue.from("bar"))
-                        .putAdditionalProperty("count", JsonValue.from("bar"))
-                        .putAdditionalProperty("customer_carrier_fee", JsonValue.from("bar"))
-                        .putAdditionalProperty("product_name", JsonValue.from("bar"))
-                        .putAdditionalProperty("country_iso", JsonValue.from("bar"))
-                        .putAdditionalProperty("direction", JsonValue.from("bar"))
-                        .build()
-                )
-                .addData(
-                    UsageReportListResponse.Data.builder()
-                        .putAdditionalProperty("product", JsonValue.from("bar"))
-                        .putAdditionalProperty("cost", JsonValue.from("bar"))
-                        .putAdditionalProperty("parts", JsonValue.from("bar"))
-                        .putAdditionalProperty("count", JsonValue.from("bar"))
-                        .putAdditionalProperty("customer_carrier_fee", JsonValue.from("bar"))
-                        .putAdditionalProperty("product_name", JsonValue.from("bar"))
-                        .putAdditionalProperty("country_iso", JsonValue.from("bar"))
-                        .putAdditionalProperty("direction", JsonValue.from("bar"))
-                        .build()
-                )
-                .meta(
-                    UsageReportListResponse.Meta.builder()
-                        .pageNumber(1L)
-                        .pageSize(20L)
-                        .totalPages(5L)
-                        .totalResults(100L)
-                        .build()
-                )
+                .putAdditionalProperty("foo", JsonValue.from("bar"))
                 .build()
-
-        assertThat(usageReportListResponse.data().getOrNull())
-            .containsExactly(
-                UsageReportListResponse.Data.builder()
-                    .putAdditionalProperty("product", JsonValue.from("bar"))
-                    .putAdditionalProperty("cost", JsonValue.from("bar"))
-                    .putAdditionalProperty("parts", JsonValue.from("bar"))
-                    .putAdditionalProperty("count", JsonValue.from("bar"))
-                    .putAdditionalProperty("customer_carrier_fee", JsonValue.from("bar"))
-                    .putAdditionalProperty("product_name", JsonValue.from("bar"))
-                    .putAdditionalProperty("country_iso", JsonValue.from("bar"))
-                    .putAdditionalProperty("direction", JsonValue.from("bar"))
-                    .build(),
-                UsageReportListResponse.Data.builder()
-                    .putAdditionalProperty("product", JsonValue.from("bar"))
-                    .putAdditionalProperty("cost", JsonValue.from("bar"))
-                    .putAdditionalProperty("parts", JsonValue.from("bar"))
-                    .putAdditionalProperty("count", JsonValue.from("bar"))
-                    .putAdditionalProperty("customer_carrier_fee", JsonValue.from("bar"))
-                    .putAdditionalProperty("product_name", JsonValue.from("bar"))
-                    .putAdditionalProperty("country_iso", JsonValue.from("bar"))
-                    .putAdditionalProperty("direction", JsonValue.from("bar"))
-                    .build(),
-            )
-        assertThat(usageReportListResponse.meta())
-            .contains(
-                UsageReportListResponse.Meta.builder()
-                    .pageNumber(1L)
-                    .pageSize(20L)
-                    .totalPages(5L)
-                    .totalResults(100L)
-                    .build()
-            )
     }
 
     @Test
@@ -88,38 +23,7 @@ internal class UsageReportListResponseTest {
         val jsonMapper = jsonMapper()
         val usageReportListResponse =
             UsageReportListResponse.builder()
-                .addData(
-                    UsageReportListResponse.Data.builder()
-                        .putAdditionalProperty("product", JsonValue.from("bar"))
-                        .putAdditionalProperty("cost", JsonValue.from("bar"))
-                        .putAdditionalProperty("parts", JsonValue.from("bar"))
-                        .putAdditionalProperty("count", JsonValue.from("bar"))
-                        .putAdditionalProperty("customer_carrier_fee", JsonValue.from("bar"))
-                        .putAdditionalProperty("product_name", JsonValue.from("bar"))
-                        .putAdditionalProperty("country_iso", JsonValue.from("bar"))
-                        .putAdditionalProperty("direction", JsonValue.from("bar"))
-                        .build()
-                )
-                .addData(
-                    UsageReportListResponse.Data.builder()
-                        .putAdditionalProperty("product", JsonValue.from("bar"))
-                        .putAdditionalProperty("cost", JsonValue.from("bar"))
-                        .putAdditionalProperty("parts", JsonValue.from("bar"))
-                        .putAdditionalProperty("count", JsonValue.from("bar"))
-                        .putAdditionalProperty("customer_carrier_fee", JsonValue.from("bar"))
-                        .putAdditionalProperty("product_name", JsonValue.from("bar"))
-                        .putAdditionalProperty("country_iso", JsonValue.from("bar"))
-                        .putAdditionalProperty("direction", JsonValue.from("bar"))
-                        .build()
-                )
-                .meta(
-                    UsageReportListResponse.Meta.builder()
-                        .pageNumber(1L)
-                        .pageSize(20L)
-                        .totalPages(5L)
-                        .totalResults(100L)
-                        .build()
-                )
+                .putAdditionalProperty("foo", JsonValue.from("bar"))
                 .build()
 
         val roundtrippedUsageReportListResponse =

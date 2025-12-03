@@ -62,7 +62,12 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                                         .build()
                                 )
                                 .partialResults(
-                                    JsonValue.from(mapOf("age" to 29, "city" to "Paris"))
+                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
+                                        .PartialResults
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("city", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .to("+35319605860")
                                 .build()
@@ -115,7 +120,13 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                                     )
                                     .build()
                             )
-                            .partialResults(JsonValue.from(mapOf("age" to 29, "city" to "Paris")))
+                            .partialResults(
+                                CallAiGatherPartialResultsWebhookEvent.Data.Payload.PartialResults
+                                    .builder()
+                                    .putAdditionalProperty("age", JsonValue.from("bar"))
+                                    .putAdditionalProperty("city", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .to("+35319605860")
                             .build()
                     )
@@ -176,7 +187,12 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                                         .build()
                                 )
                                 .partialResults(
-                                    JsonValue.from(mapOf("age" to 29, "city" to "Paris"))
+                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
+                                        .PartialResults
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("city", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .to("+35319605860")
                                 .build()

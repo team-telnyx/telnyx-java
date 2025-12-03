@@ -47,7 +47,9 @@ internal class ActionServiceTest {
                     .actionsParticipantsRequest(
                         ActionsParticipantsRequest.builder()
                             .addExclude("7b61621f-62e0-4aad-ab11-9fd19e272e73")
-                            .participants(ActionsParticipantsRequest.Participants.UnionMember0.ALL)
+                            .participants(
+                                ActionsParticipantsRequest.Participants.AllParticipants.ALL
+                            )
                             .build()
                     )
                     .build()
@@ -73,7 +75,9 @@ internal class ActionServiceTest {
                     .actionsParticipantsRequest(
                         ActionsParticipantsRequest.builder()
                             .addExclude("7b61621f-62e0-4aad-ab11-9fd19e272e73")
-                            .participants(ActionsParticipantsRequest.Participants.UnionMember0.ALL)
+                            .participants(
+                                ActionsParticipantsRequest.Participants.AllParticipants.ALL
+                            )
                             .build()
                     )
                     .build()
@@ -99,7 +103,9 @@ internal class ActionServiceTest {
                     .actionsParticipantsRequest(
                         ActionsParticipantsRequest.builder()
                             .addExclude("7b61621f-62e0-4aad-ab11-9fd19e272e73")
-                            .participants(ActionsParticipantsRequest.Participants.UnionMember0.ALL)
+                            .participants(
+                                ActionsParticipantsRequest.Participants.AllParticipants.ALL
+                            )
                             .build()
                     )
                     .build()

@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialCreateParams
-import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -26,8 +25,8 @@ internal class MobilePushCredentialServiceAsyncTest {
         val pushCredentialResponseFuture =
             mobilePushCredentialServiceAsync.create(
                 MobilePushCredentialCreateParams.builder()
-                    .body(
-                        MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest
+                    .createMobilePushCredentialRequest(
+                        MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios
                             .builder()
                             .alias("LucyIosCredential")
                             .certificate(
@@ -35,11 +34,6 @@ internal class MobilePushCredentialServiceAsyncTest {
                             )
                             .privateKey(
                                 "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----"
-                            )
-                            .type(
-                                MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest
-                                    .Type
-                                    .IOS
                             )
                             .build()
                     )
@@ -77,21 +71,10 @@ internal class MobilePushCredentialServiceAsyncTest {
                 .build()
         val mobilePushCredentialServiceAsync = client.mobilePushCredentials()
 
-        val mobilePushCredentialsFuture =
-            mobilePushCredentialServiceAsync.list(
-                MobilePushCredentialListParams.builder()
-                    .filter(
-                        MobilePushCredentialListParams.Filter.builder()
-                            .alias("LucyCredential")
-                            .type(MobilePushCredentialListParams.Filter.Type.IOS)
-                            .build()
-                    )
-                    .page(MobilePushCredentialListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = mobilePushCredentialServiceAsync.list()
 
-        val mobilePushCredentials = mobilePushCredentialsFuture.get()
-        mobilePushCredentials.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

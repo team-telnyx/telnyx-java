@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteResponse
+import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPage
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateParams
@@ -93,21 +93,21 @@ interface WirelessBlocklistService {
         update(WirelessBlocklistUpdateParams.none(), requestOptions)
 
     /** Get all Wireless Blocklists belonging to the user. */
-    fun list(): WirelessBlocklistListResponse = list(WirelessBlocklistListParams.none())
+    fun list(): WirelessBlocklistListPage = list(WirelessBlocklistListParams.none())
 
     /** @see list */
     fun list(
         params: WirelessBlocklistListParams = WirelessBlocklistListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WirelessBlocklistListResponse
+    ): WirelessBlocklistListPage
 
     /** @see list */
     fun list(
         params: WirelessBlocklistListParams = WirelessBlocklistListParams.none()
-    ): WirelessBlocklistListResponse = list(params, RequestOptions.none())
+    ): WirelessBlocklistListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): WirelessBlocklistListResponse =
+    fun list(requestOptions: RequestOptions): WirelessBlocklistListPage =
         list(WirelessBlocklistListParams.none(), requestOptions)
 
     /** Deletes the Wireless Blocklist. */
@@ -252,7 +252,7 @@ interface WirelessBlocklistService {
          * [WirelessBlocklistService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<WirelessBlocklistListResponse> =
+        fun list(): HttpResponseFor<WirelessBlocklistListPage> =
             list(WirelessBlocklistListParams.none())
 
         /** @see list */
@@ -260,17 +260,17 @@ interface WirelessBlocklistService {
         fun list(
             params: WirelessBlocklistListParams = WirelessBlocklistListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WirelessBlocklistListResponse>
+        ): HttpResponseFor<WirelessBlocklistListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WirelessBlocklistListParams = WirelessBlocklistListParams.none()
-        ): HttpResponseFor<WirelessBlocklistListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<WirelessBlocklistListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WirelessBlocklistListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WirelessBlocklistListPage> =
             list(WirelessBlocklistListParams.none(), requestOptions)
 
         /**

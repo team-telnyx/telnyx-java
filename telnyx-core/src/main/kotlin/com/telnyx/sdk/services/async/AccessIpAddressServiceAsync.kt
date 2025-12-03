@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressCreateParams
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressDeleteParams
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPageAsync
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListParams
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -76,22 +76,22 @@ interface AccessIpAddressServiceAsync {
         retrieve(accessIpAddressId, AccessIpAddressRetrieveParams.none(), requestOptions)
 
     /** List all Access IP Addresses */
-    fun list(): CompletableFuture<AccessIpAddressListResponse> =
+    fun list(): CompletableFuture<AccessIpAddressListPageAsync> =
         list(AccessIpAddressListParams.none())
 
     /** @see list */
     fun list(
         params: AccessIpAddressListParams = AccessIpAddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AccessIpAddressListResponse>
+    ): CompletableFuture<AccessIpAddressListPageAsync>
 
     /** @see list */
     fun list(
         params: AccessIpAddressListParams = AccessIpAddressListParams.none()
-    ): CompletableFuture<AccessIpAddressListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<AccessIpAddressListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AccessIpAddressListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccessIpAddressListPageAsync> =
         list(AccessIpAddressListParams.none(), requestOptions)
 
     /** Delete access IP address */
@@ -210,25 +210,25 @@ interface AccessIpAddressServiceAsync {
          * Returns a raw HTTP response for `get /access_ip_address`, but is otherwise the same as
          * [AccessIpAddressServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AccessIpAddressListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<AccessIpAddressListPageAsync>> =
             list(AccessIpAddressListParams.none())
 
         /** @see list */
         fun list(
             params: AccessIpAddressListParams = AccessIpAddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccessIpAddressListResponse>>
+        ): CompletableFuture<HttpResponseFor<AccessIpAddressListPageAsync>>
 
         /** @see list */
         fun list(
             params: AccessIpAddressListParams = AccessIpAddressListParams.none()
-        ): CompletableFuture<HttpResponseFor<AccessIpAddressListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AccessIpAddressListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AccessIpAddressListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AccessIpAddressListPageAsync>> =
             list(AccessIpAddressListParams.none(), requestOptions)
 
         /**

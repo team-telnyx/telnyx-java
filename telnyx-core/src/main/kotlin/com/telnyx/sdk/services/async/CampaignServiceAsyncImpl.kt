@@ -26,8 +26,9 @@ import com.telnyx.sdk.models.campaign.CampaignGetOperationStatusParams
 import com.telnyx.sdk.models.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.campaign.CampaignGetSharingStatusResponse
+import com.telnyx.sdk.models.campaign.CampaignListPageAsync
+import com.telnyx.sdk.models.campaign.CampaignListPageResponse
 import com.telnyx.sdk.models.campaign.CampaignListParams
-import com.telnyx.sdk.models.campaign.CampaignListResponse
 import com.telnyx.sdk.models.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.campaign.CampaignSubmitAppealResponse
@@ -78,7 +79,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignListResponse> =
+    ): CompletableFuture<CampaignListPageAsync> =
         // get /campaign
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -216,13 +217,13 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val listHandler: Handler<CampaignListResponse> =
-            jsonHandler<CampaignListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CampaignListPageResponse> =
+            jsonHandler<CampaignListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignListResponse>> {
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -241,6 +242,14 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                CampaignListPageAsync.builder()
+                                    .service(CampaignServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

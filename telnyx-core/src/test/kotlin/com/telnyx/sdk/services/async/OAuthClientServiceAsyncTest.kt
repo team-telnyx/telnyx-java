@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.oauthclients.OAuthClientCreateParams
-import com.telnyx.sdk.models.oauthclients.OAuthClientListParams
 import com.telnyx.sdk.models.oauthclients.OAuthClientUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -103,24 +102,10 @@ internal class OAuthClientServiceAsyncTest {
                 .build()
         val oauthClientServiceAsync = client.oauthClients()
 
-        val oauthClientsFuture =
-            oauthClientServiceAsync.list(
-                OAuthClientListParams.builder()
-                    .filterAllowedGrantTypesContains(
-                        OAuthClientListParams.FilterAllowedGrantTypesContains.CLIENT_CREDENTIALS
-                    )
-                    .filterClientId("filter[client_id]")
-                    .filterClientType(OAuthClientListParams.FilterClientType.CONFIDENTIAL)
-                    .filterName("filter[name]")
-                    .filterNameContains("filter[name][contains]")
-                    .filterVerified(true)
-                    .pageNumber(1L)
-                    .pageSize(1L)
-                    .build()
-            )
+        val pageFuture = oauthClientServiceAsync.list()
 
-        val oauthClients = oauthClientsFuture.get()
-        oauthClients.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

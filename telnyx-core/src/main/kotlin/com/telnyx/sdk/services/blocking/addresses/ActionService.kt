@@ -30,22 +30,23 @@ interface ActionService {
      * Accepts this address suggestion as a new emergency address for Operator Connect and finishes
      * the uploads of the numbers associated with it to Microsoft.
      */
-    fun acceptSuggestions(pathId: String): ActionAcceptSuggestionsResponse =
-        acceptSuggestions(pathId, ActionAcceptSuggestionsParams.none())
+    fun acceptSuggestions(addressUuid: String): ActionAcceptSuggestionsResponse =
+        acceptSuggestions(addressUuid, ActionAcceptSuggestionsParams.none())
 
     /** @see acceptSuggestions */
     fun acceptSuggestions(
-        pathId: String,
+        addressUuid: String,
         params: ActionAcceptSuggestionsParams = ActionAcceptSuggestionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionAcceptSuggestionsResponse =
-        acceptSuggestions(params.toBuilder().pathId(pathId).build(), requestOptions)
+        acceptSuggestions(params.toBuilder().addressUuid(addressUuid).build(), requestOptions)
 
     /** @see acceptSuggestions */
     fun acceptSuggestions(
-        pathId: String,
+        addressUuid: String,
         params: ActionAcceptSuggestionsParams = ActionAcceptSuggestionsParams.none(),
-    ): ActionAcceptSuggestionsResponse = acceptSuggestions(pathId, params, RequestOptions.none())
+    ): ActionAcceptSuggestionsResponse =
+        acceptSuggestions(addressUuid, params, RequestOptions.none())
 
     /** @see acceptSuggestions */
     fun acceptSuggestions(
@@ -59,10 +60,10 @@ interface ActionService {
 
     /** @see acceptSuggestions */
     fun acceptSuggestions(
-        pathId: String,
+        addressUuid: String,
         requestOptions: RequestOptions,
     ): ActionAcceptSuggestionsResponse =
-        acceptSuggestions(pathId, ActionAcceptSuggestionsParams.none(), requestOptions)
+        acceptSuggestions(addressUuid, ActionAcceptSuggestionsParams.none(), requestOptions)
 
     /** Validates an address for emergency services. */
     fun validate(params: ActionValidateParams): ActionValidateResponse =
@@ -89,25 +90,27 @@ interface ActionService {
          * otherwise the same as [ActionService.acceptSuggestions].
          */
         @MustBeClosed
-        fun acceptSuggestions(pathId: String): HttpResponseFor<ActionAcceptSuggestionsResponse> =
-            acceptSuggestions(pathId, ActionAcceptSuggestionsParams.none())
+        fun acceptSuggestions(
+            addressUuid: String
+        ): HttpResponseFor<ActionAcceptSuggestionsResponse> =
+            acceptSuggestions(addressUuid, ActionAcceptSuggestionsParams.none())
 
         /** @see acceptSuggestions */
         @MustBeClosed
         fun acceptSuggestions(
-            pathId: String,
+            addressUuid: String,
             params: ActionAcceptSuggestionsParams = ActionAcceptSuggestionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ActionAcceptSuggestionsResponse> =
-            acceptSuggestions(params.toBuilder().pathId(pathId).build(), requestOptions)
+            acceptSuggestions(params.toBuilder().addressUuid(addressUuid).build(), requestOptions)
 
         /** @see acceptSuggestions */
         @MustBeClosed
         fun acceptSuggestions(
-            pathId: String,
+            addressUuid: String,
             params: ActionAcceptSuggestionsParams = ActionAcceptSuggestionsParams.none(),
         ): HttpResponseFor<ActionAcceptSuggestionsResponse> =
-            acceptSuggestions(pathId, params, RequestOptions.none())
+            acceptSuggestions(addressUuid, params, RequestOptions.none())
 
         /** @see acceptSuggestions */
         @MustBeClosed
@@ -126,10 +129,10 @@ interface ActionService {
         /** @see acceptSuggestions */
         @MustBeClosed
         fun acceptSuggestions(
-            pathId: String,
+            addressUuid: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ActionAcceptSuggestionsResponse> =
-            acceptSuggestions(pathId, ActionAcceptSuggestionsParams.none(), requestOptions)
+            acceptSuggestions(addressUuid, ActionAcceptSuggestionsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /addresses/actions/validate`, but is otherwise the

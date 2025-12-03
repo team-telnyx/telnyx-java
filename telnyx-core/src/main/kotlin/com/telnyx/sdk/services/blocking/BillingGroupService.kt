@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.billinggroups.BillingGroupCreateParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupCreateResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteResponse
+import com.telnyx.sdk.models.billinggroups.BillingGroupListPage
 import com.telnyx.sdk.models.billinggroups.BillingGroupListParams
-import com.telnyx.sdk.models.billinggroups.BillingGroupListResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateParams
@@ -112,21 +112,20 @@ interface BillingGroupService {
         update(id, BillingGroupUpdateParams.none(), requestOptions)
 
     /** List all billing groups */
-    fun list(): BillingGroupListResponse = list(BillingGroupListParams.none())
+    fun list(): BillingGroupListPage = list(BillingGroupListParams.none())
 
     /** @see list */
     fun list(
         params: BillingGroupListParams = BillingGroupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BillingGroupListResponse
+    ): BillingGroupListPage
 
     /** @see list */
-    fun list(
-        params: BillingGroupListParams = BillingGroupListParams.none()
-    ): BillingGroupListResponse = list(params, RequestOptions.none())
+    fun list(params: BillingGroupListParams = BillingGroupListParams.none()): BillingGroupListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BillingGroupListResponse =
+    fun list(requestOptions: RequestOptions): BillingGroupListPage =
         list(BillingGroupListParams.none(), requestOptions)
 
     /** Delete a billing group */
@@ -294,24 +293,24 @@ interface BillingGroupService {
          * [BillingGroupService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<BillingGroupListResponse> = list(BillingGroupListParams.none())
+        fun list(): HttpResponseFor<BillingGroupListPage> = list(BillingGroupListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BillingGroupListParams = BillingGroupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BillingGroupListResponse>
+        ): HttpResponseFor<BillingGroupListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BillingGroupListParams = BillingGroupListParams.none()
-        ): HttpResponseFor<BillingGroupListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<BillingGroupListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BillingGroupListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BillingGroupListPage> =
             list(BillingGroupListParams.none(), requestOptions)
 
         /**

@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteResponse
+import com.telnyx.sdk.models.faxapplications.FaxApplicationListPageAsync
+import com.telnyx.sdk.models.faxapplications.FaxApplicationListPageResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationListParams
-import com.telnyx.sdk.models.faxapplications.FaxApplicationListResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateParams
@@ -68,7 +69,7 @@ internal constructor(private val clientOptions: ClientOptions) : FaxApplicationS
     override fun list(
         params: FaxApplicationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<FaxApplicationListResponse> =
+    ): CompletableFuture<FaxApplicationListPageAsync> =
         // get /fax_applications
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -190,13 +191,13 @@ internal constructor(private val clientOptions: ClientOptions) : FaxApplicationS
                 }
         }
 
-        private val listHandler: Handler<FaxApplicationListResponse> =
-            jsonHandler<FaxApplicationListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FaxApplicationListPageResponse> =
+            jsonHandler<FaxApplicationListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FaxApplicationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FaxApplicationListResponse>> {
+        ): CompletableFuture<HttpResponseFor<FaxApplicationListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -215,6 +216,14 @@ internal constructor(private val clientOptions: ClientOptions) : FaxApplicationS
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                FaxApplicationListPageAsync.builder()
+                                    .service(FaxApplicationServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

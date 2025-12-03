@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateParams
-import com.telnyx.sdk.models.faxapplications.FaxApplicationListParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -131,26 +130,10 @@ internal class FaxApplicationServiceAsyncTest {
                 .build()
         val faxApplicationServiceAsync = client.faxApplications()
 
-        val faxApplicationsFuture =
-            faxApplicationServiceAsync.list(
-                FaxApplicationListParams.builder()
-                    .filter(
-                        FaxApplicationListParams.Filter.builder()
-                            .applicationName(
-                                FaxApplicationListParams.Filter.ApplicationName.builder()
-                                    .contains("fax-app")
-                                    .build()
-                            )
-                            .outboundVoiceProfileId("1293384261075731499")
-                            .build()
-                    )
-                    .page(FaxApplicationListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(FaxApplicationListParams.Sort.APPLICATION_NAME)
-                    .build()
-            )
+        val pageFuture = faxApplicationServiceAsync.list()
 
-        val faxApplications = faxApplicationsFuture.get()
-        faxApplications.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -32,7 +32,10 @@ internal class PrivateWirelessGatewayCreateResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode("error_code")
                                 .errorDescription("error_description")
-                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONING)
+                                .value(
+                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                        .PROVISIONING
+                                )
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -60,7 +63,10 @@ internal class PrivateWirelessGatewayCreateResponseTest {
                         PrivateWirelessGatewayStatus.builder()
                             .errorCode("error_code")
                             .errorDescription("error_description")
-                            .value(PrivateWirelessGatewayStatus.Value_.PROVISIONING)
+                            .value(
+                                PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                    .PROVISIONING
+                            )
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -92,7 +98,10 @@ internal class PrivateWirelessGatewayCreateResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode("error_code")
                                 .errorDescription("error_description")
-                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONING)
+                                .value(
+                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                        .PROVISIONING
+                                )
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

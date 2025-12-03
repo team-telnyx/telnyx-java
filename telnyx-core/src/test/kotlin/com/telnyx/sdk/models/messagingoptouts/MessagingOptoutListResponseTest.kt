@@ -4,9 +4,7 @@ package com.telnyx.sdk.models.messagingoptouts
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,44 +14,20 @@ internal class MessagingOptoutListResponseTest {
     fun create() {
         val messagingOptoutListResponse =
             MessagingOptoutListResponse.builder()
-                .addData(
-                    MessagingOptoutListResponse.Data.builder()
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .from("from")
-                        .keyword("STOP")
-                        .messagingProfileId("messaging_profile_id")
-                        .to("+E.164")
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .from("from")
+                .keyword("STOP")
+                .messagingProfileId("messaging_profile_id")
+                .to("+E.164")
                 .build()
 
-        assertThat(messagingOptoutListResponse.data().getOrNull())
-            .containsExactly(
-                MessagingOptoutListResponse.Data.builder()
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .from("from")
-                    .keyword("STOP")
-                    .messagingProfileId("messaging_profile_id")
-                    .to("+E.164")
-                    .build()
-            )
-        assertThat(messagingOptoutListResponse.meta())
-            .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .pageSize(25L)
-                    .totalPages(3L)
-                    .totalResults(55L)
-                    .build()
-            )
+        assertThat(messagingOptoutListResponse.createdAt())
+            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(messagingOptoutListResponse.from()).contains("from")
+        assertThat(messagingOptoutListResponse.keyword()).contains("STOP")
+        assertThat(messagingOptoutListResponse.messagingProfileId())
+            .contains("messaging_profile_id")
+        assertThat(messagingOptoutListResponse.to()).contains("+E.164")
     }
 
     @Test
@@ -61,23 +35,11 @@ internal class MessagingOptoutListResponseTest {
         val jsonMapper = jsonMapper()
         val messagingOptoutListResponse =
             MessagingOptoutListResponse.builder()
-                .addData(
-                    MessagingOptoutListResponse.Data.builder()
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .from("from")
-                        .keyword("STOP")
-                        .messagingProfileId("messaging_profile_id")
-                        .to("+E.164")
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .from("from")
+                .keyword("STOP")
+                .messagingProfileId("messaging_profile_id")
+                .to("+E.164")
                 .build()
 
         val roundtrippedMessagingOptoutListResponse =

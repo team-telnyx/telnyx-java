@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.ipconnections.IpConnectionCreateParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionCreateResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteResponse
+import com.telnyx.sdk.models.ipconnections.IpConnectionListPage
 import com.telnyx.sdk.models.ipconnections.IpConnectionListParams
-import com.telnyx.sdk.models.ipconnections.IpConnectionListResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateParams
@@ -112,21 +112,20 @@ interface IpConnectionService {
         update(id, IpConnectionUpdateParams.none(), requestOptions)
 
     /** Returns a list of your IP connections. */
-    fun list(): IpConnectionListResponse = list(IpConnectionListParams.none())
+    fun list(): IpConnectionListPage = list(IpConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: IpConnectionListParams = IpConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IpConnectionListResponse
+    ): IpConnectionListPage
 
     /** @see list */
-    fun list(
-        params: IpConnectionListParams = IpConnectionListParams.none()
-    ): IpConnectionListResponse = list(params, RequestOptions.none())
+    fun list(params: IpConnectionListParams = IpConnectionListParams.none()): IpConnectionListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): IpConnectionListResponse =
+    fun list(requestOptions: RequestOptions): IpConnectionListPage =
         list(IpConnectionListParams.none(), requestOptions)
 
     /** Deletes an existing IP connection. */
@@ -294,24 +293,24 @@ interface IpConnectionService {
          * [IpConnectionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<IpConnectionListResponse> = list(IpConnectionListParams.none())
+        fun list(): HttpResponseFor<IpConnectionListPage> = list(IpConnectionListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: IpConnectionListParams = IpConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IpConnectionListResponse>
+        ): HttpResponseFor<IpConnectionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: IpConnectionListParams = IpConnectionListParams.none()
-        ): HttpResponseFor<IpConnectionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<IpConnectionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<IpConnectionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<IpConnectionListPage> =
             list(IpConnectionListParams.none(), requestOptions)
 
         /**

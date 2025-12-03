@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Delete a messaging profile */
 class MessagingProfileDeleteParams
 private constructor(
-    private val id: String?,
+    private val messagingProfileId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun id(): Optional<String> = Optional.ofNullable(id)
+    fun messagingProfileId(): Optional<String> = Optional.ofNullable(messagingProfileId)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -46,24 +46,29 @@ private constructor(
     /** A builder for [MessagingProfileDeleteParams]. */
     class Builder internal constructor() {
 
-        private var id: String? = null
+        private var messagingProfileId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(messagingProfileDeleteParams: MessagingProfileDeleteParams) = apply {
-            id = messagingProfileDeleteParams.id
+            messagingProfileId = messagingProfileDeleteParams.messagingProfileId
             additionalHeaders = messagingProfileDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = messagingProfileDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties =
                 messagingProfileDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun id(id: String?) = apply { this.id = id }
+        fun messagingProfileId(messagingProfileId: String?) = apply {
+            this.messagingProfileId = messagingProfileId
+        }
 
-        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
-        fun id(id: Optional<String>) = id(id.getOrNull())
+        /**
+         * Alias for calling [Builder.messagingProfileId] with `messagingProfileId.orElse(null)`.
+         */
+        fun messagingProfileId(messagingProfileId: Optional<String>) =
+            messagingProfileId(messagingProfileId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -192,7 +197,7 @@ private constructor(
          */
         fun build(): MessagingProfileDeleteParams =
             MessagingProfileDeleteParams(
-                id,
+                messagingProfileId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -204,7 +209,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id ?: ""
+            0 -> messagingProfileId ?: ""
             else -> ""
         }
 
@@ -218,15 +223,20 @@ private constructor(
         }
 
         return other is MessagingProfileDeleteParams &&
-            id == other.id &&
+            messagingProfileId == other.messagingProfileId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(id, additionalHeaders, additionalQueryParams, additionalBodyProperties)
+        Objects.hash(
+            messagingProfileId,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
-        "MessagingProfileDeleteParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "MessagingProfileDeleteParams{messagingProfileId=$messagingProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

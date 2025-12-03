@@ -48,7 +48,11 @@ internal class MessageRetrieveResponseTest {
                                 .code("code")
                                 .title("title")
                                 .detail("detail")
-                                .meta(JsonValue.from(mapOf<String, Any>()))
+                                .meta(
+                                    MessagingError.Meta.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .source(
                                     MessagingError.Source.builder()
                                         .parameter("parameter")
@@ -104,7 +108,7 @@ internal class MessageRetrieveResponseTest {
 
         assertThat(messageRetrieveResponse.data())
             .contains(
-                MessageRetrieveResponse.Data.ofOutboundMessagePayload(
+                MessageRetrieveResponse.Data.ofOutbound(
                     OutboundMessagePayload.builder()
                         .id("40385f64-5717-4562-b3fc-2c963f66afa6")
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -137,7 +141,11 @@ internal class MessageRetrieveResponseTest {
                                 .code("code")
                                 .title("title")
                                 .detail("detail")
-                                .meta(JsonValue.from(mapOf<String, Any>()))
+                                .meta(
+                                    MessagingError.Meta.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .source(
                                     MessagingError.Source.builder()
                                         .parameter("parameter")
@@ -230,7 +238,11 @@ internal class MessageRetrieveResponseTest {
                                 .code("code")
                                 .title("title")
                                 .detail("detail")
-                                .meta(JsonValue.from(mapOf<String, Any>()))
+                                .meta(
+                                    MessagingError.Meta.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .source(
                                     MessagingError.Source.builder()
                                         .parameter("parameter")

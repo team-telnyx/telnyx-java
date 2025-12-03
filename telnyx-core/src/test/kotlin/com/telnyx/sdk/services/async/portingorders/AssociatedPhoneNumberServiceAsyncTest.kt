@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberCreateParams
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteParams
-import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -52,29 +51,11 @@ internal class AssociatedPhoneNumberServiceAsyncTest {
                 .build()
         val associatedPhoneNumberServiceAsync = client.portingOrders().associatedPhoneNumbers()
 
-        val associatedPhoneNumbersFuture =
-            associatedPhoneNumberServiceAsync.list(
-                AssociatedPhoneNumberListParams.builder()
-                    .portingOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .filter(
-                        AssociatedPhoneNumberListParams.Filter.builder()
-                            .action(AssociatedPhoneNumberListParams.Filter.Action.KEEP)
-                            .phoneNumber("+441234567890")
-                            .build()
-                    )
-                    .page(
-                        AssociatedPhoneNumberListParams.Page.builder().number(1L).size(1L).build()
-                    )
-                    .sort(
-                        AssociatedPhoneNumberListParams.Sort.builder()
-                            .value(AssociatedPhoneNumberListParams.Sort.Value_.CREATED_AT_DESC)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture =
+            associatedPhoneNumberServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val associatedPhoneNumbers = associatedPhoneNumbersFuture.get()
-        associatedPhoneNumbers.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

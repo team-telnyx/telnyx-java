@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListPage
 import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListParams
-import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListResponse
 import java.util.function.Consumer
 
 interface NotificationEventConditionService {
@@ -25,22 +25,22 @@ interface NotificationEventConditionService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotificationEventConditionService
 
     /** Returns a list of your notifications events conditions. */
-    fun list(): NotificationEventConditionListResponse =
+    fun list(): NotificationEventConditionListPage =
         list(NotificationEventConditionListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationEventConditionListParams = NotificationEventConditionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NotificationEventConditionListResponse
+    ): NotificationEventConditionListPage
 
     /** @see list */
     fun list(
         params: NotificationEventConditionListParams = NotificationEventConditionListParams.none()
-    ): NotificationEventConditionListResponse = list(params, RequestOptions.none())
+    ): NotificationEventConditionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NotificationEventConditionListResponse =
+    fun list(requestOptions: RequestOptions): NotificationEventConditionListPage =
         list(NotificationEventConditionListParams.none(), requestOptions)
 
     /**
@@ -63,7 +63,7 @@ interface NotificationEventConditionService {
          * the same as [NotificationEventConditionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NotificationEventConditionListResponse> =
+        fun list(): HttpResponseFor<NotificationEventConditionListPage> =
             list(NotificationEventConditionListParams.none())
 
         /** @see list */
@@ -72,21 +72,20 @@ interface NotificationEventConditionService {
             params: NotificationEventConditionListParams =
                 NotificationEventConditionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NotificationEventConditionListResponse>
+        ): HttpResponseFor<NotificationEventConditionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NotificationEventConditionListParams =
                 NotificationEventConditionListParams.none()
-        ): HttpResponseFor<NotificationEventConditionListResponse> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<NotificationEventConditionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<NotificationEventConditionListResponse> =
+        ): HttpResponseFor<NotificationEventConditionListPage> =
             list(NotificationEventConditionListParams.none(), requestOptions)
     }
 }

@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPage
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPageResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupUpdateParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightTemplateGroupDetail
@@ -74,7 +75,7 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
     override fun retrieveInsightGroups(
         params: InsightGroupRetrieveInsightGroupsParams,
         requestOptions: RequestOptions,
-    ): InsightGroupRetrieveInsightGroupsResponse =
+    ): InsightGroupRetrieveInsightGroupsPage =
         // get /ai/conversations/insight-groups
         withRawResponse().retrieveInsightGroups(params, requestOptions).parse()
 
@@ -211,13 +212,13 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
         }
 
         private val retrieveInsightGroupsHandler:
-            Handler<InsightGroupRetrieveInsightGroupsResponse> =
-            jsonHandler<InsightGroupRetrieveInsightGroupsResponse>(clientOptions.jsonMapper)
+            Handler<InsightGroupRetrieveInsightGroupsPageResponse> =
+            jsonHandler<InsightGroupRetrieveInsightGroupsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveInsightGroups(
             params: InsightGroupRetrieveInsightGroupsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse> {
+        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -234,6 +235,13 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InsightGroupRetrieveInsightGroupsPage.builder()
+                            .service(InsightGroupServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

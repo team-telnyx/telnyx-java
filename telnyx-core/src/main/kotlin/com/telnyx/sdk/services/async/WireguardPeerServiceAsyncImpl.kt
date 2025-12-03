@@ -21,8 +21,9 @@ import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteResponse
+import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListPageAsync
+import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListPageResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListParams
-import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveConfigParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveResponse
@@ -68,7 +69,7 @@ class WireguardPeerServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: WireguardPeerListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<WireguardPeerListResponse> =
+    ): CompletableFuture<WireguardPeerListPageAsync> =
         // get /wireguard_peers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -197,13 +198,13 @@ class WireguardPeerServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<WireguardPeerListResponse> =
-            jsonHandler<WireguardPeerListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireguardPeerListPageResponse> =
+            jsonHandler<WireguardPeerListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WireguardPeerListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<WireguardPeerListResponse>> {
+        ): CompletableFuture<HttpResponseFor<WireguardPeerListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -222,6 +223,14 @@ class WireguardPeerServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                WireguardPeerListPageAsync.builder()
+                                    .service(WireguardPeerServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListPage
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListParams
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListResponse
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMePage
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeParams
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusResponse
@@ -102,21 +102,21 @@ interface PartnerCampaignService {
      * accepted. In other words, shared but pending campaigns are currently omitted from the
      * response from this endpoint.
      */
-    fun list(): PartnerCampaignListResponse = list(PartnerCampaignListParams.none())
+    fun list(): PartnerCampaignListPage = list(PartnerCampaignListParams.none())
 
     /** @see list */
     fun list(
         params: PartnerCampaignListParams = PartnerCampaignListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PartnerCampaignListResponse
+    ): PartnerCampaignListPage
 
     /** @see list */
     fun list(
         params: PartnerCampaignListParams = PartnerCampaignListParams.none()
-    ): PartnerCampaignListResponse = list(params, RequestOptions.none())
+    ): PartnerCampaignListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PartnerCampaignListResponse =
+    fun list(requestOptions: RequestOptions): PartnerCampaignListPage =
         list(PartnerCampaignListParams.none(), requestOptions)
 
     /**
@@ -126,22 +126,22 @@ interface PartnerCampaignService {
      * accepted. In other words, shared but pending campaigns are currently omitted from the
      * response from this endpoint.
      */
-    fun listSharedByMe(): PartnerCampaignListSharedByMeResponse =
+    fun listSharedByMe(): PartnerCampaignListSharedByMePage =
         listSharedByMe(PartnerCampaignListSharedByMeParams.none())
 
     /** @see listSharedByMe */
     fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams = PartnerCampaignListSharedByMeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PartnerCampaignListSharedByMeResponse
+    ): PartnerCampaignListSharedByMePage
 
     /** @see listSharedByMe */
     fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams = PartnerCampaignListSharedByMeParams.none()
-    ): PartnerCampaignListSharedByMeResponse = listSharedByMe(params, RequestOptions.none())
+    ): PartnerCampaignListSharedByMePage = listSharedByMe(params, RequestOptions.none())
 
     /** @see listSharedByMe */
-    fun listSharedByMe(requestOptions: RequestOptions): PartnerCampaignListSharedByMeResponse =
+    fun listSharedByMe(requestOptions: RequestOptions): PartnerCampaignListSharedByMePage =
         listSharedByMe(PartnerCampaignListSharedByMeParams.none(), requestOptions)
 
     /** Get Sharing Status */
@@ -299,7 +299,7 @@ interface PartnerCampaignService {
          * [PartnerCampaignService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PartnerCampaignListResponse> =
+        fun list(): HttpResponseFor<PartnerCampaignListPage> =
             list(PartnerCampaignListParams.none())
 
         /** @see list */
@@ -307,17 +307,17 @@ interface PartnerCampaignService {
         fun list(
             params: PartnerCampaignListParams = PartnerCampaignListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PartnerCampaignListResponse>
+        ): HttpResponseFor<PartnerCampaignListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PartnerCampaignListParams = PartnerCampaignListParams.none()
-        ): HttpResponseFor<PartnerCampaignListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PartnerCampaignListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PartnerCampaignListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PartnerCampaignListPage> =
             list(PartnerCampaignListParams.none(), requestOptions)
 
         /**
@@ -325,7 +325,7 @@ interface PartnerCampaignService {
          * same as [PartnerCampaignService.listSharedByMe].
          */
         @MustBeClosed
-        fun listSharedByMe(): HttpResponseFor<PartnerCampaignListSharedByMeResponse> =
+        fun listSharedByMe(): HttpResponseFor<PartnerCampaignListSharedByMePage> =
             listSharedByMe(PartnerCampaignListSharedByMeParams.none())
 
         /** @see listSharedByMe */
@@ -334,20 +334,20 @@ interface PartnerCampaignService {
             params: PartnerCampaignListSharedByMeParams =
                 PartnerCampaignListSharedByMeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PartnerCampaignListSharedByMeResponse>
+        ): HttpResponseFor<PartnerCampaignListSharedByMePage>
 
         /** @see listSharedByMe */
         @MustBeClosed
         fun listSharedByMe(
             params: PartnerCampaignListSharedByMeParams = PartnerCampaignListSharedByMeParams.none()
-        ): HttpResponseFor<PartnerCampaignListSharedByMeResponse> =
+        ): HttpResponseFor<PartnerCampaignListSharedByMePage> =
             listSharedByMe(params, RequestOptions.none())
 
         /** @see listSharedByMe */
         @MustBeClosed
         fun listSharedByMe(
             requestOptions: RequestOptions
-        ): HttpResponseFor<PartnerCampaignListSharedByMeResponse> =
+        ): HttpResponseFor<PartnerCampaignListSharedByMePage> =
             listSharedByMe(PartnerCampaignListSharedByMeParams.none(), requestOptions)
 
         /**

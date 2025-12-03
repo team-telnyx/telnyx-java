@@ -11,7 +11,8 @@ internal class InvoiceListParamsTest {
     @Test
     fun create() {
         InvoiceListParams.builder()
-            .page(InvoiceListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(InvoiceListParams.Sort.PERIOD_START)
             .build()
     }
@@ -20,7 +21,8 @@ internal class InvoiceListParamsTest {
     fun queryParams() {
         val params =
             InvoiceListParams.builder()
-                .page(InvoiceListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(InvoiceListParams.Sort.PERIOD_START)
                 .build()
 
@@ -29,8 +31,8 @@ internal class InvoiceListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort", "period_start")
                     .build()
             )

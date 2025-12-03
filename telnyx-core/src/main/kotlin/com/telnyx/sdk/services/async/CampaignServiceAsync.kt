@@ -15,8 +15,8 @@ import com.telnyx.sdk.models.campaign.CampaignGetOperationStatusParams
 import com.telnyx.sdk.models.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.campaign.CampaignGetSharingStatusResponse
+import com.telnyx.sdk.models.campaign.CampaignListPageAsync
 import com.telnyx.sdk.models.campaign.CampaignListParams
-import com.telnyx.sdk.models.campaign.CampaignListResponse
 import com.telnyx.sdk.models.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.campaign.CampaignSubmitAppealResponse
@@ -119,14 +119,14 @@ interface CampaignServiceAsync {
         update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of campaigns associated with a supplied `brandId`. */
-    fun list(params: CampaignListParams): CompletableFuture<CampaignListResponse> =
+    fun list(params: CampaignListParams): CompletableFuture<CampaignListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignListResponse>
+    ): CompletableFuture<CampaignListPageAsync>
 
     /** Manually accept a campaign shared with Telnyx */
     fun acceptSharing(campaignId: String): CompletableFuture<CampaignAcceptSharingResponse> =
@@ -456,14 +456,14 @@ interface CampaignServiceAsync {
          */
         fun list(
             params: CampaignListParams
-        ): CompletableFuture<HttpResponseFor<CampaignListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignListResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>>
 
         /**
          * Returns a raw HTTP response for `post /campaign/acceptSharing/{campaignId}`, but is

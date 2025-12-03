@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.invoices.InvoiceListPage
+import com.telnyx.sdk.models.invoices.InvoiceListPageResponse
 import com.telnyx.sdk.models.invoices.InvoiceListParams
-import com.telnyx.sdk.models.invoices.InvoiceListResponse
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveParams
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveResponse
 import java.util.function.Consumer
@@ -41,10 +42,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
         // get /invoices/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: InvoiceListParams,
-        requestOptions: RequestOptions,
-    ): InvoiceListResponse =
+    override fun list(params: InvoiceListParams, requestOptions: RequestOptions): InvoiceListPage =
         // get /invoices
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +89,13 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<InvoiceListResponse> =
-            jsonHandler<InvoiceListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InvoiceListPageResponse> =
+            jsonHandler<InvoiceListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InvoiceListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InvoiceListResponse> {
+        ): HttpResponseFor<InvoiceListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +112,13 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InvoiceListPage.builder()
+                            .service(InvoiceServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

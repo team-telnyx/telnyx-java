@@ -21,8 +21,9 @@ import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandDeleteParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.brand.BrandListPage
+import com.telnyx.sdk.models.brand.BrandListPageResponse
 import com.telnyx.sdk.models.brand.BrandListParams
-import com.telnyx.sdk.models.brand.BrandListResponse
 import com.telnyx.sdk.models.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.brand.BrandRetrieveResponse
@@ -67,7 +68,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         // put /brand/{brandId}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListResponse =
+    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListPage =
         // get /brand
         withRawResponse().list(params, requestOptions).parse()
 
@@ -200,13 +201,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<BrandListResponse> =
-            jsonHandler<BrandListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BrandListPageResponse> =
+            jsonHandler<BrandListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BrandListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandListResponse> {
+        ): HttpResponseFor<BrandListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -223,6 +224,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BrandListPage.builder()
+                            .service(BrandServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

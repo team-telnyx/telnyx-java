@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.notificationevents.NotificationEventListPage
 import com.telnyx.sdk.models.notificationevents.NotificationEventListParams
-import com.telnyx.sdk.models.notificationevents.NotificationEventListResponse
 import java.util.function.Consumer
 
 interface NotificationEventService {
@@ -25,21 +25,21 @@ interface NotificationEventService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotificationEventService
 
     /** Returns a list of your notifications events. */
-    fun list(): NotificationEventListResponse = list(NotificationEventListParams.none())
+    fun list(): NotificationEventListPage = list(NotificationEventListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationEventListParams = NotificationEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NotificationEventListResponse
+    ): NotificationEventListPage
 
     /** @see list */
     fun list(
         params: NotificationEventListParams = NotificationEventListParams.none()
-    ): NotificationEventListResponse = list(params, RequestOptions.none())
+    ): NotificationEventListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NotificationEventListResponse =
+    fun list(requestOptions: RequestOptions): NotificationEventListPage =
         list(NotificationEventListParams.none(), requestOptions)
 
     /**
@@ -62,7 +62,7 @@ interface NotificationEventService {
          * [NotificationEventService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NotificationEventListResponse> =
+        fun list(): HttpResponseFor<NotificationEventListPage> =
             list(NotificationEventListParams.none())
 
         /** @see list */
@@ -70,17 +70,17 @@ interface NotificationEventService {
         fun list(
             params: NotificationEventListParams = NotificationEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NotificationEventListResponse>
+        ): HttpResponseFor<NotificationEventListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NotificationEventListParams = NotificationEventListParams.none()
-        ): HttpResponseFor<NotificationEventListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NotificationEventListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationEventListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationEventListPage> =
             list(NotificationEventListParams.none(), requestOptions)
     }
 }
