@@ -30,6 +30,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .countryIso("country_iso")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .errorReason("error_reason")
+                                .excludeHeldNumbers(true)
                                 .nationalDestinationCode("national_destination_code")
                                 .addOrder(
                                     InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Order
@@ -42,6 +43,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .phoneNumberContains("phone_number[contains]")
                                 .phoneNumberEndsWith("phone_number[ends_with]")
                                 .phoneNumberStartsWith("phone_number[starts_with]")
+                                .quickship(true)
                                 .status(
                                     InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Status
                                         .PENDING
@@ -76,6 +78,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                             .countryIso("country_iso")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .errorReason("error_reason")
+                            .excludeHeldNumbers(true)
                             .nationalDestinationCode("national_destination_code")
                             .addOrder(
                                 InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Order
@@ -88,6 +91,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                             .phoneNumberContains("phone_number[contains]")
                             .phoneNumberEndsWith("phone_number[ends_with]")
                             .phoneNumberStartsWith("phone_number[starts_with]")
+                            .quickship(true)
                             .status(
                                 InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Status
                                     .PENDING
@@ -125,6 +129,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .countryIso("country_iso")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .errorReason("error_reason")
+                                .excludeHeldNumbers(true)
                                 .nationalDestinationCode("national_destination_code")
                                 .addOrder(
                                     InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Order
@@ -137,6 +142,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .phoneNumberContains("phone_number[contains]")
                                 .phoneNumberEndsWith("phone_number[ends_with]")
                                 .phoneNumberStartsWith("phone_number[starts_with]")
+                                .quickship(true)
                                 .status(
                                     InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Status
                                         .PENDING

@@ -595,12 +595,14 @@ private constructor(
             private val countryIso: JsonField<String>,
             private val createdAt: JsonField<OffsetDateTime>,
             private val errorReason: JsonField<String>,
+            private val excludeHeldNumbers: JsonField<Boolean>,
             private val nationalDestinationCode: JsonField<String>,
             private val orders: JsonField<List<Order>>,
             private val phoneNumberType: JsonField<String>,
             private val phoneNumberContains: JsonField<String>,
             private val phoneNumberEndsWith: JsonField<String>,
             private val phoneNumberStartsWith: JsonField<String>,
+            private val quickship: JsonField<Boolean>,
             private val status: JsonField<Status>,
             private val strategy: JsonField<Strategy>,
             private val updatedAt: JsonField<OffsetDateTime>,
@@ -627,6 +629,9 @@ private constructor(
                 @JsonProperty("error_reason")
                 @ExcludeMissing
                 errorReason: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("exclude_held_numbers")
+                @ExcludeMissing
+                excludeHeldNumbers: JsonField<Boolean> = JsonMissing.of(),
                 @JsonProperty("national_destination_code")
                 @ExcludeMissing
                 nationalDestinationCode: JsonField<String> = JsonMissing.of(),
@@ -645,6 +650,9 @@ private constructor(
                 @JsonProperty("phone_number[starts_with]")
                 @ExcludeMissing
                 phoneNumberStartsWith: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("quickship")
+                @ExcludeMissing
+                quickship: JsonField<Boolean> = JsonMissing.of(),
                 @JsonProperty("status")
                 @ExcludeMissing
                 status: JsonField<Status> = JsonMissing.of(),
@@ -661,12 +669,14 @@ private constructor(
                 countryIso,
                 createdAt,
                 errorReason,
+                excludeHeldNumbers,
                 nationalDestinationCode,
                 orders,
                 phoneNumberType,
                 phoneNumberContains,
                 phoneNumberEndsWith,
                 phoneNumberStartsWith,
+                quickship,
                 status,
                 strategy,
                 updatedAt,
@@ -723,6 +733,15 @@ private constructor(
             fun errorReason(): Optional<String> = errorReason.getOptional("error_reason")
 
             /**
+             * Filter to exclude phone numbers that are currently on hold/reserved for your account.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun excludeHeldNumbers(): Optional<Boolean> =
+                excludeHeldNumbers.getOptional("exclude_held_numbers")
+
+            /**
              * Filter by area code
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -774,6 +793,15 @@ private constructor(
              */
             fun phoneNumberStartsWith(): Optional<String> =
                 phoneNumberStartsWith.getOptional("phone_number[starts_with]")
+
+            /**
+             * Filter to exclude phone numbers that need additional time after to purchase to
+             * activate. Only applicable for +1 toll_free numbers.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun quickship(): Optional<Boolean> = quickship.getOptional("quickship")
 
             /**
              * Status of the ordering group
@@ -860,6 +888,16 @@ private constructor(
             fun _errorReason(): JsonField<String> = errorReason
 
             /**
+             * Returns the raw JSON value of [excludeHeldNumbers].
+             *
+             * Unlike [excludeHeldNumbers], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("exclude_held_numbers")
+            @ExcludeMissing
+            fun _excludeHeldNumbers(): JsonField<Boolean> = excludeHeldNumbers
+
+            /**
              * Returns the raw JSON value of [nationalDestinationCode].
              *
              * Unlike [nationalDestinationCode], this method doesn't throw if the JSON field has an
@@ -917,6 +955,16 @@ private constructor(
             fun _phoneNumberStartsWith(): JsonField<String> = phoneNumberStartsWith
 
             /**
+             * Returns the raw JSON value of [quickship].
+             *
+             * Unlike [quickship], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("quickship")
+            @ExcludeMissing
+            fun _quickship(): JsonField<Boolean> = quickship
+
+            /**
              * Returns the raw JSON value of [status].
              *
              * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -970,12 +1018,14 @@ private constructor(
                 private var countryIso: JsonField<String> = JsonMissing.of()
                 private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var errorReason: JsonField<String> = JsonMissing.of()
+                private var excludeHeldNumbers: JsonField<Boolean> = JsonMissing.of()
                 private var nationalDestinationCode: JsonField<String> = JsonMissing.of()
                 private var orders: JsonField<MutableList<Order>>? = null
                 private var phoneNumberType: JsonField<String> = JsonMissing.of()
                 private var phoneNumberContains: JsonField<String> = JsonMissing.of()
                 private var phoneNumberEndsWith: JsonField<String> = JsonMissing.of()
                 private var phoneNumberStartsWith: JsonField<String> = JsonMissing.of()
+                private var quickship: JsonField<Boolean> = JsonMissing.of()
                 private var status: JsonField<Status> = JsonMissing.of()
                 private var strategy: JsonField<Strategy> = JsonMissing.of()
                 private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -989,12 +1039,14 @@ private constructor(
                     countryIso = orderingGroup.countryIso
                     createdAt = orderingGroup.createdAt
                     errorReason = orderingGroup.errorReason
+                    excludeHeldNumbers = orderingGroup.excludeHeldNumbers
                     nationalDestinationCode = orderingGroup.nationalDestinationCode
                     orders = orderingGroup.orders.map { it.toMutableList() }
                     phoneNumberType = orderingGroup.phoneNumberType
                     phoneNumberContains = orderingGroup.phoneNumberContains
                     phoneNumberEndsWith = orderingGroup.phoneNumberEndsWith
                     phoneNumberStartsWith = orderingGroup.phoneNumberStartsWith
+                    quickship = orderingGroup.quickship
                     status = orderingGroup.status
                     strategy = orderingGroup.strategy
                     updatedAt = orderingGroup.updatedAt
@@ -1086,6 +1138,24 @@ private constructor(
                  */
                 fun errorReason(errorReason: JsonField<String>) = apply {
                     this.errorReason = errorReason
+                }
+
+                /**
+                 * Filter to exclude phone numbers that are currently on hold/reserved for your
+                 * account.
+                 */
+                fun excludeHeldNumbers(excludeHeldNumbers: Boolean) =
+                    excludeHeldNumbers(JsonField.of(excludeHeldNumbers))
+
+                /**
+                 * Sets [Builder.excludeHeldNumbers] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.excludeHeldNumbers] with a well-typed [Boolean]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun excludeHeldNumbers(excludeHeldNumbers: JsonField<Boolean>) = apply {
+                    this.excludeHeldNumbers = excludeHeldNumbers
                 }
 
                 /** Filter by area code */
@@ -1189,6 +1259,21 @@ private constructor(
                     this.phoneNumberStartsWith = phoneNumberStartsWith
                 }
 
+                /**
+                 * Filter to exclude phone numbers that need additional time after to purchase to
+                 * activate. Only applicable for +1 toll_free numbers.
+                 */
+                fun quickship(quickship: Boolean) = quickship(JsonField.of(quickship))
+
+                /**
+                 * Sets [Builder.quickship] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.quickship] with a well-typed [Boolean] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun quickship(quickship: JsonField<Boolean>) = apply { this.quickship = quickship }
+
                 /** Status of the ordering group */
                 fun status(status: Status) = status(JsonField.of(status))
 
@@ -1262,12 +1347,14 @@ private constructor(
                         countryIso,
                         createdAt,
                         errorReason,
+                        excludeHeldNumbers,
                         nationalDestinationCode,
                         (orders ?: JsonMissing.of()).map { it.toImmutable() },
                         phoneNumberType,
                         phoneNumberContains,
                         phoneNumberEndsWith,
                         phoneNumberStartsWith,
+                        quickship,
                         status,
                         strategy,
                         updatedAt,
@@ -1288,12 +1375,14 @@ private constructor(
                 countryIso()
                 createdAt()
                 errorReason()
+                excludeHeldNumbers()
                 nationalDestinationCode()
                 orders().ifPresent { it.forEach { it.validate() } }
                 phoneNumberType()
                 phoneNumberContains()
                 phoneNumberEndsWith()
                 phoneNumberStartsWith()
+                quickship()
                 status().ifPresent { it.validate() }
                 strategy().ifPresent { it.validate() }
                 updatedAt()
@@ -1322,12 +1411,14 @@ private constructor(
                     (if (countryIso.asKnown().isPresent) 1 else 0) +
                     (if (createdAt.asKnown().isPresent) 1 else 0) +
                     (if (errorReason.asKnown().isPresent) 1 else 0) +
+                    (if (excludeHeldNumbers.asKnown().isPresent) 1 else 0) +
                     (if (nationalDestinationCode.asKnown().isPresent) 1 else 0) +
                     (orders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (phoneNumberType.asKnown().isPresent) 1 else 0) +
                     (if (phoneNumberContains.asKnown().isPresent) 1 else 0) +
                     (if (phoneNumberEndsWith.asKnown().isPresent) 1 else 0) +
                     (if (phoneNumberStartsWith.asKnown().isPresent) 1 else 0) +
+                    (if (quickship.asKnown().isPresent) 1 else 0) +
                     (status.asKnown().getOrNull()?.validity() ?: 0) +
                     (strategy.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (updatedAt.asKnown().isPresent) 1 else 0)
@@ -1862,12 +1953,14 @@ private constructor(
                     countryIso == other.countryIso &&
                     createdAt == other.createdAt &&
                     errorReason == other.errorReason &&
+                    excludeHeldNumbers == other.excludeHeldNumbers &&
                     nationalDestinationCode == other.nationalDestinationCode &&
                     orders == other.orders &&
                     phoneNumberType == other.phoneNumberType &&
                     phoneNumberContains == other.phoneNumberContains &&
                     phoneNumberEndsWith == other.phoneNumberEndsWith &&
                     phoneNumberStartsWith == other.phoneNumberStartsWith &&
+                    quickship == other.quickship &&
                     status == other.status &&
                     strategy == other.strategy &&
                     updatedAt == other.updatedAt &&
@@ -1882,12 +1975,14 @@ private constructor(
                     countryIso,
                     createdAt,
                     errorReason,
+                    excludeHeldNumbers,
                     nationalDestinationCode,
                     orders,
                     phoneNumberType,
                     phoneNumberContains,
                     phoneNumberEndsWith,
                     phoneNumberStartsWith,
+                    quickship,
                     status,
                     strategy,
                     updatedAt,
@@ -1898,7 +1993,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "OrderingGroup{administrativeArea=$administrativeArea, countAllocated=$countAllocated, countRequested=$countRequested, countryIso=$countryIso, createdAt=$createdAt, errorReason=$errorReason, nationalDestinationCode=$nationalDestinationCode, orders=$orders, phoneNumberType=$phoneNumberType, phoneNumberContains=$phoneNumberContains, phoneNumberEndsWith=$phoneNumberEndsWith, phoneNumberStartsWith=$phoneNumberStartsWith, status=$status, strategy=$strategy, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+                "OrderingGroup{administrativeArea=$administrativeArea, countAllocated=$countAllocated, countRequested=$countRequested, countryIso=$countryIso, createdAt=$createdAt, errorReason=$errorReason, excludeHeldNumbers=$excludeHeldNumbers, nationalDestinationCode=$nationalDestinationCode, orders=$orders, phoneNumberType=$phoneNumberType, phoneNumberContains=$phoneNumberContains, phoneNumberEndsWith=$phoneNumberEndsWith, phoneNumberStartsWith=$phoneNumberStartsWith, quickship=$quickship, status=$status, strategy=$strategy, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
