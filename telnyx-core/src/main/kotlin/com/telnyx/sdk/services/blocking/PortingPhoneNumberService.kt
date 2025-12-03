@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPage
 import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListResponse
 import java.util.function.Consumer
 
 interface PortingPhoneNumberService {
@@ -25,21 +25,21 @@ interface PortingPhoneNumberService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingPhoneNumberService
 
     /** Returns a list of your porting phone numbers. */
-    fun list(): PortingPhoneNumberListPage = list(PortingPhoneNumberListParams.none())
+    fun list(): PortingPhoneNumberListResponse = list(PortingPhoneNumberListParams.none())
 
     /** @see list */
     fun list(
         params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortingPhoneNumberListPage
+    ): PortingPhoneNumberListResponse
 
     /** @see list */
     fun list(
         params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none()
-    ): PortingPhoneNumberListPage = list(params, RequestOptions.none())
+    ): PortingPhoneNumberListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PortingPhoneNumberListPage =
+    fun list(requestOptions: RequestOptions): PortingPhoneNumberListResponse =
         list(PortingPhoneNumberListParams.none(), requestOptions)
 
     /**
@@ -62,7 +62,7 @@ interface PortingPhoneNumberService {
          * as [PortingPhoneNumberService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PortingPhoneNumberListPage> =
+        fun list(): HttpResponseFor<PortingPhoneNumberListResponse> =
             list(PortingPhoneNumberListParams.none())
 
         /** @see list */
@@ -70,17 +70,17 @@ interface PortingPhoneNumberService {
         fun list(
             params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortingPhoneNumberListPage>
+        ): HttpResponseFor<PortingPhoneNumberListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none()
-        ): HttpResponseFor<PortingPhoneNumberListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PortingPhoneNumberListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PortingPhoneNumberListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PortingPhoneNumberListResponse> =
             list(PortingPhoneNumberListParams.none(), requestOptions)
     }
 }

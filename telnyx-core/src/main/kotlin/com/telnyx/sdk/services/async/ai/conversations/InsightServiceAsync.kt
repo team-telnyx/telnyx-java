@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListPageAsync
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
@@ -111,21 +111,21 @@ interface InsightServiceAsync {
         update(insightId, InsightUpdateParams.none(), requestOptions)
 
     /** Get all insights */
-    fun list(): CompletableFuture<InsightListPageAsync> = list(InsightListParams.none())
+    fun list(): CompletableFuture<InsightListResponse> = list(InsightListParams.none())
 
     /** @see list */
     fun list(
         params: InsightListParams = InsightListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightListPageAsync>
+    ): CompletableFuture<InsightListResponse>
 
     /** @see list */
     fun list(
         params: InsightListParams = InsightListParams.none()
-    ): CompletableFuture<InsightListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<InsightListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<InsightListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<InsightListResponse> =
         list(InsightListParams.none(), requestOptions)
 
     /** Delete insight by ID */
@@ -275,25 +275,25 @@ interface InsightServiceAsync {
          * Returns a raw HTTP response for `get /ai/conversations/insights`, but is otherwise the
          * same as [InsightServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<InsightListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<InsightListResponse>> =
             list(InsightListParams.none())
 
         /** @see list */
         fun list(
             params: InsightListParams = InsightListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<InsightListResponse>>
 
         /** @see list */
         fun list(
             params: InsightListParams = InsightListParams.none()
-        ): CompletableFuture<HttpResponseFor<InsightListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InsightListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InsightListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InsightListResponse>> =
             list(InsightListParams.none(), requestOptions)
 
         /**

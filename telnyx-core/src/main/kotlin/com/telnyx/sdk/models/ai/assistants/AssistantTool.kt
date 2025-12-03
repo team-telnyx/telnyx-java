@@ -20,6 +20,7 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
@@ -43,8 +44,8 @@ private constructor(
     private val handoff: HandoffTool? = null,
     private val hangup: HangupTool? = null,
     private val transfer: TransferTool? = null,
-    private val refer: SipReferTool? = null,
-    private val sendDtmf: DtmfTool? = null,
+    private val sipRefer: SipReferTool? = null,
+    private val dtmf: DtmfTool? = null,
     private val _json: JsonValue? = null,
 ) {
 
@@ -62,9 +63,9 @@ private constructor(
 
     fun transfer(): Optional<TransferTool> = Optional.ofNullable(transfer)
 
-    fun refer(): Optional<SipReferTool> = Optional.ofNullable(refer)
+    fun sipRefer(): Optional<SipReferTool> = Optional.ofNullable(sipRefer)
 
-    fun sendDtmf(): Optional<DtmfTool> = Optional.ofNullable(sendDtmf)
+    fun dtmf(): Optional<DtmfTool> = Optional.ofNullable(dtmf)
 
     fun isWebhook(): Boolean = webhook != null
 
@@ -76,9 +77,9 @@ private constructor(
 
     fun isTransfer(): Boolean = transfer != null
 
-    fun isRefer(): Boolean = refer != null
+    fun isSipRefer(): Boolean = sipRefer != null
 
-    fun isSendDtmf(): Boolean = sendDtmf != null
+    fun isDtmf(): Boolean = dtmf != null
 
     fun asWebhook(): WebhookTool = webhook.getOrThrow("webhook")
 
@@ -94,9 +95,9 @@ private constructor(
 
     fun asTransfer(): TransferTool = transfer.getOrThrow("transfer")
 
-    fun asRefer(): SipReferTool = refer.getOrThrow("refer")
+    fun asSipRefer(): SipReferTool = sipRefer.getOrThrow("sipRefer")
 
-    fun asSendDtmf(): DtmfTool = sendDtmf.getOrThrow("sendDtmf")
+    fun asDtmf(): DtmfTool = dtmf.getOrThrow("dtmf")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -107,8 +108,8 @@ private constructor(
             handoff != null -> visitor.visitHandoff(handoff)
             hangup != null -> visitor.visitHangup(hangup)
             transfer != null -> visitor.visitTransfer(transfer)
-            refer != null -> visitor.visitRefer(refer)
-            sendDtmf != null -> visitor.visitSendDtmf(sendDtmf)
+            sipRefer != null -> visitor.visitSipRefer(sipRefer)
+            dtmf != null -> visitor.visitDtmf(dtmf)
             else -> visitor.unknown(_json)
         }
 
@@ -141,12 +142,12 @@ private constructor(
                     transfer.validate()
                 }
 
-                override fun visitRefer(refer: SipReferTool) {
-                    refer.validate()
+                override fun visitSipRefer(sipRefer: SipReferTool) {
+                    sipRefer.validate()
                 }
 
-                override fun visitSendDtmf(sendDtmf: DtmfTool) {
-                    sendDtmf.validate()
+                override fun visitDtmf(dtmf: DtmfTool) {
+                    dtmf.validate()
                 }
             }
         )
@@ -180,9 +181,9 @@ private constructor(
 
                 override fun visitTransfer(transfer: TransferTool) = transfer.validity()
 
-                override fun visitRefer(refer: SipReferTool) = refer.validity()
+                override fun visitSipRefer(sipRefer: SipReferTool) = sipRefer.validity()
 
-                override fun visitSendDtmf(sendDtmf: DtmfTool) = sendDtmf.validity()
+                override fun visitDtmf(dtmf: DtmfTool) = dtmf.validity()
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -199,12 +200,12 @@ private constructor(
             handoff == other.handoff &&
             hangup == other.hangup &&
             transfer == other.transfer &&
-            refer == other.refer &&
-            sendDtmf == other.sendDtmf
+            sipRefer == other.sipRefer &&
+            dtmf == other.dtmf
     }
 
     override fun hashCode(): Int =
-        Objects.hash(webhook, retrieval, handoff, hangup, transfer, refer, sendDtmf)
+        Objects.hash(webhook, retrieval, handoff, hangup, transfer, sipRefer, dtmf)
 
     override fun toString(): String =
         when {
@@ -213,8 +214,8 @@ private constructor(
             handoff != null -> "AssistantTool{handoff=$handoff}"
             hangup != null -> "AssistantTool{hangup=$hangup}"
             transfer != null -> "AssistantTool{transfer=$transfer}"
-            refer != null -> "AssistantTool{refer=$refer}"
-            sendDtmf != null -> "AssistantTool{sendDtmf=$sendDtmf}"
+            sipRefer != null -> "AssistantTool{sipRefer=$sipRefer}"
+            dtmf != null -> "AssistantTool{dtmf=$dtmf}"
             _json != null -> "AssistantTool{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid AssistantTool")
         }
@@ -235,9 +236,9 @@ private constructor(
 
         @JvmStatic fun ofTransfer(transfer: TransferTool) = AssistantTool(transfer = transfer)
 
-        @JvmStatic fun ofRefer(refer: SipReferTool) = AssistantTool(refer = refer)
+        @JvmStatic fun ofSipRefer(sipRefer: SipReferTool) = AssistantTool(sipRefer = sipRefer)
 
-        @JvmStatic fun ofSendDtmf(sendDtmf: DtmfTool) = AssistantTool(sendDtmf = sendDtmf)
+        @JvmStatic fun ofDtmf(dtmf: DtmfTool) = AssistantTool(dtmf = dtmf)
     }
 
     /**
@@ -259,9 +260,9 @@ private constructor(
 
         fun visitTransfer(transfer: TransferTool): T
 
-        fun visitRefer(refer: SipReferTool): T
+        fun visitSipRefer(sipRefer: SipReferTool): T
 
-        fun visitSendDtmf(sendDtmf: DtmfTool): T
+        fun visitDtmf(dtmf: DtmfTool): T
 
         /**
          * Maps an unknown variant of [AssistantTool] to a value of type [T].
@@ -281,47 +282,43 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): AssistantTool {
             val json = JsonValue.fromJsonNode(node)
-            val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-            when (type) {
-                "webhook" -> {
-                    return tryDeserialize(node, jacksonTypeRef<WebhookTool>())?.let {
-                        AssistantTool(webhook = it, _json = json)
-                    } ?: AssistantTool(_json = json)
-                }
-                "retrieval" -> {
-                    return tryDeserialize(node, jacksonTypeRef<RetrievalTool>())?.let {
-                        AssistantTool(retrieval = it, _json = json)
-                    } ?: AssistantTool(_json = json)
-                }
-                "handoff" -> {
-                    return tryDeserialize(node, jacksonTypeRef<HandoffTool>())?.let {
-                        AssistantTool(handoff = it, _json = json)
-                    } ?: AssistantTool(_json = json)
-                }
-                "hangup" -> {
-                    return tryDeserialize(node, jacksonTypeRef<HangupTool>())?.let {
-                        AssistantTool(hangup = it, _json = json)
-                    } ?: AssistantTool(_json = json)
-                }
-                "transfer" -> {
-                    return tryDeserialize(node, jacksonTypeRef<TransferTool>())?.let {
-                        AssistantTool(transfer = it, _json = json)
-                    } ?: AssistantTool(_json = json)
-                }
-                "refer" -> {
-                    return tryDeserialize(node, jacksonTypeRef<SipReferTool>())?.let {
-                        AssistantTool(refer = it, _json = json)
-                    } ?: AssistantTool(_json = json)
-                }
-                "send_dtmf" -> {
-                    return tryDeserialize(node, jacksonTypeRef<DtmfTool>())?.let {
-                        AssistantTool(sendDtmf = it, _json = json)
-                    } ?: AssistantTool(_json = json)
-                }
+            val bestMatches =
+                sequenceOf(
+                        tryDeserialize(node, jacksonTypeRef<WebhookTool>())?.let {
+                            AssistantTool(webhook = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<RetrievalTool>())?.let {
+                            AssistantTool(retrieval = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<HandoffTool>())?.let {
+                            AssistantTool(handoff = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<HangupTool>())?.let {
+                            AssistantTool(hangup = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<TransferTool>())?.let {
+                            AssistantTool(transfer = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<SipReferTool>())?.let {
+                            AssistantTool(sipRefer = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<DtmfTool>())?.let {
+                            AssistantTool(dtmf = it, _json = json)
+                        },
+                    )
+                    .filterNotNull()
+                    .allMaxBy { it.validity() }
+                    .toList()
+            return when (bestMatches.size) {
+                // This can happen if what we're deserializing is completely incompatible with all
+                // the possible variants (e.g. deserializing from boolean).
+                0 -> AssistantTool(_json = json)
+                1 -> bestMatches.single()
+                // If there's more than one match with the highest validity, then use the first
+                // completely valid match, or simply the first match if none are completely valid.
+                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
             }
-
-            return AssistantTool(_json = json)
         }
     }
 
@@ -338,8 +335,8 @@ private constructor(
                 value.handoff != null -> generator.writeObject(value.handoff)
                 value.hangup != null -> generator.writeObject(value.hangup)
                 value.transfer != null -> generator.writeObject(value.transfer)
-                value.refer != null -> generator.writeObject(value.refer)
-                value.sendDtmf != null -> generator.writeObject(value.sendDtmf)
+                value.sipRefer != null -> generator.writeObject(value.sipRefer)
+                value.dtmf != null -> generator.writeObject(value.dtmf)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid AssistantTool")
             }
@@ -354,14 +351,14 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val handoff: JsonField<Handoff>,
-        private val type: JsonValue,
+        private val type: JsonField<Type>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("handoff") @ExcludeMissing handoff: JsonField<Handoff> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         ) : this(handoff, type, mutableMapOf())
 
         /**
@@ -371,15 +368,10 @@ private constructor(
         fun handoff(): Handoff = handoff.getRequired("handoff")
 
         /**
-         * Expected to always return the following:
-         * ```java
-         * JsonValue.from("handoff")
-         * ```
-         *
-         * However, this method can be useful for debugging and logging (e.g. if the server
-         * responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+        fun type(): Type = type.getRequired("type")
 
         /**
          * Returns the raw JSON value of [handoff].
@@ -387,6 +379,13 @@ private constructor(
          * Unlike [handoff], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("handoff") @ExcludeMissing fun _handoff(): JsonField<Handoff> = handoff
+
+        /**
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -408,6 +407,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .handoff()
+             * .type()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -417,7 +417,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var handoff: JsonField<Handoff>? = null
-            private var type: JsonValue = JsonValue.from("handoff")
+            private var type: JsonField<Type>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -438,19 +438,16 @@ private constructor(
              */
             fun handoff(handoff: JsonField<Handoff>) = apply { this.handoff = handoff }
 
+            fun type(type: Type) = type(JsonField.of(type))
+
             /**
-             * Sets the field to an arbitrary JSON value.
+             * Sets [Builder.type] to an arbitrary JSON value.
              *
-             * It is usually unnecessary to call this method because the field defaults to the
-             * following:
-             * ```java
-             * JsonValue.from("handoff")
-             * ```
-             *
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun type(type: JsonValue) = apply { this.type = type }
+            fun type(type: JsonField<Type>) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -479,6 +476,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .handoff()
+             * .type()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -486,7 +484,7 @@ private constructor(
             fun build(): HandoffTool =
                 HandoffTool(
                     checkRequired("handoff", handoff),
-                    type,
+                    checkRequired("type", type),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -499,11 +497,7 @@ private constructor(
             }
 
             handoff().validate()
-            _type().let {
-                if (it != JsonValue.from("handoff")) {
-                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                }
-            }
+            type().validate()
             validated = true
         }
 
@@ -524,7 +518,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (handoff.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("handoff")) 1 else 0 }
+                (type.asKnown().getOrNull()?.validity() ?: 0)
 
         class Handoff
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1104,6 +1098,127 @@ private constructor(
                 "Handoff{aiAssistants=$aiAssistants, voiceMode=$voiceMode, additionalProperties=$additionalProperties}"
         }
 
+        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val HANDOFF = of("handoff")
+
+                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+            }
+
+            /** An enum containing [Type]'s known values. */
+            enum class Known {
+                HANDOFF
+            }
+
+            /**
+             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Type] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                HANDOFF,
+                /** An enum member indicating that [Type] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    HANDOFF -> Value.HANDOFF
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    HANDOFF -> Known.HANDOFF
+                    else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Type = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Type && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1127,14 +1242,14 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val refer: JsonField<Refer>,
-        private val type: JsonValue,
+        private val type: JsonField<Type>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("refer") @ExcludeMissing refer: JsonField<Refer> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         ) : this(refer, type, mutableMapOf())
 
         /**
@@ -1144,15 +1259,10 @@ private constructor(
         fun refer(): Refer = refer.getRequired("refer")
 
         /**
-         * Expected to always return the following:
-         * ```java
-         * JsonValue.from("refer")
-         * ```
-         *
-         * However, this method can be useful for debugging and logging (e.g. if the server
-         * responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+        fun type(): Type = type.getRequired("type")
 
         /**
          * Returns the raw JSON value of [refer].
@@ -1160,6 +1270,13 @@ private constructor(
          * Unlike [refer], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("refer") @ExcludeMissing fun _refer(): JsonField<Refer> = refer
+
+        /**
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1181,6 +1298,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .refer()
+             * .type()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1190,7 +1308,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var refer: JsonField<Refer>? = null
-            private var type: JsonValue = JsonValue.from("refer")
+            private var type: JsonField<Type>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1211,19 +1329,16 @@ private constructor(
              */
             fun refer(refer: JsonField<Refer>) = apply { this.refer = refer }
 
+            fun type(type: Type) = type(JsonField.of(type))
+
             /**
-             * Sets the field to an arbitrary JSON value.
+             * Sets [Builder.type] to an arbitrary JSON value.
              *
-             * It is usually unnecessary to call this method because the field defaults to the
-             * following:
-             * ```java
-             * JsonValue.from("refer")
-             * ```
-             *
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun type(type: JsonValue) = apply { this.type = type }
+            fun type(type: JsonField<Type>) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1252,6 +1367,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .refer()
+             * .type()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -1259,7 +1375,7 @@ private constructor(
             fun build(): SipReferTool =
                 SipReferTool(
                     checkRequired("refer", refer),
-                    type,
+                    checkRequired("type", type),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1272,11 +1388,7 @@ private constructor(
             }
 
             refer().validate()
-            _type().let {
-                if (it != JsonValue.from("refer")) {
-                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                }
-            }
+            type().validate()
             validated = true
         }
 
@@ -1297,7 +1409,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (refer.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("refer")) 1 else 0 }
+                (type.asKnown().getOrNull()?.validity() ?: 0)
 
         class Refer
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -2430,6 +2542,127 @@ private constructor(
                 "Refer{targets=$targets, customHeaders=$customHeaders, sipHeaders=$sipHeaders, additionalProperties=$additionalProperties}"
         }
 
+        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val REFER = of("refer")
+
+                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+            }
+
+            /** An enum containing [Type]'s known values. */
+            enum class Known {
+                REFER
+            }
+
+            /**
+             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Type] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                REFER,
+                /** An enum member indicating that [Type] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    REFER -> Value.REFER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    REFER -> Known.REFER
+                    else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Type = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Type && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -2453,7 +2686,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val sendDtmf: JsonField<SendDtmf>,
-        private val type: JsonValue,
+        private val type: JsonField<Type>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2462,7 +2695,7 @@ private constructor(
             @JsonProperty("send_dtmf")
             @ExcludeMissing
             sendDtmf: JsonField<SendDtmf> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         ) : this(sendDtmf, type, mutableMapOf())
 
         /**
@@ -2472,15 +2705,10 @@ private constructor(
         fun sendDtmf(): SendDtmf = sendDtmf.getRequired("send_dtmf")
 
         /**
-         * Expected to always return the following:
-         * ```java
-         * JsonValue.from("send_dtmf")
-         * ```
-         *
-         * However, this method can be useful for debugging and logging (e.g. if the server
-         * responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+        fun type(): Type = type.getRequired("type")
 
         /**
          * Returns the raw JSON value of [sendDtmf].
@@ -2488,6 +2716,13 @@ private constructor(
          * Unlike [sendDtmf], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("send_dtmf") @ExcludeMissing fun _sendDtmf(): JsonField<SendDtmf> = sendDtmf
+
+        /**
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2509,6 +2744,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .sendDtmf()
+             * .type()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -2518,7 +2754,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var sendDtmf: JsonField<SendDtmf>? = null
-            private var type: JsonValue = JsonValue.from("send_dtmf")
+            private var type: JsonField<Type>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -2539,19 +2775,16 @@ private constructor(
              */
             fun sendDtmf(sendDtmf: JsonField<SendDtmf>) = apply { this.sendDtmf = sendDtmf }
 
+            fun type(type: Type) = type(JsonField.of(type))
+
             /**
-             * Sets the field to an arbitrary JSON value.
+             * Sets [Builder.type] to an arbitrary JSON value.
              *
-             * It is usually unnecessary to call this method because the field defaults to the
-             * following:
-             * ```java
-             * JsonValue.from("send_dtmf")
-             * ```
-             *
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun type(type: JsonValue) = apply { this.type = type }
+            fun type(type: JsonField<Type>) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2580,6 +2813,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .sendDtmf()
+             * .type()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -2587,7 +2821,7 @@ private constructor(
             fun build(): DtmfTool =
                 DtmfTool(
                     checkRequired("sendDtmf", sendDtmf),
-                    type,
+                    checkRequired("type", type),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -2600,11 +2834,7 @@ private constructor(
             }
 
             sendDtmf().validate()
-            _type().let {
-                if (it != JsonValue.from("send_dtmf")) {
-                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                }
-            }
+            type().validate()
             validated = true
         }
 
@@ -2625,7 +2855,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (sendDtmf.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("send_dtmf")) 1 else 0 }
+                (type.asKnown().getOrNull()?.validity() ?: 0)
 
         class SendDtmf
         @JsonCreator
@@ -2727,6 +2957,127 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() = "SendDtmf{additionalProperties=$additionalProperties}"
+        }
+
+        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val SEND_DTMF = of("send_dtmf")
+
+                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+            }
+
+            /** An enum containing [Type]'s known values. */
+            enum class Known {
+                SEND_DTMF
+            }
+
+            /**
+             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Type] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                SEND_DTMF,
+                /** An enum member indicating that [Type] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    SEND_DTMF -> Value.SEND_DTMF
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    SEND_DTMF -> Known.SEND_DTMF
+                    else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Type = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Type && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
 
         override fun equals(other: Any?): Boolean {

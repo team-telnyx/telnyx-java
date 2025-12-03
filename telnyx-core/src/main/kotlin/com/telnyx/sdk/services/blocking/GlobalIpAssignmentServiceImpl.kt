@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentCreateParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentCreateResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentDeleteParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentDeleteResponse
-import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListPage
-import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListPageResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListParams
+import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentRetrieveParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentRetrieveResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentUpdateParams
@@ -66,7 +65,7 @@ class GlobalIpAssignmentServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: GlobalIpAssignmentListParams,
         requestOptions: RequestOptions,
-    ): GlobalIpAssignmentListPage =
+    ): GlobalIpAssignmentListResponse =
         // get /global_ip_assignments
         withRawResponse().list(params, requestOptions).parse()
 
@@ -157,7 +156,7 @@ class GlobalIpAssignmentServiceImpl internal constructor(private val clientOptio
         ): HttpResponseFor<GlobalIpAssignmentUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("globalIpAssignmentId", params.globalIpAssignmentId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -179,13 +178,13 @@ class GlobalIpAssignmentServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<GlobalIpAssignmentListPageResponse> =
-            jsonHandler<GlobalIpAssignmentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<GlobalIpAssignmentListResponse> =
+            jsonHandler<GlobalIpAssignmentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: GlobalIpAssignmentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<GlobalIpAssignmentListPage> {
+        ): HttpResponseFor<GlobalIpAssignmentListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -202,13 +201,6 @@ class GlobalIpAssignmentServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        GlobalIpAssignmentListPage.builder()
-                            .service(GlobalIpAssignmentServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

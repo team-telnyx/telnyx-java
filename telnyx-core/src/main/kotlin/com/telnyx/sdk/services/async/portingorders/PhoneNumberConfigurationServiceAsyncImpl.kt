@@ -17,9 +17,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateParams
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateResponse
-import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListPageAsync
-import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListPageResponse
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListParams
+import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -51,7 +50,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: PhoneNumberConfigurationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PhoneNumberConfigurationListPageAsync> =
+    ): CompletableFuture<PhoneNumberConfigurationListResponse> =
         // get /porting_orders/phone_number_configurations
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -99,13 +98,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<PhoneNumberConfigurationListPageResponse> =
-            jsonHandler<PhoneNumberConfigurationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhoneNumberConfigurationListResponse> =
+            jsonHandler<PhoneNumberConfigurationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhoneNumberConfigurationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -124,16 +123,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PhoneNumberConfigurationListPageAsync.builder()
-                                    .service(
-                                        PhoneNumberConfigurationServiceAsyncImpl(clientOptions)
-                                    )
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

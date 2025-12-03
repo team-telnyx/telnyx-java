@@ -15,16 +15,13 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.rooms.sessions.SessionList0PageAsync
-import com.telnyx.sdk.models.rooms.sessions.SessionList0PageResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionList0Params
-import com.telnyx.sdk.models.rooms.sessions.SessionList1PageAsync
-import com.telnyx.sdk.models.rooms.sessions.SessionList1PageResponse
+import com.telnyx.sdk.models.rooms.sessions.SessionList0Response
 import com.telnyx.sdk.models.rooms.sessions.SessionList1Params
+import com.telnyx.sdk.models.rooms.sessions.SessionList1Response
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParams
-import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsPageAsync
-import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsPageResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsParams
+import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveResponse
 import com.telnyx.sdk.services.async.rooms.sessions.ActionServiceAsync
 import com.telnyx.sdk.services.async.rooms.sessions.ActionServiceAsyncImpl
@@ -58,21 +55,21 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list0(
         params: SessionList0Params,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SessionList0PageAsync> =
+    ): CompletableFuture<SessionList0Response> =
         // get /room_sessions
         withRawResponse().list0(params, requestOptions).thenApply { it.parse() }
 
     override fun list1(
         params: SessionList1Params,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SessionList1PageAsync> =
+    ): CompletableFuture<SessionList1Response> =
         // get /rooms/{room_id}/sessions
         withRawResponse().list1(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieveParticipants(
         params: SessionRetrieveParticipantsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
+    ): CompletableFuture<SessionRetrieveParticipantsResponse> =
         // get /room_sessions/{room_session_id}/participants
         withRawResponse().retrieveParticipants(params, requestOptions).thenApply { it.parse() }
 
@@ -128,13 +125,13 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val list0Handler: Handler<SessionList0PageResponse> =
-            jsonHandler<SessionList0PageResponse>(clientOptions.jsonMapper)
+        private val list0Handler: Handler<SessionList0Response> =
+            jsonHandler<SessionList0Response>(clientOptions.jsonMapper)
 
         override fun list0(
             params: SessionList0Params,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SessionList0PageAsync>> {
+        ): CompletableFuture<HttpResponseFor<SessionList0Response>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -154,25 +151,17 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                     it.validate()
                                 }
                             }
-                            .let {
-                                SessionList0PageAsync.builder()
-                                    .service(SessionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
                     }
                 }
         }
 
-        private val list1Handler: Handler<SessionList1PageResponse> =
-            jsonHandler<SessionList1PageResponse>(clientOptions.jsonMapper)
+        private val list1Handler: Handler<SessionList1Response> =
+            jsonHandler<SessionList1Response>(clientOptions.jsonMapper)
 
         override fun list1(
             params: SessionList1Params,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SessionList1PageAsync>> {
+        ): CompletableFuture<HttpResponseFor<SessionList1Response>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("roomId", params.roomId().getOrNull())
@@ -195,25 +184,17 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                     it.validate()
                                 }
                             }
-                            .let {
-                                SessionList1PageAsync.builder()
-                                    .service(SessionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
                     }
                 }
         }
 
-        private val retrieveParticipantsHandler: Handler<SessionRetrieveParticipantsPageResponse> =
-            jsonHandler<SessionRetrieveParticipantsPageResponse>(clientOptions.jsonMapper)
+        private val retrieveParticipantsHandler: Handler<SessionRetrieveParticipantsResponse> =
+            jsonHandler<SessionRetrieveParticipantsResponse>(clientOptions.jsonMapper)
 
         override fun retrieveParticipants(
             params: SessionRetrieveParticipantsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("roomSessionId", params.roomSessionId().getOrNull())
@@ -235,14 +216,6 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                SessionRetrieveParticipantsPageAsync.builder()
-                                    .service(SessionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

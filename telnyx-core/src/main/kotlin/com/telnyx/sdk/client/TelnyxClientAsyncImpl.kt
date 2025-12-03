@@ -76,8 +76,8 @@ import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsyncImpl
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsyncImpl
-import com.telnyx.sdk.services.async.EnumerationServiceAsync
-import com.telnyx.sdk.services.async.EnumerationServiceAsyncImpl
+import com.telnyx.sdk.services.async.EnumServiceAsync
+import com.telnyx.sdk.services.async.EnumServiceAsyncImpl
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsync
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.FaxApplicationServiceAsync
@@ -495,9 +495,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         DynamicEmergencyEndpointServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val enumeration: EnumerationServiceAsync by lazy {
-        EnumerationServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
+    private val enum_: EnumServiceAsync by lazy { EnumServiceAsyncImpl(clientOptionsWithUserAgent) }
 
     private val externalConnections: ExternalConnectionServiceAsync by lazy {
         ExternalConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
@@ -1040,7 +1038,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync =
         dynamicEmergencyEndpoints
 
-    override fun enumeration(): EnumerationServiceAsync = enumeration
+    override fun enum_(): EnumServiceAsync = enum_
 
     override fun externalConnections(): ExternalConnectionServiceAsync = externalConnections
 
@@ -1470,8 +1468,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             DynamicEmergencyEndpointServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val enumeration: EnumerationServiceAsync.WithRawResponse by lazy {
-            EnumerationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val enum_: EnumServiceAsync.WithRawResponse by lazy {
+            EnumServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val externalConnections: ExternalConnectionServiceAsync.WithRawResponse by lazy {
@@ -2058,7 +2056,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun dynamicEmergencyEndpoints():
             DynamicEmergencyEndpointServiceAsync.WithRawResponse = dynamicEmergencyEndpoints
 
-        override fun enumeration(): EnumerationServiceAsync.WithRawResponse = enumeration
+        override fun enum_(): EnumServiceAsync.WithRawResponse = enum_
 
         override fun externalConnections(): ExternalConnectionServiceAsync.WithRawResponse =
             externalConnections

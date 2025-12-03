@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
+import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -90,9 +91,17 @@ internal class McpServerServiceTest {
                 .build()
         val mcpServerService = client.ai().mcpServers()
 
-        val page = mcpServerService.list()
+        val mcpServers =
+            mcpServerService.list(
+                McpServerListParams.builder()
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .type("type")
+                    .url("url")
+                    .build()
+            )
 
-        page.items().forEach { it.validate() }
+        mcpServers.forEach { it.validate() }
     }
 
     @Disabled("Prism tests are disabled")

@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotif
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationCreateResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationDeleteParams
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationDeleteResponse
-import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListPageAsync
-import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListPageResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListParams
+import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationRetrieveParams
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationRetrieveResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationUpdateParams
@@ -73,7 +72,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: SimCardDataUsageNotificationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SimCardDataUsageNotificationListPageAsync> =
+    ): CompletableFuture<SimCardDataUsageNotificationListResponse> =
         // get /sim_card_data_usage_notifications
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -170,10 +169,7 @@ internal constructor(private val clientOptions: ClientOptions) :
         ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationUpdateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired(
-                "simCardDataUsageNotificationId",
-                params.simCardDataUsageNotificationId().getOrNull(),
-            )
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -198,13 +194,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<SimCardDataUsageNotificationListPageResponse> =
-            jsonHandler<SimCardDataUsageNotificationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SimCardDataUsageNotificationListResponse> =
+            jsonHandler<SimCardDataUsageNotificationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SimCardDataUsageNotificationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -223,16 +219,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                SimCardDataUsageNotificationListPageAsync.builder()
-                                    .service(
-                                        SimCardDataUsageNotificationServiceAsyncImpl(clientOptions)
-                                    )
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

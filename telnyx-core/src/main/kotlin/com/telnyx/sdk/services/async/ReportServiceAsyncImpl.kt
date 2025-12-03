@@ -16,9 +16,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.reports.ReportListMdrsParams
 import com.telnyx.sdk.models.reports.ReportListMdrsResponse
-import com.telnyx.sdk.models.reports.ReportListWdrsPageAsync
-import com.telnyx.sdk.models.reports.ReportListWdrsPageResponse
 import com.telnyx.sdk.models.reports.ReportListWdrsParams
+import com.telnyx.sdk.models.reports.ReportListWdrsResponse
 import com.telnyx.sdk.services.async.reports.CdrUsageReportServiceAsync
 import com.telnyx.sdk.services.async.reports.CdrUsageReportServiceAsyncImpl
 import com.telnyx.sdk.services.async.reports.MdrUsageReportServiceAsync
@@ -60,7 +59,7 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun listWdrs(
         params: ReportListWdrsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ReportListWdrsPageAsync> =
+    ): CompletableFuture<ReportListWdrsResponse> =
         // get /reports/wdrs
         withRawResponse().listWdrs(params, requestOptions).thenApply { it.parse() }
 
@@ -119,13 +118,13 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listWdrsHandler: Handler<ReportListWdrsPageResponse> =
-            jsonHandler<ReportListWdrsPageResponse>(clientOptions.jsonMapper)
+        private val listWdrsHandler: Handler<ReportListWdrsResponse> =
+            jsonHandler<ReportListWdrsResponse>(clientOptions.jsonMapper)
 
         override fun listWdrs(
             params: ReportListWdrsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReportListWdrsPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ReportListWdrsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -144,14 +143,6 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ReportListWdrsPageAsync.builder()
-                                    .service(ReportServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

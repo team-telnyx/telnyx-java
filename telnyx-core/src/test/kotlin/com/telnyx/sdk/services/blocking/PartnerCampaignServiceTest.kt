@@ -4,6 +4,8 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListParams
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -59,9 +61,16 @@ internal class PartnerCampaignServiceTest {
                 .build()
         val partnerCampaignService = client.partnerCampaigns()
 
-        val page = partnerCampaignService.list()
+        val partnerCampaigns =
+            partnerCampaignService.list(
+                PartnerCampaignListParams.builder()
+                    .page(0L)
+                    .recordsPerPage(0L)
+                    .sort(PartnerCampaignListParams.Sort.ASSIGNED_PHONE_NUMBERS_COUNT)
+                    .build()
+            )
 
-        page.response().validate()
+        partnerCampaigns.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -74,9 +83,12 @@ internal class PartnerCampaignServiceTest {
                 .build()
         val partnerCampaignService = client.partnerCampaigns()
 
-        val page = partnerCampaignService.listSharedByMe()
+        val response =
+            partnerCampaignService.listSharedByMe(
+                PartnerCampaignListSharedByMeParams.builder().page(0L).recordsPerPage(0L).build()
+            )
 
-        page.response().validate()
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")

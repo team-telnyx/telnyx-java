@@ -22,9 +22,8 @@ import com.telnyx.sdk.models.simcards.actions.ActionDisableParams
 import com.telnyx.sdk.models.simcards.actions.ActionDisableResponse
 import com.telnyx.sdk.models.simcards.actions.ActionEnableParams
 import com.telnyx.sdk.models.simcards.actions.ActionEnableResponse
-import com.telnyx.sdk.models.simcards.actions.ActionListPageAsync
-import com.telnyx.sdk.models.simcards.actions.ActionListPageResponse
 import com.telnyx.sdk.models.simcards.actions.ActionListParams
+import com.telnyx.sdk.models.simcards.actions.ActionListResponse
 import com.telnyx.sdk.models.simcards.actions.ActionRemovePublicIpParams
 import com.telnyx.sdk.models.simcards.actions.ActionRemovePublicIpResponse
 import com.telnyx.sdk.models.simcards.actions.ActionRetrieveParams
@@ -61,7 +60,7 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: ActionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ActionListPageAsync> =
+    ): CompletableFuture<ActionListResponse> =
         // get /sim_card_actions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -160,13 +159,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<ActionListPageResponse> =
-            jsonHandler<ActionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ActionListResponse> =
+            jsonHandler<ActionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ActionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ActionListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ActionListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -185,14 +184,6 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ActionListPageAsync.builder()
-                                    .service(ActionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

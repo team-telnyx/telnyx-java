@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
+import com.telnyx.sdk.models.managedaccounts.ManagedAccountListParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateGlobalChannelLimitParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -84,9 +85,32 @@ internal class ManagedAccountServiceTest {
                 .build()
         val managedAccountService = client.managedAccounts()
 
-        val page = managedAccountService.list()
+        val managedAccounts =
+            managedAccountService.list(
+                ManagedAccountListParams.builder()
+                    .filter(
+                        ManagedAccountListParams.Filter.builder()
+                            .email(
+                                ManagedAccountListParams.Filter.Email.builder()
+                                    .contains("john")
+                                    .eq("eq")
+                                    .build()
+                            )
+                            .organizationName(
+                                ManagedAccountListParams.Filter.OrganizationName.builder()
+                                    .contains("contains")
+                                    .eq("Example Company LLC")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .includeCancelledAccounts(true)
+                    .page(ManagedAccountListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(ManagedAccountListParams.Sort.EMAIL)
+                    .build()
+            )
 
-        page.response().validate()
+        managedAccounts.validate()
     }
 
     @Disabled("Prism tests are disabled")

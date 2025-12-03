@@ -16,8 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportsParams
-import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportsResponse
+import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportParams
+import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportResponse
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingListParams
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingListResponse
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingOrderParams
@@ -47,12 +47,12 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
         // get /brand/{brandId}/externalVetting
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    override fun imports(
-        params: ExternalVettingImportsParams,
+    override fun import_(
+        params: ExternalVettingImportParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ExternalVettingImportsResponse> =
+    ): CompletableFuture<ExternalVettingImportResponse> =
         // put /brand/{brandId}/externalVetting
-        withRawResponse().imports(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().import_(params, requestOptions).thenApply { it.parse() }
 
     override fun order(
         params: ExternalVettingOrderParams,
@@ -107,13 +107,13 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                 }
         }
 
-        private val importsHandler: Handler<ExternalVettingImportsResponse> =
-            jsonHandler<ExternalVettingImportsResponse>(clientOptions.jsonMapper)
+        private val importHandler: Handler<ExternalVettingImportResponse> =
+            jsonHandler<ExternalVettingImportResponse>(clientOptions.jsonMapper)
 
-        override fun imports(
-            params: ExternalVettingImportsParams,
+        override fun import_(
+            params: ExternalVettingImportParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>> {
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("brandId", params.brandId().getOrNull())
@@ -131,7 +131,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { importsHandler.handle(it) }
+                            .use { importHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

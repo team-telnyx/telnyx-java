@@ -18,12 +18,10 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
 import com.telnyx.sdk.models.conferences.ConferenceCreateResponse
-import com.telnyx.sdk.models.conferences.ConferenceListPageAsync
-import com.telnyx.sdk.models.conferences.ConferenceListPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParams
-import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageAsync
-import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
+import com.telnyx.sdk.models.conferences.ConferenceListParticipantsResponse
+import com.telnyx.sdk.models.conferences.ConferenceListResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.services.async.conferences.ActionServiceAsync
@@ -65,14 +63,14 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: ConferenceListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceListPageAsync> =
+    ): CompletableFuture<ConferenceListResponse> =
         // get /conferences
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun listParticipants(
         params: ConferenceListParticipantsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceListParticipantsPageAsync> =
+    ): CompletableFuture<ConferenceListParticipantsResponse> =
         // get /conferences/{conference_id}/participants
         withRawResponse().listParticipants(params, requestOptions).thenApply { it.parse() }
 
@@ -159,13 +157,13 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val listHandler: Handler<ConferenceListPageResponse> =
-            jsonHandler<ConferenceListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ConferenceListResponse> =
+            jsonHandler<ConferenceListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ConferenceListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ConferenceListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -185,25 +183,17 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                                     it.validate()
                                 }
                             }
-                            .let {
-                                ConferenceListPageAsync.builder()
-                                    .service(ConferenceServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
                     }
                 }
         }
 
-        private val listParticipantsHandler: Handler<ConferenceListParticipantsPageResponse> =
-            jsonHandler<ConferenceListParticipantsPageResponse>(clientOptions.jsonMapper)
+        private val listParticipantsHandler: Handler<ConferenceListParticipantsResponse> =
+            jsonHandler<ConferenceListParticipantsResponse>(clientOptions.jsonMapper)
 
         override fun listParticipants(
             params: ConferenceListParticipantsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conferenceId", params.conferenceId().getOrNull())
@@ -225,14 +215,6 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ConferenceListParticipantsPageAsync.builder()
-                                    .service(ConferenceServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

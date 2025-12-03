@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateParam
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteResponse
-import com.telnyx.sdk.models.notificationchannels.NotificationChannelListPageAsync
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelListParams
+import com.telnyx.sdk.models.notificationchannels.NotificationChannelListResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelUpdateParams
@@ -112,21 +112,18 @@ interface NotificationChannelServiceAsync {
 
     /** Update a notification channel. */
     fun update(
-        notificationChannelId: String,
+        pathId: String,
         params: NotificationChannelUpdateParams,
     ): CompletableFuture<NotificationChannelUpdateResponse> =
-        update(notificationChannelId, params, RequestOptions.none())
+        update(pathId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        notificationChannelId: String,
+        pathId: String,
         params: NotificationChannelUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<NotificationChannelUpdateResponse> =
-        update(
-            params.toBuilder().notificationChannelId(notificationChannelId).build(),
-            requestOptions,
-        )
+        update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
     /** @see update */
     fun update(
@@ -140,22 +137,22 @@ interface NotificationChannelServiceAsync {
     ): CompletableFuture<NotificationChannelUpdateResponse>
 
     /** List notification channels. */
-    fun list(): CompletableFuture<NotificationChannelListPageAsync> =
+    fun list(): CompletableFuture<NotificationChannelListResponse> =
         list(NotificationChannelListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationChannelListParams = NotificationChannelListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NotificationChannelListPageAsync>
+    ): CompletableFuture<NotificationChannelListResponse>
 
     /** @see list */
     fun list(
         params: NotificationChannelListParams = NotificationChannelListParams.none()
-    ): CompletableFuture<NotificationChannelListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<NotificationChannelListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NotificationChannelListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NotificationChannelListResponse> =
         list(NotificationChannelListParams.none(), requestOptions)
 
     /** Delete a notification channel. */
@@ -301,21 +298,18 @@ interface NotificationChannelServiceAsync {
          * same as [NotificationChannelServiceAsync.update].
          */
         fun update(
-            notificationChannelId: String,
+            pathId: String,
             params: NotificationChannelUpdateParams,
         ): CompletableFuture<HttpResponseFor<NotificationChannelUpdateResponse>> =
-            update(notificationChannelId, params, RequestOptions.none())
+            update(pathId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            notificationChannelId: String,
+            pathId: String,
             params: NotificationChannelUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<NotificationChannelUpdateResponse>> =
-            update(
-                params.toBuilder().notificationChannelId(notificationChannelId).build(),
-                requestOptions,
-            )
+            update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -333,25 +327,25 @@ interface NotificationChannelServiceAsync {
          * Returns a raw HTTP response for `get /notification_channels`, but is otherwise the same
          * as [NotificationChannelServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NotificationChannelListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<NotificationChannelListResponse>> =
             list(NotificationChannelListParams.none())
 
         /** @see list */
         fun list(
             params: NotificationChannelListParams = NotificationChannelListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NotificationChannelListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<NotificationChannelListResponse>>
 
         /** @see list */
         fun list(
             params: NotificationChannelListParams = NotificationChannelListParams.none()
-        ): CompletableFuture<HttpResponseFor<NotificationChannelListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NotificationChannelListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NotificationChannelListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NotificationChannelListResponse>> =
             list(NotificationChannelListParams.none(), requestOptions)
 
         /**

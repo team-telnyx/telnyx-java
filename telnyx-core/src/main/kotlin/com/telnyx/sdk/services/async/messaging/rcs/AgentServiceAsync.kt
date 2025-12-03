@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.messaging.rcs
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPageAsync
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListResponse
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentRetrieveParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
 import com.telnyx.sdk.models.rcsagents.RcsAgentResponse
@@ -92,21 +92,21 @@ interface AgentServiceAsync {
         update(id, AgentUpdateParams.none(), requestOptions)
 
     /** List all RCS agents */
-    fun list(): CompletableFuture<AgentListPageAsync> = list(AgentListParams.none())
+    fun list(): CompletableFuture<AgentListResponse> = list(AgentListParams.none())
 
     /** @see list */
     fun list(
         params: AgentListParams = AgentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AgentListPageAsync>
+    ): CompletableFuture<AgentListResponse>
 
     /** @see list */
     fun list(
         params: AgentListParams = AgentListParams.none()
-    ): CompletableFuture<AgentListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<AgentListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AgentListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AgentListResponse> =
         list(AgentListParams.none(), requestOptions)
 
     /** A view of [AgentServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -207,25 +207,25 @@ interface AgentServiceAsync {
          * Returns a raw HTTP response for `get /messaging/rcs/agents`, but is otherwise the same as
          * [AgentServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AgentListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<AgentListResponse>> =
             list(AgentListParams.none())
 
         /** @see list */
         fun list(
             params: AgentListParams = AgentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AgentListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<AgentListResponse>>
 
         /** @see list */
         fun list(
             params: AgentListParams = AgentListParams.none()
-        ): CompletableFuture<HttpResponseFor<AgentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AgentListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AgentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AgentListResponse>> =
             list(AgentListParams.none(), requestOptions)
     }
 }

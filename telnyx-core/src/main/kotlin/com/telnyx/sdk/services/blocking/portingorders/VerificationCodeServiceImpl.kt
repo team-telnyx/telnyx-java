@@ -17,9 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPage
-import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPageResponse
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListParams
+import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListResponse
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeSendParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyResponse
@@ -41,7 +40,7 @@ class VerificationCodeServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: VerificationCodeListParams,
         requestOptions: RequestOptions,
-    ): VerificationCodeListPage =
+    ): VerificationCodeListResponse =
         // get /porting_orders/{id}/verification_codes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -70,13 +69,13 @@ class VerificationCodeServiceImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<VerificationCodeListPageResponse> =
-            jsonHandler<VerificationCodeListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VerificationCodeListResponse> =
+            jsonHandler<VerificationCodeListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VerificationCodeListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VerificationCodeListPage> {
+        ): HttpResponseFor<VerificationCodeListResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -96,13 +95,6 @@ class VerificationCodeServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        VerificationCodeListPage.builder()
-                            .service(VerificationCodeServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

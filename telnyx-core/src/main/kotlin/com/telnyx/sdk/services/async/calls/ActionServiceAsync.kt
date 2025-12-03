@@ -148,21 +148,18 @@ interface ActionServiceAsync {
      * - `call.bridged` for Leg B
      */
     fun bridge(
-        callControlIdToBridge: String,
+        pathCallControlId: String,
         params: ActionBridgeParams,
     ): CompletableFuture<ActionBridgeResponse> =
-        bridge(callControlIdToBridge, params, RequestOptions.none())
+        bridge(pathCallControlId, params, RequestOptions.none())
 
     /** @see bridge */
     fun bridge(
-        callControlIdToBridge: String,
+        pathCallControlId: String,
         params: ActionBridgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionBridgeResponse> =
-        bridge(
-            params.toBuilder().callControlIdToBridge(callControlIdToBridge).build(),
-            requestOptions,
-        )
+        bridge(params.toBuilder().pathCallControlId(pathCallControlId).build(), requestOptions)
 
     /** @see bridge */
     fun bridge(params: ActionBridgeParams): CompletableFuture<ActionBridgeResponse> =
@@ -1556,21 +1553,18 @@ interface ActionServiceAsync {
          * otherwise the same as [ActionServiceAsync.bridge].
          */
         fun bridge(
-            callControlIdToBridge: String,
+            pathCallControlId: String,
             params: ActionBridgeParams,
         ): CompletableFuture<HttpResponseFor<ActionBridgeResponse>> =
-            bridge(callControlIdToBridge, params, RequestOptions.none())
+            bridge(pathCallControlId, params, RequestOptions.none())
 
         /** @see bridge */
         fun bridge(
-            callControlIdToBridge: String,
+            pathCallControlId: String,
             params: ActionBridgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ActionBridgeResponse>> =
-            bridge(
-                params.toBuilder().callControlIdToBridge(callControlIdToBridge).build(),
-                requestOptions,
-            )
+            bridge(params.toBuilder().pathCallControlId(pathCallControlId).build(), requestOptions)
 
         /** @see bridge */
         fun bridge(

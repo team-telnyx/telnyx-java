@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.auditevents.AuditEventListPageAsync
-import com.telnyx.sdk.models.auditevents.AuditEventListPageResponse
 import com.telnyx.sdk.models.auditevents.AuditEventListParams
+import com.telnyx.sdk.models.auditevents.AuditEventListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,7 +34,7 @@ class AuditEventServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: AuditEventListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AuditEventListPageAsync> =
+    ): CompletableFuture<AuditEventListResponse> =
         // get /audit_events
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -52,13 +51,13 @@ class AuditEventServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<AuditEventListPageResponse> =
-            jsonHandler<AuditEventListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AuditEventListResponse> =
+            jsonHandler<AuditEventListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AuditEventListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AuditEventListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<AuditEventListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -77,14 +76,6 @@ class AuditEventServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                AuditEventListPageAsync.builder()
-                                    .service(AuditEventServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

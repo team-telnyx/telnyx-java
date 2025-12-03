@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.channelzones.ChannelZoneListPage
 import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
+import com.telnyx.sdk.models.channelzones.ChannelZoneListResponse
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
 import java.util.function.Consumer
@@ -58,20 +58,21 @@ interface ChannelZoneService {
      * href="https://support.telnyx.com/en/articles/8428806-global-channel-billing">Telnyx Support
      * Articles</a> section for full information and examples of how to utilize Channel Billing.
      */
-    fun list(): ChannelZoneListPage = list(ChannelZoneListParams.none())
+    fun list(): ChannelZoneListResponse = list(ChannelZoneListParams.none())
 
     /** @see list */
     fun list(
         params: ChannelZoneListParams = ChannelZoneListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ChannelZoneListPage
+    ): ChannelZoneListResponse
 
     /** @see list */
-    fun list(params: ChannelZoneListParams = ChannelZoneListParams.none()): ChannelZoneListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: ChannelZoneListParams = ChannelZoneListParams.none()
+    ): ChannelZoneListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ChannelZoneListPage =
+    fun list(requestOptions: RequestOptions): ChannelZoneListResponse =
         list(ChannelZoneListParams.none(), requestOptions)
 
     /**
@@ -125,24 +126,24 @@ interface ChannelZoneService {
          * [ChannelZoneService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<ChannelZoneListPage> = list(ChannelZoneListParams.none())
+        fun list(): HttpResponseFor<ChannelZoneListResponse> = list(ChannelZoneListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ChannelZoneListParams = ChannelZoneListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ChannelZoneListPage>
+        ): HttpResponseFor<ChannelZoneListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ChannelZoneListParams = ChannelZoneListParams.none()
-        ): HttpResponseFor<ChannelZoneListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ChannelZoneListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ChannelZoneListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ChannelZoneListResponse> =
             list(ChannelZoneListParams.none(), requestOptions)
     }
 }

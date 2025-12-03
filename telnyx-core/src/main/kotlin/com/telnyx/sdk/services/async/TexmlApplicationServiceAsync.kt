@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteResponse
-import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListPageAsync
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListParams
+import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateParams
@@ -106,22 +106,22 @@ interface TexmlApplicationServiceAsync {
     ): CompletableFuture<TexmlApplicationUpdateResponse>
 
     /** Returns a list of your TeXML Applications. */
-    fun list(): CompletableFuture<TexmlApplicationListPageAsync> =
+    fun list(): CompletableFuture<TexmlApplicationListResponse> =
         list(TexmlApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: TexmlApplicationListParams = TexmlApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TexmlApplicationListPageAsync>
+    ): CompletableFuture<TexmlApplicationListResponse>
 
     /** @see list */
     fun list(
         params: TexmlApplicationListParams = TexmlApplicationListParams.none()
-    ): CompletableFuture<TexmlApplicationListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<TexmlApplicationListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<TexmlApplicationListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<TexmlApplicationListResponse> =
         list(TexmlApplicationListParams.none(), requestOptions)
 
     /** Deletes a TeXML Application. */
@@ -267,25 +267,25 @@ interface TexmlApplicationServiceAsync {
          * Returns a raw HTTP response for `get /texml_applications`, but is otherwise the same as
          * [TexmlApplicationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<TexmlApplicationListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<TexmlApplicationListResponse>> =
             list(TexmlApplicationListParams.none())
 
         /** @see list */
         fun list(
             params: TexmlApplicationListParams = TexmlApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TexmlApplicationListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<TexmlApplicationListResponse>>
 
         /** @see list */
         fun list(
             params: TexmlApplicationListParams = TexmlApplicationListParams.none()
-        ): CompletableFuture<HttpResponseFor<TexmlApplicationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TexmlApplicationListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TexmlApplicationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TexmlApplicationListResponse>> =
             list(TexmlApplicationListParams.none(), requestOptions)
 
         /**

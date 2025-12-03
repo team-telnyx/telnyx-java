@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentCreateParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentCreateResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentDeleteParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentDeleteResponse
-import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListPage
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListParams
+import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentRetrieveParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentRetrieveResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentUpdateParams
@@ -90,26 +90,22 @@ interface GlobalIpAssignmentService {
         retrieve(id, GlobalIpAssignmentRetrieveParams.none(), requestOptions)
 
     /** Update a Global IP assignment. */
-    fun update(globalIpAssignmentId: String): GlobalIpAssignmentUpdateResponse =
-        update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none())
+    fun update(pathId: String): GlobalIpAssignmentUpdateResponse =
+        update(pathId, GlobalIpAssignmentUpdateParams.none())
 
     /** @see update */
     fun update(
-        globalIpAssignmentId: String,
+        pathId: String,
         params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): GlobalIpAssignmentUpdateResponse =
-        update(
-            params.toBuilder().globalIpAssignmentId(globalIpAssignmentId).build(),
-            requestOptions,
-        )
+        update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
     /** @see update */
     fun update(
-        globalIpAssignmentId: String,
+        pathId: String,
         params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
-    ): GlobalIpAssignmentUpdateResponse =
-        update(globalIpAssignmentId, params, RequestOptions.none())
+    ): GlobalIpAssignmentUpdateResponse = update(pathId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
@@ -122,28 +118,25 @@ interface GlobalIpAssignmentService {
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(
-        globalIpAssignmentId: String,
-        requestOptions: RequestOptions,
-    ): GlobalIpAssignmentUpdateResponse =
-        update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
+    fun update(pathId: String, requestOptions: RequestOptions): GlobalIpAssignmentUpdateResponse =
+        update(pathId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
 
     /** List all Global IP assignments. */
-    fun list(): GlobalIpAssignmentListPage = list(GlobalIpAssignmentListParams.none())
+    fun list(): GlobalIpAssignmentListResponse = list(GlobalIpAssignmentListParams.none())
 
     /** @see list */
     fun list(
         params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): GlobalIpAssignmentListPage
+    ): GlobalIpAssignmentListResponse
 
     /** @see list */
     fun list(
         params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none()
-    ): GlobalIpAssignmentListPage = list(params, RequestOptions.none())
+    ): GlobalIpAssignmentListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): GlobalIpAssignmentListPage =
+    fun list(requestOptions: RequestOptions): GlobalIpAssignmentListResponse =
         list(GlobalIpAssignmentListParams.none(), requestOptions)
 
     /** Delete a Global IP assignment. */
@@ -280,30 +273,25 @@ interface GlobalIpAssignmentService {
          * same as [GlobalIpAssignmentService.update].
          */
         @MustBeClosed
-        fun update(
-            globalIpAssignmentId: String
-        ): HttpResponseFor<GlobalIpAssignmentUpdateResponse> =
-            update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none())
+        fun update(pathId: String): HttpResponseFor<GlobalIpAssignmentUpdateResponse> =
+            update(pathId, GlobalIpAssignmentUpdateParams.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            globalIpAssignmentId: String,
+            pathId: String,
             params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<GlobalIpAssignmentUpdateResponse> =
-            update(
-                params.toBuilder().globalIpAssignmentId(globalIpAssignmentId).build(),
-                requestOptions,
-            )
+            update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         fun update(
-            globalIpAssignmentId: String,
+            pathId: String,
             params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
         ): HttpResponseFor<GlobalIpAssignmentUpdateResponse> =
-            update(globalIpAssignmentId, params, RequestOptions.none())
+            update(pathId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -321,17 +309,17 @@ interface GlobalIpAssignmentService {
         /** @see update */
         @MustBeClosed
         fun update(
-            globalIpAssignmentId: String,
+            pathId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<GlobalIpAssignmentUpdateResponse> =
-            update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
+            update(pathId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /global_ip_assignments`, but is otherwise the same
          * as [GlobalIpAssignmentService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<GlobalIpAssignmentListPage> =
+        fun list(): HttpResponseFor<GlobalIpAssignmentListResponse> =
             list(GlobalIpAssignmentListParams.none())
 
         /** @see list */
@@ -339,17 +327,17 @@ interface GlobalIpAssignmentService {
         fun list(
             params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<GlobalIpAssignmentListPage>
+        ): HttpResponseFor<GlobalIpAssignmentListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none()
-        ): HttpResponseFor<GlobalIpAssignmentListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<GlobalIpAssignmentListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<GlobalIpAssignmentListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<GlobalIpAssignmentListResponse> =
             list(GlobalIpAssignmentListParams.none(), requestOptions)
 
         /**

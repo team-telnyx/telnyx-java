@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListPage
 import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListParams
+import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListResponse
 import java.util.function.Consumer
 
 interface MessagingOptoutService {
@@ -25,21 +25,21 @@ interface MessagingOptoutService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingOptoutService
 
     /** Retrieve a list of opt-out blocks. */
-    fun list(): MessagingOptoutListPage = list(MessagingOptoutListParams.none())
+    fun list(): MessagingOptoutListResponse = list(MessagingOptoutListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingOptoutListParams = MessagingOptoutListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingOptoutListPage
+    ): MessagingOptoutListResponse
 
     /** @see list */
     fun list(
         params: MessagingOptoutListParams = MessagingOptoutListParams.none()
-    ): MessagingOptoutListPage = list(params, RequestOptions.none())
+    ): MessagingOptoutListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MessagingOptoutListPage =
+    fun list(requestOptions: RequestOptions): MessagingOptoutListResponse =
         list(MessagingOptoutListParams.none(), requestOptions)
 
     /**
@@ -62,7 +62,7 @@ interface MessagingOptoutService {
          * [MessagingOptoutService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MessagingOptoutListPage> =
+        fun list(): HttpResponseFor<MessagingOptoutListResponse> =
             list(MessagingOptoutListParams.none())
 
         /** @see list */
@@ -70,17 +70,17 @@ interface MessagingOptoutService {
         fun list(
             params: MessagingOptoutListParams = MessagingOptoutListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingOptoutListPage>
+        ): HttpResponseFor<MessagingOptoutListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingOptoutListParams = MessagingOptoutListParams.none()
-        ): HttpResponseFor<MessagingOptoutListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MessagingOptoutListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingOptoutListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingOptoutListResponse> =
             list(MessagingOptoutListParams.none(), requestOptions)
     }
 }

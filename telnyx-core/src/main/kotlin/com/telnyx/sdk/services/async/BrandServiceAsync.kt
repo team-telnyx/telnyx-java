@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandDeleteParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackResponse
-import com.telnyx.sdk.models.brand.BrandListPageAsync
 import com.telnyx.sdk.models.brand.BrandListParams
+import com.telnyx.sdk.models.brand.BrandListResponse
 import com.telnyx.sdk.models.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.brand.BrandRetrieveResponse
@@ -111,21 +111,21 @@ interface BrandServiceAsync {
     ): CompletableFuture<TelnyxBrand>
 
     /** This endpoint is used to list all brands associated with your organization. */
-    fun list(): CompletableFuture<BrandListPageAsync> = list(BrandListParams.none())
+    fun list(): CompletableFuture<BrandListResponse> = list(BrandListParams.none())
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandListPageAsync>
+    ): CompletableFuture<BrandListResponse>
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none()
-    ): CompletableFuture<BrandListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<BrandListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<BrandListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<BrandListResponse> =
         list(BrandListParams.none(), requestOptions)
 
     /**
@@ -379,25 +379,25 @@ interface BrandServiceAsync {
          * Returns a raw HTTP response for `get /brand`, but is otherwise the same as
          * [BrandServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<BrandListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<BrandListResponse>> =
             list(BrandListParams.none())
 
         /** @see list */
         fun list(
             params: BrandListParams = BrandListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<BrandListResponse>>
 
         /** @see list */
         fun list(
             params: BrandListParams = BrandListParams.none()
-        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<BrandListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<BrandListResponse>> =
             list(BrandListParams.none(), requestOptions)
 
         /**

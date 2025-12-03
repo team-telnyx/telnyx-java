@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeleteParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageAsync
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -108,22 +108,22 @@ interface LoaConfigurationServiceAsync {
     ): CompletableFuture<LoaConfigurationUpdateResponse>
 
     /** List the LOA configurations. */
-    fun list(): CompletableFuture<LoaConfigurationListPageAsync> =
+    fun list(): CompletableFuture<LoaConfigurationListResponse> =
         list(LoaConfigurationListParams.none())
 
     /** @see list */
     fun list(
         params: LoaConfigurationListParams = LoaConfigurationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<LoaConfigurationListPageAsync>
+    ): CompletableFuture<LoaConfigurationListResponse>
 
     /** @see list */
     fun list(
         params: LoaConfigurationListParams = LoaConfigurationListParams.none()
-    ): CompletableFuture<LoaConfigurationListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<LoaConfigurationListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<LoaConfigurationListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<LoaConfigurationListResponse> =
         list(LoaConfigurationListParams.none(), requestOptions)
 
     /** Delete a specific LOA configuration. */
@@ -307,25 +307,25 @@ interface LoaConfigurationServiceAsync {
          * Returns a raw HTTP response for `get /porting/loa_configurations`, but is otherwise the
          * same as [LoaConfigurationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<LoaConfigurationListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<LoaConfigurationListResponse>> =
             list(LoaConfigurationListParams.none())
 
         /** @see list */
         fun list(
             params: LoaConfigurationListParams = LoaConfigurationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<LoaConfigurationListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<LoaConfigurationListResponse>>
 
         /** @see list */
         fun list(
             params: LoaConfigurationListParams = LoaConfigurationListParams.none()
-        ): CompletableFuture<HttpResponseFor<LoaConfigurationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<LoaConfigurationListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<LoaConfigurationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<LoaConfigurationListResponse>> =
             list(LoaConfigurationListParams.none(), requestOptions)
 
         /**

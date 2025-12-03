@@ -21,9 +21,8 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterListPageAsync
-import com.telnyx.sdk.models.ai.clusters.ClusterListPageResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
+import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -52,7 +51,7 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: ClusterListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ClusterListPageAsync> =
+    ): CompletableFuture<ClusterListResponse> =
         // get /ai/clusters
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -123,13 +122,13 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<ClusterListPageResponse> =
-            jsonHandler<ClusterListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ClusterListResponse> =
+            jsonHandler<ClusterListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ClusterListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ClusterListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ClusterListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -148,14 +147,6 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ClusterListPageAsync.builder()
-                                    .service(ClusterServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

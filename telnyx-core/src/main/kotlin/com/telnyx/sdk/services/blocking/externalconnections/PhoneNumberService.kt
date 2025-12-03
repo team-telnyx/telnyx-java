@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListParams
+import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListResponse
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateParams
@@ -78,33 +78,33 @@ interface PhoneNumberService {
     ): PhoneNumberUpdateResponse
 
     /** Returns a list of all active phone numbers associated with the given external connection. */
-    fun list(id: String): PhoneNumberListPage = list(id, PhoneNumberListParams.none())
+    fun list(id: String): PhoneNumberListResponse = list(id, PhoneNumberListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: PhoneNumberListParams = PhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberListPage = list(params.toBuilder().id(id).build(), requestOptions)
+    ): PhoneNumberListResponse = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: PhoneNumberListParams = PhoneNumberListParams.none(),
-    ): PhoneNumberListPage = list(id, params, RequestOptions.none())
+    ): PhoneNumberListResponse = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberListPage
+    ): PhoneNumberListResponse
 
     /** @see list */
-    fun list(params: PhoneNumberListParams): PhoneNumberListPage =
+    fun list(params: PhoneNumberListParams): PhoneNumberListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): PhoneNumberListPage =
+    fun list(id: String, requestOptions: RequestOptions): PhoneNumberListResponse =
         list(id, PhoneNumberListParams.none(), requestOptions)
 
     /**
@@ -193,7 +193,7 @@ interface PhoneNumberService {
          * otherwise the same as [PhoneNumberService.list].
          */
         @MustBeClosed
-        fun list(id: String): HttpResponseFor<PhoneNumberListPage> =
+        fun list(id: String): HttpResponseFor<PhoneNumberListResponse> =
             list(id, PhoneNumberListParams.none())
 
         /** @see list */
@@ -202,7 +202,7 @@ interface PhoneNumberService {
             id: String,
             params: PhoneNumberListParams = PhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberListPage> =
+        ): HttpResponseFor<PhoneNumberListResponse> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
@@ -210,23 +210,26 @@ interface PhoneNumberService {
         fun list(
             id: String,
             params: PhoneNumberListParams = PhoneNumberListParams.none(),
-        ): HttpResponseFor<PhoneNumberListPage> = list(id, params, RequestOptions.none())
+        ): HttpResponseFor<PhoneNumberListResponse> = list(id, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhoneNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberListPage>
+        ): HttpResponseFor<PhoneNumberListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: PhoneNumberListParams): HttpResponseFor<PhoneNumberListPage> =
+        fun list(params: PhoneNumberListParams): HttpResponseFor<PhoneNumberListResponse> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(id: String, requestOptions: RequestOptions): HttpResponseFor<PhoneNumberListPage> =
+        fun list(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhoneNumberListResponse> =
             list(id, PhoneNumberListParams.none(), requestOptions)
     }
 }

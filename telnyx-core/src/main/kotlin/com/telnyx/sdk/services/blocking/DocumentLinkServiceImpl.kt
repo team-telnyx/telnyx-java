@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.documentlinks.DocumentLinkListPage
-import com.telnyx.sdk.models.documentlinks.DocumentLinkListPageResponse
 import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
+import com.telnyx.sdk.models.documentlinks.DocumentLinkListResponse
 import java.util.function.Consumer
 
 class DocumentLinkServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,7 +33,7 @@ class DocumentLinkServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: DocumentLinkListParams,
         requestOptions: RequestOptions,
-    ): DocumentLinkListPage =
+    ): DocumentLinkListResponse =
         // get /document_links
         withRawResponse().list(params, requestOptions).parse()
 
@@ -51,13 +50,13 @@ class DocumentLinkServiceImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<DocumentLinkListPageResponse> =
-            jsonHandler<DocumentLinkListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentLinkListResponse> =
+            jsonHandler<DocumentLinkListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DocumentLinkListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DocumentLinkListPage> {
+        ): HttpResponseFor<DocumentLinkListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -74,13 +73,6 @@ class DocumentLinkServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        DocumentLinkListPage.builder()
-                            .service(DocumentLinkServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

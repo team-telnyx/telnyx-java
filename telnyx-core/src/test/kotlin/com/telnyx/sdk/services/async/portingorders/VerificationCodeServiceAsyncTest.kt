@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.portingorders
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeSendParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyParams
 import org.junit.jupiter.api.Disabled
@@ -23,10 +24,22 @@ internal class VerificationCodeServiceAsyncTest {
                 .build()
         val verificationCodeServiceAsync = client.portingOrders().verificationCodes()
 
-        val pageFuture = verificationCodeServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val verificationCodesFuture =
+            verificationCodeServiceAsync.list(
+                VerificationCodeListParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .filter(VerificationCodeListParams.Filter.builder().verified(true).build())
+                    .page(VerificationCodeListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(
+                        VerificationCodeListParams.Sort.builder()
+                            .value(VerificationCodeListParams.Sort.Value_.CREATED_AT)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val verificationCodes = verificationCodesFuture.get()
+        verificationCodes.validate()
     }
 
     @Disabled("Prism tests are disabled")

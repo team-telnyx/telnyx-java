@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateParams
+import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -38,7 +39,7 @@ internal class MobileVoiceConnectionServiceAsyncTest {
                             .build()
                     )
                     .addTag("string")
-                    .webhookApiVersion(MobileVoiceConnectionCreateParams.WebhookApiVersion.V1)
+                    .webhookApiVersion(MobileVoiceConnectionCreateParams.WebhookApiVersion._1)
                     .webhookEventFailoverUrl("webhook_event_failover_url")
                     .webhookEventUrl("webhook_event_url")
                     .webhookTimeoutSecs(0L)
@@ -91,7 +92,7 @@ internal class MobileVoiceConnectionServiceAsyncTest {
                             .build()
                     )
                     .addTag("string")
-                    .webhookApiVersion(MobileVoiceConnectionUpdateParams.WebhookApiVersion.V1)
+                    .webhookApiVersion(MobileVoiceConnectionUpdateParams.WebhookApiVersion._1)
                     .webhookEventFailoverUrl("webhook_event_failover_url")
                     .webhookEventUrl("webhook_event_url")
                     .webhookTimeoutSecs(0L)
@@ -112,10 +113,18 @@ internal class MobileVoiceConnectionServiceAsyncTest {
                 .build()
         val mobileVoiceConnectionServiceAsync = client.mobileVoiceConnections()
 
-        val pageFuture = mobileVoiceConnectionServiceAsync.list()
+        val mobileVoiceConnectionsFuture =
+            mobileVoiceConnectionServiceAsync.list(
+                MobileVoiceConnectionListParams.builder()
+                    .filterConnectionNameContains("filter[connection_name][contains]")
+                    .pageNumber(0L)
+                    .pageSize(0L)
+                    .sort("sort")
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val mobileVoiceConnections = mobileVoiceConnectionsFuture.get()
+        mobileVoiceConnections.validate()
     }
 
     @Disabled("Prism tests are disabled")

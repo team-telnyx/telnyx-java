@@ -16,9 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.shortcodes.ShortCodeListPageAsync
-import com.telnyx.sdk.models.shortcodes.ShortCodeListPageResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeListParams
+import com.telnyx.sdk.models.shortcodes.ShortCodeListResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
@@ -56,7 +55,7 @@ class ShortCodeServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: ShortCodeListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ShortCodeListPageAsync> =
+    ): CompletableFuture<ShortCodeListResponse> =
         // get /short_codes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -140,13 +139,13 @@ class ShortCodeServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listHandler: Handler<ShortCodeListPageResponse> =
-            jsonHandler<ShortCodeListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ShortCodeListResponse> =
+            jsonHandler<ShortCodeListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ShortCodeListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ShortCodeListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -165,14 +164,6 @@ class ShortCodeServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ShortCodeListPageAsync.builder()
-                                    .service(ShortCodeServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

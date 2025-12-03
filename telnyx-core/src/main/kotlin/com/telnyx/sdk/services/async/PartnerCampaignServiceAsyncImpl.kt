@@ -16,12 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListPageAsync
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListPageResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListParams
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMePageAsync
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMePageResponse
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeParams
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusResponse
@@ -62,14 +60,14 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
     override fun list(
         params: PartnerCampaignListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PartnerCampaignListPageAsync> =
+    ): CompletableFuture<PartnerCampaignListResponse> =
         // get /partner_campaigns
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PartnerCampaignListSharedByMePageAsync> =
+    ): CompletableFuture<PartnerCampaignListSharedByMeResponse> =
         // get /partnerCampaign/sharedByMe
         withRawResponse().listSharedByMe(params, requestOptions).thenApply { it.parse() }
 
@@ -160,13 +158,13 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                 }
         }
 
-        private val listHandler: Handler<PartnerCampaignListPageResponse> =
-            jsonHandler<PartnerCampaignListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PartnerCampaignListResponse> =
+            jsonHandler<PartnerCampaignListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PartnerCampaignListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -186,25 +184,17 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                                     it.validate()
                                 }
                             }
-                            .let {
-                                PartnerCampaignListPageAsync.builder()
-                                    .service(PartnerCampaignServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
                     }
                 }
         }
 
-        private val listSharedByMeHandler: Handler<PartnerCampaignListSharedByMePageResponse> =
-            jsonHandler<PartnerCampaignListSharedByMePageResponse>(clientOptions.jsonMapper)
+        private val listSharedByMeHandler: Handler<PartnerCampaignListSharedByMeResponse> =
+            jsonHandler<PartnerCampaignListSharedByMeResponse>(clientOptions.jsonMapper)
 
         override fun listSharedByMe(
             params: PartnerCampaignListSharedByMeParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMePageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMeResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -223,14 +213,6 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PartnerCampaignListSharedByMePageAsync.builder()
-                                    .service(PartnerCampaignServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressCreateParams
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressDeleteParams
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPage
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListParams
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressRetrieveParams
 import java.util.function.Consumer
@@ -74,21 +74,21 @@ interface AccessIpAddressService {
         retrieve(accessIpAddressId, AccessIpAddressRetrieveParams.none(), requestOptions)
 
     /** List all Access IP Addresses */
-    fun list(): AccessIpAddressListPage = list(AccessIpAddressListParams.none())
+    fun list(): AccessIpAddressListResponse = list(AccessIpAddressListParams.none())
 
     /** @see list */
     fun list(
         params: AccessIpAddressListParams = AccessIpAddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccessIpAddressListPage
+    ): AccessIpAddressListResponse
 
     /** @see list */
     fun list(
         params: AccessIpAddressListParams = AccessIpAddressListParams.none()
-    ): AccessIpAddressListPage = list(params, RequestOptions.none())
+    ): AccessIpAddressListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccessIpAddressListPage =
+    fun list(requestOptions: RequestOptions): AccessIpAddressListResponse =
         list(AccessIpAddressListParams.none(), requestOptions)
 
     /** Delete access IP address */
@@ -207,7 +207,7 @@ interface AccessIpAddressService {
          * [AccessIpAddressService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AccessIpAddressListPage> =
+        fun list(): HttpResponseFor<AccessIpAddressListResponse> =
             list(AccessIpAddressListParams.none())
 
         /** @see list */
@@ -215,17 +215,17 @@ interface AccessIpAddressService {
         fun list(
             params: AccessIpAddressListParams = AccessIpAddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccessIpAddressListPage>
+        ): HttpResponseFor<AccessIpAddressListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccessIpAddressListParams = AccessIpAddressListParams.none()
-        ): HttpResponseFor<AccessIpAddressListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AccessIpAddressListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccessIpAddressListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccessIpAddressListResponse> =
             list(AccessIpAddressListParams.none(), requestOptions)
 
         /**

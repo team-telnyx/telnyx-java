@@ -24,12 +24,10 @@ import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsParams
 import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsResponse
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpParams
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpResponse
-import com.telnyx.sdk.models.simcards.SimCardListPage
-import com.telnyx.sdk.models.simcards.SimCardListPageResponse
 import com.telnyx.sdk.models.simcards.SimCardListParams
-import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsPage
-import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsPageResponse
+import com.telnyx.sdk.models.simcards.SimCardListResponse
 import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsParams
+import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsResponse
 import com.telnyx.sdk.models.simcards.SimCardRetrieveParams
 import com.telnyx.sdk.models.simcards.SimCardRetrieveResponse
 import com.telnyx.sdk.models.simcards.SimCardUpdateParams
@@ -69,7 +67,10 @@ class SimCardServiceImpl internal constructor(private val clientOptions: ClientO
         // patch /sim_cards/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: SimCardListParams, requestOptions: RequestOptions): SimCardListPage =
+    override fun list(
+        params: SimCardListParams,
+        requestOptions: RequestOptions,
+    ): SimCardListResponse =
         // get /sim_cards
         withRawResponse().list(params, requestOptions).parse()
 
@@ -104,7 +105,7 @@ class SimCardServiceImpl internal constructor(private val clientOptions: ClientO
     override fun listWirelessConnectivityLogs(
         params: SimCardListWirelessConnectivityLogsParams,
         requestOptions: RequestOptions,
-    ): SimCardListWirelessConnectivityLogsPage =
+    ): SimCardListWirelessConnectivityLogsResponse =
         // get /sim_cards/{id}/wireless_connectivity_logs
         withRawResponse().listWirelessConnectivityLogs(params, requestOptions).parse()
 
@@ -166,7 +167,7 @@ class SimCardServiceImpl internal constructor(private val clientOptions: ClientO
         ): HttpResponseFor<SimCardUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("simCardId", params.simCardId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -188,13 +189,13 @@ class SimCardServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<SimCardListPageResponse> =
-            jsonHandler<SimCardListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SimCardListResponse> =
+            jsonHandler<SimCardListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SimCardListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimCardListPage> {
+        ): HttpResponseFor<SimCardListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -211,13 +212,6 @@ class SimCardServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        SimCardListPage.builder()
-                            .service(SimCardServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }
@@ -344,13 +338,13 @@ class SimCardServiceImpl internal constructor(private val clientOptions: ClientO
         }
 
         private val listWirelessConnectivityLogsHandler:
-            Handler<SimCardListWirelessConnectivityLogsPageResponse> =
-            jsonHandler<SimCardListWirelessConnectivityLogsPageResponse>(clientOptions.jsonMapper)
+            Handler<SimCardListWirelessConnectivityLogsResponse> =
+            jsonHandler<SimCardListWirelessConnectivityLogsResponse>(clientOptions.jsonMapper)
 
         override fun listWirelessConnectivityLogs(
             params: SimCardListWirelessConnectivityLogsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimCardListWirelessConnectivityLogsPage> {
+        ): HttpResponseFor<SimCardListWirelessConnectivityLogsResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -374,13 +368,6 @@ class SimCardServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        SimCardListWirelessConnectivityLogsPage.builder()
-                            .service(SimCardServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

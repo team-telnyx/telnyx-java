@@ -13,8 +13,8 @@ import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOr
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCreateVerificationCodesResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteResponse
-import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListPageAsync
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListParams
+import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderValidateCodesParams
@@ -106,25 +106,25 @@ interface MessagingHostedNumberOrderServiceAsync {
         retrieve(id, MessagingHostedNumberOrderRetrieveParams.none(), requestOptions)
 
     /** List messaging hosted number orders */
-    fun list(): CompletableFuture<MessagingHostedNumberOrderListPageAsync> =
+    fun list(): CompletableFuture<MessagingHostedNumberOrderListResponse> =
         list(MessagingHostedNumberOrderListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingHostedNumberOrderListParams = MessagingHostedNumberOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingHostedNumberOrderListPageAsync>
+    ): CompletableFuture<MessagingHostedNumberOrderListResponse>
 
     /** @see list */
     fun list(
         params: MessagingHostedNumberOrderListParams = MessagingHostedNumberOrderListParams.none()
-    ): CompletableFuture<MessagingHostedNumberOrderListPageAsync> =
+    ): CompletableFuture<MessagingHostedNumberOrderListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<MessagingHostedNumberOrderListPageAsync> =
+    ): CompletableFuture<MessagingHostedNumberOrderListResponse> =
         list(MessagingHostedNumberOrderListParams.none(), requestOptions)
 
     /** Delete a messaging hosted number order and all associated phone numbers. */
@@ -332,7 +332,7 @@ interface MessagingHostedNumberOrderServiceAsync {
          * Returns a raw HTTP response for `get /messaging_hosted_number_orders`, but is otherwise
          * the same as [MessagingHostedNumberOrderServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListResponse>> =
             list(MessagingHostedNumberOrderListParams.none())
 
         /** @see list */
@@ -340,19 +340,19 @@ interface MessagingHostedNumberOrderServiceAsync {
             params: MessagingHostedNumberOrderListParams =
                 MessagingHostedNumberOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListResponse>>
 
         /** @see list */
         fun list(
             params: MessagingHostedNumberOrderListParams =
                 MessagingHostedNumberOrderListParams.none()
-        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListResponse>> =
             list(MessagingHostedNumberOrderListParams.none(), requestOptions)
 
         /**

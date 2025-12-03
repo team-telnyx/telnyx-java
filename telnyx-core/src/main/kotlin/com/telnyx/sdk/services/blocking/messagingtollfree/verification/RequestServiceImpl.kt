@@ -19,9 +19,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPage
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestEgress
@@ -62,7 +61,10 @@ class RequestServiceImpl internal constructor(private val clientOptions: ClientO
         // patch /messaging_tollfree/verification/requests/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: RequestListParams, requestOptions: RequestOptions): RequestListPage =
+    override fun list(
+        params: RequestListParams,
+        requestOptions: RequestOptions,
+    ): RequestListResponse =
         // get /messaging_tollfree/verification/requests
         withRawResponse().list(params, requestOptions).parse()
 
@@ -183,13 +185,13 @@ class RequestServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<RequestListPageResponse> =
-            jsonHandler<RequestListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RequestListResponse> =
+            jsonHandler<RequestListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RequestListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RequestListPage> {
+        ): HttpResponseFor<RequestListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -206,13 +208,6 @@ class RequestServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RequestListPage.builder()
-                            .service(RequestServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

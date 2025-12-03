@@ -17,7 +17,7 @@ internal class CampaignStatusUpdateWebhookEventTest {
     @Test
     fun ofCampaignStatusUpdateEvent() {
         val campaignStatusUpdateEvent =
-            CampaignStatusUpdateEvent.builder()
+            CampaignStatusUpdateWebhookEvent.CampaignStatusUpdateEvent.builder()
                 .brandId("d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5")
                 .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                 .createDate("createDate")
@@ -38,7 +38,7 @@ internal class CampaignStatusUpdateWebhookEventTest {
         val jsonMapper = jsonMapper()
         val campaignStatusUpdateWebhookEvent =
             CampaignStatusUpdateWebhookEvent.ofCampaignStatusUpdateEvent(
-                CampaignStatusUpdateEvent.builder()
+                CampaignStatusUpdateWebhookEvent.CampaignStatusUpdateEvent.builder()
                     .brandId("d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5")
                     .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                     .createDate("createDate")
@@ -60,11 +60,11 @@ internal class CampaignStatusUpdateWebhookEventTest {
     @Test
     fun ofSuspended() {
         val suspended =
-            CampaignSuspendedEvent.builder()
+            CampaignStatusUpdateWebhookEvent.CampaignSuspendedEvent.builder()
                 .campaignId("4b30019a-9dca-a78d-1124-b080d7dedecc")
                 .description("Campaign has been marked as dormant")
-                .status(CampaignSuspendedEvent.Status.DORMANT)
-                .type(CampaignSuspendedEvent.Type.TELNYX_EVENT)
+                .status(CampaignStatusUpdateWebhookEvent.CampaignSuspendedEvent.Status.DORMANT)
+                .type(CampaignStatusUpdateWebhookEvent.CampaignSuspendedEvent.Type.TELNYX_EVENT)
                 .build()
 
         val campaignStatusUpdateWebhookEvent =
@@ -79,11 +79,11 @@ internal class CampaignStatusUpdateWebhookEventTest {
         val jsonMapper = jsonMapper()
         val campaignStatusUpdateWebhookEvent =
             CampaignStatusUpdateWebhookEvent.ofSuspended(
-                CampaignSuspendedEvent.builder()
+                CampaignStatusUpdateWebhookEvent.CampaignSuspendedEvent.builder()
                     .campaignId("4b30019a-9dca-a78d-1124-b080d7dedecc")
                     .description("Campaign has been marked as dormant")
-                    .status(CampaignSuspendedEvent.Status.DORMANT)
-                    .type(CampaignSuspendedEvent.Type.TELNYX_EVENT)
+                    .status(CampaignStatusUpdateWebhookEvent.CampaignSuspendedEvent.Status.DORMANT)
+                    .type(CampaignStatusUpdateWebhookEvent.CampaignSuspendedEvent.Type.TELNYX_EVENT)
                     .build()
             )
 

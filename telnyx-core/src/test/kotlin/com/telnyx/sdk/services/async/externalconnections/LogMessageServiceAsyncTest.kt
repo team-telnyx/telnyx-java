@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.externalconnections
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,10 +38,26 @@ internal class LogMessageServiceAsyncTest {
                 .build()
         val logMessageServiceAsync = client.externalConnections().logMessages()
 
-        val pageFuture = logMessageServiceAsync.list()
+        val logMessagesFuture =
+            logMessageServiceAsync.list(
+                LogMessageListParams.builder()
+                    .filter(
+                        LogMessageListParams.Filter.builder()
+                            .externalConnectionId("67ea7693-9cd5-4a68-8c76-abb3aa5bf5d2")
+                            .telephoneNumber(
+                                LogMessageListParams.Filter.TelephoneNumber.builder()
+                                    .contains("+123")
+                                    .eq("+1234567890")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .page(LogMessageListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val logMessages = logMessagesFuture.get()
+        logMessages.validate()
     }
 
     @Disabled("Prism tests are disabled")

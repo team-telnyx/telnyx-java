@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListPage
 import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListParams
+import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListResponse
 import java.util.function.Consumer
 
 interface NetworkCoverageService {
@@ -25,21 +25,21 @@ interface NetworkCoverageService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NetworkCoverageService
 
     /** List all locations and the interfaces that region supports */
-    fun list(): NetworkCoverageListPage = list(NetworkCoverageListParams.none())
+    fun list(): NetworkCoverageListResponse = list(NetworkCoverageListParams.none())
 
     /** @see list */
     fun list(
         params: NetworkCoverageListParams = NetworkCoverageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NetworkCoverageListPage
+    ): NetworkCoverageListResponse
 
     /** @see list */
     fun list(
         params: NetworkCoverageListParams = NetworkCoverageListParams.none()
-    ): NetworkCoverageListPage = list(params, RequestOptions.none())
+    ): NetworkCoverageListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NetworkCoverageListPage =
+    fun list(requestOptions: RequestOptions): NetworkCoverageListResponse =
         list(NetworkCoverageListParams.none(), requestOptions)
 
     /**
@@ -62,7 +62,7 @@ interface NetworkCoverageService {
          * [NetworkCoverageService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NetworkCoverageListPage> =
+        fun list(): HttpResponseFor<NetworkCoverageListResponse> =
             list(NetworkCoverageListParams.none())
 
         /** @see list */
@@ -70,17 +70,17 @@ interface NetworkCoverageService {
         fun list(
             params: NetworkCoverageListParams = NetworkCoverageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NetworkCoverageListPage>
+        ): HttpResponseFor<NetworkCoverageListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NetworkCoverageListParams = NetworkCoverageListParams.none()
-        ): HttpResponseFor<NetworkCoverageListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NetworkCoverageListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NetworkCoverageListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NetworkCoverageListResponse> =
             list(NetworkCoverageListParams.none(), requestOptions)
     }
 }

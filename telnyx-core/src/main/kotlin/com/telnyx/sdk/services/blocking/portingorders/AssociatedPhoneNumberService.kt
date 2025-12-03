@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhon
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberCreateResponse
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteParams
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteResponse
-import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListPage
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListParams
+import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListResponse
 import java.util.function.Consumer
 
 interface AssociatedPhoneNumberService {
@@ -60,7 +60,7 @@ interface AssociatedPhoneNumberService {
      * are used for partial porting in GB to specify which phone numbers should be kept or
      * disconnected.
      */
-    fun list(portingOrderId: String): AssociatedPhoneNumberListPage =
+    fun list(portingOrderId: String): AssociatedPhoneNumberListResponse =
         list(portingOrderId, AssociatedPhoneNumberListParams.none())
 
     /** @see list */
@@ -68,30 +68,30 @@ interface AssociatedPhoneNumberService {
         portingOrderId: String,
         params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssociatedPhoneNumberListPage =
+    ): AssociatedPhoneNumberListResponse =
         list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
     /** @see list */
     fun list(
         portingOrderId: String,
         params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
-    ): AssociatedPhoneNumberListPage = list(portingOrderId, params, RequestOptions.none())
+    ): AssociatedPhoneNumberListResponse = list(portingOrderId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: AssociatedPhoneNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssociatedPhoneNumberListPage
+    ): AssociatedPhoneNumberListResponse
 
     /** @see list */
-    fun list(params: AssociatedPhoneNumberListParams): AssociatedPhoneNumberListPage =
+    fun list(params: AssociatedPhoneNumberListParams): AssociatedPhoneNumberListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         portingOrderId: String,
         requestOptions: RequestOptions,
-    ): AssociatedPhoneNumberListPage =
+    ): AssociatedPhoneNumberListResponse =
         list(portingOrderId, AssociatedPhoneNumberListParams.none(), requestOptions)
 
     /** Deletes an associated phone number from a porting order. */
@@ -174,7 +174,7 @@ interface AssociatedPhoneNumberService {
          * as [AssociatedPhoneNumberService.list].
          */
         @MustBeClosed
-        fun list(portingOrderId: String): HttpResponseFor<AssociatedPhoneNumberListPage> =
+        fun list(portingOrderId: String): HttpResponseFor<AssociatedPhoneNumberListResponse> =
             list(portingOrderId, AssociatedPhoneNumberListParams.none())
 
         /** @see list */
@@ -183,7 +183,7 @@ interface AssociatedPhoneNumberService {
             portingOrderId: String,
             params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssociatedPhoneNumberListPage> =
+        ): HttpResponseFor<AssociatedPhoneNumberListResponse> =
             list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
         /** @see list */
@@ -191,7 +191,7 @@ interface AssociatedPhoneNumberService {
         fun list(
             portingOrderId: String,
             params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
-        ): HttpResponseFor<AssociatedPhoneNumberListPage> =
+        ): HttpResponseFor<AssociatedPhoneNumberListResponse> =
             list(portingOrderId, params, RequestOptions.none())
 
         /** @see list */
@@ -199,20 +199,20 @@ interface AssociatedPhoneNumberService {
         fun list(
             params: AssociatedPhoneNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssociatedPhoneNumberListPage>
+        ): HttpResponseFor<AssociatedPhoneNumberListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AssociatedPhoneNumberListParams
-        ): HttpResponseFor<AssociatedPhoneNumberListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AssociatedPhoneNumberListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             portingOrderId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssociatedPhoneNumberListPage> =
+        ): HttpResponseFor<AssociatedPhoneNumberListResponse> =
             list(portingOrderId, AssociatedPhoneNumberListParams.none(), requestOptions)
 
         /**

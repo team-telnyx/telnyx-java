@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateParams
+import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
 import com.telnyx.sdk.models.fqdnconnections.InboundFqdn
 import com.telnyx.sdk.models.fqdnconnections.OutboundFqdn
@@ -101,7 +102,7 @@ internal class FqdnConnectionServiceAsyncTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(TransportProtocol.UDP)
-                    .webhookApiVersion(WebhookApiVersion.V1)
+                    .webhookApiVersion(WebhookApiVersion._1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -208,7 +209,7 @@ internal class FqdnConnectionServiceAsyncTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(TransportProtocol.UDP)
-                    .webhookApiVersion(WebhookApiVersion.V1)
+                    .webhookApiVersion(WebhookApiVersion._1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -229,10 +230,27 @@ internal class FqdnConnectionServiceAsyncTest {
                 .build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
-        val pageFuture = fqdnConnectionServiceAsync.list()
+        val fqdnConnectionsFuture =
+            fqdnConnectionServiceAsync.list(
+                FqdnConnectionListParams.builder()
+                    .filter(
+                        FqdnConnectionListParams.Filter.builder()
+                            .connectionName(
+                                FqdnConnectionListParams.Filter.ConnectionName.builder()
+                                    .contains("contains")
+                                    .build()
+                            )
+                            .fqdn("fqdn")
+                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .build()
+                    )
+                    .page(FqdnConnectionListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(FqdnConnectionListParams.Sort.CONNECTION_NAME)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val fqdnConnections = fqdnConnectionsFuture.get()
+        fqdnConnections.validate()
     }
 
     @Disabled("Prism tests are disabled")

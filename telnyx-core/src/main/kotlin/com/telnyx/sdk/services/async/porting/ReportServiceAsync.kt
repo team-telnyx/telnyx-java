@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.porting.reports.ReportCreateParams
 import com.telnyx.sdk.models.porting.reports.ReportCreateResponse
-import com.telnyx.sdk.models.porting.reports.ReportListPageAsync
 import com.telnyx.sdk.models.porting.reports.ReportListParams
+import com.telnyx.sdk.models.porting.reports.ReportListResponse
 import com.telnyx.sdk.models.porting.reports.ReportRetrieveParams
 import com.telnyx.sdk.models.porting.reports.ReportRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -74,21 +74,21 @@ interface ReportServiceAsync {
         retrieve(id, ReportRetrieveParams.none(), requestOptions)
 
     /** List the reports generated about porting operations. */
-    fun list(): CompletableFuture<ReportListPageAsync> = list(ReportListParams.none())
+    fun list(): CompletableFuture<ReportListResponse> = list(ReportListParams.none())
 
     /** @see list */
     fun list(
         params: ReportListParams = ReportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReportListPageAsync>
+    ): CompletableFuture<ReportListResponse>
 
     /** @see list */
     fun list(
         params: ReportListParams = ReportListParams.none()
-    ): CompletableFuture<ReportListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<ReportListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ReportListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ReportListResponse> =
         list(ReportListParams.none(), requestOptions)
 
     /**
@@ -165,25 +165,25 @@ interface ReportServiceAsync {
          * Returns a raw HTTP response for `get /porting/reports`, but is otherwise the same as
          * [ReportServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ReportListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<ReportListResponse>> =
             list(ReportListParams.none())
 
         /** @see list */
         fun list(
             params: ReportListParams = ReportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReportListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ReportListResponse>>
 
         /** @see list */
         fun list(
             params: ReportListParams = ReportListParams.none()
-        ): CompletableFuture<HttpResponseFor<ReportListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ReportListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ReportListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ReportListResponse>> =
             list(ReportListParams.none(), requestOptions)
     }
 }

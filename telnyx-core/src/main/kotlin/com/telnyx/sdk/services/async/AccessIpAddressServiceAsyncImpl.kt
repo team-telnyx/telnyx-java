@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressCreateParams
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressDeleteParams
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPageAsync
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPageResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListParams
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -58,7 +57,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccessIpAddress
     override fun list(
         params: AccessIpAddressListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AccessIpAddressListPageAsync> =
+    ): CompletableFuture<AccessIpAddressListResponse> =
         // get /access_ip_address
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -146,13 +145,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccessIpAddress
                 }
         }
 
-        private val listHandler: Handler<AccessIpAddressListPageResponse> =
-            jsonHandler<AccessIpAddressListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccessIpAddressListResponse> =
+            jsonHandler<AccessIpAddressListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccessIpAddressListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AccessIpAddressListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<AccessIpAddressListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -171,14 +170,6 @@ internal constructor(private val clientOptions: ClientOptions) : AccessIpAddress
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                AccessIpAddressListPageAsync.builder()
-                                    .service(AccessIpAddressServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

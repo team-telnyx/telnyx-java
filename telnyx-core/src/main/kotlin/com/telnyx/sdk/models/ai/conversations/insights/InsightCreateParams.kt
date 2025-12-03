@@ -25,7 +25,6 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -185,9 +184,7 @@ private constructor(
         /**
          * Alias for calling [jsonSchema] with `JsonSchema.ofJsonSchemaObject(jsonSchemaObject)`.
          */
-        fun jsonSchema(jsonSchemaObject: JsonSchema.JsonSchemaObject) = apply {
-            body.jsonSchema(jsonSchemaObject)
-        }
+        fun jsonSchema(jsonSchemaObject: JsonValue) = apply { body.jsonSchema(jsonSchemaObject) }
 
         fun webhook(webhook: String) = apply { body.webhook(webhook) }
 
@@ -513,7 +510,7 @@ private constructor(
              * Alias for calling [jsonSchema] with
              * `JsonSchema.ofJsonSchemaObject(jsonSchemaObject)`.
              */
-            fun jsonSchema(jsonSchemaObject: JsonSchema.JsonSchemaObject) =
+            fun jsonSchema(jsonSchemaObject: JsonValue) =
                 jsonSchema(JsonSchema.ofJsonSchemaObject(jsonSchemaObject))
 
             fun webhook(webhook: String) = webhook(JsonField.of(webhook))
@@ -633,13 +630,13 @@ private constructor(
     class JsonSchema
     private constructor(
         private val string: String? = null,
-        private val jsonSchemaObject: JsonSchemaObject? = null,
+        private val jsonSchemaObject: JsonValue? = null,
         private val _json: JsonValue? = null,
     ) {
 
         fun string(): Optional<String> = Optional.ofNullable(string)
 
-        fun jsonSchemaObject(): Optional<JsonSchemaObject> = Optional.ofNullable(jsonSchemaObject)
+        fun jsonSchemaObject(): Optional<JsonValue> = Optional.ofNullable(jsonSchemaObject)
 
         fun isString(): Boolean = string != null
 
@@ -647,7 +644,7 @@ private constructor(
 
         fun asString(): String = string.getOrThrow("string")
 
-        fun asJsonSchemaObject(): JsonSchemaObject = jsonSchemaObject.getOrThrow("jsonSchemaObject")
+        fun asJsonSchemaObject(): JsonValue = jsonSchemaObject.getOrThrow("jsonSchemaObject")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -669,9 +666,7 @@ private constructor(
                 object : Visitor<Unit> {
                     override fun visitString(string: String) {}
 
-                    override fun visitJsonSchemaObject(jsonSchemaObject: JsonSchemaObject) {
-                        jsonSchemaObject.validate()
-                    }
+                    override fun visitJsonSchemaObject(jsonSchemaObject: JsonValue) {}
                 }
             )
             validated = true
@@ -697,8 +692,7 @@ private constructor(
                 object : Visitor<Int> {
                     override fun visitString(string: String) = 1
 
-                    override fun visitJsonSchemaObject(jsonSchemaObject: JsonSchemaObject) =
-                        jsonSchemaObject.validity()
+                    override fun visitJsonSchemaObject(jsonSchemaObject: JsonValue) = 1
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -729,7 +723,7 @@ private constructor(
             @JvmStatic fun ofString(string: String) = JsonSchema(string = string)
 
             @JvmStatic
-            fun ofJsonSchemaObject(jsonSchemaObject: JsonSchemaObject) =
+            fun ofJsonSchemaObject(jsonSchemaObject: JsonValue) =
                 JsonSchema(jsonSchemaObject = jsonSchemaObject)
         }
 
@@ -740,7 +734,7 @@ private constructor(
 
             fun visitString(string: String): T
 
-            fun visitJsonSchemaObject(jsonSchemaObject: JsonSchemaObject): T
+            fun visitJsonSchemaObject(jsonSchemaObject: JsonValue): T
 
             /**
              * Maps an unknown variant of [JsonSchema] to a value of type [T].
@@ -764,11 +758,11 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<JsonSchemaObject>())?.let {
-                                JsonSchema(jsonSchemaObject = it, _json = json)
-                            },
                             tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                 JsonSchema(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<JsonValue>())?.let {
+                                JsonSchema(jsonSchemaObject = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -776,7 +770,7 @@ private constructor(
                         .toList()
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from array).
+                    // all the possible variants.
                     0 -> JsonSchema(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
@@ -801,109 +795,6 @@ private constructor(
                     else -> throw IllegalStateException("Invalid JsonSchema")
                 }
             }
-        }
-
-        class JsonSchemaObject
-        @JsonCreator
-        private constructor(
-            @com.fasterxml.jackson.annotation.JsonValue
-            private val additionalProperties: Map<String, JsonValue>
-        ) {
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [JsonSchemaObject]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [JsonSchemaObject]. */
-            class Builder internal constructor() {
-
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(jsonSchemaObject: JsonSchemaObject) = apply {
-                    additionalProperties = jsonSchemaObject.additionalProperties.toMutableMap()
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [JsonSchemaObject].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): JsonSchemaObject = JsonSchemaObject(additionalProperties.toImmutable())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): JsonSchemaObject = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is JsonSchemaObject &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() = "JsonSchemaObject{additionalProperties=$additionalProperties}"
         }
     }
 

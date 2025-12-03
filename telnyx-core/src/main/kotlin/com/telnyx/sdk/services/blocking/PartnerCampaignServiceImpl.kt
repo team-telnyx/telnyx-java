@@ -16,12 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListPage
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListPageResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListParams
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMePage
-import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMePageResponse
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeParams
+import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignListSharedByMeResponse
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusParams
 import com.telnyx.sdk.models.partnercampaigns.PartnerCampaignRetrieveSharingStatusResponse
@@ -59,14 +57,14 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: PartnerCampaignListParams,
         requestOptions: RequestOptions,
-    ): PartnerCampaignListPage =
+    ): PartnerCampaignListResponse =
         // get /partner_campaigns
         withRawResponse().list(params, requestOptions).parse()
 
     override fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams,
         requestOptions: RequestOptions,
-    ): PartnerCampaignListSharedByMePage =
+    ): PartnerCampaignListSharedByMeResponse =
         // get /partnerCampaign/sharedByMe
         withRawResponse().listSharedByMe(params, requestOptions).parse()
 
@@ -151,13 +149,13 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<PartnerCampaignListPageResponse> =
-            jsonHandler<PartnerCampaignListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PartnerCampaignListResponse> =
+            jsonHandler<PartnerCampaignListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PartnerCampaignListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PartnerCampaignListPage> {
+        ): HttpResponseFor<PartnerCampaignListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -175,23 +173,16 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
                             it.validate()
                         }
                     }
-                    .let {
-                        PartnerCampaignListPage.builder()
-                            .service(PartnerCampaignServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
-                    }
             }
         }
 
-        private val listSharedByMeHandler: Handler<PartnerCampaignListSharedByMePageResponse> =
-            jsonHandler<PartnerCampaignListSharedByMePageResponse>(clientOptions.jsonMapper)
+        private val listSharedByMeHandler: Handler<PartnerCampaignListSharedByMeResponse> =
+            jsonHandler<PartnerCampaignListSharedByMeResponse>(clientOptions.jsonMapper)
 
         override fun listSharedByMe(
             params: PartnerCampaignListSharedByMeParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PartnerCampaignListSharedByMePage> {
+        ): HttpResponseFor<PartnerCampaignListSharedByMeResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -208,13 +199,6 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        PartnerCampaignListSharedByMePage.builder()
-                            .service(PartnerCampaignServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -158,8 +158,9 @@ private constructor(
             this.participants = participants
         }
 
-        /** Alias for calling [participants] with `Participants.ofAll(all)`. */
-        fun participants(all: Participants.AllParticipants) = participants(Participants.ofAll(all))
+        /** Alias for calling [participants] with `Participants.ofUnionMember0(unionMember0)`. */
+        fun participants(unionMember0: Participants.UnionMember0) =
+            participants(Participants.ofUnionMember0(unionMember0))
 
         /** Alias for calling [participants] with `Participants.ofStrings(strings)`. */
         fun participantsOfStrings(strings: List<String>) =
@@ -235,20 +236,20 @@ private constructor(
     @JsonSerialize(using = Participants.Serializer::class)
     class Participants
     private constructor(
-        private val all: AllParticipants? = null,
+        private val unionMember0: UnionMember0? = null,
         private val strings: List<String>? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun all(): Optional<AllParticipants> = Optional.ofNullable(all)
+        fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
 
         fun strings(): Optional<List<String>> = Optional.ofNullable(strings)
 
-        fun isAll(): Boolean = all != null
+        fun isUnionMember0(): Boolean = unionMember0 != null
 
         fun isStrings(): Boolean = strings != null
 
-        fun asAll(): AllParticipants = all.getOrThrow("all")
+        fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
 
         fun asStrings(): List<String> = strings.getOrThrow("strings")
 
@@ -256,7 +257,7 @@ private constructor(
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                all != null -> visitor.visitAll(all)
+                unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
                 strings != null -> visitor.visitStrings(strings)
                 else -> visitor.unknown(_json)
             }
@@ -270,8 +271,8 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitAll(all: AllParticipants) {
-                        all.validate()
+                    override fun visitUnionMember0(unionMember0: UnionMember0) {
+                        unionMember0.validate()
                     }
 
                     override fun visitStrings(strings: List<String>) {}
@@ -298,7 +299,8 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitAll(all: AllParticipants) = all.validity()
+                    override fun visitUnionMember0(unionMember0: UnionMember0) =
+                        unionMember0.validity()
 
                     override fun visitStrings(strings: List<String>) = strings.size
 
@@ -311,14 +313,16 @@ private constructor(
                 return true
             }
 
-            return other is Participants && all == other.all && strings == other.strings
+            return other is Participants &&
+                unionMember0 == other.unionMember0 &&
+                strings == other.strings
         }
 
-        override fun hashCode(): Int = Objects.hash(all, strings)
+        override fun hashCode(): Int = Objects.hash(unionMember0, strings)
 
         override fun toString(): String =
             when {
-                all != null -> "Participants{all=$all}"
+                unionMember0 != null -> "Participants{unionMember0=$unionMember0}"
                 strings != null -> "Participants{strings=$strings}"
                 _json != null -> "Participants{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Participants")
@@ -326,7 +330,9 @@ private constructor(
 
         companion object {
 
-            @JvmStatic fun ofAll(all: AllParticipants) = Participants(all = all)
+            @JvmStatic
+            fun ofUnionMember0(unionMember0: UnionMember0) =
+                Participants(unionMember0 = unionMember0)
 
             @JvmStatic
             fun ofStrings(strings: List<String>) = Participants(strings = strings.toImmutable())
@@ -338,7 +344,7 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitAll(all: AllParticipants): T
+            fun visitUnionMember0(unionMember0: UnionMember0): T
 
             fun visitStrings(strings: List<String>): T
 
@@ -364,8 +370,8 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<AllParticipants>())?.let {
-                                Participants(all = it, _json = json)
+                            tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
+                                Participants(unionMember0 = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<List<String>>())?.let {
                                 Participants(strings = it, _json = json)
@@ -395,7 +401,7 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.all != null -> generator.writeObject(value.all)
+                    value.unionMember0 != null -> generator.writeObject(value.unionMember0)
                     value.strings != null -> generator.writeObject(value.strings)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Participants")
@@ -403,9 +409,8 @@ private constructor(
             }
         }
 
-        class AllParticipants
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
+        class UnionMember0 @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -421,18 +426,18 @@ private constructor(
 
                 @JvmField val ALL = of("all")
 
-                @JvmStatic fun of(value: String) = AllParticipants(JsonField.of(value))
+                @JvmStatic fun of(value: String) = UnionMember0(JsonField.of(value))
             }
 
-            /** An enum containing [AllParticipants]'s known values. */
+            /** An enum containing [UnionMember0]'s known values. */
             enum class Known {
                 ALL
             }
 
             /**
-             * An enum containing [AllParticipants]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [UnionMember0]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [AllParticipants] can contain an unknown value in a couple of cases:
+             * An instance of [UnionMember0] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -441,7 +446,7 @@ private constructor(
             enum class Value {
                 ALL,
                 /**
-                 * An enum member indicating that [AllParticipants] was instantiated with an unknown
+                 * An enum member indicating that [UnionMember0] was instantiated with an unknown
                  * value.
                  */
                 _UNKNOWN,
@@ -472,7 +477,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     ALL -> Known.ALL
-                    else -> throw TelnyxInvalidDataException("Unknown AllParticipants: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown UnionMember0: $value")
                 }
 
             /**
@@ -491,7 +496,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): AllParticipants = apply {
+            fun validate(): UnionMember0 = apply {
                 if (validated) {
                     return@apply
                 }
@@ -521,7 +526,7 @@ private constructor(
                     return true
                 }
 
-                return other is AllParticipants && value == other.value
+                return other is UnionMember0 && value == other.value
             }
 
             override fun hashCode() = value.hashCode()

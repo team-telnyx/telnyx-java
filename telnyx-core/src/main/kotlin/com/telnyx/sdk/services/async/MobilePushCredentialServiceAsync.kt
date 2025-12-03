@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialCreateParams
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialDeleteParams
-import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListPageAsync
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListParams
+import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListResponse
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialRetrieveParams
 import com.telnyx.sdk.models.mobilepushcredentials.PushCredentialResponse
 import java.util.concurrent.CompletableFuture
@@ -78,22 +78,22 @@ interface MobilePushCredentialServiceAsync {
         retrieve(pushCredentialId, MobilePushCredentialRetrieveParams.none(), requestOptions)
 
     /** List mobile push credentials */
-    fun list(): CompletableFuture<MobilePushCredentialListPageAsync> =
+    fun list(): CompletableFuture<MobilePushCredentialListResponse> =
         list(MobilePushCredentialListParams.none())
 
     /** @see list */
     fun list(
         params: MobilePushCredentialListParams = MobilePushCredentialListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MobilePushCredentialListPageAsync>
+    ): CompletableFuture<MobilePushCredentialListResponse>
 
     /** @see list */
     fun list(
         params: MobilePushCredentialListParams = MobilePushCredentialListParams.none()
-    ): CompletableFuture<MobilePushCredentialListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<MobilePushCredentialListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MobilePushCredentialListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MobilePushCredentialListResponse> =
         list(MobilePushCredentialListParams.none(), requestOptions)
 
     /** Deletes a mobile push credential based on the given `push_credential_id` */
@@ -205,25 +205,25 @@ interface MobilePushCredentialServiceAsync {
          * Returns a raw HTTP response for `get /mobile_push_credentials`, but is otherwise the same
          * as [MobilePushCredentialServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MobilePushCredentialListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<MobilePushCredentialListResponse>> =
             list(MobilePushCredentialListParams.none())
 
         /** @see list */
         fun list(
             params: MobilePushCredentialListParams = MobilePushCredentialListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MobilePushCredentialListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<MobilePushCredentialListResponse>>
 
         /** @see list */
         fun list(
             params: MobilePushCredentialListParams = MobilePushCredentialListParams.none()
-        ): CompletableFuture<HttpResponseFor<MobilePushCredentialListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MobilePushCredentialListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MobilePushCredentialListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MobilePushCredentialListResponse>> =
             list(MobilePushCredentialListParams.none(), requestOptions)
 
         /**

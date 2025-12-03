@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateParam
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteResponse
-import com.telnyx.sdk.models.notificationsettings.NotificationSettingListPageAsync
-import com.telnyx.sdk.models.notificationsettings.NotificationSettingListPageResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingListParams
+import com.telnyx.sdk.models.notificationsettings.NotificationSettingListResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -63,7 +62,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationSet
     override fun list(
         params: NotificationSettingListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NotificationSettingListPageAsync> =
+    ): CompletableFuture<NotificationSettingListResponse> =
         // get /notification_settings
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -151,13 +150,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationSet
                 }
         }
 
-        private val listHandler: Handler<NotificationSettingListPageResponse> =
-            jsonHandler<NotificationSettingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationSettingListResponse> =
+            jsonHandler<NotificationSettingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationSettingListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NotificationSettingListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<NotificationSettingListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -176,14 +175,6 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationSet
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                NotificationSettingListPageAsync.builder()
-                                    .service(NotificationSettingServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

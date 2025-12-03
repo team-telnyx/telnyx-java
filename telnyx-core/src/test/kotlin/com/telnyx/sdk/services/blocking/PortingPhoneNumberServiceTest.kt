@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,8 +22,20 @@ internal class PortingPhoneNumberServiceTest {
                 .build()
         val portingPhoneNumberService = client.portingPhoneNumbers()
 
-        val page = portingPhoneNumberService.list()
+        val portingPhoneNumbers =
+            portingPhoneNumberService.list(
+                PortingPhoneNumberListParams.builder()
+                    .filter(
+                        PortingPhoneNumberListParams.Filter.builder()
+                            .portingOrderStatus(
+                                PortingPhoneNumberListParams.Filter.PortingOrderStatus.IN_PROCESS
+                            )
+                            .build()
+                    )
+                    .page(PortingPhoneNumberListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        portingPhoneNumbers.validate()
     }
 }

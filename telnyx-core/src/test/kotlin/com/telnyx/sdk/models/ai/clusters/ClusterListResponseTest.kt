@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.clusters
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.Meta
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.TaskStatus
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -15,24 +16,43 @@ internal class ClusterListResponseTest {
     fun create() {
         val clusterListResponse =
             ClusterListResponse.builder()
-                .bucket("bucket")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .finishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .minClusterSize(0L)
-                .minSubclusterSize(0L)
-                .status(TaskStatus.PENDING)
-                .taskId("task_id")
+                .addData(
+                    ClusterListResponse.Data.builder()
+                        .bucket("bucket")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .finishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .minClusterSize(0L)
+                        .minSubclusterSize(0L)
+                        .status(TaskStatus.PENDING)
+                        .taskId("task_id")
+                        .build()
+                )
+                .meta(
+                    Meta.builder()
+                        .pageNumber(0L)
+                        .pageSize(0L)
+                        .totalPages(0L)
+                        .totalResults(0L)
+                        .build()
+                )
                 .build()
 
-        assertThat(clusterListResponse.bucket()).isEqualTo("bucket")
-        assertThat(clusterListResponse.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(clusterListResponse.finishedAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(clusterListResponse.minClusterSize()).isEqualTo(0L)
-        assertThat(clusterListResponse.minSubclusterSize()).isEqualTo(0L)
-        assertThat(clusterListResponse.status()).isEqualTo(TaskStatus.PENDING)
-        assertThat(clusterListResponse.taskId()).isEqualTo("task_id")
+        assertThat(clusterListResponse.data())
+            .containsExactly(
+                ClusterListResponse.Data.builder()
+                    .bucket("bucket")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .finishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .minClusterSize(0L)
+                    .minSubclusterSize(0L)
+                    .status(TaskStatus.PENDING)
+                    .taskId("task_id")
+                    .build()
+            )
+        assertThat(clusterListResponse.meta())
+            .isEqualTo(
+                Meta.builder().pageNumber(0L).pageSize(0L).totalPages(0L).totalResults(0L).build()
+            )
     }
 
     @Test
@@ -40,13 +60,25 @@ internal class ClusterListResponseTest {
         val jsonMapper = jsonMapper()
         val clusterListResponse =
             ClusterListResponse.builder()
-                .bucket("bucket")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .finishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .minClusterSize(0L)
-                .minSubclusterSize(0L)
-                .status(TaskStatus.PENDING)
-                .taskId("task_id")
+                .addData(
+                    ClusterListResponse.Data.builder()
+                        .bucket("bucket")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .finishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .minClusterSize(0L)
+                        .minSubclusterSize(0L)
+                        .status(TaskStatus.PENDING)
+                        .taskId("task_id")
+                        .build()
+                )
+                .meta(
+                    Meta.builder()
+                        .pageNumber(0L)
+                        .pageSize(0L)
+                        .totalPages(0L)
+                        .totalResults(0L)
+                        .build()
+                )
                 .build()
 
         val roundtrippedClusterListResponse =

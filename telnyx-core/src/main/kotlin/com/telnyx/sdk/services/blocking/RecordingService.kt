@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordings.RecordingDeleteParams
 import com.telnyx.sdk.models.recordings.RecordingDeleteResponse
-import com.telnyx.sdk.models.recordings.RecordingListPage
 import com.telnyx.sdk.models.recordings.RecordingListParams
+import com.telnyx.sdk.models.recordings.RecordingListResponse
 import com.telnyx.sdk.models.recordings.RecordingRetrieveParams
 import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.blocking.recordings.ActionService
@@ -64,20 +64,20 @@ interface RecordingService {
         retrieve(recordingId, RecordingRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your call recordings. */
-    fun list(): RecordingListPage = list(RecordingListParams.none())
+    fun list(): RecordingListResponse = list(RecordingListParams.none())
 
     /** @see list */
     fun list(
         params: RecordingListParams = RecordingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingListPage
+    ): RecordingListResponse
 
     /** @see list */
-    fun list(params: RecordingListParams = RecordingListParams.none()): RecordingListPage =
+    fun list(params: RecordingListParams = RecordingListParams.none()): RecordingListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RecordingListPage =
+    fun list(requestOptions: RequestOptions): RecordingListResponse =
         list(RecordingListParams.none(), requestOptions)
 
     /** Permanently deletes a call recording. */
@@ -174,24 +174,24 @@ interface RecordingService {
          * [RecordingService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<RecordingListPage> = list(RecordingListParams.none())
+        fun list(): HttpResponseFor<RecordingListResponse> = list(RecordingListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RecordingListParams = RecordingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingListPage>
+        ): HttpResponseFor<RecordingListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RecordingListParams = RecordingListParams.none()
-        ): HttpResponseFor<RecordingListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<RecordingListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<RecordingListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<RecordingListResponse> =
             list(RecordingListParams.none(), requestOptions)
 
         /**

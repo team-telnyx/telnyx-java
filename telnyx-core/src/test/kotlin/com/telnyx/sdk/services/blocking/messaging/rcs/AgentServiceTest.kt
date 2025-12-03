@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking.messaging.rcs
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -60,8 +61,13 @@ internal class AgentServiceTest {
                 .build()
         val agentService = client.messaging().rcs().agents()
 
-        val page = agentService.list()
+        val agents =
+            agentService.list(
+                AgentListParams.builder()
+                    .page(AgentListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        agents.validate()
     }
 }

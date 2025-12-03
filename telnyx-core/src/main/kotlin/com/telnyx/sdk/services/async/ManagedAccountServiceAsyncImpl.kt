@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsResponse
-import com.telnyx.sdk.models.managedaccounts.ManagedAccountListPageAsync
-import com.telnyx.sdk.models.managedaccounts.ManagedAccountListPageResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountListParams
+import com.telnyx.sdk.models.managedaccounts.ManagedAccountListResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateGlobalChannelLimitParams
@@ -77,7 +76,7 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
     override fun list(
         params: ManagedAccountListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ManagedAccountListPageAsync> =
+    ): CompletableFuture<ManagedAccountListResponse> =
         // get /managed_accounts
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -214,13 +213,13 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                 }
         }
 
-        private val listHandler: Handler<ManagedAccountListPageResponse> =
-            jsonHandler<ManagedAccountListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ManagedAccountListResponse> =
+            jsonHandler<ManagedAccountListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ManagedAccountListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ManagedAccountListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ManagedAccountListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -239,14 +238,6 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ManagedAccountListPageAsync.builder()
-                                    .service(ManagedAccountServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

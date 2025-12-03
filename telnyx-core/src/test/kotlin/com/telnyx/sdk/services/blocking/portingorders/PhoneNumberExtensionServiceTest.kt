@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionCreateParams
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionDeleteParams
+import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -56,9 +57,25 @@ internal class PhoneNumberExtensionServiceTest {
                 .build()
         val phoneNumberExtensionService = client.portingOrders().phoneNumberExtensions()
 
-        val page = phoneNumberExtensionService.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val phoneNumberExtensions =
+            phoneNumberExtensionService.list(
+                PhoneNumberExtensionListParams.builder()
+                    .portingOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .filter(
+                        PhoneNumberExtensionListParams.Filter.builder()
+                            .portingPhoneNumberId("04f8f1b9-310c-4a3c-963e-7dfc54765140")
+                            .build()
+                    )
+                    .page(PhoneNumberExtensionListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(
+                        PhoneNumberExtensionListParams.Sort.builder()
+                            .value(PhoneNumberExtensionListParams.Sort.Value_.CREATED_AT)
+                            .build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        phoneNumberExtensions.validate()
     }
 
     @Disabled("Prism tests are disabled")

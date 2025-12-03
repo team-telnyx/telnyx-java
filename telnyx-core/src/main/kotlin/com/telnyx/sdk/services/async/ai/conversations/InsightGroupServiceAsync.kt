@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPageAsync
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupUpdateParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightTemplateGroupDetail
@@ -150,7 +150,7 @@ interface InsightGroupServiceAsync {
     ): CompletableFuture<InsightTemplateGroupDetail>
 
     /** Get all insight groups */
-    fun retrieveInsightGroups(): CompletableFuture<InsightGroupRetrieveInsightGroupsPageAsync> =
+    fun retrieveInsightGroups(): CompletableFuture<InsightGroupRetrieveInsightGroupsResponse> =
         retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none())
 
     /** @see retrieveInsightGroups */
@@ -158,19 +158,19 @@ interface InsightGroupServiceAsync {
         params: InsightGroupRetrieveInsightGroupsParams =
             InsightGroupRetrieveInsightGroupsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightGroupRetrieveInsightGroupsPageAsync>
+    ): CompletableFuture<InsightGroupRetrieveInsightGroupsResponse>
 
     /** @see retrieveInsightGroups */
     fun retrieveInsightGroups(
         params: InsightGroupRetrieveInsightGroupsParams =
             InsightGroupRetrieveInsightGroupsParams.none()
-    ): CompletableFuture<InsightGroupRetrieveInsightGroupsPageAsync> =
+    ): CompletableFuture<InsightGroupRetrieveInsightGroupsResponse> =
         retrieveInsightGroups(params, RequestOptions.none())
 
     /** @see retrieveInsightGroups */
     fun retrieveInsightGroups(
         requestOptions: RequestOptions
-    ): CompletableFuture<InsightGroupRetrieveInsightGroupsPageAsync> =
+    ): CompletableFuture<InsightGroupRetrieveInsightGroupsResponse> =
         retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none(), requestOptions)
 
     /**
@@ -334,7 +334,7 @@ interface InsightGroupServiceAsync {
          * the same as [InsightGroupServiceAsync.retrieveInsightGroups].
          */
         fun retrieveInsightGroups():
-            CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsPageAsync>> =
+            CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse>> =
             retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none())
 
         /** @see retrieveInsightGroups */
@@ -342,19 +342,19 @@ interface InsightGroupServiceAsync {
             params: InsightGroupRetrieveInsightGroupsParams =
                 InsightGroupRetrieveInsightGroupsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsPageAsync>>
+        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse>>
 
         /** @see retrieveInsightGroups */
         fun retrieveInsightGroups(
             params: InsightGroupRetrieveInsightGroupsParams =
                 InsightGroupRetrieveInsightGroupsParams.none()
-        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse>> =
             retrieveInsightGroups(params, RequestOptions.none())
 
         /** @see retrieveInsightGroups */
         fun retrieveInsightGroups(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse>> =
             retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none(), requestOptions)
     }
 }

@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotif
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationCreateResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationDeleteParams
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationDeleteResponse
-import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListPage
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListParams
+import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationRetrieveParams
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationRetrieveResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationUpdateParams
@@ -83,24 +83,17 @@ interface SimCardDataUsageNotificationService {
 
     /** Updates information for a SIM Card Data Usage Notification. */
     fun update(
-        simCardDataUsageNotificationId: String,
+        pathId: String,
         params: SimCardDataUsageNotificationUpdateParams,
-    ): SimCardDataUsageNotificationUpdateResponse =
-        update(simCardDataUsageNotificationId, params, RequestOptions.none())
+    ): SimCardDataUsageNotificationUpdateResponse = update(pathId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        simCardDataUsageNotificationId: String,
+        pathId: String,
         params: SimCardDataUsageNotificationUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimCardDataUsageNotificationUpdateResponse =
-        update(
-            params
-                .toBuilder()
-                .simCardDataUsageNotificationId(simCardDataUsageNotificationId)
-                .build(),
-            requestOptions,
-        )
+        update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
     /** @see update */
     fun update(
@@ -117,7 +110,7 @@ interface SimCardDataUsageNotificationService {
      * Lists a paginated collection of SIM card data usage notifications. It enables exploring the
      * collection using specific filters.
      */
-    fun list(): SimCardDataUsageNotificationListPage =
+    fun list(): SimCardDataUsageNotificationListResponse =
         list(SimCardDataUsageNotificationListParams.none())
 
     /** @see list */
@@ -125,16 +118,16 @@ interface SimCardDataUsageNotificationService {
         params: SimCardDataUsageNotificationListParams =
             SimCardDataUsageNotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimCardDataUsageNotificationListPage
+    ): SimCardDataUsageNotificationListResponse
 
     /** @see list */
     fun list(
         params: SimCardDataUsageNotificationListParams =
             SimCardDataUsageNotificationListParams.none()
-    ): SimCardDataUsageNotificationListPage = list(params, RequestOptions.none())
+    ): SimCardDataUsageNotificationListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): SimCardDataUsageNotificationListPage =
+    fun list(requestOptions: RequestOptions): SimCardDataUsageNotificationListResponse =
         list(SimCardDataUsageNotificationListParams.none(), requestOptions)
 
     /** Delete the SIM Card Data Usage Notification. */
@@ -262,25 +255,19 @@ interface SimCardDataUsageNotificationService {
          */
         @MustBeClosed
         fun update(
-            simCardDataUsageNotificationId: String,
+            pathId: String,
             params: SimCardDataUsageNotificationUpdateParams,
         ): HttpResponseFor<SimCardDataUsageNotificationUpdateResponse> =
-            update(simCardDataUsageNotificationId, params, RequestOptions.none())
+            update(pathId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            simCardDataUsageNotificationId: String,
+            pathId: String,
             params: SimCardDataUsageNotificationUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimCardDataUsageNotificationUpdateResponse> =
-            update(
-                params
-                    .toBuilder()
-                    .simCardDataUsageNotificationId(simCardDataUsageNotificationId)
-                    .build(),
-                requestOptions,
-            )
+            update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -301,7 +288,7 @@ interface SimCardDataUsageNotificationService {
          * otherwise the same as [SimCardDataUsageNotificationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<SimCardDataUsageNotificationListPage> =
+        fun list(): HttpResponseFor<SimCardDataUsageNotificationListResponse> =
             list(SimCardDataUsageNotificationListParams.none())
 
         /** @see list */
@@ -310,21 +297,21 @@ interface SimCardDataUsageNotificationService {
             params: SimCardDataUsageNotificationListParams =
                 SimCardDataUsageNotificationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimCardDataUsageNotificationListPage>
+        ): HttpResponseFor<SimCardDataUsageNotificationListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SimCardDataUsageNotificationListParams =
                 SimCardDataUsageNotificationListParams.none()
-        ): HttpResponseFor<SimCardDataUsageNotificationListPage> =
+        ): HttpResponseFor<SimCardDataUsageNotificationListResponse> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<SimCardDataUsageNotificationListPage> =
+        ): HttpResponseFor<SimCardDataUsageNotificationListResponse> =
             list(SimCardDataUsageNotificationListParams.none(), requestOptions)
 
         /**

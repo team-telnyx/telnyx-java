@@ -12,6 +12,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdateParams
 import org.assertj.core.api.Assertions.assertThat
@@ -139,10 +140,15 @@ internal class LoaConfigurationServiceAsyncTest {
                 .build()
         val loaConfigurationServiceAsync = client.porting().loaConfigurations()
 
-        val pageFuture = loaConfigurationServiceAsync.list()
+        val loaConfigurationsFuture =
+            loaConfigurationServiceAsync.list(
+                LoaConfigurationListParams.builder()
+                    .page(LoaConfigurationListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val loaConfigurations = loaConfigurationsFuture.get()
+        loaConfigurations.validate()
     }
 
     @Disabled("Prism tests are disabled")

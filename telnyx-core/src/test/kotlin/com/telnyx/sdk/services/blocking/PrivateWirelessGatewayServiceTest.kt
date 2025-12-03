@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreateParams
+import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -60,9 +61,20 @@ internal class PrivateWirelessGatewayServiceTest {
                 .build()
         val privateWirelessGatewayService = client.privateWirelessGateways()
 
-        val page = privateWirelessGatewayService.list()
+        val privateWirelessGateways =
+            privateWirelessGatewayService.list(
+                PrivateWirelessGatewayListParams.builder()
+                    .filterCreatedAt("filter[created_at]")
+                    .filterIpRange("filter[ip_range]")
+                    .filterName("filter[name]")
+                    .filterRegionCode("filter[region_code]")
+                    .filterUpdatedAt("filter[updated_at]")
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
+            )
 
-        page.response().validate()
+        privateWirelessGateways.validate()
     }
 
     @Disabled("Prism tests are disabled")

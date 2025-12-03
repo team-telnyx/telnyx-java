@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPageAsync
 import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,22 +25,22 @@ interface PortingPhoneNumberServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingPhoneNumberServiceAsync
 
     /** Returns a list of your porting phone numbers. */
-    fun list(): CompletableFuture<PortingPhoneNumberListPageAsync> =
+    fun list(): CompletableFuture<PortingPhoneNumberListResponse> =
         list(PortingPhoneNumberListParams.none())
 
     /** @see list */
     fun list(
         params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PortingPhoneNumberListPageAsync>
+    ): CompletableFuture<PortingPhoneNumberListResponse>
 
     /** @see list */
     fun list(
         params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none()
-    ): CompletableFuture<PortingPhoneNumberListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<PortingPhoneNumberListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PortingPhoneNumberListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PortingPhoneNumberListResponse> =
         list(PortingPhoneNumberListParams.none(), requestOptions)
 
     /**
@@ -62,25 +62,25 @@ interface PortingPhoneNumberServiceAsync {
          * Returns a raw HTTP response for `get /porting_phone_numbers`, but is otherwise the same
          * as [PortingPhoneNumberServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PortingPhoneNumberListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<PortingPhoneNumberListResponse>> =
             list(PortingPhoneNumberListParams.none())
 
         /** @see list */
         fun list(
             params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListResponse>>
 
         /** @see list */
         fun list(
             params: PortingPhoneNumberListParams = PortingPhoneNumberListParams.none()
-        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListResponse>> =
             list(PortingPhoneNumberListParams.none(), requestOptions)
     }
 }

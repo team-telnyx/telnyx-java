@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateParams
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDataWrapper
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDeleteParams
-import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListPage
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListParams
+import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberRetrieveParams
 import com.telnyx.sdk.services.blocking.verifiednumbers.ActionService
 import java.util.function.Consumer
@@ -78,21 +78,21 @@ interface VerifiedNumberService {
         retrieve(phoneNumber, VerifiedNumberRetrieveParams.none(), requestOptions)
 
     /** Gets a paginated list of Verified Numbers. */
-    fun list(): VerifiedNumberListPage = list(VerifiedNumberListParams.none())
+    fun list(): VerifiedNumberListResponse = list(VerifiedNumberListParams.none())
 
     /** @see list */
     fun list(
         params: VerifiedNumberListParams = VerifiedNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerifiedNumberListPage
+    ): VerifiedNumberListResponse
 
     /** @see list */
     fun list(
         params: VerifiedNumberListParams = VerifiedNumberListParams.none()
-    ): VerifiedNumberListPage = list(params, RequestOptions.none())
+    ): VerifiedNumberListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): VerifiedNumberListPage =
+    fun list(requestOptions: RequestOptions): VerifiedNumberListResponse =
         list(VerifiedNumberListParams.none(), requestOptions)
 
     /** Delete a verified number */
@@ -210,24 +210,25 @@ interface VerifiedNumberService {
          * [VerifiedNumberService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<VerifiedNumberListPage> = list(VerifiedNumberListParams.none())
+        fun list(): HttpResponseFor<VerifiedNumberListResponse> =
+            list(VerifiedNumberListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VerifiedNumberListParams = VerifiedNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerifiedNumberListPage>
+        ): HttpResponseFor<VerifiedNumberListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VerifiedNumberListParams = VerifiedNumberListParams.none()
-        ): HttpResponseFor<VerifiedNumberListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<VerifiedNumberListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<VerifiedNumberListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<VerifiedNumberListResponse> =
             list(VerifiedNumberListParams.none(), requestOptions)
 
         /**

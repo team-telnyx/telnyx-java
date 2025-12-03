@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateResponse
-import com.telnyx.sdk.models.simcardorders.SimCardOrderListPageAsync
-import com.telnyx.sdk.models.simcardorders.SimCardOrderListPageResponse
 import com.telnyx.sdk.models.simcardorders.SimCardOrderListParams
+import com.telnyx.sdk.models.simcardorders.SimCardOrderListResponse
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -56,7 +55,7 @@ class SimCardOrderServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: SimCardOrderListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SimCardOrderListPageAsync> =
+    ): CompletableFuture<SimCardOrderListResponse> =
         // get /sim_card_orders
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -137,13 +136,13 @@ class SimCardOrderServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<SimCardOrderListPageResponse> =
-            jsonHandler<SimCardOrderListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SimCardOrderListResponse> =
+            jsonHandler<SimCardOrderListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SimCardOrderListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimCardOrderListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<SimCardOrderListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -162,14 +161,6 @@ class SimCardOrderServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                SimCardOrderListPageAsync.builder()
-                                    .service(SimCardOrderServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

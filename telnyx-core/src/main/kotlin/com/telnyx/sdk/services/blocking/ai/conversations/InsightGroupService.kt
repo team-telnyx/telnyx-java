@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPage
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupUpdateParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightTemplateGroupDetail
@@ -137,7 +137,7 @@ interface InsightGroupService {
     ): InsightTemplateGroupDetail
 
     /** Get all insight groups */
-    fun retrieveInsightGroups(): InsightGroupRetrieveInsightGroupsPage =
+    fun retrieveInsightGroups(): InsightGroupRetrieveInsightGroupsResponse =
         retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none())
 
     /** @see retrieveInsightGroups */
@@ -145,18 +145,19 @@ interface InsightGroupService {
         params: InsightGroupRetrieveInsightGroupsParams =
             InsightGroupRetrieveInsightGroupsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InsightGroupRetrieveInsightGroupsPage
+    ): InsightGroupRetrieveInsightGroupsResponse
 
     /** @see retrieveInsightGroups */
     fun retrieveInsightGroups(
         params: InsightGroupRetrieveInsightGroupsParams =
             InsightGroupRetrieveInsightGroupsParams.none()
-    ): InsightGroupRetrieveInsightGroupsPage = retrieveInsightGroups(params, RequestOptions.none())
+    ): InsightGroupRetrieveInsightGroupsResponse =
+        retrieveInsightGroups(params, RequestOptions.none())
 
     /** @see retrieveInsightGroups */
     fun retrieveInsightGroups(
         requestOptions: RequestOptions
-    ): InsightGroupRetrieveInsightGroupsPage =
+    ): InsightGroupRetrieveInsightGroupsResponse =
         retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none(), requestOptions)
 
     /**
@@ -327,7 +328,7 @@ interface InsightGroupService {
          * the same as [InsightGroupService.retrieveInsightGroups].
          */
         @MustBeClosed
-        fun retrieveInsightGroups(): HttpResponseFor<InsightGroupRetrieveInsightGroupsPage> =
+        fun retrieveInsightGroups(): HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse> =
             retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none())
 
         /** @see retrieveInsightGroups */
@@ -336,21 +337,21 @@ interface InsightGroupService {
             params: InsightGroupRetrieveInsightGroupsParams =
                 InsightGroupRetrieveInsightGroupsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsPage>
+        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse>
 
         /** @see retrieveInsightGroups */
         @MustBeClosed
         fun retrieveInsightGroups(
             params: InsightGroupRetrieveInsightGroupsParams =
                 InsightGroupRetrieveInsightGroupsParams.none()
-        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsPage> =
+        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse> =
             retrieveInsightGroups(params, RequestOptions.none())
 
         /** @see retrieveInsightGroups */
         @MustBeClosed
         fun retrieveInsightGroups(
             requestOptions: RequestOptions
-        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsPage> =
+        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse> =
             retrieveInsightGroups(InsightGroupRetrieveInsightGroupsParams.none(), requestOptions)
     }
 }

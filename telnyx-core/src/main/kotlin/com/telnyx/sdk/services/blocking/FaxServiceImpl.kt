@@ -21,9 +21,8 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.faxes.FaxCreateParams
 import com.telnyx.sdk.models.faxes.FaxCreateResponse
 import com.telnyx.sdk.models.faxes.FaxDeleteParams
-import com.telnyx.sdk.models.faxes.FaxListPage
-import com.telnyx.sdk.models.faxes.FaxListPageResponse
 import com.telnyx.sdk.models.faxes.FaxListParams
+import com.telnyx.sdk.models.faxes.FaxListResponse
 import com.telnyx.sdk.models.faxes.FaxRetrieveParams
 import com.telnyx.sdk.models.faxes.FaxRetrieveResponse
 import com.telnyx.sdk.services.blocking.faxes.ActionService
@@ -60,7 +59,7 @@ class FaxServiceImpl internal constructor(private val clientOptions: ClientOptio
         // get /faxes/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: FaxListParams, requestOptions: RequestOptions): FaxListPage =
+    override fun list(params: FaxListParams, requestOptions: RequestOptions): FaxListResponse =
         // get /faxes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -146,13 +145,13 @@ class FaxServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listHandler: Handler<FaxListPageResponse> =
-            jsonHandler<FaxListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FaxListResponse> =
+            jsonHandler<FaxListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FaxListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<FaxListPage> {
+        ): HttpResponseFor<FaxListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -169,13 +168,6 @@ class FaxServiceImpl internal constructor(private val clientOptions: ClientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        FaxListPage.builder()
-                            .service(FaxServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

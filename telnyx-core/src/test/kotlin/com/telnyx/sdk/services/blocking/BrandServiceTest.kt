@@ -7,6 +7,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.brand.AltBusinessIdType
 import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandIdentityStatus
+import com.telnyx.sdk.models.brand.BrandListParams
 import com.telnyx.sdk.models.brand.BrandUpdateParams
 import com.telnyx.sdk.models.brand.EntityType
 import com.telnyx.sdk.models.brand.StockExchange
@@ -131,9 +132,22 @@ internal class BrandServiceTest {
                 .build()
         val brandService = client.brand()
 
-        val page = brandService.list()
+        val brands =
+            brandService.list(
+                BrandListParams.builder()
+                    .brandId("826ef77a-348c-445b-81a5-a9b13c68fbfe")
+                    .country("country")
+                    .displayName("displayName")
+                    .entityType("entityType")
+                    .page(1L)
+                    .recordsPerPage(0L)
+                    .sort(BrandListParams.Sort.ASSIGNED_CAMPAIGNS_COUNT)
+                    .state("state")
+                    .tcrBrandId("BBAND1")
+                    .build()
+            )
 
-        page.response().validate()
+        brands.validate()
     }
 
     @Disabled("Prism tests are disabled")

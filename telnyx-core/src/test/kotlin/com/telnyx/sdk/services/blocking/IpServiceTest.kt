@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ips.IpCreateParams
+import com.telnyx.sdk.models.ips.IpListParams
 import com.telnyx.sdk.models.ips.IpUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -83,9 +84,21 @@ internal class IpServiceTest {
                 .build()
         val ipService = client.ips()
 
-        val page = ipService.list()
+        val ips =
+            ipService.list(
+                IpListParams.builder()
+                    .filter(
+                        IpListParams.Filter.builder()
+                            .connectionId("connection_id")
+                            .ipAddress("192.168.0.0")
+                            .port(5060L)
+                            .build()
+                    )
+                    .page(IpListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        ips.validate()
     }
 
     @Disabled("Prism tests are disabled")
