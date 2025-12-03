@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.webhookdeliveries
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.storage.buckets.usage.PaginationMetaSimple
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -93,7 +94,7 @@ internal class WebhookDeliveryListResponseTest {
                         .build()
                 )
                 .meta(
-                    WebhookDeliveryListResponse.Meta.builder()
+                    PaginationMetaSimple.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -179,7 +180,7 @@ internal class WebhookDeliveryListResponseTest {
             )
         assertThat(webhookDeliveryListResponse.meta())
             .contains(
-                WebhookDeliveryListResponse.Meta.builder()
+                PaginationMetaSimple.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -270,7 +271,7 @@ internal class WebhookDeliveryListResponseTest {
                         .build()
                 )
                 .meta(
-                    WebhookDeliveryListResponse.Meta.builder()
+                    PaginationMetaSimple.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

@@ -29,7 +29,7 @@ interface SslCertificateServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SslCertificateServiceAsync
 
     /**
-     * Uploads an SSL certificate and its matching secret so that you can use Telnyx’s storage as
+     * Uploads an SSL certificate and its matching secret so that you can use Telnyx's storage as
      * your CDN.
      */
     fun create(bucketName: String): CompletableFuture<SslCertificateCreateResponse> =

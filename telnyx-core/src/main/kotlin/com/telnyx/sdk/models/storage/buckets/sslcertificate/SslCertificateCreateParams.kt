@@ -23,7 +23,7 @@ import kotlin.io.path.name
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Uploads an SSL certificate and its matching secret so that you can use Telnyx’s storage as your
+ * Uploads an SSL certificate and its matching secret so that you can use Telnyx's storage as your
  * CDN.
  */
 class SslCertificateCreateParams
