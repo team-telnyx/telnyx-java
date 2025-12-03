@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.countrycoverage
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,104 +14,90 @@ internal class CountryCoverageRetrieveResponseTest {
     fun create() {
         val countryCoverageRetrieveResponse =
             CountryCoverageRetrieveResponse.builder()
-                .addData(
+                .data(
                     CountryCoverageRetrieveResponse.Data.builder()
-                        .code("code")
-                        .addFeature("string")
-                        .internationalSms(true)
-                        .inventoryCoverage(true)
-                        .local(
-                            CountryCoverageRetrieveResponse.Data.Local.builder()
-                                .addFeature("string")
-                                .fullPstnReplacement(true)
-                                .internationalSms(true)
-                                .p2p(true)
-                                .quickship(true)
-                                .reservable(true)
-                                .build()
-                        )
-                        .mobile(
-                            CountryCoverageRetrieveResponse.Data.Mobile.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .national(
-                            CountryCoverageRetrieveResponse.Data.National.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .numbers(true)
-                        .p2p(true)
-                        .addPhoneNumberType("string")
-                        .quickship(true)
-                        .region("region")
-                        .reservable(true)
-                        .sharedCost(
-                            CountryCoverageRetrieveResponse.Data.SharedCost.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .tollFree(
-                            CountryCoverageRetrieveResponse.Data.TollFree.builder()
-                                .addFeature("string")
-                                .fullPstnReplacement(true)
-                                .internationalSms(true)
-                                .p2p(true)
-                                .quickship(true)
-                                .reservable(true)
-                                .build()
+                        .putAdditionalProperty(
+                            "foo",
+                            JsonValue.from(
+                                mapOf(
+                                    "code" to "code",
+                                    "features" to listOf("string"),
+                                    "international_sms" to true,
+                                    "inventory_coverage" to true,
+                                    "local" to
+                                        mapOf(
+                                            "features" to listOf("string"),
+                                            "full_pstn_replacement" to true,
+                                            "international_sms" to true,
+                                            "p2p" to true,
+                                            "quickship" to true,
+                                            "reservable" to true,
+                                        ),
+                                    "mobile" to mapOf("foo" to "bar"),
+                                    "national" to mapOf("foo" to "bar"),
+                                    "numbers" to true,
+                                    "p2p" to true,
+                                    "phone_number_type" to listOf("string"),
+                                    "quickship" to true,
+                                    "region" to "region",
+                                    "reservable" to true,
+                                    "shared_cost" to mapOf("foo" to "bar"),
+                                    "toll_free" to
+                                        mapOf(
+                                            "features" to listOf("string"),
+                                            "full_pstn_replacement" to true,
+                                            "international_sms" to true,
+                                            "p2p" to true,
+                                            "quickship" to true,
+                                            "reservable" to true,
+                                        ),
+                                )
+                            ),
                         )
                         .build()
                 )
                 .build()
 
-        assertThat(countryCoverageRetrieveResponse.data().getOrNull())
-            .containsExactly(
+        assertThat(countryCoverageRetrieveResponse.data())
+            .contains(
                 CountryCoverageRetrieveResponse.Data.builder()
-                    .code("code")
-                    .addFeature("string")
-                    .internationalSms(true)
-                    .inventoryCoverage(true)
-                    .local(
-                        CountryCoverageRetrieveResponse.Data.Local.builder()
-                            .addFeature("string")
-                            .fullPstnReplacement(true)
-                            .internationalSms(true)
-                            .p2p(true)
-                            .quickship(true)
-                            .reservable(true)
-                            .build()
-                    )
-                    .mobile(
-                        CountryCoverageRetrieveResponse.Data.Mobile.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .national(
-                        CountryCoverageRetrieveResponse.Data.National.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .numbers(true)
-                    .p2p(true)
-                    .addPhoneNumberType("string")
-                    .quickship(true)
-                    .region("region")
-                    .reservable(true)
-                    .sharedCost(
-                        CountryCoverageRetrieveResponse.Data.SharedCost.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .tollFree(
-                        CountryCoverageRetrieveResponse.Data.TollFree.builder()
-                            .addFeature("string")
-                            .fullPstnReplacement(true)
-                            .internationalSms(true)
-                            .p2p(true)
-                            .quickship(true)
-                            .reservable(true)
-                            .build()
+                    .putAdditionalProperty(
+                        "foo",
+                        JsonValue.from(
+                            mapOf(
+                                "code" to "code",
+                                "features" to listOf("string"),
+                                "international_sms" to true,
+                                "inventory_coverage" to true,
+                                "local" to
+                                    mapOf(
+                                        "features" to listOf("string"),
+                                        "full_pstn_replacement" to true,
+                                        "international_sms" to true,
+                                        "p2p" to true,
+                                        "quickship" to true,
+                                        "reservable" to true,
+                                    ),
+                                "mobile" to mapOf("foo" to "bar"),
+                                "national" to mapOf("foo" to "bar"),
+                                "numbers" to true,
+                                "p2p" to true,
+                                "phone_number_type" to listOf("string"),
+                                "quickship" to true,
+                                "region" to "region",
+                                "reservable" to true,
+                                "shared_cost" to mapOf("foo" to "bar"),
+                                "toll_free" to
+                                    mapOf(
+                                        "features" to listOf("string"),
+                                        "full_pstn_replacement" to true,
+                                        "international_sms" to true,
+                                        "p2p" to true,
+                                        "quickship" to true,
+                                        "reservable" to true,
+                                    ),
+                            )
+                        ),
                     )
                     .build()
             )
@@ -123,52 +108,45 @@ internal class CountryCoverageRetrieveResponseTest {
         val jsonMapper = jsonMapper()
         val countryCoverageRetrieveResponse =
             CountryCoverageRetrieveResponse.builder()
-                .addData(
+                .data(
                     CountryCoverageRetrieveResponse.Data.builder()
-                        .code("code")
-                        .addFeature("string")
-                        .internationalSms(true)
-                        .inventoryCoverage(true)
-                        .local(
-                            CountryCoverageRetrieveResponse.Data.Local.builder()
-                                .addFeature("string")
-                                .fullPstnReplacement(true)
-                                .internationalSms(true)
-                                .p2p(true)
-                                .quickship(true)
-                                .reservable(true)
-                                .build()
-                        )
-                        .mobile(
-                            CountryCoverageRetrieveResponse.Data.Mobile.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .national(
-                            CountryCoverageRetrieveResponse.Data.National.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .numbers(true)
-                        .p2p(true)
-                        .addPhoneNumberType("string")
-                        .quickship(true)
-                        .region("region")
-                        .reservable(true)
-                        .sharedCost(
-                            CountryCoverageRetrieveResponse.Data.SharedCost.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .tollFree(
-                            CountryCoverageRetrieveResponse.Data.TollFree.builder()
-                                .addFeature("string")
-                                .fullPstnReplacement(true)
-                                .internationalSms(true)
-                                .p2p(true)
-                                .quickship(true)
-                                .reservable(true)
-                                .build()
+                        .putAdditionalProperty(
+                            "foo",
+                            JsonValue.from(
+                                mapOf(
+                                    "code" to "code",
+                                    "features" to listOf("string"),
+                                    "international_sms" to true,
+                                    "inventory_coverage" to true,
+                                    "local" to
+                                        mapOf(
+                                            "features" to listOf("string"),
+                                            "full_pstn_replacement" to true,
+                                            "international_sms" to true,
+                                            "p2p" to true,
+                                            "quickship" to true,
+                                            "reservable" to true,
+                                        ),
+                                    "mobile" to mapOf("foo" to "bar"),
+                                    "national" to mapOf("foo" to "bar"),
+                                    "numbers" to true,
+                                    "p2p" to true,
+                                    "phone_number_type" to listOf("string"),
+                                    "quickship" to true,
+                                    "region" to "region",
+                                    "reservable" to true,
+                                    "shared_cost" to mapOf("foo" to "bar"),
+                                    "toll_free" to
+                                        mapOf(
+                                            "features" to listOf("string"),
+                                            "full_pstn_replacement" to true,
+                                            "international_sms" to true,
+                                            "p2p" to true,
+                                            "quickship" to true,
+                                            "reservable" to true,
+                                        ),
+                                )
+                            ),
                         )
                         .build()
                 )

@@ -24,6 +24,7 @@ class AvailablePhoneNumberListResponse
 private constructor(
     private val data: JsonField<List<Data>>,
     private val meta: JsonField<Meta>,
+    private val metadata: JsonField<Metadata>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -31,7 +32,8 @@ private constructor(
     private constructor(
         @JsonProperty("data") @ExcludeMissing data: JsonField<List<Data>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
-    ) : this(data, meta, mutableMapOf())
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
+    ) : this(data, meta, metadata, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -46,6 +48,12 @@ private constructor(
     fun meta(): Optional<Meta> = meta.getOptional("meta")
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+
+    /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
@@ -58,6 +66,13 @@ private constructor(
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<Meta> = meta
+
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -85,6 +100,7 @@ private constructor(
 
         private var data: JsonField<MutableList<Data>>? = null
         private var meta: JsonField<Meta> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -92,6 +108,7 @@ private constructor(
             apply {
                 data = availablePhoneNumberListResponse.data.map { it.toMutableList() }
                 meta = availablePhoneNumberListResponse.meta
+                metadata = availablePhoneNumberListResponse.metadata
                 additionalProperties =
                     availablePhoneNumberListResponse.additionalProperties.toMutableMap()
             }
@@ -130,6 +147,17 @@ private constructor(
          */
         fun meta(meta: JsonField<Meta>) = apply { this.meta = meta }
 
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -158,6 +186,7 @@ private constructor(
             AvailablePhoneNumberListResponse(
                 (data ?: JsonMissing.of()).map { it.toImmutable() },
                 meta,
+                metadata,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -171,6 +200,7 @@ private constructor(
 
         data().ifPresent { it.forEach { it.validate() } }
         meta().ifPresent { it.validate() }
+        metadata().ifPresent { it.validate() }
         validated = true
     }
 
@@ -190,7 +220,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (data.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (meta.asKnown().getOrNull()?.validity() ?: 0)
+            (meta.asKnown().getOrNull()?.validity() ?: 0) +
+            (metadata.asKnown().getOrNull()?.validity() ?: 0)
 
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1734,6 +1765,196 @@ private constructor(
             "Meta{bestEffortResults=$bestEffortResults, totalResults=$totalResults, additionalProperties=$additionalProperties}"
     }
 
+    class Metadata
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val bestEffortResults: JsonField<Long>,
+        private val totalResults: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("best_effort_results")
+            @ExcludeMissing
+            bestEffortResults: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_results")
+            @ExcludeMissing
+            totalResults: JsonField<Long> = JsonMissing.of(),
+        ) : this(bestEffortResults, totalResults, mutableMapOf())
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun bestEffortResults(): Optional<Long> =
+            bestEffortResults.getOptional("best_effort_results")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun totalResults(): Optional<Long> = totalResults.getOptional("total_results")
+
+        /**
+         * Returns the raw JSON value of [bestEffortResults].
+         *
+         * Unlike [bestEffortResults], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("best_effort_results")
+        @ExcludeMissing
+        fun _bestEffortResults(): JsonField<Long> = bestEffortResults
+
+        /**
+         * Returns the raw JSON value of [totalResults].
+         *
+         * Unlike [totalResults], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("total_results")
+        @ExcludeMissing
+        fun _totalResults(): JsonField<Long> = totalResults
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
+
+            private var bestEffortResults: JsonField<Long> = JsonMissing.of()
+            private var totalResults: JsonField<Long> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(metadata: Metadata) = apply {
+                bestEffortResults = metadata.bestEffortResults
+                totalResults = metadata.totalResults
+                additionalProperties = metadata.additionalProperties.toMutableMap()
+            }
+
+            fun bestEffortResults(bestEffortResults: Long) =
+                bestEffortResults(JsonField.of(bestEffortResults))
+
+            /**
+             * Sets [Builder.bestEffortResults] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bestEffortResults] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun bestEffortResults(bestEffortResults: JsonField<Long>) = apply {
+                this.bestEffortResults = bestEffortResults
+            }
+
+            fun totalResults(totalResults: Long) = totalResults(JsonField.of(totalResults))
+
+            /**
+             * Sets [Builder.totalResults] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalResults] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun totalResults(totalResults: JsonField<Long>) = apply {
+                this.totalResults = totalResults
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Metadata =
+                Metadata(bestEffortResults, totalResults, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            bestEffortResults()
+            totalResults()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (bestEffortResults.asKnown().isPresent) 1 else 0) +
+                (if (totalResults.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata &&
+                bestEffortResults == other.bestEffortResults &&
+                totalResults == other.totalResults &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(bestEffortResults, totalResults, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Metadata{bestEffortResults=$bestEffortResults, totalResults=$totalResults, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -1742,13 +1963,14 @@ private constructor(
         return other is AvailablePhoneNumberListResponse &&
             data == other.data &&
             meta == other.meta &&
+            metadata == other.metadata &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(data, meta, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(data, meta, metadata, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AvailablePhoneNumberListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "AvailablePhoneNumberListResponse{data=$data, meta=$meta, metadata=$metadata, additionalProperties=$additionalProperties}"
 }

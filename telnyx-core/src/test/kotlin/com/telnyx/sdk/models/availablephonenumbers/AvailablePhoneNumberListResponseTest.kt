@@ -59,6 +59,12 @@ internal class AvailablePhoneNumberListResponseTest {
                         .totalResults(100L)
                         .build()
                 )
+                .metadata(
+                    AvailablePhoneNumberListResponse.Metadata.builder()
+                        .bestEffortResults(50L)
+                        .totalResults(100L)
+                        .build()
+                )
                 .build()
 
         assertThat(availablePhoneNumberListResponse.data().getOrNull())
@@ -101,6 +107,13 @@ internal class AvailablePhoneNumberListResponseTest {
         assertThat(availablePhoneNumberListResponse.meta())
             .contains(
                 AvailablePhoneNumberListResponse.Meta.builder()
+                    .bestEffortResults(50L)
+                    .totalResults(100L)
+                    .build()
+            )
+        assertThat(availablePhoneNumberListResponse.metadata())
+            .contains(
+                AvailablePhoneNumberListResponse.Metadata.builder()
                     .bestEffortResults(50L)
                     .totalResults(100L)
                     .build()
@@ -153,6 +166,12 @@ internal class AvailablePhoneNumberListResponseTest {
                 )
                 .meta(
                     AvailablePhoneNumberListResponse.Meta.builder()
+                        .bestEffortResults(50L)
+                        .totalResults(100L)
+                        .build()
+                )
+                .metadata(
+                    AvailablePhoneNumberListResponse.Metadata.builder()
                         .bestEffortResults(50L)
                         .totalResults(100L)
                         .build()
