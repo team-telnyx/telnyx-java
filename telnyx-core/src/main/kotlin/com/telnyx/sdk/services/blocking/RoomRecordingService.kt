@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteParams
-import com.telnyx.sdk.models.roomrecordings.RoomRecordingListPage
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingListParams
+import com.telnyx.sdk.models.roomrecordings.RoomRecordingListResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveResponse
 import java.util.function.Consumer
@@ -66,21 +66,21 @@ interface RoomRecordingService {
         retrieve(roomRecordingId, RoomRecordingRetrieveParams.none(), requestOptions)
 
     /** View a list of room recordings. */
-    fun list(): RoomRecordingListPage = list(RoomRecordingListParams.none())
+    fun list(): RoomRecordingListResponse = list(RoomRecordingListParams.none())
 
     /** @see list */
     fun list(
         params: RoomRecordingListParams = RoomRecordingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RoomRecordingListPage
+    ): RoomRecordingListResponse
 
     /** @see list */
     fun list(
         params: RoomRecordingListParams = RoomRecordingListParams.none()
-    ): RoomRecordingListPage = list(params, RequestOptions.none())
+    ): RoomRecordingListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RoomRecordingListPage =
+    fun list(requestOptions: RequestOptions): RoomRecordingListResponse =
         list(RoomRecordingListParams.none(), requestOptions)
 
     /** Synchronously delete a Room Recording. */
@@ -196,24 +196,25 @@ interface RoomRecordingService {
          * [RoomRecordingService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<RoomRecordingListPage> = list(RoomRecordingListParams.none())
+        fun list(): HttpResponseFor<RoomRecordingListResponse> =
+            list(RoomRecordingListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RoomRecordingListParams = RoomRecordingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RoomRecordingListPage>
+        ): HttpResponseFor<RoomRecordingListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RoomRecordingListParams = RoomRecordingListParams.none()
-        ): HttpResponseFor<RoomRecordingListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<RoomRecordingListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomRecordingListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomRecordingListResponse> =
             list(RoomRecordingListParams.none(), requestOptions)
 
         /**

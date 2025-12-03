@@ -4,6 +4,8 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.roomparticipants.RoomParticipantListParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,8 +39,40 @@ internal class RoomParticipantServiceTest {
                 .build()
         val roomParticipantService = client.roomParticipants()
 
-        val page = roomParticipantService.list()
+        val roomParticipants =
+            roomParticipantService.list(
+                RoomParticipantListParams.builder()
+                    .filter(
+                        RoomParticipantListParams.Filter.builder()
+                            .context("Alice")
+                            .dateJoinedAt(
+                                RoomParticipantListParams.Filter.DateJoinedAt.builder()
+                                    .eq(LocalDate.parse("2021-04-25"))
+                                    .gte(LocalDate.parse("2021-04-25"))
+                                    .lte(LocalDate.parse("2021-04-25"))
+                                    .build()
+                            )
+                            .dateLeftAt(
+                                RoomParticipantListParams.Filter.DateLeftAt.builder()
+                                    .eq(LocalDate.parse("2021-04-25"))
+                                    .gte(LocalDate.parse("2021-04-25"))
+                                    .lte(LocalDate.parse("2021-04-25"))
+                                    .build()
+                            )
+                            .dateUpdatedAt(
+                                RoomParticipantListParams.Filter.DateUpdatedAt.builder()
+                                    .eq(LocalDate.parse("2021-04-25"))
+                                    .gte(LocalDate.parse("2021-04-25"))
+                                    .lte(LocalDate.parse("2021-04-25"))
+                                    .build()
+                            )
+                            .sessionId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .build()
+                    )
+                    .page(RoomParticipantListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        roomParticipants.validate()
     }
 }

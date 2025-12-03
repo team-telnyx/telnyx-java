@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeleteParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPage
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -68,7 +67,7 @@ class LoaConfigurationServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: LoaConfigurationListParams,
         requestOptions: RequestOptions,
-    ): LoaConfigurationListPage =
+    ): LoaConfigurationListResponse =
         // get /porting/loa_configurations
         withRawResponse().list(params, requestOptions).parse()
 
@@ -193,13 +192,13 @@ class LoaConfigurationServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<LoaConfigurationListPageResponse> =
-            jsonHandler<LoaConfigurationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LoaConfigurationListResponse> =
+            jsonHandler<LoaConfigurationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: LoaConfigurationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LoaConfigurationListPage> {
+        ): HttpResponseFor<LoaConfigurationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -216,13 +215,6 @@ class LoaConfigurationServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        LoaConfigurationListPage.builder()
-                            .service(LoaConfigurationServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

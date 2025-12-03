@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateResponse
-import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListPage
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListParams
+import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListResponse
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveResponse
 import java.util.function.Consumer
@@ -78,20 +78,21 @@ interface CsvDownloadService {
         retrieve(id, CsvDownloadRetrieveParams.none(), requestOptions)
 
     /** List CSV downloads */
-    fun list(): CsvDownloadListPage = list(CsvDownloadListParams.none())
+    fun list(): CsvDownloadListResponse = list(CsvDownloadListParams.none())
 
     /** @see list */
     fun list(
         params: CsvDownloadListParams = CsvDownloadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CsvDownloadListPage
+    ): CsvDownloadListResponse
 
     /** @see list */
-    fun list(params: CsvDownloadListParams = CsvDownloadListParams.none()): CsvDownloadListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: CsvDownloadListParams = CsvDownloadListParams.none()
+    ): CsvDownloadListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CsvDownloadListPage =
+    fun list(requestOptions: RequestOptions): CsvDownloadListResponse =
         list(CsvDownloadListParams.none(), requestOptions)
 
     /**
@@ -185,24 +186,24 @@ interface CsvDownloadService {
          * same as [CsvDownloadService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CsvDownloadListPage> = list(CsvDownloadListParams.none())
+        fun list(): HttpResponseFor<CsvDownloadListResponse> = list(CsvDownloadListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CsvDownloadListParams = CsvDownloadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CsvDownloadListPage>
+        ): HttpResponseFor<CsvDownloadListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CsvDownloadListParams = CsvDownloadListParams.none()
-        ): HttpResponseFor<CsvDownloadListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CsvDownloadListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CsvDownloadListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CsvDownloadListResponse> =
             list(CsvDownloadListParams.none(), requestOptions)
     }
 }

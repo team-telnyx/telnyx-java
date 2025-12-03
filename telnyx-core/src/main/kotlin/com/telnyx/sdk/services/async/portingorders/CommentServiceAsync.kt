@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateParams
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateResponse
-import com.telnyx.sdk.models.portingorders.comments.CommentListPageAsync
 import com.telnyx.sdk.models.portingorders.comments.CommentListParams
+import com.telnyx.sdk.models.portingorders.comments.CommentListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -62,7 +62,7 @@ interface CommentServiceAsync {
         create(id, CommentCreateParams.none(), requestOptions)
 
     /** Returns a list of all comments of a porting order. */
-    fun list(id: String): CompletableFuture<CommentListPageAsync> =
+    fun list(id: String): CompletableFuture<CommentListResponse> =
         list(id, CommentListParams.none())
 
     /** @see list */
@@ -70,27 +70,27 @@ interface CommentServiceAsync {
         id: String,
         params: CommentListParams = CommentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CommentListPageAsync> =
+    ): CompletableFuture<CommentListResponse> =
         list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: CommentListParams = CommentListParams.none(),
-    ): CompletableFuture<CommentListPageAsync> = list(id, params, RequestOptions.none())
+    ): CompletableFuture<CommentListResponse> = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CommentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CommentListPageAsync>
+    ): CompletableFuture<CommentListResponse>
 
     /** @see list */
-    fun list(params: CommentListParams): CompletableFuture<CommentListPageAsync> =
+    fun list(params: CommentListParams): CompletableFuture<CommentListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<CommentListPageAsync> =
+    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<CommentListResponse> =
         list(id, CommentListParams.none(), requestOptions)
 
     /**
@@ -152,7 +152,7 @@ interface CommentServiceAsync {
          * Returns a raw HTTP response for `get /porting_orders/{id}/comments`, but is otherwise the
          * same as [CommentServiceAsync.list].
          */
-        fun list(id: String): CompletableFuture<HttpResponseFor<CommentListPageAsync>> =
+        fun list(id: String): CompletableFuture<HttpResponseFor<CommentListResponse>> =
             list(id, CommentListParams.none())
 
         /** @see list */
@@ -160,33 +160,33 @@ interface CommentServiceAsync {
             id: String,
             params: CommentListParams = CommentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CommentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CommentListResponse>> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         fun list(
             id: String,
             params: CommentListParams = CommentListParams.none(),
-        ): CompletableFuture<HttpResponseFor<CommentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CommentListResponse>> =
             list(id, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: CommentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CommentListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CommentListResponse>>
 
         /** @see list */
         fun list(
             params: CommentListParams
-        ): CompletableFuture<HttpResponseFor<CommentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CommentListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CommentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CommentListResponse>> =
             list(id, CommentListParams.none(), requestOptions)
     }
 }

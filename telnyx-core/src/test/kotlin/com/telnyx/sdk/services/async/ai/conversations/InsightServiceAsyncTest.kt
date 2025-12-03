@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.conversations
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -89,10 +90,15 @@ internal class InsightServiceAsyncTest {
                 .build()
         val insightServiceAsync = client.ai().conversations().insights()
 
-        val pageFuture = insightServiceAsync.list()
+        val insightsFuture =
+            insightServiceAsync.list(
+                InsightListParams.builder()
+                    .page(InsightListParams.Page.builder().number(1L).size(0L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val insights = insightsFuture.get()
+        insights.validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -4,6 +4,8 @@ package com.telnyx.sdk.models.networks
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,43 +15,66 @@ internal class NetworkListInterfacesResponseTest {
     fun create() {
         val networkListInterfacesResponse =
             NetworkListInterfacesResponse.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .createdAt("2018-02-02T22:25:27.521Z")
-                .recordType("network_interface")
-                .updatedAt("2018-02-02T22:25:27.521Z")
-                .name("test interface")
-                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .status(InterfaceStatus.PROVISIONED)
-                .region(
-                    NetworkListInterfacesResponse.Region.builder()
-                        .code("ashburn-va")
-                        .name("Ashburn")
-                        .recordType("region")
+                .addData(
+                    NetworkListInterfacesResponse.Data.builder()
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .createdAt("2018-02-02T22:25:27.521Z")
+                        .recordType("network_interface")
+                        .updatedAt("2018-02-02T22:25:27.521Z")
+                        .name("test interface")
+                        .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .status(InterfaceStatus.PROVISIONED)
+                        .region(
+                            NetworkListInterfacesResponse.Data.Region.builder()
+                                .code("ashburn-va")
+                                .name("Ashburn")
+                                .recordType("region")
+                                .build()
+                        )
+                        .regionCode("ashburn-va")
+                        .type("wireguard_interface")
                         .build()
                 )
-                .regionCode("ashburn-va")
-                .type("wireguard_interface")
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
                 .build()
 
-        assertThat(networkListInterfacesResponse.id())
-            .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(networkListInterfacesResponse.createdAt()).contains("2018-02-02T22:25:27.521Z")
-        assertThat(networkListInterfacesResponse.recordType()).contains("network_interface")
-        assertThat(networkListInterfacesResponse.updatedAt()).contains("2018-02-02T22:25:27.521Z")
-        assertThat(networkListInterfacesResponse.name()).contains("test interface")
-        assertThat(networkListInterfacesResponse.networkId())
-            .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(networkListInterfacesResponse.status()).contains(InterfaceStatus.PROVISIONED)
-        assertThat(networkListInterfacesResponse.region())
-            .contains(
-                NetworkListInterfacesResponse.Region.builder()
-                    .code("ashburn-va")
-                    .name("Ashburn")
-                    .recordType("region")
+        assertThat(networkListInterfacesResponse.data().getOrNull())
+            .containsExactly(
+                NetworkListInterfacesResponse.Data.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .createdAt("2018-02-02T22:25:27.521Z")
+                    .recordType("network_interface")
+                    .updatedAt("2018-02-02T22:25:27.521Z")
+                    .name("test interface")
+                    .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .status(InterfaceStatus.PROVISIONED)
+                    .region(
+                        NetworkListInterfacesResponse.Data.Region.builder()
+                            .code("ashburn-va")
+                            .name("Ashburn")
+                            .recordType("region")
+                            .build()
+                    )
+                    .regionCode("ashburn-va")
+                    .type("wireguard_interface")
                     .build()
             )
-        assertThat(networkListInterfacesResponse.regionCode()).contains("ashburn-va")
-        assertThat(networkListInterfacesResponse.type()).contains("wireguard_interface")
+        assertThat(networkListInterfacesResponse.meta())
+            .contains(
+                PaginationMeta.builder()
+                    .pageNumber(2L)
+                    .pageSize(25L)
+                    .totalPages(3L)
+                    .totalResults(55L)
+                    .build()
+            )
     }
 
     @Test
@@ -57,22 +82,34 @@ internal class NetworkListInterfacesResponseTest {
         val jsonMapper = jsonMapper()
         val networkListInterfacesResponse =
             NetworkListInterfacesResponse.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .createdAt("2018-02-02T22:25:27.521Z")
-                .recordType("network_interface")
-                .updatedAt("2018-02-02T22:25:27.521Z")
-                .name("test interface")
-                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                .status(InterfaceStatus.PROVISIONED)
-                .region(
-                    NetworkListInterfacesResponse.Region.builder()
-                        .code("ashburn-va")
-                        .name("Ashburn")
-                        .recordType("region")
+                .addData(
+                    NetworkListInterfacesResponse.Data.builder()
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .createdAt("2018-02-02T22:25:27.521Z")
+                        .recordType("network_interface")
+                        .updatedAt("2018-02-02T22:25:27.521Z")
+                        .name("test interface")
+                        .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .status(InterfaceStatus.PROVISIONED)
+                        .region(
+                            NetworkListInterfacesResponse.Data.Region.builder()
+                                .code("ashburn-va")
+                                .name("Ashburn")
+                                .recordType("region")
+                                .build()
+                        )
+                        .regionCode("ashburn-va")
+                        .type("wireguard_interface")
                         .build()
                 )
-                .regionCode("ashburn-va")
-                .type("wireguard_interface")
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
                 .build()
 
         val roundtrippedNetworkListInterfacesResponse =

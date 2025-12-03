@@ -16,9 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.shortcodes.ShortCodeListPage
-import com.telnyx.sdk.models.shortcodes.ShortCodeListPageResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeListParams
+import com.telnyx.sdk.models.shortcodes.ShortCodeListResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
@@ -55,7 +54,7 @@ class ShortCodeServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: ShortCodeListParams,
         requestOptions: RequestOptions,
-    ): ShortCodeListPage =
+    ): ShortCodeListResponse =
         // get /short_codes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -133,13 +132,13 @@ class ShortCodeServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<ShortCodeListPageResponse> =
-            jsonHandler<ShortCodeListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ShortCodeListResponse> =
+            jsonHandler<ShortCodeListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ShortCodeListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ShortCodeListPage> {
+        ): HttpResponseFor<ShortCodeListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -156,13 +155,6 @@ class ShortCodeServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ShortCodeListPage.builder()
-                            .service(ShortCodeServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

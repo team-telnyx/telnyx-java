@@ -76,8 +76,8 @@ import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressServiceImpl
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointServiceImpl
-import com.telnyx.sdk.services.blocking.EnumerationService
-import com.telnyx.sdk.services.blocking.EnumerationServiceImpl
+import com.telnyx.sdk.services.blocking.EnumService
+import com.telnyx.sdk.services.blocking.EnumServiceImpl
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.ExternalConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.FaxApplicationService
@@ -479,9 +479,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         DynamicEmergencyEndpointServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val enumeration: EnumerationService by lazy {
-        EnumerationServiceImpl(clientOptionsWithUserAgent)
-    }
+    private val enum_: EnumService by lazy { EnumServiceImpl(clientOptionsWithUserAgent) }
 
     private val externalConnections: ExternalConnectionService by lazy {
         ExternalConnectionServiceImpl(clientOptionsWithUserAgent)
@@ -993,7 +991,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService =
         dynamicEmergencyEndpoints
 
-    override fun enumeration(): EnumerationService = enumeration
+    override fun enum_(): EnumService = enum_
 
     override fun externalConnections(): ExternalConnectionService = externalConnections
 
@@ -1407,8 +1405,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             DynamicEmergencyEndpointServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val enumeration: EnumerationService.WithRawResponse by lazy {
-            EnumerationServiceImpl.WithRawResponseImpl(clientOptions)
+        private val enum_: EnumService.WithRawResponse by lazy {
+            EnumServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val externalConnections: ExternalConnectionService.WithRawResponse by lazy {
@@ -1978,7 +1976,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService.WithRawResponse =
             dynamicEmergencyEndpoints
 
-        override fun enumeration(): EnumerationService.WithRawResponse = enumeration
+        override fun enum_(): EnumService.WithRawResponse = enum_
 
         override fun externalConnections(): ExternalConnectionService.WithRawResponse =
             externalConnections

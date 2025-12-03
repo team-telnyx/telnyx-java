@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressCreateParams
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressDeleteParams
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPage
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPageResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListParams
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressRetrieveParams
 import java.util.function.Consumer
@@ -55,7 +54,7 @@ class AccessIpAddressServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: AccessIpAddressListParams,
         requestOptions: RequestOptions,
-    ): AccessIpAddressListPage =
+    ): AccessIpAddressListResponse =
         // get /access_ip_address
         withRawResponse().list(params, requestOptions).parse()
 
@@ -137,13 +136,13 @@ class AccessIpAddressServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<AccessIpAddressListPageResponse> =
-            jsonHandler<AccessIpAddressListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccessIpAddressListResponse> =
+            jsonHandler<AccessIpAddressListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccessIpAddressListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccessIpAddressListPage> {
+        ): HttpResponseFor<AccessIpAddressListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -160,13 +159,6 @@ class AccessIpAddressServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        AccessIpAddressListPage.builder()
-                            .service(AccessIpAddressServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

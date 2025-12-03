@@ -3,23 +3,29 @@
 package com.telnyx.sdk.models.calls.actions
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 class AwsVoiceSettings
-@JsonCreator
-private constructor(
-    @com.fasterxml.jackson.annotation.JsonValue
-    private val additionalProperties: Map<String, JsonValue>
-) {
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
+private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+    @JsonCreator private constructor() : this(mutableMapOf())
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -63,7 +69,7 @@ private constructor(
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): AwsVoiceSettings = AwsVoiceSettings(additionalProperties.toImmutable())
+        fun build(): AwsVoiceSettings = AwsVoiceSettings(additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -89,9 +95,7 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic
-    internal fun validity(): Int =
-        additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+    @JvmSynthetic internal fun validity(): Int = 0
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

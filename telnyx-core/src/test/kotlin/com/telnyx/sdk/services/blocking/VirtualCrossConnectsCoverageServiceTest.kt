@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,8 +22,35 @@ internal class VirtualCrossConnectsCoverageServiceTest {
                 .build()
         val virtualCrossConnectsCoverageService = client.virtualCrossConnectsCoverage()
 
-        val page = virtualCrossConnectsCoverageService.list()
+        val virtualCrossConnectsCoverages =
+            virtualCrossConnectsCoverageService.list(
+                VirtualCrossConnectsCoverageListParams.builder()
+                    .filter(
+                        VirtualCrossConnectsCoverageListParams.Filter.builder()
+                            .cloudProvider(
+                                VirtualCrossConnectsCoverageListParams.Filter.CloudProvider.AWS
+                            )
+                            .cloudProviderRegion("us-east-1")
+                            .locationCode("silicon_valley-ca")
+                            .locationPop("SV1")
+                            .locationRegion("AMER")
+                            .locationSite("SJC")
+                            .build()
+                    )
+                    .filters(
+                        VirtualCrossConnectsCoverageListParams.Filters.builder()
+                            .availableBandwidth(0L)
+                            .build()
+                    )
+                    .page(
+                        VirtualCrossConnectsCoverageListParams.Page.builder()
+                            .number(1L)
+                            .size(1L)
+                            .build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        virtualCrossConnectsCoverages.validate()
     }
 }

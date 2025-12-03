@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.reports.ReportListMdrsParams
 import com.telnyx.sdk.models.reports.ReportListMdrsResponse
-import com.telnyx.sdk.models.reports.ReportListWdrsPageAsync
 import com.telnyx.sdk.models.reports.ReportListWdrsParams
+import com.telnyx.sdk.models.reports.ReportListWdrsResponse
 import com.telnyx.sdk.services.async.reports.CdrUsageReportServiceAsync
 import com.telnyx.sdk.services.async.reports.MdrUsageReportServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -52,22 +52,22 @@ interface ReportServiceAsync {
         listMdrs(ReportListMdrsParams.none(), requestOptions)
 
     /** Fetch all Wdr records */
-    fun listWdrs(): CompletableFuture<ReportListWdrsPageAsync> =
+    fun listWdrs(): CompletableFuture<ReportListWdrsResponse> =
         listWdrs(ReportListWdrsParams.none())
 
     /** @see listWdrs */
     fun listWdrs(
         params: ReportListWdrsParams = ReportListWdrsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReportListWdrsPageAsync>
+    ): CompletableFuture<ReportListWdrsResponse>
 
     /** @see listWdrs */
     fun listWdrs(
         params: ReportListWdrsParams = ReportListWdrsParams.none()
-    ): CompletableFuture<ReportListWdrsPageAsync> = listWdrs(params, RequestOptions.none())
+    ): CompletableFuture<ReportListWdrsResponse> = listWdrs(params, RequestOptions.none())
 
     /** @see listWdrs */
-    fun listWdrs(requestOptions: RequestOptions): CompletableFuture<ReportListWdrsPageAsync> =
+    fun listWdrs(requestOptions: RequestOptions): CompletableFuture<ReportListWdrsResponse> =
         listWdrs(ReportListWdrsParams.none(), requestOptions)
 
     /**
@@ -117,25 +117,25 @@ interface ReportServiceAsync {
          * Returns a raw HTTP response for `get /reports/wdrs`, but is otherwise the same as
          * [ReportServiceAsync.listWdrs].
          */
-        fun listWdrs(): CompletableFuture<HttpResponseFor<ReportListWdrsPageAsync>> =
+        fun listWdrs(): CompletableFuture<HttpResponseFor<ReportListWdrsResponse>> =
             listWdrs(ReportListWdrsParams.none())
 
         /** @see listWdrs */
         fun listWdrs(
             params: ReportListWdrsParams = ReportListWdrsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReportListWdrsPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ReportListWdrsResponse>>
 
         /** @see listWdrs */
         fun listWdrs(
             params: ReportListWdrsParams = ReportListWdrsParams.none()
-        ): CompletableFuture<HttpResponseFor<ReportListWdrsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ReportListWdrsResponse>> =
             listWdrs(params, RequestOptions.none())
 
         /** @see listWdrs */
         fun listWdrs(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ReportListWdrsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ReportListWdrsResponse>> =
             listWdrs(ReportListWdrsParams.none(), requestOptions)
     }
 }

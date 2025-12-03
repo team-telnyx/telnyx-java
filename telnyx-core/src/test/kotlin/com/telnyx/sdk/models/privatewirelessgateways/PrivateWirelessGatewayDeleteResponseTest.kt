@@ -32,10 +32,7 @@ internal class PrivateWirelessGatewayDeleteResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode("error_code")
                                 .errorDescription("error_description")
-                                .value(
-                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
-                                        .PROVISIONED
-                                )
+                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -63,10 +60,7 @@ internal class PrivateWirelessGatewayDeleteResponseTest {
                         PrivateWirelessGatewayStatus.builder()
                             .errorCode("error_code")
                             .errorDescription("error_description")
-                            .value(
-                                PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
-                                    .PROVISIONED
-                            )
+                            .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -98,10 +92,7 @@ internal class PrivateWirelessGatewayDeleteResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode("error_code")
                                 .errorDescription("error_description")
-                                .value(
-                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
-                                        .PROVISIONED
-                                )
+                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

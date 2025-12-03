@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
+import com.telnyx.sdk.models.globalips.GlobalIpListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -70,9 +71,14 @@ internal class GlobalIpServiceTest {
                 .build()
         val globalIpService = client.globalIps()
 
-        val page = globalIpService.list()
+        val globalIps =
+            globalIpService.list(
+                GlobalIpListParams.builder()
+                    .page(GlobalIpListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        globalIps.validate()
     }
 
     @Disabled("Prism tests are disabled")

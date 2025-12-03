@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExte
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionCreateResponse
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionDeleteParams
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionDeleteResponse
-import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionListPageAsync
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionListParams
+import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -55,7 +55,7 @@ interface PhoneNumberExtensionServiceAsync {
     ): CompletableFuture<PhoneNumberExtensionCreateResponse>
 
     /** Returns a list of all phone number extensions of a porting order. */
-    fun list(portingOrderId: String): CompletableFuture<PhoneNumberExtensionListPageAsync> =
+    fun list(portingOrderId: String): CompletableFuture<PhoneNumberExtensionListResponse> =
         list(portingOrderId, PhoneNumberExtensionListParams.none())
 
     /** @see list */
@@ -63,32 +63,32 @@ interface PhoneNumberExtensionServiceAsync {
         portingOrderId: String,
         params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberExtensionListPageAsync> =
+    ): CompletableFuture<PhoneNumberExtensionListResponse> =
         list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
     /** @see list */
     fun list(
         portingOrderId: String,
         params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
-    ): CompletableFuture<PhoneNumberExtensionListPageAsync> =
+    ): CompletableFuture<PhoneNumberExtensionListResponse> =
         list(portingOrderId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberExtensionListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberExtensionListPageAsync>
+    ): CompletableFuture<PhoneNumberExtensionListResponse>
 
     /** @see list */
     fun list(
         params: PhoneNumberExtensionListParams
-    ): CompletableFuture<PhoneNumberExtensionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<PhoneNumberExtensionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         portingOrderId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PhoneNumberExtensionListPageAsync> =
+    ): CompletableFuture<PhoneNumberExtensionListResponse> =
         list(portingOrderId, PhoneNumberExtensionListParams.none(), requestOptions)
 
     /** Deletes a phone number extension. */
@@ -170,7 +170,7 @@ interface PhoneNumberExtensionServiceAsync {
          */
         fun list(
             portingOrderId: String
-        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListResponse>> =
             list(portingOrderId, PhoneNumberExtensionListParams.none())
 
         /** @see list */
@@ -178,33 +178,33 @@ interface PhoneNumberExtensionServiceAsync {
             portingOrderId: String,
             params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListResponse>> =
             list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
         /** @see list */
         fun list(
             portingOrderId: String,
             params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListResponse>> =
             list(portingOrderId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: PhoneNumberExtensionListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListResponse>>
 
         /** @see list */
         fun list(
             params: PhoneNumberExtensionListParams
-        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             portingOrderId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberExtensionListResponse>> =
             list(portingOrderId, PhoneNumberExtensionListParams.none(), requestOptions)
 
         /**

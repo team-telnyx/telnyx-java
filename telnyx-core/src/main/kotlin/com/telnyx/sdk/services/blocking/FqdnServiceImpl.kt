@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.fqdns.FqdnCreateParams
 import com.telnyx.sdk.models.fqdns.FqdnCreateResponse
 import com.telnyx.sdk.models.fqdns.FqdnDeleteParams
 import com.telnyx.sdk.models.fqdns.FqdnDeleteResponse
-import com.telnyx.sdk.models.fqdns.FqdnListPage
-import com.telnyx.sdk.models.fqdns.FqdnListPageResponse
 import com.telnyx.sdk.models.fqdns.FqdnListParams
+import com.telnyx.sdk.models.fqdns.FqdnListResponse
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveParams
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveResponse
 import com.telnyx.sdk.models.fqdns.FqdnUpdateParams
@@ -62,7 +61,7 @@ class FqdnServiceImpl internal constructor(private val clientOptions: ClientOpti
         // patch /fqdns/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: FqdnListParams, requestOptions: RequestOptions): FqdnListPage =
+    override fun list(params: FqdnListParams, requestOptions: RequestOptions): FqdnListResponse =
         // get /fqdns
         withRawResponse().list(params, requestOptions).parse()
 
@@ -175,13 +174,13 @@ class FqdnServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<FqdnListPageResponse> =
-            jsonHandler<FqdnListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FqdnListResponse> =
+            jsonHandler<FqdnListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FqdnListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<FqdnListPage> {
+        ): HttpResponseFor<FqdnListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -198,13 +197,6 @@ class FqdnServiceImpl internal constructor(private val clientOptions: ClientOpti
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        FqdnListPage.builder()
-                            .service(FqdnServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

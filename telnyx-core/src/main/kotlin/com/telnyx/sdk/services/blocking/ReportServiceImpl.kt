@@ -16,9 +16,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.reports.ReportListMdrsParams
 import com.telnyx.sdk.models.reports.ReportListMdrsResponse
-import com.telnyx.sdk.models.reports.ReportListWdrsPage
-import com.telnyx.sdk.models.reports.ReportListWdrsPageResponse
 import com.telnyx.sdk.models.reports.ReportListWdrsParams
+import com.telnyx.sdk.models.reports.ReportListWdrsResponse
 import com.telnyx.sdk.services.blocking.reports.CdrUsageReportService
 import com.telnyx.sdk.services.blocking.reports.CdrUsageReportServiceImpl
 import com.telnyx.sdk.services.blocking.reports.MdrUsageReportService
@@ -59,7 +58,7 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun listWdrs(
         params: ReportListWdrsParams,
         requestOptions: RequestOptions,
-    ): ReportListWdrsPage =
+    ): ReportListWdrsResponse =
         // get /reports/wdrs
         withRawResponse().listWdrs(params, requestOptions).parse()
 
@@ -115,13 +114,13 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listWdrsHandler: Handler<ReportListWdrsPageResponse> =
-            jsonHandler<ReportListWdrsPageResponse>(clientOptions.jsonMapper)
+        private val listWdrsHandler: Handler<ReportListWdrsResponse> =
+            jsonHandler<ReportListWdrsResponse>(clientOptions.jsonMapper)
 
         override fun listWdrs(
             params: ReportListWdrsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReportListWdrsPage> {
+        ): HttpResponseFor<ReportListWdrsResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -138,13 +137,6 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ReportListWdrsPage.builder()
-                            .service(ReportServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

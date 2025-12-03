@@ -4,6 +4,8 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberListParams
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -41,8 +43,8 @@ internal class PhoneNumberServiceAsyncTest {
         val phoneNumberFuture =
             phoneNumberServiceAsync.update(
                 PhoneNumberUpdateParams.builder()
-                    .phoneNumberId("1293384261075731499")
-                    .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+                    .pathId("1293384261075731499")
+                    .bodyId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                     .billingGroupId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                     .connectionId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                     .customerReference("customer-reference")
@@ -66,10 +68,46 @@ internal class PhoneNumberServiceAsyncTest {
                 .build()
         val phoneNumberServiceAsync = client.phoneNumbers()
 
-        val pageFuture = phoneNumberServiceAsync.list()
+        val phoneNumbersFuture =
+            phoneNumberServiceAsync.list(
+                PhoneNumberListParams.builder()
+                    .filter(
+                        PhoneNumberListParams.Filter.builder()
+                            .billingGroupId("62e4bf2e-c278-4282-b524-488d9c9c43b2")
+                            .connectionId("1521916448077776306")
+                            .countryIsoAlpha2("US")
+                            .customerReference("customer_reference")
+                            .emergencyAddressId("9102160989215728032")
+                            .numberType(
+                                PhoneNumberListParams.Filter.NumberType.builder()
+                                    .eq(PhoneNumberListParams.Filter.NumberType.Eq.LOCAL)
+                                    .build()
+                            )
+                            .phoneNumber("phone_number")
+                            .source(PhoneNumberListParams.Filter.Source.PORTED)
+                            .status(PhoneNumberListParams.Filter.Status.ACTIVE)
+                            .tag("tag")
+                            .voiceConnectionName(
+                                PhoneNumberListParams.Filter.VoiceConnectionName.builder()
+                                    .contains("test")
+                                    .endsWith("test")
+                                    .eq("test")
+                                    .startsWith("test")
+                                    .build()
+                            )
+                            .voiceUsagePaymentMethod(
+                                PhoneNumberListParams.Filter.VoiceUsagePaymentMethod.CHANNEL
+                            )
+                            .withoutTags(PhoneNumberListParams.Filter.WithoutTags.TRUE)
+                            .build()
+                    )
+                    .page(PhoneNumberListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(PhoneNumberListParams.Sort.CONNECTION_NAME)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val phoneNumbers = phoneNumbersFuture.get()
+        phoneNumbers.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -98,9 +136,46 @@ internal class PhoneNumberServiceAsyncTest {
                 .build()
         val phoneNumberServiceAsync = client.phoneNumbers()
 
-        val pageFuture = phoneNumberServiceAsync.slimList()
+        val responseFuture =
+            phoneNumberServiceAsync.slimList(
+                PhoneNumberSlimListParams.builder()
+                    .filter(
+                        PhoneNumberSlimListParams.Filter.builder()
+                            .billingGroupId("62e4bf2e-c278-4282-b524-488d9c9c43b2")
+                            .connectionId("1521916448077776306")
+                            .countryIsoAlpha2("US")
+                            .customerReference("customer_reference")
+                            .emergencyAddressId("9102160989215728032")
+                            .numberType(
+                                PhoneNumberSlimListParams.Filter.NumberType.builder()
+                                    .eq(PhoneNumberSlimListParams.Filter.NumberType.Eq.LOCAL)
+                                    .build()
+                            )
+                            .phoneNumber("phone_number")
+                            .source(PhoneNumberSlimListParams.Filter.Source.PORTED)
+                            .status(PhoneNumberSlimListParams.Filter.Status.ACTIVE)
+                            .tag("tag")
+                            .voiceConnectionName(
+                                PhoneNumberSlimListParams.Filter.VoiceConnectionName.builder()
+                                    .contains("test")
+                                    .endsWith("test")
+                                    .eq("test")
+                                    .startsWith("test")
+                                    .build()
+                            )
+                            .voiceUsagePaymentMethod(
+                                PhoneNumberSlimListParams.Filter.VoiceUsagePaymentMethod.CHANNEL
+                            )
+                            .build()
+                    )
+                    .includeConnection(true)
+                    .includeTags(true)
+                    .page(PhoneNumberSlimListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(PhoneNumberSlimListParams.Sort.CONNECTION_NAME)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val response = responseFuture.get()
+        response.validate()
     }
 }

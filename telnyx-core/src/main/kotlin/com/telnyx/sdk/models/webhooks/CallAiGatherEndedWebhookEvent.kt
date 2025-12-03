@@ -556,7 +556,7 @@ private constructor(
             private val connectionId: JsonField<String>,
             private val from: JsonField<String>,
             private val messageHistory: JsonField<List<MessageHistory>>,
-            private val result: JsonField<Result>,
+            private val result: JsonValue,
             private val status: JsonField<Status>,
             private val to: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -583,9 +583,7 @@ private constructor(
                 @JsonProperty("message_history")
                 @ExcludeMissing
                 messageHistory: JsonField<List<MessageHistory>> = JsonMissing.of(),
-                @JsonProperty("result")
-                @ExcludeMissing
-                result: JsonField<Result> = JsonMissing.of(),
+                @JsonProperty("result") @ExcludeMissing result: JsonValue = JsonMissing.of(),
                 @JsonProperty("status")
                 @ExcludeMissing
                 status: JsonField<Status> = JsonMissing.of(),
@@ -666,11 +664,8 @@ private constructor(
             /**
              * The result of the AI gather, its type depends of the `parameters` provided in the
              * command
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
              */
-            fun result(): Optional<Result> = result.getOptional("result")
+            @JsonProperty("result") @ExcludeMissing fun _result(): JsonValue = result
 
             /**
              * Reflects how command ended.
@@ -756,13 +751,6 @@ private constructor(
             fun _messageHistory(): JsonField<List<MessageHistory>> = messageHistory
 
             /**
-             * Returns the raw JSON value of [result].
-             *
-             * Unlike [result], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
-
-            /**
              * Returns the raw JSON value of [status].
              *
              * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -804,7 +792,7 @@ private constructor(
                 private var connectionId: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var messageHistory: JsonField<MutableList<MessageHistory>>? = null
-                private var result: JsonField<Result> = JsonMissing.of()
+                private var result: JsonValue = JsonMissing.of()
                 private var status: JsonField<Status> = JsonMissing.of()
                 private var to: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -941,16 +929,7 @@ private constructor(
                  * The result of the AI gather, its type depends of the `parameters` provided in the
                  * command
                  */
-                fun result(result: Result) = result(JsonField.of(result))
-
-                /**
-                 * Sets [Builder.result] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.result] with a well-typed [Result] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun result(result: JsonField<Result>) = apply { this.result = result }
+                fun result(result: JsonValue) = apply { this.result = result }
 
                 /** Reflects how command ended. */
                 fun status(status: Status) = status(JsonField.of(status))
@@ -1033,7 +1012,6 @@ private constructor(
                 connectionId()
                 from()
                 messageHistory().ifPresent { it.forEach { it.validate() } }
-                result().ifPresent { it.validate() }
                 status().ifPresent { it.validate() }
                 to()
                 validated = true
@@ -1062,7 +1040,6 @@ private constructor(
                     (if (connectionId.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (messageHistory.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                    (result.asKnown().getOrNull()?.validity() ?: 0) +
                     (status.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (to.asKnown().isPresent) 1 else 0)
 
@@ -1387,114 +1364,6 @@ private constructor(
 
                 override fun toString() =
                     "MessageHistory{content=$content, role=$role, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * The result of the AI gather, its type depends of the `parameters` provided in the
-             * command
-             */
-            class Result
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Result]. */
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                /** A builder for [Result]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(result: Result) = apply {
-                        additionalProperties = result.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Result].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Result = Result(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                fun validate(): Result = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Result && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Result{additionalProperties=$additionalProperties}"
             }
 
             /** Reflects how command ended. */

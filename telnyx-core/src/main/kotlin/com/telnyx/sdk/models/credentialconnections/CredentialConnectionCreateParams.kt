@@ -2345,9 +2345,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val V1 = of("1")
+            @JvmField val _1 = of("1")
 
-            @JvmField val V2 = of("2")
+            @JvmField val _2 = of("2")
 
             @JvmField val TEXML = of("texml")
 
@@ -2356,8 +2356,8 @@ private constructor(
 
         /** An enum containing [WebhookApiVersion]'s known values. */
         enum class Known {
-            V1,
-            V2,
+            _1,
+            _2,
             TEXML,
         }
 
@@ -2371,8 +2371,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            V1,
-            V2,
+            _1,
+            _2,
             TEXML,
             /**
              * An enum member indicating that [WebhookApiVersion] was instantiated with an unknown
@@ -2390,8 +2390,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                V1 -> Value.V1
-                V2 -> Value.V2
+                _1 -> Value._1
+                _2 -> Value._2
                 TEXML -> Value.TEXML
                 else -> Value._UNKNOWN
             }
@@ -2407,8 +2407,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                V1 -> Known.V1
-                V2 -> Known.V2
+                _1 -> Known._1
+                _2 -> Known._2
                 TEXML -> Known.TEXML
                 else -> throw TelnyxInvalidDataException("Unknown WebhookApiVersion: $value")
             }

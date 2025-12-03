@@ -517,11 +517,10 @@ private constructor(
                 .updatedAt(updatedAt)
                 .build()
 
-        fun toNetworkInterface(): NetworkInterface =
-            NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
+        fun toInterface(): Interface =
+            Interface.builder().name(name).networkId(networkId).status(status).build()
 
-        fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
-            NetworkInterfaceRegion.builder().regionCode(regionCode).build()
+        fun toRegionIn(): RegionIn = RegionIn.builder().regionCode(regionCode).build()
 
         /**
          * Identifies the resource.

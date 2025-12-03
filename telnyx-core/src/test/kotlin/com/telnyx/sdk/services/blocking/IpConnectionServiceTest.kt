@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
 import com.telnyx.sdk.models.ipconnections.InboundIp
 import com.telnyx.sdk.models.ipconnections.IpConnectionCreateParams
+import com.telnyx.sdk.models.ipconnections.IpConnectionListParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateParams
 import com.telnyx.sdk.models.ipconnections.OutboundIp
 import org.junit.jupiter.api.Disabled
@@ -97,7 +98,7 @@ internal class IpConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(IpConnectionCreateParams.TransportProtocol.UDP)
-                    .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion.V1)
+                    .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion._1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -197,7 +198,7 @@ internal class IpConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(IpConnectionUpdateParams.TransportProtocol.UDP)
-                    .webhookApiVersion(IpConnectionUpdateParams.WebhookApiVersion.V1)
+                    .webhookApiVersion(IpConnectionUpdateParams.WebhookApiVersion._1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -217,9 +218,26 @@ internal class IpConnectionServiceTest {
                 .build()
         val ipConnectionService = client.ipConnections()
 
-        val page = ipConnectionService.list()
+        val ipConnections =
+            ipConnectionService.list(
+                IpConnectionListParams.builder()
+                    .filter(
+                        IpConnectionListParams.Filter.builder()
+                            .connectionName(
+                                IpConnectionListParams.Filter.ConnectionName.builder()
+                                    .contains("contains")
+                                    .build()
+                            )
+                            .fqdn("fqdn")
+                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .build()
+                    )
+                    .page(IpConnectionListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(IpConnectionListParams.Sort.CONNECTION_NAME)
+                    .build()
+            )
 
-        page.response().validate()
+        ipConnections.validate()
     }
 
     @Disabled("Prism tests are disabled")

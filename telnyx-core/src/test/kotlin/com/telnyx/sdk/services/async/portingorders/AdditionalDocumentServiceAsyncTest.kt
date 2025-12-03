@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateParams
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentDeleteParams
+import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -61,10 +62,26 @@ internal class AdditionalDocumentServiceAsyncTest {
                 .build()
         val additionalDocumentServiceAsync = client.portingOrders().additionalDocuments()
 
-        val pageFuture = additionalDocumentServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val additionalDocumentsFuture =
+            additionalDocumentServiceAsync.list(
+                AdditionalDocumentListParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .filter(
+                        AdditionalDocumentListParams.Filter.builder()
+                            .addDocumentType(AdditionalDocumentListParams.Filter.DocumentType.LOA)
+                            .build()
+                    )
+                    .page(AdditionalDocumentListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(
+                        AdditionalDocumentListParams.Sort.builder()
+                            .value(AdditionalDocumentListParams.Sort.Value_.CREATED_AT)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val additionalDocuments = additionalDocumentsFuture.get()
+        additionalDocuments.validate()
     }
 
     @Disabled("Prism tests are disabled")

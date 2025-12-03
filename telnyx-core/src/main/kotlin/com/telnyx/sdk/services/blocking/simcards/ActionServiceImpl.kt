@@ -22,9 +22,8 @@ import com.telnyx.sdk.models.simcards.actions.ActionDisableParams
 import com.telnyx.sdk.models.simcards.actions.ActionDisableResponse
 import com.telnyx.sdk.models.simcards.actions.ActionEnableParams
 import com.telnyx.sdk.models.simcards.actions.ActionEnableResponse
-import com.telnyx.sdk.models.simcards.actions.ActionListPage
-import com.telnyx.sdk.models.simcards.actions.ActionListPageResponse
 import com.telnyx.sdk.models.simcards.actions.ActionListParams
+import com.telnyx.sdk.models.simcards.actions.ActionListResponse
 import com.telnyx.sdk.models.simcards.actions.ActionRemovePublicIpParams
 import com.telnyx.sdk.models.simcards.actions.ActionRemovePublicIpResponse
 import com.telnyx.sdk.models.simcards.actions.ActionRetrieveParams
@@ -57,7 +56,10 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /sim_card_actions/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: ActionListParams, requestOptions: RequestOptions): ActionListPage =
+    override fun list(
+        params: ActionListParams,
+        requestOptions: RequestOptions,
+    ): ActionListResponse =
         // get /sim_card_actions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -153,13 +155,13 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<ActionListPageResponse> =
-            jsonHandler<ActionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ActionListResponse> =
+            jsonHandler<ActionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ActionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ActionListPage> {
+        ): HttpResponseFor<ActionListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -176,13 +178,6 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ActionListPage.builder()
-                            .service(ActionServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

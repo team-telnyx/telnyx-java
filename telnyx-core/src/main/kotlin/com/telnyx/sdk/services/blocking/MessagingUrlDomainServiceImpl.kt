@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListPage
-import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListPageResponse
 import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
+import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListResponse
 import java.util.function.Consumer
 
 class MessagingUrlDomainServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,7 +33,7 @@ class MessagingUrlDomainServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: MessagingUrlDomainListParams,
         requestOptions: RequestOptions,
-    ): MessagingUrlDomainListPage =
+    ): MessagingUrlDomainListResponse =
         // get /messaging_url_domains
         withRawResponse().list(params, requestOptions).parse()
 
@@ -51,13 +50,13 @@ class MessagingUrlDomainServiceImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<MessagingUrlDomainListPageResponse> =
-            jsonHandler<MessagingUrlDomainListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingUrlDomainListResponse> =
+            jsonHandler<MessagingUrlDomainListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingUrlDomainListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingUrlDomainListPage> {
+        ): HttpResponseFor<MessagingUrlDomainListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -74,13 +73,6 @@ class MessagingUrlDomainServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        MessagingUrlDomainListPage.builder()
-                            .service(MessagingUrlDomainServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

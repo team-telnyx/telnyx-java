@@ -26,8 +26,7 @@ private constructor(
     private val filter: String?,
     private val format: Format?,
     private val managedAccounts: Boolean?,
-    private val pageNumber: Long?,
-    private val pageSize: Long?,
+    private val page: Page?,
     private val sort: List<String>?,
     private val startDate: String?,
     private val authorizationBearer: String?,
@@ -68,9 +67,8 @@ private constructor(
     /** Return the aggregations for all Managed Accounts under the user making the request. */
     fun managedAccounts(): Optional<Boolean> = Optional.ofNullable(managedAccounts)
 
-    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
-
-    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    fun page(): Optional<Page> = Optional.ofNullable(page)
 
     /** Specifies the sort order for results */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
@@ -118,8 +116,7 @@ private constructor(
         private var filter: String? = null
         private var format: Format? = null
         private var managedAccounts: Boolean? = null
-        private var pageNumber: Long? = null
-        private var pageSize: Long? = null
+        private var page: Page? = null
         private var sort: MutableList<String>? = null
         private var startDate: String? = null
         private var authorizationBearer: String? = null
@@ -136,8 +133,7 @@ private constructor(
             filter = usageReportListParams.filter
             format = usageReportListParams.format
             managedAccounts = usageReportListParams.managedAccounts
-            pageNumber = usageReportListParams.pageNumber
-            pageSize = usageReportListParams.pageSize
+            page = usageReportListParams.page
             sort = usageReportListParams.sort?.toMutableList()
             startDate = usageReportListParams.startDate
             authorizationBearer = usageReportListParams.authorizationBearer
@@ -223,29 +219,11 @@ private constructor(
         fun managedAccounts(managedAccounts: Optional<Boolean>) =
             managedAccounts(managedAccounts.getOrNull())
 
-        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
+        /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        fun page(page: Page?) = apply { this.page = page }
 
-        /**
-         * Alias for [Builder.pageNumber].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
-
-        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
-        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
-
-        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
-
-        /**
-         * Alias for [Builder.pageSize].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
-
-        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
-        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
+        fun page(page: Optional<Page>) = page(page.getOrNull())
 
         /** Specifies the sort order for results */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
@@ -404,8 +382,7 @@ private constructor(
                 filter,
                 format,
                 managedAccounts,
-                pageNumber,
-                pageSize,
+                page,
                 sort?.toImmutable(),
                 startDate,
                 authorizationBearer,
@@ -433,8 +410,15 @@ private constructor(
                 filter?.let { put("filter", it) }
                 format?.let { put("format", it.toString()) }
                 managedAccounts?.let { put("managed_accounts", it.toString()) }
-                pageNumber?.let { put("page[number]", it.toString()) }
-                pageSize?.let { put("page[size]", it.toString()) }
+                page?.let {
+                    it.number().ifPresent { put("page[number]", it.toString()) }
+                    it.size().ifPresent { put("page[size]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("page[$key]", value)
+                        }
+                    }
+                }
                 sort?.let { put("sort", it.joinToString(",")) }
                 startDate?.let { put("start_date", it) }
                 putAll(additionalQueryParams)
@@ -570,6 +554,143 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    class Page
+    private constructor(
+        private val number: Long?,
+        private val size: Long?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        fun number(): Optional<Long> = Optional.ofNullable(number)
+
+        fun size(): Optional<Long> = Optional.ofNullable(size)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Page]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Page]. */
+        class Builder internal constructor() {
+
+            private var number: Long? = null
+            private var size: Long? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(page: Page) = apply {
+                number = page.number
+                size = page.size
+                additionalProperties = page.additionalProperties.toBuilder()
+            }
+
+            fun number(number: Long?) = apply { this.number = number }
+
+            /**
+             * Alias for [Builder.number].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun number(number: Long) = number(number as Long?)
+
+            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
+            fun number(number: Optional<Long>) = number(number.getOrNull())
+
+            fun size(size: Long?) = apply { this.size = size }
+
+            /**
+             * Alias for [Builder.size].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun size(size: Long) = size(size as Long?)
+
+            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
+            fun size(size: Optional<Long>) = size(size.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Page].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Page = Page(number, size, additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Page &&
+                number == other.number &&
+                size == other.size &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -584,8 +705,7 @@ private constructor(
             filter == other.filter &&
             format == other.format &&
             managedAccounts == other.managedAccounts &&
-            pageNumber == other.pageNumber &&
-            pageSize == other.pageSize &&
+            page == other.page &&
             sort == other.sort &&
             startDate == other.startDate &&
             authorizationBearer == other.authorizationBearer &&
@@ -603,8 +723,7 @@ private constructor(
             filter,
             format,
             managedAccounts,
-            pageNumber,
-            pageSize,
+            page,
             sort,
             startDate,
             authorizationBearer,
@@ -613,5 +732,5 @@ private constructor(
         )
 
     override fun toString() =
-        "UsageReportListParams{dimensions=$dimensions, metrics=$metrics, product=$product, dateRange=$dateRange, endDate=$endDate, filter=$filter, format=$format, managedAccounts=$managedAccounts, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, startDate=$startDate, authorizationBearer=$authorizationBearer, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "UsageReportListParams{dimensions=$dimensions, metrics=$metrics, product=$product, dateRange=$dateRange, endDate=$endDate, filter=$filter, format=$format, managedAccounts=$managedAccounts, page=$page, sort=$sort, startDate=$startDate, authorizationBearer=$authorizationBearer, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

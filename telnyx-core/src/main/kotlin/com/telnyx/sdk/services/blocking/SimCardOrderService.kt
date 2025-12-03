@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateResponse
-import com.telnyx.sdk.models.simcardorders.SimCardOrderListPage
 import com.telnyx.sdk.models.simcardorders.SimCardOrderListParams
+import com.telnyx.sdk.models.simcardorders.SimCardOrderListResponse
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveResponse
 import java.util.function.Consumer
@@ -70,20 +70,21 @@ interface SimCardOrderService {
         retrieve(id, SimCardOrderRetrieveParams.none(), requestOptions)
 
     /** Get all SIM card orders according to filters. */
-    fun list(): SimCardOrderListPage = list(SimCardOrderListParams.none())
+    fun list(): SimCardOrderListResponse = list(SimCardOrderListParams.none())
 
     /** @see list */
     fun list(
         params: SimCardOrderListParams = SimCardOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimCardOrderListPage
+    ): SimCardOrderListResponse
 
     /** @see list */
-    fun list(params: SimCardOrderListParams = SimCardOrderListParams.none()): SimCardOrderListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: SimCardOrderListParams = SimCardOrderListParams.none()
+    ): SimCardOrderListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): SimCardOrderListPage =
+    fun list(requestOptions: RequestOptions): SimCardOrderListResponse =
         list(SimCardOrderListParams.none(), requestOptions)
 
     /**
@@ -166,24 +167,24 @@ interface SimCardOrderService {
          * [SimCardOrderService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<SimCardOrderListPage> = list(SimCardOrderListParams.none())
+        fun list(): HttpResponseFor<SimCardOrderListResponse> = list(SimCardOrderListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SimCardOrderListParams = SimCardOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimCardOrderListPage>
+        ): HttpResponseFor<SimCardOrderListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SimCardOrderListParams = SimCardOrderListParams.none()
-        ): HttpResponseFor<SimCardOrderListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<SimCardOrderListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<SimCardOrderListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<SimCardOrderListResponse> =
             list(SimCardOrderListParams.none(), requestOptions)
     }
 }

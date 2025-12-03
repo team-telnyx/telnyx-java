@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListPageAsync
-import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListPageResponse
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListParams
+import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListResponse
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveParams
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -48,7 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) : WebhookDelivery
     override fun list(
         params: WebhookDeliveryListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<WebhookDeliveryListPageAsync> =
+    ): CompletableFuture<WebhookDeliveryListResponse> =
         // get /webhook_deliveries
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -98,13 +97,13 @@ internal constructor(private val clientOptions: ClientOptions) : WebhookDelivery
                 }
         }
 
-        private val listHandler: Handler<WebhookDeliveryListPageResponse> =
-            jsonHandler<WebhookDeliveryListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WebhookDeliveryListResponse> =
+            jsonHandler<WebhookDeliveryListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WebhookDeliveryListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -123,14 +122,6 @@ internal constructor(private val clientOptions: ClientOptions) : WebhookDelivery
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                WebhookDeliveryListPageAsync.builder()
-                                    .service(WebhookDeliveryServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

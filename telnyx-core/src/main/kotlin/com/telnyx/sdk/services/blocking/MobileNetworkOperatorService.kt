@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListPage
 import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListParams
+import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListResponse
 import java.util.function.Consumer
 
 interface MobileNetworkOperatorService {
@@ -31,21 +31,21 @@ interface MobileNetworkOperatorService {
      * can be used as a support resource that can be related to other resources or become a
      * configuration option.
      */
-    fun list(): MobileNetworkOperatorListPage = list(MobileNetworkOperatorListParams.none())
+    fun list(): MobileNetworkOperatorListResponse = list(MobileNetworkOperatorListParams.none())
 
     /** @see list */
     fun list(
         params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MobileNetworkOperatorListPage
+    ): MobileNetworkOperatorListResponse
 
     /** @see list */
     fun list(
         params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none()
-    ): MobileNetworkOperatorListPage = list(params, RequestOptions.none())
+    ): MobileNetworkOperatorListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MobileNetworkOperatorListPage =
+    fun list(requestOptions: RequestOptions): MobileNetworkOperatorListResponse =
         list(MobileNetworkOperatorListParams.none(), requestOptions)
 
     /**
@@ -68,7 +68,7 @@ interface MobileNetworkOperatorService {
          * same as [MobileNetworkOperatorService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MobileNetworkOperatorListPage> =
+        fun list(): HttpResponseFor<MobileNetworkOperatorListResponse> =
             list(MobileNetworkOperatorListParams.none())
 
         /** @see list */
@@ -76,17 +76,19 @@ interface MobileNetworkOperatorService {
         fun list(
             params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MobileNetworkOperatorListPage>
+        ): HttpResponseFor<MobileNetworkOperatorListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none()
-        ): HttpResponseFor<MobileNetworkOperatorListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MobileNetworkOperatorListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MobileNetworkOperatorListPage> =
+        fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<MobileNetworkOperatorListResponse> =
             list(MobileNetworkOperatorListParams.none(), requestOptions)
     }
 }

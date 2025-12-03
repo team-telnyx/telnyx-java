@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateResponse
-import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListPageAsync
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListParams
+import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListResponse
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -82,24 +82,22 @@ interface InexplicitNumberOrderServiceAsync {
         retrieve(id, InexplicitNumberOrderRetrieveParams.none(), requestOptions)
 
     /** Get a paginated list of inexplicit number orders. */
-    fun list(): CompletableFuture<InexplicitNumberOrderListPageAsync> =
+    fun list(): CompletableFuture<InexplicitNumberOrderListResponse> =
         list(InexplicitNumberOrderListParams.none())
 
     /** @see list */
     fun list(
         params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InexplicitNumberOrderListPageAsync>
+    ): CompletableFuture<InexplicitNumberOrderListResponse>
 
     /** @see list */
     fun list(
         params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none()
-    ): CompletableFuture<InexplicitNumberOrderListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<InexplicitNumberOrderListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<InexplicitNumberOrderListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<InexplicitNumberOrderListResponse> =
         list(InexplicitNumberOrderListParams.none(), requestOptions)
 
     /**
@@ -180,25 +178,25 @@ interface InexplicitNumberOrderServiceAsync {
          * Returns a raw HTTP response for `get /inexplicit_number_orders`, but is otherwise the
          * same as [InexplicitNumberOrderServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListResponse>> =
             list(InexplicitNumberOrderListParams.none())
 
         /** @see list */
         fun list(
             params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListResponse>>
 
         /** @see list */
         fun list(
             params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none()
-        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InexplicitNumberOrderListResponse>> =
             list(InexplicitNumberOrderListParams.none(), requestOptions)
     }
 }

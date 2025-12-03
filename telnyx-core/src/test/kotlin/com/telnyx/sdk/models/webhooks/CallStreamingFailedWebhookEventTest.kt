@@ -15,12 +15,12 @@ internal class CallStreamingFailedWebhookEventTest {
         val callStreamingFailedWebhookEvent =
             CallStreamingFailedWebhookEvent.builder()
                 .data(
-                    CallStreamingFailed.builder()
+                    CallStreamingFailedWebhookEvent.Data.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallStreamingFailed.EventType.STREAMING_FAILED)
+                        .eventType(CallStreamingFailedWebhookEvent.Data.EventType.STREAMING_FAILED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallStreamingFailed.Payload.builder()
+                            CallStreamingFailedWebhookEvent.Data.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -29,30 +29,36 @@ internal class CallStreamingFailedWebhookEventTest {
                                 .failureReason("connection_failed")
                                 .streamId("1edb94f9-7ef0-4150-b502-e0ebadfd9491")
                                 .streamParams(
-                                    CallStreamingFailed.Payload.StreamParams.builder()
+                                    CallStreamingFailedWebhookEvent.Data.Payload.StreamParams
+                                        .builder()
                                         .streamUrl("wss://www.example.com/websocket")
                                         .track(
-                                            CallStreamingFailed.Payload.StreamParams.Track
+                                            CallStreamingFailedWebhookEvent.Data.Payload
+                                                .StreamParams
+                                                .Track
                                                 .INBOUND_TRACK
                                         )
                                         .build()
                                 )
-                                .streamType(CallStreamingFailed.Payload.StreamType.WEBSOCKET)
+                                .streamType(
+                                    CallStreamingFailedWebhookEvent.Data.Payload.StreamType
+                                        .WEBSOCKET
+                                )
                                 .build()
                         )
-                        .recordType(CallStreamingFailed.RecordType.EVENT)
+                        .recordType(CallStreamingFailedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callStreamingFailedWebhookEvent.data())
             .contains(
-                CallStreamingFailed.builder()
+                CallStreamingFailedWebhookEvent.Data.builder()
                     .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                    .eventType(CallStreamingFailed.EventType.STREAMING_FAILED)
+                    .eventType(CallStreamingFailedWebhookEvent.Data.EventType.STREAMING_FAILED)
                     .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                     .payload(
-                        CallStreamingFailed.Payload.builder()
+                        CallStreamingFailedWebhookEvent.Data.Payload.builder()
                             .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -61,17 +67,21 @@ internal class CallStreamingFailedWebhookEventTest {
                             .failureReason("connection_failed")
                             .streamId("1edb94f9-7ef0-4150-b502-e0ebadfd9491")
                             .streamParams(
-                                CallStreamingFailed.Payload.StreamParams.builder()
+                                CallStreamingFailedWebhookEvent.Data.Payload.StreamParams.builder()
                                     .streamUrl("wss://www.example.com/websocket")
                                     .track(
-                                        CallStreamingFailed.Payload.StreamParams.Track.INBOUND_TRACK
+                                        CallStreamingFailedWebhookEvent.Data.Payload.StreamParams
+                                            .Track
+                                            .INBOUND_TRACK
                                     )
                                     .build()
                             )
-                            .streamType(CallStreamingFailed.Payload.StreamType.WEBSOCKET)
+                            .streamType(
+                                CallStreamingFailedWebhookEvent.Data.Payload.StreamType.WEBSOCKET
+                            )
                             .build()
                     )
-                    .recordType(CallStreamingFailed.RecordType.EVENT)
+                    .recordType(CallStreamingFailedWebhookEvent.Data.RecordType.EVENT)
                     .build()
             )
     }
@@ -82,12 +92,12 @@ internal class CallStreamingFailedWebhookEventTest {
         val callStreamingFailedWebhookEvent =
             CallStreamingFailedWebhookEvent.builder()
                 .data(
-                    CallStreamingFailed.builder()
+                    CallStreamingFailedWebhookEvent.Data.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallStreamingFailed.EventType.STREAMING_FAILED)
+                        .eventType(CallStreamingFailedWebhookEvent.Data.EventType.STREAMING_FAILED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallStreamingFailed.Payload.builder()
+                            CallStreamingFailedWebhookEvent.Data.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -96,18 +106,24 @@ internal class CallStreamingFailedWebhookEventTest {
                                 .failureReason("connection_failed")
                                 .streamId("1edb94f9-7ef0-4150-b502-e0ebadfd9491")
                                 .streamParams(
-                                    CallStreamingFailed.Payload.StreamParams.builder()
+                                    CallStreamingFailedWebhookEvent.Data.Payload.StreamParams
+                                        .builder()
                                         .streamUrl("wss://www.example.com/websocket")
                                         .track(
-                                            CallStreamingFailed.Payload.StreamParams.Track
+                                            CallStreamingFailedWebhookEvent.Data.Payload
+                                                .StreamParams
+                                                .Track
                                                 .INBOUND_TRACK
                                         )
                                         .build()
                                 )
-                                .streamType(CallStreamingFailed.Payload.StreamType.WEBSOCKET)
+                                .streamType(
+                                    CallStreamingFailedWebhookEvent.Data.Payload.StreamType
+                                        .WEBSOCKET
+                                )
                                 .build()
                         )
-                        .recordType(CallStreamingFailed.RecordType.EVENT)
+                        .recordType(CallStreamingFailedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
                 .build()

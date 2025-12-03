@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockCre
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockCreateResponse
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockDeleteParams
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockDeleteResponse
-import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListPage
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListParams
+import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListResponse
 import java.util.function.Consumer
 
 interface PhoneNumberBlockService {
@@ -53,7 +53,7 @@ interface PhoneNumberBlockService {
     ): PhoneNumberBlockCreateResponse
 
     /** Returns a list of all phone number blocks of a porting order. */
-    fun list(portingOrderId: String): PhoneNumberBlockListPage =
+    fun list(portingOrderId: String): PhoneNumberBlockListResponse =
         list(portingOrderId, PhoneNumberBlockListParams.none())
 
     /** @see list */
@@ -61,27 +61,27 @@ interface PhoneNumberBlockService {
         portingOrderId: String,
         params: PhoneNumberBlockListParams = PhoneNumberBlockListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberBlockListPage =
+    ): PhoneNumberBlockListResponse =
         list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
     /** @see list */
     fun list(
         portingOrderId: String,
         params: PhoneNumberBlockListParams = PhoneNumberBlockListParams.none(),
-    ): PhoneNumberBlockListPage = list(portingOrderId, params, RequestOptions.none())
+    ): PhoneNumberBlockListResponse = list(portingOrderId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberBlockListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberBlockListPage
+    ): PhoneNumberBlockListResponse
 
     /** @see list */
-    fun list(params: PhoneNumberBlockListParams): PhoneNumberBlockListPage =
+    fun list(params: PhoneNumberBlockListParams): PhoneNumberBlockListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(portingOrderId: String, requestOptions: RequestOptions): PhoneNumberBlockListPage =
+    fun list(portingOrderId: String, requestOptions: RequestOptions): PhoneNumberBlockListResponse =
         list(portingOrderId, PhoneNumberBlockListParams.none(), requestOptions)
 
     /** Deletes a phone number block. */
@@ -160,7 +160,7 @@ interface PhoneNumberBlockService {
          * [PhoneNumberBlockService.list].
          */
         @MustBeClosed
-        fun list(portingOrderId: String): HttpResponseFor<PhoneNumberBlockListPage> =
+        fun list(portingOrderId: String): HttpResponseFor<PhoneNumberBlockListResponse> =
             list(portingOrderId, PhoneNumberBlockListParams.none())
 
         /** @see list */
@@ -169,7 +169,7 @@ interface PhoneNumberBlockService {
             portingOrderId: String,
             params: PhoneNumberBlockListParams = PhoneNumberBlockListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberBlockListPage> =
+        ): HttpResponseFor<PhoneNumberBlockListResponse> =
             list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
         /** @see list */
@@ -177,7 +177,7 @@ interface PhoneNumberBlockService {
         fun list(
             portingOrderId: String,
             params: PhoneNumberBlockListParams = PhoneNumberBlockListParams.none(),
-        ): HttpResponseFor<PhoneNumberBlockListPage> =
+        ): HttpResponseFor<PhoneNumberBlockListResponse> =
             list(portingOrderId, params, RequestOptions.none())
 
         /** @see list */
@@ -185,19 +185,20 @@ interface PhoneNumberBlockService {
         fun list(
             params: PhoneNumberBlockListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberBlockListPage>
+        ): HttpResponseFor<PhoneNumberBlockListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: PhoneNumberBlockListParams): HttpResponseFor<PhoneNumberBlockListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: PhoneNumberBlockListParams
+        ): HttpResponseFor<PhoneNumberBlockListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             portingOrderId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhoneNumberBlockListPage> =
+        ): HttpResponseFor<PhoneNumberBlockListResponse> =
             list(portingOrderId, PhoneNumberBlockListParams.none(), requestOptions)
 
         /**

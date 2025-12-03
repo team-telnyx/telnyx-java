@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.shortcodes.ShortCodeListPageAsync
 import com.telnyx.sdk.models.shortcodes.ShortCodeListParams
+import com.telnyx.sdk.models.shortcodes.ShortCodeListResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
@@ -92,21 +92,21 @@ interface ShortCodeServiceAsync {
     ): CompletableFuture<ShortCodeUpdateResponse>
 
     /** List short codes */
-    fun list(): CompletableFuture<ShortCodeListPageAsync> = list(ShortCodeListParams.none())
+    fun list(): CompletableFuture<ShortCodeListResponse> = list(ShortCodeListParams.none())
 
     /** @see list */
     fun list(
         params: ShortCodeListParams = ShortCodeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ShortCodeListPageAsync>
+    ): CompletableFuture<ShortCodeListResponse>
 
     /** @see list */
     fun list(
         params: ShortCodeListParams = ShortCodeListParams.none()
-    ): CompletableFuture<ShortCodeListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<ShortCodeListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ShortCodeListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ShortCodeListResponse> =
         list(ShortCodeListParams.none(), requestOptions)
 
     /**
@@ -198,25 +198,25 @@ interface ShortCodeServiceAsync {
          * Returns a raw HTTP response for `get /short_codes`, but is otherwise the same as
          * [ShortCodeServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<ShortCodeListResponse>> =
             list(ShortCodeListParams.none())
 
         /** @see list */
         fun list(
             params: ShortCodeListParams = ShortCodeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ShortCodeListResponse>>
 
         /** @see list */
         fun list(
             params: ShortCodeListParams = ShortCodeListParams.none()
-        ): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ShortCodeListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ShortCodeListResponse>> =
             list(ShortCodeListParams.none(), requestOptions)
     }
 }

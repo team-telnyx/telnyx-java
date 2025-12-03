@@ -28,7 +28,7 @@ internal class PhoneNumberConfigurationListParamsTest {
             .page(PhoneNumberConfigurationListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 PhoneNumberConfigurationListParams.Sort.builder()
-                    .value(PhoneNumberConfigurationListParams.Sort.SortValue.CREATED_AT)
+                    .value(PhoneNumberConfigurationListParams.Sort.Value_.CREATED_AT)
                     .build()
             )
             .build()
@@ -55,7 +55,7 @@ internal class PhoneNumberConfigurationListParamsTest {
                 .page(PhoneNumberConfigurationListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     PhoneNumberConfigurationListParams.Sort.builder()
-                        .value(PhoneNumberConfigurationListParams.Sort.SortValue.CREATED_AT)
+                        .value(PhoneNumberConfigurationListParams.Sort.Value_.CREATED_AT)
                         .build()
                 )
                 .build()

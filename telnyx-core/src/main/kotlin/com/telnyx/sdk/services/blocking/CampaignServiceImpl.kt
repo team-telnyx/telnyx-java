@@ -26,9 +26,8 @@ import com.telnyx.sdk.models.campaign.CampaignGetOperationStatusParams
 import com.telnyx.sdk.models.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.campaign.CampaignGetSharingStatusResponse
-import com.telnyx.sdk.models.campaign.CampaignListPage
-import com.telnyx.sdk.models.campaign.CampaignListPageResponse
 import com.telnyx.sdk.models.campaign.CampaignListParams
+import com.telnyx.sdk.models.campaign.CampaignListResponse
 import com.telnyx.sdk.models.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.campaign.CampaignSubmitAppealResponse
@@ -78,7 +77,7 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions,
-    ): CampaignListPage =
+    ): CampaignListResponse =
         // get /campaign
         withRawResponse().list(params, requestOptions).parse()
 
@@ -210,13 +209,13 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<CampaignListPageResponse> =
-            jsonHandler<CampaignListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CampaignListResponse> =
+            jsonHandler<CampaignListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignListPage> {
+        ): HttpResponseFor<CampaignListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -233,13 +232,6 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CampaignListPage.builder()
-                            .service(CampaignServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

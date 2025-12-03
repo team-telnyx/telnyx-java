@@ -22,9 +22,8 @@ import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncResponse
-import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListPage
-import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListPageResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListParams
+import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveResponse
 import java.util.function.Consumer
@@ -59,7 +58,7 @@ class MdrUsageReportServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: MdrUsageReportListParams,
         requestOptions: RequestOptions,
-    ): MdrUsageReportListPage =
+    ): MdrUsageReportListResponse =
         // get /reports/mdr_usage_reports
         withRawResponse().list(params, requestOptions).parse()
 
@@ -148,13 +147,13 @@ class MdrUsageReportServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<MdrUsageReportListPageResponse> =
-            jsonHandler<MdrUsageReportListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MdrUsageReportListResponse> =
+            jsonHandler<MdrUsageReportListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MdrUsageReportListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MdrUsageReportListPage> {
+        ): HttpResponseFor<MdrUsageReportListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -171,13 +170,6 @@ class MdrUsageReportServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        MdrUsageReportListPage.builder()
-                            .service(MdrUsageReportServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

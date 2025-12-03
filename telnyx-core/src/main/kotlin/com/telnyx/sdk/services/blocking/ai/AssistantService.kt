@@ -13,7 +13,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
-import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
@@ -273,12 +273,12 @@ interface AssistantService {
      * Import assistants from external providers. Any assistant that has already been imported will
      * be overwritten with its latest version from the importing provider.
      */
-    fun imports(params: AssistantImportsParams): AssistantsList =
-        imports(params, RequestOptions.none())
+    fun import_(params: AssistantImportParams): AssistantsList =
+        import_(params, RequestOptions.none())
 
-    /** @see imports */
-    fun imports(
-        params: AssistantImportsParams,
+    /** @see import_ */
+    fun import_(
+        params: AssistantImportParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AssistantsList
 
@@ -624,16 +624,16 @@ interface AssistantService {
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants/import`, but is otherwise the same
-         * as [AssistantService.imports].
+         * as [AssistantService.import_].
          */
         @MustBeClosed
-        fun imports(params: AssistantImportsParams): HttpResponseFor<AssistantsList> =
-            imports(params, RequestOptions.none())
+        fun import_(params: AssistantImportParams): HttpResponseFor<AssistantsList> =
+            import_(params, RequestOptions.none())
 
-        /** @see imports */
+        /** @see import_ */
         @MustBeClosed
-        fun imports(
-            params: AssistantImportsParams,
+        fun import_(
+            params: AssistantImportParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AssistantsList>
 

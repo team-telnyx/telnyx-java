@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListPageAsync
-import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListPageResponse
 import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListParams
+import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,7 +39,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileNetworkOp
     override fun list(
         params: MobileNetworkOperatorListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MobileNetworkOperatorListPageAsync> =
+    ): CompletableFuture<MobileNetworkOperatorListResponse> =
         // get /mobile_network_operators
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -57,13 +56,13 @@ internal constructor(private val clientOptions: ClientOptions) : MobileNetworkOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<MobileNetworkOperatorListPageResponse> =
-            jsonHandler<MobileNetworkOperatorListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MobileNetworkOperatorListResponse> =
+            jsonHandler<MobileNetworkOperatorListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MobileNetworkOperatorListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -82,14 +81,6 @@ internal constructor(private val clientOptions: ClientOptions) : MobileNetworkOp
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                MobileNetworkOperatorListPageAsync.builder()
-                                    .service(MobileNetworkOperatorServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

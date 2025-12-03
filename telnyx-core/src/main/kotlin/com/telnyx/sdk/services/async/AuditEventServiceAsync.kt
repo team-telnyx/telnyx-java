@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.auditevents.AuditEventListPageAsync
 import com.telnyx.sdk.models.auditevents.AuditEventListParams
+import com.telnyx.sdk.models.auditevents.AuditEventListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -28,21 +28,21 @@ interface AuditEventServiceAsync {
      * Retrieve a list of audit log entries. Audit logs are a best-effort, eventually consistent
      * record of significant account-related changes.
      */
-    fun list(): CompletableFuture<AuditEventListPageAsync> = list(AuditEventListParams.none())
+    fun list(): CompletableFuture<AuditEventListResponse> = list(AuditEventListParams.none())
 
     /** @see list */
     fun list(
         params: AuditEventListParams = AuditEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AuditEventListPageAsync>
+    ): CompletableFuture<AuditEventListResponse>
 
     /** @see list */
     fun list(
         params: AuditEventListParams = AuditEventListParams.none()
-    ): CompletableFuture<AuditEventListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<AuditEventListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AuditEventListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AuditEventListResponse> =
         list(AuditEventListParams.none(), requestOptions)
 
     /**
@@ -64,25 +64,25 @@ interface AuditEventServiceAsync {
          * Returns a raw HTTP response for `get /audit_events`, but is otherwise the same as
          * [AuditEventServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AuditEventListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<AuditEventListResponse>> =
             list(AuditEventListParams.none())
 
         /** @see list */
         fun list(
             params: AuditEventListParams = AuditEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AuditEventListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<AuditEventListResponse>>
 
         /** @see list */
         fun list(
             params: AuditEventListParams = AuditEventListParams.none()
-        ): CompletableFuture<HttpResponseFor<AuditEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AuditEventListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AuditEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AuditEventListResponse>> =
             list(AuditEventListParams.none(), requestOptions)
     }
 }

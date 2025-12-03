@@ -4,6 +4,8 @@ package com.telnyx.sdk.services.blocking.porting
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.porting.events.EventListParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,9 +38,26 @@ internal class EventServiceTest {
                 .build()
         val eventService = client.porting().events()
 
-        val page = eventService.list()
+        val events =
+            eventService.list(
+                EventListParams.builder()
+                    .filter(
+                        EventListParams.Filter.builder()
+                            .createdAt(
+                                EventListParams.Filter.CreatedAt.builder()
+                                    .gte(OffsetDateTime.parse("2021-01-01T00:00:00Z"))
+                                    .lte(OffsetDateTime.parse("2021-01-01T00:00:00Z"))
+                                    .build()
+                            )
+                            .portingOrderId("34dc46a9-53ed-4e01-9454-26227ea13326")
+                            .type(EventListParams.Filter.Type.PORTING_ORDER_DELETED)
+                            .build()
+                    )
+                    .page(EventListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        events.validate()
     }
 
     @Disabled("Prism tests are disabled")

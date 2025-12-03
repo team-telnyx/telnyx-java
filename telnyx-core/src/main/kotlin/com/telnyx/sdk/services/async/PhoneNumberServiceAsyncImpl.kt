@@ -18,14 +18,12 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteResponse
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberListPageAsync
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberListParams
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveResponse
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListPageAsync
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListPageResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListParams
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateResponse
 import com.telnyx.sdk.services.async.phonenumbers.ActionServiceAsync
@@ -103,7 +101,7 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: PhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PhoneNumberListPageAsync> =
+    ): CompletableFuture<PhoneNumberListResponse> =
         // get /phone_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -117,7 +115,7 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
     override fun slimList(
         params: PhoneNumberSlimListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PhoneNumberSlimListPageAsync> =
+    ): CompletableFuture<PhoneNumberSlimListResponse> =
         // get /phone_numbers/slim
         withRawResponse().slimList(params, requestOptions).thenApply { it.parse() }
 
@@ -212,7 +210,7 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
         ): CompletableFuture<HttpResponseFor<PhoneNumberUpdateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("phoneNumberId", params.phoneNumberId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -237,13 +235,13 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<PhoneNumberListPageResponse> =
-            jsonHandler<PhoneNumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhoneNumberListResponse> =
+            jsonHandler<PhoneNumberListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -262,14 +260,6 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PhoneNumberListPageAsync.builder()
-                                    .service(PhoneNumberServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }
@@ -309,13 +299,13 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val slimListHandler: Handler<PhoneNumberSlimListPageResponse> =
-            jsonHandler<PhoneNumberSlimListPageResponse>(clientOptions.jsonMapper)
+        private val slimListHandler: Handler<PhoneNumberSlimListResponse> =
+            jsonHandler<PhoneNumberSlimListResponse>(clientOptions.jsonMapper)
 
         override fun slimList(
             params: PhoneNumberSlimListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -334,14 +324,6 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PhoneNumberSlimListPageAsync.builder()
-                                    .service(PhoneNumberServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

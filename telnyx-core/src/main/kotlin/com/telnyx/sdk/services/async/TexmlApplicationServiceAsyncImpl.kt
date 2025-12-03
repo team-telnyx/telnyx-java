@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteResponse
-import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListPageAsync
-import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListPageResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListParams
+import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateParams
@@ -69,7 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : TexmlApplicatio
     override fun list(
         params: TexmlApplicationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TexmlApplicationListPageAsync> =
+    ): CompletableFuture<TexmlApplicationListResponse> =
         // get /texml_applications
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -191,13 +190,13 @@ internal constructor(private val clientOptions: ClientOptions) : TexmlApplicatio
                 }
         }
 
-        private val listHandler: Handler<TexmlApplicationListPageResponse> =
-            jsonHandler<TexmlApplicationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TexmlApplicationListResponse> =
+            jsonHandler<TexmlApplicationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: TexmlApplicationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TexmlApplicationListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<TexmlApplicationListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -216,14 +215,6 @@ internal constructor(private val clientOptions: ClientOptions) : TexmlApplicatio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                TexmlApplicationListPageAsync.builder()
-                                    .service(TexmlApplicationServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

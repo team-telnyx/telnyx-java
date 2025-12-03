@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.requirements.RequirementListPage
-import com.telnyx.sdk.models.requirements.RequirementListPageResponse
 import com.telnyx.sdk.models.requirements.RequirementListParams
+import com.telnyx.sdk.models.requirements.RequirementListResponse
 import com.telnyx.sdk.models.requirements.RequirementRetrieveParams
 import com.telnyx.sdk.models.requirements.RequirementRetrieveResponse
 import java.util.function.Consumer
@@ -45,7 +44,7 @@ class RequirementServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: RequirementListParams,
         requestOptions: RequestOptions,
-    ): RequirementListPage =
+    ): RequirementListResponse =
         // get /requirements
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class RequirementServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<RequirementListPageResponse> =
-            jsonHandler<RequirementListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RequirementListResponse> =
+            jsonHandler<RequirementListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RequirementListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RequirementListPage> {
+        ): HttpResponseFor<RequirementListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class RequirementServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RequirementListPage.builder()
-                            .service(RequirementServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

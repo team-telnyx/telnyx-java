@@ -39,7 +39,7 @@ import com.telnyx.sdk.services.async.DocumentLinkServiceAsync
 import com.telnyx.sdk.services.async.DocumentServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsync
-import com.telnyx.sdk.services.async.EnumerationServiceAsync
+import com.telnyx.sdk.services.async.EnumServiceAsync
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsync
 import com.telnyx.sdk.services.async.FaxApplicationServiceAsync
 import com.telnyx.sdk.services.async.FaxServiceAsync
@@ -279,7 +279,7 @@ interface TelnyxClientAsync {
 
     fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync
 
-    fun enumeration(): EnumerationServiceAsync
+    fun enum_(): EnumServiceAsync
 
     fun externalConnections(): ExternalConnectionServiceAsync
 
@@ -616,7 +616,7 @@ interface TelnyxClientAsync {
 
         fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync.WithRawResponse
 
-        fun enumeration(): EnumerationServiceAsync.WithRawResponse
+        fun enum_(): EnumServiceAsync.WithRawResponse
 
         fun externalConnections(): ExternalConnectionServiceAsync.WithRawResponse
 

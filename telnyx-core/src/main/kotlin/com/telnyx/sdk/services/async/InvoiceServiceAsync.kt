@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.invoices.InvoiceListPageAsync
 import com.telnyx.sdk.models.invoices.InvoiceListParams
+import com.telnyx.sdk.models.invoices.InvoiceListResponse
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveParams
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -62,21 +62,21 @@ interface InvoiceServiceAsync {
         retrieve(id, InvoiceRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of invoices. */
-    fun list(): CompletableFuture<InvoiceListPageAsync> = list(InvoiceListParams.none())
+    fun list(): CompletableFuture<InvoiceListResponse> = list(InvoiceListParams.none())
 
     /** @see list */
     fun list(
         params: InvoiceListParams = InvoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InvoiceListPageAsync>
+    ): CompletableFuture<InvoiceListResponse>
 
     /** @see list */
     fun list(
         params: InvoiceListParams = InvoiceListParams.none()
-    ): CompletableFuture<InvoiceListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<InvoiceListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<InvoiceListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<InvoiceListResponse> =
         list(InvoiceListParams.none(), requestOptions)
 
     /**
@@ -138,25 +138,25 @@ interface InvoiceServiceAsync {
          * Returns a raw HTTP response for `get /invoices`, but is otherwise the same as
          * [InvoiceServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<InvoiceListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<InvoiceListResponse>> =
             list(InvoiceListParams.none())
 
         /** @see list */
         fun list(
             params: InvoiceListParams = InvoiceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InvoiceListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<InvoiceListResponse>>
 
         /** @see list */
         fun list(
             params: InvoiceListParams = InvoiceListParams.none()
-        ): CompletableFuture<HttpResponseFor<InvoiceListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InvoiceListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InvoiceListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InvoiceListResponse>> =
             list(InvoiceListParams.none(), requestOptions)
     }
 }

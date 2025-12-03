@@ -23,7 +23,7 @@ class PrivateWirelessGatewayStatus
 private constructor(
     private val errorCode: JsonField<String>,
     private val errorDescription: JsonField<String>,
-    private val value: JsonField<PrivateWirelessGatewayStatusValue>,
+    private val value: JsonField<Value_>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,9 +33,7 @@ private constructor(
         @JsonProperty("error_description")
         @ExcludeMissing
         errorDescription: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("value")
-        @ExcludeMissing
-        value: JsonField<PrivateWirelessGatewayStatusValue> = JsonMissing.of(),
+        @JsonProperty("value") @ExcludeMissing value: JsonField<Value_> = JsonMissing.of(),
     ) : this(errorCode, errorDescription, value, mutableMapOf())
 
     /**
@@ -69,7 +67,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun value(): Optional<PrivateWirelessGatewayStatusValue> = value.getOptional("value")
+    fun value(): Optional<Value_> = value.getOptional("value")
 
     /**
      * Returns the raw JSON value of [errorCode].
@@ -93,9 +91,7 @@ private constructor(
      *
      * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("value")
-    @ExcludeMissing
-    fun _value(): JsonField<PrivateWirelessGatewayStatusValue> = value
+    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Value_> = value
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -122,7 +118,7 @@ private constructor(
 
         private var errorCode: JsonField<String> = JsonMissing.of()
         private var errorDescription: JsonField<String> = JsonMissing.of()
-        private var value: JsonField<PrivateWirelessGatewayStatusValue> = JsonMissing.of()
+        private var value: JsonField<Value_> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -174,18 +170,15 @@ private constructor(
          *   network.</li> </ul> Transitioning between the provisioning and provisioned states may
          *   take some time.
          */
-        fun value(value: PrivateWirelessGatewayStatusValue) = value(JsonField.of(value))
+        fun value(value: Value_) = value(JsonField.of(value))
 
         /**
          * Sets [Builder.value] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.value] with a well-typed
-         * [PrivateWirelessGatewayStatusValue] value instead. This method is primarily for setting
-         * the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.value] with a well-typed [Value_] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun value(value: JsonField<PrivateWirelessGatewayStatusValue>) = apply {
-            this.value = value
-        }
+        fun value(value: JsonField<Value_>) = apply { this.value = value }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -263,9 +256,7 @@ private constructor(
      *   network.</li> </ul> Transitioning between the provisioning and provisioned states may take
      *   some time.
      */
-    class PrivateWirelessGatewayStatusValue
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
+    class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -287,11 +278,10 @@ private constructor(
 
             @JvmField val DECOMMISSIONING = of("decommissioning")
 
-            @JvmStatic
-            fun of(value: String) = PrivateWirelessGatewayStatusValue(JsonField.of(value))
+            @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
         }
 
-        /** An enum containing [PrivateWirelessGatewayStatusValue]'s known values. */
+        /** An enum containing [Value_]'s known values. */
         enum class Known {
             PROVISIONING,
             PROVISIONED,
@@ -300,11 +290,9 @@ private constructor(
         }
 
         /**
-         * An enum containing [PrivateWirelessGatewayStatusValue]'s known values, as well as an
-         * [_UNKNOWN] member.
+         * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [PrivateWirelessGatewayStatusValue] can contain an unknown value in a
-         * couple of cases:
+         * An instance of [Value_] can contain an unknown value in a couple of cases:
          * - It was deserialized from data that doesn't match any known member. For example, if the
          *   SDK is on an older version than the API, then the API may respond with new members that
          *   the SDK is unaware of.
@@ -315,10 +303,7 @@ private constructor(
             PROVISIONED,
             FAILED,
             DECOMMISSIONING,
-            /**
-             * An enum member indicating that [PrivateWirelessGatewayStatusValue] was instantiated
-             * with an unknown value.
-             */
+            /** An enum member indicating that [Value_] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
@@ -353,10 +338,7 @@ private constructor(
                 PROVISIONED -> Known.PROVISIONED
                 FAILED -> Known.FAILED
                 DECOMMISSIONING -> Known.DECOMMISSIONING
-                else ->
-                    throw TelnyxInvalidDataException(
-                        "Unknown PrivateWirelessGatewayStatusValue: $value"
-                    )
+                else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
             }
 
         /**
@@ -373,7 +355,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PrivateWirelessGatewayStatusValue = apply {
+        fun validate(): Value_ = apply {
             if (validated) {
                 return@apply
             }
@@ -403,7 +385,7 @@ private constructor(
                 return true
             }
 
-            return other is PrivateWirelessGatewayStatusValue && value == other.value
+            return other is Value_ && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.notificationprofiles.NotificationProfileCreateParam
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileCreateResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileDeleteParams
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileDeleteResponse
-import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListPageAsync
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListParams
+import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileRetrieveParams
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileRetrieveResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateParams
@@ -112,21 +112,18 @@ interface NotificationProfileServiceAsync {
 
     /** Update a notification profile. */
     fun update(
-        notificationProfileId: String,
+        pathId: String,
         params: NotificationProfileUpdateParams,
     ): CompletableFuture<NotificationProfileUpdateResponse> =
-        update(notificationProfileId, params, RequestOptions.none())
+        update(pathId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        notificationProfileId: String,
+        pathId: String,
         params: NotificationProfileUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<NotificationProfileUpdateResponse> =
-        update(
-            params.toBuilder().notificationProfileId(notificationProfileId).build(),
-            requestOptions,
-        )
+        update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
     /** @see update */
     fun update(
@@ -140,22 +137,22 @@ interface NotificationProfileServiceAsync {
     ): CompletableFuture<NotificationProfileUpdateResponse>
 
     /** Returns a list of your notifications profiles. */
-    fun list(): CompletableFuture<NotificationProfileListPageAsync> =
+    fun list(): CompletableFuture<NotificationProfileListResponse> =
         list(NotificationProfileListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationProfileListParams = NotificationProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NotificationProfileListPageAsync>
+    ): CompletableFuture<NotificationProfileListResponse>
 
     /** @see list */
     fun list(
         params: NotificationProfileListParams = NotificationProfileListParams.none()
-    ): CompletableFuture<NotificationProfileListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<NotificationProfileListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NotificationProfileListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NotificationProfileListResponse> =
         list(NotificationProfileListParams.none(), requestOptions)
 
     /** Delete a notification profile. */
@@ -301,21 +298,18 @@ interface NotificationProfileServiceAsync {
          * same as [NotificationProfileServiceAsync.update].
          */
         fun update(
-            notificationProfileId: String,
+            pathId: String,
             params: NotificationProfileUpdateParams,
         ): CompletableFuture<HttpResponseFor<NotificationProfileUpdateResponse>> =
-            update(notificationProfileId, params, RequestOptions.none())
+            update(pathId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            notificationProfileId: String,
+            pathId: String,
             params: NotificationProfileUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<NotificationProfileUpdateResponse>> =
-            update(
-                params.toBuilder().notificationProfileId(notificationProfileId).build(),
-                requestOptions,
-            )
+            update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -333,25 +327,25 @@ interface NotificationProfileServiceAsync {
          * Returns a raw HTTP response for `get /notification_profiles`, but is otherwise the same
          * as [NotificationProfileServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NotificationProfileListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<NotificationProfileListResponse>> =
             list(NotificationProfileListParams.none())
 
         /** @see list */
         fun list(
             params: NotificationProfileListParams = NotificationProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NotificationProfileListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<NotificationProfileListResponse>>
 
         /** @see list */
         fun list(
             params: NotificationProfileListParams = NotificationProfileListParams.none()
-        ): CompletableFuture<HttpResponseFor<NotificationProfileListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NotificationProfileListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NotificationProfileListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NotificationProfileListResponse>> =
             list(NotificationProfileListParams.none(), requestOptions)
 
         /**

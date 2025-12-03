@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateParams
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateResponse
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretDeleteParams
-import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListPageAsync
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListParams
+import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -43,22 +43,22 @@ interface IntegrationSecretServiceAsync {
     ): CompletableFuture<IntegrationSecretCreateResponse>
 
     /** Retrieve a list of all integration secrets configured by the user. */
-    fun list(): CompletableFuture<IntegrationSecretListPageAsync> =
+    fun list(): CompletableFuture<IntegrationSecretListResponse> =
         list(IntegrationSecretListParams.none())
 
     /** @see list */
     fun list(
         params: IntegrationSecretListParams = IntegrationSecretListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegrationSecretListPageAsync>
+    ): CompletableFuture<IntegrationSecretListResponse>
 
     /** @see list */
     fun list(
         params: IntegrationSecretListParams = IntegrationSecretListParams.none()
-    ): CompletableFuture<IntegrationSecretListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<IntegrationSecretListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<IntegrationSecretListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<IntegrationSecretListResponse> =
         list(IntegrationSecretListParams.none(), requestOptions)
 
     /** Delete an integration secret given its ID. */
@@ -126,25 +126,25 @@ interface IntegrationSecretServiceAsync {
          * Returns a raw HTTP response for `get /integration_secrets`, but is otherwise the same as
          * [IntegrationSecretServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<IntegrationSecretListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<IntegrationSecretListResponse>> =
             list(IntegrationSecretListParams.none())
 
         /** @see list */
         fun list(
             params: IntegrationSecretListParams = IntegrationSecretListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegrationSecretListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<IntegrationSecretListResponse>>
 
         /** @see list */
         fun list(
             params: IntegrationSecretListParams = IntegrationSecretListParams.none()
-        ): CompletableFuture<HttpResponseFor<IntegrationSecretListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<IntegrationSecretListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<IntegrationSecretListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<IntegrationSecretListResponse>> =
             list(IntegrationSecretListParams.none(), requestOptions)
 
         /**

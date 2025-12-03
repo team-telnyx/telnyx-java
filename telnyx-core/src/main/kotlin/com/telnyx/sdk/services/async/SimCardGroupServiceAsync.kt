@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteResponse
-import com.telnyx.sdk.models.simcardgroups.SimCardGroupListPageAsync
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupListParams
+import com.telnyx.sdk.models.simcardgroups.SimCardGroupListResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupUpdateParams
@@ -117,21 +117,21 @@ interface SimCardGroupServiceAsync {
         update(id, SimCardGroupUpdateParams.none(), requestOptions)
 
     /** Get all SIM card groups belonging to the user that match the given filters. */
-    fun list(): CompletableFuture<SimCardGroupListPageAsync> = list(SimCardGroupListParams.none())
+    fun list(): CompletableFuture<SimCardGroupListResponse> = list(SimCardGroupListParams.none())
 
     /** @see list */
     fun list(
         params: SimCardGroupListParams = SimCardGroupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimCardGroupListPageAsync>
+    ): CompletableFuture<SimCardGroupListResponse>
 
     /** @see list */
     fun list(
         params: SimCardGroupListParams = SimCardGroupListParams.none()
-    ): CompletableFuture<SimCardGroupListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<SimCardGroupListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<SimCardGroupListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<SimCardGroupListResponse> =
         list(SimCardGroupListParams.none(), requestOptions)
 
     /** Permanently deletes a SIM card group */
@@ -287,25 +287,25 @@ interface SimCardGroupServiceAsync {
          * Returns a raw HTTP response for `get /sim_card_groups`, but is otherwise the same as
          * [SimCardGroupServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<SimCardGroupListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<SimCardGroupListResponse>> =
             list(SimCardGroupListParams.none())
 
         /** @see list */
         fun list(
             params: SimCardGroupListParams = SimCardGroupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimCardGroupListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<SimCardGroupListResponse>>
 
         /** @see list */
         fun list(
             params: SimCardGroupListParams = SimCardGroupListParams.none()
-        ): CompletableFuture<HttpResponseFor<SimCardGroupListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<SimCardGroupListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<SimCardGroupListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<SimCardGroupListResponse>> =
             list(SimCardGroupListParams.none(), requestOptions)
 
         /**

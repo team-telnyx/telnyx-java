@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeleteParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageAsync
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -71,7 +70,7 @@ internal constructor(private val clientOptions: ClientOptions) : LoaConfiguratio
     override fun list(
         params: LoaConfigurationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<LoaConfigurationListPageAsync> =
+    ): CompletableFuture<LoaConfigurationListResponse> =
         // get /porting/loa_configurations
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -207,13 +206,13 @@ internal constructor(private val clientOptions: ClientOptions) : LoaConfiguratio
                 }
         }
 
-        private val listHandler: Handler<LoaConfigurationListPageResponse> =
-            jsonHandler<LoaConfigurationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LoaConfigurationListResponse> =
+            jsonHandler<LoaConfigurationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: LoaConfigurationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<LoaConfigurationListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<LoaConfigurationListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -232,14 +231,6 @@ internal constructor(private val clientOptions: ClientOptions) : LoaConfiguratio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                LoaConfigurationListPageAsync.builder()
-                                    .service(LoaConfigurationServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

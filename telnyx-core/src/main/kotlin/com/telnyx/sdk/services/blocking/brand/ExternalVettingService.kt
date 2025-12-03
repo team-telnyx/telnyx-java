@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportsParams
-import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportsResponse
+import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportParams
+import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingImportResponse
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingListParams
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingListResponse
 import com.telnyx.sdk.models.brand.externalvetting.ExternalVettingOrderParams
@@ -65,28 +65,28 @@ interface ExternalVettingService {
      * provider. If the vetting provider confirms validity of the record, it will be saved with the
      * brand and will be considered for future campaign qualification.
      */
-    fun imports(
+    fun import_(
         brandId: String,
-        params: ExternalVettingImportsParams,
-    ): ExternalVettingImportsResponse = imports(brandId, params, RequestOptions.none())
+        params: ExternalVettingImportParams,
+    ): ExternalVettingImportResponse = import_(brandId, params, RequestOptions.none())
 
-    /** @see imports */
-    fun imports(
+    /** @see import_ */
+    fun import_(
         brandId: String,
-        params: ExternalVettingImportsParams,
+        params: ExternalVettingImportParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingImportsResponse =
-        imports(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): ExternalVettingImportResponse =
+        import_(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see imports */
-    fun imports(params: ExternalVettingImportsParams): ExternalVettingImportsResponse =
-        imports(params, RequestOptions.none())
+    /** @see import_ */
+    fun import_(params: ExternalVettingImportParams): ExternalVettingImportResponse =
+        import_(params, RequestOptions.none())
 
-    /** @see imports */
-    fun imports(
-        params: ExternalVettingImportsParams,
+    /** @see import_ */
+    fun import_(
+        params: ExternalVettingImportParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalVettingImportsResponse
+    ): ExternalVettingImportResponse
 
     /** Order new external vetting for a brand */
     fun order(brandId: String, params: ExternalVettingOrderParams): ExternalVettingOrderResponse =
@@ -173,36 +173,36 @@ interface ExternalVettingService {
 
         /**
          * Returns a raw HTTP response for `put /brand/{brandId}/externalVetting`, but is otherwise
-         * the same as [ExternalVettingService.imports].
+         * the same as [ExternalVettingService.import_].
          */
         @MustBeClosed
-        fun imports(
+        fun import_(
             brandId: String,
-            params: ExternalVettingImportsParams,
-        ): HttpResponseFor<ExternalVettingImportsResponse> =
-            imports(brandId, params, RequestOptions.none())
+            params: ExternalVettingImportParams,
+        ): HttpResponseFor<ExternalVettingImportResponse> =
+            import_(brandId, params, RequestOptions.none())
 
-        /** @see imports */
+        /** @see import_ */
         @MustBeClosed
-        fun imports(
+        fun import_(
             brandId: String,
-            params: ExternalVettingImportsParams,
+            params: ExternalVettingImportParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingImportsResponse> =
-            imports(params.toBuilder().brandId(brandId).build(), requestOptions)
+        ): HttpResponseFor<ExternalVettingImportResponse> =
+            import_(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see imports */
+        /** @see import_ */
         @MustBeClosed
-        fun imports(
-            params: ExternalVettingImportsParams
-        ): HttpResponseFor<ExternalVettingImportsResponse> = imports(params, RequestOptions.none())
+        fun import_(
+            params: ExternalVettingImportParams
+        ): HttpResponseFor<ExternalVettingImportResponse> = import_(params, RequestOptions.none())
 
-        /** @see imports */
+        /** @see import_ */
         @MustBeClosed
-        fun imports(
-            params: ExternalVettingImportsParams,
+        fun import_(
+            params: ExternalVettingImportParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalVettingImportsResponse>
+        ): HttpResponseFor<ExternalVettingImportResponse>
 
         /**
          * Returns a raw HTTP response for `post /brand/{brandId}/externalVetting`, but is otherwise

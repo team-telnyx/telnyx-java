@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCr
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteResponse
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListPageAsync
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListPageResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -58,7 +57,7 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: MessagingListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingListPageAsync> =
+    ): CompletableFuture<MessagingListResponse> =
         // get /legacy/reporting/usage_reports/messaging
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -152,13 +151,13 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listHandler: Handler<MessagingListPageResponse> =
-            jsonHandler<MessagingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingListResponse> =
+            jsonHandler<MessagingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MessagingListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -177,14 +176,6 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                MessagingListPageAsync.builder()
-                                    .service(MessagingServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

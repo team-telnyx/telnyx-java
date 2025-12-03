@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai.conversations
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -97,8 +98,18 @@ internal class InsightGroupServiceTest {
                 .build()
         val insightGroupService = client.ai().conversations().insightGroups()
 
-        val page = insightGroupService.retrieveInsightGroups()
+        val response =
+            insightGroupService.retrieveInsightGroups(
+                InsightGroupRetrieveInsightGroupsParams.builder()
+                    .page(
+                        InsightGroupRetrieveInsightGroupsParams.Page.builder()
+                            .number(1L)
+                            .size(0L)
+                            .build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        response.validate()
     }
 }

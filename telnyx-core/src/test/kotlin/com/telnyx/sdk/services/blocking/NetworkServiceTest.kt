@@ -4,7 +4,10 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.networks.NetworkCreate
+import com.telnyx.sdk.models.networks.NetworkListInterfacesParams
+import com.telnyx.sdk.models.networks.NetworkListParams
 import com.telnyx.sdk.models.networks.NetworkUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -28,7 +31,7 @@ internal class NetworkServiceTest {
                 NetworkCreate.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("sample_record_type")
+                    .recordType("network")
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .name("test network")
                     .build()
@@ -65,12 +68,12 @@ internal class NetworkServiceTest {
         val network =
             networkService.update(
                 NetworkUpdateParams.builder()
-                    .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .networkCreate(
                         NetworkCreate.builder()
                             .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                             .createdAt("2018-02-02T22:25:27.521Z")
-                            .recordType("sample_record_type")
+                            .recordType("network")
                             .updatedAt("2018-02-02T22:25:27.521Z")
                             .name("test network")
                             .build()
@@ -91,9 +94,15 @@ internal class NetworkServiceTest {
                 .build()
         val networkService = client.networks()
 
-        val page = networkService.list()
+        val networks =
+            networkService.list(
+                NetworkListParams.builder()
+                    .filter(NetworkListParams.Filter.builder().name("test network").build())
+                    .page(NetworkListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        networks.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -121,8 +130,21 @@ internal class NetworkServiceTest {
                 .build()
         val networkService = client.networks()
 
-        val page = networkService.listInterfaces("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        val response =
+            networkService.listInterfaces(
+                NetworkListInterfacesParams.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .filter(
+                        NetworkListInterfacesParams.Filter.builder()
+                            .name("test interface")
+                            .status(InterfaceStatus.PROVISIONED)
+                            .type("wireguard_interface")
+                            .build()
+                    )
+                    .page(NetworkListInterfacesParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        response.validate()
     }
 }

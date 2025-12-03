@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.detailrecords.DetailRecordListPageAsync
 import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
+import com.telnyx.sdk.models.detailrecords.DetailRecordListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,21 +25,21 @@ interface DetailRecordServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DetailRecordServiceAsync
 
     /** Search for any detail record across the Telnyx Platform */
-    fun list(): CompletableFuture<DetailRecordListPageAsync> = list(DetailRecordListParams.none())
+    fun list(): CompletableFuture<DetailRecordListResponse> = list(DetailRecordListParams.none())
 
     /** @see list */
     fun list(
         params: DetailRecordListParams = DetailRecordListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DetailRecordListPageAsync>
+    ): CompletableFuture<DetailRecordListResponse>
 
     /** @see list */
     fun list(
         params: DetailRecordListParams = DetailRecordListParams.none()
-    ): CompletableFuture<DetailRecordListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<DetailRecordListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<DetailRecordListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<DetailRecordListResponse> =
         list(DetailRecordListParams.none(), requestOptions)
 
     /**
@@ -61,25 +61,25 @@ interface DetailRecordServiceAsync {
          * Returns a raw HTTP response for `get /detail_records`, but is otherwise the same as
          * [DetailRecordServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DetailRecordListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<DetailRecordListResponse>> =
             list(DetailRecordListParams.none())
 
         /** @see list */
         fun list(
             params: DetailRecordListParams = DetailRecordListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DetailRecordListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<DetailRecordListResponse>>
 
         /** @see list */
         fun list(
             params: DetailRecordListParams = DetailRecordListParams.none()
-        ): CompletableFuture<HttpResponseFor<DetailRecordListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DetailRecordListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DetailRecordListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DetailRecordListResponse>> =
             list(DetailRecordListParams.none(), requestOptions)
     }
 }

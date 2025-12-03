@@ -378,7 +378,7 @@ private constructor(
         private constructor(
             private val bytesReceived: JsonField<Long>,
             private val bytesSent: JsonField<Long>,
-            private val category: JsonField<BucketOperationCategory>,
+            private val category: JsonField<InnerCategory>,
             private val ops: JsonField<Long>,
             private val successfulOps: JsonField<Long>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -394,7 +394,7 @@ private constructor(
                 bytesSent: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("category")
                 @ExcludeMissing
-                category: JsonField<BucketOperationCategory> = JsonMissing.of(),
+                category: JsonField<InnerCategory> = JsonMissing.of(),
                 @JsonProperty("ops") @ExcludeMissing ops: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("successful_ops")
                 @ExcludeMissing
@@ -423,7 +423,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun category(): Optional<BucketOperationCategory> = category.getOptional("category")
+            fun category(): Optional<InnerCategory> = category.getOptional("category")
 
             /**
              * The number of operations
@@ -469,7 +469,7 @@ private constructor(
              */
             @JsonProperty("category")
             @ExcludeMissing
-            fun _category(): JsonField<BucketOperationCategory> = category
+            fun _category(): JsonField<InnerCategory> = category
 
             /**
              * Returns the raw JSON value of [ops].
@@ -511,7 +511,7 @@ private constructor(
 
                 private var bytesReceived: JsonField<Long> = JsonMissing.of()
                 private var bytesSent: JsonField<Long> = JsonMissing.of()
-                private var category: JsonField<BucketOperationCategory> = JsonMissing.of()
+                private var category: JsonField<InnerCategory> = JsonMissing.of()
                 private var ops: JsonField<Long> = JsonMissing.of()
                 private var successfulOps: JsonField<Long> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -553,16 +553,16 @@ private constructor(
                 fun bytesSent(bytesSent: JsonField<Long>) = apply { this.bytesSent = bytesSent }
 
                 /** The category of the bucket operation */
-                fun category(category: BucketOperationCategory) = category(JsonField.of(category))
+                fun category(category: InnerCategory) = category(JsonField.of(category))
 
                 /**
                  * Sets [Builder.category] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.category] with a well-typed
-                 * [BucketOperationCategory] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * You should usually call [Builder.category] with a well-typed [InnerCategory]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
-                fun category(category: JsonField<BucketOperationCategory>) = apply {
+                fun category(category: JsonField<InnerCategory>) = apply {
                     this.category = category
                 }
 
@@ -668,7 +668,7 @@ private constructor(
                     (if (successfulOps.asKnown().isPresent) 1 else 0)
 
             /** The category of the bucket operation */
-            class BucketOperationCategory
+            class InnerCategory
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
 
@@ -704,10 +704,10 @@ private constructor(
 
                     @JvmField val DELETE_OBJ = of("delete_obj")
 
-                    @JvmStatic fun of(value: String) = BucketOperationCategory(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = InnerCategory(JsonField.of(value))
                 }
 
-                /** An enum containing [BucketOperationCategory]'s known values. */
+                /** An enum containing [InnerCategory]'s known values. */
                 enum class Known {
                     LIST_BUCKET,
                     LIST_BUCKETS,
@@ -722,11 +722,10 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [BucketOperationCategory]'s known values, as well as an
-                 * [_UNKNOWN] member.
+                 * An enum containing [InnerCategory]'s known values, as well as an [_UNKNOWN]
+                 * member.
                  *
-                 * An instance of [BucketOperationCategory] can contain an unknown value in a couple
-                 * of cases:
+                 * An instance of [InnerCategory] can contain an unknown value in a couple of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
                  *   new members that the SDK is unaware of.
@@ -744,8 +743,8 @@ private constructor(
                     PUT_OBJ,
                     DELETE_OBJ,
                     /**
-                     * An enum member indicating that [BucketOperationCategory] was instantiated
-                     * with an unknown value.
+                     * An enum member indicating that [InnerCategory] was instantiated with an
+                     * unknown value.
                      */
                     _UNKNOWN,
                 }
@@ -793,10 +792,7 @@ private constructor(
                         GET_OBJ -> Known.GET_OBJ
                         PUT_OBJ -> Known.PUT_OBJ
                         DELETE_OBJ -> Known.DELETE_OBJ
-                        else ->
-                            throw TelnyxInvalidDataException(
-                                "Unknown BucketOperationCategory: $value"
-                            )
+                        else -> throw TelnyxInvalidDataException("Unknown InnerCategory: $value")
                     }
 
                 /**
@@ -815,7 +811,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): BucketOperationCategory = apply {
+                fun validate(): InnerCategory = apply {
                     if (validated) {
                         return@apply
                     }
@@ -845,7 +841,7 @@ private constructor(
                         return true
                     }
 
-                    return other is BucketOperationCategory && value == other.value
+                    return other is InnerCategory && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()

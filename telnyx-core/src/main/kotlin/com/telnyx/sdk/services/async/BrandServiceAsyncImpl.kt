@@ -21,9 +21,8 @@ import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandDeleteParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackResponse
-import com.telnyx.sdk.models.brand.BrandListPageAsync
-import com.telnyx.sdk.models.brand.BrandListPageResponse
 import com.telnyx.sdk.models.brand.BrandListParams
+import com.telnyx.sdk.models.brand.BrandListResponse
 import com.telnyx.sdk.models.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.brand.BrandRetrieveResponse
@@ -78,7 +77,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: BrandListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BrandListPageAsync> =
+    ): CompletableFuture<BrandListResponse> =
         // get /brand
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -228,13 +227,13 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<BrandListPageResponse> =
-            jsonHandler<BrandListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BrandListResponse> =
+            jsonHandler<BrandListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BrandListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<BrandListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -253,14 +252,6 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                BrandListPageAsync.builder()
-                                    .service(BrandServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

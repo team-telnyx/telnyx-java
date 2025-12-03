@@ -10,7 +10,7 @@ internal class PhoneNumberCampaignUpdateParamsTest {
     @Test
     fun create() {
         PhoneNumberCampaignUpdateParams.builder()
-            .campaignPhoneNumber("phoneNumber")
+            .pathPhoneNumber("phoneNumber")
             .phoneNumberCampaignCreate(
                 PhoneNumberCampaignCreate.builder()
                     .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
@@ -24,7 +24,7 @@ internal class PhoneNumberCampaignUpdateParamsTest {
     fun pathParams() {
         val params =
             PhoneNumberCampaignUpdateParams.builder()
-                .campaignPhoneNumber("phoneNumber")
+                .pathPhoneNumber("phoneNumber")
                 .phoneNumberCampaignCreate(
                     PhoneNumberCampaignCreate.builder()
                         .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
@@ -42,7 +42,7 @@ internal class PhoneNumberCampaignUpdateParamsTest {
     fun body() {
         val params =
             PhoneNumberCampaignUpdateParams.builder()
-                .campaignPhoneNumber("phoneNumber")
+                .pathPhoneNumber("phoneNumber")
                 .phoneNumberCampaignCreate(
                     PhoneNumberCampaignCreate.builder()
                         .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")

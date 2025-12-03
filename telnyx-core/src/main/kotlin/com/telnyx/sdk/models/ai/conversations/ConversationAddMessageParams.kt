@@ -311,9 +311,7 @@ private constructor(
         /**
          * Alias for calling [toolChoice] with `ToolChoice.ofToolChoiceObject(toolChoiceObject)`.
          */
-        fun toolChoice(toolChoiceObject: ToolChoice.ToolChoiceObject) = apply {
-            body.toolChoice(toolChoiceObject)
-        }
+        fun toolChoice(toolChoiceObject: JsonValue) = apply { body.toolChoice(toolChoiceObject) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -783,7 +781,7 @@ private constructor(
              * Alias for calling [toolChoice] with
              * `ToolChoice.ofToolChoiceObject(toolChoiceObject)`.
              */
-            fun toolChoice(toolChoiceObject: ToolChoice.ToolChoiceObject) =
+            fun toolChoice(toolChoiceObject: JsonValue) =
                 toolChoice(ToolChoice.ofToolChoiceObject(toolChoiceObject))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1114,13 +1112,13 @@ private constructor(
     class ToolChoice
     private constructor(
         private val string: String? = null,
-        private val toolChoiceObject: ToolChoiceObject? = null,
+        private val toolChoiceObject: JsonValue? = null,
         private val _json: JsonValue? = null,
     ) {
 
         fun string(): Optional<String> = Optional.ofNullable(string)
 
-        fun toolChoiceObject(): Optional<ToolChoiceObject> = Optional.ofNullable(toolChoiceObject)
+        fun toolChoiceObject(): Optional<JsonValue> = Optional.ofNullable(toolChoiceObject)
 
         fun isString(): Boolean = string != null
 
@@ -1128,7 +1126,7 @@ private constructor(
 
         fun asString(): String = string.getOrThrow("string")
 
-        fun asToolChoiceObject(): ToolChoiceObject = toolChoiceObject.getOrThrow("toolChoiceObject")
+        fun asToolChoiceObject(): JsonValue = toolChoiceObject.getOrThrow("toolChoiceObject")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1150,9 +1148,7 @@ private constructor(
                 object : Visitor<Unit> {
                     override fun visitString(string: String) {}
 
-                    override fun visitToolChoiceObject(toolChoiceObject: ToolChoiceObject) {
-                        toolChoiceObject.validate()
-                    }
+                    override fun visitToolChoiceObject(toolChoiceObject: JsonValue) {}
                 }
             )
             validated = true
@@ -1178,8 +1174,7 @@ private constructor(
                 object : Visitor<Int> {
                     override fun visitString(string: String) = 1
 
-                    override fun visitToolChoiceObject(toolChoiceObject: ToolChoiceObject) =
-                        toolChoiceObject.validity()
+                    override fun visitToolChoiceObject(toolChoiceObject: JsonValue) = 1
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1210,7 +1205,7 @@ private constructor(
             @JvmStatic fun ofString(string: String) = ToolChoice(string = string)
 
             @JvmStatic
-            fun ofToolChoiceObject(toolChoiceObject: ToolChoiceObject) =
+            fun ofToolChoiceObject(toolChoiceObject: JsonValue) =
                 ToolChoice(toolChoiceObject = toolChoiceObject)
         }
 
@@ -1221,7 +1216,7 @@ private constructor(
 
             fun visitString(string: String): T
 
-            fun visitToolChoiceObject(toolChoiceObject: ToolChoiceObject): T
+            fun visitToolChoiceObject(toolChoiceObject: JsonValue): T
 
             /**
              * Maps an unknown variant of [ToolChoice] to a value of type [T].
@@ -1245,11 +1240,11 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<ToolChoiceObject>())?.let {
-                                ToolChoice(toolChoiceObject = it, _json = json)
-                            },
                             tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                 ToolChoice(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<JsonValue>())?.let {
+                                ToolChoice(toolChoiceObject = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -1257,7 +1252,7 @@ private constructor(
                         .toList()
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from array).
+                    // all the possible variants.
                     0 -> ToolChoice(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
@@ -1282,109 +1277,6 @@ private constructor(
                     else -> throw IllegalStateException("Invalid ToolChoice")
                 }
             }
-        }
-
-        class ToolChoiceObject
-        @JsonCreator
-        private constructor(
-            @com.fasterxml.jackson.annotation.JsonValue
-            private val additionalProperties: Map<String, JsonValue>
-        ) {
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [ToolChoiceObject]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [ToolChoiceObject]. */
-            class Builder internal constructor() {
-
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(toolChoiceObject: ToolChoiceObject) = apply {
-                    additionalProperties = toolChoiceObject.additionalProperties.toMutableMap()
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [ToolChoiceObject].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): ToolChoiceObject = ToolChoiceObject(additionalProperties.toImmutable())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): ToolChoiceObject = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is ToolChoiceObject &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() = "ToolChoiceObject{additionalProperties=$additionalProperties}"
         }
     }
 

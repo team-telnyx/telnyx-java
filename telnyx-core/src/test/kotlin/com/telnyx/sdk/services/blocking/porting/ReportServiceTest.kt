@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.porting.reports.ExportPortingOrdersCsvReport
 import com.telnyx.sdk.models.porting.reports.ReportCreateParams
+import com.telnyx.sdk.models.porting.reports.ReportListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -73,8 +74,21 @@ internal class ReportServiceTest {
                 .build()
         val reportService = client.porting().reports()
 
-        val page = reportService.list()
+        val reports =
+            reportService.list(
+                ReportListParams.builder()
+                    .filter(
+                        ReportListParams.Filter.builder()
+                            .reportType(
+                                ReportListParams.Filter.ReportType.EXPORT_PORTING_ORDERS_CSV
+                            )
+                            .status(ReportListParams.Filter.Status.COMPLETED)
+                            .build()
+                    )
+                    .page(ReportListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        reports.validate()
     }
 }

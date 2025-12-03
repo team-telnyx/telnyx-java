@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListPage
 import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
+import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListResponse
 import java.util.function.Consumer
 
 interface MessagingUrlDomainService {
@@ -25,21 +25,21 @@ interface MessagingUrlDomainService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingUrlDomainService
 
     /** List messaging URL domains */
-    fun list(): MessagingUrlDomainListPage = list(MessagingUrlDomainListParams.none())
+    fun list(): MessagingUrlDomainListResponse = list(MessagingUrlDomainListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingUrlDomainListPage
+    ): MessagingUrlDomainListResponse
 
     /** @see list */
     fun list(
         params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none()
-    ): MessagingUrlDomainListPage = list(params, RequestOptions.none())
+    ): MessagingUrlDomainListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MessagingUrlDomainListPage =
+    fun list(requestOptions: RequestOptions): MessagingUrlDomainListResponse =
         list(MessagingUrlDomainListParams.none(), requestOptions)
 
     /**
@@ -62,7 +62,7 @@ interface MessagingUrlDomainService {
          * as [MessagingUrlDomainService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MessagingUrlDomainListPage> =
+        fun list(): HttpResponseFor<MessagingUrlDomainListResponse> =
             list(MessagingUrlDomainListParams.none())
 
         /** @see list */
@@ -70,17 +70,17 @@ interface MessagingUrlDomainService {
         fun list(
             params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingUrlDomainListPage>
+        ): HttpResponseFor<MessagingUrlDomainListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none()
-        ): HttpResponseFor<MessagingUrlDomainListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MessagingUrlDomainListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingUrlDomainListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingUrlDomainListResponse> =
             list(MessagingUrlDomainListParams.none(), requestOptions)
     }
 }

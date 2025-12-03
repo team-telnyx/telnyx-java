@@ -23,13 +23,13 @@ internal class CustomerServiceRecordListParamsTest {
                     .phoneNumber(
                         CustomerServiceRecordListParams.Filter.PhoneNumber.builder()
                             .eq("+12441239999")
-                            .addInList("+12441239999")
+                            .addIn("+12441239999")
                             .build()
                     )
                     .status(
                         CustomerServiceRecordListParams.Filter.Status.builder()
                             .eq(CustomerServiceRecordListParams.Filter.Status.Eq.PENDING)
-                            .addInList(CustomerServiceRecordListParams.Filter.Status.In.PENDING)
+                            .addIn(CustomerServiceRecordListParams.Filter.Status.In.PENDING)
                             .build()
                     )
                     .build()
@@ -37,7 +37,7 @@ internal class CustomerServiceRecordListParamsTest {
             .page(CustomerServiceRecordListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 CustomerServiceRecordListParams.Sort.builder()
-                    .value(CustomerServiceRecordListParams.Sort.SortValue.CREATED_AT)
+                    .value(CustomerServiceRecordListParams.Sort.Value_.CREATED_AT)
                     .build()
             )
             .build()
@@ -58,13 +58,13 @@ internal class CustomerServiceRecordListParamsTest {
                         .phoneNumber(
                             CustomerServiceRecordListParams.Filter.PhoneNumber.builder()
                                 .eq("+12441239999")
-                                .addInList("+12441239999")
+                                .addIn("+12441239999")
                                 .build()
                         )
                         .status(
                             CustomerServiceRecordListParams.Filter.Status.builder()
                                 .eq(CustomerServiceRecordListParams.Filter.Status.Eq.PENDING)
-                                .addInList(CustomerServiceRecordListParams.Filter.Status.In.PENDING)
+                                .addIn(CustomerServiceRecordListParams.Filter.Status.In.PENDING)
                                 .build()
                         )
                         .build()
@@ -72,7 +72,7 @@ internal class CustomerServiceRecordListParamsTest {
                 .page(CustomerServiceRecordListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     CustomerServiceRecordListParams.Sort.builder()
-                        .value(CustomerServiceRecordListParams.Sort.SortValue.CREATED_AT)
+                        .value(CustomerServiceRecordListParams.Sort.Value_.CREATED_AT)
                         .build()
                 )
                 .build()

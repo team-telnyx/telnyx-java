@@ -83,7 +83,7 @@ internal constructor(private val clientOptions: ClientOptions) : DefaultGatewayS
         ): CompletableFuture<HttpResponseFor<DefaultGatewayCreateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("networkIdentifier", params.networkIdentifier().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

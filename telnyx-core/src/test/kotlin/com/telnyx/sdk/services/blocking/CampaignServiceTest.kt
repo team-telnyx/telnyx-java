@@ -70,9 +70,17 @@ internal class CampaignServiceTest {
                 .build()
         val campaignService = client.campaign()
 
-        val page = campaignService.list(CampaignListParams.builder().brandId("brandId").build())
+        val campaigns =
+            campaignService.list(
+                CampaignListParams.builder()
+                    .brandId("brandId")
+                    .page(0L)
+                    .recordsPerPage(0L)
+                    .sort(CampaignListParams.Sort.ASSIGNED_PHONE_NUMBERS_COUNT)
+                    .build()
+            )
 
-        page.response().validate()
+        campaigns.validate()
     }
 
     @Disabled("Prism tests are disabled")

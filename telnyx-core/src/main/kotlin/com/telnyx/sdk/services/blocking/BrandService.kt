@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.brand.BrandCreateParams
 import com.telnyx.sdk.models.brand.BrandDeleteParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.brand.BrandGetFeedbackResponse
-import com.telnyx.sdk.models.brand.BrandListPage
 import com.telnyx.sdk.models.brand.BrandListParams
+import com.telnyx.sdk.models.brand.BrandListResponse
 import com.telnyx.sdk.models.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.brand.BrandRetrieveResponse
@@ -104,20 +104,20 @@ interface BrandService {
     ): TelnyxBrand
 
     /** This endpoint is used to list all brands associated with your organization. */
-    fun list(): BrandListPage = list(BrandListParams.none())
+    fun list(): BrandListResponse = list(BrandListParams.none())
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandListPage
+    ): BrandListResponse
 
     /** @see list */
-    fun list(params: BrandListParams = BrandListParams.none()): BrandListPage =
+    fun list(params: BrandListParams = BrandListParams.none()): BrandListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BrandListPage =
+    fun list(requestOptions: RequestOptions): BrandListResponse =
         list(BrandListParams.none(), requestOptions)
 
     /**
@@ -356,23 +356,24 @@ interface BrandService {
          * Returns a raw HTTP response for `get /brand`, but is otherwise the same as
          * [BrandService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<BrandListPage> = list(BrandListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<BrandListResponse> = list(BrandListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BrandListParams = BrandListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandListPage>
+        ): HttpResponseFor<BrandListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: BrandListParams = BrandListParams.none()): HttpResponseFor<BrandListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: BrandListParams = BrandListParams.none()
+        ): HttpResponseFor<BrandListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListResponse> =
             list(BrandListParams.none(), requestOptions)
 
         /**

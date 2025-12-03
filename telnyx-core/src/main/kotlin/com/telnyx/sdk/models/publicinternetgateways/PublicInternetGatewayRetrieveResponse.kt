@@ -207,8 +207,8 @@ private constructor(
                 .updatedAt(updatedAt)
                 .build()
 
-        fun toNetworkInterface(): NetworkInterface =
-            NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
+        fun toInterface(): Interface =
+            Interface.builder().name(name).networkId(networkId).status(status).build()
 
         /**
          * Identifies the resource.

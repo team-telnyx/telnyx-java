@@ -659,8 +659,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    @Deprecated("This field is deprecated and will be removed soon")
-    fun vertical(): Optional<String> = vertical.getOptional("vertical")
+    @Deprecated("deprecated") fun vertical(): Optional<String> = vertical.getOptional("vertical")
 
     /**
      * Failover webhook to which campaign status updates are sent.
@@ -1076,7 +1075,7 @@ private constructor(
      *
      * Unlike [vertical], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @Deprecated("This field is deprecated and will be removed soon")
+    @Deprecated("deprecated")
     @JsonProperty("vertical")
     @ExcludeMissing
     fun _vertical(): JsonField<String> = vertical
@@ -1892,8 +1891,7 @@ private constructor(
          *
          * This field is deprecated.
          */
-        @Deprecated("This field is deprecated and will be removed soon")
-        fun vertical(vertical: String) = vertical(JsonField.of(vertical))
+        @Deprecated("deprecated") fun vertical(vertical: String) = vertical(JsonField.of(vertical))
 
         /**
          * Sets [Builder.vertical] to an arbitrary JSON value.
@@ -1901,7 +1899,7 @@ private constructor(
          * You should usually call [Builder.vertical] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        @Deprecated("This field is deprecated and will be removed soon")
+        @Deprecated("deprecated")
         fun vertical(vertical: JsonField<String>) = apply { this.vertical = vertical }
 
         /** Failover webhook to which campaign status updates are sent. */

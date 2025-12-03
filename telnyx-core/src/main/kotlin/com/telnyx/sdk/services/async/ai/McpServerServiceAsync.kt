@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerListPageAsync
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
+import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateParams
@@ -115,21 +115,21 @@ interface McpServerServiceAsync {
         update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of MCP servers. */
-    fun list(): CompletableFuture<McpServerListPageAsync> = list(McpServerListParams.none())
+    fun list(): CompletableFuture<List<McpServerListResponse>> = list(McpServerListParams.none())
 
     /** @see list */
     fun list(
         params: McpServerListParams = McpServerListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<McpServerListPageAsync>
+    ): CompletableFuture<List<McpServerListResponse>>
 
     /** @see list */
     fun list(
         params: McpServerListParams = McpServerListParams.none()
-    ): CompletableFuture<McpServerListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<List<McpServerListResponse>> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<McpServerListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<List<McpServerListResponse>> =
         list(McpServerListParams.none(), requestOptions)
 
     /** Delete a specific MCP server. */
@@ -283,25 +283,25 @@ interface McpServerServiceAsync {
          * Returns a raw HTTP response for `get /ai/mcp_servers`, but is otherwise the same as
          * [McpServerServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<McpServerListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<List<McpServerListResponse>>> =
             list(McpServerListParams.none())
 
         /** @see list */
         fun list(
             params: McpServerListParams = McpServerListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<McpServerListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<List<McpServerListResponse>>>
 
         /** @see list */
         fun list(
             params: McpServerListParams = McpServerListParams.none()
-        ): CompletableFuture<HttpResponseFor<McpServerListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<List<McpServerListResponse>>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<McpServerListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<List<McpServerListResponse>>> =
             list(McpServerListParams.none(), requestOptions)
 
         /**

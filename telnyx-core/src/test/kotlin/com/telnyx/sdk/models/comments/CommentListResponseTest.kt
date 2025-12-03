@@ -19,7 +19,7 @@ internal class CommentListResponseTest {
                 .addData(
                     CommentListResponse.Data.builder()
                         .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                        .commentBody("Hi there, ....")
+                        .body("Hi there, ....")
                         .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
                         .commentRecordType(
                             CommentListResponse.Data.CommentRecordType.SUB_NUMBER_ORDER
@@ -45,7 +45,7 @@ internal class CommentListResponseTest {
             .containsExactly(
                 CommentListResponse.Data.builder()
                     .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                    .commentBody("Hi there, ....")
+                    .body("Hi there, ....")
                     .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
                     .commentRecordType(CommentListResponse.Data.CommentRecordType.SUB_NUMBER_ORDER)
                     .commenter("user@company.com")
@@ -74,7 +74,7 @@ internal class CommentListResponseTest {
                 .addData(
                     CommentListResponse.Data.builder()
                         .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                        .commentBody("Hi there, ....")
+                        .body("Hi there, ....")
                         .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
                         .commentRecordType(
                             CommentListResponse.Data.CommentRecordType.SUB_NUMBER_ORDER
