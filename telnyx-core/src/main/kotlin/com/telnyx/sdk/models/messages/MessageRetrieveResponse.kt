@@ -367,10 +367,12 @@ private constructor(
             private val from: JsonField<From>,
             private val media: JsonField<List<Media>>,
             private val messagingProfileId: JsonField<String>,
+            private val organizationId: JsonField<String>,
             private val parts: JsonField<Long>,
             private val receivedAt: JsonField<OffsetDateTime>,
             private val recordType: JsonField<RecordType>,
             private val sentAt: JsonField<OffsetDateTime>,
+            private val subject: JsonField<String>,
             private val tags: JsonField<List<String>>,
             private val tcrCampaignBillable: JsonField<Boolean>,
             private val tcrCampaignId: JsonField<String>,
@@ -411,6 +413,9 @@ private constructor(
                 @JsonProperty("messaging_profile_id")
                 @ExcludeMissing
                 messagingProfileId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("organization_id")
+                @ExcludeMissing
+                organizationId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("parts") @ExcludeMissing parts: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("received_at")
                 @ExcludeMissing
@@ -421,6 +426,9 @@ private constructor(
                 @JsonProperty("sent_at")
                 @ExcludeMissing
                 sentAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("subject")
+                @ExcludeMissing
+                subject: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("tags")
                 @ExcludeMissing
                 tags: JsonField<List<String>> = JsonMissing.of(),
@@ -457,10 +465,12 @@ private constructor(
                 from,
                 media,
                 messagingProfileId,
+                organizationId,
                 parts,
                 receivedAt,
                 recordType,
                 sentAt,
+                subject,
                 tags,
                 tcrCampaignBillable,
                 tcrCampaignId,
@@ -559,6 +569,14 @@ private constructor(
                 messagingProfileId.getOptional("messaging_profile_id")
 
             /**
+             * Unique identifier for a messaging profile.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun organizationId(): Optional<String> = organizationId.getOptional("organization_id")
+
+            /**
              * Number of parts into which the message's body must be split.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -589,6 +607,14 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun sentAt(): Optional<OffsetDateTime> = sentAt.getOptional("sent_at")
+
+            /**
+             * Message subject.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun subject(): Optional<String> = subject.getOptional("subject")
 
             /**
              * Tags associated with the resource.
@@ -767,6 +793,16 @@ private constructor(
             fun _messagingProfileId(): JsonField<String> = messagingProfileId
 
             /**
+             * Returns the raw JSON value of [organizationId].
+             *
+             * Unlike [organizationId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("organization_id")
+            @ExcludeMissing
+            fun _organizationId(): JsonField<String> = organizationId
+
+            /**
              * Returns the raw JSON value of [parts].
              *
              * Unlike [parts], this method doesn't throw if the JSON field has an unexpected type.
@@ -801,6 +837,13 @@ private constructor(
             @JsonProperty("sent_at")
             @ExcludeMissing
             fun _sentAt(): JsonField<OffsetDateTime> = sentAt
+
+            /**
+             * Returns the raw JSON value of [subject].
+             *
+             * Unlike [subject], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("subject") @ExcludeMissing fun _subject(): JsonField<String> = subject
 
             /**
              * Returns the raw JSON value of [tags].
@@ -925,10 +968,12 @@ private constructor(
                 private var from: JsonField<From> = JsonMissing.of()
                 private var media: JsonField<MutableList<Media>>? = null
                 private var messagingProfileId: JsonField<String> = JsonMissing.of()
+                private var organizationId: JsonField<String> = JsonMissing.of()
                 private var parts: JsonField<Long> = JsonMissing.of()
                 private var receivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var recordType: JsonField<RecordType> = JsonMissing.of()
                 private var sentAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var subject: JsonField<String> = JsonMissing.of()
                 private var tags: JsonField<MutableList<String>>? = null
                 private var tcrCampaignBillable: JsonField<Boolean> = JsonMissing.of()
                 private var tcrCampaignId: JsonField<String> = JsonMissing.of()
@@ -954,10 +999,12 @@ private constructor(
                     from = inboundMessagePayload.from
                     media = inboundMessagePayload.media.map { it.toMutableList() }
                     messagingProfileId = inboundMessagePayload.messagingProfileId
+                    organizationId = inboundMessagePayload.organizationId
                     parts = inboundMessagePayload.parts
                     receivedAt = inboundMessagePayload.receivedAt
                     recordType = inboundMessagePayload.recordType
                     sentAt = inboundMessagePayload.sentAt
+                    subject = inboundMessagePayload.subject
                     tags = inboundMessagePayload.tags.map { it.toMutableList() }
                     tcrCampaignBillable = inboundMessagePayload.tcrCampaignBillable
                     tcrCampaignId = inboundMessagePayload.tcrCampaignId
@@ -1167,6 +1214,21 @@ private constructor(
                     this.messagingProfileId = messagingProfileId
                 }
 
+                /** Unique identifier for a messaging profile. */
+                fun organizationId(organizationId: String) =
+                    organizationId(JsonField.of(organizationId))
+
+                /**
+                 * Sets [Builder.organizationId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.organizationId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun organizationId(organizationId: JsonField<String>) = apply {
+                    this.organizationId = organizationId
+                }
+
                 /** Number of parts into which the message's body must be split. */
                 fun parts(parts: Long) = parts(JsonField.of(parts))
 
@@ -1221,6 +1283,21 @@ private constructor(
                  * yet supported value.
                  */
                 fun sentAt(sentAt: JsonField<OffsetDateTime>) = apply { this.sentAt = sentAt }
+
+                /** Message subject. */
+                fun subject(subject: String?) = subject(JsonField.ofNullable(subject))
+
+                /** Alias for calling [Builder.subject] with `subject.orElse(null)`. */
+                fun subject(subject: Optional<String>) = subject(subject.getOrNull())
+
+                /**
+                 * Sets [Builder.subject] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.subject] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun subject(subject: JsonField<String>) = apply { this.subject = subject }
 
                 /** Tags associated with the resource. */
                 fun tags(tags: List<String>) = tags(JsonField.of(tags))
@@ -1456,10 +1533,12 @@ private constructor(
                         from,
                         (media ?: JsonMissing.of()).map { it.toImmutable() },
                         messagingProfileId,
+                        organizationId,
                         parts,
                         receivedAt,
                         recordType,
                         sentAt,
+                        subject,
                         (tags ?: JsonMissing.of()).map { it.toImmutable() },
                         tcrCampaignBillable,
                         tcrCampaignId,
@@ -1492,10 +1571,12 @@ private constructor(
                 from().ifPresent { it.validate() }
                 media().ifPresent { it.forEach { it.validate() } }
                 messagingProfileId()
+                organizationId()
                 parts()
                 receivedAt()
                 recordType().ifPresent { it.validate() }
                 sentAt()
+                subject()
                 tags()
                 tcrCampaignBillable()
                 tcrCampaignId()
@@ -1536,10 +1617,12 @@ private constructor(
                     (from.asKnown().getOrNull()?.validity() ?: 0) +
                     (media.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
+                    (if (organizationId.asKnown().isPresent) 1 else 0) +
                     (if (parts.asKnown().isPresent) 1 else 0) +
                     (if (receivedAt.asKnown().isPresent) 1 else 0) +
                     (recordType.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (sentAt.asKnown().isPresent) 1 else 0) +
+                    (if (subject.asKnown().isPresent) 1 else 0) +
                     (tags.asKnown().getOrNull()?.size ?: 0) +
                     (if (tcrCampaignBillable.asKnown().isPresent) 1 else 0) +
                     (if (tcrCampaignId.asKnown().isPresent) 1 else 0) +
@@ -4767,10 +4850,12 @@ private constructor(
                     from == other.from &&
                     media == other.media &&
                     messagingProfileId == other.messagingProfileId &&
+                    organizationId == other.organizationId &&
                     parts == other.parts &&
                     receivedAt == other.receivedAt &&
                     recordType == other.recordType &&
                     sentAt == other.sentAt &&
+                    subject == other.subject &&
                     tags == other.tags &&
                     tcrCampaignBillable == other.tcrCampaignBillable &&
                     tcrCampaignId == other.tcrCampaignId &&
@@ -4797,10 +4882,12 @@ private constructor(
                     from,
                     media,
                     messagingProfileId,
+                    organizationId,
                     parts,
                     receivedAt,
                     recordType,
                     sentAt,
+                    subject,
                     tags,
                     tcrCampaignBillable,
                     tcrCampaignId,
@@ -4818,7 +4905,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InboundMessagePayload{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+                "InboundMessagePayload{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
         }
     }
 

@@ -17,21 +17,29 @@ internal class OutboundMessagePayloadTest {
         val outboundMessagePayload =
             OutboundMessagePayload.builder()
                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addCc(
+                    OutboundMessagePayload.Cc.builder()
+                        .carrier("carrier")
+                        .lineType(OutboundMessagePayload.Cc.LineType.WIRELINE)
+                        .phoneNumber("phone_number")
+                        .status(OutboundMessagePayload.Cc.Status.QUEUED)
+                        .build()
+                )
+                .completedAt(null)
                 .cost(
-                    OutboundMessagePayload.Cost.builder().amount("amount").currency("USD").build()
+                    OutboundMessagePayload.Cost.builder().amount("0.0051").currency("USD").build()
                 )
                 .costBreakdown(
                     OutboundMessagePayload.CostBreakdown.builder()
                         .carrierFee(
                             OutboundMessagePayload.CostBreakdown.CarrierFee.builder()
-                                .amount("amount")
+                                .amount("0.00305")
                                 .currency("USD")
                                 .build()
                         )
                         .rate(
                             OutboundMessagePayload.CostBreakdown.Rate.builder()
-                                .amount("amount")
+                                .amount("0.00205")
                                 .currency("USD")
                                 .build()
                         )
@@ -75,7 +83,7 @@ internal class OutboundMessagePayloadTest {
                 .parts(1L)
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
-                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .sentAt(null)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)
@@ -97,24 +105,32 @@ internal class OutboundMessagePayloadTest {
                 .build()
 
         assertThat(outboundMessagePayload.id()).contains("40385f64-5717-4562-b3fc-2c963f66afa6")
-        assertThat(outboundMessagePayload.completedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(outboundMessagePayload.cc().getOrNull())
+            .containsExactly(
+                OutboundMessagePayload.Cc.builder()
+                    .carrier("carrier")
+                    .lineType(OutboundMessagePayload.Cc.LineType.WIRELINE)
+                    .phoneNumber("phone_number")
+                    .status(OutboundMessagePayload.Cc.Status.QUEUED)
+                    .build()
+            )
+        assertThat(outboundMessagePayload.completedAt()).isEmpty
         assertThat(outboundMessagePayload.cost())
             .contains(
-                OutboundMessagePayload.Cost.builder().amount("amount").currency("USD").build()
+                OutboundMessagePayload.Cost.builder().amount("0.0051").currency("USD").build()
             )
         assertThat(outboundMessagePayload.costBreakdown())
             .contains(
                 OutboundMessagePayload.CostBreakdown.builder()
                     .carrierFee(
                         OutboundMessagePayload.CostBreakdown.CarrierFee.builder()
-                            .amount("amount")
+                            .amount("0.00305")
                             .currency("USD")
                             .build()
                     )
                     .rate(
                         OutboundMessagePayload.CostBreakdown.Rate.builder()
-                            .amount("amount")
+                            .amount("0.00205")
                             .currency("USD")
                             .build()
                     )
@@ -166,8 +182,7 @@ internal class OutboundMessagePayloadTest {
             .contains(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
         assertThat(outboundMessagePayload.recordType())
             .contains(OutboundMessagePayload.RecordType.MESSAGE)
-        assertThat(outboundMessagePayload.sentAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(outboundMessagePayload.sentAt()).isEmpty
         assertThat(outboundMessagePayload.subject()).contains("From Telnyx!")
         assertThat(outboundMessagePayload.tags().getOrNull()).containsExactly("Greetings")
         assertThat(outboundMessagePayload.tcrCampaignBillable()).contains(true)
@@ -196,21 +211,29 @@ internal class OutboundMessagePayloadTest {
         val outboundMessagePayload =
             OutboundMessagePayload.builder()
                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addCc(
+                    OutboundMessagePayload.Cc.builder()
+                        .carrier("carrier")
+                        .lineType(OutboundMessagePayload.Cc.LineType.WIRELINE)
+                        .phoneNumber("phone_number")
+                        .status(OutboundMessagePayload.Cc.Status.QUEUED)
+                        .build()
+                )
+                .completedAt(null)
                 .cost(
-                    OutboundMessagePayload.Cost.builder().amount("amount").currency("USD").build()
+                    OutboundMessagePayload.Cost.builder().amount("0.0051").currency("USD").build()
                 )
                 .costBreakdown(
                     OutboundMessagePayload.CostBreakdown.builder()
                         .carrierFee(
                             OutboundMessagePayload.CostBreakdown.CarrierFee.builder()
-                                .amount("amount")
+                                .amount("0.00305")
                                 .currency("USD")
                                 .build()
                         )
                         .rate(
                             OutboundMessagePayload.CostBreakdown.Rate.builder()
-                                .amount("amount")
+                                .amount("0.00205")
                                 .currency("USD")
                                 .build()
                         )
@@ -254,7 +277,7 @@ internal class OutboundMessagePayloadTest {
                 .parts(1L)
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
-                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .sentAt(null)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)

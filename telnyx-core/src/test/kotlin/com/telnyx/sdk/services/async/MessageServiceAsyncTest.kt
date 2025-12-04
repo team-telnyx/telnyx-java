@@ -188,7 +188,7 @@ internal class MessageServiceAsyncTest {
             messageServiceAsync.sendNumberPool(
                 MessageSendNumberPoolParams.builder()
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
-                    .to("to")
+                    .to("+13125550002")
                     .autoDetect(true)
                     .addMediaUrl("http://example.com")
                     .subject("From Telnyx!")

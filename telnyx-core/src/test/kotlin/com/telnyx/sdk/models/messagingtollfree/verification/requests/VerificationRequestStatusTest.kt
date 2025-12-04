@@ -42,7 +42,7 @@ internal class VerificationRequestStatusTest {
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
-                .verificationStatus(TfVerificationStatus.VERIFIED)
+                .verificationStatus(TfVerificationStatus.WAITING_FOR_CUSTOMER)
                 .ageGatedContent(false)
                 .businessAddr2("14th Floor")
                 .businessRegistrationCountry("US")
@@ -104,7 +104,7 @@ internal class VerificationRequestStatusTest {
                 "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
             )
         assertThat(verificationRequestStatus.verificationStatus())
-            .isEqualTo(TfVerificationStatus.VERIFIED)
+            .isEqualTo(TfVerificationStatus.WAITING_FOR_CUSTOMER)
         assertThat(verificationRequestStatus.ageGatedContent()).contains(false)
         assertThat(verificationRequestStatus.businessAddr2()).contains("14th Floor")
         assertThat(verificationRequestStatus.businessRegistrationCountry()).contains("US")
@@ -168,7 +168,7 @@ internal class VerificationRequestStatusTest {
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
-                .verificationStatus(TfVerificationStatus.VERIFIED)
+                .verificationStatus(TfVerificationStatus.WAITING_FOR_CUSTOMER)
                 .ageGatedContent(false)
                 .businessAddr2("14th Floor")
                 .businessRegistrationCountry("US")

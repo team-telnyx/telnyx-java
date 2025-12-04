@@ -44,6 +44,7 @@ internal class ShortCodeServiceAsyncTest {
                 ShortCodeUpdateParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
+                    .addTag("test_customer")
                     .build()
             )
 

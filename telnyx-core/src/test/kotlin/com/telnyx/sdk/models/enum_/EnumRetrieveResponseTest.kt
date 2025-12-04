@@ -12,7 +12,14 @@ internal class EnumRetrieveResponseTest {
 
     @Test
     fun ofList() {
-        val list = listOf(EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("string"))
+        val list =
+            listOf(
+                EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("BASIC_ACCOUNT"),
+                EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("SMALL_ACCOUNT"),
+                EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("MEDIUM_ACCOUNT"),
+                EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("LARGE_ACCOUNT"),
+                EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("KEY_ACCOUNT"),
+            )
 
         val enumRetrieveResponse = EnumRetrieveResponse.ofList(list)
 
@@ -26,7 +33,13 @@ internal class EnumRetrieveResponseTest {
         val jsonMapper = jsonMapper()
         val enumRetrieveResponse =
             EnumRetrieveResponse.ofList(
-                listOf(EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("string"))
+                listOf(
+                    EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("BASIC_ACCOUNT"),
+                    EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("SMALL_ACCOUNT"),
+                    EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("MEDIUM_ACCOUNT"),
+                    EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("LARGE_ACCOUNT"),
+                    EnumRetrieveResponse.UnnamedSchemaWithArrayParent0.ofString("KEY_ACCOUNT"),
+                )
             )
 
         val roundtrippedEnumRetrieveResponse =
@@ -41,7 +54,7 @@ internal class EnumRetrieveResponseTest {
     @Test
     fun ofEnumObjectResponse() {
         val enumObjectResponse =
-            JsonValue.from("{\"AREIS\": \"AREIS\", \"BANDW\": \"Bandwidth\", \"SINCH\": \"Sinch\"}")
+            JsonValue.from(mapOf("AREIS" to "AREIS", "BANDW" to "Bandwidth", "SINCH" to "Sinch"))
 
         val enumRetrieveResponse = EnumRetrieveResponse.ofEnumObjectResponse(enumObjectResponse)
 
@@ -56,7 +69,7 @@ internal class EnumRetrieveResponseTest {
         val enumRetrieveResponse =
             EnumRetrieveResponse.ofEnumObjectResponse(
                 JsonValue.from(
-                    "{\"AREIS\": \"AREIS\", \"BANDW\": \"Bandwidth\", \"SINCH\": \"Sinch\"}"
+                    mapOf("AREIS" to "AREIS", "BANDW" to "Bandwidth", "SINCH" to "Sinch")
                 )
             )
 
@@ -73,7 +86,27 @@ internal class EnumRetrieveResponseTest {
     fun ofPaginated() {
         val paginated =
             JsonValue.from(
-                "{\"page\": 1, \"records\": [{\"isin\": \"US68243Q1067\", \"iso2\": \"US\", \"symbol\": \"FLWS\", \"exchange\": \"NASDAQ\", \"displayName\": \"1-800 FLOWERS.COM, Inc.\"}, {\"isin\": \"US88025U1097\", \"iso2\": \"US\", \"symbol\": \"TXG\", \"exchange\": \"NASDAQ\", \"displayName\": \"10X GENOMICS INC CLASS A\"}], \"totalRecords\": 2}"
+                mapOf(
+                    "page" to 1,
+                    "records" to
+                        listOf(
+                            mapOf(
+                                "isin" to "US68243Q1067",
+                                "iso2" to "US",
+                                "symbol" to "FLWS",
+                                "exchange" to "NASDAQ",
+                                "displayName" to "1-800 FLOWERS.COM, Inc.",
+                            ),
+                            mapOf(
+                                "isin" to "US88025U1097",
+                                "iso2" to "US",
+                                "symbol" to "TXG",
+                                "exchange" to "NASDAQ",
+                                "displayName" to "10X GENOMICS INC CLASS A",
+                            ),
+                        ),
+                    "totalRecords" to 2,
+                )
             )
 
         val enumRetrieveResponse = EnumRetrieveResponse.ofPaginated(paginated)
@@ -89,7 +122,27 @@ internal class EnumRetrieveResponseTest {
         val enumRetrieveResponse =
             EnumRetrieveResponse.ofPaginated(
                 JsonValue.from(
-                    "{\"page\": 1, \"records\": [{\"isin\": \"US68243Q1067\", \"iso2\": \"US\", \"symbol\": \"FLWS\", \"exchange\": \"NASDAQ\", \"displayName\": \"1-800 FLOWERS.COM, Inc.\"}, {\"isin\": \"US88025U1097\", \"iso2\": \"US\", \"symbol\": \"TXG\", \"exchange\": \"NASDAQ\", \"displayName\": \"10X GENOMICS INC CLASS A\"}], \"totalRecords\": 2}"
+                    mapOf(
+                        "page" to 1,
+                        "records" to
+                            listOf(
+                                mapOf(
+                                    "isin" to "US68243Q1067",
+                                    "iso2" to "US",
+                                    "symbol" to "FLWS",
+                                    "exchange" to "NASDAQ",
+                                    "displayName" to "1-800 FLOWERS.COM, Inc.",
+                                ),
+                                mapOf(
+                                    "isin" to "US88025U1097",
+                                    "iso2" to "US",
+                                    "symbol" to "TXG",
+                                    "exchange" to "NASDAQ",
+                                    "displayName" to "10X GENOMICS INC CLASS A",
+                                ),
+                            ),
+                        "totalRecords" to 2,
+                    )
                 )
             )
 
