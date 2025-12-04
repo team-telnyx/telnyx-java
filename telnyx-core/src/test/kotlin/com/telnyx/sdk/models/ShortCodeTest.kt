@@ -5,6 +5,7 @@ package com.telnyx.sdk.models
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -20,6 +21,7 @@ internal class ShortCodeTest {
                 .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(ShortCode.RecordType.SHORT_CODE)
                 .shortCode("12345")
+                .addTag("test_customer")
                 .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .build()
 
@@ -29,6 +31,7 @@ internal class ShortCodeTest {
         assertThat(shortCode.createdAt()).contains(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
         assertThat(shortCode.recordType()).contains(ShortCode.RecordType.SHORT_CODE)
         assertThat(shortCode.shortCode()).contains("12345")
+        assertThat(shortCode.tags().getOrNull()).containsExactly("test_customer")
         assertThat(shortCode.updatedAt()).contains(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
     }
 
@@ -43,6 +46,7 @@ internal class ShortCodeTest {
                 .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(ShortCode.RecordType.SHORT_CODE)
                 .shortCode("12345")
+                .addTag("test_customer")
                 .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .build()
 

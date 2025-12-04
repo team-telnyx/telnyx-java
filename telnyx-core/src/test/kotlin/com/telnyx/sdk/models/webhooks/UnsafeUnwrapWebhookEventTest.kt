@@ -7890,14 +7890,22 @@ internal class UnsafeUnwrapWebhookEventTest {
                     DeliveryUpdateWebhookEvent.Data.builder()
                         .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                         .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
-                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             OutboundMessagePayload.builder()
                                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .addCc(
+                                    OutboundMessagePayload.Cc.builder()
+                                        .carrier("carrier")
+                                        .lineType(OutboundMessagePayload.Cc.LineType.WIRELINE)
+                                        .phoneNumber("phone_number")
+                                        .status(OutboundMessagePayload.Cc.Status.QUEUED)
+                                        .build()
+                                )
+                                .completedAt(null)
                                 .cost(
                                     OutboundMessagePayload.Cost.builder()
-                                        .amount("amount")
+                                        .amount("0.0051")
                                         .currency("USD")
                                         .build()
                                 )
@@ -7906,13 +7914,13 @@ internal class UnsafeUnwrapWebhookEventTest {
                                         .carrierFee(
                                             OutboundMessagePayload.CostBreakdown.CarrierFee
                                                 .builder()
-                                                .amount("amount")
+                                                .amount("0.00305")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .rate(
                                             OutboundMessagePayload.CostBreakdown.Rate.builder()
-                                                .amount("amount")
+                                                .amount("0.00205")
                                                 .currency("USD")
                                                 .build()
                                         )
@@ -7956,7 +7964,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
-                                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .sentAt(null)
                                 .subject("From Telnyx!")
                                 .addTag("Greetings")
                                 .tcrCampaignBillable(true)
@@ -8067,14 +8075,22 @@ internal class UnsafeUnwrapWebhookEventTest {
                         DeliveryUpdateWebhookEvent.Data.builder()
                             .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                             .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
-                            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 OutboundMessagePayload.builder()
                                     .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                                    .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .addCc(
+                                        OutboundMessagePayload.Cc.builder()
+                                            .carrier("carrier")
+                                            .lineType(OutboundMessagePayload.Cc.LineType.WIRELINE)
+                                            .phoneNumber("phone_number")
+                                            .status(OutboundMessagePayload.Cc.Status.QUEUED)
+                                            .build()
+                                    )
+                                    .completedAt(null)
                                     .cost(
                                         OutboundMessagePayload.Cost.builder()
-                                            .amount("amount")
+                                            .amount("0.0051")
                                             .currency("USD")
                                             .build()
                                     )
@@ -8083,13 +8099,13 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             .carrierFee(
                                                 OutboundMessagePayload.CostBreakdown.CarrierFee
                                                     .builder()
-                                                    .amount("amount")
+                                                    .amount("0.00305")
                                                     .currency("USD")
                                                     .build()
                                             )
                                             .rate(
                                                 OutboundMessagePayload.CostBreakdown.Rate.builder()
-                                                    .amount("amount")
+                                                    .amount("0.00205")
                                                     .currency("USD")
                                                     .build()
                                             )
@@ -8133,7 +8149,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .parts(1L)
                                     .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                     .recordType(OutboundMessagePayload.RecordType.MESSAGE)
-                                    .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .sentAt(null)
                                     .subject("From Telnyx!")
                                     .addTag("Greetings")
                                     .tcrCampaignBillable(true)
@@ -8846,7 +8862,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                     InboundMessageWebhookEvent.Data.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
                         .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
-                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             InboundMessageWebhookEvent.Data.Payload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
@@ -8866,7 +8882,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .completedAt(null)
                                 .cost(
                                     InboundMessageWebhookEvent.Data.Payload.Cost.builder()
-                                        .amount("amount")
+                                        .amount("0.0051")
                                         .currency("USD")
                                         .build()
                                 )
@@ -8876,7 +8892,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             InboundMessageWebhookEvent.Data.Payload.CostBreakdown
                                                 .CarrierFee
                                                 .builder()
-                                                .amount("amount")
+                                                .amount("0.00305")
                                                 .currency("USD")
                                                 .build()
                                         )
@@ -8884,7 +8900,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             InboundMessageWebhookEvent.Data.Payload.CostBreakdown
                                                 .Rate
                                                 .builder()
-                                                .amount("amount")
+                                                .amount("0.00205")
                                                 .currency("USD")
                                                 .build()
                                         )
@@ -8931,12 +8947,14 @@ internal class UnsafeUnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .messagingProfileId("0f512bda-ae1e-4597-8e11-e5f5686b97d3")
+                                .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                 .recordType(
                                     InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
                                 )
                                 .sentAt(null)
+                                .subject("From Telnyx!")
                                 .addTag("Greetings")
                                 .tcrCampaignBillable(true)
                                 .tcrCampaignId("TCPA3X7")
@@ -9046,7 +9064,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                         InboundMessageWebhookEvent.Data.builder()
                             .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
                             .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
-                            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 InboundMessageWebhookEvent.Data.Payload.builder()
                                     .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
@@ -9067,7 +9085,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .completedAt(null)
                                     .cost(
                                         InboundMessageWebhookEvent.Data.Payload.Cost.builder()
-                                            .amount("amount")
+                                            .amount("0.0051")
                                             .currency("USD")
                                             .build()
                                     )
@@ -9079,7 +9097,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                                     .CostBreakdown
                                                     .CarrierFee
                                                     .builder()
-                                                    .amount("amount")
+                                                    .amount("0.00305")
                                                     .currency("USD")
                                                     .build()
                                             )
@@ -9088,7 +9106,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                                     .CostBreakdown
                                                     .Rate
                                                     .builder()
-                                                    .amount("amount")
+                                                    .amount("0.00205")
                                                     .currency("USD")
                                                     .build()
                                             )
@@ -9136,12 +9154,14 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .messagingProfileId("0f512bda-ae1e-4597-8e11-e5f5686b97d3")
+                                    .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                     .parts(1L)
                                     .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                     .recordType(
                                         InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
                                     )
                                     .sentAt(null)
+                                    .subject("From Telnyx!")
                                     .addTag("Greetings")
                                     .tcrCampaignBillable(true)
                                     .tcrCampaignId("TCPA3X7")

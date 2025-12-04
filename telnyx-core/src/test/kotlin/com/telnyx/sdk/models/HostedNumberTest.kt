@@ -13,16 +13,16 @@ internal class HostedNumberTest {
     fun create() {
         val hostedNumber =
             HostedNumber.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .phoneNumber("phone_number")
+                .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
+                .phoneNumber("+18665550001")
                 .recordType("messaging_hosted_number")
-                .status(HostedNumber.Status.DELETED)
+                .status(HostedNumber.Status.SUCCESSFUL)
                 .build()
 
-        assertThat(hostedNumber.id()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(hostedNumber.phoneNumber()).contains("phone_number")
+        assertThat(hostedNumber.id()).contains("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
+        assertThat(hostedNumber.phoneNumber()).contains("+18665550001")
         assertThat(hostedNumber.recordType()).contains("messaging_hosted_number")
-        assertThat(hostedNumber.status()).contains(HostedNumber.Status.DELETED)
+        assertThat(hostedNumber.status()).contains(HostedNumber.Status.SUCCESSFUL)
     }
 
     @Test
@@ -30,10 +30,10 @@ internal class HostedNumberTest {
         val jsonMapper = jsonMapper()
         val hostedNumber =
             HostedNumber.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .phoneNumber("phone_number")
+                .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
+                .phoneNumber("+18665550001")
                 .recordType("messaging_hosted_number")
-                .status(HostedNumber.Status.DELETED)
+                .status(HostedNumber.Status.SUCCESSFUL)
                 .build()
 
         val roundtrippedHostedNumber =
