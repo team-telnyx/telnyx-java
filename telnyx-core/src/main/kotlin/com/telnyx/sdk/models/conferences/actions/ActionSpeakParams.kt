@@ -21,7 +21,6 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
@@ -403,9 +402,9 @@ private constructor(
             body.voiceSettings(voiceSettings)
         }
 
-        /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenLabs(elevenLabs)`. */
-        fun voiceSettings(elevenLabs: ElevenLabsVoiceSettings) = apply {
-            body.voiceSettings(elevenLabs)
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenlabs(elevenlabs)`. */
+        fun voiceSettings(elevenlabs: ElevenLabsVoiceSettings) = apply {
+            body.voiceSettings(elevenlabs)
         }
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofTelnyx(telnyx)`. */
@@ -977,9 +976,9 @@ private constructor(
                 this.voiceSettings = voiceSettings
             }
 
-            /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenLabs(elevenLabs)`. */
-            fun voiceSettings(elevenLabs: ElevenLabsVoiceSettings) =
-                voiceSettings(VoiceSettings.ofElevenLabs(elevenLabs))
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenlabs(elevenlabs)`. */
+            fun voiceSettings(elevenlabs: ElevenLabsVoiceSettings) =
+                voiceSettings(VoiceSettings.ofElevenlabs(elevenlabs))
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofTelnyx(telnyx)`. */
             fun voiceSettings(telnyx: TelnyxVoiceSettings) =
@@ -1682,25 +1681,25 @@ private constructor(
     @JsonSerialize(using = VoiceSettings.Serializer::class)
     class VoiceSettings
     private constructor(
-        private val elevenLabs: ElevenLabsVoiceSettings? = null,
+        private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun elevenLabs(): Optional<ElevenLabsVoiceSettings> = Optional.ofNullable(elevenLabs)
+        fun elevenlabs(): Optional<ElevenLabsVoiceSettings> = Optional.ofNullable(elevenlabs)
 
         fun telnyx(): Optional<TelnyxVoiceSettings> = Optional.ofNullable(telnyx)
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
-        fun isElevenLabs(): Boolean = elevenLabs != null
+        fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
 
         fun isAws(): Boolean = aws != null
 
-        fun asElevenLabs(): ElevenLabsVoiceSettings = elevenLabs.getOrThrow("elevenLabs")
+        fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
 
@@ -1710,7 +1709,7 @@ private constructor(
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                elevenLabs != null -> visitor.visitElevenLabs(elevenLabs)
+                elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
                 else -> visitor.unknown(_json)
@@ -1725,8 +1724,8 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings) {
-                        elevenLabs.validate()
+                    override fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings) {
+                        elevenlabs.validate()
                     }
 
                     override fun visitTelnyx(telnyx: TelnyxVoiceSettings) {
@@ -1759,8 +1758,8 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings) =
-                        elevenLabs.validity()
+                    override fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings) =
+                        elevenlabs.validity()
 
                     override fun visitTelnyx(telnyx: TelnyxVoiceSettings) = telnyx.validity()
 
@@ -1776,16 +1775,16 @@ private constructor(
             }
 
             return other is VoiceSettings &&
-                elevenLabs == other.elevenLabs &&
+                elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
                 aws == other.aws
         }
 
-        override fun hashCode(): Int = Objects.hash(elevenLabs, telnyx, aws)
+        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws)
 
         override fun toString(): String =
             when {
-                elevenLabs != null -> "VoiceSettings{elevenLabs=$elevenLabs}"
+                elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
@@ -1795,8 +1794,8 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofElevenLabs(elevenLabs: ElevenLabsVoiceSettings) =
-                VoiceSettings(elevenLabs = elevenLabs)
+            fun ofElevenlabs(elevenlabs: ElevenLabsVoiceSettings) =
+                VoiceSettings(elevenlabs = elevenlabs)
 
             @JvmStatic fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
 
@@ -1809,7 +1808,7 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings): T
+            fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings): T
 
             fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
 
@@ -1834,32 +1833,27 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): VoiceSettings {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<ElevenLabsVoiceSettings>())?.let {
-                                VoiceSettings(elevenLabs = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<TelnyxVoiceSettings>())?.let {
-                                VoiceSettings(telnyx = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<AwsVoiceSettings>())?.let {
-                                VoiceSettings(aws = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants.
-                    0 -> VoiceSettings(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "elevenlabs" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ElevenLabsVoiceSettings>())
+                            ?.let { VoiceSettings(elevenlabs = it, _json = json) }
+                            ?: VoiceSettings(_json = json)
+                    }
+                    "telnyx" -> {
+                        return tryDeserialize(node, jacksonTypeRef<TelnyxVoiceSettings>())?.let {
+                            VoiceSettings(telnyx = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
+                    "aws" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AwsVoiceSettings>())?.let {
+                            VoiceSettings(aws = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
+
+                return VoiceSettings(_json = json)
             }
         }
 
@@ -1871,7 +1865,7 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.elevenLabs != null -> generator.writeObject(value.elevenLabs)
+                    value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
                     value._json != null -> generator.writeObject(value._json)

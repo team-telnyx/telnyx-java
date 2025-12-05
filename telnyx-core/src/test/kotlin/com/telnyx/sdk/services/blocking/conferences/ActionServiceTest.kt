@@ -315,7 +315,10 @@ internal class ActionServiceTest {
                     .payloadType(ActionSpeakParams.PayloadType.TEXT)
                     .region(ActionSpeakParams.Region.US)
                     .voiceSettings(
-                        ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                        ElevenLabsVoiceSettings.builder()
+                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                            .apiKeyRef("my_elevenlabs_api_key")
+                            .build()
                     )
                     .build()
             )

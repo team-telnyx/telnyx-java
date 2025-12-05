@@ -11,15 +11,24 @@ internal class TelnyxVoiceSettingsTest {
 
     @Test
     fun create() {
-        val telnyxVoiceSettings = TelnyxVoiceSettings.builder().voiceSpeed(1.0f).build()
+        val telnyxVoiceSettings =
+            TelnyxVoiceSettings.builder()
+                .type(TelnyxVoiceSettings.Type.TELNYX)
+                .voiceSpeed(1.0f)
+                .build()
 
+        assertThat(telnyxVoiceSettings.type()).isEqualTo(TelnyxVoiceSettings.Type.TELNYX)
         assertThat(telnyxVoiceSettings.voiceSpeed()).contains(1.0f)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val telnyxVoiceSettings = TelnyxVoiceSettings.builder().voiceSpeed(1.0f).build()
+        val telnyxVoiceSettings =
+            TelnyxVoiceSettings.builder()
+                .type(TelnyxVoiceSettings.Type.TELNYX)
+                .voiceSpeed(1.0f)
+                .build()
 
         val roundtrippedTelnyxVoiceSettings =
             jsonMapper.readValue(

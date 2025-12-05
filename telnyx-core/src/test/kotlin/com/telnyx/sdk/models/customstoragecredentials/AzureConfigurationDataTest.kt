@@ -13,11 +13,13 @@ internal class AzureConfigurationDataTest {
     fun create() {
         val azureConfigurationData =
             AzureConfigurationData.builder()
+                .backend(AzureConfigurationData.Backend.AZURE)
                 .accountKey("bPxRfiCYEXAMPLEKEY")
                 .accountName("my-account")
                 .bucket("example-bucket")
                 .build()
 
+        assertThat(azureConfigurationData.backend()).isEqualTo(AzureConfigurationData.Backend.AZURE)
         assertThat(azureConfigurationData.accountKey()).contains("bPxRfiCYEXAMPLEKEY")
         assertThat(azureConfigurationData.accountName()).contains("my-account")
         assertThat(azureConfigurationData.bucket()).contains("example-bucket")
@@ -28,6 +30,7 @@ internal class AzureConfigurationDataTest {
         val jsonMapper = jsonMapper()
         val azureConfigurationData =
             AzureConfigurationData.builder()
+                .backend(AzureConfigurationData.Backend.AZURE)
                 .accountKey("bPxRfiCYEXAMPLEKEY")
                 .accountName("my-account")
                 .bucket("example-bucket")

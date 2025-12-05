@@ -16,6 +16,7 @@ internal class CustomStorageCredentialUpdateParamsTest {
                     .backend(CustomStorageConfiguration.Backend.GCS)
                     .configuration(
                         GcsConfigurationData.builder()
+                            .backend(GcsConfigurationData.Backend.GCS)
                             .bucket("example-bucket")
                             .credentials("OPAQUE_CREDENTIALS_TOKEN")
                             .build()
@@ -33,7 +34,11 @@ internal class CustomStorageCredentialUpdateParamsTest {
                 .customStorageConfiguration(
                     CustomStorageConfiguration.builder()
                         .backend(CustomStorageConfiguration.Backend.GCS)
-                        .configuration(GcsConfigurationData.builder().build())
+                        .configuration(
+                            GcsConfigurationData.builder()
+                                .backend(GcsConfigurationData.Backend.GCS)
+                                .build()
+                        )
                         .build()
                 )
                 .build()
@@ -53,6 +58,7 @@ internal class CustomStorageCredentialUpdateParamsTest {
                         .backend(CustomStorageConfiguration.Backend.GCS)
                         .configuration(
                             GcsConfigurationData.builder()
+                                .backend(GcsConfigurationData.Backend.GCS)
                                 .bucket("example-bucket")
                                 .credentials("OPAQUE_CREDENTIALS_TOKEN")
                                 .build()
@@ -69,6 +75,7 @@ internal class CustomStorageCredentialUpdateParamsTest {
                     .backend(CustomStorageConfiguration.Backend.GCS)
                     .configuration(
                         GcsConfigurationData.builder()
+                            .backend(GcsConfigurationData.Backend.GCS)
                             .bucket("example-bucket")
                             .credentials("OPAQUE_CREDENTIALS_TOKEN")
                             .build()
@@ -85,7 +92,11 @@ internal class CustomStorageCredentialUpdateParamsTest {
                 .customStorageConfiguration(
                     CustomStorageConfiguration.builder()
                         .backend(CustomStorageConfiguration.Backend.GCS)
-                        .configuration(GcsConfigurationData.builder().build())
+                        .configuration(
+                            GcsConfigurationData.builder()
+                                .backend(GcsConfigurationData.Backend.GCS)
+                                .build()
+                        )
                         .build()
                 )
                 .build()
@@ -96,7 +107,11 @@ internal class CustomStorageCredentialUpdateParamsTest {
             .isEqualTo(
                 CustomStorageConfiguration.builder()
                     .backend(CustomStorageConfiguration.Backend.GCS)
-                    .configuration(GcsConfigurationData.builder().build())
+                    .configuration(
+                        GcsConfigurationData.builder()
+                            .backend(GcsConfigurationData.Backend.GCS)
+                            .build()
+                    )
                     .build()
             )
     }
