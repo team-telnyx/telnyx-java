@@ -154,7 +154,6 @@ private constructor(
         private val networkId: JsonField<String>,
         private val status: JsonField<InterfaceStatus>,
         private val publicIp: JsonField<String>,
-        private val region: JsonField<Region>,
         private val regionCode: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -181,7 +180,6 @@ private constructor(
             @JsonProperty("public_ip")
             @ExcludeMissing
             publicIp: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
             @JsonProperty("region_code")
             @ExcludeMissing
             regionCode: JsonField<String> = JsonMissing.of(),
@@ -194,7 +192,6 @@ private constructor(
             networkId,
             status,
             publicIp,
-            region,
             regionCode,
             mutableMapOf(),
         )
@@ -275,12 +272,6 @@ private constructor(
         fun publicIp(): Optional<String> = publicIp.getOptional("public_ip")
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun region(): Optional<Region> = region.getOptional("region")
-
-        /**
          * The region interface is deployed to.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -347,13 +338,6 @@ private constructor(
         @JsonProperty("public_ip") @ExcludeMissing fun _publicIp(): JsonField<String> = publicIp
 
         /**
-         * Returns the raw JSON value of [region].
-         *
-         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<Region> = region
-
-        /**
          * Returns the raw JSON value of [regionCode].
          *
          * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
@@ -391,7 +375,6 @@ private constructor(
             private var networkId: JsonField<String> = JsonMissing.of()
             private var status: JsonField<InterfaceStatus> = JsonMissing.of()
             private var publicIp: JsonField<String> = JsonMissing.of()
-            private var region: JsonField<Region> = JsonMissing.of()
             private var regionCode: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -405,7 +388,6 @@ private constructor(
                 networkId = data.networkId
                 status = data.status
                 publicIp = data.publicIp
-                region = data.region
                 regionCode = data.regionCode
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
@@ -506,17 +488,6 @@ private constructor(
              */
             fun publicIp(publicIp: JsonField<String>) = apply { this.publicIp = publicIp }
 
-            fun region(region: Region) = region(JsonField.of(region))
-
-            /**
-             * Sets [Builder.region] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.region] with a well-typed [Region] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun region(region: JsonField<Region>) = apply { this.region = region }
-
             /** The region interface is deployed to. */
             fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
 
@@ -563,7 +534,6 @@ private constructor(
                     networkId,
                     status,
                     publicIp,
-                    region,
                     regionCode,
                     additionalProperties.toMutableMap(),
                 )
@@ -584,7 +554,6 @@ private constructor(
             networkId()
             status().ifPresent { it.validate() }
             publicIp()
-            region().ifPresent { it.validate() }
             regionCode()
             validated = true
         }
@@ -613,232 +582,7 @@ private constructor(
                 (if (networkId.asKnown().isPresent) 1 else 0) +
                 (status.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (publicIp.asKnown().isPresent) 1 else 0) +
-                (region.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (regionCode.asKnown().isPresent) 1 else 0)
-
-        class Region
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val code: JsonField<String>,
-            private val name: JsonField<String>,
-            private val recordType: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("record_type")
-                @ExcludeMissing
-                recordType: JsonField<String> = JsonMissing.of(),
-            ) : this(code, name, recordType, mutableMapOf())
-
-            /**
-             * Region code of the interface.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun code(): Optional<String> = code.getOptional("code")
-
-            /**
-             * Region name of the interface.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun name(): Optional<String> = name.getOptional("name")
-
-            /**
-             * Identifies the type of the resource.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun recordType(): Optional<String> = recordType.getOptional("record_type")
-
-            /**
-             * Returns the raw JSON value of [code].
-             *
-             * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-            /**
-             * Returns the raw JSON value of [name].
-             *
-             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-            /**
-             * Returns the raw JSON value of [recordType].
-             *
-             * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("record_type")
-            @ExcludeMissing
-            fun _recordType(): JsonField<String> = recordType
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Region]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Region]. */
-            class Builder internal constructor() {
-
-                private var code: JsonField<String> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
-                private var recordType: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(region: Region) = apply {
-                    code = region.code
-                    name = region.name
-                    recordType = region.recordType
-                    additionalProperties = region.additionalProperties.toMutableMap()
-                }
-
-                /** Region code of the interface. */
-                fun code(code: String) = code(JsonField.of(code))
-
-                /**
-                 * Sets [Builder.code] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.code] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun code(code: JsonField<String>) = apply { this.code = code }
-
-                /** Region name of the interface. */
-                fun name(name: String) = name(JsonField.of(name))
-
-                /**
-                 * Sets [Builder.name] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.name] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun name(name: JsonField<String>) = apply { this.name = name }
-
-                /** Identifies the type of the resource. */
-                fun recordType(recordType: String) = recordType(JsonField.of(recordType))
-
-                /**
-                 * Sets [Builder.recordType] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.recordType] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun recordType(recordType: JsonField<String>) = apply {
-                    this.recordType = recordType
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Region].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Region =
-                    Region(code, name, recordType, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Region = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                code()
-                name()
-                recordType()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (code.asKnown().isPresent) 1 else 0) +
-                    (if (name.asKnown().isPresent) 1 else 0) +
-                    (if (recordType.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Region &&
-                    code == other.code &&
-                    name == other.name &&
-                    recordType == other.recordType &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(code, name, recordType, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Region{code=$code, name=$name, recordType=$recordType, additionalProperties=$additionalProperties}"
-        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -854,7 +598,6 @@ private constructor(
                 networkId == other.networkId &&
                 status == other.status &&
                 publicIp == other.publicIp &&
-                region == other.region &&
                 regionCode == other.regionCode &&
                 additionalProperties == other.additionalProperties
         }
@@ -869,7 +612,6 @@ private constructor(
                 networkId,
                 status,
                 publicIp,
-                region,
                 regionCode,
                 additionalProperties,
             )
@@ -878,7 +620,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, publicIp=$publicIp, region=$region, regionCode=$regionCode, additionalProperties=$additionalProperties}"
+            "Data{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, publicIp=$publicIp, regionCode=$regionCode, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
