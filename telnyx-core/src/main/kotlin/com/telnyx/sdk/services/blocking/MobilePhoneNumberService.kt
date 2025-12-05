@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateResponse
+import com.telnyx.sdk.services.blocking.mobilephonenumbers.MessagingService
 import java.util.function.Consumer
 
 interface MobilePhoneNumberService {
@@ -27,6 +28,8 @@ interface MobilePhoneNumberService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MobilePhoneNumberService
+
+    fun messaging(): MessagingService
 
     /** Retrieve a Mobile Phone Number */
     fun retrieve(id: String): MobilePhoneNumberRetrieveResponse =
@@ -123,6 +126,8 @@ interface MobilePhoneNumberService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MobilePhoneNumberService.WithRawResponse
+
+        fun messaging(): MessagingService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /v2/mobile_phone_numbers/{id}`, but is otherwise the

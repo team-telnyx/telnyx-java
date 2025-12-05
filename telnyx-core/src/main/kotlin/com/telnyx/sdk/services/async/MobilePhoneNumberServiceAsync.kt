@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateResponse
+import com.telnyx.sdk.services.async.mobilephonenumbers.MessagingServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,6 +28,8 @@ interface MobilePhoneNumberServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MobilePhoneNumberServiceAsync
+
+    fun messaging(): MessagingServiceAsync
 
     /** Retrieve a Mobile Phone Number */
     fun retrieve(id: String): CompletableFuture<MobilePhoneNumberRetrieveResponse> =
@@ -136,6 +139,8 @@ interface MobilePhoneNumberServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MobilePhoneNumberServiceAsync.WithRawResponse
+
+        fun messaging(): MessagingServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /v2/mobile_phone_numbers/{id}`, but is otherwise the

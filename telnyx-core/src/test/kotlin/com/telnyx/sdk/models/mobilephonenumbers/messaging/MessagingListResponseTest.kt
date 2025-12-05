@@ -1,12 +1,10 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.phonenumbers.messaging
+package com.telnyx.sdk.models.mobilephonenumbers.messaging
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.MessagingFeatureSet
-import com.telnyx.sdk.models.NumberHealthMetrics
-import com.telnyx.sdk.models.PhoneNumberWithMessagingSettings
 import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -20,20 +18,12 @@ internal class MessagingListResponseTest {
         val messagingListResponse =
             MessagingListResponse.builder()
                 .addData(
-                    PhoneNumberWithMessagingSettings.builder()
-                        .id("1293384261075731499")
+                    MessagingListResponse.Data.builder()
+                        .id("2126210528794641864")
                         .countryCode("US")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                        .addEligibleMessagingProduct("A2P")
                         .features(
-                            PhoneNumberWithMessagingSettings.Features.builder()
-                                .mms(
-                                    MessagingFeatureSet.builder()
-                                        .domesticTwoWay(true)
-                                        .internationalInbound(false)
-                                        .internationalOutbound(true)
-                                        .build()
-                                )
+                            MessagingListResponse.Data.Features.builder()
                                 .sms(
                                     MessagingFeatureSet.builder()
                                         .domesticTwoWay(true)
@@ -43,20 +33,12 @@ internal class MessagingListResponseTest {
                                 )
                                 .build()
                         )
-                        .health(
-                            NumberHealthMetrics.builder()
-                                .inboundOutboundRatio(0.43f)
-                                .messageCount(122L)
-                                .spamRatio(0.06f)
-                                .successRatio(0.94f)
-                                .build()
-                        )
-                        .messagingProduct("A2P")
+                        .messagingProduct("P2P")
                         .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                        .phoneNumber("+18005550001")
-                        .recordType(PhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS)
-                        .trafficType("A2P")
-                        .type(PhoneNumberWithMessagingSettings.Type.TOLLFREE)
+                        .phoneNumber("++13127367407")
+                        .recordType(MessagingListResponse.Data.RecordType.MESSAGING_SETTINGS)
+                        .trafficType("P2P")
+                        .type(MessagingListResponse.Data.Type.LONGCODE)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .build()
                 )
@@ -72,20 +54,12 @@ internal class MessagingListResponseTest {
 
         assertThat(messagingListResponse.data().getOrNull())
             .containsExactly(
-                PhoneNumberWithMessagingSettings.builder()
-                    .id("1293384261075731499")
+                MessagingListResponse.Data.builder()
+                    .id("2126210528794641864")
                     .countryCode("US")
                     .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                    .addEligibleMessagingProduct("A2P")
                     .features(
-                        PhoneNumberWithMessagingSettings.Features.builder()
-                            .mms(
-                                MessagingFeatureSet.builder()
-                                    .domesticTwoWay(true)
-                                    .internationalInbound(false)
-                                    .internationalOutbound(true)
-                                    .build()
-                            )
+                        MessagingListResponse.Data.Features.builder()
                             .sms(
                                 MessagingFeatureSet.builder()
                                     .domesticTwoWay(true)
@@ -95,20 +69,12 @@ internal class MessagingListResponseTest {
                             )
                             .build()
                     )
-                    .health(
-                        NumberHealthMetrics.builder()
-                            .inboundOutboundRatio(0.43f)
-                            .messageCount(122L)
-                            .spamRatio(0.06f)
-                            .successRatio(0.94f)
-                            .build()
-                    )
-                    .messagingProduct("A2P")
+                    .messagingProduct("P2P")
                     .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                    .phoneNumber("+18005550001")
-                    .recordType(PhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS)
-                    .trafficType("A2P")
-                    .type(PhoneNumberWithMessagingSettings.Type.TOLLFREE)
+                    .phoneNumber("++13127367407")
+                    .recordType(MessagingListResponse.Data.RecordType.MESSAGING_SETTINGS)
+                    .trafficType("P2P")
+                    .type(MessagingListResponse.Data.Type.LONGCODE)
                     .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .build()
             )
@@ -129,20 +95,12 @@ internal class MessagingListResponseTest {
         val messagingListResponse =
             MessagingListResponse.builder()
                 .addData(
-                    PhoneNumberWithMessagingSettings.builder()
-                        .id("1293384261075731499")
+                    MessagingListResponse.Data.builder()
+                        .id("2126210528794641864")
                         .countryCode("US")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                        .addEligibleMessagingProduct("A2P")
                         .features(
-                            PhoneNumberWithMessagingSettings.Features.builder()
-                                .mms(
-                                    MessagingFeatureSet.builder()
-                                        .domesticTwoWay(true)
-                                        .internationalInbound(false)
-                                        .internationalOutbound(true)
-                                        .build()
-                                )
+                            MessagingListResponse.Data.Features.builder()
                                 .sms(
                                     MessagingFeatureSet.builder()
                                         .domesticTwoWay(true)
@@ -152,20 +110,12 @@ internal class MessagingListResponseTest {
                                 )
                                 .build()
                         )
-                        .health(
-                            NumberHealthMetrics.builder()
-                                .inboundOutboundRatio(0.43f)
-                                .messageCount(122L)
-                                .spamRatio(0.06f)
-                                .successRatio(0.94f)
-                                .build()
-                        )
-                        .messagingProduct("A2P")
+                        .messagingProduct("P2P")
                         .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
-                        .phoneNumber("+18005550001")
-                        .recordType(PhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS)
-                        .trafficType("A2P")
-                        .type(PhoneNumberWithMessagingSettings.Type.TOLLFREE)
+                        .phoneNumber("++13127367407")
+                        .recordType(MessagingListResponse.Data.RecordType.MESSAGING_SETTINGS)
+                        .trafficType("P2P")
+                        .type(MessagingListResponse.Data.Type.LONGCODE)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .build()
                 )

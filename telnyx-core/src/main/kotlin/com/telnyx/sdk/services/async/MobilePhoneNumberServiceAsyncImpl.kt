@@ -22,6 +22,8 @@ import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateResponse
+import com.telnyx.sdk.services.async.mobilephonenumbers.MessagingServiceAsync
+import com.telnyx.sdk.services.async.mobilephonenumbers.MessagingServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -33,12 +35,18 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
         WithRawResponseImpl(clientOptions)
     }
 
+    private val messaging: MessagingServiceAsync by lazy {
+        MessagingServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): MobilePhoneNumberServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(
         modifier: Consumer<ClientOptions.Builder>
     ): MobilePhoneNumberServiceAsync =
         MobilePhoneNumberServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun messaging(): MessagingServiceAsync = messaging
 
     override fun retrieve(
         params: MobilePhoneNumberRetrieveParams,
@@ -67,12 +75,18 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val messaging: MessagingServiceAsync.WithRawResponse by lazy {
+            MessagingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MobilePhoneNumberServiceAsync.WithRawResponse =
             MobilePhoneNumberServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun messaging(): MessagingServiceAsync.WithRawResponse = messaging
 
         private val retrieveHandler: Handler<MobilePhoneNumberRetrieveResponse> =
             jsonHandler<MobilePhoneNumberRetrieveResponse>(clientOptions.jsonMapper)

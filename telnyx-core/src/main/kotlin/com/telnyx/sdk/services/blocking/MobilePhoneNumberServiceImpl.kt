@@ -22,6 +22,8 @@ import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateResponse
+import com.telnyx.sdk.services.blocking.mobilephonenumbers.MessagingService
+import com.telnyx.sdk.services.blocking.mobilephonenumbers.MessagingServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -32,10 +34,14 @@ class MobilePhoneNumberServiceImpl internal constructor(private val clientOption
         WithRawResponseImpl(clientOptions)
     }
 
+    private val messaging: MessagingService by lazy { MessagingServiceImpl(clientOptions) }
+
     override fun withRawResponse(): MobilePhoneNumberService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MobilePhoneNumberService =
         MobilePhoneNumberServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun messaging(): MessagingService = messaging
 
     override fun retrieve(
         params: MobilePhoneNumberRetrieveParams,
@@ -64,12 +70,18 @@ class MobilePhoneNumberServiceImpl internal constructor(private val clientOption
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val messaging: MessagingService.WithRawResponse by lazy {
+            MessagingServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MobilePhoneNumberService.WithRawResponse =
             MobilePhoneNumberServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun messaging(): MessagingService.WithRawResponse = messaging
 
         private val retrieveHandler: Handler<MobilePhoneNumberRetrieveResponse> =
             jsonHandler<MobilePhoneNumberRetrieveResponse>(clientOptions.jsonMapper)
