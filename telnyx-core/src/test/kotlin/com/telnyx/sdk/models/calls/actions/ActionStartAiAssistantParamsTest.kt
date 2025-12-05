@@ -27,7 +27,10 @@ internal class ActionStartAiAssistantParamsTest {
             )
             .voice("Telnyx.KokoroTTS.af")
             .voiceSettings(
-                ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                ElevenLabsVoiceSettings.builder()
+                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                    .apiKeyRef("my_elevenlabs_api_key")
+                    .build()
             )
             .build()
     }
@@ -62,7 +65,10 @@ internal class ActionStartAiAssistantParamsTest {
                 )
                 .voice("Telnyx.KokoroTTS.af")
                 .voiceSettings(
-                    ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
                 .build()
 
@@ -86,8 +92,11 @@ internal class ActionStartAiAssistantParamsTest {
         assertThat(body.voice()).contains("Telnyx.KokoroTTS.af")
         assertThat(body.voiceSettings())
             .contains(
-                ActionStartAiAssistantParams.VoiceSettings.ofElevenLabs(
-                    ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                ActionStartAiAssistantParams.VoiceSettings.ofElevenlabs(
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
             )
     }

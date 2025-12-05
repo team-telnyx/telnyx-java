@@ -12,8 +12,13 @@ internal class ElevenLabsVoiceSettingsTest {
     @Test
     fun create() {
         val elevenLabsVoiceSettings =
-            ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+            ElevenLabsVoiceSettings.builder()
+                .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                .apiKeyRef("my_elevenlabs_api_key")
+                .build()
 
+        assertThat(elevenLabsVoiceSettings.type())
+            .isEqualTo(ElevenLabsVoiceSettings.Type.ELEVENLABS)
         assertThat(elevenLabsVoiceSettings.apiKeyRef()).contains("my_elevenlabs_api_key")
     }
 
@@ -21,7 +26,10 @@ internal class ElevenLabsVoiceSettingsTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val elevenLabsVoiceSettings =
-            ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+            ElevenLabsVoiceSettings.builder()
+                .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                .apiKeyRef("my_elevenlabs_api_key")
+                .build()
 
         val roundtrippedElevenLabsVoiceSettings =
             jsonMapper.readValue(

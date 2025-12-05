@@ -16,6 +16,7 @@ internal class CustomStorageConfigurationTest {
                 .backend(CustomStorageConfiguration.Backend.GCS)
                 .configuration(
                     GcsConfigurationData.builder()
+                        .backend(GcsConfigurationData.Backend.GCS)
                         .bucket("example-bucket")
                         .credentials("OPAQUE_CREDENTIALS_TOKEN")
                         .build()
@@ -26,8 +27,9 @@ internal class CustomStorageConfigurationTest {
             .isEqualTo(CustomStorageConfiguration.Backend.GCS)
         assertThat(customStorageConfiguration.configuration())
             .isEqualTo(
-                CustomStorageConfiguration.Configuration.ofGcsConfigurationData(
+                CustomStorageConfiguration.Configuration.ofGcs(
                     GcsConfigurationData.builder()
+                        .backend(GcsConfigurationData.Backend.GCS)
                         .bucket("example-bucket")
                         .credentials("OPAQUE_CREDENTIALS_TOKEN")
                         .build()
@@ -43,6 +45,7 @@ internal class CustomStorageConfigurationTest {
                 .backend(CustomStorageConfiguration.Backend.GCS)
                 .configuration(
                     GcsConfigurationData.builder()
+                        .backend(GcsConfigurationData.Backend.GCS)
                         .bucket("example-bucket")
                         .credentials("OPAQUE_CREDENTIALS_TOKEN")
                         .build()

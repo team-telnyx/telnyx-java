@@ -20,7 +20,6 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
@@ -136,26 +135,15 @@ private constructor(
             this.configuration = configuration
         }
 
-        /**
-         * Alias for calling [configuration] with
-         * `Configuration.ofGcsConfigurationData(gcsConfigurationData)`.
-         */
-        fun configuration(gcsConfigurationData: GcsConfigurationData) =
-            configuration(Configuration.ofGcsConfigurationData(gcsConfigurationData))
+        /** Alias for calling [configuration] with `Configuration.ofGcs(gcs)`. */
+        fun configuration(gcs: GcsConfigurationData) = configuration(Configuration.ofGcs(gcs))
 
-        /**
-         * Alias for calling [configuration] with
-         * `Configuration.ofS3ConfigurationData(s3ConfigurationData)`.
-         */
-        fun configuration(s3ConfigurationData: S3ConfigurationData) =
-            configuration(Configuration.ofS3ConfigurationData(s3ConfigurationData))
+        /** Alias for calling [configuration] with `Configuration.ofS3(s3)`. */
+        fun configuration(s3: S3ConfigurationData) = configuration(Configuration.ofS3(s3))
 
-        /**
-         * Alias for calling [configuration] with
-         * `Configuration.ofAzureConfigurationData(azureConfigurationData)`.
-         */
-        fun configuration(azureConfigurationData: AzureConfigurationData) =
-            configuration(Configuration.ofAzureConfigurationData(azureConfigurationData))
+        /** Alias for calling [configuration] with `Configuration.ofAzure(azure)`. */
+        fun configuration(azure: AzureConfigurationData) =
+            configuration(Configuration.ofAzure(azure))
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -362,45 +350,37 @@ private constructor(
     @JsonSerialize(using = Configuration.Serializer::class)
     class Configuration
     private constructor(
-        private val gcsConfigurationData: GcsConfigurationData? = null,
-        private val s3ConfigurationData: S3ConfigurationData? = null,
-        private val azureConfigurationData: AzureConfigurationData? = null,
+        private val gcs: GcsConfigurationData? = null,
+        private val s3: S3ConfigurationData? = null,
+        private val azure: AzureConfigurationData? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun gcsConfigurationData(): Optional<GcsConfigurationData> =
-            Optional.ofNullable(gcsConfigurationData)
+        fun gcs(): Optional<GcsConfigurationData> = Optional.ofNullable(gcs)
 
-        fun s3ConfigurationData(): Optional<S3ConfigurationData> =
-            Optional.ofNullable(s3ConfigurationData)
+        fun s3(): Optional<S3ConfigurationData> = Optional.ofNullable(s3)
 
-        fun azureConfigurationData(): Optional<AzureConfigurationData> =
-            Optional.ofNullable(azureConfigurationData)
+        fun azure(): Optional<AzureConfigurationData> = Optional.ofNullable(azure)
 
-        fun isGcsConfigurationData(): Boolean = gcsConfigurationData != null
+        fun isGcs(): Boolean = gcs != null
 
-        fun isS3ConfigurationData(): Boolean = s3ConfigurationData != null
+        fun isS3(): Boolean = s3 != null
 
-        fun isAzureConfigurationData(): Boolean = azureConfigurationData != null
+        fun isAzure(): Boolean = azure != null
 
-        fun asGcsConfigurationData(): GcsConfigurationData =
-            gcsConfigurationData.getOrThrow("gcsConfigurationData")
+        fun asGcs(): GcsConfigurationData = gcs.getOrThrow("gcs")
 
-        fun asS3ConfigurationData(): S3ConfigurationData =
-            s3ConfigurationData.getOrThrow("s3ConfigurationData")
+        fun asS3(): S3ConfigurationData = s3.getOrThrow("s3")
 
-        fun asAzureConfigurationData(): AzureConfigurationData =
-            azureConfigurationData.getOrThrow("azureConfigurationData")
+        fun asAzure(): AzureConfigurationData = azure.getOrThrow("azure")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                gcsConfigurationData != null ->
-                    visitor.visitGcsConfigurationData(gcsConfigurationData)
-                s3ConfigurationData != null -> visitor.visitS3ConfigurationData(s3ConfigurationData)
-                azureConfigurationData != null ->
-                    visitor.visitAzureConfigurationData(azureConfigurationData)
+                gcs != null -> visitor.visitGcs(gcs)
+                s3 != null -> visitor.visitS3(s3)
+                azure != null -> visitor.visitAzure(azure)
                 else -> visitor.unknown(_json)
             }
 
@@ -413,22 +393,16 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitGcsConfigurationData(
-                        gcsConfigurationData: GcsConfigurationData
-                    ) {
-                        gcsConfigurationData.validate()
+                    override fun visitGcs(gcs: GcsConfigurationData) {
+                        gcs.validate()
                     }
 
-                    override fun visitS3ConfigurationData(
-                        s3ConfigurationData: S3ConfigurationData
-                    ) {
-                        s3ConfigurationData.validate()
+                    override fun visitS3(s3: S3ConfigurationData) {
+                        s3.validate()
                     }
 
-                    override fun visitAzureConfigurationData(
-                        azureConfigurationData: AzureConfigurationData
-                    ) {
-                        azureConfigurationData.validate()
+                    override fun visitAzure(azure: AzureConfigurationData) {
+                        azure.validate()
                     }
                 }
             )
@@ -453,17 +427,11 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitGcsConfigurationData(
-                        gcsConfigurationData: GcsConfigurationData
-                    ) = gcsConfigurationData.validity()
+                    override fun visitGcs(gcs: GcsConfigurationData) = gcs.validity()
 
-                    override fun visitS3ConfigurationData(
-                        s3ConfigurationData: S3ConfigurationData
-                    ) = s3ConfigurationData.validity()
+                    override fun visitS3(s3: S3ConfigurationData) = s3.validity()
 
-                    override fun visitAzureConfigurationData(
-                        azureConfigurationData: AzureConfigurationData
-                    ) = azureConfigurationData.validity()
+                    override fun visitAzure(azure: AzureConfigurationData) = azure.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -475,39 +443,29 @@ private constructor(
             }
 
             return other is Configuration &&
-                gcsConfigurationData == other.gcsConfigurationData &&
-                s3ConfigurationData == other.s3ConfigurationData &&
-                azureConfigurationData == other.azureConfigurationData
+                gcs == other.gcs &&
+                s3 == other.s3 &&
+                azure == other.azure
         }
 
-        override fun hashCode(): Int =
-            Objects.hash(gcsConfigurationData, s3ConfigurationData, azureConfigurationData)
+        override fun hashCode(): Int = Objects.hash(gcs, s3, azure)
 
         override fun toString(): String =
             when {
-                gcsConfigurationData != null ->
-                    "Configuration{gcsConfigurationData=$gcsConfigurationData}"
-                s3ConfigurationData != null ->
-                    "Configuration{s3ConfigurationData=$s3ConfigurationData}"
-                azureConfigurationData != null ->
-                    "Configuration{azureConfigurationData=$azureConfigurationData}"
+                gcs != null -> "Configuration{gcs=$gcs}"
+                s3 != null -> "Configuration{s3=$s3}"
+                azure != null -> "Configuration{azure=$azure}"
                 _json != null -> "Configuration{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Configuration")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofGcsConfigurationData(gcsConfigurationData: GcsConfigurationData) =
-                Configuration(gcsConfigurationData = gcsConfigurationData)
+            @JvmStatic fun ofGcs(gcs: GcsConfigurationData) = Configuration(gcs = gcs)
 
-            @JvmStatic
-            fun ofS3ConfigurationData(s3ConfigurationData: S3ConfigurationData) =
-                Configuration(s3ConfigurationData = s3ConfigurationData)
+            @JvmStatic fun ofS3(s3: S3ConfigurationData) = Configuration(s3 = s3)
 
-            @JvmStatic
-            fun ofAzureConfigurationData(azureConfigurationData: AzureConfigurationData) =
-                Configuration(azureConfigurationData = azureConfigurationData)
+            @JvmStatic fun ofAzure(azure: AzureConfigurationData) = Configuration(azure = azure)
         }
 
         /**
@@ -516,11 +474,11 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitGcsConfigurationData(gcsConfigurationData: GcsConfigurationData): T
+            fun visitGcs(gcs: GcsConfigurationData): T
 
-            fun visitS3ConfigurationData(s3ConfigurationData: S3ConfigurationData): T
+            fun visitS3(s3: S3ConfigurationData): T
 
-            fun visitAzureConfigurationData(azureConfigurationData: AzureConfigurationData): T
+            fun visitAzure(azure: AzureConfigurationData): T
 
             /**
              * Maps an unknown variant of [Configuration] to a value of type [T].
@@ -541,32 +499,27 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Configuration {
                 val json = JsonValue.fromJsonNode(node)
+                val backend = json.asObject().getOrNull()?.get("backend")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<GcsConfigurationData>())?.let {
-                                Configuration(gcsConfigurationData = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<S3ConfigurationData>())?.let {
-                                Configuration(s3ConfigurationData = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<AzureConfigurationData>())?.let {
-                                Configuration(azureConfigurationData = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Configuration(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (backend) {
+                    "gcs" -> {
+                        return tryDeserialize(node, jacksonTypeRef<GcsConfigurationData>())?.let {
+                            Configuration(gcs = it, _json = json)
+                        } ?: Configuration(_json = json)
+                    }
+                    "s3" -> {
+                        return tryDeserialize(node, jacksonTypeRef<S3ConfigurationData>())?.let {
+                            Configuration(s3 = it, _json = json)
+                        } ?: Configuration(_json = json)
+                    }
+                    "azure" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AzureConfigurationData>())?.let {
+                            Configuration(azure = it, _json = json)
+                        } ?: Configuration(_json = json)
+                    }
                 }
+
+                return Configuration(_json = json)
             }
         }
 
@@ -578,12 +531,9 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.gcsConfigurationData != null ->
-                        generator.writeObject(value.gcsConfigurationData)
-                    value.s3ConfigurationData != null ->
-                        generator.writeObject(value.s3ConfigurationData)
-                    value.azureConfigurationData != null ->
-                        generator.writeObject(value.azureConfigurationData)
+                    value.gcs != null -> generator.writeObject(value.gcs)
+                    value.s3 != null -> generator.writeObject(value.s3)
+                    value.azure != null -> generator.writeObject(value.azure)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Configuration")
                 }

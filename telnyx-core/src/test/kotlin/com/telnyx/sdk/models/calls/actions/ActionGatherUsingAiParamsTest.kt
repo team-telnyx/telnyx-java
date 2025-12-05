@@ -40,17 +40,12 @@ internal class ActionGatherUsingAiParamsTest {
                     .instructions("You are a friendly voice assistant.")
                     .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
                     .openaiApiKeyRef("my_openai_api_key")
-                    .addTool(
-                        Assistant.Tool.BookAppointmentTool.builder()
-                            .bookAppointment(
-                                Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
-                                    .apiKeyRef("my_calcom_api_key")
-                                    .eventTypeId(0L)
-                                    .attendeeName("attendee_name")
-                                    .attendeeTimezone("attendee_timezone")
-                                    .build()
-                            )
-                            .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
+                    .addBookAppointmentTool(
+                        Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
+                            .apiKeyRef("my_calcom_api_key")
+                            .eventTypeId(0L)
+                            .attendeeName("attendee_name")
+                            .attendeeTimezone("attendee_timezone")
                             .build()
                     )
                     .build()
@@ -80,7 +75,10 @@ internal class ActionGatherUsingAiParamsTest {
             .userResponseTimeoutMs(5000L)
             .voice("Telnyx.KokoroTTS.af")
             .voiceSettings(
-                ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                ElevenLabsVoiceSettings.builder()
+                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                    .apiKeyRef("my_elevenlabs_api_key")
+                    .build()
             )
             .build()
     }
@@ -149,17 +147,12 @@ internal class ActionGatherUsingAiParamsTest {
                         .instructions("You are a friendly voice assistant.")
                         .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
                         .openaiApiKeyRef("my_openai_api_key")
-                        .addTool(
-                            Assistant.Tool.BookAppointmentTool.builder()
-                                .bookAppointment(
-                                    Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
-                                        .apiKeyRef("my_calcom_api_key")
-                                        .eventTypeId(0L)
-                                        .attendeeName("attendee_name")
-                                        .attendeeTimezone("attendee_timezone")
-                                        .build()
-                                )
-                                .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
+                        .addBookAppointmentTool(
+                            Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
+                                .apiKeyRef("my_calcom_api_key")
+                                .eventTypeId(0L)
+                                .attendeeName("attendee_name")
+                                .attendeeTimezone("attendee_timezone")
                                 .build()
                         )
                         .build()
@@ -189,7 +182,10 @@ internal class ActionGatherUsingAiParamsTest {
                 .userResponseTimeoutMs(5000L)
                 .voice("Telnyx.KokoroTTS.af")
                 .voiceSettings(
-                    ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
                 .build()
 
@@ -223,17 +219,12 @@ internal class ActionGatherUsingAiParamsTest {
                     .instructions("You are a friendly voice assistant.")
                     .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
                     .openaiApiKeyRef("my_openai_api_key")
-                    .addTool(
-                        Assistant.Tool.BookAppointmentTool.builder()
-                            .bookAppointment(
-                                Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
-                                    .apiKeyRef("my_calcom_api_key")
-                                    .eventTypeId(0L)
-                                    .attendeeName("attendee_name")
-                                    .attendeeTimezone("attendee_timezone")
-                                    .build()
-                            )
-                            .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
+                    .addBookAppointmentTool(
+                        Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
+                            .apiKeyRef("my_calcom_api_key")
+                            .eventTypeId(0L)
+                            .attendeeName("attendee_name")
+                            .attendeeTimezone("attendee_timezone")
                             .build()
                     )
                     .build()
@@ -263,8 +254,11 @@ internal class ActionGatherUsingAiParamsTest {
         assertThat(body.voice()).contains("Telnyx.KokoroTTS.af")
         assertThat(body.voiceSettings())
             .contains(
-                ActionGatherUsingAiParams.VoiceSettings.ofElevenLabs(
-                    ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                ActionGatherUsingAiParams.VoiceSettings.ofElevenlabs(
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
             )
     }
