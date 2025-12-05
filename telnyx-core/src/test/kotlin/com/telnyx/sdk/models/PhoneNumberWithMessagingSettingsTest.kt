@@ -50,7 +50,7 @@ internal class PhoneNumberWithMessagingSettingsTest {
                 .phoneNumber("+18005550001")
                 .recordType(PhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS)
                 .trafficType("A2P")
-                .type(PhoneNumberWithMessagingSettings.Type.TOLL_FREE)
+                .type(PhoneNumberWithMessagingSettings.Type.TOLLFREE)
                 .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .build()
 
@@ -96,7 +96,7 @@ internal class PhoneNumberWithMessagingSettingsTest {
             .contains(PhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS)
         assertThat(phoneNumberWithMessagingSettings.trafficType()).contains("A2P")
         assertThat(phoneNumberWithMessagingSettings.type())
-            .contains(PhoneNumberWithMessagingSettings.Type.TOLL_FREE)
+            .contains(PhoneNumberWithMessagingSettings.Type.TOLLFREE)
         assertThat(phoneNumberWithMessagingSettings.updatedAt())
             .contains(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
     }
@@ -141,7 +141,7 @@ internal class PhoneNumberWithMessagingSettingsTest {
                 .phoneNumber("+18005550001")
                 .recordType(PhoneNumberWithMessagingSettings.RecordType.MESSAGING_SETTINGS)
                 .trafficType("A2P")
-                .type(PhoneNumberWithMessagingSettings.Type.TOLL_FREE)
+                .type(PhoneNumberWithMessagingSettings.Type.TOLLFREE)
                 .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .build()
 
