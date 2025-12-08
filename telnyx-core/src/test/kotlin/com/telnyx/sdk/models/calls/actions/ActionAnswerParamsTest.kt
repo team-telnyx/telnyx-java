@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.calls.actions
 
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
@@ -57,28 +56,34 @@ internal class ActionAnswerParamsTest {
                 TranscriptionStartRequest.builder()
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                    .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM)
+                    .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.builder()
-                            .transcriptionModel(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                    .TranscriptionModel
-                                    .DEEPGRAM_NOVA_2
+                        TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                            .enableSpeakerDiarization(true)
+                            .addHint("string")
+                            .interimResults(true)
+                            .language(GoogleTranscriptionLanguage.EN)
+                            .maxSpeakerCount(4)
+                            .minSpeakerCount(4)
+                            .model(
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
+                                    .LATEST_LONG
                             )
-                            .keywordsBoosting(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                    .KeywordsBoosting
+                            .profanityFilter(true)
+                            .addSpeechContext(
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                    .SpeechContext
                                     .builder()
-                                    .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
-                                    .putAdditionalProperty("systrom", JsonValue.from(2))
-                                    .putAdditionalProperty("krieger", JsonValue.from(1))
+                                    .boost(1.0)
+                                    .addPhrase("string")
                                     .build()
                             )
-                            .language(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                    .Language
-                                    .EN
+                            .transcriptionEngine(
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                    .TranscriptionEngine
+                                    .GOOGLE
                             )
+                            .useEnhanced(true)
                             .build()
                     )
                     .transcriptionTracks("both")
@@ -142,28 +147,34 @@ internal class ActionAnswerParamsTest {
                     TranscriptionStartRequest.builder()
                         .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                         .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                        .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM)
+                        .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                         .transcriptionEngineConfig(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.builder()
-                                .transcriptionModel(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                        .TranscriptionModel
-                                        .DEEPGRAM_NOVA_2
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                                .enableSpeakerDiarization(true)
+                                .addHint("string")
+                                .interimResults(true)
+                                .language(GoogleTranscriptionLanguage.EN)
+                                .maxSpeakerCount(4)
+                                .minSpeakerCount(4)
+                                .model(
+                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
+                                        .LATEST_LONG
                                 )
-                                .keywordsBoosting(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                        .KeywordsBoosting
+                                .profanityFilter(true)
+                                .addSpeechContext(
+                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                        .SpeechContext
                                         .builder()
-                                        .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
-                                        .putAdditionalProperty("systrom", JsonValue.from(2))
-                                        .putAdditionalProperty("krieger", JsonValue.from(1))
+                                        .boost(1.0)
+                                        .addPhrase("string")
                                         .build()
                                 )
-                                .language(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                        .Language
-                                        .EN
+                                .transcriptionEngine(
+                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                        .TranscriptionEngine
+                                        .GOOGLE
                                 )
+                                .useEnhanced(true)
                                 .build()
                         )
                         .transcriptionTracks("both")
@@ -220,28 +231,34 @@ internal class ActionAnswerParamsTest {
                 TranscriptionStartRequest.builder()
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                    .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM)
+                    .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.builder()
-                            .transcriptionModel(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                    .TranscriptionModel
-                                    .DEEPGRAM_NOVA_2
+                        TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                            .enableSpeakerDiarization(true)
+                            .addHint("string")
+                            .interimResults(true)
+                            .language(GoogleTranscriptionLanguage.EN)
+                            .maxSpeakerCount(4)
+                            .minSpeakerCount(4)
+                            .model(
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
+                                    .LATEST_LONG
                             )
-                            .keywordsBoosting(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                    .KeywordsBoosting
+                            .profanityFilter(true)
+                            .addSpeechContext(
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                    .SpeechContext
                                     .builder()
-                                    .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
-                                    .putAdditionalProperty("systrom", JsonValue.from(2))
-                                    .putAdditionalProperty("krieger", JsonValue.from(1))
+                                    .boost(1.0)
+                                    .addPhrase("string")
                                     .build()
                             )
-                            .language(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
-                                    .Language
-                                    .EN
+                            .transcriptionEngine(
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
+                                    .TranscriptionEngine
+                                    .GOOGLE
                             )
+                            .useEnhanced(true)
                             .build()
                     )
                     .transcriptionTracks("both")
