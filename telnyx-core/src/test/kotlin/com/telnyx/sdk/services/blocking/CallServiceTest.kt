@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.calls.CallDialParams
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.DialogflowConfig
@@ -14,7 +15,6 @@ import com.telnyx.sdk.models.calls.StreamBidirectionalMode
 import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
-import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -146,36 +146,33 @@ internal class CallServiceTest {
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                             .transcriptionEngine(
-                                TranscriptionStartRequest.TranscriptionEngine.GOOGLE
+                                TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
-                                    .enableSpeakerDiarization(true)
-                                    .addHint("string")
-                                    .interimResults(true)
-                                    .language(GoogleTranscriptionLanguage.EN)
-                                    .maxSpeakerCount(4)
-                                    .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                    .builder()
+                                    .transcriptionModel(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .TranscriptionModel
+                                            .DEEPGRAM_NOVA_2
                                     )
-                                    .profanityFilter(true)
-                                    .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
+                                    .keywordsBoosting(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .KeywordsBoosting
                                             .builder()
-                                            .boost(1.0)
-                                            .addPhrase("string")
+                                            .putAdditionalProperty(
+                                                "snuffleupagus",
+                                                JsonValue.from(5),
+                                            )
+                                            .putAdditionalProperty("systrom", JsonValue.from(2))
+                                            .putAdditionalProperty("krieger", JsonValue.from(1))
                                             .build()
                                     )
-                                    .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                    .language(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .Language
+                                            .EN
                                     )
-                                    .useEnhanced(true)
                                     .build()
                             )
                             .transcriptionTracks("both")
