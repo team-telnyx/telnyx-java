@@ -47,21 +47,21 @@ internal constructor(private val clientOptions: ClientOptions) :
         params: PhoneNumberAssignmentByProfileAssignParams,
         requestOptions: RequestOptions,
     ): PhoneNumberAssignmentByProfileAssignResponse =
-        // post /phoneNumberAssignmentByProfile
+        // post /10dlc/phoneNumberAssignmentByProfile
         withRawResponse().assign(params, requestOptions).parse()
 
     override fun retrievePhoneNumberStatus(
         params: PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
         requestOptions: RequestOptions,
     ): PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse =
-        // get /phoneNumberAssignmentByProfile/{taskId}/phoneNumbers
+        // get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers
         withRawResponse().retrievePhoneNumberStatus(params, requestOptions).parse()
 
     override fun retrieveStatus(
         params: PhoneNumberAssignmentByProfileRetrieveStatusParams,
         requestOptions: RequestOptions,
     ): PhoneNumberAssignmentByProfileRetrieveStatusResponse =
-        // get /phoneNumberAssignmentByProfile/{taskId}
+        // get /10dlc/phoneNumberAssignmentByProfile/{taskId}
         withRawResponse().retrieveStatus(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -88,7 +88,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("phoneNumberAssignmentByProfile")
+                    .addPathSegments("10dlc", "phoneNumberAssignmentByProfile")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -123,6 +123,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
+                        "10dlc",
                         "phoneNumberAssignmentByProfile",
                         params._pathParam(0),
                         "phoneNumbers",
@@ -159,7 +160,11 @@ internal constructor(private val clientOptions: ClientOptions) :
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("phoneNumberAssignmentByProfile", params._pathParam(0))
+                    .addPathSegments(
+                        "10dlc",
+                        "phoneNumberAssignmentByProfile",
+                        params._pathParam(0),
+                    )
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

@@ -219,8 +219,8 @@ interface PartnerCampaignServiceAsync {
         ): PartnerCampaignServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /partner_campaigns/{campaignId}`, but is otherwise
-         * the same as [PartnerCampaignServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /10dlc/partner_campaigns/{campaignId}`, but is
+         * otherwise the same as [PartnerCampaignServiceAsync.retrieve].
          */
         fun retrieve(
             campaignId: String
@@ -262,8 +262,8 @@ interface PartnerCampaignServiceAsync {
             retrieve(campaignId, PartnerCampaignRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /partner_campaigns/{campaignId}`, but is otherwise
-         * the same as [PartnerCampaignServiceAsync.update].
+         * Returns a raw HTTP response for `patch /10dlc/partner_campaigns/{campaignId}`, but is
+         * otherwise the same as [PartnerCampaignServiceAsync.update].
          */
         fun update(
             campaignId: String
@@ -305,8 +305,8 @@ interface PartnerCampaignServiceAsync {
             update(campaignId, PartnerCampaignUpdateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /partner_campaigns`, but is otherwise the same as
-         * [PartnerCampaignServiceAsync.list].
+         * Returns a raw HTTP response for `get /10dlc/partner_campaigns`, but is otherwise the same
+         * as [PartnerCampaignServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponseFor<PartnerCampaignListResponse>> =
             list(PartnerCampaignListParams.none())
@@ -330,8 +330,8 @@ interface PartnerCampaignServiceAsync {
             list(PartnerCampaignListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /partnerCampaign/sharedByMe`, but is otherwise the
-         * same as [PartnerCampaignServiceAsync.listSharedByMe].
+         * Returns a raw HTTP response for `get /10dlc/partnerCampaign/sharedByMe`, but is otherwise
+         * the same as [PartnerCampaignServiceAsync.listSharedByMe].
          */
         fun listSharedByMe():
             CompletableFuture<HttpResponseFor<PartnerCampaignListSharedByMeResponse>> =
@@ -357,7 +357,7 @@ interface PartnerCampaignServiceAsync {
             listSharedByMe(PartnerCampaignListSharedByMeParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /partnerCampaign/{campaignId}/sharing`, but is
+         * Returns a raw HTTP response for `get /10dlc/partnerCampaign/{campaignId}/sharing`, but is
          * otherwise the same as [PartnerCampaignServiceAsync.retrieveSharingStatus].
          */
         fun retrieveSharingStatus(

@@ -44,7 +44,7 @@ internal constructor(private val clientOptions: ClientOptions) : CampaignBuilder
         params: CampaignBuilderCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxCampaignCsp> =
-        // post /campaignBuilder
+        // post /10dlc/campaignBuilder
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -77,7 +77,7 @@ internal constructor(private val clientOptions: ClientOptions) : CampaignBuilder
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaignBuilder")
+                    .addPathSegments("10dlc", "campaignBuilder")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

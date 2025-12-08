@@ -189,8 +189,8 @@ interface PhoneNumberCampaignServiceAsync {
         ): PhoneNumberCampaignServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /phone_number_campaigns`, but is otherwise the same
-         * as [PhoneNumberCampaignServiceAsync.create].
+         * Returns a raw HTTP response for `post /10dlc/phone_number_campaigns`, but is otherwise
+         * the same as [PhoneNumberCampaignServiceAsync.create].
          */
         fun create(
             params: PhoneNumberCampaignCreateParams
@@ -222,7 +222,7 @@ interface PhoneNumberCampaignServiceAsync {
             create(phoneNumberCampaignCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `get /phone_number_campaigns/{phoneNumber}`, but is
+         * Returns a raw HTTP response for `get /10dlc/phone_number_campaigns/{phoneNumber}`, but is
          * otherwise the same as [PhoneNumberCampaignServiceAsync.retrieve].
          */
         fun retrieve(phoneNumber: String): CompletableFuture<HttpResponseFor<PhoneNumberCampaign>> =
@@ -263,7 +263,7 @@ interface PhoneNumberCampaignServiceAsync {
             retrieve(phoneNumber, PhoneNumberCampaignRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /phone_number_campaigns/{phoneNumber}`, but is
+         * Returns a raw HTTP response for `put /10dlc/phone_number_campaigns/{phoneNumber}`, but is
          * otherwise the same as [PhoneNumberCampaignServiceAsync.update].
          */
         fun update(
@@ -293,8 +293,8 @@ interface PhoneNumberCampaignServiceAsync {
         ): CompletableFuture<HttpResponseFor<PhoneNumberCampaign>>
 
         /**
-         * Returns a raw HTTP response for `get /phone_number_campaigns`, but is otherwise the same
-         * as [PhoneNumberCampaignServiceAsync.list].
+         * Returns a raw HTTP response for `get /10dlc/phone_number_campaigns`, but is otherwise the
+         * same as [PhoneNumberCampaignServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListResponse>> =
             list(PhoneNumberCampaignListParams.none())
@@ -318,8 +318,8 @@ interface PhoneNumberCampaignServiceAsync {
             list(PhoneNumberCampaignListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /phone_number_campaigns/{phoneNumber}`, but is
-         * otherwise the same as [PhoneNumberCampaignServiceAsync.delete].
+         * Returns a raw HTTP response for `delete /10dlc/phone_number_campaigns/{phoneNumber}`, but
+         * is otherwise the same as [PhoneNumberCampaignServiceAsync.delete].
          */
         fun delete(phoneNumber: String): CompletableFuture<HttpResponseFor<PhoneNumberCampaign>> =
             delete(phoneNumber, PhoneNumberCampaignDeleteParams.none())

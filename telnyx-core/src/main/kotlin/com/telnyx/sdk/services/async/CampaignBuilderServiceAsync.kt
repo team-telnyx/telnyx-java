@@ -64,8 +64,8 @@ interface CampaignBuilderServiceAsync {
         fun brand(): BrandServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /campaignBuilder`, but is otherwise the same as
-         * [CampaignBuilderServiceAsync.create].
+         * Returns a raw HTTP response for `post /10dlc/campaignBuilder`, but is otherwise the same
+         * as [CampaignBuilderServiceAsync.create].
          */
         fun create(
             params: CampaignBuilderCreateParams

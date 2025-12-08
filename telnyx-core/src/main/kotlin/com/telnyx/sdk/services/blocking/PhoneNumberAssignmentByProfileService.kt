@@ -163,8 +163,8 @@ interface PhoneNumberAssignmentByProfileService {
         ): PhoneNumberAssignmentByProfileService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /phoneNumberAssignmentByProfile`, but is otherwise
-         * the same as [PhoneNumberAssignmentByProfileService.assign].
+         * Returns a raw HTTP response for `post /10dlc/phoneNumberAssignmentByProfile`, but is
+         * otherwise the same as [PhoneNumberAssignmentByProfileService.assign].
          */
         @MustBeClosed
         fun assign(
@@ -181,8 +181,8 @@ interface PhoneNumberAssignmentByProfileService {
 
         /**
          * Returns a raw HTTP response for `get
-         * /phoneNumberAssignmentByProfile/{taskId}/phoneNumbers`, but is otherwise the same as
-         * [PhoneNumberAssignmentByProfileService.retrievePhoneNumberStatus].
+         * /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers`, but is otherwise the same
+         * as [PhoneNumberAssignmentByProfileService.retrievePhoneNumberStatus].
          */
         @MustBeClosed
         fun retrievePhoneNumberStatus(
@@ -239,8 +239,8 @@ interface PhoneNumberAssignmentByProfileService {
             )
 
         /**
-         * Returns a raw HTTP response for `get /phoneNumberAssignmentByProfile/{taskId}`, but is
-         * otherwise the same as [PhoneNumberAssignmentByProfileService.retrieveStatus].
+         * Returns a raw HTTP response for `get /10dlc/phoneNumberAssignmentByProfile/{taskId}`, but
+         * is otherwise the same as [PhoneNumberAssignmentByProfileService.retrieveStatus].
          */
         @MustBeClosed
         fun retrieveStatus(

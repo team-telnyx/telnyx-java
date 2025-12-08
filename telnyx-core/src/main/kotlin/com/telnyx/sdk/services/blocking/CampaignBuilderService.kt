@@ -64,8 +64,8 @@ interface CampaignBuilderService {
         fun brand(): BrandService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /campaignBuilder`, but is otherwise the same as
-         * [CampaignBuilderService.create].
+         * Returns a raw HTTP response for `post /10dlc/campaignBuilder`, but is otherwise the same
+         * as [CampaignBuilderService.create].
          */
         @MustBeClosed
         fun create(params: CampaignBuilderCreateParams): HttpResponseFor<TelnyxCampaignCsp> =

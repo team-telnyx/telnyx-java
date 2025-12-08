@@ -136,8 +136,8 @@ interface ExternalVettingServiceAsync {
         ): ExternalVettingServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /brand/{brandId}/externalVetting`, but is otherwise
-         * the same as [ExternalVettingServiceAsync.list].
+         * Returns a raw HTTP response for `get /10dlc/brand/{brandId}/externalVetting`, but is
+         * otherwise the same as [ExternalVettingServiceAsync.list].
          */
         fun list(
             brandId: String
@@ -179,8 +179,8 @@ interface ExternalVettingServiceAsync {
             list(brandId, ExternalVettingListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /brand/{brandId}/externalVetting`, but is otherwise
-         * the same as [ExternalVettingServiceAsync.import_].
+         * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/externalVetting`, but is
+         * otherwise the same as [ExternalVettingServiceAsync.import_].
          */
         fun import_(
             brandId: String,
@@ -209,8 +209,8 @@ interface ExternalVettingServiceAsync {
         ): CompletableFuture<HttpResponseFor<ExternalVettingImportResponse>>
 
         /**
-         * Returns a raw HTTP response for `post /brand/{brandId}/externalVetting`, but is otherwise
-         * the same as [ExternalVettingServiceAsync.order].
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/externalVetting`, but is
+         * otherwise the same as [ExternalVettingServiceAsync.order].
          */
         fun order(
             brandId: String,

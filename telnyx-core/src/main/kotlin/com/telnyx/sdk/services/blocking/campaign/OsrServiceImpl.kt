@@ -35,7 +35,7 @@ class OsrServiceImpl internal constructor(private val clientOptions: ClientOptio
         params: OsrGetAttributesParams,
         requestOptions: RequestOptions,
     ): OsrGetAttributesResponse =
-        // get /campaign/{campaignId}/osr/attributes
+        // get /10dlc/campaign/{campaignId}/osr/attributes
         withRawResponse().getAttributes(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -65,7 +65,7 @@ class OsrServiceImpl internal constructor(private val clientOptions: ClientOptio
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0), "osr", "attributes")
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "osr", "attributes")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

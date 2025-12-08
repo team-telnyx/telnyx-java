@@ -294,7 +294,7 @@ interface BrandServiceAsync {
         fun externalVetting(): ExternalVettingServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /brand`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /10dlc/brand`, but is otherwise the same as
          * [BrandServiceAsync.create].
          */
         fun create(params: BrandCreateParams): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
@@ -307,8 +307,8 @@ interface BrandServiceAsync {
         ): CompletableFuture<HttpResponseFor<TelnyxBrand>>
 
         /**
-         * Returns a raw HTTP response for `get /brand/{brandId}`, but is otherwise the same as
-         * [BrandServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /10dlc/brand/{brandId}`, but is otherwise the same
+         * as [BrandServiceAsync.retrieve].
          */
         fun retrieve(brandId: String): CompletableFuture<HttpResponseFor<BrandRetrieveResponse>> =
             retrieve(brandId, BrandRetrieveParams.none())
@@ -348,8 +348,8 @@ interface BrandServiceAsync {
             retrieve(brandId, BrandRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /brand/{brandId}`, but is otherwise the same as
-         * [BrandServiceAsync.update].
+         * Returns a raw HTTP response for `put /10dlc/brand/{brandId}`, but is otherwise the same
+         * as [BrandServiceAsync.update].
          */
         fun update(
             brandId: String,
@@ -376,7 +376,7 @@ interface BrandServiceAsync {
         ): CompletableFuture<HttpResponseFor<TelnyxBrand>>
 
         /**
-         * Returns a raw HTTP response for `get /brand`, but is otherwise the same as
+         * Returns a raw HTTP response for `get /10dlc/brand`, but is otherwise the same as
          * [BrandServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponseFor<BrandListResponse>> =
@@ -401,8 +401,8 @@ interface BrandServiceAsync {
             list(BrandListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /brand/{brandId}`, but is otherwise the same as
-         * [BrandServiceAsync.delete].
+         * Returns a raw HTTP response for `delete /10dlc/brand/{brandId}`, but is otherwise the
+         * same as [BrandServiceAsync.delete].
          */
         fun delete(brandId: String): CompletableFuture<HttpResponse> =
             delete(brandId, BrandDeleteParams.none())
@@ -439,8 +439,8 @@ interface BrandServiceAsync {
             delete(brandId, BrandDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /brand/feedback/{brandId}`, but is otherwise the
-         * same as [BrandServiceAsync.getFeedback].
+         * Returns a raw HTTP response for `get /10dlc/brand/feedback/{brandId}`, but is otherwise
+         * the same as [BrandServiceAsync.getFeedback].
          */
         fun getFeedback(
             brandId: String
@@ -482,8 +482,8 @@ interface BrandServiceAsync {
             getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /brand/{brandId}/2faEmail`, but is otherwise the
-         * same as [BrandServiceAsync.resend2faEmail].
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/2faEmail`, but is otherwise
+         * the same as [BrandServiceAsync.resend2faEmail].
          */
         fun resend2faEmail(brandId: String): CompletableFuture<HttpResponse> =
             resend2faEmail(brandId, BrandResend2faEmailParams.none())
@@ -520,8 +520,8 @@ interface BrandServiceAsync {
             resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /brand/{brandId}/revet`, but is otherwise the same
-         * as [BrandServiceAsync.revet].
+         * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/revet`, but is otherwise the
+         * same as [BrandServiceAsync.revet].
          */
         fun revet(brandId: String): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
             revet(brandId, BrandRevetParams.none())

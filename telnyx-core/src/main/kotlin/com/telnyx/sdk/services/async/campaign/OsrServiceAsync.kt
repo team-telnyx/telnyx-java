@@ -71,7 +71,7 @@ interface OsrServiceAsync {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/osr/attributes`, but is
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/osr/attributes`, but is
          * otherwise the same as [OsrServiceAsync.getAttributes].
          */
         fun getAttributes(

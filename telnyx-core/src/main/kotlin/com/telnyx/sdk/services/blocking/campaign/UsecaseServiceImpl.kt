@@ -34,7 +34,7 @@ class UsecaseServiceImpl internal constructor(private val clientOptions: ClientO
         params: UsecaseGetCostParams,
         requestOptions: RequestOptions,
     ): UsecaseGetCostResponse =
-        // get /campaign/usecase/cost
+        // get /10dlc/campaign/usecase/cost
         withRawResponse().getCost(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -61,7 +61,7 @@ class UsecaseServiceImpl internal constructor(private val clientOptions: ClientO
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", "usecase", "cost")
+                    .addPathSegments("10dlc", "campaign", "usecase", "cost")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

@@ -48,35 +48,35 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
         params: PhoneNumberCampaignCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberCampaign> =
-        // post /phone_number_campaigns
+        // post /10dlc/phone_number_campaigns
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: PhoneNumberCampaignRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberCampaign> =
-        // get /phone_number_campaigns/{phoneNumber}
+        // get /10dlc/phone_number_campaigns/{phoneNumber}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: PhoneNumberCampaignUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberCampaign> =
-        // put /phone_number_campaigns/{phoneNumber}
+        // put /10dlc/phone_number_campaigns/{phoneNumber}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: PhoneNumberCampaignListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberCampaignListResponse> =
-        // get /phone_number_campaigns
+        // get /10dlc/phone_number_campaigns
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: PhoneNumberCampaignDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberCampaign> =
-        // delete /phone_number_campaigns/{phoneNumber}
+        // delete /10dlc/phone_number_campaigns/{phoneNumber}
         withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -103,7 +103,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("phone_number_campaigns")
+                    .addPathSegments("10dlc", "phone_number_campaigns")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -137,7 +137,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("phone_number_campaigns", params._pathParam(0))
+                    .addPathSegments("10dlc", "phone_number_campaigns", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -170,7 +170,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("phone_number_campaigns", params._pathParam(0))
+                    .addPathSegments("10dlc", "phone_number_campaigns", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -201,7 +201,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("phone_number_campaigns")
+                    .addPathSegments("10dlc", "phone_number_campaigns")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -234,7 +234,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("phone_number_campaigns", params._pathParam(0))
+                    .addPathSegments("10dlc", "phone_number_campaigns", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)

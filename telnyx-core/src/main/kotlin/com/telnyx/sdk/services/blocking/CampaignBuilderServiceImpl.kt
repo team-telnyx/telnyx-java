@@ -41,7 +41,7 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
         params: CampaignBuilderCreateParams,
         requestOptions: RequestOptions,
     ): TelnyxCampaignCsp =
-        // post /campaignBuilder
+        // post /10dlc/campaignBuilder
         withRawResponse().create(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -74,7 +74,7 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaignBuilder")
+                    .addPathSegments("10dlc", "campaignBuilder")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

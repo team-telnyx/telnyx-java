@@ -265,7 +265,7 @@ interface BrandService {
         fun externalVetting(): ExternalVettingService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /brand`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /10dlc/brand`, but is otherwise the same as
          * [BrandService.create].
          */
         @MustBeClosed
@@ -280,8 +280,8 @@ interface BrandService {
         ): HttpResponseFor<TelnyxBrand>
 
         /**
-         * Returns a raw HTTP response for `get /brand/{brandId}`, but is otherwise the same as
-         * [BrandService.retrieve].
+         * Returns a raw HTTP response for `get /10dlc/brand/{brandId}`, but is otherwise the same
+         * as [BrandService.retrieve].
          */
         @MustBeClosed
         fun retrieve(brandId: String): HttpResponseFor<BrandRetrieveResponse> =
@@ -324,8 +324,8 @@ interface BrandService {
             retrieve(brandId, BrandRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /brand/{brandId}`, but is otherwise the same as
-         * [BrandService.update].
+         * Returns a raw HTTP response for `put /10dlc/brand/{brandId}`, but is otherwise the same
+         * as [BrandService.update].
          */
         @MustBeClosed
         fun update(brandId: String, params: BrandUpdateParams): HttpResponseFor<TelnyxBrand> =
@@ -353,7 +353,7 @@ interface BrandService {
         ): HttpResponseFor<TelnyxBrand>
 
         /**
-         * Returns a raw HTTP response for `get /brand`, but is otherwise the same as
+         * Returns a raw HTTP response for `get /10dlc/brand`, but is otherwise the same as
          * [BrandService.list].
          */
         @MustBeClosed fun list(): HttpResponseFor<BrandListResponse> = list(BrandListParams.none())
@@ -377,8 +377,8 @@ interface BrandService {
             list(BrandListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /brand/{brandId}`, but is otherwise the same as
-         * [BrandService.delete].
+         * Returns a raw HTTP response for `delete /10dlc/brand/{brandId}`, but is otherwise the
+         * same as [BrandService.delete].
          */
         @MustBeClosed
         fun delete(brandId: String): HttpResponse = delete(brandId, BrandDeleteParams.none())
@@ -415,8 +415,8 @@ interface BrandService {
             delete(brandId, BrandDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /brand/feedback/{brandId}`, but is otherwise the
-         * same as [BrandService.getFeedback].
+         * Returns a raw HTTP response for `get /10dlc/brand/feedback/{brandId}`, but is otherwise
+         * the same as [BrandService.getFeedback].
          */
         @MustBeClosed
         fun getFeedback(brandId: String): HttpResponseFor<BrandGetFeedbackResponse> =
@@ -460,8 +460,8 @@ interface BrandService {
             getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /brand/{brandId}/2faEmail`, but is otherwise the
-         * same as [BrandService.resend2faEmail].
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/2faEmail`, but is otherwise
+         * the same as [BrandService.resend2faEmail].
          */
         @MustBeClosed
         fun resend2faEmail(brandId: String): HttpResponse =
@@ -501,8 +501,8 @@ interface BrandService {
             resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /brand/{brandId}/revet`, but is otherwise the same
-         * as [BrandService.revet].
+         * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/revet`, but is otherwise the
+         * same as [BrandService.revet].
          */
         @MustBeClosed
         fun revet(brandId: String): HttpResponseFor<TelnyxBrand> =

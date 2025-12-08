@@ -35,7 +35,7 @@ class EnumServiceImpl internal constructor(private val clientOptions: ClientOpti
         params: EnumRetrieveParams,
         requestOptions: RequestOptions,
     ): EnumRetrieveResponse =
-        // get /enum/{endpoint}
+        // get /10dlc/enum/{endpoint}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -65,7 +65,7 @@ class EnumServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("enum", params._pathParam(0))
+                    .addPathSegments("10dlc", "enum", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

@@ -65,63 +65,63 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
         params: CampaignRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxCampaignCsp> =
-        // get /campaign/{campaignId}
+        // get /10dlc/campaign/{campaignId}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: CampaignUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxCampaignCsp> =
-        // put /campaign/{campaignId}
+        // put /10dlc/campaign/{campaignId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignListResponse> =
-        // get /campaign
+        // get /10dlc/campaign
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun acceptSharing(
         params: CampaignAcceptSharingParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignAcceptSharingResponse> =
-        // post /campaign/acceptSharing/{campaignId}
+        // post /10dlc/campaign/acceptSharing/{campaignId}
         withRawResponse().acceptSharing(params, requestOptions).thenApply { it.parse() }
 
     override fun deactivate(
         params: CampaignDeactivateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignDeactivateResponse> =
-        // delete /campaign/{campaignId}
+        // delete /10dlc/campaign/{campaignId}
         withRawResponse().deactivate(params, requestOptions).thenApply { it.parse() }
 
     override fun getMnoMetadata(
         params: CampaignGetMnoMetadataParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignGetMnoMetadataResponse> =
-        // get /campaign/{campaignId}/mnoMetadata
+        // get /10dlc/campaign/{campaignId}/mnoMetadata
         withRawResponse().getMnoMetadata(params, requestOptions).thenApply { it.parse() }
 
     override fun getOperationStatus(
         params: CampaignGetOperationStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignGetOperationStatusResponse> =
-        // get /campaign/{campaignId}/operationStatus
+        // get /10dlc/campaign/{campaignId}/operationStatus
         withRawResponse().getOperationStatus(params, requestOptions).thenApply { it.parse() }
 
     override fun getSharingStatus(
         params: CampaignGetSharingStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignGetSharingStatusResponse> =
-        // get /campaign/{campaignId}/sharing
+        // get /10dlc/campaign/{campaignId}/sharing
         withRawResponse().getSharingStatus(params, requestOptions).thenApply { it.parse() }
 
     override fun submitAppeal(
         params: CampaignSubmitAppealParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignSubmitAppealResponse> =
-        // post /campaign/{campaignId}/appeal
+        // post /10dlc/campaign/{campaignId}/appeal
         withRawResponse().submitAppeal(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -163,7 +163,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0))
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -196,7 +196,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0))
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -227,7 +227,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign")
+                    .addPathSegments("10dlc", "campaign")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -260,7 +260,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", "acceptSharing", params._pathParam(0))
+                    .addPathSegments("10dlc", "campaign", "acceptSharing", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -294,7 +294,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0))
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -328,7 +328,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0), "mnoMetadata")
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "mnoMetadata")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -361,7 +361,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0), "operationStatus")
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "operationStatus")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -394,7 +394,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0), "sharing")
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "sharing")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -427,7 +427,7 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0), "appeal")
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "appeal")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

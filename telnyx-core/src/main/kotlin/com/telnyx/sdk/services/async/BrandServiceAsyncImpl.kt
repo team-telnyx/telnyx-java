@@ -57,56 +57,56 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
         params: BrandCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxBrand> =
-        // post /brand
+        // post /10dlc/brand
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieve(
         params: BrandRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandRetrieveResponse> =
-        // get /brand/{brandId}
+        // get /10dlc/brand/{brandId}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: BrandUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxBrand> =
-        // put /brand/{brandId}
+        // put /10dlc/brand/{brandId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: BrandListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandListResponse> =
-        // get /brand
+        // get /10dlc/brand
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: BrandDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // delete /brand/{brandId}
+        // delete /10dlc/brand/{brandId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun getFeedback(
         params: BrandGetFeedbackParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandGetFeedbackResponse> =
-        // get /brand/feedback/{brandId}
+        // get /10dlc/brand/feedback/{brandId}
         withRawResponse().getFeedback(params, requestOptions).thenApply { it.parse() }
 
     override fun resend2faEmail(
         params: BrandResend2faEmailParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // post /brand/{brandId}/2faEmail
+        // post /10dlc/brand/{brandId}/2faEmail
         withRawResponse().resend2faEmail(params, requestOptions).thenAccept {}
 
     override fun revet(
         params: BrandRevetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxBrand> =
-        // put /brand/{brandId}/revet
+        // put /10dlc/brand/{brandId}/revet
         withRawResponse().revet(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -140,7 +140,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand")
+                    .addPathSegments("10dlc", "brand")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -174,7 +174,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -207,7 +207,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -238,7 +238,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand")
+                    .addPathSegments("10dlc", "brand")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -270,7 +270,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -298,7 +298,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", "feedback", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", "feedback", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -330,7 +330,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0), "2faEmail")
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "2faEmail")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -358,7 +358,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0), "revet")
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "revet")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)

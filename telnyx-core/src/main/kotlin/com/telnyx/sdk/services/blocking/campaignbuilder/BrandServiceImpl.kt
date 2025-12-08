@@ -36,7 +36,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         params: BrandQualifyByUsecaseParams,
         requestOptions: RequestOptions,
     ): BrandQualifyByUsecaseResponse =
-        // get /campaignBuilder/brand/{brandId}/usecase/{usecase}
+        // get /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}
         withRawResponse().qualifyByUsecase(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -67,6 +67,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
+                        "10dlc",
                         "campaignBuilder",
                         "brand",
                         params._pathParam(0),
