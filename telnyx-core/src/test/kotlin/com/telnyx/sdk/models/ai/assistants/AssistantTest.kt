@@ -15,7 +15,7 @@ internal class AssistantTest {
         val assistant =
             Assistant.builder()
                 .instructions("You are a friendly voice assistant.")
-                .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
+                .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
                 .addBookAppointmentTool(
                     Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
@@ -28,7 +28,7 @@ internal class AssistantTest {
                 .build()
 
         assertThat(assistant.instructions()).contains("You are a friendly voice assistant.")
-        assertThat(assistant.model()).contains("meta-llama/Meta-Llama-3.1-70B-Instruct")
+        assertThat(assistant.model()).contains("Qwen/Qwen3-235B-A22B")
         assertThat(assistant.openaiApiKeyRef()).contains("my_openai_api_key")
         assertThat(assistant.tools().getOrNull())
             .containsExactly(
@@ -53,7 +53,7 @@ internal class AssistantTest {
         val assistant =
             Assistant.builder()
                 .instructions("You are a friendly voice assistant.")
-                .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
+                .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
                 .addBookAppointmentTool(
                     Assistant.Tool.BookAppointment.InnerBookAppointment.builder()

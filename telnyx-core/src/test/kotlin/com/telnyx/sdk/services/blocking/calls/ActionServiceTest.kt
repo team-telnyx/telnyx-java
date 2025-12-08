@@ -294,7 +294,7 @@ internal class ActionServiceTest {
                     .assistant(
                         Assistant.builder()
                             .instructions("You are a friendly voice assistant.")
-                            .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
+                            .model("Qwen/Qwen3-235B-A22B")
                             .openaiApiKeyRef("my_openai_api_key")
                             .addBookAppointmentTool(
                                 Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
