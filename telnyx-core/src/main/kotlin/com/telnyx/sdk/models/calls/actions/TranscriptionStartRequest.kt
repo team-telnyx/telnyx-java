@@ -2530,6 +2530,7 @@ private constructor(
         private constructor(
             private val transcriptionEngine: JsonValue,
             private val transcriptionModel: JsonField<TranscriptionModel>,
+            private val keywordsBoosting: JsonField<KeywordsBoosting>,
             private val language: JsonField<Language>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -2542,10 +2543,19 @@ private constructor(
                 @JsonProperty("transcription_model")
                 @ExcludeMissing
                 transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of(),
+                @JsonProperty("keywords_boosting")
+                @ExcludeMissing
+                keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of(),
                 @JsonProperty("language")
                 @ExcludeMissing
                 language: JsonField<Language> = JsonMissing.of(),
-            ) : this(transcriptionEngine, transcriptionModel, language, mutableMapOf())
+            ) : this(
+                transcriptionEngine,
+                transcriptionModel,
+                keywordsBoosting,
+                language,
+                mutableMapOf(),
+            )
 
             /**
              * Engine identifier for Deepgram transcription service
@@ -2573,6 +2583,17 @@ private constructor(
                 transcriptionModel.getRequired("transcription_model")
 
             /**
+             * Keywords and their respective intensifiers (boosting values) to improve transcription
+             * accuracy for specific words or phrases. The intensifier should be a numeric value.
+             * Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun keywordsBoosting(): Optional<KeywordsBoosting> =
+                keywordsBoosting.getOptional("keywords_boosting")
+
+            /**
              * Language to use for speech recognition. Available languages depend on the selected
              * model.
              *
@@ -2590,6 +2611,16 @@ private constructor(
             @JsonProperty("transcription_model")
             @ExcludeMissing
             fun _transcriptionModel(): JsonField<TranscriptionModel> = transcriptionModel
+
+            /**
+             * Returns the raw JSON value of [keywordsBoosting].
+             *
+             * Unlike [keywordsBoosting], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("keywords_boosting")
+            @ExcludeMissing
+            fun _keywordsBoosting(): JsonField<KeywordsBoosting> = keywordsBoosting
 
             /**
              * Returns the raw JSON value of [language].
@@ -2631,6 +2662,7 @@ private constructor(
 
                 private var transcriptionEngine: JsonValue = JsonValue.from("Deepgram")
                 private var transcriptionModel: JsonField<TranscriptionModel>? = null
+                private var keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of()
                 private var language: JsonField<Language> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2638,6 +2670,7 @@ private constructor(
                 internal fun from(deepgram: Deepgram) = apply {
                     transcriptionEngine = deepgram.transcriptionEngine
                     transcriptionModel = deepgram.transcriptionModel
+                    keywordsBoosting = deepgram.keywordsBoosting
                     language = deepgram.language
                     additionalProperties = deepgram.additionalProperties.toMutableMap()
                 }
@@ -2671,6 +2704,25 @@ private constructor(
                  */
                 fun transcriptionModel(transcriptionModel: JsonField<TranscriptionModel>) = apply {
                     this.transcriptionModel = transcriptionModel
+                }
+
+                /**
+                 * Keywords and their respective intensifiers (boosting values) to improve
+                 * transcription accuracy for specific words or phrases. The intensifier should be a
+                 * numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+                 */
+                fun keywordsBoosting(keywordsBoosting: KeywordsBoosting) =
+                    keywordsBoosting(JsonField.of(keywordsBoosting))
+
+                /**
+                 * Sets [Builder.keywordsBoosting] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.keywordsBoosting] with a well-typed
+                 * [KeywordsBoosting] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun keywordsBoosting(keywordsBoosting: JsonField<KeywordsBoosting>) = apply {
+                    this.keywordsBoosting = keywordsBoosting
                 }
 
                 /**
@@ -2726,6 +2778,7 @@ private constructor(
                     Deepgram(
                         transcriptionEngine,
                         checkRequired("transcriptionModel", transcriptionModel),
+                        keywordsBoosting,
                         language,
                         additionalProperties.toMutableMap(),
                     )
@@ -2746,6 +2799,7 @@ private constructor(
                     }
                 }
                 transcriptionModel().validate()
+                keywordsBoosting().ifPresent { it.validate() }
                 language().ifPresent { it.validate() }
                 validated = true
             }
@@ -2768,6 +2822,7 @@ private constructor(
             internal fun validity(): Int =
                 transcriptionEngine.let { if (it == JsonValue.from("Deepgram")) 1 else 0 } +
                     (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0) +
+                    (keywordsBoosting.asKnown().getOrNull()?.validity() ?: 0) +
                     (language.asKnown().getOrNull()?.validity() ?: 0)
 
             /** The model to use for transcription. */
@@ -2904,6 +2959,120 @@ private constructor(
                 override fun hashCode() = value.hashCode()
 
                 override fun toString() = value.toString()
+            }
+
+            /**
+             * Keywords and their respective intensifiers (boosting values) to improve transcription
+             * accuracy for specific words or phrases. The intensifier should be a numeric value.
+             * Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+             */
+            class KeywordsBoosting
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [KeywordsBoosting].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [KeywordsBoosting]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(keywordsBoosting: KeywordsBoosting) = apply {
+                        additionalProperties = keywordsBoosting.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [KeywordsBoosting].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): KeywordsBoosting =
+                        KeywordsBoosting(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): KeywordsBoosting = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is KeywordsBoosting &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "KeywordsBoosting{additionalProperties=$additionalProperties}"
             }
 
             /**
@@ -3361,6 +3530,7 @@ private constructor(
                 return other is Deepgram &&
                     transcriptionEngine == other.transcriptionEngine &&
                     transcriptionModel == other.transcriptionModel &&
+                    keywordsBoosting == other.keywordsBoosting &&
                     language == other.language &&
                     additionalProperties == other.additionalProperties
             }
@@ -3369,6 +3539,7 @@ private constructor(
                 Objects.hash(
                     transcriptionEngine,
                     transcriptionModel,
+                    keywordsBoosting,
                     language,
                     additionalProperties,
                 )
@@ -3377,7 +3548,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Deepgram{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, language=$language, additionalProperties=$additionalProperties}"
+                "Deepgram{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, keywordsBoosting=$keywordsBoosting, language=$language, additionalProperties=$additionalProperties}"
         }
 
         class Azure

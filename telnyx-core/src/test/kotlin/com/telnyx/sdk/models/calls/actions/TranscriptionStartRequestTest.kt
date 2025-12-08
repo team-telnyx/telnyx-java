@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.calls.actions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,33 +16,26 @@ internal class TranscriptionStartRequestTest {
             TranscriptionStartRequest.builder()
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
+                .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM)
                 .transcriptionEngineConfig(
-                    TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
-                        .enableSpeakerDiarization(true)
-                        .addHint("string")
-                        .interimResults(true)
-                        .language(GoogleTranscriptionLanguage.EN)
-                        .maxSpeakerCount(4)
-                        .minSpeakerCount(4)
-                        .model(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                .LATEST_LONG
+                    TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.builder()
+                        .transcriptionModel(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                .TranscriptionModel
+                                .DEEPGRAM_NOVA_2
                         )
-                        .profanityFilter(true)
-                        .addSpeechContext(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.SpeechContext
+                        .keywordsBoosting(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                .KeywordsBoosting
                                 .builder()
-                                .boost(1.0)
-                                .addPhrase("string")
+                                .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
+                                .putAdditionalProperty("systrom", JsonValue.from(2))
+                                .putAdditionalProperty("krieger", JsonValue.from(1))
                                 .build()
                         )
-                        .transcriptionEngine(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                .TranscriptionEngine
-                                .GOOGLE
+                        .language(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.Language.EN
                         )
-                        .useEnhanced(true)
                         .build()
                 )
                 .transcriptionTracks("both")
@@ -51,35 +45,28 @@ internal class TranscriptionStartRequestTest {
         assertThat(transcriptionStartRequest.commandId())
             .contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(transcriptionStartRequest.transcriptionEngine())
-            .contains(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
+            .contains(TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM)
         assertThat(transcriptionStartRequest.transcriptionEngineConfig())
             .contains(
-                TranscriptionStartRequest.TranscriptionEngineConfig.ofGoogle(
-                    TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
-                        .enableSpeakerDiarization(true)
-                        .addHint("string")
-                        .interimResults(true)
-                        .language(GoogleTranscriptionLanguage.EN)
-                        .maxSpeakerCount(4)
-                        .minSpeakerCount(4)
-                        .model(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                .LATEST_LONG
+                TranscriptionStartRequest.TranscriptionEngineConfig.ofDeepgram(
+                    TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.builder()
+                        .transcriptionModel(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                .TranscriptionModel
+                                .DEEPGRAM_NOVA_2
                         )
-                        .profanityFilter(true)
-                        .addSpeechContext(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.SpeechContext
+                        .keywordsBoosting(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                .KeywordsBoosting
                                 .builder()
-                                .boost(1.0)
-                                .addPhrase("string")
+                                .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
+                                .putAdditionalProperty("systrom", JsonValue.from(2))
+                                .putAdditionalProperty("krieger", JsonValue.from(1))
                                 .build()
                         )
-                        .transcriptionEngine(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                .TranscriptionEngine
-                                .GOOGLE
+                        .language(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.Language.EN
                         )
-                        .useEnhanced(true)
                         .build()
                 )
             )
@@ -93,33 +80,26 @@ internal class TranscriptionStartRequestTest {
             TranscriptionStartRequest.builder()
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
-                .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
+                .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM)
                 .transcriptionEngineConfig(
-                    TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
-                        .enableSpeakerDiarization(true)
-                        .addHint("string")
-                        .interimResults(true)
-                        .language(GoogleTranscriptionLanguage.EN)
-                        .maxSpeakerCount(4)
-                        .minSpeakerCount(4)
-                        .model(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                .LATEST_LONG
+                    TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.builder()
+                        .transcriptionModel(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                .TranscriptionModel
+                                .DEEPGRAM_NOVA_2
                         )
-                        .profanityFilter(true)
-                        .addSpeechContext(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.SpeechContext
+                        .keywordsBoosting(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                .KeywordsBoosting
                                 .builder()
-                                .boost(1.0)
-                                .addPhrase("string")
+                                .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
+                                .putAdditionalProperty("systrom", JsonValue.from(2))
+                                .putAdditionalProperty("krieger", JsonValue.from(1))
                                 .build()
                         )
-                        .transcriptionEngine(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                .TranscriptionEngine
-                                .GOOGLE
+                        .language(
+                            TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram.Language.EN
                         )
-                        .useEnhanced(true)
                         .build()
                 )
                 .transcriptionTracks("both")

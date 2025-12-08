@@ -122,36 +122,33 @@ internal class ActionServiceTest {
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                             .transcriptionEngine(
-                                TranscriptionStartRequest.TranscriptionEngine.GOOGLE
+                                TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
-                                    .enableSpeakerDiarization(true)
-                                    .addHint("string")
-                                    .interimResults(true)
-                                    .language(GoogleTranscriptionLanguage.EN)
-                                    .maxSpeakerCount(4)
-                                    .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                    .builder()
+                                    .transcriptionModel(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .TranscriptionModel
+                                            .DEEPGRAM_NOVA_2
                                     )
-                                    .profanityFilter(true)
-                                    .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
+                                    .keywordsBoosting(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .KeywordsBoosting
                                             .builder()
-                                            .boost(1.0)
-                                            .addPhrase("string")
+                                            .putAdditionalProperty(
+                                                "snuffleupagus",
+                                                JsonValue.from(5),
+                                            )
+                                            .putAdditionalProperty("systrom", JsonValue.from(2))
+                                            .putAdditionalProperty("krieger", JsonValue.from(1))
                                             .build()
                                     )
-                                    .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                    .language(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .Language
+                                            .EN
                                     )
-                                    .useEnhanced(true)
                                     .build()
                             )
                             .transcriptionTracks("both")
@@ -901,36 +898,33 @@ internal class ActionServiceTest {
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                             .transcriptionEngine(
-                                TranscriptionStartRequest.TranscriptionEngine.GOOGLE
+                                TranscriptionStartRequest.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
-                                    .enableSpeakerDiarization(true)
-                                    .addHint("string")
-                                    .interimResults(true)
-                                    .language(GoogleTranscriptionLanguage.EN)
-                                    .maxSpeakerCount(4)
-                                    .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
+                                TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                    .builder()
+                                    .transcriptionModel(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .TranscriptionModel
+                                            .DEEPGRAM_NOVA_2
                                     )
-                                    .profanityFilter(true)
-                                    .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
+                                    .keywordsBoosting(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .KeywordsBoosting
                                             .builder()
-                                            .boost(1.0)
-                                            .addPhrase("string")
+                                            .putAdditionalProperty(
+                                                "snuffleupagus",
+                                                JsonValue.from(5),
+                                            )
+                                            .putAdditionalProperty("systrom", JsonValue.from(2))
+                                            .putAdditionalProperty("krieger", JsonValue.from(1))
                                             .build()
                                     )
-                                    .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                    .language(
+                                        TranscriptionStartRequest.TranscriptionEngineConfig.Deepgram
+                                            .Language
+                                            .EN
                                     )
-                                    .useEnhanced(true)
                                     .build()
                             )
                             .transcriptionTracks("both")
