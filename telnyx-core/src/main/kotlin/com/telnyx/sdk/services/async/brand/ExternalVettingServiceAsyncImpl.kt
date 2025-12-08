@@ -44,21 +44,21 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
         params: ExternalVettingListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<List<ExternalVettingListResponse>> =
-        // get /brand/{brandId}/externalVetting
+        // get /10dlc/brand/{brandId}/externalVetting
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun import_(
         params: ExternalVettingImportParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ExternalVettingImportResponse> =
-        // put /brand/{brandId}/externalVetting
+        // put /10dlc/brand/{brandId}/externalVetting
         withRawResponse().import_(params, requestOptions).thenApply { it.parse() }
 
     override fun order(
         params: ExternalVettingOrderParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ExternalVettingOrderResponse> =
-        // post /brand/{brandId}/externalVetting
+        // post /10dlc/brand/{brandId}/externalVetting
         withRawResponse().order(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -88,7 +88,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0), "externalVetting")
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "externalVetting")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -121,7 +121,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0), "externalVetting")
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "externalVetting")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -155,7 +155,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0), "externalVetting")
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "externalVetting")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

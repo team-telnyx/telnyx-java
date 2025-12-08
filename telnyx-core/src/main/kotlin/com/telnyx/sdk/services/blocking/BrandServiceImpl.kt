@@ -53,26 +53,26 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun externalVetting(): ExternalVettingService = externalVetting
 
     override fun create(params: BrandCreateParams, requestOptions: RequestOptions): TelnyxBrand =
-        // post /brand
+        // post /10dlc/brand
         withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: BrandRetrieveParams,
         requestOptions: RequestOptions,
     ): BrandRetrieveResponse =
-        // get /brand/{brandId}
+        // get /10dlc/brand/{brandId}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun update(params: BrandUpdateParams, requestOptions: RequestOptions): TelnyxBrand =
-        // put /brand/{brandId}
+        // put /10dlc/brand/{brandId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListResponse =
-        // get /brand
+        // get /10dlc/brand
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: BrandDeleteParams, requestOptions: RequestOptions) {
-        // delete /brand/{brandId}
+        // delete /10dlc/brand/{brandId}
         withRawResponse().delete(params, requestOptions)
     }
 
@@ -80,16 +80,16 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         params: BrandGetFeedbackParams,
         requestOptions: RequestOptions,
     ): BrandGetFeedbackResponse =
-        // get /brand/feedback/{brandId}
+        // get /10dlc/brand/feedback/{brandId}
         withRawResponse().getFeedback(params, requestOptions).parse()
 
     override fun resend2faEmail(params: BrandResend2faEmailParams, requestOptions: RequestOptions) {
-        // post /brand/{brandId}/2faEmail
+        // post /10dlc/brand/{brandId}/2faEmail
         withRawResponse().resend2faEmail(params, requestOptions)
     }
 
     override fun revet(params: BrandRevetParams, requestOptions: RequestOptions): TelnyxBrand =
-        // put /brand/{brandId}/revet
+        // put /10dlc/brand/{brandId}/revet
         withRawResponse().revet(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -122,7 +122,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand")
+                    .addPathSegments("10dlc", "brand")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -153,7 +153,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -183,7 +183,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -211,7 +211,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand")
+                    .addPathSegments("10dlc", "brand")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -240,7 +240,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -265,7 +265,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", "feedback", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", "feedback", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -294,7 +294,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0), "2faEmail")
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "2faEmail")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -319,7 +319,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("brand", params._pathParam(0), "revet")
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "revet")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)

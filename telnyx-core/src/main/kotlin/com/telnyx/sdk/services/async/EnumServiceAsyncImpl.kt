@@ -37,7 +37,7 @@ class EnumServiceAsyncImpl internal constructor(private val clientOptions: Clien
         params: EnumRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EnumRetrieveResponse> =
-        // get /enum/{endpoint}
+        // get /10dlc/enum/{endpoint}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -67,7 +67,7 @@ class EnumServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("enum", params._pathParam(0))
+                    .addPathSegments("10dlc", "enum", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

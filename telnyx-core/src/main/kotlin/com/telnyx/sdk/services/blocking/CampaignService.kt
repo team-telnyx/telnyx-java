@@ -339,8 +339,8 @@ interface CampaignService {
         fun osr(): OsrService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}`, but is otherwise the same
-         * as [CampaignService.retrieve].
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}`, but is otherwise the
+         * same as [CampaignService.retrieve].
          */
         @MustBeClosed
         fun retrieve(campaignId: String): HttpResponseFor<TelnyxCampaignCsp> =
@@ -383,8 +383,8 @@ interface CampaignService {
             retrieve(campaignId, CampaignRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /campaign/{campaignId}`, but is otherwise the same
-         * as [CampaignService.update].
+         * Returns a raw HTTP response for `put /10dlc/campaign/{campaignId}`, but is otherwise the
+         * same as [CampaignService.update].
          */
         @MustBeClosed
         fun update(campaignId: String): HttpResponseFor<TelnyxCampaignCsp> =
@@ -427,7 +427,7 @@ interface CampaignService {
             update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign`, but is otherwise the same as
+         * Returns a raw HTTP response for `get /10dlc/campaign`, but is otherwise the same as
          * [CampaignService.list].
          */
         @MustBeClosed
@@ -442,7 +442,7 @@ interface CampaignService {
         ): HttpResponseFor<CampaignListResponse>
 
         /**
-         * Returns a raw HTTP response for `post /campaign/acceptSharing/{campaignId}`, but is
+         * Returns a raw HTTP response for `post /10dlc/campaign/acceptSharing/{campaignId}`, but is
          * otherwise the same as [CampaignService.acceptSharing].
          */
         @MustBeClosed
@@ -489,8 +489,8 @@ interface CampaignService {
             acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /campaign/{campaignId}`, but is otherwise the
-         * same as [CampaignService.deactivate].
+         * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
+         * the same as [CampaignService.deactivate].
          */
         @MustBeClosed
         fun deactivate(campaignId: String): HttpResponseFor<CampaignDeactivateResponse> =
@@ -535,7 +535,7 @@ interface CampaignService {
             deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/mnoMetadata`, but is
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/mnoMetadata`, but is
          * otherwise the same as [CampaignService.getMnoMetadata].
          */
         @MustBeClosed
@@ -582,8 +582,8 @@ interface CampaignService {
             getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/operationStatus`, but is
-         * otherwise the same as [CampaignService.getOperationStatus].
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/operationStatus`, but
+         * is otherwise the same as [CampaignService.getOperationStatus].
          */
         @MustBeClosed
         fun getOperationStatus(
@@ -631,8 +631,8 @@ interface CampaignService {
             getOperationStatus(campaignId, CampaignGetOperationStatusParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/sharing`, but is otherwise
-         * the same as [CampaignService.getSharingStatus].
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/sharing`, but is
+         * otherwise the same as [CampaignService.getSharingStatus].
          */
         @MustBeClosed
         fun getSharingStatus(
@@ -680,8 +680,8 @@ interface CampaignService {
             getSharingStatus(campaignId, CampaignGetSharingStatusParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /campaign/{campaignId}/appeal`, but is otherwise
-         * the same as [CampaignService.submitAppeal].
+         * Returns a raw HTTP response for `post /10dlc/campaign/{campaignId}/appeal`, but is
+         * otherwise the same as [CampaignService.submitAppeal].
          */
         @MustBeClosed
         fun submitAppeal(

@@ -69,8 +69,8 @@ interface EnumService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnumService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /enum/{endpoint}`, but is otherwise the same as
-         * [EnumService.retrieve].
+         * Returns a raw HTTP response for `get /10dlc/enum/{endpoint}`, but is otherwise the same
+         * as [EnumService.retrieve].
          */
         @MustBeClosed
         fun retrieve(endpoint: EnumRetrieveParams.Endpoint): HttpResponseFor<EnumRetrieveResponse> =

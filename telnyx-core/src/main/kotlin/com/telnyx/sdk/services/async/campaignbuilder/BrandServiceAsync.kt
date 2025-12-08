@@ -67,8 +67,9 @@ interface BrandServiceAsync {
         ): BrandServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaignBuilder/brand/{brandId}/usecase/{usecase}`,
-         * but is otherwise the same as [BrandServiceAsync.qualifyByUsecase].
+         * Returns a raw HTTP response for `get
+         * /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}`, but is otherwise the same as
+         * [BrandServiceAsync.qualifyByUsecase].
          */
         fun qualifyByUsecase(
             usecase: String,

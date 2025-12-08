@@ -35,7 +35,7 @@ class UsecaseServiceAsyncImpl internal constructor(private val clientOptions: Cl
         params: UsecaseGetCostParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UsecaseGetCostResponse> =
-        // get /campaign/usecase/cost
+        // get /10dlc/campaign/usecase/cost
         withRawResponse().getCost(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -62,7 +62,7 @@ class UsecaseServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", "usecase", "cost")
+                    .addPathSegments("10dlc", "campaign", "usecase", "cost")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

@@ -70,7 +70,7 @@ interface OsrService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/osr/attributes`, but is
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/osr/attributes`, but is
          * otherwise the same as [OsrService.getAttributes].
          */
         @MustBeClosed

@@ -44,35 +44,35 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
         params: PartnerCampaignRetrieveParams,
         requestOptions: RequestOptions,
     ): TelnyxDownstreamCampaign =
-        // get /partner_campaigns/{campaignId}
+        // get /10dlc/partner_campaigns/{campaignId}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun update(
         params: PartnerCampaignUpdateParams,
         requestOptions: RequestOptions,
     ): TelnyxDownstreamCampaign =
-        // patch /partner_campaigns/{campaignId}
+        // patch /10dlc/partner_campaigns/{campaignId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(
         params: PartnerCampaignListParams,
         requestOptions: RequestOptions,
     ): PartnerCampaignListResponse =
-        // get /partner_campaigns
+        // get /10dlc/partner_campaigns
         withRawResponse().list(params, requestOptions).parse()
 
     override fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams,
         requestOptions: RequestOptions,
     ): PartnerCampaignListSharedByMeResponse =
-        // get /partnerCampaign/sharedByMe
+        // get /10dlc/partnerCampaign/sharedByMe
         withRawResponse().listSharedByMe(params, requestOptions).parse()
 
     override fun retrieveSharingStatus(
         params: PartnerCampaignRetrieveSharingStatusParams,
         requestOptions: RequestOptions,
     ): PartnerCampaignRetrieveSharingStatusResponse =
-        // get /partnerCampaign/{campaignId}/sharing
+        // get /10dlc/partnerCampaign/{campaignId}/sharing
         withRawResponse().retrieveSharingStatus(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -102,7 +102,7 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("partner_campaigns", params._pathParam(0))
+                    .addPathSegments("10dlc", "partner_campaigns", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -132,7 +132,7 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("partner_campaigns", params._pathParam(0))
+                    .addPathSegments("10dlc", "partner_campaigns", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -160,7 +160,7 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("partner_campaigns")
+                    .addPathSegments("10dlc", "partner_campaigns")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -187,7 +187,7 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("partnerCampaign", "sharedByMe")
+                    .addPathSegments("10dlc", "partnerCampaign", "sharedByMe")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -218,7 +218,7 @@ class PartnerCampaignServiceImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("partnerCampaign", params._pathParam(0), "sharing")
+                    .addPathSegments("10dlc", "partnerCampaign", params._pathParam(0), "sharing")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

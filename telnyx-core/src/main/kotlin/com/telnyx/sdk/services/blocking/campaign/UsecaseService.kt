@@ -45,8 +45,8 @@ interface UsecaseService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsecaseService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaign/usecase/cost`, but is otherwise the same
-         * as [UsecaseService.getCost].
+         * Returns a raw HTTP response for `get /10dlc/campaign/usecase/cost`, but is otherwise the
+         * same as [UsecaseService.getCost].
          */
         @MustBeClosed
         fun getCost(params: UsecaseGetCostParams): HttpResponseFor<UsecaseGetCostResponse> =

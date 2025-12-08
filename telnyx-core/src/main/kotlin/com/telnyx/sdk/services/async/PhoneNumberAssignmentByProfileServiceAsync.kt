@@ -166,8 +166,8 @@ interface PhoneNumberAssignmentByProfileServiceAsync {
         ): PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /phoneNumberAssignmentByProfile`, but is otherwise
-         * the same as [PhoneNumberAssignmentByProfileServiceAsync.assign].
+         * Returns a raw HTTP response for `post /10dlc/phoneNumberAssignmentByProfile`, but is
+         * otherwise the same as [PhoneNumberAssignmentByProfileServiceAsync.assign].
          */
         fun assign(
             params: PhoneNumberAssignmentByProfileAssignParams
@@ -182,8 +182,8 @@ interface PhoneNumberAssignmentByProfileServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get
-         * /phoneNumberAssignmentByProfile/{taskId}/phoneNumbers`, but is otherwise the same as
-         * [PhoneNumberAssignmentByProfileServiceAsync.retrievePhoneNumberStatus].
+         * /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers`, but is otherwise the same
+         * as [PhoneNumberAssignmentByProfileServiceAsync.retrievePhoneNumberStatus].
          */
         fun retrievePhoneNumberStatus(
             taskId: String
@@ -243,8 +243,8 @@ interface PhoneNumberAssignmentByProfileServiceAsync {
             )
 
         /**
-         * Returns a raw HTTP response for `get /phoneNumberAssignmentByProfile/{taskId}`, but is
-         * otherwise the same as [PhoneNumberAssignmentByProfileServiceAsync.retrieveStatus].
+         * Returns a raw HTTP response for `get /10dlc/phoneNumberAssignmentByProfile/{taskId}`, but
+         * is otherwise the same as [PhoneNumberAssignmentByProfileServiceAsync.retrieveStatus].
          */
         fun retrieveStatus(
             taskId: String

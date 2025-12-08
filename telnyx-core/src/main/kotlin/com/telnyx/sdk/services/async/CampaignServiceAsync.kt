@@ -369,8 +369,8 @@ interface CampaignServiceAsync {
         fun osr(): OsrServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}`, but is otherwise the same
-         * as [CampaignServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}`, but is otherwise the
+         * same as [CampaignServiceAsync.retrieve].
          */
         fun retrieve(campaignId: String): CompletableFuture<HttpResponseFor<TelnyxCampaignCsp>> =
             retrieve(campaignId, CampaignRetrieveParams.none())
@@ -410,8 +410,8 @@ interface CampaignServiceAsync {
             retrieve(campaignId, CampaignRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /campaign/{campaignId}`, but is otherwise the same
-         * as [CampaignServiceAsync.update].
+         * Returns a raw HTTP response for `put /10dlc/campaign/{campaignId}`, but is otherwise the
+         * same as [CampaignServiceAsync.update].
          */
         fun update(campaignId: String): CompletableFuture<HttpResponseFor<TelnyxCampaignCsp>> =
             update(campaignId, CampaignUpdateParams.none())
@@ -451,7 +451,7 @@ interface CampaignServiceAsync {
             update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign`, but is otherwise the same as
+         * Returns a raw HTTP response for `get /10dlc/campaign`, but is otherwise the same as
          * [CampaignServiceAsync.list].
          */
         fun list(
@@ -466,7 +466,7 @@ interface CampaignServiceAsync {
         ): CompletableFuture<HttpResponseFor<CampaignListResponse>>
 
         /**
-         * Returns a raw HTTP response for `post /campaign/acceptSharing/{campaignId}`, but is
+         * Returns a raw HTTP response for `post /10dlc/campaign/acceptSharing/{campaignId}`, but is
          * otherwise the same as [CampaignServiceAsync.acceptSharing].
          */
         fun acceptSharing(
@@ -509,8 +509,8 @@ interface CampaignServiceAsync {
             acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /campaign/{campaignId}`, but is otherwise the
-         * same as [CampaignServiceAsync.deactivate].
+         * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
+         * the same as [CampaignServiceAsync.deactivate].
          */
         fun deactivate(
             campaignId: String
@@ -552,7 +552,7 @@ interface CampaignServiceAsync {
             deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/mnoMetadata`, but is
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/mnoMetadata`, but is
          * otherwise the same as [CampaignServiceAsync.getMnoMetadata].
          */
         fun getMnoMetadata(
@@ -595,8 +595,8 @@ interface CampaignServiceAsync {
             getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/operationStatus`, but is
-         * otherwise the same as [CampaignServiceAsync.getOperationStatus].
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/operationStatus`, but
+         * is otherwise the same as [CampaignServiceAsync.getOperationStatus].
          */
         fun getOperationStatus(
             campaignId: String
@@ -638,8 +638,8 @@ interface CampaignServiceAsync {
             getOperationStatus(campaignId, CampaignGetOperationStatusParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /campaign/{campaignId}/sharing`, but is otherwise
-         * the same as [CampaignServiceAsync.getSharingStatus].
+         * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/sharing`, but is
+         * otherwise the same as [CampaignServiceAsync.getSharingStatus].
          */
         fun getSharingStatus(
             campaignId: String
@@ -681,8 +681,8 @@ interface CampaignServiceAsync {
             getSharingStatus(campaignId, CampaignGetSharingStatusParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /campaign/{campaignId}/appeal`, but is otherwise
-         * the same as [CampaignServiceAsync.submitAppeal].
+         * Returns a raw HTTP response for `post /10dlc/campaign/{campaignId}/appeal`, but is
+         * otherwise the same as [CampaignServiceAsync.submitAppeal].
          */
         fun submitAppeal(
             campaignId: String,

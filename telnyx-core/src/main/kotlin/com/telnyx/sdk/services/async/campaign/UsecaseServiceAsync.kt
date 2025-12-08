@@ -49,8 +49,8 @@ interface UsecaseServiceAsync {
         ): UsecaseServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaign/usecase/cost`, but is otherwise the same
-         * as [UsecaseServiceAsync.getCost].
+         * Returns a raw HTTP response for `get /10dlc/campaign/usecase/cost`, but is otherwise the
+         * same as [UsecaseServiceAsync.getCost].
          */
         fun getCost(
             params: UsecaseGetCostParams

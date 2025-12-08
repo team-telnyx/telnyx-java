@@ -178,8 +178,8 @@ interface PhoneNumberCampaignService {
         ): PhoneNumberCampaignService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /phone_number_campaigns`, but is otherwise the same
-         * as [PhoneNumberCampaignService.create].
+         * Returns a raw HTTP response for `post /10dlc/phone_number_campaigns`, but is otherwise
+         * the same as [PhoneNumberCampaignService.create].
          */
         @MustBeClosed
         fun create(params: PhoneNumberCampaignCreateParams): HttpResponseFor<PhoneNumberCampaign> =
@@ -213,7 +213,7 @@ interface PhoneNumberCampaignService {
             create(phoneNumberCampaignCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `get /phone_number_campaigns/{phoneNumber}`, but is
+         * Returns a raw HTTP response for `get /10dlc/phone_number_campaigns/{phoneNumber}`, but is
          * otherwise the same as [PhoneNumberCampaignService.retrieve].
          */
         @MustBeClosed
@@ -259,7 +259,7 @@ interface PhoneNumberCampaignService {
             retrieve(phoneNumber, PhoneNumberCampaignRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `put /phone_number_campaigns/{phoneNumber}`, but is
+         * Returns a raw HTTP response for `put /10dlc/phone_number_campaigns/{phoneNumber}`, but is
          * otherwise the same as [PhoneNumberCampaignService.update].
          */
         @MustBeClosed
@@ -291,8 +291,8 @@ interface PhoneNumberCampaignService {
         ): HttpResponseFor<PhoneNumberCampaign>
 
         /**
-         * Returns a raw HTTP response for `get /phone_number_campaigns`, but is otherwise the same
-         * as [PhoneNumberCampaignService.list].
+         * Returns a raw HTTP response for `get /10dlc/phone_number_campaigns`, but is otherwise the
+         * same as [PhoneNumberCampaignService.list].
          */
         @MustBeClosed
         fun list(): HttpResponseFor<PhoneNumberCampaignListResponse> =
@@ -317,8 +317,8 @@ interface PhoneNumberCampaignService {
             list(PhoneNumberCampaignListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /phone_number_campaigns/{phoneNumber}`, but is
-         * otherwise the same as [PhoneNumberCampaignService.delete].
+         * Returns a raw HTTP response for `delete /10dlc/phone_number_campaigns/{phoneNumber}`, but
+         * is otherwise the same as [PhoneNumberCampaignService.delete].
          */
         @MustBeClosed
         fun delete(phoneNumber: String): HttpResponseFor<PhoneNumberCampaign> =

@@ -37,7 +37,7 @@ class OsrServiceAsyncImpl internal constructor(private val clientOptions: Client
         params: OsrGetAttributesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<OsrGetAttributesResponse> =
-        // get /campaign/{campaignId}/osr/attributes
+        // get /10dlc/campaign/{campaignId}/osr/attributes
         withRawResponse().getAttributes(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -67,7 +67,7 @@ class OsrServiceAsyncImpl internal constructor(private val clientOptions: Client
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("campaign", params._pathParam(0), "osr", "attributes")
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "osr", "attributes")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

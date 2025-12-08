@@ -37,7 +37,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
         params: BrandQualifyByUsecaseParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandQualifyByUsecaseResponse> =
-        // get /campaignBuilder/brand/{brandId}/usecase/{usecase}
+        // get /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}
         withRawResponse().qualifyByUsecase(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -68,6 +68,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
+                        "10dlc",
                         "campaignBuilder",
                         "brand",
                         params._pathParam(0),

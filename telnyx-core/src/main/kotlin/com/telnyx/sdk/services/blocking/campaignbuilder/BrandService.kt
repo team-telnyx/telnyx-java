@@ -62,8 +62,9 @@ interface BrandService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /campaignBuilder/brand/{brandId}/usecase/{usecase}`,
-         * but is otherwise the same as [BrandService.qualifyByUsecase].
+         * Returns a raw HTTP response for `get
+         * /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}`, but is otherwise the same as
+         * [BrandService.qualifyByUsecase].
          */
         @MustBeClosed
         fun qualifyByUsecase(
