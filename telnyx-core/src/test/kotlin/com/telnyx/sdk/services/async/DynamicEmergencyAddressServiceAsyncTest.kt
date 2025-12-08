@@ -28,7 +28,7 @@ internal class DynamicEmergencyAddressServiceAsyncTest {
                 DynamicEmergencyAddress.builder()
                     .administrativeArea("TX")
                     .countryCode(DynamicEmergencyAddress.CountryCode.US)
-                    .houseNumber("house_number")
+                    .houseNumber("600")
                     .locality("Austin")
                     .postalCode("78701")
                     .streetName("Congress")
