@@ -14,15 +14,11 @@ internal class MessagingHostedNumberOrderCreateVerificationCodesResponseTest {
         val messagingHostedNumberOrderCreateVerificationCodesResponse =
             MessagingHostedNumberOrderCreateVerificationCodesResponse.builder()
                 .addData(
-                    MessagingHostedNumberOrderCreateVerificationCodesResponse.Data
-                        .VerificationCodeSuccess
-                        .builder()
+                    MessagingHostedNumberOrderCreateVerificationCodesResponse.Data.builder()
                         .phoneNumber("phone_number")
+                        .error("error")
                         .type(
-                            MessagingHostedNumberOrderCreateVerificationCodesResponse.Data
-                                .VerificationCodeSuccess
-                                .Type
-                                .SMS
+                            MessagingHostedNumberOrderCreateVerificationCodesResponse.Data.Type.SMS
                         )
                         .verificationCodeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -31,21 +27,12 @@ internal class MessagingHostedNumberOrderCreateVerificationCodesResponseTest {
 
         assertThat(messagingHostedNumberOrderCreateVerificationCodesResponse.data())
             .containsExactly(
-                MessagingHostedNumberOrderCreateVerificationCodesResponse.Data
-                    .ofVerificationCodeSuccess(
-                        MessagingHostedNumberOrderCreateVerificationCodesResponse.Data
-                            .VerificationCodeSuccess
-                            .builder()
-                            .phoneNumber("phone_number")
-                            .type(
-                                MessagingHostedNumberOrderCreateVerificationCodesResponse.Data
-                                    .VerificationCodeSuccess
-                                    .Type
-                                    .SMS
-                            )
-                            .verificationCodeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .build()
-                    )
+                MessagingHostedNumberOrderCreateVerificationCodesResponse.Data.builder()
+                    .phoneNumber("phone_number")
+                    .error("error")
+                    .type(MessagingHostedNumberOrderCreateVerificationCodesResponse.Data.Type.SMS)
+                    .verificationCodeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .build()
             )
     }
 
@@ -55,15 +42,11 @@ internal class MessagingHostedNumberOrderCreateVerificationCodesResponseTest {
         val messagingHostedNumberOrderCreateVerificationCodesResponse =
             MessagingHostedNumberOrderCreateVerificationCodesResponse.builder()
                 .addData(
-                    MessagingHostedNumberOrderCreateVerificationCodesResponse.Data
-                        .VerificationCodeSuccess
-                        .builder()
+                    MessagingHostedNumberOrderCreateVerificationCodesResponse.Data.builder()
                         .phoneNumber("phone_number")
+                        .error("error")
                         .type(
-                            MessagingHostedNumberOrderCreateVerificationCodesResponse.Data
-                                .VerificationCodeSuccess
-                                .Type
-                                .SMS
+                            MessagingHostedNumberOrderCreateVerificationCodesResponse.Data.Type.SMS
                         )
                         .verificationCodeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
