@@ -88,6 +88,7 @@ import com.telnyx.sdk.services.blocking.NotificationEventConditionService
 import com.telnyx.sdk.services.blocking.NotificationEventService
 import com.telnyx.sdk.services.blocking.NotificationProfileService
 import com.telnyx.sdk.services.blocking.NotificationSettingService
+import com.telnyx.sdk.services.blocking.Number10dlcService
 import com.telnyx.sdk.services.blocking.NumberBlockOrderService
 import com.telnyx.sdk.services.blocking.NumberLookupService
 import com.telnyx.sdk.services.blocking.NumberOrderPhoneNumberService
@@ -509,6 +510,8 @@ interface TelnyxClient {
 
     fun mobileVoiceConnections(): MobileVoiceConnectionService
 
+    fun number10dlc(): Number10dlcService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -844,5 +847,7 @@ interface TelnyxClient {
         fun mobilePhoneNumbers(): MobilePhoneNumberService.WithRawResponse
 
         fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse
+
+        fun number10dlc(): Number10dlcService.WithRawResponse
     }
 }

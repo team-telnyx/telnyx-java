@@ -174,6 +174,8 @@ import com.telnyx.sdk.services.blocking.NotificationProfileService
 import com.telnyx.sdk.services.blocking.NotificationProfileServiceImpl
 import com.telnyx.sdk.services.blocking.NotificationSettingService
 import com.telnyx.sdk.services.blocking.NotificationSettingServiceImpl
+import com.telnyx.sdk.services.blocking.Number10dlcService
+import com.telnyx.sdk.services.blocking.Number10dlcServiceImpl
 import com.telnyx.sdk.services.blocking.NumberBlockOrderService
 import com.telnyx.sdk.services.blocking.NumberBlockOrderServiceImpl
 import com.telnyx.sdk.services.blocking.NumberLookupService
@@ -898,6 +900,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         MobileVoiceConnectionServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val number10dlc: Number10dlcService by lazy {
+        Number10dlcServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1231,6 +1237,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun mobilePhoneNumbers(): MobilePhoneNumberService = mobilePhoneNumbers
 
     override fun mobileVoiceConnections(): MobileVoiceConnectionService = mobileVoiceConnections
+
+    override fun number10dlc(): Number10dlcService = number10dlc
 
     override fun close() = clientOptions.close()
 
@@ -1876,6 +1884,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             MobileVoiceConnectionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val number10dlc: Number10dlcService.WithRawResponse by lazy {
+            Number10dlcServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2258,5 +2270,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse =
             mobileVoiceConnections
+
+        override fun number10dlc(): Number10dlcService.WithRawResponse = number10dlc
     }
 }

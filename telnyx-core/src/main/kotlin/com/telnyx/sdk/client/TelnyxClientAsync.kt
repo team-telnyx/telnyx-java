@@ -88,6 +88,7 @@ import com.telnyx.sdk.services.async.NotificationEventConditionServiceAsync
 import com.telnyx.sdk.services.async.NotificationEventServiceAsync
 import com.telnyx.sdk.services.async.NotificationProfileServiceAsync
 import com.telnyx.sdk.services.async.NotificationSettingServiceAsync
+import com.telnyx.sdk.services.async.Number10dlcServiceAsync
 import com.telnyx.sdk.services.async.NumberBlockOrderServiceAsync
 import com.telnyx.sdk.services.async.NumberLookupServiceAsync
 import com.telnyx.sdk.services.async.NumberOrderPhoneNumberServiceAsync
@@ -509,6 +510,8 @@ interface TelnyxClientAsync {
 
     fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync
 
+    fun number10dlc(): Number10dlcServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -848,5 +851,7 @@ interface TelnyxClientAsync {
         fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync.WithRawResponse
 
         fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse
+
+        fun number10dlc(): Number10dlcServiceAsync.WithRawResponse
     }
 }
