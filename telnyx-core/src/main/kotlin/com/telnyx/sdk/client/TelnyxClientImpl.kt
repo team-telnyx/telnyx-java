@@ -900,6 +900,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         MobileVoiceConnectionServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val partnerCampaign: PartnerCampaignService by lazy {
+        PartnerCampaignServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val number10dlc: Number10dlcService by lazy {
         Number10dlcServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1237,6 +1241,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun mobilePhoneNumbers(): MobilePhoneNumberService = mobilePhoneNumbers
 
     override fun mobileVoiceConnections(): MobileVoiceConnectionService = mobileVoiceConnections
+
+    override fun partnerCampaign(): PartnerCampaignService = partnerCampaign
 
     override fun number10dlc(): Number10dlcService = number10dlc
 
@@ -1884,6 +1890,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             MobileVoiceConnectionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val partnerCampaign: PartnerCampaignService.WithRawResponse by lazy {
+            PartnerCampaignServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val number10dlc: Number10dlcService.WithRawResponse by lazy {
             Number10dlcServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2270,6 +2280,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse =
             mobileVoiceConnections
+
+        override fun partnerCampaign(): PartnerCampaignService.WithRawResponse = partnerCampaign
 
         override fun number10dlc(): Number10dlcService.WithRawResponse = number10dlc
     }

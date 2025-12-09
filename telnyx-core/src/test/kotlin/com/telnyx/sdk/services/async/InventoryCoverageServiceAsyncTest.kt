@@ -30,6 +30,7 @@ internal class InventoryCoverageServiceAsyncTest {
                             .administrativeArea("administrative_area")
                             .count(true)
                             .countryCode(InventoryCoverageListParams.Filter.CountryCode.AT)
+                            .addFeature(InventoryCoverageListParams.Filter.Feature.VOICE)
                             .addFeature(InventoryCoverageListParams.Filter.Feature.SMS)
                             .groupBy(InventoryCoverageListParams.Filter.GroupBy.LOCALITY)
                             .npa(0L)

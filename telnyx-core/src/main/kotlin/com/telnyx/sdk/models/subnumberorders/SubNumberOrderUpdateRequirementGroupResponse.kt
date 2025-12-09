@@ -1085,7 +1085,10 @@ private constructor(
                  */
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
-                fun bundleId(bundleId: String) = bundleId(JsonField.of(bundleId))
+                fun bundleId(bundleId: String?) = bundleId(JsonField.ofNullable(bundleId))
+
+                /** Alias for calling [Builder.bundleId] with `bundleId.orElse(null)`. */
+                fun bundleId(bundleId: Optional<String>) = bundleId(bundleId.getOrNull())
 
                 /**
                  * Sets [Builder.bundleId] to an arbitrary JSON value.

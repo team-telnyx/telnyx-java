@@ -944,6 +944,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         MobileVoiceConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val partnerCampaign: PartnerCampaignServiceAsync by lazy {
+        PartnerCampaignServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val number10dlc: Number10dlcServiceAsync by lazy {
         Number10dlcServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -1294,6 +1298,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync =
         mobileVoiceConnections
+
+    override fun partnerCampaign(): PartnerCampaignServiceAsync = partnerCampaign
 
     override fun number10dlc(): Number10dlcServiceAsync = number10dlc
 
@@ -1960,6 +1966,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             MobileVoiceConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val partnerCampaign: PartnerCampaignServiceAsync.WithRawResponse by lazy {
+            PartnerCampaignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val number10dlc: Number10dlcServiceAsync.WithRawResponse by lazy {
             Number10dlcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2361,6 +2371,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse =
             mobileVoiceConnections
+
+        override fun partnerCampaign(): PartnerCampaignServiceAsync.WithRawResponse =
+            partnerCampaign
 
         override fun number10dlc(): Number10dlcServiceAsync.WithRawResponse = number10dlc
     }
