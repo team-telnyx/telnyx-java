@@ -3,19 +3,6 @@
 package com.telnyx.sdk.services.blocking.campaign
 
 import com.telnyx.sdk.core.ClientOptions
-import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.handlers.errorBodyHandler
-import com.telnyx.sdk.core.handlers.errorHandler
-import com.telnyx.sdk.core.handlers.jsonHandler
-import com.telnyx.sdk.core.http.HttpMethod
-import com.telnyx.sdk.core.http.HttpRequest
-import com.telnyx.sdk.core.http.HttpResponse
-import com.telnyx.sdk.core.http.HttpResponse.Handler
-import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.core.http.parseable
-import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.campaign.usecase.UsecaseGetCostParams
-import com.telnyx.sdk.models.campaign.usecase.UsecaseGetCostResponse
 import java.util.function.Consumer
 
 class UsecaseServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,18 +17,8 @@ class UsecaseServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsecaseService =
         UsecaseServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun getCost(
-        params: UsecaseGetCostParams,
-        requestOptions: RequestOptions,
-    ): UsecaseGetCostResponse =
-        // get /10dlc/campaign/usecase/cost
-        withRawResponse().getCost(params, requestOptions).parse()
-
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UsecaseService.WithRawResponse {
-
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -49,32 +26,5 @@ class UsecaseServiceImpl internal constructor(private val clientOptions: ClientO
             UsecaseServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        private val getCostHandler: Handler<UsecaseGetCostResponse> =
-            jsonHandler<UsecaseGetCostResponse>(clientOptions.jsonMapper)
-
-        override fun getCost(
-            params: UsecaseGetCostParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<UsecaseGetCostResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "campaign", "usecase", "cost")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { getCostHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
     }
 }

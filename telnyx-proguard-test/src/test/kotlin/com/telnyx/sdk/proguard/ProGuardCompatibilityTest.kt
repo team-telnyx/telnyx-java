@@ -210,6 +210,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.inexplicitNumberOrders()).isNotNull()
         assertThat(client.mobilePhoneNumbers()).isNotNull()
         assertThat(client.mobileVoiceConnections()).isNotNull()
+        assertThat(client.number10dlc()).isNotNull()
     }
 
     @Test

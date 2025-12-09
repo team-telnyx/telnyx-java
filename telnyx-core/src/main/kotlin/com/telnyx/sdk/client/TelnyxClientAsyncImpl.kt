@@ -174,6 +174,8 @@ import com.telnyx.sdk.services.async.NotificationProfileServiceAsync
 import com.telnyx.sdk.services.async.NotificationProfileServiceAsyncImpl
 import com.telnyx.sdk.services.async.NotificationSettingServiceAsync
 import com.telnyx.sdk.services.async.NotificationSettingServiceAsyncImpl
+import com.telnyx.sdk.services.async.Number10dlcServiceAsync
+import com.telnyx.sdk.services.async.Number10dlcServiceAsyncImpl
 import com.telnyx.sdk.services.async.NumberBlockOrderServiceAsync
 import com.telnyx.sdk.services.async.NumberBlockOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.NumberLookupServiceAsync
@@ -942,6 +944,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         MobileVoiceConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val number10dlc: Number10dlcServiceAsync by lazy {
+        Number10dlcServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1288,6 +1294,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync =
         mobileVoiceConnections
+
+    override fun number10dlc(): Number10dlcServiceAsync = number10dlc
 
     override fun close() = clientOptions.close()
 
@@ -1952,6 +1960,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             MobileVoiceConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val number10dlc: Number10dlcServiceAsync.WithRawResponse by lazy {
+            Number10dlcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2349,5 +2361,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse =
             mobileVoiceConnections
+
+        override fun number10dlc(): Number10dlcServiceAsync.WithRawResponse = number10dlc
     }
 }
