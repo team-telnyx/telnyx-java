@@ -38,7 +38,7 @@ internal class UserAddressServiceTest {
                     .neighborhood("Ciudad de los deportes")
                     .phoneNumber("+12125559000")
                     .postalCode("78701")
-                    .skipAddressVerification("skip_address_verification")
+                    .skipAddressVerification(true)
                     .build()
             )
 
