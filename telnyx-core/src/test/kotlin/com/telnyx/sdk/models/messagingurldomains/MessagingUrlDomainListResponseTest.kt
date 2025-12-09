@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.messagingurldomains
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -24,7 +23,7 @@ internal class MessagingUrlDomainListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingUrlDomainListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -44,7 +43,7 @@ internal class MessagingUrlDomainListResponseTest {
             )
         assertThat(messagingUrlDomainListResponse.meta())
             .contains(
-                PaginationMeta.builder()
+                MessagingUrlDomainListResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -67,7 +66,7 @@ internal class MessagingUrlDomainListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingUrlDomainListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

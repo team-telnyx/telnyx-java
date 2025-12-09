@@ -10,10 +10,10 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 
 class VerifyMeta
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -36,28 +36,28 @@ private constructor(
     ) : this(pageNumber, pageSize, totalPages, totalResults, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun pageNumber(): Optional<Long> = pageNumber.getOptional("page_number")
+    fun pageNumber(): Long = pageNumber.getRequired("page_number")
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun pageSize(): Optional<Long> = pageSize.getOptional("page_size")
+    fun pageSize(): Long = pageSize.getRequired("page_size")
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun totalPages(): Optional<Long> = totalPages.getOptional("total_pages")
+    fun totalPages(): Long = totalPages.getRequired("total_pages")
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun totalResults(): Optional<Long> = totalResults.getOptional("total_results")
+    fun totalResults(): Long = totalResults.getRequired("total_results")
 
     /**
      * Returns the raw JSON value of [pageNumber].
@@ -103,17 +103,27 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [VerifyMeta]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [VerifyMeta].
+         *
+         * The following fields are required:
+         * ```java
+         * .pageNumber()
+         * .pageSize()
+         * .totalPages()
+         * .totalResults()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [VerifyMeta]. */
     class Builder internal constructor() {
 
-        private var pageNumber: JsonField<Long> = JsonMissing.of()
-        private var pageSize: JsonField<Long> = JsonMissing.of()
-        private var totalPages: JsonField<Long> = JsonMissing.of()
-        private var totalResults: JsonField<Long> = JsonMissing.of()
+        private var pageNumber: JsonField<Long>? = null
+        private var pageSize: JsonField<Long>? = null
+        private var totalPages: JsonField<Long>? = null
+        private var totalResults: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -189,13 +199,23 @@ private constructor(
          * Returns an immutable instance of [VerifyMeta].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .pageNumber()
+         * .pageSize()
+         * .totalPages()
+         * .totalResults()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): VerifyMeta =
             VerifyMeta(
-                pageNumber,
-                pageSize,
-                totalPages,
-                totalResults,
+                checkRequired("pageNumber", pageNumber),
+                checkRequired("pageSize", pageSize),
+                checkRequired("totalPages", totalPages),
+                checkRequired("totalResults", totalResults),
                 additionalProperties.toMutableMap(),
             )
     }

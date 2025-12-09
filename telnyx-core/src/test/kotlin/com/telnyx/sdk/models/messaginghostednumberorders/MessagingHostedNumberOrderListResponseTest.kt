@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.HostedNumber
 import com.telnyx.sdk.models.MessagingHostedNumberOrder
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -42,7 +41,7 @@ internal class MessagingHostedNumberOrderListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingHostedNumberOrderListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -78,7 +77,7 @@ internal class MessagingHostedNumberOrderListResponseTest {
             )
         assertThat(messagingHostedNumberOrderListResponse.meta())
             .contains(
-                PaginationMeta.builder()
+                MessagingHostedNumberOrderListResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -117,7 +116,7 @@ internal class MessagingHostedNumberOrderListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingHostedNumberOrderListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

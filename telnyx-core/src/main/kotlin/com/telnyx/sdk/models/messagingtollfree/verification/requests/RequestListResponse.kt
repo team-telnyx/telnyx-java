@@ -11,11 +11,11 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** A paginated response */
@@ -40,18 +40,18 @@ private constructor(
     /**
      * The records yielded by this request
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun records(): Optional<List<VerificationRequestStatus>> = records.getOptional("records")
+    fun records(): List<VerificationRequestStatus> = records.getRequired("records")
 
     /**
      * The total amount of records for these query parameters
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun totalRecords(): Optional<Long> = totalRecords.getOptional("total_records")
+    fun totalRecords(): Long = totalRecords.getRequired("total_records")
 
     /**
      * Returns the raw JSON value of [records].
@@ -85,7 +85,15 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [RequestListResponse]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [RequestListResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .records()
+         * .totalRecords()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -93,7 +101,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var records: JsonField<MutableList<VerificationRequestStatus>>? = null
-        private var totalRecords: JsonField<Long> = JsonMissing.of()
+        private var totalRecords: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -164,11 +172,19 @@ private constructor(
          * Returns an immutable instance of [RequestListResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .records()
+         * .totalRecords()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): RequestListResponse =
             RequestListResponse(
-                (records ?: JsonMissing.of()).map { it.toImmutable() },
-                totalRecords,
+                checkRequired("records", records).map { it.toImmutable() },
+                checkRequired("totalRecords", totalRecords),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -180,7 +196,7 @@ private constructor(
             return@apply
         }
 
-        records().ifPresent { it.forEach { it.validate() } }
+        records().forEach { it.validate() }
         totalRecords()
         validated = true
     }

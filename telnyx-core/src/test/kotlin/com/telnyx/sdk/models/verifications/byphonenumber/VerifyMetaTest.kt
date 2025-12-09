@@ -19,10 +19,10 @@ internal class VerifyMetaTest {
                 .totalResults(55L)
                 .build()
 
-        assertThat(verifyMeta.pageNumber()).contains(2L)
-        assertThat(verifyMeta.pageSize()).contains(25L)
-        assertThat(verifyMeta.totalPages()).contains(3L)
-        assertThat(verifyMeta.totalResults()).contains(55L)
+        assertThat(verifyMeta.pageNumber()).isEqualTo(2L)
+        assertThat(verifyMeta.pageSize()).isEqualTo(25L)
+        assertThat(verifyMeta.totalPages()).isEqualTo(3L)
+        assertThat(verifyMeta.totalResults()).isEqualTo(55L)
     }
 
     @Test
