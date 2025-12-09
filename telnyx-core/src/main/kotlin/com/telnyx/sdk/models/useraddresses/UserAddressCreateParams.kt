@@ -150,7 +150,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun skipAddressVerification(): Optional<String> = body.skipAddressVerification()
+    fun skipAddressVerification(): Optional<Boolean> = body.skipAddressVerification()
 
     /**
      * Returns the raw JSON value of [businessName].
@@ -251,7 +251,7 @@ private constructor(
      * Unlike [skipAddressVerification], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    fun _skipAddressVerification(): JsonField<String> = body._skipAddressVerification()
+    fun _skipAddressVerification(): JsonField<Boolean> = body._skipAddressVerification()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -507,18 +507,18 @@ private constructor(
          * value is set to true, then the verification will not be attempted. Defaults to false
          * (verification will be performed).
          */
-        fun skipAddressVerification(skipAddressVerification: String) = apply {
+        fun skipAddressVerification(skipAddressVerification: Boolean) = apply {
             body.skipAddressVerification(skipAddressVerification)
         }
 
         /**
          * Sets [Builder.skipAddressVerification] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.skipAddressVerification] with a well-typed [String]
+         * You should usually call [Builder.skipAddressVerification] with a well-typed [Boolean]
          * value instead. This method is primarily for setting the field to an undocumented or not
          * yet supported value.
          */
-        fun skipAddressVerification(skipAddressVerification: JsonField<String>) = apply {
+        fun skipAddressVerification(skipAddressVerification: JsonField<Boolean>) = apply {
             body.skipAddressVerification(skipAddressVerification)
         }
 
@@ -686,7 +686,7 @@ private constructor(
         private val neighborhood: JsonField<String>,
         private val phoneNumber: JsonField<String>,
         private val postalCode: JsonField<String>,
-        private val skipAddressVerification: JsonField<String>,
+        private val skipAddressVerification: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -731,7 +731,7 @@ private constructor(
             postalCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("skip_address_verification")
             @ExcludeMissing
-            skipAddressVerification: JsonField<String> = JsonMissing.of(),
+            skipAddressVerification: JsonField<Boolean> = JsonMissing.of(),
         ) : this(
             businessName,
             countryCode,
@@ -876,7 +876,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun skipAddressVerification(): Optional<String> =
+        fun skipAddressVerification(): Optional<Boolean> =
             skipAddressVerification.getOptional("skip_address_verification")
 
         /**
@@ -1002,7 +1002,7 @@ private constructor(
          */
         @JsonProperty("skip_address_verification")
         @ExcludeMissing
-        fun _skipAddressVerification(): JsonField<String> = skipAddressVerification
+        fun _skipAddressVerification(): JsonField<Boolean> = skipAddressVerification
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1050,7 +1050,7 @@ private constructor(
             private var neighborhood: JsonField<String> = JsonMissing.of()
             private var phoneNumber: JsonField<String> = JsonMissing.of()
             private var postalCode: JsonField<String> = JsonMissing.of()
-            private var skipAddressVerification: JsonField<String> = JsonMissing.of()
+            private var skipAddressVerification: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1274,17 +1274,17 @@ private constructor(
              * present in the response as well. If this value is set to true, then the verification
              * will not be attempted. Defaults to false (verification will be performed).
              */
-            fun skipAddressVerification(skipAddressVerification: String) =
+            fun skipAddressVerification(skipAddressVerification: Boolean) =
                 skipAddressVerification(JsonField.of(skipAddressVerification))
 
             /**
              * Sets [Builder.skipAddressVerification] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.skipAddressVerification] with a well-typed [String]
+             * You should usually call [Builder.skipAddressVerification] with a well-typed [Boolean]
              * value instead. This method is primarily for setting the field to an undocumented or
              * not yet supported value.
              */
-            fun skipAddressVerification(skipAddressVerification: JsonField<String>) = apply {
+            fun skipAddressVerification(skipAddressVerification: JsonField<Boolean>) = apply {
                 this.skipAddressVerification = skipAddressVerification
             }
 
