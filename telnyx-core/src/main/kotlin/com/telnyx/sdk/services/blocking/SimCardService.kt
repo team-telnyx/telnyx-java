@@ -14,10 +14,10 @@ import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsParams
 import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsResponse
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpParams
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpResponse
+import com.telnyx.sdk.models.simcards.SimCardListPage
 import com.telnyx.sdk.models.simcards.SimCardListParams
-import com.telnyx.sdk.models.simcards.SimCardListResponse
+import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsPage
 import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsParams
-import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsResponse
 import com.telnyx.sdk.models.simcards.SimCardRetrieveParams
 import com.telnyx.sdk.models.simcards.SimCardRetrieveResponse
 import com.telnyx.sdk.models.simcards.SimCardUpdateParams
@@ -72,15 +72,16 @@ interface SimCardService {
         retrieve(id, SimCardRetrieveParams.none(), requestOptions)
 
     /** Updates SIM card data */
-    fun update(pathId: String, params: SimCardUpdateParams): SimCardUpdateResponse =
-        update(pathId, params, RequestOptions.none())
+    fun update(simCardId: String, params: SimCardUpdateParams): SimCardUpdateResponse =
+        update(simCardId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        simCardId: String,
         params: SimCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimCardUpdateResponse = update(params.toBuilder().pathId(pathId).build(), requestOptions)
+    ): SimCardUpdateResponse =
+        update(params.toBuilder().simCardId(simCardId).build(), requestOptions)
 
     /** @see update */
     fun update(params: SimCardUpdateParams): SimCardUpdateResponse =
@@ -93,20 +94,20 @@ interface SimCardService {
     ): SimCardUpdateResponse
 
     /** Get all SIM cards belonging to the user that match the given filters. */
-    fun list(): SimCardListResponse = list(SimCardListParams.none())
+    fun list(): SimCardListPage = list(SimCardListParams.none())
 
     /** @see list */
     fun list(
         params: SimCardListParams = SimCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimCardListResponse
+    ): SimCardListPage
 
     /** @see list */
-    fun list(params: SimCardListParams = SimCardListParams.none()): SimCardListResponse =
+    fun list(params: SimCardListParams = SimCardListParams.none()): SimCardListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): SimCardListResponse =
+    fun list(requestOptions: RequestOptions): SimCardListPage =
         list(SimCardListParams.none(), requestOptions)
 
     /**
@@ -256,7 +257,7 @@ interface SimCardService {
      * This API allows listing a paginated collection of Wireless Connectivity Logs associated with
      * a SIM Card, for troubleshooting purposes.
      */
-    fun listWirelessConnectivityLogs(id: String): SimCardListWirelessConnectivityLogsResponse =
+    fun listWirelessConnectivityLogs(id: String): SimCardListWirelessConnectivityLogsPage =
         listWirelessConnectivityLogs(id, SimCardListWirelessConnectivityLogsParams.none())
 
     /** @see listWirelessConnectivityLogs */
@@ -265,7 +266,7 @@ interface SimCardService {
         params: SimCardListWirelessConnectivityLogsParams =
             SimCardListWirelessConnectivityLogsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimCardListWirelessConnectivityLogsResponse =
+    ): SimCardListWirelessConnectivityLogsPage =
         listWirelessConnectivityLogs(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listWirelessConnectivityLogs */
@@ -273,26 +274,26 @@ interface SimCardService {
         id: String,
         params: SimCardListWirelessConnectivityLogsParams =
             SimCardListWirelessConnectivityLogsParams.none(),
-    ): SimCardListWirelessConnectivityLogsResponse =
+    ): SimCardListWirelessConnectivityLogsPage =
         listWirelessConnectivityLogs(id, params, RequestOptions.none())
 
     /** @see listWirelessConnectivityLogs */
     fun listWirelessConnectivityLogs(
         params: SimCardListWirelessConnectivityLogsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimCardListWirelessConnectivityLogsResponse
+    ): SimCardListWirelessConnectivityLogsPage
 
     /** @see listWirelessConnectivityLogs */
     fun listWirelessConnectivityLogs(
         params: SimCardListWirelessConnectivityLogsParams
-    ): SimCardListWirelessConnectivityLogsResponse =
+    ): SimCardListWirelessConnectivityLogsPage =
         listWirelessConnectivityLogs(params, RequestOptions.none())
 
     /** @see listWirelessConnectivityLogs */
     fun listWirelessConnectivityLogs(
         id: String,
         requestOptions: RequestOptions,
-    ): SimCardListWirelessConnectivityLogsResponse =
+    ): SimCardListWirelessConnectivityLogsPage =
         listWirelessConnectivityLogs(
             id,
             SimCardListWirelessConnectivityLogsParams.none(),
@@ -361,18 +362,18 @@ interface SimCardService {
          */
         @MustBeClosed
         fun update(
-            pathId: String,
+            simCardId: String,
             params: SimCardUpdateParams,
-        ): HttpResponseFor<SimCardUpdateResponse> = update(pathId, params, RequestOptions.none())
+        ): HttpResponseFor<SimCardUpdateResponse> = update(simCardId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            simCardId: String,
             params: SimCardUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimCardUpdateResponse> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(params.toBuilder().simCardId(simCardId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -390,25 +391,24 @@ interface SimCardService {
          * Returns a raw HTTP response for `get /sim_cards`, but is otherwise the same as
          * [SimCardService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<SimCardListResponse> = list(SimCardListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<SimCardListPage> = list(SimCardListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SimCardListParams = SimCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimCardListResponse>
+        ): HttpResponseFor<SimCardListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SimCardListParams = SimCardListParams.none()
-        ): HttpResponseFor<SimCardListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<SimCardListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<SimCardListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<SimCardListPage> =
             list(SimCardListParams.none(), requestOptions)
 
         /**
@@ -602,7 +602,7 @@ interface SimCardService {
         @MustBeClosed
         fun listWirelessConnectivityLogs(
             id: String
-        ): HttpResponseFor<SimCardListWirelessConnectivityLogsResponse> =
+        ): HttpResponseFor<SimCardListWirelessConnectivityLogsPage> =
             listWirelessConnectivityLogs(id, SimCardListWirelessConnectivityLogsParams.none())
 
         /** @see listWirelessConnectivityLogs */
@@ -612,7 +612,7 @@ interface SimCardService {
             params: SimCardListWirelessConnectivityLogsParams =
                 SimCardListWirelessConnectivityLogsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimCardListWirelessConnectivityLogsResponse> =
+        ): HttpResponseFor<SimCardListWirelessConnectivityLogsPage> =
             listWirelessConnectivityLogs(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listWirelessConnectivityLogs */
@@ -621,7 +621,7 @@ interface SimCardService {
             id: String,
             params: SimCardListWirelessConnectivityLogsParams =
                 SimCardListWirelessConnectivityLogsParams.none(),
-        ): HttpResponseFor<SimCardListWirelessConnectivityLogsResponse> =
+        ): HttpResponseFor<SimCardListWirelessConnectivityLogsPage> =
             listWirelessConnectivityLogs(id, params, RequestOptions.none())
 
         /** @see listWirelessConnectivityLogs */
@@ -629,13 +629,13 @@ interface SimCardService {
         fun listWirelessConnectivityLogs(
             params: SimCardListWirelessConnectivityLogsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>
+        ): HttpResponseFor<SimCardListWirelessConnectivityLogsPage>
 
         /** @see listWirelessConnectivityLogs */
         @MustBeClosed
         fun listWirelessConnectivityLogs(
             params: SimCardListWirelessConnectivityLogsParams
-        ): HttpResponseFor<SimCardListWirelessConnectivityLogsResponse> =
+        ): HttpResponseFor<SimCardListWirelessConnectivityLogsPage> =
             listWirelessConnectivityLogs(params, RequestOptions.none())
 
         /** @see listWirelessConnectivityLogs */
@@ -643,7 +643,7 @@ interface SimCardService {
         fun listWirelessConnectivityLogs(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimCardListWirelessConnectivityLogsResponse> =
+        ): HttpResponseFor<SimCardListWirelessConnectivityLogsPage> =
             listWirelessConnectivityLogs(
                 id,
                 SimCardListWirelessConnectivityLogsParams.none(),

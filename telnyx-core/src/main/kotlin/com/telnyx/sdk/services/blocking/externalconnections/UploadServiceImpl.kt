@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateResponse
+import com.telnyx.sdk.models.externalconnections.uploads.UploadListPage
+import com.telnyx.sdk.models.externalconnections.uploads.UploadListPageResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadListParams
-import com.telnyx.sdk.models.externalconnections.uploads.UploadListResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRefreshStatusParams
@@ -57,10 +58,7 @@ class UploadServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /external_connections/{id}/uploads/{ticket_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: UploadListParams,
-        requestOptions: RequestOptions,
-    ): UploadListResponse =
+    override fun list(params: UploadListParams, requestOptions: RequestOptions): UploadListPage =
         // get /external_connections/{id}/uploads
         withRawResponse().list(params, requestOptions).parse()
 
@@ -164,13 +162,13 @@ class UploadServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<UploadListResponse> =
-            jsonHandler<UploadListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UploadListPageResponse> =
+            jsonHandler<UploadListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UploadListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UploadListResponse> {
+        ): HttpResponseFor<UploadListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -190,6 +188,13 @@ class UploadServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        UploadListPage.builder()
+                            .service(UploadServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

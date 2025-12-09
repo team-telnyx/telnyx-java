@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.ips.IpCreateParams
 import com.telnyx.sdk.models.ips.IpCreateResponse
 import com.telnyx.sdk.models.ips.IpDeleteParams
 import com.telnyx.sdk.models.ips.IpDeleteResponse
+import com.telnyx.sdk.models.ips.IpListPage
+import com.telnyx.sdk.models.ips.IpListPageResponse
 import com.telnyx.sdk.models.ips.IpListParams
-import com.telnyx.sdk.models.ips.IpListResponse
 import com.telnyx.sdk.models.ips.IpRetrieveParams
 import com.telnyx.sdk.models.ips.IpRetrieveResponse
 import com.telnyx.sdk.models.ips.IpUpdateParams
@@ -55,7 +56,7 @@ class IpServiceImpl internal constructor(private val clientOptions: ClientOption
         // patch /ips/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: IpListParams, requestOptions: RequestOptions): IpListResponse =
+    override fun list(params: IpListParams, requestOptions: RequestOptions): IpListPage =
         // get /ips
         withRawResponse().list(params, requestOptions).parse()
 
@@ -165,13 +166,13 @@ class IpServiceImpl internal constructor(private val clientOptions: ClientOption
             }
         }
 
-        private val listHandler: Handler<IpListResponse> =
-            jsonHandler<IpListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IpListPageResponse> =
+            jsonHandler<IpListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IpListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<IpListResponse> {
+        ): HttpResponseFor<IpListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -188,6 +189,13 @@ class IpServiceImpl internal constructor(private val clientOptions: ClientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        IpListPage.builder()
+                            .service(IpServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

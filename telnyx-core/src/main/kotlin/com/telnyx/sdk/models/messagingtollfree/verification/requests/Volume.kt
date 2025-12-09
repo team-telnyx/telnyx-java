@@ -21,44 +21,44 @@ class Volume @JsonCreator private constructor(private val value: JsonField<Strin
 
     companion object {
 
-        @JvmField val _10 = of("10")
+        @JvmField val V_10 = of("10")
 
-        @JvmField val _100 = of("100")
+        @JvmField val V_100 = of("100")
 
-        @JvmField val _1_000 = of("1,000")
+        @JvmField val V_1000 = of("1,000")
 
-        @JvmField val _10_000 = of("10,000")
+        @JvmField val V_10000 = of("10,000")
 
-        @JvmField val _100_000 = of("100,000")
+        @JvmField val V_100000 = of("100,000")
 
-        @JvmField val _250_000 = of("250,000")
+        @JvmField val V_250000 = of("250,000")
 
-        @JvmField val _500_000 = of("500,000")
+        @JvmField val V_500000 = of("500,000")
 
-        @JvmField val _750_000 = of("750,000")
+        @JvmField val V_750000 = of("750,000")
 
-        @JvmField val _1_000_000 = of("1,000,000")
+        @JvmField val V_1000000 = of("1,000,000")
 
-        @JvmField val _5_000_000 = of("5,000,000")
+        @JvmField val V_5000000 = of("5,000,000")
 
-        @JvmField val _10_000_000 = of("10,000,000+")
+        @JvmField val V_10000000_PLUS = of("10,000,000+")
 
         @JvmStatic fun of(value: String) = Volume(JsonField.of(value))
     }
 
     /** An enum containing [Volume]'s known values. */
     enum class Known {
-        _10,
-        _100,
-        _1_000,
-        _10_000,
-        _100_000,
-        _250_000,
-        _500_000,
-        _750_000,
-        _1_000_000,
-        _5_000_000,
-        _10_000_000,
+        V_10,
+        V_100,
+        V_1000,
+        V_10000,
+        V_100000,
+        V_250000,
+        V_500000,
+        V_750000,
+        V_1000000,
+        V_5000000,
+        V_10000000_PLUS,
     }
 
     /**
@@ -71,17 +71,17 @@ class Volume @JsonCreator private constructor(private val value: JsonField<Strin
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
-        _10,
-        _100,
-        _1_000,
-        _10_000,
-        _100_000,
-        _250_000,
-        _500_000,
-        _750_000,
-        _1_000_000,
-        _5_000_000,
-        _10_000_000,
+        V_10,
+        V_100,
+        V_1000,
+        V_10000,
+        V_100000,
+        V_250000,
+        V_500000,
+        V_750000,
+        V_1000000,
+        V_5000000,
+        V_10000000_PLUS,
         /** An enum member indicating that [Volume] was instantiated with an unknown value. */
         _UNKNOWN,
     }
@@ -95,17 +95,17 @@ class Volume @JsonCreator private constructor(private val value: JsonField<Strin
      */
     fun value(): Value =
         when (this) {
-            _10 -> Value._10
-            _100 -> Value._100
-            _1_000 -> Value._1_000
-            _10_000 -> Value._10_000
-            _100_000 -> Value._100_000
-            _250_000 -> Value._250_000
-            _500_000 -> Value._500_000
-            _750_000 -> Value._750_000
-            _1_000_000 -> Value._1_000_000
-            _5_000_000 -> Value._5_000_000
-            _10_000_000 -> Value._10_000_000
+            V_10 -> Value.V_10
+            V_100 -> Value.V_100
+            V_1000 -> Value.V_1000
+            V_10000 -> Value.V_10000
+            V_100000 -> Value.V_100000
+            V_250000 -> Value.V_250000
+            V_500000 -> Value.V_500000
+            V_750000 -> Value.V_750000
+            V_1000000 -> Value.V_1000000
+            V_5000000 -> Value.V_5000000
+            V_10000000_PLUS -> Value.V_10000000_PLUS
             else -> Value._UNKNOWN
         }
 
@@ -119,17 +119,17 @@ class Volume @JsonCreator private constructor(private val value: JsonField<Strin
      */
     fun known(): Known =
         when (this) {
-            _10 -> Known._10
-            _100 -> Known._100
-            _1_000 -> Known._1_000
-            _10_000 -> Known._10_000
-            _100_000 -> Known._100_000
-            _250_000 -> Known._250_000
-            _500_000 -> Known._500_000
-            _750_000 -> Known._750_000
-            _1_000_000 -> Known._1_000_000
-            _5_000_000 -> Known._5_000_000
-            _10_000_000 -> Known._10_000_000
+            V_10 -> Known.V_10
+            V_100 -> Known.V_100
+            V_1000 -> Known.V_1000
+            V_10000 -> Known.V_10000
+            V_100000 -> Known.V_100000
+            V_250000 -> Known.V_250000
+            V_500000 -> Known.V_500000
+            V_750000 -> Known.V_750000
+            V_1000000 -> Known.V_1000000
+            V_5000000 -> Known.V_5000000
+            V_10000000_PLUS -> Known.V_10000000_PLUS
             else -> throw TelnyxInvalidDataException("Unknown Volume: $value")
         }
 

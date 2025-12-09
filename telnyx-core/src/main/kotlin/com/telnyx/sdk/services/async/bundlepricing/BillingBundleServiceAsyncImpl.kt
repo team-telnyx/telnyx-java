@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListPageAsync
+import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListPageResponse
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListParams
-import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveParams
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -45,7 +46,7 @@ class BillingBundleServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: BillingBundleListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BillingBundleListResponse> =
+    ): CompletableFuture<BillingBundleListPageAsync> =
         // get /bundle_pricing/billing_bundles
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -95,13 +96,13 @@ class BillingBundleServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<BillingBundleListResponse> =
-            jsonHandler<BillingBundleListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BillingBundleListPageResponse> =
+            jsonHandler<BillingBundleListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BillingBundleListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BillingBundleListResponse>> {
+        ): CompletableFuture<HttpResponseFor<BillingBundleListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -120,6 +121,14 @@ class BillingBundleServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                BillingBundleListPageAsync.builder()
+                                    .service(BillingBundleServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

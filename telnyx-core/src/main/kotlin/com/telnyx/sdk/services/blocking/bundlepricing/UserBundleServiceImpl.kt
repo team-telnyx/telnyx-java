@@ -20,10 +20,11 @@ import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateResponse
+import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListPage
+import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListPageResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesResponse
-import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleRetrieveParams
@@ -60,7 +61,7 @@ class UserBundleServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: UserBundleListParams,
         requestOptions: RequestOptions,
-    ): UserBundleListResponse =
+    ): UserBundleListPage =
         // get /bundle_pricing/user_bundles
         withRawResponse().list(params, requestOptions).parse()
 
@@ -156,13 +157,13 @@ class UserBundleServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<UserBundleListResponse> =
-            jsonHandler<UserBundleListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UserBundleListPageResponse> =
+            jsonHandler<UserBundleListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UserBundleListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UserBundleListResponse> {
+        ): HttpResponseFor<UserBundleListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -179,6 +180,13 @@ class UserBundleServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        UserBundleListPage.builder()
+                            .service(UserBundleServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

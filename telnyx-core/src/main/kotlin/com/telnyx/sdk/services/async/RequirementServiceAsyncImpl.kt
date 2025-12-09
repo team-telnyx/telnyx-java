@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.requirements.RequirementListPageAsync
+import com.telnyx.sdk.models.requirements.RequirementListPageResponse
 import com.telnyx.sdk.models.requirements.RequirementListParams
-import com.telnyx.sdk.models.requirements.RequirementListResponse
 import com.telnyx.sdk.models.requirements.RequirementRetrieveParams
 import com.telnyx.sdk.models.requirements.RequirementRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -45,7 +46,7 @@ class RequirementServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: RequirementListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RequirementListResponse> =
+    ): CompletableFuture<RequirementListPageAsync> =
         // get /requirements
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -95,13 +96,13 @@ class RequirementServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<RequirementListResponse> =
-            jsonHandler<RequirementListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RequirementListPageResponse> =
+            jsonHandler<RequirementListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RequirementListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RequirementListResponse>> {
+        ): CompletableFuture<HttpResponseFor<RequirementListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -120,6 +121,14 @@ class RequirementServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                RequirementListPageAsync.builder()
+                                    .service(RequirementServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.addresses.AddressCreateParams
 import com.telnyx.sdk.models.addresses.AddressCreateResponse
 import com.telnyx.sdk.models.addresses.AddressDeleteParams
 import com.telnyx.sdk.models.addresses.AddressDeleteResponse
+import com.telnyx.sdk.models.addresses.AddressListPage
 import com.telnyx.sdk.models.addresses.AddressListParams
-import com.telnyx.sdk.models.addresses.AddressListResponse
 import com.telnyx.sdk.models.addresses.AddressRetrieveParams
 import com.telnyx.sdk.models.addresses.AddressRetrieveResponse
 import com.telnyx.sdk.services.blocking.addresses.ActionService
@@ -74,20 +74,20 @@ interface AddressService {
         retrieve(id, AddressRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your addresses. */
-    fun list(): AddressListResponse = list(AddressListParams.none())
+    fun list(): AddressListPage = list(AddressListParams.none())
 
     /** @see list */
     fun list(
         params: AddressListParams = AddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AddressListResponse
+    ): AddressListPage
 
     /** @see list */
-    fun list(params: AddressListParams = AddressListParams.none()): AddressListResponse =
+    fun list(params: AddressListParams = AddressListParams.none()): AddressListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AddressListResponse =
+    fun list(requestOptions: RequestOptions): AddressListPage =
         list(AddressListParams.none(), requestOptions)
 
     /** Deletes an existing address. */
@@ -195,25 +195,24 @@ interface AddressService {
          * Returns a raw HTTP response for `get /addresses`, but is otherwise the same as
          * [AddressService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<AddressListResponse> = list(AddressListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<AddressListPage> = list(AddressListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AddressListParams = AddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AddressListResponse>
+        ): HttpResponseFor<AddressListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AddressListParams = AddressListParams.none()
-        ): HttpResponseFor<AddressListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AddressListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AddressListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AddressListPage> =
             list(AddressListParams.none(), requestOptions)
 
         /**

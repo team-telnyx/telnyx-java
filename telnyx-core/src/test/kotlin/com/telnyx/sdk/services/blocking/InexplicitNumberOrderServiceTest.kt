@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateParams
-import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -88,11 +87,8 @@ internal class InexplicitNumberOrderServiceTest {
                 .build()
         val inexplicitNumberOrderService = client.inexplicitNumberOrders()
 
-        val inexplicitNumberOrders =
-            inexplicitNumberOrderService.list(
-                InexplicitNumberOrderListParams.builder().pageNumber(1L).pageSize(1L).build()
-            )
+        val page = inexplicitNumberOrderService.list()
 
-        inexplicitNumberOrders.validate()
+        page.response().validate()
     }
 }

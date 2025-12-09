@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateParams
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateResponse
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentDeleteParams
+import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListPage
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListParams
-import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListResponse
 import java.util.function.Consumer
 
 interface AdditionalDocumentService {
@@ -60,34 +60,33 @@ interface AdditionalDocumentService {
         create(id, AdditionalDocumentCreateParams.none(), requestOptions)
 
     /** Returns a list of additional documents for a porting order. */
-    fun list(id: String): AdditionalDocumentListResponse =
-        list(id, AdditionalDocumentListParams.none())
+    fun list(id: String): AdditionalDocumentListPage = list(id, AdditionalDocumentListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdditionalDocumentListResponse = list(params.toBuilder().id(id).build(), requestOptions)
+    ): AdditionalDocumentListPage = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
-    ): AdditionalDocumentListResponse = list(id, params, RequestOptions.none())
+    ): AdditionalDocumentListPage = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: AdditionalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AdditionalDocumentListResponse
+    ): AdditionalDocumentListPage
 
     /** @see list */
-    fun list(params: AdditionalDocumentListParams): AdditionalDocumentListResponse =
+    fun list(params: AdditionalDocumentListParams): AdditionalDocumentListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): AdditionalDocumentListResponse =
+    fun list(id: String, requestOptions: RequestOptions): AdditionalDocumentListPage =
         list(id, AdditionalDocumentListParams.none(), requestOptions)
 
     /** Deletes an additional document for a porting order. */
@@ -180,7 +179,7 @@ interface AdditionalDocumentService {
          * otherwise the same as [AdditionalDocumentService.list].
          */
         @MustBeClosed
-        fun list(id: String): HttpResponseFor<AdditionalDocumentListResponse> =
+        fun list(id: String): HttpResponseFor<AdditionalDocumentListPage> =
             list(id, AdditionalDocumentListParams.none())
 
         /** @see list */
@@ -189,7 +188,7 @@ interface AdditionalDocumentService {
             id: String,
             params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdditionalDocumentListResponse> =
+        ): HttpResponseFor<AdditionalDocumentListPage> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
@@ -197,27 +196,27 @@ interface AdditionalDocumentService {
         fun list(
             id: String,
             params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
-        ): HttpResponseFor<AdditionalDocumentListResponse> = list(id, params, RequestOptions.none())
+        ): HttpResponseFor<AdditionalDocumentListPage> = list(id, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AdditionalDocumentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AdditionalDocumentListResponse>
+        ): HttpResponseFor<AdditionalDocumentListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AdditionalDocumentListParams
-        ): HttpResponseFor<AdditionalDocumentListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AdditionalDocumentListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AdditionalDocumentListResponse> =
+        ): HttpResponseFor<AdditionalDocumentListPage> =
             list(id, AdditionalDocumentListParams.none(), requestOptions)
 
         /**

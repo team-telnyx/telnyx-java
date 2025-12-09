@@ -48,8 +48,8 @@ internal class MessagingListResponseTest {
                 .meta(
                     BatchCsvPaginationMeta.builder()
                         .pageNumber(2)
-                        .pageSize(25)
                         .totalPages(3)
+                        .pageSize(25)
                         .totalResults(55)
                         .build()
                 )
@@ -89,8 +89,8 @@ internal class MessagingListResponseTest {
             .contains(
                 BatchCsvPaginationMeta.builder()
                     .pageNumber(2)
-                    .pageSize(25)
                     .totalPages(3)
+                    .pageSize(25)
                     .totalResults(55)
                     .build()
             )
@@ -133,8 +133,8 @@ internal class MessagingListResponseTest {
                 .meta(
                     BatchCsvPaginationMeta.builder()
                         .pageNumber(2)
-                        .pageSize(25)
                         .totalPages(3)
+                        .pageSize(25)
                         .totalResults(55)
                         .build()
                 )

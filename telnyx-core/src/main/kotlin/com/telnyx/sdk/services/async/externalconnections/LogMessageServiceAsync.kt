@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissResponse
+import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListPageAsync
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListParams
-import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListResponse
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -66,21 +66,21 @@ interface LogMessageServiceAsync {
     /**
      * Retrieve a list of log messages for all external connections associated with your account.
      */
-    fun list(): CompletableFuture<LogMessageListResponse> = list(LogMessageListParams.none())
+    fun list(): CompletableFuture<LogMessageListPageAsync> = list(LogMessageListParams.none())
 
     /** @see list */
     fun list(
         params: LogMessageListParams = LogMessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<LogMessageListResponse>
+    ): CompletableFuture<LogMessageListPageAsync>
 
     /** @see list */
     fun list(
         params: LogMessageListParams = LogMessageListParams.none()
-    ): CompletableFuture<LogMessageListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<LogMessageListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<LogMessageListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<LogMessageListPageAsync> =
         list(LogMessageListParams.none(), requestOptions)
 
     /** Dismiss a log message for an external connection associated with your account. */
@@ -178,25 +178,25 @@ interface LogMessageServiceAsync {
          * Returns a raw HTTP response for `get /external_connections/log_messages`, but is
          * otherwise the same as [LogMessageServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<LogMessageListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<LogMessageListPageAsync>> =
             list(LogMessageListParams.none())
 
         /** @see list */
         fun list(
             params: LogMessageListParams = LogMessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<LogMessageListResponse>>
+        ): CompletableFuture<HttpResponseFor<LogMessageListPageAsync>>
 
         /** @see list */
         fun list(
             params: LogMessageListParams = LogMessageListParams.none()
-        ): CompletableFuture<HttpResponseFor<LogMessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<LogMessageListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<LogMessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<LogMessageListPageAsync>> =
             list(LogMessageListParams.none(), requestOptions)
 
         /**

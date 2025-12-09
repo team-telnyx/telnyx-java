@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking.externalconnections
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.externalconnections.releases.ReleaseListParams
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -44,40 +43,8 @@ internal class ReleaseServiceTest {
                 .build()
         val releaseService = client.externalConnections().releases()
 
-        val releases =
-            releaseService.list(
-                ReleaseListParams.builder()
-                    .id("id")
-                    .filter(
-                        ReleaseListParams.Filter.builder()
-                            .civicAddressId(
-                                ReleaseListParams.Filter.CivicAddressId.builder()
-                                    .eq("19990261512338516954")
-                                    .build()
-                            )
-                            .locationId(
-                                ReleaseListParams.Filter.LocationId.builder()
-                                    .eq("19995665508264022121")
-                                    .build()
-                            )
-                            .phoneNumber(
-                                ReleaseListParams.Filter.PhoneNumber.builder()
-                                    .contains("+123")
-                                    .eq("+1234567890")
-                                    .build()
-                            )
-                            .status(
-                                ReleaseListParams.Filter.Status.builder()
-                                    .addEq(ReleaseListParams.Filter.Status.Eq.PENDING)
-                                    .addEq(ReleaseListParams.Filter.Status.Eq.IN_PROGRESS)
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(ReleaseListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = releaseService.list("id")
 
-        releases.validate()
+        page.response().validate()
     }
 }

@@ -18,12 +18,14 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteResponse
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberListPage
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberListParams
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveResponse
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListPage
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListPageResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListParams
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateResponse
 import com.telnyx.sdk.services.blocking.phonenumbers.ActionService
@@ -94,7 +96,7 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: PhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): PhoneNumberListResponse =
+    ): PhoneNumberListPage =
         // get /phone_numbers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -108,7 +110,7 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
     override fun slimList(
         params: PhoneNumberSlimListParams,
         requestOptions: RequestOptions,
-    ): PhoneNumberSlimListResponse =
+    ): PhoneNumberSlimListPage =
         // get /phone_numbers/slim
         withRawResponse().slimList(params, requestOptions).parse()
 
@@ -200,7 +202,7 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
         ): HttpResponseFor<PhoneNumberUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("pathId", params.pathId().getOrNull())
+            checkRequired("phoneNumberId", params.phoneNumberId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -222,13 +224,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<PhoneNumberListResponse> =
-            jsonHandler<PhoneNumberListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhoneNumberListPageResponse> =
+            jsonHandler<PhoneNumberListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhoneNumberListResponse> {
+        ): HttpResponseFor<PhoneNumberListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -245,6 +247,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        PhoneNumberListPage.builder()
+                            .service(PhoneNumberServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
@@ -280,13 +289,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val slimListHandler: Handler<PhoneNumberSlimListResponse> =
-            jsonHandler<PhoneNumberSlimListResponse>(clientOptions.jsonMapper)
+        private val slimListHandler: Handler<PhoneNumberSlimListPageResponse> =
+            jsonHandler<PhoneNumberSlimListPageResponse>(clientOptions.jsonMapper)
 
         override fun slimList(
             params: PhoneNumberSlimListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhoneNumberSlimListResponse> {
+        ): HttpResponseFor<PhoneNumberSlimListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -303,6 +312,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        PhoneNumberSlimListPage.builder()
+                            .service(PhoneNumberServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

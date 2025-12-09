@@ -16,7 +16,6 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
@@ -27,12 +26,14 @@ import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusPara
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPage
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrService
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.UsecaseService
@@ -77,7 +78,7 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions,
-    ): CampaignListResponse =
+    ): CampaignListPage =
         // get /10dlc/campaign
         withRawResponse().list(params, requestOptions).parse()
 
@@ -209,13 +210,13 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<CampaignListResponse> =
-            jsonHandler<CampaignListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CampaignListPageResponse> =
+            jsonHandler<CampaignListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignListResponse> {
+        ): HttpResponseFor<CampaignListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -232,6 +233,13 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CampaignListPage.builder()
+                            .service(CampaignServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

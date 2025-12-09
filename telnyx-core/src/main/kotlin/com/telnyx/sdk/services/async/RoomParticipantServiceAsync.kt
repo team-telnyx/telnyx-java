@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.roomparticipants.RoomParticipantListPageAsync
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantListParams
-import com.telnyx.sdk.models.roomparticipants.RoomParticipantListResponse
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveParams
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -64,22 +64,22 @@ interface RoomParticipantServiceAsync {
         retrieve(roomParticipantId, RoomParticipantRetrieveParams.none(), requestOptions)
 
     /** View a list of room participants. */
-    fun list(): CompletableFuture<RoomParticipantListResponse> =
+    fun list(): CompletableFuture<RoomParticipantListPageAsync> =
         list(RoomParticipantListParams.none())
 
     /** @see list */
     fun list(
         params: RoomParticipantListParams = RoomParticipantListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RoomParticipantListResponse>
+    ): CompletableFuture<RoomParticipantListPageAsync>
 
     /** @see list */
     fun list(
         params: RoomParticipantListParams = RoomParticipantListParams.none()
-    ): CompletableFuture<RoomParticipantListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<RoomParticipantListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<RoomParticipantListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<RoomParticipantListPageAsync> =
         list(RoomParticipantListParams.none(), requestOptions)
 
     /**
@@ -147,25 +147,25 @@ interface RoomParticipantServiceAsync {
          * Returns a raw HTTP response for `get /room_participants`, but is otherwise the same as
          * [RoomParticipantServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<RoomParticipantListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<RoomParticipantListPageAsync>> =
             list(RoomParticipantListParams.none())
 
         /** @see list */
         fun list(
             params: RoomParticipantListParams = RoomParticipantListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RoomParticipantListResponse>>
+        ): CompletableFuture<HttpResponseFor<RoomParticipantListPageAsync>>
 
         /** @see list */
         fun list(
             params: RoomParticipantListParams = RoomParticipantListParams.none()
-        ): CompletableFuture<HttpResponseFor<RoomParticipantListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RoomParticipantListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<RoomParticipantListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RoomParticipantListPageAsync>> =
             list(RoomParticipantListParams.none(), requestOptions)
     }
 }

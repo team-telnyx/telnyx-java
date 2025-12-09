@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateParams
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateResponse
+import com.telnyx.sdk.models.useraddresses.UserAddressListPage
+import com.telnyx.sdk.models.useraddresses.UserAddressListPageResponse
 import com.telnyx.sdk.models.useraddresses.UserAddressListParams
-import com.telnyx.sdk.models.useraddresses.UserAddressListResponse
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveParams
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveResponse
 import java.util.function.Consumer
@@ -54,7 +55,7 @@ class UserAddressServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: UserAddressListParams,
         requestOptions: RequestOptions,
-    ): UserAddressListResponse =
+    ): UserAddressListPage =
         // get /user_addresses
         withRawResponse().list(params, requestOptions).parse()
 
@@ -129,13 +130,13 @@ class UserAddressServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<UserAddressListResponse> =
-            jsonHandler<UserAddressListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UserAddressListPageResponse> =
+            jsonHandler<UserAddressListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UserAddressListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UserAddressListResponse> {
+        ): HttpResponseFor<UserAddressListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -152,6 +153,13 @@ class UserAddressServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        UserAddressListPage.builder()
+                            .service(UserAddressServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

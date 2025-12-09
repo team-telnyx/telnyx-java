@@ -7,18 +7,18 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPage
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
 import java.util.function.Consumer
 
@@ -104,20 +104,20 @@ interface BrandService {
     ): TelnyxBrand
 
     /** This endpoint is used to list all brands associated with your organization. */
-    fun list(): BrandListResponse = list(BrandListParams.none())
+    fun list(): BrandListPage = list(BrandListParams.none())
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandListResponse
+    ): BrandListPage
 
     /** @see list */
-    fun list(params: BrandListParams = BrandListParams.none()): BrandListResponse =
+    fun list(params: BrandListParams = BrandListParams.none()): BrandListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BrandListResponse =
+    fun list(requestOptions: RequestOptions): BrandListPage =
         list(BrandListParams.none(), requestOptions)
 
     /**
@@ -356,24 +356,23 @@ interface BrandService {
          * Returns a raw HTTP response for `get /10dlc/brand`, but is otherwise the same as
          * [BrandService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<BrandListResponse> = list(BrandListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<BrandListPage> = list(BrandListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BrandListParams = BrandListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandListResponse>
+        ): HttpResponseFor<BrandListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: BrandListParams = BrandListParams.none()
-        ): HttpResponseFor<BrandListResponse> = list(params, RequestOptions.none())
+        fun list(params: BrandListParams = BrandListParams.none()): HttpResponseFor<BrandListPage> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListPage> =
             list(BrandListParams.none(), requestOptions)
 
         /**

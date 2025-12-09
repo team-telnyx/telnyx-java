@@ -8,12 +8,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteResponse
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberListParams
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveResponse
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListPage
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListParams
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateResponse
 import com.telnyx.sdk.services.blocking.phonenumbers.ActionService
@@ -82,21 +82,22 @@ interface PhoneNumberService {
         retrieve(id, PhoneNumberRetrieveParams.none(), requestOptions)
 
     /** Update a phone number */
-    fun update(pathId: String): PhoneNumberUpdateResponse =
-        update(pathId, PhoneNumberUpdateParams.none())
+    fun update(phoneNumberId: String): PhoneNumberUpdateResponse =
+        update(phoneNumberId, PhoneNumberUpdateParams.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        phoneNumberId: String,
         params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberUpdateResponse = update(params.toBuilder().pathId(pathId).build(), requestOptions)
+    ): PhoneNumberUpdateResponse =
+        update(params.toBuilder().phoneNumberId(phoneNumberId).build(), requestOptions)
 
     /** @see update */
     fun update(
-        pathId: String,
+        phoneNumberId: String,
         params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
-    ): PhoneNumberUpdateResponse = update(pathId, params, RequestOptions.none())
+    ): PhoneNumberUpdateResponse = update(phoneNumberId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
@@ -109,25 +110,24 @@ interface PhoneNumberService {
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(pathId: String, requestOptions: RequestOptions): PhoneNumberUpdateResponse =
-        update(pathId, PhoneNumberUpdateParams.none(), requestOptions)
+    fun update(phoneNumberId: String, requestOptions: RequestOptions): PhoneNumberUpdateResponse =
+        update(phoneNumberId, PhoneNumberUpdateParams.none(), requestOptions)
 
     /** List phone numbers */
-    fun list(): PhoneNumberListResponse = list(PhoneNumberListParams.none())
+    fun list(): PhoneNumberListPage = list(PhoneNumberListParams.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberListParams = PhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberListResponse
+    ): PhoneNumberListPage
 
     /** @see list */
-    fun list(
-        params: PhoneNumberListParams = PhoneNumberListParams.none()
-    ): PhoneNumberListResponse = list(params, RequestOptions.none())
+    fun list(params: PhoneNumberListParams = PhoneNumberListParams.none()): PhoneNumberListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PhoneNumberListResponse =
+    fun list(requestOptions: RequestOptions): PhoneNumberListPage =
         list(PhoneNumberListParams.none(), requestOptions)
 
     /** Delete a phone number */
@@ -164,21 +164,21 @@ interface PhoneNumberService {
      * List phone numbers, This endpoint is a lighter version of the /phone_numbers endpoint having
      * higher performance and rate limit.
      */
-    fun slimList(): PhoneNumberSlimListResponse = slimList(PhoneNumberSlimListParams.none())
+    fun slimList(): PhoneNumberSlimListPage = slimList(PhoneNumberSlimListParams.none())
 
     /** @see slimList */
     fun slimList(
         params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberSlimListResponse
+    ): PhoneNumberSlimListPage
 
     /** @see slimList */
     fun slimList(
         params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none()
-    ): PhoneNumberSlimListResponse = slimList(params, RequestOptions.none())
+    ): PhoneNumberSlimListPage = slimList(params, RequestOptions.none())
 
     /** @see slimList */
-    fun slimList(requestOptions: RequestOptions): PhoneNumberSlimListResponse =
+    fun slimList(requestOptions: RequestOptions): PhoneNumberSlimListPage =
         slimList(PhoneNumberSlimListParams.none(), requestOptions)
 
     /**
@@ -258,25 +258,25 @@ interface PhoneNumberService {
          * [PhoneNumberService.update].
          */
         @MustBeClosed
-        fun update(pathId: String): HttpResponseFor<PhoneNumberUpdateResponse> =
-            update(pathId, PhoneNumberUpdateParams.none())
+        fun update(phoneNumberId: String): HttpResponseFor<PhoneNumberUpdateResponse> =
+            update(phoneNumberId, PhoneNumberUpdateParams.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            phoneNumberId: String,
             params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhoneNumberUpdateResponse> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(params.toBuilder().phoneNumberId(phoneNumberId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            phoneNumberId: String,
             params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
         ): HttpResponseFor<PhoneNumberUpdateResponse> =
-            update(pathId, params, RequestOptions.none())
+            update(phoneNumberId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -293,34 +293,34 @@ interface PhoneNumberService {
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            phoneNumberId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PhoneNumberUpdateResponse> =
-            update(pathId, PhoneNumberUpdateParams.none(), requestOptions)
+            update(phoneNumberId, PhoneNumberUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /phone_numbers`, but is otherwise the same as
          * [PhoneNumberService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PhoneNumberListResponse> = list(PhoneNumberListParams.none())
+        fun list(): HttpResponseFor<PhoneNumberListPage> = list(PhoneNumberListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhoneNumberListParams = PhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberListResponse>
+        ): HttpResponseFor<PhoneNumberListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhoneNumberListParams = PhoneNumberListParams.none()
-        ): HttpResponseFor<PhoneNumberListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PhoneNumberListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PhoneNumberListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PhoneNumberListPage> =
             list(PhoneNumberListParams.none(), requestOptions)
 
         /**
@@ -372,7 +372,7 @@ interface PhoneNumberService {
          * [PhoneNumberService.slimList].
          */
         @MustBeClosed
-        fun slimList(): HttpResponseFor<PhoneNumberSlimListResponse> =
+        fun slimList(): HttpResponseFor<PhoneNumberSlimListPage> =
             slimList(PhoneNumberSlimListParams.none())
 
         /** @see slimList */
@@ -380,17 +380,17 @@ interface PhoneNumberService {
         fun slimList(
             params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberSlimListResponse>
+        ): HttpResponseFor<PhoneNumberSlimListPage>
 
         /** @see slimList */
         @MustBeClosed
         fun slimList(
             params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none()
-        ): HttpResponseFor<PhoneNumberSlimListResponse> = slimList(params, RequestOptions.none())
+        ): HttpResponseFor<PhoneNumberSlimListPage> = slimList(params, RequestOptions.none())
 
         /** @see slimList */
         @MustBeClosed
-        fun slimList(requestOptions: RequestOptions): HttpResponseFor<PhoneNumberSlimListResponse> =
+        fun slimList(requestOptions: RequestOptions): HttpResponseFor<PhoneNumberSlimListPage> =
             slimList(PhoneNumberSlimListParams.none(), requestOptions)
     }
 }

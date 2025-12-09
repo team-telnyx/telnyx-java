@@ -14,14 +14,14 @@ internal class PaginationMetaTest {
         val paginationMeta =
             PaginationMeta.builder()
                 .pageNumber(2L)
-                .pageSize(25L)
                 .totalPages(3L)
+                .pageSize(25L)
                 .totalResults(55L)
                 .build()
 
-        assertThat(paginationMeta.pageNumber()).contains(2L)
+        assertThat(paginationMeta.pageNumber()).isEqualTo(2L)
+        assertThat(paginationMeta.totalPages()).isEqualTo(3L)
         assertThat(paginationMeta.pageSize()).contains(25L)
-        assertThat(paginationMeta.totalPages()).contains(3L)
         assertThat(paginationMeta.totalResults()).contains(55L)
     }
 
@@ -31,8 +31,8 @@ internal class PaginationMetaTest {
         val paginationMeta =
             PaginationMeta.builder()
                 .pageNumber(2L)
-                .pageSize(25L)
                 .totalPages(3L)
+                .pageSize(25L)
                 .totalResults(55L)
                 .build()
 

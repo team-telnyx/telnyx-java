@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateRespo
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateTokenParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialDeleteParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialDeleteResponse
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListPage
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListParams
-import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
@@ -107,21 +107,21 @@ interface TelephonyCredentialService {
         update(id, TelephonyCredentialUpdateParams.none(), requestOptions)
 
     /** List all On-demand Credentials. */
-    fun list(): TelephonyCredentialListResponse = list(TelephonyCredentialListParams.none())
+    fun list(): TelephonyCredentialListPage = list(TelephonyCredentialListParams.none())
 
     /** @see list */
     fun list(
         params: TelephonyCredentialListParams = TelephonyCredentialListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TelephonyCredentialListResponse
+    ): TelephonyCredentialListPage
 
     /** @see list */
     fun list(
         params: TelephonyCredentialListParams = TelephonyCredentialListParams.none()
-    ): TelephonyCredentialListResponse = list(params, RequestOptions.none())
+    ): TelephonyCredentialListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): TelephonyCredentialListResponse =
+    fun list(requestOptions: RequestOptions): TelephonyCredentialListPage =
         list(TelephonyCredentialListParams.none(), requestOptions)
 
     /** Delete an existing credential. */
@@ -317,7 +317,7 @@ interface TelephonyCredentialService {
          * as [TelephonyCredentialService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<TelephonyCredentialListResponse> =
+        fun list(): HttpResponseFor<TelephonyCredentialListPage> =
             list(TelephonyCredentialListParams.none())
 
         /** @see list */
@@ -325,17 +325,17 @@ interface TelephonyCredentialService {
         fun list(
             params: TelephonyCredentialListParams = TelephonyCredentialListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TelephonyCredentialListResponse>
+        ): HttpResponseFor<TelephonyCredentialListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: TelephonyCredentialListParams = TelephonyCredentialListParams.none()
-        ): HttpResponseFor<TelephonyCredentialListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<TelephonyCredentialListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<TelephonyCredentialListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<TelephonyCredentialListPage> =
             list(TelephonyCredentialListParams.none(), requestOptions)
 
         /**

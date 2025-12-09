@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking.legacy.reporting.usagereports
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreateParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -67,9 +66,9 @@ internal class VoiceServiceTest {
                 .build()
         val voiceService = client.legacy().reporting().usageReports().voice()
 
-        val voices = voiceService.list(VoiceListParams.builder().page(1).perPage(1).build())
+        val page = voiceService.list()
 
-        voices.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

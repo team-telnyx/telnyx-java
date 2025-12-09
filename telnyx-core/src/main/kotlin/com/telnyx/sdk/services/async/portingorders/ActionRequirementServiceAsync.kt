@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateParams
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateResponse
+import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListPageAsync
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListParams
-import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,7 +27,7 @@ interface ActionRequirementServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionRequirementServiceAsync
 
     /** Returns a list of action requirements for a specific porting order. */
-    fun list(portingOrderId: String): CompletableFuture<ActionRequirementListResponse> =
+    fun list(portingOrderId: String): CompletableFuture<ActionRequirementListPageAsync> =
         list(portingOrderId, ActionRequirementListParams.none())
 
     /** @see list */
@@ -35,32 +35,32 @@ interface ActionRequirementServiceAsync {
         portingOrderId: String,
         params: ActionRequirementListParams = ActionRequirementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ActionRequirementListResponse> =
+    ): CompletableFuture<ActionRequirementListPageAsync> =
         list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
     /** @see list */
     fun list(
         portingOrderId: String,
         params: ActionRequirementListParams = ActionRequirementListParams.none(),
-    ): CompletableFuture<ActionRequirementListResponse> =
+    ): CompletableFuture<ActionRequirementListPageAsync> =
         list(portingOrderId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ActionRequirementListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ActionRequirementListResponse>
+    ): CompletableFuture<ActionRequirementListPageAsync>
 
     /** @see list */
     fun list(
         params: ActionRequirementListParams
-    ): CompletableFuture<ActionRequirementListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<ActionRequirementListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         portingOrderId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ActionRequirementListResponse> =
+    ): CompletableFuture<ActionRequirementListPageAsync> =
         list(portingOrderId, ActionRequirementListParams.none(), requestOptions)
 
     /** Initiates a specific action requirement for a porting order. */
@@ -112,7 +112,7 @@ interface ActionRequirementServiceAsync {
          */
         fun list(
             portingOrderId: String
-        ): CompletableFuture<HttpResponseFor<ActionRequirementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ActionRequirementListPageAsync>> =
             list(portingOrderId, ActionRequirementListParams.none())
 
         /** @see list */
@@ -120,33 +120,33 @@ interface ActionRequirementServiceAsync {
             portingOrderId: String,
             params: ActionRequirementListParams = ActionRequirementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ActionRequirementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ActionRequirementListPageAsync>> =
             list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
         /** @see list */
         fun list(
             portingOrderId: String,
             params: ActionRequirementListParams = ActionRequirementListParams.none(),
-        ): CompletableFuture<HttpResponseFor<ActionRequirementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ActionRequirementListPageAsync>> =
             list(portingOrderId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: ActionRequirementListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ActionRequirementListResponse>>
+        ): CompletableFuture<HttpResponseFor<ActionRequirementListPageAsync>>
 
         /** @see list */
         fun list(
             params: ActionRequirementListParams
-        ): CompletableFuture<HttpResponseFor<ActionRequirementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ActionRequirementListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             portingOrderId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ActionRequirementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ActionRequirementListPageAsync>> =
             list(portingOrderId, ActionRequirementListParams.none(), requestOptions)
 
         /**

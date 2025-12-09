@@ -7,7 +7,6 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreate
 import java.util.Objects
 
 /** Create New Phone Number Campaign */

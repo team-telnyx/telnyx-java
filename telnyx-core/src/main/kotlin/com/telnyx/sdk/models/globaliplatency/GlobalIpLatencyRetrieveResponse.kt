@@ -825,117 +825,117 @@ private constructor(
         class PercentileLatency
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val p0: JsonField<_0>,
-            private val p25: JsonField<_25>,
-            private val p50: JsonField<_50>,
-            private val p75: JsonField<_75>,
-            private val p90: JsonField<_90>,
-            private val p99: JsonField<_99>,
-            private val p100: JsonField<_100>,
+            private val p0: JsonField<P0>,
+            private val p25: JsonField<P25>,
+            private val p50: JsonField<P50>,
+            private val p75: JsonField<P75>,
+            private val p90: JsonField<P90>,
+            private val p99: JsonField<P99>,
+            private val p100: JsonField<P100>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("0") @ExcludeMissing p0: JsonField<_0> = JsonMissing.of(),
-                @JsonProperty("25") @ExcludeMissing p25: JsonField<_25> = JsonMissing.of(),
-                @JsonProperty("50") @ExcludeMissing p50: JsonField<_50> = JsonMissing.of(),
-                @JsonProperty("75") @ExcludeMissing p75: JsonField<_75> = JsonMissing.of(),
-                @JsonProperty("90") @ExcludeMissing p90: JsonField<_90> = JsonMissing.of(),
-                @JsonProperty("99") @ExcludeMissing p99: JsonField<_99> = JsonMissing.of(),
-                @JsonProperty("100") @ExcludeMissing p100: JsonField<_100> = JsonMissing.of(),
+                @JsonProperty("0") @ExcludeMissing p0: JsonField<P0> = JsonMissing.of(),
+                @JsonProperty("25") @ExcludeMissing p25: JsonField<P25> = JsonMissing.of(),
+                @JsonProperty("50") @ExcludeMissing p50: JsonField<P50> = JsonMissing.of(),
+                @JsonProperty("75") @ExcludeMissing p75: JsonField<P75> = JsonMissing.of(),
+                @JsonProperty("90") @ExcludeMissing p90: JsonField<P90> = JsonMissing.of(),
+                @JsonProperty("99") @ExcludeMissing p99: JsonField<P99> = JsonMissing.of(),
+                @JsonProperty("100") @ExcludeMissing p100: JsonField<P100> = JsonMissing.of(),
             ) : this(p0, p25, p50, p75, p90, p99, p100, mutableMapOf())
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun p0(): Optional<_0> = p0.getOptional("0")
+            fun p0(): Optional<P0> = p0.getOptional("0")
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun p25(): Optional<_25> = p25.getOptional("25")
+            fun p25(): Optional<P25> = p25.getOptional("25")
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun p50(): Optional<_50> = p50.getOptional("50")
+            fun p50(): Optional<P50> = p50.getOptional("50")
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun p75(): Optional<_75> = p75.getOptional("75")
+            fun p75(): Optional<P75> = p75.getOptional("75")
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun p90(): Optional<_90> = p90.getOptional("90")
+            fun p90(): Optional<P90> = p90.getOptional("90")
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun p99(): Optional<_99> = p99.getOptional("99")
+            fun p99(): Optional<P99> = p99.getOptional("99")
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun p100(): Optional<_100> = p100.getOptional("100")
+            fun p100(): Optional<P100> = p100.getOptional("100")
 
             /**
              * Returns the raw JSON value of [p0].
              *
              * Unlike [p0], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("0") @ExcludeMissing fun _p0(): JsonField<_0> = p0
+            @JsonProperty("0") @ExcludeMissing fun _p0(): JsonField<P0> = p0
 
             /**
              * Returns the raw JSON value of [p25].
              *
              * Unlike [p25], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("25") @ExcludeMissing fun _p25(): JsonField<_25> = p25
+            @JsonProperty("25") @ExcludeMissing fun _p25(): JsonField<P25> = p25
 
             /**
              * Returns the raw JSON value of [p50].
              *
              * Unlike [p50], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("50") @ExcludeMissing fun _p50(): JsonField<_50> = p50
+            @JsonProperty("50") @ExcludeMissing fun _p50(): JsonField<P50> = p50
 
             /**
              * Returns the raw JSON value of [p75].
              *
              * Unlike [p75], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("75") @ExcludeMissing fun _p75(): JsonField<_75> = p75
+            @JsonProperty("75") @ExcludeMissing fun _p75(): JsonField<P75> = p75
 
             /**
              * Returns the raw JSON value of [p90].
              *
              * Unlike [p90], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("90") @ExcludeMissing fun _p90(): JsonField<_90> = p90
+            @JsonProperty("90") @ExcludeMissing fun _p90(): JsonField<P90> = p90
 
             /**
              * Returns the raw JSON value of [p99].
              *
              * Unlike [p99], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("99") @ExcludeMissing fun _p99(): JsonField<_99> = p99
+            @JsonProperty("99") @ExcludeMissing fun _p99(): JsonField<P99> = p99
 
             /**
              * Returns the raw JSON value of [p100].
              *
              * Unlike [p100], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("100") @ExcludeMissing fun _p100(): JsonField<_100> = p100
+            @JsonProperty("100") @ExcludeMissing fun _p100(): JsonField<P100> = p100
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -960,13 +960,13 @@ private constructor(
             /** A builder for [PercentileLatency]. */
             class Builder internal constructor() {
 
-                private var p0: JsonField<_0> = JsonMissing.of()
-                private var p25: JsonField<_25> = JsonMissing.of()
-                private var p50: JsonField<_50> = JsonMissing.of()
-                private var p75: JsonField<_75> = JsonMissing.of()
-                private var p90: JsonField<_90> = JsonMissing.of()
-                private var p99: JsonField<_99> = JsonMissing.of()
-                private var p100: JsonField<_100> = JsonMissing.of()
+                private var p0: JsonField<P0> = JsonMissing.of()
+                private var p25: JsonField<P25> = JsonMissing.of()
+                private var p50: JsonField<P50> = JsonMissing.of()
+                private var p75: JsonField<P75> = JsonMissing.of()
+                private var p90: JsonField<P90> = JsonMissing.of()
+                private var p99: JsonField<P99> = JsonMissing.of()
+                private var p100: JsonField<P100> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -981,82 +981,82 @@ private constructor(
                     additionalProperties = percentileLatency.additionalProperties.toMutableMap()
                 }
 
-                fun p0(p0: _0) = p0(JsonField.of(p0))
+                fun p0(p0: P0) = p0(JsonField.of(p0))
 
                 /**
                  * Sets [Builder.p0] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.p0] with a well-typed [_0] value instead. This
+                 * You should usually call [Builder.p0] with a well-typed [P0] value instead. This
                  * method is primarily for setting the field to an undocumented or not yet supported
                  * value.
                  */
-                fun p0(p0: JsonField<_0>) = apply { this.p0 = p0 }
+                fun p0(p0: JsonField<P0>) = apply { this.p0 = p0 }
 
-                fun p25(p25: _25) = p25(JsonField.of(p25))
+                fun p25(p25: P25) = p25(JsonField.of(p25))
 
                 /**
                  * Sets [Builder.p25] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.p25] with a well-typed [_25] value instead. This
+                 * You should usually call [Builder.p25] with a well-typed [P25] value instead. This
                  * method is primarily for setting the field to an undocumented or not yet supported
                  * value.
                  */
-                fun p25(p25: JsonField<_25>) = apply { this.p25 = p25 }
+                fun p25(p25: JsonField<P25>) = apply { this.p25 = p25 }
 
-                fun p50(p50: _50) = p50(JsonField.of(p50))
+                fun p50(p50: P50) = p50(JsonField.of(p50))
 
                 /**
                  * Sets [Builder.p50] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.p50] with a well-typed [_50] value instead. This
+                 * You should usually call [Builder.p50] with a well-typed [P50] value instead. This
                  * method is primarily for setting the field to an undocumented or not yet supported
                  * value.
                  */
-                fun p50(p50: JsonField<_50>) = apply { this.p50 = p50 }
+                fun p50(p50: JsonField<P50>) = apply { this.p50 = p50 }
 
-                fun p75(p75: _75) = p75(JsonField.of(p75))
+                fun p75(p75: P75) = p75(JsonField.of(p75))
 
                 /**
                  * Sets [Builder.p75] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.p75] with a well-typed [_75] value instead. This
+                 * You should usually call [Builder.p75] with a well-typed [P75] value instead. This
                  * method is primarily for setting the field to an undocumented or not yet supported
                  * value.
                  */
-                fun p75(p75: JsonField<_75>) = apply { this.p75 = p75 }
+                fun p75(p75: JsonField<P75>) = apply { this.p75 = p75 }
 
-                fun p90(p90: _90) = p90(JsonField.of(p90))
+                fun p90(p90: P90) = p90(JsonField.of(p90))
 
                 /**
                  * Sets [Builder.p90] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.p90] with a well-typed [_90] value instead. This
+                 * You should usually call [Builder.p90] with a well-typed [P90] value instead. This
                  * method is primarily for setting the field to an undocumented or not yet supported
                  * value.
                  */
-                fun p90(p90: JsonField<_90>) = apply { this.p90 = p90 }
+                fun p90(p90: JsonField<P90>) = apply { this.p90 = p90 }
 
-                fun p99(p99: _99) = p99(JsonField.of(p99))
+                fun p99(p99: P99) = p99(JsonField.of(p99))
 
                 /**
                  * Sets [Builder.p99] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.p99] with a well-typed [_99] value instead. This
+                 * You should usually call [Builder.p99] with a well-typed [P99] value instead. This
                  * method is primarily for setting the field to an undocumented or not yet supported
                  * value.
                  */
-                fun p99(p99: JsonField<_99>) = apply { this.p99 = p99 }
+                fun p99(p99: JsonField<P99>) = apply { this.p99 = p99 }
 
-                fun p100(p100: _100) = p100(JsonField.of(p100))
+                fun p100(p100: P100) = p100(JsonField.of(p100))
 
                 /**
                  * Sets [Builder.p100] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.p100] with a well-typed [_100] value instead.
+                 * You should usually call [Builder.p100] with a well-typed [P100] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun p100(p100: JsonField<_100>) = apply { this.p100 = p100 }
+                fun p100(p100: JsonField<P100>) = apply { this.p100 = p100 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1139,7 +1139,7 @@ private constructor(
                     (p99.asKnown().getOrNull()?.validity() ?: 0) +
                     (p100.asKnown().getOrNull()?.validity() ?: 0)
 
-            class _0
+            class P0
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Double>,
@@ -1201,11 +1201,11 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [_0]. */
+                    /** Returns a mutable builder for constructing an instance of [P0]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [_0]. */
+                /** A builder for [P0]. */
                 class Builder internal constructor() {
 
                     private var amount: JsonField<Double> = JsonMissing.of()
@@ -1213,10 +1213,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(_0: _0) = apply {
-                        amount = _0.amount
-                        unit = _0.unit
-                        additionalProperties = _0.additionalProperties.toMutableMap()
+                    internal fun from(p0: P0) = apply {
+                        amount = p0.amount
+                        unit = p0.unit
+                        additionalProperties = p0.additionalProperties.toMutableMap()
                     }
 
                     /** The minimum latency. */
@@ -1266,16 +1266,16 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [_0].
+                     * Returns an immutable instance of [P0].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): _0 = _0(amount, unit, additionalProperties.toMutableMap())
+                    fun build(): P0 = P0(amount, unit, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): _0 = apply {
+                fun validate(): P0 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1309,7 +1309,7 @@ private constructor(
                         return true
                     }
 
-                    return other is _0 &&
+                    return other is P0 &&
                         amount == other.amount &&
                         unit == other.unit &&
                         additionalProperties == other.additionalProperties
@@ -1322,10 +1322,10 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "_0{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
+                    "P0{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
             }
 
-            class _100
+            class P100
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Double>,
@@ -1387,11 +1387,11 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [_100]. */
+                    /** Returns a mutable builder for constructing an instance of [P100]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [_100]. */
+                /** A builder for [P100]. */
                 class Builder internal constructor() {
 
                     private var amount: JsonField<Double> = JsonMissing.of()
@@ -1399,10 +1399,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(_100: _100) = apply {
-                        amount = _100.amount
-                        unit = _100.unit
-                        additionalProperties = _100.additionalProperties.toMutableMap()
+                    internal fun from(p100: P100) = apply {
+                        amount = p100.amount
+                        unit = p100.unit
+                        additionalProperties = p100.additionalProperties.toMutableMap()
                     }
 
                     /** The maximum latency. */
@@ -1452,16 +1452,16 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [_100].
+                     * Returns an immutable instance of [P100].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): _100 = _100(amount, unit, additionalProperties.toMutableMap())
+                    fun build(): P100 = P100(amount, unit, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): _100 = apply {
+                fun validate(): P100 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1495,7 +1495,7 @@ private constructor(
                         return true
                     }
 
-                    return other is _100 &&
+                    return other is P100 &&
                         amount == other.amount &&
                         unit == other.unit &&
                         additionalProperties == other.additionalProperties
@@ -1508,10 +1508,10 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "_100{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
+                    "P100{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
             }
 
-            class _25
+            class P25
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Double>,
@@ -1573,11 +1573,11 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [_25]. */
+                    /** Returns a mutable builder for constructing an instance of [P25]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [_25]. */
+                /** A builder for [P25]. */
                 class Builder internal constructor() {
 
                     private var amount: JsonField<Double> = JsonMissing.of()
@@ -1585,10 +1585,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(_25: _25) = apply {
-                        amount = _25.amount
-                        unit = _25.unit
-                        additionalProperties = _25.additionalProperties.toMutableMap()
+                    internal fun from(p25: P25) = apply {
+                        amount = p25.amount
+                        unit = p25.unit
+                        additionalProperties = p25.additionalProperties.toMutableMap()
                     }
 
                     /** The 25th percentile latency. */
@@ -1638,16 +1638,16 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [_25].
+                     * Returns an immutable instance of [P25].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): _25 = _25(amount, unit, additionalProperties.toMutableMap())
+                    fun build(): P25 = P25(amount, unit, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): _25 = apply {
+                fun validate(): P25 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1681,7 +1681,7 @@ private constructor(
                         return true
                     }
 
-                    return other is _25 &&
+                    return other is P25 &&
                         amount == other.amount &&
                         unit == other.unit &&
                         additionalProperties == other.additionalProperties
@@ -1694,10 +1694,10 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "_25{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
+                    "P25{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
             }
 
-            class _50
+            class P50
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Double>,
@@ -1759,11 +1759,11 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [_50]. */
+                    /** Returns a mutable builder for constructing an instance of [P50]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [_50]. */
+                /** A builder for [P50]. */
                 class Builder internal constructor() {
 
                     private var amount: JsonField<Double> = JsonMissing.of()
@@ -1771,10 +1771,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(_50: _50) = apply {
-                        amount = _50.amount
-                        unit = _50.unit
-                        additionalProperties = _50.additionalProperties.toMutableMap()
+                    internal fun from(p50: P50) = apply {
+                        amount = p50.amount
+                        unit = p50.unit
+                        additionalProperties = p50.additionalProperties.toMutableMap()
                     }
 
                     /** The 50th percentile latency. */
@@ -1824,16 +1824,16 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [_50].
+                     * Returns an immutable instance of [P50].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): _50 = _50(amount, unit, additionalProperties.toMutableMap())
+                    fun build(): P50 = P50(amount, unit, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): _50 = apply {
+                fun validate(): P50 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1867,7 +1867,7 @@ private constructor(
                         return true
                     }
 
-                    return other is _50 &&
+                    return other is P50 &&
                         amount == other.amount &&
                         unit == other.unit &&
                         additionalProperties == other.additionalProperties
@@ -1880,10 +1880,10 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "_50{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
+                    "P50{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
             }
 
-            class _75
+            class P75
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Double>,
@@ -1945,11 +1945,11 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [_75]. */
+                    /** Returns a mutable builder for constructing an instance of [P75]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [_75]. */
+                /** A builder for [P75]. */
                 class Builder internal constructor() {
 
                     private var amount: JsonField<Double> = JsonMissing.of()
@@ -1957,10 +1957,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(_75: _75) = apply {
-                        amount = _75.amount
-                        unit = _75.unit
-                        additionalProperties = _75.additionalProperties.toMutableMap()
+                    internal fun from(p75: P75) = apply {
+                        amount = p75.amount
+                        unit = p75.unit
+                        additionalProperties = p75.additionalProperties.toMutableMap()
                     }
 
                     /** The 75th percentile latency. */
@@ -2010,16 +2010,16 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [_75].
+                     * Returns an immutable instance of [P75].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): _75 = _75(amount, unit, additionalProperties.toMutableMap())
+                    fun build(): P75 = P75(amount, unit, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): _75 = apply {
+                fun validate(): P75 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -2053,7 +2053,7 @@ private constructor(
                         return true
                     }
 
-                    return other is _75 &&
+                    return other is P75 &&
                         amount == other.amount &&
                         unit == other.unit &&
                         additionalProperties == other.additionalProperties
@@ -2066,10 +2066,10 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "_75{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
+                    "P75{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
             }
 
-            class _90
+            class P90
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Double>,
@@ -2131,11 +2131,11 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [_90]. */
+                    /** Returns a mutable builder for constructing an instance of [P90]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [_90]. */
+                /** A builder for [P90]. */
                 class Builder internal constructor() {
 
                     private var amount: JsonField<Double> = JsonMissing.of()
@@ -2143,10 +2143,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(_90: _90) = apply {
-                        amount = _90.amount
-                        unit = _90.unit
-                        additionalProperties = _90.additionalProperties.toMutableMap()
+                    internal fun from(p90: P90) = apply {
+                        amount = p90.amount
+                        unit = p90.unit
+                        additionalProperties = p90.additionalProperties.toMutableMap()
                     }
 
                     /** The 90th percentile latency. */
@@ -2196,16 +2196,16 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [_90].
+                     * Returns an immutable instance of [P90].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): _90 = _90(amount, unit, additionalProperties.toMutableMap())
+                    fun build(): P90 = P90(amount, unit, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): _90 = apply {
+                fun validate(): P90 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -2239,7 +2239,7 @@ private constructor(
                         return true
                     }
 
-                    return other is _90 &&
+                    return other is P90 &&
                         amount == other.amount &&
                         unit == other.unit &&
                         additionalProperties == other.additionalProperties
@@ -2252,10 +2252,10 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "_90{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
+                    "P90{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
             }
 
-            class _99
+            class P99
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Double>,
@@ -2317,11 +2317,11 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [_99]. */
+                    /** Returns a mutable builder for constructing an instance of [P99]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [_99]. */
+                /** A builder for [P99]. */
                 class Builder internal constructor() {
 
                     private var amount: JsonField<Double> = JsonMissing.of()
@@ -2329,10 +2329,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(_99: _99) = apply {
-                        amount = _99.amount
-                        unit = _99.unit
-                        additionalProperties = _99.additionalProperties.toMutableMap()
+                    internal fun from(p99: P99) = apply {
+                        amount = p99.amount
+                        unit = p99.unit
+                        additionalProperties = p99.additionalProperties.toMutableMap()
                     }
 
                     /** The 99th percentile latency. */
@@ -2382,16 +2382,16 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [_99].
+                     * Returns an immutable instance of [P99].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): _99 = _99(amount, unit, additionalProperties.toMutableMap())
+                    fun build(): P99 = P99(amount, unit, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): _99 = apply {
+                fun validate(): P99 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -2425,7 +2425,7 @@ private constructor(
                         return true
                     }
 
-                    return other is _99 &&
+                    return other is P99 &&
                         amount == other.amount &&
                         unit == other.unit &&
                         additionalProperties == other.additionalProperties
@@ -2438,7 +2438,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "_99{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
+                    "P99{amount=$amount, unit=$unit, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {

@@ -21,8 +21,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.faxes.FaxCreateParams
 import com.telnyx.sdk.models.faxes.FaxCreateResponse
 import com.telnyx.sdk.models.faxes.FaxDeleteParams
+import com.telnyx.sdk.models.faxes.FaxListPageAsync
+import com.telnyx.sdk.models.faxes.FaxListPageResponse
 import com.telnyx.sdk.models.faxes.FaxListParams
-import com.telnyx.sdk.models.faxes.FaxListResponse
 import com.telnyx.sdk.models.faxes.FaxRetrieveParams
 import com.telnyx.sdk.models.faxes.FaxRetrieveResponse
 import com.telnyx.sdk.services.async.faxes.ActionServiceAsync
@@ -64,7 +65,7 @@ class FaxServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: FaxListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<FaxListResponse> =
+    ): CompletableFuture<FaxListPageAsync> =
         // get /faxes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -158,13 +159,13 @@ class FaxServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val listHandler: Handler<FaxListResponse> =
-            jsonHandler<FaxListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FaxListPageResponse> =
+            jsonHandler<FaxListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FaxListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FaxListResponse>> {
+        ): CompletableFuture<HttpResponseFor<FaxListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -183,6 +184,14 @@ class FaxServiceAsyncImpl internal constructor(private val clientOptions: Client
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                FaxListPageAsync.builder()
+                                    .service(FaxServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

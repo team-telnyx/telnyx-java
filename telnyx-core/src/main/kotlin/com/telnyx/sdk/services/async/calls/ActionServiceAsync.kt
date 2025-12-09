@@ -148,18 +148,21 @@ interface ActionServiceAsync {
      * - `call.bridged` for Leg B
      */
     fun bridge(
-        pathCallControlId: String,
+        callControlIdToBridge: String,
         params: ActionBridgeParams,
     ): CompletableFuture<ActionBridgeResponse> =
-        bridge(pathCallControlId, params, RequestOptions.none())
+        bridge(callControlIdToBridge, params, RequestOptions.none())
 
     /** @see bridge */
     fun bridge(
-        pathCallControlId: String,
+        callControlIdToBridge: String,
         params: ActionBridgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionBridgeResponse> =
-        bridge(params.toBuilder().pathCallControlId(pathCallControlId).build(), requestOptions)
+        bridge(
+            params.toBuilder().callControlIdToBridge(callControlIdToBridge).build(),
+            requestOptions,
+        )
 
     /** @see bridge */
     fun bridge(params: ActionBridgeParams): CompletableFuture<ActionBridgeResponse> =
@@ -1553,18 +1556,21 @@ interface ActionServiceAsync {
          * otherwise the same as [ActionServiceAsync.bridge].
          */
         fun bridge(
-            pathCallControlId: String,
+            callControlIdToBridge: String,
             params: ActionBridgeParams,
         ): CompletableFuture<HttpResponseFor<ActionBridgeResponse>> =
-            bridge(pathCallControlId, params, RequestOptions.none())
+            bridge(callControlIdToBridge, params, RequestOptions.none())
 
         /** @see bridge */
         fun bridge(
-            pathCallControlId: String,
+            callControlIdToBridge: String,
             params: ActionBridgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ActionBridgeResponse>> =
-            bridge(params.toBuilder().pathCallControlId(pathCallControlId).build(), requestOptions)
+            bridge(
+                params.toBuilder().callControlIdToBridge(callControlIdToBridge).build(),
+                requestOptions,
+            )
 
         /** @see bridge */
         fun bridge(

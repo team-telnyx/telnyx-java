@@ -17,7 +17,7 @@ internal class CommentRetrieveResponseTest {
                 .data(
                     CommentRetrieveResponse.Data.builder()
                         .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                        .body("Hi there, ....")
+                        .commentBody("Hi there, ....")
                         .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
                         .commentRecordType(
                             CommentRetrieveResponse.Data.CommentRecordType.SUB_NUMBER_ORDER
@@ -35,7 +35,7 @@ internal class CommentRetrieveResponseTest {
             .contains(
                 CommentRetrieveResponse.Data.builder()
                     .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                    .body("Hi there, ....")
+                    .commentBody("Hi there, ....")
                     .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
                     .commentRecordType(
                         CommentRetrieveResponse.Data.CommentRecordType.SUB_NUMBER_ORDER
@@ -57,7 +57,7 @@ internal class CommentRetrieveResponseTest {
                 .data(
                     CommentRetrieveResponse.Data.builder()
                         .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                        .body("Hi there, ....")
+                        .commentBody("Hi there, ....")
                         .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
                         .commentRecordType(
                             CommentRetrieveResponse.Data.CommentRecordType.SUB_NUMBER_ORDER

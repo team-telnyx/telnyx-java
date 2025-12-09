@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,20 +21,8 @@ internal class DetailRecordServiceTest {
                 .build()
         val detailRecordService = client.detailRecords()
 
-        val detailRecords =
-            detailRecordService.list(
-                DetailRecordListParams.builder()
-                    .filter(
-                        DetailRecordListParams.Filter.builder()
-                            .recordType(DetailRecordListParams.Filter.RecordType.AI_VOICE_ASSISTANT)
-                            .dateRange(DetailRecordListParams.Filter.DateRange.YESTERDAY)
-                            .build()
-                    )
-                    .page(DetailRecordListParams.Page.builder().number(1).size(1).build())
-                    .addSort("string")
-                    .build()
-            )
+        val page = detailRecordService.list()
 
-        detailRecords.validate()
+        page.response().validate()
     }
 }

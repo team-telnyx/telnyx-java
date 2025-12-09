@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteResponse
+import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListPageAsync
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListParams
-import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
@@ -117,22 +117,22 @@ interface FqdnConnectionServiceAsync {
         update(id, FqdnConnectionUpdateParams.none(), requestOptions)
 
     /** Returns a list of your FQDN connections. */
-    fun list(): CompletableFuture<FqdnConnectionListResponse> =
+    fun list(): CompletableFuture<FqdnConnectionListPageAsync> =
         list(FqdnConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: FqdnConnectionListParams = FqdnConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FqdnConnectionListResponse>
+    ): CompletableFuture<FqdnConnectionListPageAsync>
 
     /** @see list */
     fun list(
         params: FqdnConnectionListParams = FqdnConnectionListParams.none()
-    ): CompletableFuture<FqdnConnectionListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<FqdnConnectionListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<FqdnConnectionListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<FqdnConnectionListPageAsync> =
         list(FqdnConnectionListParams.none(), requestOptions)
 
     /** Deletes an FQDN connection. */
@@ -289,25 +289,25 @@ interface FqdnConnectionServiceAsync {
          * Returns a raw HTTP response for `get /fqdn_connections`, but is otherwise the same as
          * [FqdnConnectionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<FqdnConnectionListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<FqdnConnectionListPageAsync>> =
             list(FqdnConnectionListParams.none())
 
         /** @see list */
         fun list(
             params: FqdnConnectionListParams = FqdnConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FqdnConnectionListResponse>>
+        ): CompletableFuture<HttpResponseFor<FqdnConnectionListPageAsync>>
 
         /** @see list */
         fun list(
             params: FqdnConnectionListParams = FqdnConnectionListParams.none()
-        ): CompletableFuture<HttpResponseFor<FqdnConnectionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FqdnConnectionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<FqdnConnectionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FqdnConnectionListPageAsync>> =
             list(FqdnConnectionListParams.none(), requestOptions)
 
         /**

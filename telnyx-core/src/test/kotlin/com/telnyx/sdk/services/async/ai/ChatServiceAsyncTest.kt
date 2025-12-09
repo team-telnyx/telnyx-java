@@ -64,26 +64,16 @@ internal class ChatServiceAsyncTest {
                     .stream(true)
                     .temperature(0.0)
                     .toolChoice(ChatCreateCompletionParams.ToolChoice.NONE)
-                    .addTool(
-                        ChatCreateCompletionParams.Tool.ChatCompletionToolParam.builder()
-                            .function(
-                                ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Function
+                    .addFunctionTool(
+                        ChatCreateCompletionParams.Tool.ChatCompletionTool.Function.builder()
+                            .name("name")
+                            .description("description")
+                            .parameters(
+                                ChatCreateCompletionParams.Tool.ChatCompletionTool.Function
+                                    .Parameters
                                     .builder()
-                                    .name("name")
-                                    .description("description")
-                                    .parameters(
-                                        ChatCreateCompletionParams.Tool.ChatCompletionToolParam
-                                            .Function
-                                            .Parameters
-                                            .builder()
-                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                            .build()
-                                    )
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
-                            )
-                            .type(
-                                ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Type
-                                    .FUNCTION
                             )
                             .build()
                     )

@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteResponse
+import com.telnyx.sdk.models.simcardgroups.SimCardGroupListPage
+import com.telnyx.sdk.models.simcardgroups.SimCardGroupListPageResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupListParams
-import com.telnyx.sdk.models.simcardgroups.SimCardGroupListResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupUpdateParams
@@ -71,7 +72,7 @@ class SimCardGroupServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: SimCardGroupListParams,
         requestOptions: RequestOptions,
-    ): SimCardGroupListResponse =
+    ): SimCardGroupListPage =
         // get /sim_card_groups
         withRawResponse().list(params, requestOptions).parse()
 
@@ -190,13 +191,13 @@ class SimCardGroupServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<SimCardGroupListResponse> =
-            jsonHandler<SimCardGroupListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SimCardGroupListPageResponse> =
+            jsonHandler<SimCardGroupListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SimCardGroupListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimCardGroupListResponse> {
+        ): HttpResponseFor<SimCardGroupListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -213,6 +214,13 @@ class SimCardGroupServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        SimCardGroupListPage.builder()
+                            .service(SimCardGroupServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateResponse
+import com.telnyx.sdk.models.externalconnections.uploads.UploadListPageAsync
 import com.telnyx.sdk.models.externalconnections.uploads.UploadListParams
-import com.telnyx.sdk.models.externalconnections.uploads.UploadListResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRefreshStatusParams
@@ -85,34 +85,34 @@ interface UploadServiceAsync {
     ): CompletableFuture<UploadRetrieveResponse>
 
     /** Returns a list of your Upload requests for the given external connection. */
-    fun list(id: String): CompletableFuture<UploadListResponse> = list(id, UploadListParams.none())
+    fun list(id: String): CompletableFuture<UploadListPageAsync> = list(id, UploadListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: UploadListParams = UploadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UploadListResponse> =
+    ): CompletableFuture<UploadListPageAsync> =
         list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: UploadListParams = UploadListParams.none(),
-    ): CompletableFuture<UploadListResponse> = list(id, params, RequestOptions.none())
+    ): CompletableFuture<UploadListPageAsync> = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: UploadListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UploadListResponse>
+    ): CompletableFuture<UploadListPageAsync>
 
     /** @see list */
-    fun list(params: UploadListParams): CompletableFuture<UploadListResponse> =
+    fun list(params: UploadListParams): CompletableFuture<UploadListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<UploadListResponse> =
+    fun list(id: String, requestOptions: RequestOptions): CompletableFuture<UploadListPageAsync> =
         list(id, UploadListParams.none(), requestOptions)
 
     /** Returns the count of all pending upload requests for the given external connection. */
@@ -297,7 +297,7 @@ interface UploadServiceAsync {
          * Returns a raw HTTP response for `get /external_connections/{id}/uploads`, but is
          * otherwise the same as [UploadServiceAsync.list].
          */
-        fun list(id: String): CompletableFuture<HttpResponseFor<UploadListResponse>> =
+        fun list(id: String): CompletableFuture<HttpResponseFor<UploadListPageAsync>> =
             list(id, UploadListParams.none())
 
         /** @see list */
@@ -305,31 +305,33 @@ interface UploadServiceAsync {
             id: String,
             params: UploadListParams = UploadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UploadListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UploadListPageAsync>> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         fun list(
             id: String,
             params: UploadListParams = UploadListParams.none(),
-        ): CompletableFuture<HttpResponseFor<UploadListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UploadListPageAsync>> =
             list(id, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: UploadListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UploadListResponse>>
+        ): CompletableFuture<HttpResponseFor<UploadListPageAsync>>
 
         /** @see list */
-        fun list(params: UploadListParams): CompletableFuture<HttpResponseFor<UploadListResponse>> =
+        fun list(
+            params: UploadListParams
+        ): CompletableFuture<HttpResponseFor<UploadListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UploadListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UploadListPageAsync>> =
             list(id, UploadListParams.none(), requestOptions)
 
         /**

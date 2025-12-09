@@ -23,7 +23,7 @@ private constructor(
     private val consumedData: JsonField<ConsumedData>,
     private val createdAt: JsonField<String>,
     private val dataLimit: JsonField<DataLimit>,
-    private val default_: JsonField<Boolean>,
+    private val isDefault: JsonField<Boolean>,
     private val name: JsonField<String>,
     private val privateWirelessGatewayId: JsonField<String>,
     private val recordType: JsonField<String>,
@@ -42,7 +42,7 @@ private constructor(
         @JsonProperty("data_limit")
         @ExcludeMissing
         dataLimit: JsonField<DataLimit> = JsonMissing.of(),
-        @JsonProperty("default") @ExcludeMissing default_: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("default") @ExcludeMissing isDefault: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("private_wireless_gateway_id")
         @ExcludeMissing
@@ -59,7 +59,7 @@ private constructor(
         consumedData,
         createdAt,
         dataLimit,
-        default_,
+        isDefault,
         name,
         privateWirelessGatewayId,
         recordType,
@@ -107,7 +107,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun default_(): Optional<Boolean> = default_.getOptional("default")
+    fun isDefault(): Optional<Boolean> = isDefault.getOptional("default")
 
     /**
      * A user friendly name for the SIM card group.
@@ -182,11 +182,11 @@ private constructor(
     @JsonProperty("data_limit") @ExcludeMissing fun _dataLimit(): JsonField<DataLimit> = dataLimit
 
     /**
-     * Returns the raw JSON value of [default_].
+     * Returns the raw JSON value of [isDefault].
      *
-     * Unlike [default_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [isDefault], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("default") @ExcludeMissing fun _default_(): JsonField<Boolean> = default_
+    @JsonProperty("default") @ExcludeMissing fun _isDefault(): JsonField<Boolean> = isDefault
 
     /**
      * Returns the raw JSON value of [name].
@@ -254,7 +254,7 @@ private constructor(
         private var consumedData: JsonField<ConsumedData> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var dataLimit: JsonField<DataLimit> = JsonMissing.of()
-        private var default_: JsonField<Boolean> = JsonMissing.of()
+        private var isDefault: JsonField<Boolean> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var privateWirelessGatewayId: JsonField<String> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
@@ -268,7 +268,7 @@ private constructor(
             consumedData = simCardGroup.consumedData
             createdAt = simCardGroup.createdAt
             dataLimit = simCardGroup.dataLimit
-            default_ = simCardGroup.default_
+            isDefault = simCardGroup.isDefault
             name = simCardGroup.name
             privateWirelessGatewayId = simCardGroup.privateWirelessGatewayId
             recordType = simCardGroup.recordType
@@ -330,16 +330,16 @@ private constructor(
          * Indicates whether the SIM card group is the users default group.<br/>The default group is
          * created for the user and can not be removed.
          */
-        fun default_(default_: Boolean) = default_(JsonField.of(default_))
+        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
 
         /**
-         * Sets [Builder.default_] to an arbitrary JSON value.
+         * Sets [Builder.isDefault] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.default_] with a well-typed [Boolean] value instead.
+         * You should usually call [Builder.isDefault] with a well-typed [Boolean] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun default_(default_: JsonField<Boolean>) = apply { this.default_ = default_ }
+        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
 
         /** A user friendly name for the SIM card group. */
         fun name(name: String) = name(JsonField.of(name))
@@ -436,7 +436,7 @@ private constructor(
                 consumedData,
                 createdAt,
                 dataLimit,
-                default_,
+                isDefault,
                 name,
                 privateWirelessGatewayId,
                 recordType,
@@ -457,7 +457,7 @@ private constructor(
         consumedData().ifPresent { it.validate() }
         createdAt()
         dataLimit().ifPresent { it.validate() }
-        default_()
+        isDefault()
         name()
         privateWirelessGatewayId()
         recordType()
@@ -485,7 +485,7 @@ private constructor(
             (consumedData.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (dataLimit.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (default_.asKnown().isPresent) 1 else 0) +
+            (if (isDefault.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (privateWirelessGatewayId.asKnown().isPresent) 1 else 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
@@ -673,7 +673,7 @@ private constructor(
             consumedData == other.consumedData &&
             createdAt == other.createdAt &&
             dataLimit == other.dataLimit &&
-            default_ == other.default_ &&
+            isDefault == other.isDefault &&
             name == other.name &&
             privateWirelessGatewayId == other.privateWirelessGatewayId &&
             recordType == other.recordType &&
@@ -688,7 +688,7 @@ private constructor(
             consumedData,
             createdAt,
             dataLimit,
-            default_,
+            isDefault,
             name,
             privateWirelessGatewayId,
             recordType,
@@ -701,5 +701,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SimCardGroup{id=$id, consumedData=$consumedData, createdAt=$createdAt, dataLimit=$dataLimit, default_=$default_, name=$name, privateWirelessGatewayId=$privateWirelessGatewayId, recordType=$recordType, updatedAt=$updatedAt, wirelessBlocklistId=$wirelessBlocklistId, additionalProperties=$additionalProperties}"
+        "SimCardGroup{id=$id, consumedData=$consumedData, createdAt=$createdAt, dataLimit=$dataLimit, isDefault=$isDefault, name=$name, privateWirelessGatewayId=$privateWirelessGatewayId, recordType=$recordType, updatedAt=$updatedAt, wirelessBlocklistId=$wirelessBlocklistId, additionalProperties=$additionalProperties}"
 }

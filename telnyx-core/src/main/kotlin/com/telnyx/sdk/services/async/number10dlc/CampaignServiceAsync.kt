@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async.number10dlc
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
@@ -16,12 +15,13 @@ import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusPara
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageAsync
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.async.number10dlc.campaign.OsrServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.campaign.UsecaseServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -119,14 +119,14 @@ interface CampaignServiceAsync {
         update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of campaigns associated with a supplied `brandId`. */
-    fun list(params: CampaignListParams): CompletableFuture<CampaignListResponse> =
+    fun list(params: CampaignListParams): CompletableFuture<CampaignListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignListResponse>
+    ): CompletableFuture<CampaignListPageAsync>
 
     /** Manually accept a campaign shared with Telnyx */
     fun acceptSharing(campaignId: String): CompletableFuture<CampaignAcceptSharingResponse> =
@@ -456,14 +456,14 @@ interface CampaignServiceAsync {
          */
         fun list(
             params: CampaignListParams
-        ): CompletableFuture<HttpResponseFor<CampaignListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignListResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>>
 
         /**
          * Returns a raw HTTP response for `post /10dlc/campaign/acceptSharing/{campaignId}`, but is

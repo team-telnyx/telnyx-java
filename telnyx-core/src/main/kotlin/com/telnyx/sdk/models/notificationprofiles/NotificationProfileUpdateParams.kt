@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a notification profile. */
 class NotificationProfileUpdateParams
 private constructor(
-    private val pathId: String?,
+    private val notificationProfileId: String?,
     private val notificationProfile: NotificationProfile,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
+    fun notificationProfileId(): Optional<String> = Optional.ofNullable(notificationProfileId)
 
     /** A Collection of Notification Channels */
     fun notificationProfile(): NotificationProfile = notificationProfile
@@ -53,7 +53,7 @@ private constructor(
     /** A builder for [NotificationProfileUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathId: String? = null
+        private var notificationProfileId: String? = null
         private var notificationProfile: NotificationProfile? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -61,17 +61,23 @@ private constructor(
         @JvmSynthetic
         internal fun from(notificationProfileUpdateParams: NotificationProfileUpdateParams) =
             apply {
-                pathId = notificationProfileUpdateParams.pathId
+                notificationProfileId = notificationProfileUpdateParams.notificationProfileId
                 notificationProfile = notificationProfileUpdateParams.notificationProfile
                 additionalHeaders = notificationProfileUpdateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     notificationProfileUpdateParams.additionalQueryParams.toBuilder()
             }
 
-        fun pathId(pathId: String?) = apply { this.pathId = pathId }
+        fun notificationProfileId(notificationProfileId: String?) = apply {
+            this.notificationProfileId = notificationProfileId
+        }
 
-        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
-        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
+        /**
+         * Alias for calling [Builder.notificationProfileId] with
+         * `notificationProfileId.orElse(null)`.
+         */
+        fun notificationProfileId(notificationProfileId: Optional<String>) =
+            notificationProfileId(notificationProfileId.getOrNull())
 
         /** A Collection of Notification Channels */
         fun notificationProfile(notificationProfile: NotificationProfile) = apply {
@@ -190,7 +196,7 @@ private constructor(
          */
         fun build(): NotificationProfileUpdateParams =
             NotificationProfileUpdateParams(
-                pathId,
+                notificationProfileId,
                 checkRequired("notificationProfile", notificationProfile),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -201,7 +207,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathId ?: ""
+            0 -> notificationProfileId ?: ""
             else -> ""
         }
 
@@ -215,15 +221,20 @@ private constructor(
         }
 
         return other is NotificationProfileUpdateParams &&
-            pathId == other.pathId &&
+            notificationProfileId == other.notificationProfileId &&
             notificationProfile == other.notificationProfile &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathId, notificationProfile, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            notificationProfileId,
+            notificationProfile,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "NotificationProfileUpdateParams{pathId=$pathId, notificationProfile=$notificationProfile, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NotificationProfileUpdateParams{notificationProfileId=$notificationProfileId, notificationProfile=$notificationProfile, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
