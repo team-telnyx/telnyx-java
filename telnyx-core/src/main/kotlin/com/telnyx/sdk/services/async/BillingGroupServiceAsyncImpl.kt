@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.billinggroups.BillingGroupCreateParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupCreateResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteResponse
+import com.telnyx.sdk.models.billinggroups.BillingGroupListPageAsync
+import com.telnyx.sdk.models.billinggroups.BillingGroupListPageResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupListParams
-import com.telnyx.sdk.models.billinggroups.BillingGroupListResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateParams
@@ -66,7 +67,7 @@ class BillingGroupServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: BillingGroupListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BillingGroupListResponse> =
+    ): CompletableFuture<BillingGroupListPageAsync> =
         // get /billing_groups
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -188,13 +189,13 @@ class BillingGroupServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<BillingGroupListResponse> =
-            jsonHandler<BillingGroupListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BillingGroupListPageResponse> =
+            jsonHandler<BillingGroupListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BillingGroupListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BillingGroupListResponse>> {
+        ): CompletableFuture<HttpResponseFor<BillingGroupListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -213,6 +214,14 @@ class BillingGroupServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                BillingGroupListPageAsync.builder()
+                                    .service(BillingGroupServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

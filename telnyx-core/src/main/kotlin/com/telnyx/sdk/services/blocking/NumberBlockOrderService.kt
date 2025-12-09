@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateResponse
+import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListPage
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListParams
-import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListResponse
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveResponse
 import java.util.function.Consumer
@@ -75,21 +75,21 @@ interface NumberBlockOrderService {
         retrieve(numberBlockOrderId, NumberBlockOrderRetrieveParams.none(), requestOptions)
 
     /** Get a paginated list of number block orders. */
-    fun list(): NumberBlockOrderListResponse = list(NumberBlockOrderListParams.none())
+    fun list(): NumberBlockOrderListPage = list(NumberBlockOrderListParams.none())
 
     /** @see list */
     fun list(
         params: NumberBlockOrderListParams = NumberBlockOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberBlockOrderListResponse
+    ): NumberBlockOrderListPage
 
     /** @see list */
     fun list(
         params: NumberBlockOrderListParams = NumberBlockOrderListParams.none()
-    ): NumberBlockOrderListResponse = list(params, RequestOptions.none())
+    ): NumberBlockOrderListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NumberBlockOrderListResponse =
+    fun list(requestOptions: RequestOptions): NumberBlockOrderListPage =
         list(NumberBlockOrderListParams.none(), requestOptions)
 
     /**
@@ -180,7 +180,7 @@ interface NumberBlockOrderService {
          * [NumberBlockOrderService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NumberBlockOrderListResponse> =
+        fun list(): HttpResponseFor<NumberBlockOrderListPage> =
             list(NumberBlockOrderListParams.none())
 
         /** @see list */
@@ -188,17 +188,17 @@ interface NumberBlockOrderService {
         fun list(
             params: NumberBlockOrderListParams = NumberBlockOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberBlockOrderListResponse>
+        ): HttpResponseFor<NumberBlockOrderListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NumberBlockOrderListParams = NumberBlockOrderListParams.none()
-        ): HttpResponseFor<NumberBlockOrderListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NumberBlockOrderListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberBlockOrderListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberBlockOrderListPage> =
             list(NumberBlockOrderListParams.none(), requestOptions)
     }
 }

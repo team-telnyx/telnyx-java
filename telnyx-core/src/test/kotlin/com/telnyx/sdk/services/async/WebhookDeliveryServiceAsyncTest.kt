@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,46 +38,9 @@ internal class WebhookDeliveryServiceAsyncTest {
                 .build()
         val webhookDeliveryServiceAsync = client.webhookDeliveries()
 
-        val webhookDeliveriesFuture =
-            webhookDeliveryServiceAsync.list(
-                WebhookDeliveryListParams.builder()
-                    .filter(
-                        WebhookDeliveryListParams.Filter.builder()
-                            .attempts(
-                                WebhookDeliveryListParams.Filter.Attempts.builder()
-                                    .contains("https://fallback.example.com/webhooks")
-                                    .build()
-                            )
-                            .eventType("call_initiated,call.initiated")
-                            .finishedAt(
-                                WebhookDeliveryListParams.Filter.FinishedAt.builder()
-                                    .gte("2019-03-29T11:10:00Z")
-                                    .lte("2019-03-29T11:10:00Z")
-                                    .build()
-                            )
-                            .startedAt(
-                                WebhookDeliveryListParams.Filter.StartedAt.builder()
-                                    .gte("2019-03-29T11:10:00Z")
-                                    .lte("2019-03-29T11:10:00Z")
-                                    .build()
-                            )
-                            .status(
-                                WebhookDeliveryListParams.Filter.Status.builder()
-                                    .eq(WebhookDeliveryListParams.Filter.Status.Eq.DELIVERED)
-                                    .build()
-                            )
-                            .webhook(
-                                WebhookDeliveryListParams.Filter.Webhook.builder()
-                                    .contains("call.initiated")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(WebhookDeliveryListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = webhookDeliveryServiceAsync.list()
 
-        val webhookDeliveries = webhookDeliveriesFuture.get()
-        webhookDeliveries.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

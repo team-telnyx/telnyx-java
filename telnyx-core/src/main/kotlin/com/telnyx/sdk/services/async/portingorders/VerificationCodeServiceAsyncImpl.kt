@@ -17,8 +17,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPageAsync
+import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPageResponse
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListParams
-import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListResponse
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeSendParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyResponse
@@ -43,7 +44,7 @@ internal constructor(private val clientOptions: ClientOptions) : VerificationCod
     override fun list(
         params: VerificationCodeListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerificationCodeListResponse> =
+    ): CompletableFuture<VerificationCodeListPageAsync> =
         // get /porting_orders/{id}/verification_codes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -74,13 +75,13 @@ internal constructor(private val clientOptions: ClientOptions) : VerificationCod
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<VerificationCodeListResponse> =
-            jsonHandler<VerificationCodeListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VerificationCodeListPageResponse> =
+            jsonHandler<VerificationCodeListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VerificationCodeListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerificationCodeListResponse>> {
+        ): CompletableFuture<HttpResponseFor<VerificationCodeListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -102,6 +103,14 @@ internal constructor(private val clientOptions: ClientOptions) : VerificationCod
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                VerificationCodeListPageAsync.builder()
+                                    .service(VerificationCodeServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

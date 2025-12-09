@@ -34,14 +34,14 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun body(): Optional<String> = body.body()
+    fun commentBody(): Optional<String> = body.commentBody()
 
     /**
-     * Returns the raw JSON value of [body].
+     * Returns the raw JSON value of [commentBody].
      *
-     * Unlike [body], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [commentBody], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _body_(): JsonField<String> = this.body._body_()
+    fun _commentBody(): JsonField<String> = body._commentBody()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -87,19 +87,20 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [body]
+         * - [commentBody]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        fun body(body: String) = apply { this.body.body(body) }
+        fun commentBody(commentBody: String) = apply { body.commentBody(commentBody) }
 
         /**
-         * Sets [Builder.body] to an arbitrary JSON value.
+         * Sets [Builder.commentBody] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.body] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.commentBody] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun body(body: JsonField<String>) = apply { this.body.body(body) }
+        fun commentBody(commentBody: JsonField<String>) = apply { body.commentBody(commentBody) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -247,27 +248,27 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val body: JsonField<String>,
+        private val commentBody: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("body") @ExcludeMissing body: JsonField<String> = JsonMissing.of()
-        ) : this(body, mutableMapOf())
+            @JsonProperty("body") @ExcludeMissing commentBody: JsonField<String> = JsonMissing.of()
+        ) : this(commentBody, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun body(): Optional<String> = body.getOptional("body")
+        fun commentBody(): Optional<String> = commentBody.getOptional("body")
 
         /**
-         * Returns the raw JSON value of [body].
+         * Returns the raw JSON value of [commentBody].
          *
-         * Unlike [body], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [commentBody], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("body") @ExcludeMissing fun _body_(): JsonField<String> = body
+        @JsonProperty("body") @ExcludeMissing fun _commentBody(): JsonField<String> = commentBody
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -290,25 +291,27 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var body: JsonField<String> = JsonMissing.of()
+            private var commentBody: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                this.body = body.body
+                commentBody = body.commentBody
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            fun body(body: String) = body(JsonField.of(body))
+            fun commentBody(commentBody: String) = commentBody(JsonField.of(commentBody))
 
             /**
-             * Sets [Builder.body] to an arbitrary JSON value.
+             * Sets [Builder.commentBody] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.body] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.commentBody] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun body(body: JsonField<String>) = apply { this.body = body }
+            fun commentBody(commentBody: JsonField<String>) = apply {
+                this.commentBody = commentBody
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -334,7 +337,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(body, additionalProperties.toMutableMap())
+            fun build(): Body = Body(commentBody, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -344,7 +347,7 @@ private constructor(
                 return@apply
             }
 
-            body()
+            commentBody()
             validated = true
         }
 
@@ -362,7 +365,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (if (body.asKnown().isPresent) 1 else 0)
+        @JvmSynthetic internal fun validity(): Int = (if (commentBody.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -370,15 +373,16 @@ private constructor(
             }
 
             return other is Body &&
-                body == other.body &&
+                commentBody == other.commentBody &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(body, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(commentBody, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{body=$body, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{commentBody=$commentBody, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

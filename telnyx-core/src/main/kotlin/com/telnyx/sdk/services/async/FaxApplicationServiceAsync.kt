@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteResponse
+import com.telnyx.sdk.models.faxapplications.FaxApplicationListPageAsync
 import com.telnyx.sdk.models.faxapplications.FaxApplicationListParams
-import com.telnyx.sdk.models.faxapplications.FaxApplicationListResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateParams
@@ -117,22 +117,22 @@ interface FaxApplicationServiceAsync {
      * response. You can adjust which applications are listed by using filters. Fax Applications are
      * used to configure how you send and receive faxes using the Programmable Fax API with Telnyx.
      */
-    fun list(): CompletableFuture<FaxApplicationListResponse> =
+    fun list(): CompletableFuture<FaxApplicationListPageAsync> =
         list(FaxApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: FaxApplicationListParams = FaxApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FaxApplicationListResponse>
+    ): CompletableFuture<FaxApplicationListPageAsync>
 
     /** @see list */
     fun list(
         params: FaxApplicationListParams = FaxApplicationListParams.none()
-    ): CompletableFuture<FaxApplicationListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<FaxApplicationListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<FaxApplicationListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<FaxApplicationListPageAsync> =
         list(FaxApplicationListParams.none(), requestOptions)
 
     /**
@@ -281,25 +281,25 @@ interface FaxApplicationServiceAsync {
          * Returns a raw HTTP response for `get /fax_applications`, but is otherwise the same as
          * [FaxApplicationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<FaxApplicationListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<FaxApplicationListPageAsync>> =
             list(FaxApplicationListParams.none())
 
         /** @see list */
         fun list(
             params: FaxApplicationListParams = FaxApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FaxApplicationListResponse>>
+        ): CompletableFuture<HttpResponseFor<FaxApplicationListPageAsync>>
 
         /** @see list */
         fun list(
             params: FaxApplicationListParams = FaxApplicationListParams.none()
-        ): CompletableFuture<HttpResponseFor<FaxApplicationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FaxApplicationListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<FaxApplicationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FaxApplicationListPageAsync>> =
             list(FaxApplicationListParams.none(), requestOptions)
 
         /**

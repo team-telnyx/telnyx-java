@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignParams
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignResponse
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileListPhoneNumberStatusParams
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrieveStatusParams
@@ -48,6 +50,58 @@ interface PhoneNumberAssignmentByProfileServiceAsync {
         params: PhoneNumberAssignmentByProfileAssignParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhoneNumberAssignmentByProfileAssignResponse>
+
+    /**
+     * Check the status of the individual phone number/campaign assignments associated with the
+     * supplied `taskId`.
+     */
+    fun listPhoneNumberStatus(
+        taskId: String
+    ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
+        listPhoneNumberStatus(
+            taskId,
+            PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+        )
+
+    /** @see listPhoneNumberStatus */
+    fun listPhoneNumberStatus(
+        taskId: String,
+        params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams =
+            PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
+        listPhoneNumberStatus(params.toBuilder().taskId(taskId).build(), requestOptions)
+
+    /** @see listPhoneNumberStatus */
+    fun listPhoneNumberStatus(
+        taskId: String,
+        params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams =
+            PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+    ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
+        listPhoneNumberStatus(taskId, params, RequestOptions.none())
+
+    /** @see listPhoneNumberStatus */
+    fun listPhoneNumberStatus(
+        params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+
+    /** @see listPhoneNumberStatus */
+    fun listPhoneNumberStatus(
+        params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams
+    ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
+        listPhoneNumberStatus(params, RequestOptions.none())
+
+    /** @see listPhoneNumberStatus */
+    fun listPhoneNumberStatus(
+        taskId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
+        listPhoneNumberStatus(
+            taskId,
+            PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+            requestOptions,
+        )
 
     /**
      * Check the status of the individual phone number/campaign assignments associated with the
@@ -179,6 +233,68 @@ interface PhoneNumberAssignmentByProfileServiceAsync {
             params: PhoneNumberAssignmentByProfileAssignParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhoneNumberAssignmentByProfileAssignResponse>>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers`, but is otherwise the same
+         * as [PhoneNumberAssignmentByProfileServiceAsync.listPhoneNumberStatus].
+         */
+        fun listPhoneNumberStatus(
+            taskId: String
+        ): CompletableFuture<
+            HttpResponseFor<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+        > =
+            listPhoneNumberStatus(
+                taskId,
+                PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+            )
+
+        /** @see listPhoneNumberStatus */
+        fun listPhoneNumberStatus(
+            taskId: String,
+            params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams =
+                PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<
+            HttpResponseFor<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+        > = listPhoneNumberStatus(params.toBuilder().taskId(taskId).build(), requestOptions)
+
+        /** @see listPhoneNumberStatus */
+        fun listPhoneNumberStatus(
+            taskId: String,
+            params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams =
+                PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+        ): CompletableFuture<
+            HttpResponseFor<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+        > = listPhoneNumberStatus(taskId, params, RequestOptions.none())
+
+        /** @see listPhoneNumberStatus */
+        fun listPhoneNumberStatus(
+            params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<
+            HttpResponseFor<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+        >
+
+        /** @see listPhoneNumberStatus */
+        fun listPhoneNumberStatus(
+            params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams
+        ): CompletableFuture<
+            HttpResponseFor<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+        > = listPhoneNumberStatus(params, RequestOptions.none())
+
+        /** @see listPhoneNumberStatus */
+        fun listPhoneNumberStatus(
+            taskId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<
+            HttpResponseFor<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+        > =
+            listPhoneNumberStatus(
+                taskId,
+                PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get

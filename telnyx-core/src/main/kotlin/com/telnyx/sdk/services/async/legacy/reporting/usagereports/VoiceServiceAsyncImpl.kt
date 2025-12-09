@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreatePara
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteResponse
+import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListPageAsync
+import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListPageResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -57,7 +58,7 @@ class VoiceServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: VoiceListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VoiceListResponse> =
+    ): CompletableFuture<VoiceListPageAsync> =
         // get /legacy/reporting/usage_reports/voice
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -151,13 +152,13 @@ class VoiceServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<VoiceListResponse> =
-            jsonHandler<VoiceListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VoiceListPageResponse> =
+            jsonHandler<VoiceListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VoiceListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VoiceListResponse>> {
+        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -176,6 +177,14 @@ class VoiceServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                VoiceListPageAsync.builder()
+                                    .service(VoiceServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

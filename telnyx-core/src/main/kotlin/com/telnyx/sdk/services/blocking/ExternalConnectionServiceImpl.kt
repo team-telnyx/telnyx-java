@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteResponse
+import com.telnyx.sdk.models.externalconnections.ExternalConnectionListPage
+import com.telnyx.sdk.models.externalconnections.ExternalConnectionListPageResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionListParams
-import com.telnyx.sdk.models.externalconnections.ExternalConnectionListResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateLocationParams
@@ -99,7 +100,7 @@ class ExternalConnectionServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: ExternalConnectionListParams,
         requestOptions: RequestOptions,
-    ): ExternalConnectionListResponse =
+    ): ExternalConnectionListPage =
         // get /external_connections
         withRawResponse().list(params, requestOptions).parse()
 
@@ -249,13 +250,13 @@ class ExternalConnectionServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<ExternalConnectionListResponse> =
-            jsonHandler<ExternalConnectionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExternalConnectionListPageResponse> =
+            jsonHandler<ExternalConnectionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ExternalConnectionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ExternalConnectionListResponse> {
+        ): HttpResponseFor<ExternalConnectionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -272,6 +273,13 @@ class ExternalConnectionServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ExternalConnectionListPage.builder()
+                            .service(ExternalConnectionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

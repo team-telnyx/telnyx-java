@@ -17,6 +17,7 @@ import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Union type for different scheduled event response types */
 @JsonDeserialize(using = ScheduledEventResponse.Deserializer::class)
@@ -153,6 +154,15 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): ScheduledEventResponse {
             val json = JsonValue.fromJsonNode(node)
+            val telnyxConversationChannel =
+                json
+                    .asObject()
+                    .getOrNull()
+                    ?.get("telnyx_conversation_channel")
+                    ?.asString()
+                    ?.getOrNull()
+
+            when (telnyxConversationChannel) {}
 
             val bestMatches =
                 sequenceOf(

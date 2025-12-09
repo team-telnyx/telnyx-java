@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParams
-import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -36,12 +35,12 @@ internal class VirtualCrossConnectServiceTest {
                     .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .status(InterfaceStatus.PROVISIONED)
                     .regionCode("ashburn-va")
+                    .bandwidthMbps(50.0)
                     .bgpAsn(1234.0)
                     .cloudProvider(VirtualCrossConnectCreateParams.CloudProvider.AWS)
                     .cloudProviderRegion("us-east-1")
-                    .primaryCloudAccountId("123456789012")
-                    .bandwidthMbps(50.0)
                     .primaryBgpKey("yFV4wEPtPVPfDUGLWiyQzwga")
+                    .primaryCloudAccountId("123456789012")
                     .primaryCloudIp("169.254.0.2")
                     .primaryEnabled(true)
                     .primaryTelnyxIp("169.254.0.1")
@@ -108,19 +107,9 @@ internal class VirtualCrossConnectServiceTest {
                 .build()
         val virtualCrossConnectService = client.virtualCrossConnects()
 
-        val virtualCrossConnects =
-            virtualCrossConnectService.list(
-                VirtualCrossConnectListParams.builder()
-                    .filter(
-                        VirtualCrossConnectListParams.Filter.builder()
-                            .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                            .build()
-                    )
-                    .page(VirtualCrossConnectListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = virtualCrossConnectService.list()
 
-        virtualCrossConnects.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

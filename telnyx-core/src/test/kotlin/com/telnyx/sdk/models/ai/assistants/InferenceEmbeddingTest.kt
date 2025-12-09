@@ -53,76 +53,59 @@ internal class InferenceEmbeddingTest {
                         .supportsUnauthenticatedWebCalls(true)
                         .build()
                 )
-                .addTool(
-                    WebhookTool.builder()
-                        .type(WebhookTool.Type.WEBHOOK)
-                        .webhook(
-                            InferenceEmbeddingWebhookToolParams.builder()
-                                .description("description")
+                .addWebhookTool(
+                    InferenceEmbeddingWebhookToolParams.builder()
+                        .description("description")
+                        .name("name")
+                        .url("https://example.com/api/v1/function")
+                        .bodyParameters(
+                            InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.BodyParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("location", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("age")
+                                .addRequired("location")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.BodyParameters.Type.OBJECT
+                                )
+                                .build()
+                        )
+                        .addHeader(
+                            InferenceEmbeddingWebhookToolParams.Header.builder()
                                 .name("name")
-                                .url("https://example.com/api/v1/function")
-                                .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.BodyParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("age", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "location",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("age")
-                                        .addRequired("location")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.BodyParameters.Type
-                                                .OBJECT
-                                        )
+                                .value("value")
+                                .build()
+                        )
+                        .method(InferenceEmbeddingWebhookToolParams.Method.GET)
+                        .pathParameters(
+                            InferenceEmbeddingWebhookToolParams.PathParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.PathParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("id", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Header.builder()
-                                        .name("name")
-                                        .value("value")
+                                .addRequired("id")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.PathParameters.Type.OBJECT
+                                )
+                                .build()
+                        )
+                        .queryParameters(
+                            InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.QueryParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("page", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .method(InferenceEmbeddingWebhookToolParams.Method.GET)
-                                .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.PathParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.PathParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("id", JsonValue.from("bar"))
-                                                .build()
-                                        )
-                                        .addRequired("id")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.PathParameters.Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.QueryParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty(
-                                                    "page",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("page")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.QueryParameters.Type
-                                                .OBJECT
-                                        )
-                                        .build()
+                                .addRequired("page")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT
                                 )
                                 .build()
                         )
@@ -134,7 +117,7 @@ internal class InferenceEmbeddingTest {
                         .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                         .region("region")
                         .settings(
-                            TranscriptionSettings.Settings.builder()
+                            TranscriptionSettingsConfig.builder()
                                 .eotThreshold(0.0)
                                 .eotTimeoutMs(0L)
                                 .numerals(true)
@@ -147,13 +130,9 @@ internal class InferenceEmbeddingTest {
                     VoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
-                        .backgroundAudio(
-                            VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                                .type(
-                                    VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA
-                                )
-                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
-                                .build()
+                        .predefinedMediaBackgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                .SILENCE
                         )
                         .voiceSpeed(0.0)
                         .build()
@@ -289,7 +268,7 @@ internal class InferenceEmbeddingTest {
                     .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                     .region("region")
                     .settings(
-                        TranscriptionSettings.Settings.builder()
+                        TranscriptionSettingsConfig.builder()
                             .eotThreshold(0.0)
                             .eotTimeoutMs(0L)
                             .numerals(true)
@@ -303,11 +282,8 @@ internal class InferenceEmbeddingTest {
                 VoiceSettings.builder()
                     .voice("voice")
                     .apiKeyRef("api_key_ref")
-                    .backgroundAudio(
-                        VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                            .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
-                            .build()
+                    .predefinedMediaBackgroundAudio(
+                        VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                     )
                     .voiceSpeed(0.0)
                     .build()
@@ -356,76 +332,59 @@ internal class InferenceEmbeddingTest {
                         .supportsUnauthenticatedWebCalls(true)
                         .build()
                 )
-                .addTool(
-                    WebhookTool.builder()
-                        .type(WebhookTool.Type.WEBHOOK)
-                        .webhook(
-                            InferenceEmbeddingWebhookToolParams.builder()
-                                .description("description")
+                .addWebhookTool(
+                    InferenceEmbeddingWebhookToolParams.builder()
+                        .description("description")
+                        .name("name")
+                        .url("https://example.com/api/v1/function")
+                        .bodyParameters(
+                            InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.BodyParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("location", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("age")
+                                .addRequired("location")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.BodyParameters.Type.OBJECT
+                                )
+                                .build()
+                        )
+                        .addHeader(
+                            InferenceEmbeddingWebhookToolParams.Header.builder()
                                 .name("name")
-                                .url("https://example.com/api/v1/function")
-                                .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.BodyParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("age", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "location",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("age")
-                                        .addRequired("location")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.BodyParameters.Type
-                                                .OBJECT
-                                        )
+                                .value("value")
+                                .build()
+                        )
+                        .method(InferenceEmbeddingWebhookToolParams.Method.GET)
+                        .pathParameters(
+                            InferenceEmbeddingWebhookToolParams.PathParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.PathParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("id", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Header.builder()
-                                        .name("name")
-                                        .value("value")
+                                .addRequired("id")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.PathParameters.Type.OBJECT
+                                )
+                                .build()
+                        )
+                        .queryParameters(
+                            InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.QueryParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("page", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .method(InferenceEmbeddingWebhookToolParams.Method.GET)
-                                .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.PathParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.PathParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("id", JsonValue.from("bar"))
-                                                .build()
-                                        )
-                                        .addRequired("id")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.PathParameters.Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.QueryParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty(
-                                                    "page",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("page")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.QueryParameters.Type
-                                                .OBJECT
-                                        )
-                                        .build()
+                                .addRequired("page")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT
                                 )
                                 .build()
                         )
@@ -437,7 +396,7 @@ internal class InferenceEmbeddingTest {
                         .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                         .region("region")
                         .settings(
-                            TranscriptionSettings.Settings.builder()
+                            TranscriptionSettingsConfig.builder()
                                 .eotThreshold(0.0)
                                 .eotTimeoutMs(0L)
                                 .numerals(true)
@@ -450,13 +409,9 @@ internal class InferenceEmbeddingTest {
                     VoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
-                        .backgroundAudio(
-                            VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                                .type(
-                                    VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA
-                                )
-                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
-                                .build()
+                        .predefinedMediaBackgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                .SILENCE
                         )
                         .voiceSpeed(0.0)
                         .build()

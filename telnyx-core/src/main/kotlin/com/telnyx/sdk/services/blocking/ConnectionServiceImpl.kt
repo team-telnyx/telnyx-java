@@ -15,10 +15,12 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPage
+import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPageResponse
 import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
-import com.telnyx.sdk.models.connections.ConnectionListActiveCallsResponse
+import com.telnyx.sdk.models.connections.ConnectionListPage
+import com.telnyx.sdk.models.connections.ConnectionListPageResponse
 import com.telnyx.sdk.models.connections.ConnectionListParams
-import com.telnyx.sdk.models.connections.ConnectionListResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.function.Consumer
@@ -46,14 +48,14 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: ConnectionListParams,
         requestOptions: RequestOptions,
-    ): ConnectionListResponse =
+    ): ConnectionListPage =
         // get /connections
         withRawResponse().list(params, requestOptions).parse()
 
     override fun listActiveCalls(
         params: ConnectionListActiveCallsParams,
         requestOptions: RequestOptions,
-    ): ConnectionListActiveCallsResponse =
+    ): ConnectionListActiveCallsPage =
         // get /connections/{connection_id}/active_calls
         withRawResponse().listActiveCalls(params, requestOptions).parse()
 
@@ -100,13 +102,13 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<ConnectionListResponse> =
-            jsonHandler<ConnectionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ConnectionListPageResponse> =
+            jsonHandler<ConnectionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ConnectionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionListResponse> {
+        ): HttpResponseFor<ConnectionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -124,16 +126,23 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
                             it.validate()
                         }
                     }
+                    .let {
+                        ConnectionListPage.builder()
+                            .service(ConnectionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val listActiveCallsHandler: Handler<ConnectionListActiveCallsResponse> =
-            jsonHandler<ConnectionListActiveCallsResponse>(clientOptions.jsonMapper)
+        private val listActiveCallsHandler: Handler<ConnectionListActiveCallsPageResponse> =
+            jsonHandler<ConnectionListActiveCallsPageResponse>(clientOptions.jsonMapper)
 
         override fun listActiveCalls(
             params: ConnectionListActiveCallsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionListActiveCallsResponse> {
+        ): HttpResponseFor<ConnectionListActiveCallsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -153,6 +162,13 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ConnectionListActiveCallsPage.builder()
+                            .service(ConnectionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

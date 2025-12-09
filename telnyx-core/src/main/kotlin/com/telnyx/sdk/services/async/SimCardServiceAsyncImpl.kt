@@ -24,10 +24,12 @@ import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsParams
 import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsResponse
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpParams
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpResponse
+import com.telnyx.sdk.models.simcards.SimCardListPageAsync
+import com.telnyx.sdk.models.simcards.SimCardListPageResponse
 import com.telnyx.sdk.models.simcards.SimCardListParams
-import com.telnyx.sdk.models.simcards.SimCardListResponse
+import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsPageAsync
+import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsPageResponse
 import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsParams
-import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsResponse
 import com.telnyx.sdk.models.simcards.SimCardRetrieveParams
 import com.telnyx.sdk.models.simcards.SimCardRetrieveResponse
 import com.telnyx.sdk.models.simcards.SimCardUpdateParams
@@ -71,7 +73,7 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: SimCardListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SimCardListResponse> =
+    ): CompletableFuture<SimCardListPageAsync> =
         // get /sim_cards
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -106,7 +108,7 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun listWirelessConnectivityLogs(
         params: SimCardListWirelessConnectivityLogsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SimCardListWirelessConnectivityLogsResponse> =
+    ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync> =
         // get /sim_cards/{id}/wireless_connectivity_logs
         withRawResponse().listWirelessConnectivityLogs(params, requestOptions).thenApply {
             it.parse()
@@ -173,7 +175,7 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ): CompletableFuture<HttpResponseFor<SimCardUpdateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("pathId", params.pathId().getOrNull())
+            checkRequired("simCardId", params.simCardId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -198,13 +200,13 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<SimCardListResponse> =
-            jsonHandler<SimCardListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SimCardListPageResponse> =
+            jsonHandler<SimCardListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SimCardListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimCardListResponse>> {
+        ): CompletableFuture<HttpResponseFor<SimCardListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -223,6 +225,14 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                SimCardListPageAsync.builder()
+                                    .service(SimCardServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }
@@ -362,13 +372,13 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
         }
 
         private val listWirelessConnectivityLogsHandler:
-            Handler<SimCardListWirelessConnectivityLogsResponse> =
-            jsonHandler<SimCardListWirelessConnectivityLogsResponse>(clientOptions.jsonMapper)
+            Handler<SimCardListWirelessConnectivityLogsPageResponse> =
+            jsonHandler<SimCardListWirelessConnectivityLogsPageResponse>(clientOptions.jsonMapper)
 
         override fun listWirelessConnectivityLogs(
             params: SimCardListWirelessConnectivityLogsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>> {
+        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -394,6 +404,14 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                SimCardListWirelessConnectivityLogsPageAsync.builder()
+                                    .service(SimCardServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.externalconnections.releases
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.externalconnections.ExternalVoiceIntegrationsPaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,56 +14,31 @@ internal class ReleaseListResponseTest {
     fun create() {
         val releaseListResponse =
             ReleaseListResponse.builder()
-                .addData(
-                    ReleaseListResponse.Data.builder()
-                        .createdAt("2018-02-02T22:25:27.521Z")
-                        .errorMessage("error_message")
-                        .status(ReleaseListResponse.Data.Status.PENDING)
-                        .addTelephoneNumber(
-                            ReleaseListResponse.Data.TelephoneNumber.builder()
-                                .numberId("number_id")
-                                .phoneNumber("phone_number")
-                                .build()
-                        )
-                        .tenantId("ea175aba-f47c-4702-9400-efaa42688048")
-                        .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
+                .createdAt("2018-02-02T22:25:27.521Z")
+                .errorMessage("error_message")
+                .status(ReleaseListResponse.Status.PENDING)
+                .addTelephoneNumber(
+                    ReleaseListResponse.TelephoneNumber.builder()
+                        .numberId("number_id")
+                        .phoneNumber("phone_number")
                         .build()
                 )
-                .meta(
-                    ExternalVoiceIntegrationsPaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .tenantId("ea175aba-f47c-4702-9400-efaa42688048")
+                .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                 .build()
 
-        assertThat(releaseListResponse.data().getOrNull())
+        assertThat(releaseListResponse.createdAt()).contains("2018-02-02T22:25:27.521Z")
+        assertThat(releaseListResponse.errorMessage()).contains("error_message")
+        assertThat(releaseListResponse.status()).contains(ReleaseListResponse.Status.PENDING)
+        assertThat(releaseListResponse.telephoneNumbers().getOrNull())
             .containsExactly(
-                ReleaseListResponse.Data.builder()
-                    .createdAt("2018-02-02T22:25:27.521Z")
-                    .errorMessage("error_message")
-                    .status(ReleaseListResponse.Data.Status.PENDING)
-                    .addTelephoneNumber(
-                        ReleaseListResponse.Data.TelephoneNumber.builder()
-                            .numberId("number_id")
-                            .phoneNumber("phone_number")
-                            .build()
-                    )
-                    .tenantId("ea175aba-f47c-4702-9400-efaa42688048")
-                    .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
+                ReleaseListResponse.TelephoneNumber.builder()
+                    .numberId("number_id")
+                    .phoneNumber("phone_number")
                     .build()
             )
-        assertThat(releaseListResponse.meta())
-            .contains(
-                ExternalVoiceIntegrationsPaginationMeta.builder()
-                    .pageNumber(2L)
-                    .pageSize(25L)
-                    .totalPages(3L)
-                    .totalResults(55L)
-                    .build()
-            )
+        assertThat(releaseListResponse.tenantId()).contains("ea175aba-f47c-4702-9400-efaa42688048")
+        assertThat(releaseListResponse.ticketId()).contains("542c3bca-d247-42bc-8fe7-e01d16ecd761")
     }
 
     @Test
@@ -72,29 +46,17 @@ internal class ReleaseListResponseTest {
         val jsonMapper = jsonMapper()
         val releaseListResponse =
             ReleaseListResponse.builder()
-                .addData(
-                    ReleaseListResponse.Data.builder()
-                        .createdAt("2018-02-02T22:25:27.521Z")
-                        .errorMessage("error_message")
-                        .status(ReleaseListResponse.Data.Status.PENDING)
-                        .addTelephoneNumber(
-                            ReleaseListResponse.Data.TelephoneNumber.builder()
-                                .numberId("number_id")
-                                .phoneNumber("phone_number")
-                                .build()
-                        )
-                        .tenantId("ea175aba-f47c-4702-9400-efaa42688048")
-                        .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
+                .createdAt("2018-02-02T22:25:27.521Z")
+                .errorMessage("error_message")
+                .status(ReleaseListResponse.Status.PENDING)
+                .addTelephoneNumber(
+                    ReleaseListResponse.TelephoneNumber.builder()
+                        .numberId("number_id")
+                        .phoneNumber("phone_number")
                         .build()
                 )
-                .meta(
-                    ExternalVoiceIntegrationsPaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .tenantId("ea175aba-f47c-4702-9400-efaa42688048")
+                .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                 .build()
 
         val roundtrippedReleaseListResponse =

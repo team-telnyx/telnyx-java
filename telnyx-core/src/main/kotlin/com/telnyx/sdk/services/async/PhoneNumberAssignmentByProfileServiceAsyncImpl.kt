@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignParams
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignResponse
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileListPhoneNumberStatusParams
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrieveStatusParams
@@ -51,6 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     ): CompletableFuture<PhoneNumberAssignmentByProfileAssignResponse> =
         // post /10dlc/phoneNumberAssignmentByProfile
         withRawResponse().assign(params, requestOptions).thenApply { it.parse() }
+
+    override fun listPhoneNumberStatus(
+        params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
+        // get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers
+        withRawResponse().listPhoneNumberStatus(params, requestOptions).thenApply { it.parse() }
 
     override fun retrievePhoneNumberStatus(
         params: PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
@@ -101,6 +110,49 @@ internal constructor(private val clientOptions: ClientOptions) :
                     errorHandler.handle(response).parseable {
                         response
                             .use { assignHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listPhoneNumberStatusHandler:
+            Handler<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
+            jsonHandler<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>(
+                clientOptions.jsonMapper
+            )
+
+        override fun listPhoneNumberStatus(
+            params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<
+            HttpResponseFor<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse>
+        > {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("taskId", params.taskId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "10dlc",
+                        "phoneNumberAssignmentByProfile",
+                        params._pathParam(0),
+                        "phoneNumbers",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listPhoneNumberStatusHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

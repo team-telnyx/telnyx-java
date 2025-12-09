@@ -2,11 +2,6 @@
 
 package com.telnyx.sdk.models.number10dlc.brand
 
-import com.telnyx.sdk.models.brand.AltBusinessIdType
-import com.telnyx.sdk.models.brand.BrandIdentityStatus
-import com.telnyx.sdk.models.brand.EntityType
-import com.telnyx.sdk.models.brand.StockExchange
-import com.telnyx.sdk.models.brand.Vertical
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

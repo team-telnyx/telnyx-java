@@ -14,14 +14,14 @@ internal class ConnectionsPaginationMetaTest {
         val connectionsPaginationMeta =
             ConnectionsPaginationMeta.builder()
                 .pageNumber(2L)
-                .pageSize(25L)
                 .totalPages(3L)
+                .pageSize(25L)
                 .totalResults(55L)
                 .build()
 
-        assertThat(connectionsPaginationMeta.pageNumber()).contains(2L)
+        assertThat(connectionsPaginationMeta.pageNumber()).isEqualTo(2L)
+        assertThat(connectionsPaginationMeta.totalPages()).isEqualTo(3L)
         assertThat(connectionsPaginationMeta.pageSize()).contains(25L)
-        assertThat(connectionsPaginationMeta.totalPages()).contains(3L)
         assertThat(connectionsPaginationMeta.totalResults()).contains(55L)
     }
 
@@ -31,8 +31,8 @@ internal class ConnectionsPaginationMetaTest {
         val connectionsPaginationMeta =
             ConnectionsPaginationMeta.builder()
                 .pageNumber(2L)
-                .pageSize(25L)
                 .totalPages(3L)
+                .pageSize(25L)
                 .totalResults(55L)
                 .build()
 

@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateParam
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteResponse
+import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListPage
+import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListPageResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListParams
-import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveResponse
 import java.util.function.Consumer
@@ -58,7 +59,7 @@ internal constructor(private val clientOptions: ClientOptions) : GlobalIpHealthC
     override fun list(
         params: GlobalIpHealthCheckListParams,
         requestOptions: RequestOptions,
-    ): GlobalIpHealthCheckListResponse =
+    ): GlobalIpHealthCheckListPage =
         // get /global_ip_health_checks
         withRawResponse().list(params, requestOptions).parse()
 
@@ -140,13 +141,13 @@ internal constructor(private val clientOptions: ClientOptions) : GlobalIpHealthC
             }
         }
 
-        private val listHandler: Handler<GlobalIpHealthCheckListResponse> =
-            jsonHandler<GlobalIpHealthCheckListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<GlobalIpHealthCheckListPageResponse> =
+            jsonHandler<GlobalIpHealthCheckListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: GlobalIpHealthCheckListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<GlobalIpHealthCheckListResponse> {
+        ): HttpResponseFor<GlobalIpHealthCheckListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -163,6 +164,13 @@ internal constructor(private val clientOptions: ClientOptions) : GlobalIpHealthC
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        GlobalIpHealthCheckListPage.builder()
+                            .service(GlobalIpHealthCheckServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

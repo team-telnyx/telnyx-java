@@ -12,7 +12,8 @@ internal class TestListParamsTest {
     fun create() {
         TestListParams.builder()
             .destination("destination")
-            .page(TestListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .telnyxConversationChannel("telnyx_conversation_channel")
             .testSuite("test_suite")
             .build()
@@ -23,7 +24,8 @@ internal class TestListParamsTest {
         val params =
             TestListParams.builder()
                 .destination("destination")
-                .page(TestListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .telnyxConversationChannel("telnyx_conversation_channel")
                 .testSuite("test_suite")
                 .build()
@@ -34,8 +36,8 @@ internal class TestListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("destination", "destination")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("telnyx_conversation_channel", "telnyx_conversation_channel")
                     .put("test_suite", "test_suite")
                     .build()

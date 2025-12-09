@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeleteParams
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPage
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -98,21 +98,21 @@ interface LoaConfigurationService {
     ): LoaConfigurationUpdateResponse
 
     /** List the LOA configurations. */
-    fun list(): LoaConfigurationListResponse = list(LoaConfigurationListParams.none())
+    fun list(): LoaConfigurationListPage = list(LoaConfigurationListParams.none())
 
     /** @see list */
     fun list(
         params: LoaConfigurationListParams = LoaConfigurationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LoaConfigurationListResponse
+    ): LoaConfigurationListPage
 
     /** @see list */
     fun list(
         params: LoaConfigurationListParams = LoaConfigurationListParams.none()
-    ): LoaConfigurationListResponse = list(params, RequestOptions.none())
+    ): LoaConfigurationListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): LoaConfigurationListResponse =
+    fun list(requestOptions: RequestOptions): LoaConfigurationListPage =
         list(LoaConfigurationListParams.none(), requestOptions)
 
     /** Delete a specific LOA configuration. */
@@ -310,7 +310,7 @@ interface LoaConfigurationService {
          * same as [LoaConfigurationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<LoaConfigurationListResponse> =
+        fun list(): HttpResponseFor<LoaConfigurationListPage> =
             list(LoaConfigurationListParams.none())
 
         /** @see list */
@@ -318,17 +318,17 @@ interface LoaConfigurationService {
         fun list(
             params: LoaConfigurationListParams = LoaConfigurationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LoaConfigurationListResponse>
+        ): HttpResponseFor<LoaConfigurationListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: LoaConfigurationListParams = LoaConfigurationListParams.none()
-        ): HttpResponseFor<LoaConfigurationListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<LoaConfigurationListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<LoaConfigurationListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<LoaConfigurationListPage> =
             list(LoaConfigurationListParams.none(), requestOptions)
 
         /**

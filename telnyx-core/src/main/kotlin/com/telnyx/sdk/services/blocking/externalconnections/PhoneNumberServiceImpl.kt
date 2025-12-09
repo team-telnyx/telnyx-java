@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListPage
+import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListParams
-import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListResponse
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateParams
@@ -54,7 +55,7 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: PhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): PhoneNumberListResponse =
+    ): PhoneNumberListPage =
         // get /external_connections/{id}/phone_numbers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -142,13 +143,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<PhoneNumberListResponse> =
-            jsonHandler<PhoneNumberListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhoneNumberListPageResponse> =
+            jsonHandler<PhoneNumberListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhoneNumberListResponse> {
+        ): HttpResponseFor<PhoneNumberListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -168,6 +169,13 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        PhoneNumberListPage.builder()
+                            .service(PhoneNumberServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

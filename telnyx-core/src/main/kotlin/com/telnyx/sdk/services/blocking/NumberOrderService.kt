@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateParams
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateResponse
+import com.telnyx.sdk.models.numberorders.NumberOrderListPage
 import com.telnyx.sdk.models.numberorders.NumberOrderListParams
-import com.telnyx.sdk.models.numberorders.NumberOrderListResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveParams
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderUpdateParams
@@ -116,21 +116,20 @@ interface NumberOrderService {
         update(numberOrderId, NumberOrderUpdateParams.none(), requestOptions)
 
     /** Get a paginated list of number orders. */
-    fun list(): NumberOrderListResponse = list(NumberOrderListParams.none())
+    fun list(): NumberOrderListPage = list(NumberOrderListParams.none())
 
     /** @see list */
     fun list(
         params: NumberOrderListParams = NumberOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberOrderListResponse
+    ): NumberOrderListPage
 
     /** @see list */
-    fun list(
-        params: NumberOrderListParams = NumberOrderListParams.none()
-    ): NumberOrderListResponse = list(params, RequestOptions.none())
+    fun list(params: NumberOrderListParams = NumberOrderListParams.none()): NumberOrderListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NumberOrderListResponse =
+    fun list(requestOptions: RequestOptions): NumberOrderListPage =
         list(NumberOrderListParams.none(), requestOptions)
 
     /**
@@ -269,24 +268,24 @@ interface NumberOrderService {
          * [NumberOrderService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NumberOrderListResponse> = list(NumberOrderListParams.none())
+        fun list(): HttpResponseFor<NumberOrderListPage> = list(NumberOrderListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NumberOrderListParams = NumberOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberOrderListResponse>
+        ): HttpResponseFor<NumberOrderListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NumberOrderListParams = NumberOrderListParams.none()
-        ): HttpResponseFor<NumberOrderListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NumberOrderListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberOrderListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberOrderListPage> =
             list(NumberOrderListParams.none(), requestOptions)
     }
 }

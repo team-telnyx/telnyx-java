@@ -20,10 +20,12 @@ import com.telnyx.sdk.models.networks.NetworkCreateParams
 import com.telnyx.sdk.models.networks.NetworkCreateResponse
 import com.telnyx.sdk.models.networks.NetworkDeleteParams
 import com.telnyx.sdk.models.networks.NetworkDeleteResponse
+import com.telnyx.sdk.models.networks.NetworkListInterfacesPage
+import com.telnyx.sdk.models.networks.NetworkListInterfacesPageResponse
 import com.telnyx.sdk.models.networks.NetworkListInterfacesParams
-import com.telnyx.sdk.models.networks.NetworkListInterfacesResponse
+import com.telnyx.sdk.models.networks.NetworkListPage
+import com.telnyx.sdk.models.networks.NetworkListPageResponse
 import com.telnyx.sdk.models.networks.NetworkListParams
-import com.telnyx.sdk.models.networks.NetworkListResponse
 import com.telnyx.sdk.models.networks.NetworkRetrieveParams
 import com.telnyx.sdk.models.networks.NetworkRetrieveResponse
 import com.telnyx.sdk.models.networks.NetworkUpdateParams
@@ -72,10 +74,7 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
         // patch /networks/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: NetworkListParams,
-        requestOptions: RequestOptions,
-    ): NetworkListResponse =
+    override fun list(params: NetworkListParams, requestOptions: RequestOptions): NetworkListPage =
         // get /networks
         withRawResponse().list(params, requestOptions).parse()
 
@@ -89,7 +88,7 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
     override fun listInterfaces(
         params: NetworkListInterfacesParams,
         requestOptions: RequestOptions,
-    ): NetworkListInterfacesResponse =
+    ): NetworkListInterfacesPage =
         // get /networks/{id}/network_interfaces
         withRawResponse().listInterfaces(params, requestOptions).parse()
 
@@ -179,7 +178,7 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
         ): HttpResponseFor<NetworkUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("pathId", params.pathId().getOrNull())
+            checkRequired("networkId", params.networkId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -201,13 +200,13 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<NetworkListResponse> =
-            jsonHandler<NetworkListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NetworkListPageResponse> =
+            jsonHandler<NetworkListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NetworkListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NetworkListResponse> {
+        ): HttpResponseFor<NetworkListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -224,6 +223,13 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        NetworkListPage.builder()
+                            .service(NetworkServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
@@ -259,13 +265,13 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listInterfacesHandler: Handler<NetworkListInterfacesResponse> =
-            jsonHandler<NetworkListInterfacesResponse>(clientOptions.jsonMapper)
+        private val listInterfacesHandler: Handler<NetworkListInterfacesPageResponse> =
+            jsonHandler<NetworkListInterfacesPageResponse>(clientOptions.jsonMapper)
 
         override fun listInterfaces(
             params: NetworkListInterfacesParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NetworkListInterfacesResponse> {
+        ): HttpResponseFor<NetworkListInterfacesPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -285,6 +291,13 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        NetworkListInterfacesPage.builder()
+                            .service(NetworkServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

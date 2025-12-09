@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignParams
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileListPhoneNumberStatusParams
 import com.telnyx.sdk.models.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -29,6 +30,29 @@ internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
                     .messagingProfileId("4001767e-ce0f-4cae-9d5f-0d5e636e7809")
                     .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                     .tcrCampaignId("CWZTFH1")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun listPhoneNumberStatus() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val phoneNumberAssignmentByProfileServiceAsync = client.phoneNumberAssignmentByProfile()
+
+        val responseFuture =
+            phoneNumberAssignmentByProfileServiceAsync.listPhoneNumberStatus(
+                PhoneNumberAssignmentByProfileListPhoneNumberStatusParams.builder()
+                    .taskId("taskId")
+                    .page(0L)
+                    .recordsPerPage(0L)
                     .build()
             )
 

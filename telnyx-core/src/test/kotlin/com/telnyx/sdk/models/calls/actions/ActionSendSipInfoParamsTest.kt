@@ -11,7 +11,7 @@ internal class ActionSendSipInfoParamsTest {
     fun create() {
         ActionSendSipInfoParams.builder()
             .callControlId("call_control_id")
-            .body("{\"key\": \"value\", \"numValue\": 100}")
+            .sipInfoBody("{\"key\": \"value\", \"numValue\": 100}")
             .contentType("application/json")
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
@@ -23,7 +23,7 @@ internal class ActionSendSipInfoParamsTest {
         val params =
             ActionSendSipInfoParams.builder()
                 .callControlId("call_control_id")
-                .body("{\"key\": \"value\", \"numValue\": 100}")
+                .sipInfoBody("{\"key\": \"value\", \"numValue\": 100}")
                 .contentType("application/json")
                 .build()
 
@@ -37,7 +37,7 @@ internal class ActionSendSipInfoParamsTest {
         val params =
             ActionSendSipInfoParams.builder()
                 .callControlId("call_control_id")
-                .body("{\"key\": \"value\", \"numValue\": 100}")
+                .sipInfoBody("{\"key\": \"value\", \"numValue\": 100}")
                 .contentType("application/json")
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
@@ -45,7 +45,7 @@ internal class ActionSendSipInfoParamsTest {
 
         val body = params._body()
 
-        assertThat(body.body()).isEqualTo("{\"key\": \"value\", \"numValue\": 100}")
+        assertThat(body.sipInfoBody()).isEqualTo("{\"key\": \"value\", \"numValue\": 100}")
         assertThat(body.contentType()).isEqualTo("application/json")
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
@@ -56,13 +56,13 @@ internal class ActionSendSipInfoParamsTest {
         val params =
             ActionSendSipInfoParams.builder()
                 .callControlId("call_control_id")
-                .body("{\"key\": \"value\", \"numValue\": 100}")
+                .sipInfoBody("{\"key\": \"value\", \"numValue\": 100}")
                 .contentType("application/json")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.body()).isEqualTo("{\"key\": \"value\", \"numValue\": 100}")
+        assertThat(body.sipInfoBody()).isEqualTo("{\"key\": \"value\", \"numValue\": 100}")
         assertThat(body.contentType()).isEqualTo("application/json")
     }
 }

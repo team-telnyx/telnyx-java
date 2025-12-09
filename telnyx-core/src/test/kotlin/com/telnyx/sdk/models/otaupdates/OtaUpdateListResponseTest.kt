@@ -4,8 +4,6 @@ package com.telnyx.sdk.models.otaupdates
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,48 +13,25 @@ internal class OtaUpdateListResponseTest {
     fun create() {
         val otaUpdateListResponse =
             OtaUpdateListResponse.builder()
-                .addData(
-                    OtaUpdateListResponse.Data.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("ota_update")
-                        .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .status(OtaUpdateListResponse.Data.Status.IN_PROGRESS)
-                        .type(OtaUpdateListResponse.Data.Type.SIM_CARD_NETWORK_PREFERENCES)
-                        .updatedAt("2018-02-02T22:25:27.521Z")
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .createdAt("2018-02-02T22:25:27.521Z")
+                .recordType("ota_update")
+                .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .status(OtaUpdateListResponse.Status.IN_PROGRESS)
+                .type(OtaUpdateListResponse.Type.SIM_CARD_NETWORK_PREFERENCES)
+                .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
-        assertThat(otaUpdateListResponse.data().getOrNull())
-            .containsExactly(
-                OtaUpdateListResponse.Data.builder()
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("ota_update")
-                    .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .status(OtaUpdateListResponse.Data.Status.IN_PROGRESS)
-                    .type(OtaUpdateListResponse.Data.Type.SIM_CARD_NETWORK_PREFERENCES)
-                    .updatedAt("2018-02-02T22:25:27.521Z")
-                    .build()
-            )
-        assertThat(otaUpdateListResponse.meta())
-            .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .pageSize(25L)
-                    .totalPages(3L)
-                    .totalResults(55L)
-                    .build()
-            )
+        assertThat(otaUpdateListResponse.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(otaUpdateListResponse.createdAt()).contains("2018-02-02T22:25:27.521Z")
+        assertThat(otaUpdateListResponse.recordType()).contains("ota_update")
+        assertThat(otaUpdateListResponse.simCardId())
+            .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(otaUpdateListResponse.status())
+            .contains(OtaUpdateListResponse.Status.IN_PROGRESS)
+        assertThat(otaUpdateListResponse.type())
+            .contains(OtaUpdateListResponse.Type.SIM_CARD_NETWORK_PREFERENCES)
+        assertThat(otaUpdateListResponse.updatedAt()).contains("2018-02-02T22:25:27.521Z")
     }
 
     @Test
@@ -64,25 +39,13 @@ internal class OtaUpdateListResponseTest {
         val jsonMapper = jsonMapper()
         val otaUpdateListResponse =
             OtaUpdateListResponse.builder()
-                .addData(
-                    OtaUpdateListResponse.Data.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("ota_update")
-                        .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .status(OtaUpdateListResponse.Data.Status.IN_PROGRESS)
-                        .type(OtaUpdateListResponse.Data.Type.SIM_CARD_NETWORK_PREFERENCES)
-                        .updatedAt("2018-02-02T22:25:27.521Z")
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .createdAt("2018-02-02T22:25:27.521Z")
+                .recordType("ota_update")
+                .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .status(OtaUpdateListResponse.Status.IN_PROGRESS)
+                .type(OtaUpdateListResponse.Type.SIM_CARD_NETWORK_PREFERENCES)
+                .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
         val roundtrippedOtaUpdateListResponse =

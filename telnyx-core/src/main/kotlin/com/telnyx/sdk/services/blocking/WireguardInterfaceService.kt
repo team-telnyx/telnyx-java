@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceCreateParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceCreateResponse
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceDeleteParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceDeleteResponse
+import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListPage
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListParams
-import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListResponse
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveResponse
 import java.util.function.Consumer
@@ -84,21 +84,21 @@ interface WireguardInterfaceService {
         retrieve(id, WireguardInterfaceRetrieveParams.none(), requestOptions)
 
     /** List all WireGuard Interfaces. */
-    fun list(): WireguardInterfaceListResponse = list(WireguardInterfaceListParams.none())
+    fun list(): WireguardInterfaceListPage = list(WireguardInterfaceListParams.none())
 
     /** @see list */
     fun list(
         params: WireguardInterfaceListParams = WireguardInterfaceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WireguardInterfaceListResponse
+    ): WireguardInterfaceListPage
 
     /** @see list */
     fun list(
         params: WireguardInterfaceListParams = WireguardInterfaceListParams.none()
-    ): WireguardInterfaceListResponse = list(params, RequestOptions.none())
+    ): WireguardInterfaceListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): WireguardInterfaceListResponse =
+    fun list(requestOptions: RequestOptions): WireguardInterfaceListPage =
         list(WireguardInterfaceListParams.none(), requestOptions)
 
     /** Delete a WireGuard Interface. */
@@ -227,7 +227,7 @@ interface WireguardInterfaceService {
          * [WireguardInterfaceService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<WireguardInterfaceListResponse> =
+        fun list(): HttpResponseFor<WireguardInterfaceListPage> =
             list(WireguardInterfaceListParams.none())
 
         /** @see list */
@@ -235,17 +235,17 @@ interface WireguardInterfaceService {
         fun list(
             params: WireguardInterfaceListParams = WireguardInterfaceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WireguardInterfaceListResponse>
+        ): HttpResponseFor<WireguardInterfaceListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WireguardInterfaceListParams = WireguardInterfaceListParams.none()
-        ): HttpResponseFor<WireguardInterfaceListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<WireguardInterfaceListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WireguardInterfaceListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WireguardInterfaceListPage> =
             list(WireguardInterfaceListParams.none(), requestOptions)
 
         /**

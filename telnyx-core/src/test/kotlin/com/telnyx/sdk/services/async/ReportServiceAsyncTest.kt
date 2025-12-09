@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.reports.ReportListMdrsParams
-import com.telnyx.sdk.models.reports.ReportListWdrsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -52,25 +51,9 @@ internal class ReportServiceAsyncTest {
                 .build()
         val reportServiceAsync = client.reports()
 
-        val responseFuture =
-            reportServiceAsync.listWdrs(
-                ReportListWdrsParams.builder()
-                    .id("e093fbe0-5bde-11eb-ae93-0242ac130002")
-                    .endDate("2021-06-01T00:00:00Z")
-                    .imsi("123456")
-                    .mcc("204")
-                    .mnc("01")
-                    .page(ReportListWdrsParams.Page.builder().number(0).size(0).build())
-                    .phoneNumber("+12345678910")
-                    .simCardId("877f80a6-e5b2-4687-9a04-88076265720f")
-                    .simGroupId("f05a189f-7c46-4531-ac56-1460dc465a42")
-                    .simGroupName("sim name")
-                    .addSort("created_at")
-                    .startDate("2021-05-01T00:00:00Z")
-                    .build()
-            )
+        val pageFuture = reportServiceAsync.listWdrs()
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

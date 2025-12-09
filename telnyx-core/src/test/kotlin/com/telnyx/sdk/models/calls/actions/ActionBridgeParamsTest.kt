@@ -10,8 +10,8 @@ internal class ActionBridgeParamsTest {
     @Test
     fun create() {
         ActionBridgeParams.builder()
-            .pathCallControlId("call_control_id")
-            .bodyCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+            .callControlIdToBridge("call_control_id")
+            .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .muteDtmf(ActionBridgeParams.MuteDtmf.OPPOSITE)
@@ -36,8 +36,8 @@ internal class ActionBridgeParamsTest {
     fun pathParams() {
         val params =
             ActionBridgeParams.builder()
-                .pathCallControlId("call_control_id")
-                .bodyCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                .callControlIdToBridge("call_control_id")
+                .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("call_control_id")
@@ -49,8 +49,8 @@ internal class ActionBridgeParamsTest {
     fun body() {
         val params =
             ActionBridgeParams.builder()
-                .pathCallControlId("call_control_id")
-                .bodyCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                .callControlIdToBridge("call_control_id")
+                .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .muteDtmf(ActionBridgeParams.MuteDtmf.OPPOSITE)
@@ -72,7 +72,7 @@ internal class ActionBridgeParamsTest {
 
         val body = params._body()
 
-        assertThat(body.bodyCallControlId())
+        assertThat(body.callControlId())
             .isEqualTo("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
@@ -97,13 +97,13 @@ internal class ActionBridgeParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ActionBridgeParams.builder()
-                .pathCallControlId("call_control_id")
-                .bodyCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                .callControlIdToBridge("call_control_id")
+                .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bodyCallControlId())
+        assertThat(body.callControlId())
             .isEqualTo("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
     }
 }

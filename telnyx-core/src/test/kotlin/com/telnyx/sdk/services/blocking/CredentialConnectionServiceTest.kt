@@ -7,7 +7,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreateParams
-import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionUpdateParams
 import com.telnyx.sdk.models.credentialconnections.CredentialInbound
 import com.telnyx.sdk.models.credentialconnections.CredentialOutbound
@@ -86,7 +85,7 @@ internal class CredentialConnectionServiceTest {
                     )
                     .addTag("tag1")
                     .addTag("tag2")
-                    .webhookApiVersion(CredentialConnectionCreateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(CredentialConnectionCreateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -178,7 +177,7 @@ internal class CredentialConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .userName("myusername123")
-                    .webhookApiVersion(CredentialConnectionUpdateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(CredentialConnectionUpdateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -198,26 +197,9 @@ internal class CredentialConnectionServiceTest {
                 .build()
         val credentialConnectionService = client.credentialConnections()
 
-        val credentialConnections =
-            credentialConnectionService.list(
-                CredentialConnectionListParams.builder()
-                    .filter(
-                        CredentialConnectionListParams.Filter.builder()
-                            .connectionName(
-                                CredentialConnectionListParams.Filter.ConnectionName.builder()
-                                    .contains("contains")
-                                    .build()
-                            )
-                            .fqdn("fqdn")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
-                            .build()
-                    )
-                    .page(CredentialConnectionListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(CredentialConnectionListParams.Sort.CONNECTION_NAME)
-                    .build()
-            )
+        val page = credentialConnectionService.list()
 
-        credentialConnections.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

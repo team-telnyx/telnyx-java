@@ -12,7 +12,7 @@ internal class CommentCreateParamsTest {
     fun create() {
         CommentCreateParams.builder()
             .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-            .body("Hi there, ....")
+            .commentBody("Hi there, ....")
             .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
             .commentRecordType(CommentCreateParams.CommentRecordType.SUB_NUMBER_ORDER)
             .commenter("user@company.com")
@@ -28,7 +28,7 @@ internal class CommentCreateParamsTest {
         val params =
             CommentCreateParams.builder()
                 .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                .body("Hi there, ....")
+                .commentBody("Hi there, ....")
                 .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
                 .commentRecordType(CommentCreateParams.CommentRecordType.SUB_NUMBER_ORDER)
                 .commenter("user@company.com")
@@ -41,7 +41,7 @@ internal class CommentCreateParamsTest {
         val body = params._body()
 
         assertThat(body.id()).contains("12ade33a-21c0-473b-b055-b3c836e1c292")
-        assertThat(body.body()).contains("Hi there, ....")
+        assertThat(body.commentBody()).contains("Hi there, ....")
         assertThat(body.commentRecordId()).contains("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
         assertThat(body.commentRecordType())
             .contains(CommentCreateParams.CommentRecordType.SUB_NUMBER_ORDER)

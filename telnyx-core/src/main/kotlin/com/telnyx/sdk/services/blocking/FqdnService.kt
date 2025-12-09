@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.fqdns.FqdnCreateParams
 import com.telnyx.sdk.models.fqdns.FqdnCreateResponse
 import com.telnyx.sdk.models.fqdns.FqdnDeleteParams
 import com.telnyx.sdk.models.fqdns.FqdnDeleteResponse
+import com.telnyx.sdk.models.fqdns.FqdnListPage
 import com.telnyx.sdk.models.fqdns.FqdnListParams
-import com.telnyx.sdk.models.fqdns.FqdnListResponse
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveParams
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveResponse
 import com.telnyx.sdk.models.fqdns.FqdnUpdateParams
@@ -99,20 +99,20 @@ interface FqdnService {
         update(id, FqdnUpdateParams.none(), requestOptions)
 
     /** Get all FQDNs belonging to the user that match the given filters. */
-    fun list(): FqdnListResponse = list(FqdnListParams.none())
+    fun list(): FqdnListPage = list(FqdnListParams.none())
 
     /** @see list */
     fun list(
         params: FqdnListParams = FqdnListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FqdnListResponse
+    ): FqdnListPage
 
     /** @see list */
-    fun list(params: FqdnListParams = FqdnListParams.none()): FqdnListResponse =
+    fun list(params: FqdnListParams = FqdnListParams.none()): FqdnListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): FqdnListResponse =
+    fun list(requestOptions: RequestOptions): FqdnListPage =
         list(FqdnListParams.none(), requestOptions)
 
     /** Delete an FQDN. */
@@ -258,24 +258,23 @@ interface FqdnService {
          * Returns a raw HTTP response for `get /fqdns`, but is otherwise the same as
          * [FqdnService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<FqdnListResponse> = list(FqdnListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<FqdnListPage> = list(FqdnListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FqdnListParams = FqdnListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FqdnListResponse>
+        ): HttpResponseFor<FqdnListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: FqdnListParams = FqdnListParams.none()
-        ): HttpResponseFor<FqdnListResponse> = list(params, RequestOptions.none())
+        fun list(params: FqdnListParams = FqdnListParams.none()): HttpResponseFor<FqdnListPage> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<FqdnListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FqdnListPage> =
             list(FqdnListParams.none(), requestOptions)
 
         /**

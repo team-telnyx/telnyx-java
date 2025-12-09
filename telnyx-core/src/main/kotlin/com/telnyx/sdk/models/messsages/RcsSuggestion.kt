@@ -12,6 +12,7 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -181,7 +182,7 @@ private constructor(
         private val fallbackUrl: JsonField<String>,
         private val openUrlAction: JsonField<OpenUrlAction>,
         private val postbackData: JsonField<String>,
-        private val shareLocationAction: JsonValue,
+        private val shareLocationAction: JsonField<ShareLocationAction>,
         private val text: JsonField<String>,
         private val viewLocationAction: JsonField<ViewLocationAction>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -206,7 +207,7 @@ private constructor(
             postbackData: JsonField<String> = JsonMissing.of(),
             @JsonProperty("share_location_action")
             @ExcludeMissing
-            shareLocationAction: JsonValue = JsonMissing.of(),
+            shareLocationAction: JsonField<ShareLocationAction> = JsonMissing.of(),
             @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
             @JsonProperty("view_location_action")
             @ExcludeMissing
@@ -270,10 +271,12 @@ private constructor(
         /**
          * Opens the RCS app's location chooser so the user can pick a location to send back to the
          * agent.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("share_location_action")
-        @ExcludeMissing
-        fun _shareLocationAction(): JsonValue = shareLocationAction
+        fun shareLocationAction(): Optional<ShareLocationAction> =
+            shareLocationAction.getOptional("share_location_action")
 
         /**
          * Text that is shown in the suggested action. Maximum 25 characters.
@@ -342,6 +345,16 @@ private constructor(
         fun _postbackData(): JsonField<String> = postbackData
 
         /**
+         * Returns the raw JSON value of [shareLocationAction].
+         *
+         * Unlike [shareLocationAction], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("share_location_action")
+        @ExcludeMissing
+        fun _shareLocationAction(): JsonField<ShareLocationAction> = shareLocationAction
+
+        /**
          * Returns the raw JSON value of [text].
          *
          * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
@@ -385,7 +398,7 @@ private constructor(
             private var fallbackUrl: JsonField<String> = JsonMissing.of()
             private var openUrlAction: JsonField<OpenUrlAction> = JsonMissing.of()
             private var postbackData: JsonField<String> = JsonMissing.of()
-            private var shareLocationAction: JsonValue = JsonMissing.of()
+            private var shareLocationAction: JsonField<ShareLocationAction> = JsonMissing.of()
             private var text: JsonField<String> = JsonMissing.of()
             private var viewLocationAction: JsonField<ViewLocationAction> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -490,7 +503,17 @@ private constructor(
              * Opens the RCS app's location chooser so the user can pick a location to send back to
              * the agent.
              */
-            fun shareLocationAction(shareLocationAction: JsonValue) = apply {
+            fun shareLocationAction(shareLocationAction: ShareLocationAction) =
+                shareLocationAction(JsonField.of(shareLocationAction))
+
+            /**
+             * Sets [Builder.shareLocationAction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shareLocationAction] with a well-typed
+             * [ShareLocationAction] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun shareLocationAction(shareLocationAction: JsonField<ShareLocationAction>) = apply {
                 this.shareLocationAction = shareLocationAction
             }
 
@@ -571,6 +594,7 @@ private constructor(
             fallbackUrl()
             openUrlAction().ifPresent { it.validate() }
             postbackData()
+            shareLocationAction().ifPresent { it.validate() }
             text()
             viewLocationAction().ifPresent { it.validate() }
             validated = true
@@ -597,6 +621,7 @@ private constructor(
                 (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                 (openUrlAction.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (postbackData.asKnown().isPresent) 1 else 0) +
+                (shareLocationAction.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (text.asKnown().isPresent) 1 else 0) +
                 (viewLocationAction.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -1630,6 +1655,117 @@ private constructor(
 
             override fun toString() =
                 "OpenUrlAction{application=$application, url=$url, webviewViewMode=$webviewViewMode, description=$description, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Opens the RCS app's location chooser so the user can pick a location to send back to the
+         * agent.
+         */
+        class ShareLocationAction
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [ShareLocationAction].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [ShareLocationAction]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(shareLocationAction: ShareLocationAction) = apply {
+                    additionalProperties = shareLocationAction.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [ShareLocationAction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): ShareLocationAction =
+                    ShareLocationAction(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): ShareLocationAction = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ShareLocationAction &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "ShareLocationAction{additionalProperties=$additionalProperties}"
         }
 
         /** Opens the user's default map app and selects the agent-specified location. */

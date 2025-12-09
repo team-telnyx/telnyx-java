@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.oauthclients.OAuthClientCreateParams
 import com.telnyx.sdk.models.oauthclients.OAuthClientCreateResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientDeleteParams
+import com.telnyx.sdk.models.oauthclients.OAuthClientListPage
+import com.telnyx.sdk.models.oauthclients.OAuthClientListPageResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientListParams
-import com.telnyx.sdk.models.oauthclients.OAuthClientListResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientRetrieveParams
 import com.telnyx.sdk.models.oauthclients.OAuthClientRetrieveResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientUpdateParams
@@ -65,7 +66,7 @@ class OAuthClientServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: OAuthClientListParams,
         requestOptions: RequestOptions,
-    ): OAuthClientListResponse =
+    ): OAuthClientListPage =
         // get /oauth_clients
         withRawResponse().list(params, requestOptions).parse()
 
@@ -176,13 +177,13 @@ class OAuthClientServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<OAuthClientListResponse> =
-            jsonHandler<OAuthClientListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthClientListPageResponse> =
+            jsonHandler<OAuthClientListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OAuthClientListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<OAuthClientListResponse> {
+        ): HttpResponseFor<OAuthClientListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -199,6 +200,13 @@ class OAuthClientServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        OAuthClientListPage.builder()
+                            .service(OAuthClientServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

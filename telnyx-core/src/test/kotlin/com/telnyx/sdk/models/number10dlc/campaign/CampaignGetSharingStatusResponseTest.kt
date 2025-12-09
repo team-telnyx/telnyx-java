@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.number10dlc.campaign
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.campaign.CampaignSharingStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

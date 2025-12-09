@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreat
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreateResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationDeleteParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationDeleteResponse
+import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListPageAsync
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListParams
-import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationRetrieveParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationRetrieveResponse
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdateParams
@@ -110,24 +110,24 @@ interface CallControlApplicationServiceAsync {
     ): CompletableFuture<CallControlApplicationUpdateResponse>
 
     /** Return a list of call control applications. */
-    fun list(): CompletableFuture<CallControlApplicationListResponse> =
+    fun list(): CompletableFuture<CallControlApplicationListPageAsync> =
         list(CallControlApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: CallControlApplicationListParams = CallControlApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallControlApplicationListResponse>
+    ): CompletableFuture<CallControlApplicationListPageAsync>
 
     /** @see list */
     fun list(
         params: CallControlApplicationListParams = CallControlApplicationListParams.none()
-    ): CompletableFuture<CallControlApplicationListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CallControlApplicationListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<CallControlApplicationListResponse> =
+    ): CompletableFuture<CallControlApplicationListPageAsync> =
         list(CallControlApplicationListParams.none(), requestOptions)
 
     /** Deletes a call control application. */
@@ -277,25 +277,25 @@ interface CallControlApplicationServiceAsync {
          * Returns a raw HTTP response for `get /call_control_applications`, but is otherwise the
          * same as [CallControlApplicationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CallControlApplicationListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CallControlApplicationListPageAsync>> =
             list(CallControlApplicationListParams.none())
 
         /** @see list */
         fun list(
             params: CallControlApplicationListParams = CallControlApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallControlApplicationListResponse>>
+        ): CompletableFuture<HttpResponseFor<CallControlApplicationListPageAsync>>
 
         /** @see list */
         fun list(
             params: CallControlApplicationListParams = CallControlApplicationListParams.none()
-        ): CompletableFuture<HttpResponseFor<CallControlApplicationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CallControlApplicationListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CallControlApplicationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CallControlApplicationListPageAsync>> =
             list(CallControlApplicationListParams.none(), requestOptions)
 
         /**

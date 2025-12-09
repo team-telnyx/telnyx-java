@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParam
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteResponse
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListPageAsync
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListParams
-import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateParams
@@ -40,15 +40,25 @@ interface VirtualCrossConnectServiceAsync {
      * and secondary connections to be created at the same time and they can not be independantly
      * disabled.
      */
+    fun create(): CompletableFuture<VirtualCrossConnectCreateResponse> =
+        create(VirtualCrossConnectCreateParams.none())
+
+    /** @see create */
     fun create(
-        params: VirtualCrossConnectCreateParams
+        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VirtualCrossConnectCreateResponse>
+
+    /** @see create */
+    fun create(
+        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
     ): CompletableFuture<VirtualCrossConnectCreateResponse> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: VirtualCrossConnectCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VirtualCrossConnectCreateResponse>
+        requestOptions: RequestOptions
+    ): CompletableFuture<VirtualCrossConnectCreateResponse> =
+        create(VirtualCrossConnectCreateParams.none(), requestOptions)
 
     /** Retrieve a Virtual Cross Connect. */
     fun retrieve(id: String): CompletableFuture<VirtualCrossConnectRetrieveResponse> =
@@ -133,22 +143,22 @@ interface VirtualCrossConnectServiceAsync {
         update(id, VirtualCrossConnectUpdateParams.none(), requestOptions)
 
     /** List all Virtual Cross Connects. */
-    fun list(): CompletableFuture<VirtualCrossConnectListResponse> =
+    fun list(): CompletableFuture<VirtualCrossConnectListPageAsync> =
         list(VirtualCrossConnectListParams.none())
 
     /** @see list */
     fun list(
         params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VirtualCrossConnectListResponse>
+    ): CompletableFuture<VirtualCrossConnectListPageAsync>
 
     /** @see list */
     fun list(
         params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none()
-    ): CompletableFuture<VirtualCrossConnectListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<VirtualCrossConnectListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<VirtualCrossConnectListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<VirtualCrossConnectListPageAsync> =
         list(VirtualCrossConnectListParams.none(), requestOptions)
 
     /** Delete a Virtual Cross Connect. */
@@ -207,16 +217,26 @@ interface VirtualCrossConnectServiceAsync {
          * Returns a raw HTTP response for `post /virtual_cross_connects`, but is otherwise the same
          * as [VirtualCrossConnectServiceAsync.create].
          */
+        fun create(): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
+            create(VirtualCrossConnectCreateParams.none())
+
+        /** @see create */
         fun create(
-            params: VirtualCrossConnectCreateParams
+            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>>
+
+        /** @see create */
+        fun create(
+            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
         ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            params: VirtualCrossConnectCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>>
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
+            create(VirtualCrossConnectCreateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects/{id}`, but is otherwise the
@@ -308,25 +328,25 @@ interface VirtualCrossConnectServiceAsync {
          * Returns a raw HTTP response for `get /virtual_cross_connects`, but is otherwise the same
          * as [VirtualCrossConnectServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<VirtualCrossConnectListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<VirtualCrossConnectListPageAsync>> =
             list(VirtualCrossConnectListParams.none())
 
         /** @see list */
         fun list(
             params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListResponse>>
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListPageAsync>>
 
         /** @see list */
         fun list(
             params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none()
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListPageAsync>> =
             list(VirtualCrossConnectListParams.none(), requestOptions)
 
         /**

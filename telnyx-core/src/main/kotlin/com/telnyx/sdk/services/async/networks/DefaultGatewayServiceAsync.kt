@@ -29,23 +29,23 @@ interface DefaultGatewayServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DefaultGatewayServiceAsync
 
     /** Create Default Gateway. */
-    fun create(pathId: String): CompletableFuture<DefaultGatewayCreateResponse> =
-        create(pathId, DefaultGatewayCreateParams.none())
+    fun create(networkIdentifier: String): CompletableFuture<DefaultGatewayCreateResponse> =
+        create(networkIdentifier, DefaultGatewayCreateParams.none())
 
     /** @see create */
     fun create(
-        pathId: String,
+        networkIdentifier: String,
         params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DefaultGatewayCreateResponse> =
-        create(params.toBuilder().pathId(pathId).build(), requestOptions)
+        create(params.toBuilder().networkIdentifier(networkIdentifier).build(), requestOptions)
 
     /** @see create */
     fun create(
-        pathId: String,
+        networkIdentifier: String,
         params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
     ): CompletableFuture<DefaultGatewayCreateResponse> =
-        create(pathId, params, RequestOptions.none())
+        create(networkIdentifier, params, RequestOptions.none())
 
     /** @see create */
     fun create(
@@ -60,10 +60,10 @@ interface DefaultGatewayServiceAsync {
 
     /** @see create */
     fun create(
-        pathId: String,
+        networkIdentifier: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<DefaultGatewayCreateResponse> =
-        create(pathId, DefaultGatewayCreateParams.none(), requestOptions)
+        create(networkIdentifier, DefaultGatewayCreateParams.none(), requestOptions)
 
     /** Get Default Gateway status. */
     fun retrieve(id: String): CompletableFuture<DefaultGatewayRetrieveResponse> =
@@ -158,24 +158,24 @@ interface DefaultGatewayServiceAsync {
          * the same as [DefaultGatewayServiceAsync.create].
          */
         fun create(
-            pathId: String
+            networkIdentifier: String
         ): CompletableFuture<HttpResponseFor<DefaultGatewayCreateResponse>> =
-            create(pathId, DefaultGatewayCreateParams.none())
+            create(networkIdentifier, DefaultGatewayCreateParams.none())
 
         /** @see create */
         fun create(
-            pathId: String,
+            networkIdentifier: String,
             params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DefaultGatewayCreateResponse>> =
-            create(params.toBuilder().pathId(pathId).build(), requestOptions)
+            create(params.toBuilder().networkIdentifier(networkIdentifier).build(), requestOptions)
 
         /** @see create */
         fun create(
-            pathId: String,
+            networkIdentifier: String,
             params: DefaultGatewayCreateParams = DefaultGatewayCreateParams.none(),
         ): CompletableFuture<HttpResponseFor<DefaultGatewayCreateResponse>> =
-            create(pathId, params, RequestOptions.none())
+            create(networkIdentifier, params, RequestOptions.none())
 
         /** @see create */
         fun create(
@@ -191,10 +191,10 @@ interface DefaultGatewayServiceAsync {
 
         /** @see create */
         fun create(
-            pathId: String,
+            networkIdentifier: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<DefaultGatewayCreateResponse>> =
-            create(pathId, DefaultGatewayCreateParams.none(), requestOptions)
+            create(networkIdentifier, DefaultGatewayCreateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /networks/{id}/default_gateway`, but is otherwise

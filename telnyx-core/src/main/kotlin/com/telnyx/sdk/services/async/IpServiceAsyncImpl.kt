@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.ips.IpCreateParams
 import com.telnyx.sdk.models.ips.IpCreateResponse
 import com.telnyx.sdk.models.ips.IpDeleteParams
 import com.telnyx.sdk.models.ips.IpDeleteResponse
+import com.telnyx.sdk.models.ips.IpListPageAsync
+import com.telnyx.sdk.models.ips.IpListPageResponse
 import com.telnyx.sdk.models.ips.IpListParams
-import com.telnyx.sdk.models.ips.IpListResponse
 import com.telnyx.sdk.models.ips.IpRetrieveParams
 import com.telnyx.sdk.models.ips.IpRetrieveResponse
 import com.telnyx.sdk.models.ips.IpUpdateParams
@@ -66,7 +67,7 @@ class IpServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun list(
         params: IpListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IpListResponse> =
+    ): CompletableFuture<IpListPageAsync> =
         // get /ips
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -188,13 +189,13 @@ class IpServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 }
         }
 
-        private val listHandler: Handler<IpListResponse> =
-            jsonHandler<IpListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IpListPageResponse> =
+            jsonHandler<IpListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IpListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IpListResponse>> {
+        ): CompletableFuture<HttpResponseFor<IpListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -213,6 +214,14 @@ class IpServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                IpListPageAsync.builder()
+                                    .service(IpServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

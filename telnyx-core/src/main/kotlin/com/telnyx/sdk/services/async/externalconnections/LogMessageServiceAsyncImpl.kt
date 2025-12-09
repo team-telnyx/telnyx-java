@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissResponse
+import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListPageAsync
+import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListPageResponse
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListParams
-import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListResponse
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -48,7 +49,7 @@ class LogMessageServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: LogMessageListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<LogMessageListResponse> =
+    ): CompletableFuture<LogMessageListPageAsync> =
         // get /external_connections/log_messages
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -105,13 +106,13 @@ class LogMessageServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val listHandler: Handler<LogMessageListResponse> =
-            jsonHandler<LogMessageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LogMessageListPageResponse> =
+            jsonHandler<LogMessageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: LogMessageListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<LogMessageListResponse>> {
+        ): CompletableFuture<HttpResponseFor<LogMessageListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -130,6 +131,14 @@ class LogMessageServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                LogMessageListPageAsync.builder()
+                                    .service(LogMessageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

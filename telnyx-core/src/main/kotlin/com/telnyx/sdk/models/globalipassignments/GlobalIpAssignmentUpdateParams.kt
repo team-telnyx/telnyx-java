@@ -14,7 +14,6 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.networks.InterfaceStatus
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -23,13 +22,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a Global IP assignment. */
 class GlobalIpAssignmentUpdateParams
 private constructor(
-    private val pathId: String?,
-    private val body: Body,
+    private val globalIpAssignmentId: String?,
+    private val globalIpAssignmentUpdateRequest: GlobalIpAssignmentUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
+    fun globalIpAssignmentId(): Optional<String> = Optional.ofNullable(globalIpAssignmentId)
 
     /**
      * Identifies the resource.
@@ -37,7 +36,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun id(): Optional<String> = body.id()
+    fun id(): Optional<String> = globalIpAssignmentUpdateRequest.id()
 
     /**
      * ISO 8601 formatted date-time indicating when the resource was created.
@@ -45,7 +44,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun createdAt(): Optional<String> = body.createdAt()
+    fun createdAt(): Optional<String> = globalIpAssignmentUpdateRequest.createdAt()
 
     /**
      * Identifies the type of the resource.
@@ -53,7 +52,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun recordType(): Optional<String> = body.recordType()
+    fun recordType(): Optional<String> = globalIpAssignmentUpdateRequest.recordType()
 
     /**
      * ISO 8601 formatted date-time indicating when the resource was updated.
@@ -61,127 +60,64 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun updatedAt(): Optional<String> = body.updatedAt()
+    fun updatedAt(): Optional<String> = globalIpAssignmentUpdateRequest.updatedAt()
 
     /**
-     * Global IP ID.
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun globalIpId(): Optional<String> = body.globalIpId()
+    fun globalIpId(): Optional<String> = globalIpAssignmentUpdateRequest.globalIpId()
 
     /**
-     * Status of BGP announcement.
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun isAnnounced(): Optional<Boolean> = body.isAnnounced()
-
-    /**
-     * Wireguard peer is connected.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun isConnected(): Optional<Boolean> = body.isConnected()
-
-    /**
-     * Enable/disable BGP announcement.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun isInMaintenance(): Optional<Boolean> = body.isInMaintenance()
-
-    /**
-     * The current status of the interface deployment.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun status(): Optional<InterfaceStatus> = body.status()
-
-    /**
-     * Wireguard peer ID.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun wireguardPeerId(): Optional<String> = body.wireguardPeerId()
+    fun wireguardPeerId(): Optional<String> = globalIpAssignmentUpdateRequest.wireguardPeerId()
 
     /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _id(): JsonField<String> = body._id()
+    fun _id(): JsonField<String> = globalIpAssignmentUpdateRequest._id()
 
     /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _createdAt(): JsonField<String> = body._createdAt()
+    fun _createdAt(): JsonField<String> = globalIpAssignmentUpdateRequest._createdAt()
 
     /**
      * Returns the raw JSON value of [recordType].
      *
      * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _recordType(): JsonField<String> = body._recordType()
+    fun _recordType(): JsonField<String> = globalIpAssignmentUpdateRequest._recordType()
 
     /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _updatedAt(): JsonField<String> = body._updatedAt()
+    fun _updatedAt(): JsonField<String> = globalIpAssignmentUpdateRequest._updatedAt()
 
     /**
      * Returns the raw JSON value of [globalIpId].
      *
      * Unlike [globalIpId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _globalIpId(): JsonField<String> = body._globalIpId()
-
-    /**
-     * Returns the raw JSON value of [isAnnounced].
-     *
-     * Unlike [isAnnounced], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _isAnnounced(): JsonField<Boolean> = body._isAnnounced()
-
-    /**
-     * Returns the raw JSON value of [isConnected].
-     *
-     * Unlike [isConnected], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _isConnected(): JsonField<Boolean> = body._isConnected()
-
-    /**
-     * Returns the raw JSON value of [isInMaintenance].
-     *
-     * Unlike [isInMaintenance], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _isInMaintenance(): JsonField<Boolean> = body._isInMaintenance()
-
-    /**
-     * Returns the raw JSON value of [status].
-     *
-     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _status(): JsonField<InterfaceStatus> = body._status()
+    fun _globalIpId(): JsonField<String> = globalIpAssignmentUpdateRequest._globalIpId()
 
     /**
      * Returns the raw JSON value of [wireguardPeerId].
      *
      * Unlike [wireguardPeerId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _wireguardPeerId(): JsonField<String> = body._wireguardPeerId()
+    fun _wireguardPeerId(): JsonField<String> = globalIpAssignmentUpdateRequest._wireguardPeerId()
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        globalIpAssignmentUpdateRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -205,23 +141,31 @@ private constructor(
     /** A builder for [GlobalIpAssignmentUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathId: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var globalIpAssignmentId: String? = null
+        private var globalIpAssignmentUpdateRequest: GlobalIpAssignmentUpdateRequest.Builder =
+            GlobalIpAssignmentUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(globalIpAssignmentUpdateParams: GlobalIpAssignmentUpdateParams) = apply {
-            pathId = globalIpAssignmentUpdateParams.pathId
-            body = globalIpAssignmentUpdateParams.body.toBuilder()
+            globalIpAssignmentId = globalIpAssignmentUpdateParams.globalIpAssignmentId
+            globalIpAssignmentUpdateRequest =
+                globalIpAssignmentUpdateParams.globalIpAssignmentUpdateRequest.toBuilder()
             additionalHeaders = globalIpAssignmentUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = globalIpAssignmentUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pathId(pathId: String?) = apply { this.pathId = pathId }
+        fun globalIpAssignmentId(globalIpAssignmentId: String?) = apply {
+            this.globalIpAssignmentId = globalIpAssignmentId
+        }
 
-        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
-        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
+        /**
+         * Alias for calling [Builder.globalIpAssignmentId] with
+         * `globalIpAssignmentId.orElse(null)`.
+         */
+        fun globalIpAssignmentId(globalIpAssignmentId: Optional<String>) =
+            globalIpAssignmentId(globalIpAssignmentId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -235,10 +179,14 @@ private constructor(
          * - [globalIpId]
          * - etc.
          */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
+        fun globalIpAssignmentUpdateRequest(
+            globalIpAssignmentUpdateRequest: GlobalIpAssignmentUpdateRequest
+        ) = apply {
+            this.globalIpAssignmentUpdateRequest = globalIpAssignmentUpdateRequest.toBuilder()
+        }
 
         /** Identifies the resource. */
-        fun id(id: String) = apply { body.id(id) }
+        fun id(id: String) = apply { globalIpAssignmentUpdateRequest.id(id) }
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
@@ -246,10 +194,12 @@ private constructor(
          * You should usually call [Builder.id] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun id(id: JsonField<String>) = apply { body.id(id) }
+        fun id(id: JsonField<String>) = apply { globalIpAssignmentUpdateRequest.id(id) }
 
         /** ISO 8601 formatted date-time indicating when the resource was created. */
-        fun createdAt(createdAt: String) = apply { body.createdAt(createdAt) }
+        fun createdAt(createdAt: String) = apply {
+            globalIpAssignmentUpdateRequest.createdAt(createdAt)
+        }
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
@@ -258,10 +208,14 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun createdAt(createdAt: JsonField<String>) = apply { body.createdAt(createdAt) }
+        fun createdAt(createdAt: JsonField<String>) = apply {
+            globalIpAssignmentUpdateRequest.createdAt(createdAt)
+        }
 
         /** Identifies the type of the resource. */
-        fun recordType(recordType: String) = apply { body.recordType(recordType) }
+        fun recordType(recordType: String) = apply {
+            globalIpAssignmentUpdateRequest.recordType(recordType)
+        }
 
         /**
          * Sets [Builder.recordType] to an arbitrary JSON value.
@@ -270,10 +224,14 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun recordType(recordType: JsonField<String>) = apply { body.recordType(recordType) }
+        fun recordType(recordType: JsonField<String>) = apply {
+            globalIpAssignmentUpdateRequest.recordType(recordType)
+        }
 
         /** ISO 8601 formatted date-time indicating when the resource was updated. */
-        fun updatedAt(updatedAt: String) = apply { body.updatedAt(updatedAt) }
+        fun updatedAt(updatedAt: String) = apply {
+            globalIpAssignmentUpdateRequest.updatedAt(updatedAt)
+        }
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
@@ -282,10 +240,13 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun updatedAt(updatedAt: JsonField<String>) = apply { body.updatedAt(updatedAt) }
+        fun updatedAt(updatedAt: JsonField<String>) = apply {
+            globalIpAssignmentUpdateRequest.updatedAt(updatedAt)
+        }
 
-        /** Global IP ID. */
-        fun globalIpId(globalIpId: String) = apply { body.globalIpId(globalIpId) }
+        fun globalIpId(globalIpId: String) = apply {
+            globalIpAssignmentUpdateRequest.globalIpId(globalIpId)
+        }
 
         /**
          * Sets [Builder.globalIpId] to an arbitrary JSON value.
@@ -294,63 +255,12 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun globalIpId(globalIpId: JsonField<String>) = apply { body.globalIpId(globalIpId) }
-
-        /** Status of BGP announcement. */
-        fun isAnnounced(isAnnounced: Boolean) = apply { body.isAnnounced(isAnnounced) }
-
-        /**
-         * Sets [Builder.isAnnounced] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.isAnnounced] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun isAnnounced(isAnnounced: JsonField<Boolean>) = apply { body.isAnnounced(isAnnounced) }
-
-        /** Wireguard peer is connected. */
-        fun isConnected(isConnected: Boolean) = apply { body.isConnected(isConnected) }
-
-        /**
-         * Sets [Builder.isConnected] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.isConnected] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun isConnected(isConnected: JsonField<Boolean>) = apply { body.isConnected(isConnected) }
-
-        /** Enable/disable BGP announcement. */
-        fun isInMaintenance(isInMaintenance: Boolean) = apply {
-            body.isInMaintenance(isInMaintenance)
+        fun globalIpId(globalIpId: JsonField<String>) = apply {
+            globalIpAssignmentUpdateRequest.globalIpId(globalIpId)
         }
 
-        /**
-         * Sets [Builder.isInMaintenance] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.isInMaintenance] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun isInMaintenance(isInMaintenance: JsonField<Boolean>) = apply {
-            body.isInMaintenance(isInMaintenance)
-        }
-
-        /** The current status of the interface deployment. */
-        fun status(status: InterfaceStatus) = apply { body.status(status) }
-
-        /**
-         * Sets [Builder.status] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.status] with a well-typed [InterfaceStatus] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun status(status: JsonField<InterfaceStatus>) = apply { body.status(status) }
-
-        /** Wireguard peer ID. */
         fun wireguardPeerId(wireguardPeerId: String) = apply {
-            body.wireguardPeerId(wireguardPeerId)
+            globalIpAssignmentUpdateRequest.wireguardPeerId(wireguardPeerId)
         }
 
         /**
@@ -361,26 +271,28 @@ private constructor(
          * supported value.
          */
         fun wireguardPeerId(wireguardPeerId: JsonField<String>) = apply {
-            body.wireguardPeerId(wireguardPeerId)
+            globalIpAssignmentUpdateRequest.wireguardPeerId(wireguardPeerId)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
+            globalIpAssignmentUpdateRequest.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
+            globalIpAssignmentUpdateRequest.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
+                globalIpAssignmentUpdateRequest.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            globalIpAssignmentUpdateRequest.removeAdditionalProperty(key)
+        }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
+            globalIpAssignmentUpdateRequest.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -488,18 +400,18 @@ private constructor(
          */
         fun build(): GlobalIpAssignmentUpdateParams =
             GlobalIpAssignmentUpdateParams(
-                pathId,
-                body.build(),
+                globalIpAssignmentId,
+                globalIpAssignmentUpdateRequest.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): GlobalIpAssignmentUpdateRequest = globalIpAssignmentUpdateRequest
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathId ?: ""
+            0 -> globalIpAssignmentId ?: ""
             else -> ""
         }
 
@@ -507,7 +419,7 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
+    class GlobalIpAssignmentUpdateRequest
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
@@ -515,10 +427,6 @@ private constructor(
         private val recordType: JsonField<String>,
         private val updatedAt: JsonField<String>,
         private val globalIpId: JsonField<String>,
-        private val isAnnounced: JsonField<Boolean>,
-        private val isConnected: JsonField<Boolean>,
-        private val isInMaintenance: JsonField<Boolean>,
-        private val status: JsonField<InterfaceStatus>,
         private val wireguardPeerId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -538,34 +446,10 @@ private constructor(
             @JsonProperty("global_ip_id")
             @ExcludeMissing
             globalIpId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("is_announced")
-            @ExcludeMissing
-            isAnnounced: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("is_connected")
-            @ExcludeMissing
-            isConnected: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("is_in_maintenance")
-            @ExcludeMissing
-            isInMaintenance: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("status")
-            @ExcludeMissing
-            status: JsonField<InterfaceStatus> = JsonMissing.of(),
             @JsonProperty("wireguard_peer_id")
             @ExcludeMissing
             wireguardPeerId: JsonField<String> = JsonMissing.of(),
-        ) : this(
-            id,
-            createdAt,
-            recordType,
-            updatedAt,
-            globalIpId,
-            isAnnounced,
-            isConnected,
-            isInMaintenance,
-            status,
-            wireguardPeerId,
-            mutableMapOf(),
-        )
+        ) : this(id, createdAt, recordType, updatedAt, globalIpId, wireguardPeerId, mutableMapOf())
 
         fun toGlobalIpAssignment(): GlobalIpAssignment =
             GlobalIpAssignment.builder()
@@ -573,12 +457,6 @@ private constructor(
                 .createdAt(createdAt)
                 .recordType(recordType)
                 .updatedAt(updatedAt)
-                .globalIpId(globalIpId)
-                .isAnnounced(isAnnounced)
-                .isConnected(isConnected)
-                .isInMaintenance(isInMaintenance)
-                .status(status)
-                .wireguardPeerId(wireguardPeerId)
                 .build()
 
         /**
@@ -614,48 +492,12 @@ private constructor(
         fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
         /**
-         * Global IP ID.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun globalIpId(): Optional<String> = globalIpId.getOptional("global_ip_id")
 
         /**
-         * Status of BGP announcement.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun isAnnounced(): Optional<Boolean> = isAnnounced.getOptional("is_announced")
-
-        /**
-         * Wireguard peer is connected.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun isConnected(): Optional<Boolean> = isConnected.getOptional("is_connected")
-
-        /**
-         * Enable/disable BGP announcement.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun isInMaintenance(): Optional<Boolean> = isInMaintenance.getOptional("is_in_maintenance")
-
-        /**
-         * The current status of the interface deployment.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun status(): Optional<InterfaceStatus> = status.getOptional("status")
-
-        /**
-         * Wireguard peer ID.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -701,41 +543,6 @@ private constructor(
         fun _globalIpId(): JsonField<String> = globalIpId
 
         /**
-         * Returns the raw JSON value of [isAnnounced].
-         *
-         * Unlike [isAnnounced], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("is_announced")
-        @ExcludeMissing
-        fun _isAnnounced(): JsonField<Boolean> = isAnnounced
-
-        /**
-         * Returns the raw JSON value of [isConnected].
-         *
-         * Unlike [isConnected], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("is_connected")
-        @ExcludeMissing
-        fun _isConnected(): JsonField<Boolean> = isConnected
-
-        /**
-         * Returns the raw JSON value of [isInMaintenance].
-         *
-         * Unlike [isInMaintenance], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("is_in_maintenance")
-        @ExcludeMissing
-        fun _isInMaintenance(): JsonField<Boolean> = isInMaintenance
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<InterfaceStatus> = status
-
-        /**
          * Returns the raw JSON value of [wireguardPeerId].
          *
          * Unlike [wireguardPeerId], this method doesn't throw if the JSON field has an unexpected
@@ -759,11 +566,14 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Body]. */
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [GlobalIpAssignmentUpdateRequest].
+             */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [Body]. */
+        /** A builder for [GlobalIpAssignmentUpdateRequest]. */
         class Builder internal constructor() {
 
             private var id: JsonField<String> = JsonMissing.of()
@@ -771,27 +581,21 @@ private constructor(
             private var recordType: JsonField<String> = JsonMissing.of()
             private var updatedAt: JsonField<String> = JsonMissing.of()
             private var globalIpId: JsonField<String> = JsonMissing.of()
-            private var isAnnounced: JsonField<Boolean> = JsonMissing.of()
-            private var isConnected: JsonField<Boolean> = JsonMissing.of()
-            private var isInMaintenance: JsonField<Boolean> = JsonMissing.of()
-            private var status: JsonField<InterfaceStatus> = JsonMissing.of()
             private var wireguardPeerId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                id = body.id
-                createdAt = body.createdAt
-                recordType = body.recordType
-                updatedAt = body.updatedAt
-                globalIpId = body.globalIpId
-                isAnnounced = body.isAnnounced
-                isConnected = body.isConnected
-                isInMaintenance = body.isInMaintenance
-                status = body.status
-                wireguardPeerId = body.wireguardPeerId
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
+            internal fun from(globalIpAssignmentUpdateRequest: GlobalIpAssignmentUpdateRequest) =
+                apply {
+                    id = globalIpAssignmentUpdateRequest.id
+                    createdAt = globalIpAssignmentUpdateRequest.createdAt
+                    recordType = globalIpAssignmentUpdateRequest.recordType
+                    updatedAt = globalIpAssignmentUpdateRequest.updatedAt
+                    globalIpId = globalIpAssignmentUpdateRequest.globalIpId
+                    wireguardPeerId = globalIpAssignmentUpdateRequest.wireguardPeerId
+                    additionalProperties =
+                        globalIpAssignmentUpdateRequest.additionalProperties.toMutableMap()
+                }
 
             /** Identifies the resource. */
             fun id(id: String) = id(JsonField.of(id))
@@ -841,7 +645,6 @@ private constructor(
              */
             fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
 
-            /** Global IP ID. */
             fun globalIpId(globalIpId: String) = globalIpId(JsonField.of(globalIpId))
 
             /**
@@ -853,62 +656,6 @@ private constructor(
              */
             fun globalIpId(globalIpId: JsonField<String>) = apply { this.globalIpId = globalIpId }
 
-            /** Status of BGP announcement. */
-            fun isAnnounced(isAnnounced: Boolean) = isAnnounced(JsonField.of(isAnnounced))
-
-            /**
-             * Sets [Builder.isAnnounced] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.isAnnounced] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun isAnnounced(isAnnounced: JsonField<Boolean>) = apply {
-                this.isAnnounced = isAnnounced
-            }
-
-            /** Wireguard peer is connected. */
-            fun isConnected(isConnected: Boolean) = isConnected(JsonField.of(isConnected))
-
-            /**
-             * Sets [Builder.isConnected] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.isConnected] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun isConnected(isConnected: JsonField<Boolean>) = apply {
-                this.isConnected = isConnected
-            }
-
-            /** Enable/disable BGP announcement. */
-            fun isInMaintenance(isInMaintenance: Boolean) =
-                isInMaintenance(JsonField.of(isInMaintenance))
-
-            /**
-             * Sets [Builder.isInMaintenance] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.isInMaintenance] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun isInMaintenance(isInMaintenance: JsonField<Boolean>) = apply {
-                this.isInMaintenance = isInMaintenance
-            }
-
-            /** The current status of the interface deployment. */
-            fun status(status: InterfaceStatus) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [InterfaceStatus] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
-
-            /** Wireguard peer ID. */
             fun wireguardPeerId(wireguardPeerId: String) =
                 wireguardPeerId(JsonField.of(wireguardPeerId))
 
@@ -943,21 +690,17 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Body].
+             * Returns an immutable instance of [GlobalIpAssignmentUpdateRequest].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body =
-                Body(
+            fun build(): GlobalIpAssignmentUpdateRequest =
+                GlobalIpAssignmentUpdateRequest(
                     id,
                     createdAt,
                     recordType,
                     updatedAt,
                     globalIpId,
-                    isAnnounced,
-                    isConnected,
-                    isInMaintenance,
-                    status,
                     wireguardPeerId,
                     additionalProperties.toMutableMap(),
                 )
@@ -965,7 +708,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body = apply {
+        fun validate(): GlobalIpAssignmentUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -975,10 +718,6 @@ private constructor(
             recordType()
             updatedAt()
             globalIpId()
-            isAnnounced()
-            isConnected()
-            isInMaintenance()
-            status().ifPresent { it.validate() }
             wireguardPeerId()
             validated = true
         }
@@ -1004,10 +743,6 @@ private constructor(
                 (if (recordType.asKnown().isPresent) 1 else 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0) +
                 (if (globalIpId.asKnown().isPresent) 1 else 0) +
-                (if (isAnnounced.asKnown().isPresent) 1 else 0) +
-                (if (isConnected.asKnown().isPresent) 1 else 0) +
-                (if (isInMaintenance.asKnown().isPresent) 1 else 0) +
-                (status.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (wireguardPeerId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1015,16 +750,12 @@ private constructor(
                 return true
             }
 
-            return other is Body &&
+            return other is GlobalIpAssignmentUpdateRequest &&
                 id == other.id &&
                 createdAt == other.createdAt &&
                 recordType == other.recordType &&
                 updatedAt == other.updatedAt &&
                 globalIpId == other.globalIpId &&
-                isAnnounced == other.isAnnounced &&
-                isConnected == other.isConnected &&
-                isInMaintenance == other.isInMaintenance &&
-                status == other.status &&
                 wireguardPeerId == other.wireguardPeerId &&
                 additionalProperties == other.additionalProperties
         }
@@ -1036,10 +767,6 @@ private constructor(
                 recordType,
                 updatedAt,
                 globalIpId,
-                isAnnounced,
-                isConnected,
-                isInMaintenance,
-                status,
                 wireguardPeerId,
                 additionalProperties,
             )
@@ -1048,7 +775,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, globalIpId=$globalIpId, isAnnounced=$isAnnounced, isConnected=$isConnected, isInMaintenance=$isInMaintenance, status=$status, wireguardPeerId=$wireguardPeerId, additionalProperties=$additionalProperties}"
+            "GlobalIpAssignmentUpdateRequest{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, globalIpId=$globalIpId, wireguardPeerId=$wireguardPeerId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -1057,15 +784,20 @@ private constructor(
         }
 
         return other is GlobalIpAssignmentUpdateParams &&
-            pathId == other.pathId &&
-            body == other.body &&
+            globalIpAssignmentId == other.globalIpAssignmentId &&
+            globalIpAssignmentUpdateRequest == other.globalIpAssignmentUpdateRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            globalIpAssignmentId,
+            globalIpAssignmentUpdateRequest,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "GlobalIpAssignmentUpdateParams{pathId=$pathId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "GlobalIpAssignmentUpdateParams{globalIpAssignmentId=$globalIpAssignmentId, globalIpAssignmentUpdateRequest=$globalIpAssignmentUpdateRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

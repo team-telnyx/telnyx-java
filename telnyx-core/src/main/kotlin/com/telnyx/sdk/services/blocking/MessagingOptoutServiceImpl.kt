@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListPage
+import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListPageResponse
 import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListParams
-import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListResponse
 import java.util.function.Consumer
 
 class MessagingOptoutServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,7 +34,7 @@ class MessagingOptoutServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: MessagingOptoutListParams,
         requestOptions: RequestOptions,
-    ): MessagingOptoutListResponse =
+    ): MessagingOptoutListPage =
         // get /messaging_optouts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -50,13 +51,13 @@ class MessagingOptoutServiceImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<MessagingOptoutListResponse> =
-            jsonHandler<MessagingOptoutListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingOptoutListPageResponse> =
+            jsonHandler<MessagingOptoutListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingOptoutListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingOptoutListResponse> {
+        ): HttpResponseFor<MessagingOptoutListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -73,6 +74,13 @@ class MessagingOptoutServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MessagingOptoutListPage.builder()
+                            .service(MessagingOptoutServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

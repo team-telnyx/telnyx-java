@@ -10,17 +10,12 @@ internal class MdrUsageReportListParamsTest {
 
     @Test
     fun create() {
-        MdrUsageReportListParams.builder()
-            .page(MdrUsageReportListParams.Page.builder().number(0).size(0).build())
-            .build()
+        MdrUsageReportListParams.builder().pageNumber(0L).pageSize(0L).build()
     }
 
     @Test
     fun queryParams() {
-        val params =
-            MdrUsageReportListParams.builder()
-                .page(MdrUsageReportListParams.Page.builder().number(0).size(0).build())
-                .build()
+        val params = MdrUsageReportListParams.builder().pageNumber(0L).pageSize(0L).build()
 
         val queryParams = params._queryParams()
 

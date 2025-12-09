@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsParams
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsResponse
+import com.telnyx.sdk.models.usagereports.UsageReportListPage
+import com.telnyx.sdk.models.usagereports.UsageReportListPageResponse
 import com.telnyx.sdk.models.usagereports.UsageReportListParams
-import com.telnyx.sdk.models.usagereports.UsageReportListResponse
 import java.util.function.Consumer
 
 class UsageReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -35,7 +36,7 @@ class UsageReportServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: UsageReportListParams,
         requestOptions: RequestOptions,
-    ): UsageReportListResponse =
+    ): UsageReportListPage =
         // get /usage_reports
         withRawResponse().list(params, requestOptions).parse()
 
@@ -59,13 +60,13 @@ class UsageReportServiceImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<UsageReportListResponse> =
-            jsonHandler<UsageReportListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UsageReportListPageResponse> =
+            jsonHandler<UsageReportListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UsageReportListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UsageReportListResponse> {
+        ): HttpResponseFor<UsageReportListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -82,6 +83,13 @@ class UsageReportServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        UsageReportListPage.builder()
+                            .service(UsageReportServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

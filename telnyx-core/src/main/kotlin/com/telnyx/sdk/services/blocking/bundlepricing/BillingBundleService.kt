@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListPage
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListParams
-import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveParams
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveResponse
 import java.util.function.Consumer
@@ -59,21 +59,21 @@ interface BillingBundleService {
         retrieve(bundleId, BillingBundleRetrieveParams.none(), requestOptions)
 
     /** Get all allowed bundles. */
-    fun list(): BillingBundleListResponse = list(BillingBundleListParams.none())
+    fun list(): BillingBundleListPage = list(BillingBundleListParams.none())
 
     /** @see list */
     fun list(
         params: BillingBundleListParams = BillingBundleListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BillingBundleListResponse
+    ): BillingBundleListPage
 
     /** @see list */
     fun list(
         params: BillingBundleListParams = BillingBundleListParams.none()
-    ): BillingBundleListResponse = list(params, RequestOptions.none())
+    ): BillingBundleListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BillingBundleListResponse =
+    fun list(requestOptions: RequestOptions): BillingBundleListPage =
         list(BillingBundleListParams.none(), requestOptions)
 
     /**
@@ -141,25 +141,24 @@ interface BillingBundleService {
          * the same as [BillingBundleService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<BillingBundleListResponse> =
-            list(BillingBundleListParams.none())
+        fun list(): HttpResponseFor<BillingBundleListPage> = list(BillingBundleListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BillingBundleListParams = BillingBundleListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BillingBundleListResponse>
+        ): HttpResponseFor<BillingBundleListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BillingBundleListParams = BillingBundleListParams.none()
-        ): HttpResponseFor<BillingBundleListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<BillingBundleListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BillingBundleListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BillingBundleListPage> =
             list(BillingBundleListParams.none(), requestOptions)
     }
 }

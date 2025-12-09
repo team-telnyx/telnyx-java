@@ -17,18 +17,19 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPageAsync
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPageResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.async.number10dlc.brand.ExternalVettingServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.brand.ExternalVettingServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -77,7 +78,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: BrandListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BrandListResponse> =
+    ): CompletableFuture<BrandListPageAsync> =
         // get /10dlc/brand
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -227,13 +228,13 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<BrandListResponse> =
-            jsonHandler<BrandListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BrandListPageResponse> =
+            jsonHandler<BrandListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BrandListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandListResponse>> {
+        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -252,6 +253,14 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                BrandListPageAsync.builder()
+                                    .service(BrandServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

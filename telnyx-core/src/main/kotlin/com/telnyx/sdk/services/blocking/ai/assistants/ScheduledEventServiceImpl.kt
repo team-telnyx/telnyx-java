@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListPage
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListPageResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
 import java.util.function.Consumer
@@ -55,7 +56,7 @@ class ScheduledEventServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: ScheduledEventListParams,
         requestOptions: RequestOptions,
-    ): ScheduledEventListResponse =
+    ): ScheduledEventListPage =
         // get /ai/assistants/{assistant_id}/scheduled_events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -144,13 +145,13 @@ class ScheduledEventServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<ScheduledEventListResponse> =
-            jsonHandler<ScheduledEventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ScheduledEventListPageResponse> =
+            jsonHandler<ScheduledEventListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ScheduledEventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ScheduledEventListResponse> {
+        ): HttpResponseFor<ScheduledEventListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("assistantId", params.assistantId().getOrNull())
@@ -170,6 +171,13 @@ class ScheduledEventServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ScheduledEventListPage.builder()
+                            .service(ScheduledEventServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

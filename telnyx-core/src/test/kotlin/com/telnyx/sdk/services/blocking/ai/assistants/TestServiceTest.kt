@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.assistants.tests.TelnyxConversationChannel
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -110,17 +109,9 @@ internal class TestServiceTest {
                 .build()
         val testService = client.ai().assistants().tests()
 
-        val tests =
-            testService.list(
-                TestListParams.builder()
-                    .destination("destination")
-                    .page(TestListParams.Page.builder().number(1L).size(1L).build())
-                    .telnyxConversationChannel("telnyx_conversation_channel")
-                    .testSuite("test_suite")
-                    .build()
-            )
+        val page = testService.list()
 
-        tests.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

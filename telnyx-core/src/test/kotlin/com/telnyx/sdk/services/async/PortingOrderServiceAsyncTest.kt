@@ -15,12 +15,10 @@ import com.telnyx.sdk.models.portingorders.PortingOrderDocuments
 import com.telnyx.sdk.models.portingorders.PortingOrderEndUser
 import com.telnyx.sdk.models.portingorders.PortingOrderEndUserAdmin
 import com.telnyx.sdk.models.portingorders.PortingOrderEndUserLocation
-import com.telnyx.sdk.models.portingorders.PortingOrderListParams
 import com.telnyx.sdk.models.portingorders.PortingOrderMisc
 import com.telnyx.sdk.models.portingorders.PortingOrderPhoneNumberConfiguration
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveLoaTemplateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveParams
-import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsParams
 import com.telnyx.sdk.models.portingorders.PortingOrderType
 import com.telnyx.sdk.models.portingorders.PortingOrderUpdateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderUserFeedback
@@ -186,68 +184,10 @@ internal class PortingOrderServiceAsyncTest {
                 .build()
         val portingOrderServiceAsync = client.portingOrders()
 
-        val portingOrdersFuture =
-            portingOrderServiceAsync.list(
-                PortingOrderListParams.builder()
-                    .filter(
-                        PortingOrderListParams.Filter.builder()
-                            .activationSettings(
-                                PortingOrderListParams.Filter.ActivationSettings.builder()
-                                    .fastPortEligible(true)
-                                    .focDatetimeRequested(
-                                        PortingOrderListParams.Filter.ActivationSettings
-                                            .FocDatetimeRequested
-                                            .builder()
-                                            .gt("2021-03-25T10:00:00.000Z")
-                                            .lt("2021-03-25T10:00:00.000Z")
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .customerGroupReference("customer_group_reference")
-                            .customerReference("customer_reference")
-                            .endUser(
-                                PortingOrderListParams.Filter.EndUser.builder()
-                                    .admin(
-                                        PortingOrderListParams.Filter.EndUser.Admin.builder()
-                                            .authPersonName("auth_person_name")
-                                            .entityName("entity_name")
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .misc(
-                                PortingOrderListParams.Filter.Misc.builder()
-                                    .type(PortingOrderType.FULL)
-                                    .build()
-                            )
-                            .parentSupportKey("parent_support_key")
-                            .phoneNumbers(
-                                PortingOrderListParams.Filter.PhoneNumbers.builder()
-                                    .carrierName("carrier_name")
-                                    .countryCode("country_code")
-                                    .phoneNumber(
-                                        PortingOrderListParams.Filter.PhoneNumbers.PhoneNumber
-                                            .builder()
-                                            .contains("contains")
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .includePhoneNumbers(true)
-                    .page(PortingOrderListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(
-                        PortingOrderListParams.Sort.builder()
-                            .value(PortingOrderListParams.Sort.Value_.CREATED_AT)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture = portingOrderServiceAsync.list()
 
-        val portingOrders = portingOrdersFuture.get()
-        portingOrders.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -332,21 +272,11 @@ internal class PortingOrderServiceAsyncTest {
                 .build()
         val portingOrderServiceAsync = client.portingOrders()
 
-        val responseFuture =
-            portingOrderServiceAsync.retrieveRequirements(
-                PortingOrderRetrieveRequirementsParams.builder()
-                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .page(
-                        PortingOrderRetrieveRequirementsParams.Page.builder()
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture =
+            portingOrderServiceAsync.retrieveRequirements("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

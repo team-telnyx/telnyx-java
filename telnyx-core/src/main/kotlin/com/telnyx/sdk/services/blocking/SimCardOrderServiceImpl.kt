@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateResponse
+import com.telnyx.sdk.models.simcardorders.SimCardOrderListPage
+import com.telnyx.sdk.models.simcardorders.SimCardOrderListPageResponse
 import com.telnyx.sdk.models.simcardorders.SimCardOrderListParams
-import com.telnyx.sdk.models.simcardorders.SimCardOrderListResponse
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveResponse
 import java.util.function.Consumer
@@ -54,7 +55,7 @@ class SimCardOrderServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: SimCardOrderListParams,
         requestOptions: RequestOptions,
-    ): SimCardOrderListResponse =
+    ): SimCardOrderListPage =
         // get /sim_card_orders
         withRawResponse().list(params, requestOptions).parse()
 
@@ -129,13 +130,13 @@ class SimCardOrderServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<SimCardOrderListResponse> =
-            jsonHandler<SimCardOrderListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SimCardOrderListPageResponse> =
+            jsonHandler<SimCardOrderListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SimCardOrderListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimCardOrderListResponse> {
+        ): HttpResponseFor<SimCardOrderListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -152,6 +153,13 @@ class SimCardOrderServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        SimCardOrderListPage.builder()
+                            .service(SimCardOrderServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

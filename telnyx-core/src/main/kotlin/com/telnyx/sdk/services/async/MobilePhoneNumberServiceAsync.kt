@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListPageAsync
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListParams
-import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberListResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateParams
@@ -107,22 +107,22 @@ interface MobilePhoneNumberServiceAsync {
         update(id, MobilePhoneNumberUpdateParams.none(), requestOptions)
 
     /** List Mobile Phone Numbers */
-    fun list(): CompletableFuture<MobilePhoneNumberListResponse> =
+    fun list(): CompletableFuture<MobilePhoneNumberListPageAsync> =
         list(MobilePhoneNumberListParams.none())
 
     /** @see list */
     fun list(
         params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MobilePhoneNumberListResponse>
+    ): CompletableFuture<MobilePhoneNumberListPageAsync>
 
     /** @see list */
     fun list(
         params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none()
-    ): CompletableFuture<MobilePhoneNumberListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<MobilePhoneNumberListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MobilePhoneNumberListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MobilePhoneNumberListPageAsync> =
         list(MobilePhoneNumberListParams.none(), requestOptions)
 
     /**
@@ -232,25 +232,25 @@ interface MobilePhoneNumberServiceAsync {
          * Returns a raw HTTP response for `get /v2/mobile_phone_numbers`, but is otherwise the same
          * as [MobilePhoneNumberServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MobilePhoneNumberListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<MobilePhoneNumberListPageAsync>> =
             list(MobilePhoneNumberListParams.none())
 
         /** @see list */
         fun list(
             params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListResponse>>
+        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListPageAsync>>
 
         /** @see list */
         fun list(
             params: MobilePhoneNumberListParams = MobilePhoneNumberListParams.none()
-        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MobilePhoneNumberListPageAsync>> =
             list(MobilePhoneNumberListParams.none(), requestOptions)
     }
 }

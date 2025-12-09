@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.externalconnections.releases.ReleaseListPage
+import com.telnyx.sdk.models.externalconnections.releases.ReleaseListPageResponse
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseListParams
-import com.telnyx.sdk.models.externalconnections.releases.ReleaseListResponse
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveParams
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveResponse
 import java.util.function.Consumer
@@ -41,10 +42,7 @@ class ReleaseServiceImpl internal constructor(private val clientOptions: ClientO
         // get /external_connections/{id}/releases/{release_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: ReleaseListParams,
-        requestOptions: RequestOptions,
-    ): ReleaseListResponse =
+    override fun list(params: ReleaseListParams, requestOptions: RequestOptions): ReleaseListPage =
         // get /external_connections/{id}/releases
         withRawResponse().list(params, requestOptions).parse()
 
@@ -96,13 +94,13 @@ class ReleaseServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<ReleaseListResponse> =
-            jsonHandler<ReleaseListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ReleaseListPageResponse> =
+            jsonHandler<ReleaseListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ReleaseListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReleaseListResponse> {
+        ): HttpResponseFor<ReleaseListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -122,6 +120,13 @@ class ReleaseServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ReleaseListPage.builder()
+                            .service(ReleaseServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

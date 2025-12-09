@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointC
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointCreateResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteResponse
+import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListPage
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListParams
-import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveResponse
 import java.util.function.Consumer
@@ -99,22 +99,21 @@ interface DynamicEmergencyEndpointService {
         retrieve(id, DynamicEmergencyEndpointRetrieveParams.none(), requestOptions)
 
     /** Returns the dynamic emergency endpoints according to filters */
-    fun list(): DynamicEmergencyEndpointListResponse =
-        list(DynamicEmergencyEndpointListParams.none())
+    fun list(): DynamicEmergencyEndpointListPage = list(DynamicEmergencyEndpointListParams.none())
 
     /** @see list */
     fun list(
         params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DynamicEmergencyEndpointListResponse
+    ): DynamicEmergencyEndpointListPage
 
     /** @see list */
     fun list(
         params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none()
-    ): DynamicEmergencyEndpointListResponse = list(params, RequestOptions.none())
+    ): DynamicEmergencyEndpointListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DynamicEmergencyEndpointListResponse =
+    fun list(requestOptions: RequestOptions): DynamicEmergencyEndpointListPage =
         list(DynamicEmergencyEndpointListParams.none(), requestOptions)
 
     /** Deletes the dynamic emergency endpoint based on the ID provided */
@@ -256,7 +255,7 @@ interface DynamicEmergencyEndpointService {
          * same as [DynamicEmergencyEndpointService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DynamicEmergencyEndpointListResponse> =
+        fun list(): HttpResponseFor<DynamicEmergencyEndpointListPage> =
             list(DynamicEmergencyEndpointListParams.none())
 
         /** @see list */
@@ -264,20 +263,19 @@ interface DynamicEmergencyEndpointService {
         fun list(
             params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DynamicEmergencyEndpointListResponse>
+        ): HttpResponseFor<DynamicEmergencyEndpointListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none()
-        ): HttpResponseFor<DynamicEmergencyEndpointListResponse> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<DynamicEmergencyEndpointListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<DynamicEmergencyEndpointListResponse> =
+        ): HttpResponseFor<DynamicEmergencyEndpointListPage> =
             list(DynamicEmergencyEndpointListParams.none(), requestOptions)
 
         /**

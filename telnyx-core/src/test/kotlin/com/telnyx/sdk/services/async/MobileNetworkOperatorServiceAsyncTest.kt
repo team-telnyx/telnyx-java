@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,32 +21,9 @@ internal class MobileNetworkOperatorServiceAsyncTest {
                 .build()
         val mobileNetworkOperatorServiceAsync = client.mobileNetworkOperators()
 
-        val mobileNetworkOperatorsFuture =
-            mobileNetworkOperatorServiceAsync.list(
-                MobileNetworkOperatorListParams.builder()
-                    .filter(
-                        MobileNetworkOperatorListParams.Filter.builder()
-                            .countryCode("US")
-                            .mcc("310")
-                            .mnc("410")
-                            .name(
-                                MobileNetworkOperatorListParams.Filter.Name.builder()
-                                    .contains("T&T")
-                                    .endsWith("T")
-                                    .startsWith("AT")
-                                    .build()
-                            )
-                            .networkPreferencesEnabled(true)
-                            .tadig("USACG")
-                            .build()
-                    )
-                    .page(
-                        MobileNetworkOperatorListParams.Page.builder().number(1L).size(1L).build()
-                    )
-                    .build()
-            )
+        val pageFuture = mobileNetworkOperatorServiceAsync.list()
 
-        val mobileNetworkOperators = mobileNetworkOperatorsFuture.get()
-        mobileNetworkOperators.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

@@ -17,18 +17,19 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPage
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPageResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingServiceImpl
 import java.util.function.Consumer
@@ -67,7 +68,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         // put /10dlc/brand/{brandId}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListResponse =
+    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListPage =
         // get /10dlc/brand
         withRawResponse().list(params, requestOptions).parse()
 
@@ -200,13 +201,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<BrandListResponse> =
-            jsonHandler<BrandListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BrandListPageResponse> =
+            jsonHandler<BrandListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BrandListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandListResponse> {
+        ): HttpResponseFor<BrandListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -223,6 +224,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BrandListPage.builder()
+                            .service(BrandServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

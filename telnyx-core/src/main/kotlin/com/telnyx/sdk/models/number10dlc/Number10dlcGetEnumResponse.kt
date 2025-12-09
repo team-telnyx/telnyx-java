@@ -35,7 +35,7 @@ import kotlin.jvm.optionals.getOrNull
 class Number10dlcGetEnumResponse
 private constructor(
     private val enumStringList: List<String>? = null,
-    private val enumObjectList: List<UnnamedSchemaWithArrayParent0>? = null,
+    private val enumObjectList: List<EnumObject>? = null,
     private val enumObjectToString: EnumObjectToStringResponse? = null,
     private val enumObjecToObjectt: EnumObjecToObjecttResponse? = null,
     private val enumPaginated: EnumPaginatedResponse? = null,
@@ -44,8 +44,7 @@ private constructor(
 
     fun enumStringList(): Optional<List<String>> = Optional.ofNullable(enumStringList)
 
-    fun enumObjectList(): Optional<List<UnnamedSchemaWithArrayParent0>> =
-        Optional.ofNullable(enumObjectList)
+    fun enumObjectList(): Optional<List<EnumObject>> = Optional.ofNullable(enumObjectList)
 
     fun enumObjectToString(): Optional<EnumObjectToStringResponse> =
         Optional.ofNullable(enumObjectToString)
@@ -67,8 +66,7 @@ private constructor(
 
     fun asEnumStringList(): List<String> = enumStringList.getOrThrow("enumStringList")
 
-    fun asEnumObjectList(): List<UnnamedSchemaWithArrayParent0> =
-        enumObjectList.getOrThrow("enumObjectList")
+    fun asEnumObjectList(): List<EnumObject> = enumObjectList.getOrThrow("enumObjectList")
 
     fun asEnumObjectToString(): EnumObjectToStringResponse =
         enumObjectToString.getOrThrow("enumObjectToString")
@@ -101,9 +99,7 @@ private constructor(
             object : Visitor<Unit> {
                 override fun visitEnumStringList(enumStringList: List<String>) {}
 
-                override fun visitEnumObjectList(
-                    enumObjectList: List<UnnamedSchemaWithArrayParent0>
-                ) {
+                override fun visitEnumObjectList(enumObjectList: List<EnumObject>) {
                     enumObjectList.forEach { it.validate() }
                 }
 
@@ -146,9 +142,8 @@ private constructor(
             object : Visitor<Int> {
                 override fun visitEnumStringList(enumStringList: List<String>) = enumStringList.size
 
-                override fun visitEnumObjectList(
-                    enumObjectList: List<UnnamedSchemaWithArrayParent0>
-                ) = enumObjectList.sumOf { it.validity().toInt() }
+                override fun visitEnumObjectList(enumObjectList: List<EnumObject>) =
+                    enumObjectList.sumOf { it.validity().toInt() }
 
                 override fun visitEnumObjectToString(
                     enumObjectToString: EnumObjectToStringResponse
@@ -207,7 +202,7 @@ private constructor(
             Number10dlcGetEnumResponse(enumStringList = enumStringList.toImmutable())
 
         @JvmStatic
-        fun ofEnumObjectList(enumObjectList: List<UnnamedSchemaWithArrayParent0>) =
+        fun ofEnumObjectList(enumObjectList: List<EnumObject>) =
             Number10dlcGetEnumResponse(enumObjectList = enumObjectList.toImmutable())
 
         @JvmStatic
@@ -231,7 +226,7 @@ private constructor(
 
         fun visitEnumStringList(enumStringList: List<String>): T
 
-        fun visitEnumObjectList(enumObjectList: List<UnnamedSchemaWithArrayParent0>): T
+        fun visitEnumObjectList(enumObjectList: List<EnumObject>): T
 
         fun visitEnumObjectToString(enumObjectToString: EnumObjectToStringResponse): T
 
@@ -274,8 +269,9 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<List<String>>())?.let {
                             Number10dlcGetEnumResponse(enumStringList = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<List<UnnamedSchemaWithArrayParent0>>())
-                            ?.let { Number10dlcGetEnumResponse(enumObjectList = it, _json = json) },
+                        tryDeserialize(node, jacksonTypeRef<List<EnumObject>>())?.let {
+                            Number10dlcGetEnumResponse(enumObjectList = it, _json = json)
+                        },
                     )
                     .filterNotNull()
                     .allMaxBy { it.validity() }
@@ -312,7 +308,7 @@ private constructor(
         }
     }
 
-    class UnnamedSchemaWithArrayParent0
+    class EnumObject
     @JsonCreator
     private constructor(
         @com.fasterxml.jackson.annotation.JsonValue
@@ -327,24 +323,19 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [UnnamedSchemaWithArrayParent0].
-             */
+            /** Returns a mutable builder for constructing an instance of [EnumObject]. */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [UnnamedSchemaWithArrayParent0]. */
+        /** A builder for [EnumObject]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(unnamedSchemaWithArrayParent0: UnnamedSchemaWithArrayParent0) =
-                apply {
-                    additionalProperties =
-                        unnamedSchemaWithArrayParent0.additionalProperties.toMutableMap()
-                }
+            internal fun from(enumObject: EnumObject) = apply {
+                additionalProperties = enumObject.additionalProperties.toMutableMap()
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -366,17 +357,16 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnnamedSchemaWithArrayParent0].
+             * Returns an immutable instance of [EnumObject].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): UnnamedSchemaWithArrayParent0 =
-                UnnamedSchemaWithArrayParent0(additionalProperties.toImmutable())
+            fun build(): EnumObject = EnumObject(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
 
-        fun validate(): UnnamedSchemaWithArrayParent0 = apply {
+        fun validate(): EnumObject = apply {
             if (validated) {
                 return@apply
             }
@@ -407,16 +397,14 @@ private constructor(
                 return true
             }
 
-            return other is UnnamedSchemaWithArrayParent0 &&
-                additionalProperties == other.additionalProperties
+            return other is EnumObject && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "UnnamedSchemaWithArrayParent0{additionalProperties=$additionalProperties}"
+        override fun toString() = "EnumObject{additionalProperties=$additionalProperties}"
     }
 
     class EnumObjectToStringResponse

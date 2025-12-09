@@ -42,7 +42,11 @@ internal class RcsSuggestionTest {
                                 .build()
                         )
                         .postbackData("postback_data")
-                        .shareLocationAction(JsonValue.from(mapOf<String, Any>()))
+                        .shareLocationAction(
+                            RcsSuggestion.Action.ShareLocationAction.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .text("Hello world")
                         .viewLocationAction(
                             RcsSuggestion.Action.ViewLocationAction.builder()
@@ -91,7 +95,11 @@ internal class RcsSuggestionTest {
                             .build()
                     )
                     .postbackData("postback_data")
-                    .shareLocationAction(JsonValue.from(mapOf<String, Any>()))
+                    .shareLocationAction(
+                        RcsSuggestion.Action.ShareLocationAction.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .text("Hello world")
                     .viewLocationAction(
                         RcsSuggestion.Action.ViewLocationAction.builder()
@@ -145,7 +153,11 @@ internal class RcsSuggestionTest {
                                 .build()
                         )
                         .postbackData("postback_data")
-                        .shareLocationAction(JsonValue.from(mapOf<String, Any>()))
+                        .shareLocationAction(
+                            RcsSuggestion.Action.ShareLocationAction.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .text("Hello world")
                         .viewLocationAction(
                             RcsSuggestion.Action.ViewLocationAction.builder()

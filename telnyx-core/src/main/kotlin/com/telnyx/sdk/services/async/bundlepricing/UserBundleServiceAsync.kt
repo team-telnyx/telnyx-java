@@ -9,10 +9,10 @@ import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateResponse
+import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListPageAsync
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesResponse
-import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleRetrieveParams
@@ -90,21 +90,21 @@ interface UserBundleServiceAsync {
         retrieve(userBundleId, UserBundleRetrieveParams.none(), requestOptions)
 
     /** Get a paginated list of user bundles. */
-    fun list(): CompletableFuture<UserBundleListResponse> = list(UserBundleListParams.none())
+    fun list(): CompletableFuture<UserBundleListPageAsync> = list(UserBundleListParams.none())
 
     /** @see list */
     fun list(
         params: UserBundleListParams = UserBundleListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UserBundleListResponse>
+    ): CompletableFuture<UserBundleListPageAsync>
 
     /** @see list */
     fun list(
         params: UserBundleListParams = UserBundleListParams.none()
-    ): CompletableFuture<UserBundleListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<UserBundleListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<UserBundleListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<UserBundleListPageAsync> =
         list(UserBundleListParams.none(), requestOptions)
 
     /** Deactivates a user bundle by its ID. */
@@ -290,25 +290,25 @@ interface UserBundleServiceAsync {
          * Returns a raw HTTP response for `get /bundle_pricing/user_bundles`, but is otherwise the
          * same as [UserBundleServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<UserBundleListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<UserBundleListPageAsync>> =
             list(UserBundleListParams.none())
 
         /** @see list */
         fun list(
             params: UserBundleListParams = UserBundleListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UserBundleListResponse>>
+        ): CompletableFuture<HttpResponseFor<UserBundleListPageAsync>>
 
         /** @see list */
         fun list(
             params: UserBundleListParams = UserBundleListParams.none()
-        ): CompletableFuture<HttpResponseFor<UserBundleListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UserBundleListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<UserBundleListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UserBundleListPageAsync>> =
             list(UserBundleListParams.none(), requestOptions)
 
         /**

@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.requirements
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.DocReqsRequirementType
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,102 +15,79 @@ internal class RequirementListResponseTest {
     fun create() {
         val requirementListResponse =
             RequirementListResponse.builder()
-                .addData(
-                    RequirementListResponse.Data.builder()
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .action(RequirementListResponse.Action.ORDERING)
+                .countryCode("FR")
+                .createdAt("2021-04-09T22:25:27.521Z")
+                .locality("Nice")
+                .phoneNumberType(RequirementListResponse.PhoneNumberType.LOCAL)
+                .recordType("requirement")
+                .addRequirementsType(
+                    DocReqsRequirementType.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .action(RequirementListResponse.Data.Action.ORDERING)
-                        .countryCode("FR")
-                        .createdAt("2021-04-09T22:25:27.521Z")
-                        .locality("Nice")
-                        .phoneNumberType(RequirementListResponse.Data.PhoneNumberType.LOCAL)
-                        .recordType("requirement")
-                        .addRequirementsType(
-                            DocReqsRequirementType.builder()
-                                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                                .acceptanceCriteria(
-                                    DocReqsRequirementType.AcceptanceCriteria.builder()
-                                        .acceptableCharacters("abcdef0123456789")
-                                        .addAcceptableValue("US")
-                                        .localityLimit(
-                                            "Issued by the same country that the phone number belongs to"
-                                        )
-                                        .maxLength(20L)
-                                        .minLength(16L)
-                                        .timeLimit("Current and not expired")
-                                        .build()
+                        .acceptanceCriteria(
+                            DocReqsRequirementType.AcceptanceCriteria.builder()
+                                .acceptableCharacters("abcdef0123456789")
+                                .addAcceptableValue("US")
+                                .localityLimit(
+                                    "Issued by the same country that the phone number belongs to"
                                 )
-                                .createdAt("2021-04-09T22:25:27.521Z")
-                                .description(
-                                    "Proves the customer has a physical address in the same locality as the phone number"
-                                )
-                                .example("Utility bill, internet bill, phone bill, or lease")
-                                .name("Proof of Address")
-                                .recordType("requirement_type")
-                                .type(DocReqsRequirementType.Type.DOCUMENT)
-                                .updatedAt("2021-04-12T20:20:20.020Z")
+                                .maxLength(20L)
+                                .minLength(16L)
+                                .timeLimit("Current and not expired")
                                 .build()
                         )
+                        .createdAt("2021-04-09T22:25:27.521Z")
+                        .description(
+                            "Proves the customer has a physical address in the same locality as the phone number"
+                        )
+                        .example("Utility bill, internet bill, phone bill, or lease")
+                        .name("Proof of Address")
+                        .recordType("requirement_type")
+                        .type(DocReqsRequirementType.Type.DOCUMENT)
                         .updatedAt("2021-04-12T20:20:20.020Z")
                         .build()
                 )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .updatedAt("2021-04-12T20:20:20.020Z")
                 .build()
 
-        assertThat(requirementListResponse.data().getOrNull())
+        assertThat(requirementListResponse.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(requirementListResponse.action())
+            .contains(RequirementListResponse.Action.ORDERING)
+        assertThat(requirementListResponse.countryCode()).contains("FR")
+        assertThat(requirementListResponse.createdAt()).contains("2021-04-09T22:25:27.521Z")
+        assertThat(requirementListResponse.locality()).contains("Nice")
+        assertThat(requirementListResponse.phoneNumberType())
+            .contains(RequirementListResponse.PhoneNumberType.LOCAL)
+        assertThat(requirementListResponse.recordType()).contains("requirement")
+        assertThat(requirementListResponse.requirementsTypes().getOrNull())
             .containsExactly(
-                RequirementListResponse.Data.builder()
+                DocReqsRequirementType.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .action(RequirementListResponse.Data.Action.ORDERING)
-                    .countryCode("FR")
-                    .createdAt("2021-04-09T22:25:27.521Z")
-                    .locality("Nice")
-                    .phoneNumberType(RequirementListResponse.Data.PhoneNumberType.LOCAL)
-                    .recordType("requirement")
-                    .addRequirementsType(
-                        DocReqsRequirementType.builder()
-                            .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                            .acceptanceCriteria(
-                                DocReqsRequirementType.AcceptanceCriteria.builder()
-                                    .acceptableCharacters("abcdef0123456789")
-                                    .addAcceptableValue("US")
-                                    .localityLimit(
-                                        "Issued by the same country that the phone number belongs to"
-                                    )
-                                    .maxLength(20L)
-                                    .minLength(16L)
-                                    .timeLimit("Current and not expired")
-                                    .build()
+                    .acceptanceCriteria(
+                        DocReqsRequirementType.AcceptanceCriteria.builder()
+                            .acceptableCharacters("abcdef0123456789")
+                            .addAcceptableValue("US")
+                            .localityLimit(
+                                "Issued by the same country that the phone number belongs to"
                             )
-                            .createdAt("2021-04-09T22:25:27.521Z")
-                            .description(
-                                "Proves the customer has a physical address in the same locality as the phone number"
-                            )
-                            .example("Utility bill, internet bill, phone bill, or lease")
-                            .name("Proof of Address")
-                            .recordType("requirement_type")
-                            .type(DocReqsRequirementType.Type.DOCUMENT)
-                            .updatedAt("2021-04-12T20:20:20.020Z")
+                            .maxLength(20L)
+                            .minLength(16L)
+                            .timeLimit("Current and not expired")
                             .build()
                     )
+                    .createdAt("2021-04-09T22:25:27.521Z")
+                    .description(
+                        "Proves the customer has a physical address in the same locality as the phone number"
+                    )
+                    .example("Utility bill, internet bill, phone bill, or lease")
+                    .name("Proof of Address")
+                    .recordType("requirement_type")
+                    .type(DocReqsRequirementType.Type.DOCUMENT)
                     .updatedAt("2021-04-12T20:20:20.020Z")
                     .build()
             )
-        assertThat(requirementListResponse.meta())
-            .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .pageSize(25L)
-                    .totalPages(3L)
-                    .totalResults(55L)
-                    .build()
-            )
+        assertThat(requirementListResponse.updatedAt()).contains("2021-04-12T20:20:20.020Z")
     }
 
     @Test
@@ -119,52 +95,40 @@ internal class RequirementListResponseTest {
         val jsonMapper = jsonMapper()
         val requirementListResponse =
             RequirementListResponse.builder()
-                .addData(
-                    RequirementListResponse.Data.builder()
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .action(RequirementListResponse.Action.ORDERING)
+                .countryCode("FR")
+                .createdAt("2021-04-09T22:25:27.521Z")
+                .locality("Nice")
+                .phoneNumberType(RequirementListResponse.PhoneNumberType.LOCAL)
+                .recordType("requirement")
+                .addRequirementsType(
+                    DocReqsRequirementType.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .action(RequirementListResponse.Data.Action.ORDERING)
-                        .countryCode("FR")
-                        .createdAt("2021-04-09T22:25:27.521Z")
-                        .locality("Nice")
-                        .phoneNumberType(RequirementListResponse.Data.PhoneNumberType.LOCAL)
-                        .recordType("requirement")
-                        .addRequirementsType(
-                            DocReqsRequirementType.builder()
-                                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                                .acceptanceCriteria(
-                                    DocReqsRequirementType.AcceptanceCriteria.builder()
-                                        .acceptableCharacters("abcdef0123456789")
-                                        .addAcceptableValue("US")
-                                        .localityLimit(
-                                            "Issued by the same country that the phone number belongs to"
-                                        )
-                                        .maxLength(20L)
-                                        .minLength(16L)
-                                        .timeLimit("Current and not expired")
-                                        .build()
+                        .acceptanceCriteria(
+                            DocReqsRequirementType.AcceptanceCriteria.builder()
+                                .acceptableCharacters("abcdef0123456789")
+                                .addAcceptableValue("US")
+                                .localityLimit(
+                                    "Issued by the same country that the phone number belongs to"
                                 )
-                                .createdAt("2021-04-09T22:25:27.521Z")
-                                .description(
-                                    "Proves the customer has a physical address in the same locality as the phone number"
-                                )
-                                .example("Utility bill, internet bill, phone bill, or lease")
-                                .name("Proof of Address")
-                                .recordType("requirement_type")
-                                .type(DocReqsRequirementType.Type.DOCUMENT)
-                                .updatedAt("2021-04-12T20:20:20.020Z")
+                                .maxLength(20L)
+                                .minLength(16L)
+                                .timeLimit("Current and not expired")
                                 .build()
                         )
+                        .createdAt("2021-04-09T22:25:27.521Z")
+                        .description(
+                            "Proves the customer has a physical address in the same locality as the phone number"
+                        )
+                        .example("Utility bill, internet bill, phone bill, or lease")
+                        .name("Proof of Address")
+                        .recordType("requirement_type")
+                        .type(DocReqsRequirementType.Type.DOCUMENT)
                         .updatedAt("2021-04-12T20:20:20.020Z")
                         .build()
                 )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .updatedAt("2021-04-12T20:20:20.020Z")
                 .build()
 
         val roundtrippedRequirementListResponse =

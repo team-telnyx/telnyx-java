@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.documentlinks.DocumentLinkListPage
 import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
-import com.telnyx.sdk.models.documentlinks.DocumentLinkListResponse
 import java.util.function.Consumer
 
 interface DocumentLinkService {
@@ -25,21 +25,20 @@ interface DocumentLinkService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DocumentLinkService
 
     /** List all documents links ordered by created_at descending. */
-    fun list(): DocumentLinkListResponse = list(DocumentLinkListParams.none())
+    fun list(): DocumentLinkListPage = list(DocumentLinkListParams.none())
 
     /** @see list */
     fun list(
         params: DocumentLinkListParams = DocumentLinkListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentLinkListResponse
+    ): DocumentLinkListPage
 
     /** @see list */
-    fun list(
-        params: DocumentLinkListParams = DocumentLinkListParams.none()
-    ): DocumentLinkListResponse = list(params, RequestOptions.none())
+    fun list(params: DocumentLinkListParams = DocumentLinkListParams.none()): DocumentLinkListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DocumentLinkListResponse =
+    fun list(requestOptions: RequestOptions): DocumentLinkListPage =
         list(DocumentLinkListParams.none(), requestOptions)
 
     /**
@@ -61,24 +60,24 @@ interface DocumentLinkService {
          * [DocumentLinkService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DocumentLinkListResponse> = list(DocumentLinkListParams.none())
+        fun list(): HttpResponseFor<DocumentLinkListPage> = list(DocumentLinkListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentLinkListParams = DocumentLinkListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentLinkListResponse>
+        ): HttpResponseFor<DocumentLinkListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentLinkListParams = DocumentLinkListParams.none()
-        ): HttpResponseFor<DocumentLinkListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DocumentLinkListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentLinkListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentLinkListPage> =
             list(DocumentLinkListParams.none(), requestOptions)
     }
 }

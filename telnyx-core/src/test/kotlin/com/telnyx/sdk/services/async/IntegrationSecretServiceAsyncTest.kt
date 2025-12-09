@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateParams
-import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -48,20 +47,10 @@ internal class IntegrationSecretServiceAsyncTest {
                 .build()
         val integrationSecretServiceAsync = client.integrationSecrets()
 
-        val integrationSecretsFuture =
-            integrationSecretServiceAsync.list(
-                IntegrationSecretListParams.builder()
-                    .filter(
-                        IntegrationSecretListParams.Filter.builder()
-                            .type(IntegrationSecretListParams.Filter.Type.BEARER)
-                            .build()
-                    )
-                    .page(IntegrationSecretListParams.Page.builder().number(1L).size(25L).build())
-                    .build()
-            )
+        val pageFuture = integrationSecretServiceAsync.list()
 
-        val integrationSecrets = integrationSecretsFuture.get()
-        integrationSecrets.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

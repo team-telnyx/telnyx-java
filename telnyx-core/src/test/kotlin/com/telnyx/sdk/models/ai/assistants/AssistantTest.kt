@@ -18,7 +18,7 @@ internal class AssistantTest {
                 .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
                 .addBookAppointmentTool(
-                    Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
+                    Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
                         .apiKeyRef("my_calcom_api_key")
                         .eventTypeId(0L)
                         .attendeeName("attendee_name")
@@ -33,9 +33,9 @@ internal class AssistantTest {
         assertThat(assistant.tools().getOrNull())
             .containsExactly(
                 Assistant.Tool.ofBookAppointment(
-                    Assistant.Tool.BookAppointment.builder()
+                    Assistant.Tool.BookAppointmentTool.builder()
                         .bookAppointment(
-                            Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
+                            Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
                                 .apiKeyRef("my_calcom_api_key")
                                 .eventTypeId(0L)
                                 .attendeeName("attendee_name")
@@ -56,7 +56,7 @@ internal class AssistantTest {
                 .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
                 .addBookAppointmentTool(
-                    Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
+                    Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
                         .apiKeyRef("my_calcom_api_key")
                         .eventTypeId(0L)
                         .attendeeName("attendee_name")

@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordings.RecordingDeleteParams
 import com.telnyx.sdk.models.recordings.RecordingDeleteResponse
+import com.telnyx.sdk.models.recordings.RecordingListPageAsync
 import com.telnyx.sdk.models.recordings.RecordingListParams
-import com.telnyx.sdk.models.recordings.RecordingListResponse
 import com.telnyx.sdk.models.recordings.RecordingRetrieveParams
 import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.async.recordings.ActionServiceAsync
@@ -68,21 +68,21 @@ interface RecordingServiceAsync {
         retrieve(recordingId, RecordingRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your call recordings. */
-    fun list(): CompletableFuture<RecordingListResponse> = list(RecordingListParams.none())
+    fun list(): CompletableFuture<RecordingListPageAsync> = list(RecordingListParams.none())
 
     /** @see list */
     fun list(
         params: RecordingListParams = RecordingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingListResponse>
+    ): CompletableFuture<RecordingListPageAsync>
 
     /** @see list */
     fun list(
         params: RecordingListParams = RecordingListParams.none()
-    ): CompletableFuture<RecordingListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<RecordingListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<RecordingListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<RecordingListPageAsync> =
         list(RecordingListParams.none(), requestOptions)
 
     /** Permanently deletes a call recording. */
@@ -184,25 +184,25 @@ interface RecordingServiceAsync {
          * Returns a raw HTTP response for `get /recordings`, but is otherwise the same as
          * [RecordingServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<RecordingListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<RecordingListPageAsync>> =
             list(RecordingListParams.none())
 
         /** @see list */
         fun list(
             params: RecordingListParams = RecordingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingListResponse>>
+        ): CompletableFuture<HttpResponseFor<RecordingListPageAsync>>
 
         /** @see list */
         fun list(
             params: RecordingListParams = RecordingListParams.none()
-        ): CompletableFuture<HttpResponseFor<RecordingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<RecordingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingListPageAsync>> =
             list(RecordingListParams.none(), requestOptions)
 
         /**
