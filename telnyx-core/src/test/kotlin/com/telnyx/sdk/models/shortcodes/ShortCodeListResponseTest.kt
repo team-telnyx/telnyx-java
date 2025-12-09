@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.shortcodes
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.ShortCode
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -30,7 +29,7 @@ internal class ShortCodeListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    ShortCodeListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -54,7 +53,7 @@ internal class ShortCodeListResponseTest {
             )
         assertThat(shortCodeListResponse.meta())
             .contains(
-                PaginationMeta.builder()
+                ShortCodeListResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -81,7 +80,7 @@ internal class ShortCodeListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    ShortCodeListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.messagingoptouts
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -26,7 +25,7 @@ internal class MessagingOptoutListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingOptoutListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -47,7 +46,7 @@ internal class MessagingOptoutListResponseTest {
             )
         assertThat(messagingOptoutListResponse.meta())
             .contains(
-                PaginationMeta.builder()
+                MessagingOptoutListResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -71,7 +70,7 @@ internal class MessagingOptoutListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingOptoutListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

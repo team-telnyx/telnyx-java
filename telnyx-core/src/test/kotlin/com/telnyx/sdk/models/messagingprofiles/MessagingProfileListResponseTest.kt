@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.messagingprofiles
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -58,7 +57,7 @@ internal class MessagingProfileListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingProfileListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -111,7 +110,7 @@ internal class MessagingProfileListResponseTest {
             )
         assertThat(messagingProfileListResponse.meta())
             .contains(
-                PaginationMeta.builder()
+                MessagingProfileListResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -167,7 +166,7 @@ internal class MessagingProfileListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingProfileListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

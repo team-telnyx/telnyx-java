@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.messagingtollfree.verification.requests
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -75,7 +74,7 @@ internal class RequestListResponseTest {
                 .totalRecords(0L)
                 .build()
 
-        assertThat(requestListResponse.records().getOrNull())
+        assertThat(requestListResponse.records())
             .containsExactly(
                 VerificationRequestStatus.builder()
                     .id("eaba9f52-164e-58e0-b002-4f668e18b7ed")
@@ -133,7 +132,7 @@ internal class RequestListResponseTest {
                     .webhookUrl("http://example-webhook.com")
                     .build()
             )
-        assertThat(requestListResponse.totalRecords()).contains(0L)
+        assertThat(requestListResponse.totalRecords()).isEqualTo(0L)
     }
 
     @Test

@@ -7,7 +7,6 @@ import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.MessagingFeatureSet
 import com.telnyx.sdk.models.NumberHealthMetrics
 import com.telnyx.sdk.models.PhoneNumberWithMessagingSettings
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -61,7 +60,7 @@ internal class MessagingProfileListPhoneNumbersResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingProfileListPhoneNumbersResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -114,7 +113,7 @@ internal class MessagingProfileListPhoneNumbersResponseTest {
             )
         assertThat(messagingProfileListPhoneNumbersResponse.meta())
             .contains(
-                PaginationMeta.builder()
+                MessagingProfileListPhoneNumbersResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -170,7 +169,7 @@ internal class MessagingProfileListPhoneNumbersResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    MessagingProfileListPhoneNumbersResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

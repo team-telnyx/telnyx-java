@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.messaging.rcs.agents
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import com.telnyx.sdk.models.rcsagents.RcsAgent
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -31,7 +30,7 @@ internal class AgentListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    AgentListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -56,7 +55,7 @@ internal class AgentListResponseTest {
             )
         assertThat(agentListResponse.meta())
             .contains(
-                PaginationMeta.builder()
+                AgentListResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -84,7 +83,7 @@ internal class AgentListResponseTest {
                         .build()
                 )
                 .meta(
-                    PaginationMeta.builder()
+                    AgentListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
