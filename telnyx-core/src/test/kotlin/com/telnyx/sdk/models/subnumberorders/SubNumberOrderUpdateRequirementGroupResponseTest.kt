@@ -26,7 +26,7 @@ internal class SubNumberOrderUpdateRequirementGroupResponseTest {
                         .addPhoneNumber(
                             SubNumberOrderUpdateRequirementGroupResponse.Data.PhoneNumber.builder()
                                 .id("613d517a-0432-4bae-a785-c11033bd0985")
-                                .bundleId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .bundleId(null)
                                 .countryCode("AT")
                                 .phoneNumber("+43800300238")
                                 .phoneNumberType("toll_free")
@@ -76,7 +76,7 @@ internal class SubNumberOrderUpdateRequirementGroupResponseTest {
                     .addPhoneNumber(
                         SubNumberOrderUpdateRequirementGroupResponse.Data.PhoneNumber.builder()
                             .id("613d517a-0432-4bae-a785-c11033bd0985")
-                            .bundleId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .bundleId(null)
                             .countryCode("AT")
                             .phoneNumber("+43800300238")
                             .phoneNumberType("toll_free")
@@ -130,7 +130,7 @@ internal class SubNumberOrderUpdateRequirementGroupResponseTest {
                         .addPhoneNumber(
                             SubNumberOrderUpdateRequirementGroupResponse.Data.PhoneNumber.builder()
                                 .id("613d517a-0432-4bae-a785-c11033bd0985")
-                                .bundleId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .bundleId(null)
                                 .countryCode("AT")
                                 .phoneNumber("+43800300238")
                                 .phoneNumberType("toll_free")

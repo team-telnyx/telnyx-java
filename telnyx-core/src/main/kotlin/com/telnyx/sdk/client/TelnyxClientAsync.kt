@@ -510,6 +510,8 @@ interface TelnyxClientAsync {
 
     fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync
 
+    fun partnerCampaign(): PartnerCampaignServiceAsync
+
     fun number10dlc(): Number10dlcServiceAsync
 
     /**
@@ -851,6 +853,8 @@ interface TelnyxClientAsync {
         fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync.WithRawResponse
 
         fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse
+
+        fun partnerCampaign(): PartnerCampaignServiceAsync.WithRawResponse
 
         fun number10dlc(): Number10dlcServiceAsync.WithRawResponse
     }

@@ -17,9 +17,9 @@ internal class NumberOrderPhoneNumberTest {
         val numberOrderPhoneNumber =
             NumberOrderPhoneNumber.builder()
                 .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
-                .bundleId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .bundleId(null)
                 .countryCode("US")
-                .deadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .deadline(OffsetDateTime.parse("2024-05-31T11:14:00Z"))
                 .isBlockNumber(false)
                 .locality("San Francisco")
                 .orderRequestId("dc8e4d67-33a0-4cbb-af74-7b58f05bd495")
@@ -41,11 +41,10 @@ internal class NumberOrderPhoneNumberTest {
                 .build()
 
         assertThat(numberOrderPhoneNumber.id()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
-        assertThat(numberOrderPhoneNumber.bundleId())
-            .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(numberOrderPhoneNumber.bundleId()).isEmpty
         assertThat(numberOrderPhoneNumber.countryCode()).contains("US")
         assertThat(numberOrderPhoneNumber.deadline())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .contains(OffsetDateTime.parse("2024-05-31T11:14:00Z"))
         assertThat(numberOrderPhoneNumber.isBlockNumber()).contains(false)
         assertThat(numberOrderPhoneNumber.locality()).contains("San Francisco")
         assertThat(numberOrderPhoneNumber.orderRequestId())
@@ -77,9 +76,9 @@ internal class NumberOrderPhoneNumberTest {
         val numberOrderPhoneNumber =
             NumberOrderPhoneNumber.builder()
                 .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
-                .bundleId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .bundleId(null)
                 .countryCode("US")
-                .deadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .deadline(OffsetDateTime.parse("2024-05-31T11:14:00Z"))
                 .isBlockNumber(false)
                 .locality("San Francisco")
                 .orderRequestId("dc8e4d67-33a0-4cbb-af74-7b58f05bd495")

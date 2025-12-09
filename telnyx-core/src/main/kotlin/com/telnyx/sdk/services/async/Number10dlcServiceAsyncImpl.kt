@@ -23,10 +23,6 @@ import com.telnyx.sdk.services.async.number10dlc.CampaignBuilderServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.CampaignBuilderServiceAsyncImpl
 import com.telnyx.sdk.services.async.number10dlc.CampaignServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.CampaignServiceAsyncImpl
-import com.telnyx.sdk.services.async.number10dlc.PartnerCampaignServiceAsync
-import com.telnyx.sdk.services.async.number10dlc.PartnerCampaignServiceAsyncImpl
-import com.telnyx.sdk.services.async.number10dlc.PhoneNumberAssignmentByProfileServiceAsync
-import com.telnyx.sdk.services.async.number10dlc.PhoneNumberAssignmentByProfileServiceAsyncImpl
 import com.telnyx.sdk.services.async.number10dlc.PhoneNumberCampaignServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.PhoneNumberCampaignServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -48,18 +44,6 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
         CampaignBuilderServiceAsyncImpl(clientOptions)
     }
 
-    private val partnerCampaign: PartnerCampaignServiceAsync by lazy {
-        PartnerCampaignServiceAsyncImpl(clientOptions)
-    }
-
-    private val partnerCampaigns: PartnerCampaignServiceAsync by lazy {
-        PartnerCampaignServiceAsyncImpl(clientOptions)
-    }
-
-    private val phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileServiceAsync by lazy {
-        PhoneNumberAssignmentByProfileServiceAsyncImpl(clientOptions)
-    }
-
     private val phoneNumberCampaigns: PhoneNumberCampaignServiceAsync by lazy {
         PhoneNumberCampaignServiceAsyncImpl(clientOptions)
     }
@@ -74,13 +58,6 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
     override fun campaign(): CampaignServiceAsync = campaign
 
     override fun campaignBuilder(): CampaignBuilderServiceAsync = campaignBuilder
-
-    override fun partnerCampaign(): PartnerCampaignServiceAsync = partnerCampaign
-
-    override fun partnerCampaigns(): PartnerCampaignServiceAsync = partnerCampaigns
-
-    override fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync =
-        phoneNumberAssignmentByProfile
 
     override fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync = phoneNumberCampaigns
 
@@ -109,19 +86,6 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
             CampaignBuilderServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val partnerCampaign: PartnerCampaignServiceAsync.WithRawResponse by lazy {
-            PartnerCampaignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val partnerCampaigns: PartnerCampaignServiceAsync.WithRawResponse by lazy {
-            PartnerCampaignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val phoneNumberAssignmentByProfile:
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse by lazy {
-            PhoneNumberAssignmentByProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val phoneNumberCampaigns: PhoneNumberCampaignServiceAsync.WithRawResponse by lazy {
             PhoneNumberCampaignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -139,16 +103,6 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
 
         override fun campaignBuilder(): CampaignBuilderServiceAsync.WithRawResponse =
             campaignBuilder
-
-        override fun partnerCampaign(): PartnerCampaignServiceAsync.WithRawResponse =
-            partnerCampaign
-
-        override fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse =
-            partnerCampaigns
-
-        override fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse =
-            phoneNumberAssignmentByProfile
 
         override fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync.WithRawResponse =
             phoneNumberCampaigns
