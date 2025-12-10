@@ -15,51 +15,67 @@ internal class EventRetrieveResponseTest {
         val eventRetrieveResponse =
             EventRetrieveResponse.builder()
                 .data(
-                    EventRetrieveResponse.Data.builder()
+                    EventRetrieveResponse.Data.PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventRetrieveResponse.Data.AvailableNotificationMethod.EMAIL
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload
+                                .AvailableNotificationMethod
+                                .EMAIL
                         )
-                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventRetrieveResponse.Data.EventType.PORTING_ORDER_DELETED)
+                        .eventType(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.EventType
+                                .PORTING_ORDER_DELETED
+                        )
                         .payload(
-                            EventRetrieveResponse.Data.Payload.WebhookPortingOrderDeletedPayload
-                                .builder()
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .customerReference("my-ref-001")
                                 .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                                .recordType("porting_event")
+                                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .build()
                         )
-                        .payloadStatus(EventRetrieveResponse.Data.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.PayloadStatus
+                                .CREATED
+                        )
                         .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                        .recordType("porting_event")
-                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .build()
                 )
                 .build()
 
         assertThat(eventRetrieveResponse.data())
             .contains(
-                EventRetrieveResponse.Data.builder()
-                    .id("eef3340b-8903-4466-b445-89b697315a3a")
-                    .addAvailableNotificationMethod(
-                        EventRetrieveResponse.Data.AvailableNotificationMethod.EMAIL
-                    )
-                    .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(EventRetrieveResponse.Data.EventType.PORTING_ORDER_DELETED)
-                    .payload(
-                        EventRetrieveResponse.Data.Payload.WebhookPortingOrderDeletedPayload
-                            .builder()
-                            .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                            .customerReference("my-ref-001")
-                            .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
-                            .build()
-                    )
-                    .payloadStatus(EventRetrieveResponse.Data.PayloadStatus.CREATED)
-                    .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                    .recordType("porting_event")
-                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .build()
+                EventRetrieveResponse.Data.ofPortingEventDeletedPayload(
+                    EventRetrieveResponse.Data.PortingEventDeletedPayload.builder()
+                        .id("eef3340b-8903-4466-b445-89b697315a3a")
+                        .addAvailableNotificationMethod(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload
+                                .AvailableNotificationMethod
+                                .EMAIL
+                        )
+                        .eventType(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.EventType
+                                .PORTING_ORDER_DELETED
+                        )
+                        .payload(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.Payload.builder()
+                                .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                                .customerReference("my-ref-001")
+                                .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                                .recordType("porting_event")
+                                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                                .build()
+                        )
+                        .payloadStatus(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.PayloadStatus
+                                .CREATED
+                        )
+                        .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                        .build()
+                )
             )
     }
 
@@ -69,25 +85,32 @@ internal class EventRetrieveResponseTest {
         val eventRetrieveResponse =
             EventRetrieveResponse.builder()
                 .data(
-                    EventRetrieveResponse.Data.builder()
+                    EventRetrieveResponse.Data.PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventRetrieveResponse.Data.AvailableNotificationMethod.EMAIL
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload
+                                .AvailableNotificationMethod
+                                .EMAIL
                         )
-                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventRetrieveResponse.Data.EventType.PORTING_ORDER_DELETED)
+                        .eventType(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.EventType
+                                .PORTING_ORDER_DELETED
+                        )
                         .payload(
-                            EventRetrieveResponse.Data.Payload.WebhookPortingOrderDeletedPayload
-                                .builder()
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .customerReference("my-ref-001")
                                 .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                                .recordType("porting_event")
+                                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .build()
                         )
-                        .payloadStatus(EventRetrieveResponse.Data.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventRetrieveResponse.Data.PortingEventDeletedPayload.PayloadStatus
+                                .CREATED
+                        )
                         .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                        .recordType("porting_event")
-                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .build()
                 )
                 .build()

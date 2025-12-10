@@ -220,27 +220,42 @@ interface DocumentService {
      * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
      * they will be automatically deleted.
      */
-    fun upload(params: DocumentUploadParams): DocumentUploadResponse =
-        upload(params, RequestOptions.none())
+    fun upload(): DocumentUploadResponse = upload(DocumentUploadParams.none())
 
     /** @see upload */
     fun upload(
-        params: DocumentUploadParams,
+        params: DocumentUploadParams = DocumentUploadParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentUploadResponse
+
+    /** @see upload */
+    fun upload(params: DocumentUploadParams = DocumentUploadParams.none()): DocumentUploadResponse =
+        upload(params, RequestOptions.none())
+
+    /** @see upload */
+    fun upload(requestOptions: RequestOptions): DocumentUploadResponse =
+        upload(DocumentUploadParams.none(), requestOptions)
 
     /**
      * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
      * they will be automatically deleted.
      */
-    fun uploadJson(params: DocumentUploadJsonParams): DocumentUploadJsonResponse =
-        uploadJson(params, RequestOptions.none())
+    fun uploadJson(): DocumentUploadJsonResponse = uploadJson(DocumentUploadJsonParams.none())
 
     /** @see uploadJson */
     fun uploadJson(
-        params: DocumentUploadJsonParams,
+        params: DocumentUploadJsonParams = DocumentUploadJsonParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentUploadJsonResponse
+
+    /** @see uploadJson */
+    fun uploadJson(
+        params: DocumentUploadJsonParams = DocumentUploadJsonParams.none()
+    ): DocumentUploadJsonResponse = uploadJson(params, RequestOptions.none())
+
+    /** @see uploadJson */
+    fun uploadJson(requestOptions: RequestOptions): DocumentUploadJsonResponse =
+        uploadJson(DocumentUploadJsonParams.none(), requestOptions)
 
     /** A view of [DocumentService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -490,30 +505,52 @@ interface DocumentService {
          * otherwise the same as [DocumentService.upload].
          */
         @MustBeClosed
-        fun upload(params: DocumentUploadParams): HttpResponseFor<DocumentUploadResponse> =
-            upload(params, RequestOptions.none())
+        fun upload(): HttpResponseFor<DocumentUploadResponse> = upload(DocumentUploadParams.none())
 
         /** @see upload */
         @MustBeClosed
         fun upload(
-            params: DocumentUploadParams,
+            params: DocumentUploadParams = DocumentUploadParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentUploadResponse>
+
+        /** @see upload */
+        @MustBeClosed
+        fun upload(
+            params: DocumentUploadParams = DocumentUploadParams.none()
+        ): HttpResponseFor<DocumentUploadResponse> = upload(params, RequestOptions.none())
+
+        /** @see upload */
+        @MustBeClosed
+        fun upload(requestOptions: RequestOptions): HttpResponseFor<DocumentUploadResponse> =
+            upload(DocumentUploadParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
          * [DocumentService.uploadJson].
          */
         @MustBeClosed
+        fun uploadJson(): HttpResponseFor<DocumentUploadJsonResponse> =
+            uploadJson(DocumentUploadJsonParams.none())
+
+        /** @see uploadJson */
+        @MustBeClosed
         fun uploadJson(
-            params: DocumentUploadJsonParams
+            params: DocumentUploadJsonParams = DocumentUploadJsonParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DocumentUploadJsonResponse>
+
+        /** @see uploadJson */
+        @MustBeClosed
+        fun uploadJson(
+            params: DocumentUploadJsonParams = DocumentUploadJsonParams.none()
         ): HttpResponseFor<DocumentUploadJsonResponse> = uploadJson(params, RequestOptions.none())
 
         /** @see uploadJson */
         @MustBeClosed
         fun uploadJson(
-            params: DocumentUploadJsonParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentUploadJsonResponse>
+            requestOptions: RequestOptions
+        ): HttpResponseFor<DocumentUploadJsonResponse> =
+            uploadJson(DocumentUploadJsonParams.none(), requestOptions)
     }
 }

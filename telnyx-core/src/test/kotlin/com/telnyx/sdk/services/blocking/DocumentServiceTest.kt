@@ -155,15 +155,10 @@ internal class DocumentServiceTest {
         val response =
             documentService.upload(
                 DocumentUploadParams.builder()
-                    .document(
-                        DocumentUploadParams.Document.DocServiceDocumentUploadUrl.builder()
-                            .url(
-                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                            )
-                            .customerReference("MY REF 001")
-                            .filename("test-document.pdf")
-                            .build()
-                    )
+                    .customerReference("MY REF 001")
+                    .file("ZXhhbXBsZSBvZiBlbmNvZGVkIGNvbnRlbnQ=")
+                    .filename("test-document.pdf")
+                    .url("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
                     .build()
             )
 
@@ -183,15 +178,10 @@ internal class DocumentServiceTest {
         val response =
             documentService.uploadJson(
                 DocumentUploadJsonParams.builder()
-                    .document(
-                        DocumentUploadJsonParams.Document.DocServiceDocumentUploadUrl.builder()
-                            .url(
-                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                            )
-                            .customerReference("MY REF 001")
-                            .filename("test-document.pdf")
-                            .build()
-                    )
+                    .customerReference("MY REF 001")
+                    .file("ZXhhbXBsZSBvZiBlbmNvZGVkIGNvbnRlbnQ=")
+                    .filename("test-document.pdf")
+                    .url("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
                     .build()
             )
 
