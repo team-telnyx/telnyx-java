@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.number10dlc.phonenumbercampaigns
 
+import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -10,7 +11,7 @@ internal class PhoneNumberCampaignUpdateParamsTest {
     @Test
     fun create() {
         PhoneNumberCampaignUpdateParams.builder()
-            .campaignPhoneNumber("phoneNumber")
+            .pathPhoneNumber("phoneNumber")
             .phoneNumberCampaignCreate(
                 PhoneNumberCampaignCreate.builder()
                     .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
@@ -24,7 +25,7 @@ internal class PhoneNumberCampaignUpdateParamsTest {
     fun pathParams() {
         val params =
             PhoneNumberCampaignUpdateParams.builder()
-                .campaignPhoneNumber("phoneNumber")
+                .pathPhoneNumber("phoneNumber")
                 .phoneNumberCampaignCreate(
                     PhoneNumberCampaignCreate.builder()
                         .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
@@ -42,7 +43,7 @@ internal class PhoneNumberCampaignUpdateParamsTest {
     fun body() {
         val params =
             PhoneNumberCampaignUpdateParams.builder()
-                .campaignPhoneNumber("phoneNumber")
+                .pathPhoneNumber("phoneNumber")
                 .phoneNumberCampaignCreate(
                     PhoneNumberCampaignCreate.builder()
                         .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")

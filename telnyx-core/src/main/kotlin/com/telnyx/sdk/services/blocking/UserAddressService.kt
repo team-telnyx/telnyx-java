@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateParams
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateResponse
-import com.telnyx.sdk.models.useraddresses.UserAddressListPage
 import com.telnyx.sdk.models.useraddresses.UserAddressListParams
+import com.telnyx.sdk.models.useraddresses.UserAddressListResponse
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveParams
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveResponse
 import java.util.function.Consumer
@@ -70,20 +70,21 @@ interface UserAddressService {
         retrieve(id, UserAddressRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your user addresses. */
-    fun list(): UserAddressListPage = list(UserAddressListParams.none())
+    fun list(): UserAddressListResponse = list(UserAddressListParams.none())
 
     /** @see list */
     fun list(
         params: UserAddressListParams = UserAddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserAddressListPage
+    ): UserAddressListResponse
 
     /** @see list */
-    fun list(params: UserAddressListParams = UserAddressListParams.none()): UserAddressListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: UserAddressListParams = UserAddressListParams.none()
+    ): UserAddressListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): UserAddressListPage =
+    fun list(requestOptions: RequestOptions): UserAddressListResponse =
         list(UserAddressListParams.none(), requestOptions)
 
     /**
@@ -166,24 +167,24 @@ interface UserAddressService {
          * [UserAddressService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<UserAddressListPage> = list(UserAddressListParams.none())
+        fun list(): HttpResponseFor<UserAddressListResponse> = list(UserAddressListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: UserAddressListParams = UserAddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserAddressListPage>
+        ): HttpResponseFor<UserAddressListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: UserAddressListParams = UserAddressListParams.none()
-        ): HttpResponseFor<UserAddressListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<UserAddressListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<UserAddressListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<UserAddressListResponse> =
             list(UserAddressListParams.none(), requestOptions)
     }
 }

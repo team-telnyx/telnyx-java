@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.recordings.RecordingDeleteParams
 import com.telnyx.sdk.models.recordings.RecordingDeleteResponse
-import com.telnyx.sdk.models.recordings.RecordingListPage
-import com.telnyx.sdk.models.recordings.RecordingListPageResponse
 import com.telnyx.sdk.models.recordings.RecordingListParams
+import com.telnyx.sdk.models.recordings.RecordingListResponse
 import com.telnyx.sdk.models.recordings.RecordingRetrieveParams
 import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.blocking.recordings.ActionService
@@ -54,7 +53,7 @@ class RecordingServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: RecordingListParams,
         requestOptions: RequestOptions,
-    ): RecordingListPage =
+    ): RecordingListResponse =
         // get /recordings
         withRawResponse().list(params, requestOptions).parse()
 
@@ -114,13 +113,13 @@ class RecordingServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<RecordingListPageResponse> =
-            jsonHandler<RecordingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RecordingListResponse> =
+            jsonHandler<RecordingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RecordingListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecordingListPage> {
+        ): HttpResponseFor<RecordingListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -137,13 +136,6 @@ class RecordingServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RecordingListPage.builder()
-                            .service(RecordingServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

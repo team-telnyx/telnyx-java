@@ -244,7 +244,7 @@ private constructor(
                     }
                     it.customerReference().ifPresent {
                         it.eq().ifPresent { put("filter[customer_reference][eq]", it) }
-                        it.inList().ifPresent {
+                        it.in_().ifPresent {
                             put("filter[customer_reference][in]", it.joinToString(","))
                         }
                         it._additionalProperties().keys().forEach { key ->
@@ -537,7 +537,7 @@ private constructor(
         class CustomerReference
         private constructor(
             private val eq: String?,
-            private val inList: List<String>?,
+            private val in_: List<String>?,
             private val additionalProperties: QueryParams,
         ) {
 
@@ -545,7 +545,7 @@ private constructor(
             fun eq(): Optional<String> = Optional.ofNullable(eq)
 
             /** Filter documents by a list of customer references. */
-            fun inList(): Optional<List<String>> = Optional.ofNullable(inList)
+            fun in_(): Optional<List<String>> = Optional.ofNullable(in_)
 
             /** Query params to send with the request. */
             fun _additionalProperties(): QueryParams = additionalProperties
@@ -564,13 +564,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
-                private var inList: MutableList<String>? = null
+                private var in_: MutableList<String>? = null
                 private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(customerReference: CustomerReference) = apply {
                     eq = customerReference.eq
-                    inList = customerReference.inList?.toMutableList()
+                    in_ = customerReference.in_?.toMutableList()
                     additionalProperties = customerReference.additionalProperties.toBuilder()
                 }
 
@@ -581,18 +581,18 @@ private constructor(
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
                 /** Filter documents by a list of customer references. */
-                fun inList(inList: List<String>?) = apply { this.inList = inList?.toMutableList() }
+                fun in_(in_: List<String>?) = apply { this.in_ = in_?.toMutableList() }
 
-                /** Alias for calling [Builder.inList] with `inList.orElse(null)`. */
-                fun inList(inList: Optional<List<String>>) = inList(inList.getOrNull())
+                /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
+                fun in_(in_: Optional<List<String>>) = in_(in_.getOrNull())
 
                 /**
-                 * Adds a single [String] to [Builder.inList].
+                 * Adds a single [String] to [Builder.in_].
                  *
                  * @throws IllegalStateException if the field was previously set to a non-list.
                  */
-                fun addInList(inList: String) = apply {
-                    this.inList = (this.inList ?: mutableListOf()).apply { add(inList) }
+                fun addIn(in_: String) = apply {
+                    this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
                 }
 
                 fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -652,7 +652,7 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): CustomerReference =
-                    CustomerReference(eq, inList?.toImmutable(), additionalProperties.build())
+                    CustomerReference(eq, in_?.toImmutable(), additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -662,16 +662,16 @@ private constructor(
 
                 return other is CustomerReference &&
                     eq == other.eq &&
-                    inList == other.inList &&
+                    in_ == other.in_ &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq, inList, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(eq, in_, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CustomerReference{eq=$eq, inList=$inList, additionalProperties=$additionalProperties}"
+                "CustomerReference{eq=$eq, in_=$in_, additionalProperties=$additionalProperties}"
         }
 
         class Filename

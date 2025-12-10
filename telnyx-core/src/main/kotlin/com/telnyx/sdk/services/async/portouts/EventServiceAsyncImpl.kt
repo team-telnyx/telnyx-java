@@ -17,9 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.portouts.events.EventListPageAsync
-import com.telnyx.sdk.models.portouts.events.EventListPageResponse
 import com.telnyx.sdk.models.portouts.events.EventListParams
+import com.telnyx.sdk.models.portouts.events.EventListResponse
 import com.telnyx.sdk.models.portouts.events.EventRepublishParams
 import com.telnyx.sdk.models.portouts.events.EventRetrieveParams
 import com.telnyx.sdk.models.portouts.events.EventRetrieveResponse
@@ -49,7 +48,7 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: EventListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventListPageAsync> =
+    ): CompletableFuture<EventListResponse> =
         // get /portouts/events
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -106,13 +105,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<EventListPageResponse> =
-            jsonHandler<EventListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventListResponse> =
+            jsonHandler<EventListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EventListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<EventListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -131,14 +130,6 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                EventListPageAsync.builder()
-                                    .service(EventServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

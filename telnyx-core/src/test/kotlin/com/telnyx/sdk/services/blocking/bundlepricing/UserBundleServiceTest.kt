@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateParams
+import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleRetrieveParams
@@ -74,9 +75,21 @@ internal class UserBundleServiceTest {
                 .build()
         val userBundleService = client.bundlePricing().userBundles()
 
-        val page = userBundleService.list()
+        val userBundles =
+            userBundleService.list(
+                UserBundleListParams.builder()
+                    .filter(
+                        UserBundleListParams.Filter.builder()
+                            .addCountryIso("US")
+                            .addResource("+15617819942")
+                            .build()
+                    )
+                    .page(UserBundleListParams.Page.builder().number(1L).size(1L).build())
+                    .authorizationBearer("authorization_bearer")
+                    .build()
+            )
 
-        page.response().validate()
+        userBundles.validate()
     }
 
     @Disabled("Prism tests are disabled")

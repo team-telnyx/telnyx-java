@@ -16,7 +16,7 @@ internal class NumberLookupCreateResponseTest {
         val numberLookupCreateResponse =
             NumberLookupCreateResponse.builder()
                 .data(
-                    TelcoDataUsageReportResponse.builder()
+                    NumberLookupCreateResponse.Data.builder()
                         .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
                         .aggregationType("ALL")
                         .createdAt(OffsetDateTime.parse("2025-12-02T20:20:57.196925Z"))
@@ -27,9 +27,9 @@ internal class NumberLookupCreateResponseTest {
                             "https://portal-cdrs-usage.s3.amazonaws.com/telco_data_usage_report_2025-12-02.csv"
                         )
                         .addResult(
-                            TelcoDataUsageRecord.builder()
+                            NumberLookupCreateResponse.Data.Result.builder()
                                 .addAggregation(
-                                    TelcoDataAggregation.builder()
+                                    NumberLookupCreateResponse.Data.Result.Aggregation.builder()
                                         .currency("USD")
                                         .totalCost(0.009)
                                         .totalDips(3L)
@@ -49,7 +49,7 @@ internal class NumberLookupCreateResponseTest {
 
         assertThat(numberLookupCreateResponse.data())
             .contains(
-                TelcoDataUsageReportResponse.builder()
+                NumberLookupCreateResponse.Data.builder()
                     .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
                     .aggregationType("ALL")
                     .createdAt(OffsetDateTime.parse("2025-12-02T20:20:57.196925Z"))
@@ -60,9 +60,9 @@ internal class NumberLookupCreateResponseTest {
                         "https://portal-cdrs-usage.s3.amazonaws.com/telco_data_usage_report_2025-12-02.csv"
                     )
                     .addResult(
-                        TelcoDataUsageRecord.builder()
+                        NumberLookupCreateResponse.Data.Result.builder()
                             .addAggregation(
-                                TelcoDataAggregation.builder()
+                                NumberLookupCreateResponse.Data.Result.Aggregation.builder()
                                     .currency("USD")
                                     .totalCost(0.009)
                                     .totalDips(3L)
@@ -86,7 +86,7 @@ internal class NumberLookupCreateResponseTest {
         val numberLookupCreateResponse =
             NumberLookupCreateResponse.builder()
                 .data(
-                    TelcoDataUsageReportResponse.builder()
+                    NumberLookupCreateResponse.Data.builder()
                         .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
                         .aggregationType("ALL")
                         .createdAt(OffsetDateTime.parse("2025-12-02T20:20:57.196925Z"))
@@ -97,9 +97,9 @@ internal class NumberLookupCreateResponseTest {
                             "https://portal-cdrs-usage.s3.amazonaws.com/telco_data_usage_report_2025-12-02.csv"
                         )
                         .addResult(
-                            TelcoDataUsageRecord.builder()
+                            NumberLookupCreateResponse.Data.Result.builder()
                                 .addAggregation(
-                                    TelcoDataAggregation.builder()
+                                    NumberLookupCreateResponse.Data.Result.Aggregation.builder()
                                         .currency("USD")
                                         .totalCost(0.009)
                                         .totalDips(3L)

@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileData
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileDeleteParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListPageAsync
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
+import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesResponse
@@ -116,21 +116,21 @@ interface VerifyProfileServiceAsync {
         update(verifyProfileId, VerifyProfileUpdateParams.none(), requestOptions)
 
     /** Gets a paginated list of Verify profiles. */
-    fun list(): CompletableFuture<VerifyProfileListPageAsync> = list(VerifyProfileListParams.none())
+    fun list(): CompletableFuture<VerifyProfileListResponse> = list(VerifyProfileListParams.none())
 
     /** @see list */
     fun list(
         params: VerifyProfileListParams = VerifyProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VerifyProfileListPageAsync>
+    ): CompletableFuture<VerifyProfileListResponse>
 
     /** @see list */
     fun list(
         params: VerifyProfileListParams = VerifyProfileListParams.none()
-    ): CompletableFuture<VerifyProfileListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<VerifyProfileListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<VerifyProfileListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<VerifyProfileListResponse> =
         list(VerifyProfileListParams.none(), requestOptions)
 
     /** Delete Verify profile */
@@ -345,25 +345,25 @@ interface VerifyProfileServiceAsync {
          * Returns a raw HTTP response for `get /verify_profiles`, but is otherwise the same as
          * [VerifyProfileServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<VerifyProfileListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<VerifyProfileListResponse>> =
             list(VerifyProfileListParams.none())
 
         /** @see list */
         fun list(
             params: VerifyProfileListParams = VerifyProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VerifyProfileListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<VerifyProfileListResponse>>
 
         /** @see list */
         fun list(
             params: VerifyProfileListParams = VerifyProfileListParams.none()
-        ): CompletableFuture<HttpResponseFor<VerifyProfileListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<VerifyProfileListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<VerifyProfileListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<VerifyProfileListResponse>> =
             list(VerifyProfileListParams.none(), requestOptions)
 
         /**

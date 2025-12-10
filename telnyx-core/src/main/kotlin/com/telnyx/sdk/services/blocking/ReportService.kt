@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.reports.ReportListMdrsParams
 import com.telnyx.sdk.models.reports.ReportListMdrsResponse
-import com.telnyx.sdk.models.reports.ReportListWdrsPage
 import com.telnyx.sdk.models.reports.ReportListWdrsParams
+import com.telnyx.sdk.models.reports.ReportListWdrsResponse
 import com.telnyx.sdk.services.blocking.reports.CdrUsageReportService
 import com.telnyx.sdk.services.blocking.reports.MdrUsageReportService
 import java.util.function.Consumer
@@ -51,20 +51,21 @@ interface ReportService {
         listMdrs(ReportListMdrsParams.none(), requestOptions)
 
     /** Fetch all Wdr records */
-    fun listWdrs(): ReportListWdrsPage = listWdrs(ReportListWdrsParams.none())
+    fun listWdrs(): ReportListWdrsResponse = listWdrs(ReportListWdrsParams.none())
 
     /** @see listWdrs */
     fun listWdrs(
         params: ReportListWdrsParams = ReportListWdrsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReportListWdrsPage
+    ): ReportListWdrsResponse
 
     /** @see listWdrs */
-    fun listWdrs(params: ReportListWdrsParams = ReportListWdrsParams.none()): ReportListWdrsPage =
-        listWdrs(params, RequestOptions.none())
+    fun listWdrs(
+        params: ReportListWdrsParams = ReportListWdrsParams.none()
+    ): ReportListWdrsResponse = listWdrs(params, RequestOptions.none())
 
     /** @see listWdrs */
-    fun listWdrs(requestOptions: RequestOptions): ReportListWdrsPage =
+    fun listWdrs(requestOptions: RequestOptions): ReportListWdrsResponse =
         listWdrs(ReportListWdrsParams.none(), requestOptions)
 
     /** A view of [ReportService] that provides access to raw HTTP responses for each method. */
@@ -112,24 +113,25 @@ interface ReportService {
          * [ReportService.listWdrs].
          */
         @MustBeClosed
-        fun listWdrs(): HttpResponseFor<ReportListWdrsPage> = listWdrs(ReportListWdrsParams.none())
+        fun listWdrs(): HttpResponseFor<ReportListWdrsResponse> =
+            listWdrs(ReportListWdrsParams.none())
 
         /** @see listWdrs */
         @MustBeClosed
         fun listWdrs(
             params: ReportListWdrsParams = ReportListWdrsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReportListWdrsPage>
+        ): HttpResponseFor<ReportListWdrsResponse>
 
         /** @see listWdrs */
         @MustBeClosed
         fun listWdrs(
             params: ReportListWdrsParams = ReportListWdrsParams.none()
-        ): HttpResponseFor<ReportListWdrsPage> = listWdrs(params, RequestOptions.none())
+        ): HttpResponseFor<ReportListWdrsResponse> = listWdrs(params, RequestOptions.none())
 
         /** @see listWdrs */
         @MustBeClosed
-        fun listWdrs(requestOptions: RequestOptions): HttpResponseFor<ReportListWdrsPage> =
+        fun listWdrs(requestOptions: RequestOptions): HttpResponseFor<ReportListWdrsResponse> =
             listWdrs(ReportListWdrsParams.none(), requestOptions)
     }
 }

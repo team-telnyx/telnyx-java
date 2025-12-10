@@ -15,13 +15,13 @@ internal class PrivateWirelessGatewayStatusTest {
             PrivateWirelessGatewayStatus.builder()
                 .errorCode(null)
                 .errorDescription(null)
-                .value(PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue.PROVISIONED)
+                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
                 .build()
 
         assertThat(privateWirelessGatewayStatus.errorCode()).isEmpty
         assertThat(privateWirelessGatewayStatus.errorDescription()).isEmpty
         assertThat(privateWirelessGatewayStatus.value())
-            .contains(PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue.PROVISIONED)
+            .contains(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
     }
 
     @Test
@@ -31,7 +31,7 @@ internal class PrivateWirelessGatewayStatusTest {
             PrivateWirelessGatewayStatus.builder()
                 .errorCode(null)
                 .errorDescription(null)
-                .value(PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue.PROVISIONED)
+                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
                 .build()
 
         val roundtrippedPrivateWirelessGatewayStatus =

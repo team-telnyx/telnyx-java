@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateParams
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateResponse
-import com.telnyx.sdk.models.numberorders.NumberOrderListPage
-import com.telnyx.sdk.models.numberorders.NumberOrderListPageResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderListParams
+import com.telnyx.sdk.models.numberorders.NumberOrderListResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveParams
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderUpdateParams
@@ -64,7 +63,7 @@ class NumberOrderServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: NumberOrderListParams,
         requestOptions: RequestOptions,
-    ): NumberOrderListPage =
+    ): NumberOrderListResponse =
         // get /number_orders
         withRawResponse().list(params, requestOptions).parse()
 
@@ -170,13 +169,13 @@ class NumberOrderServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<NumberOrderListPageResponse> =
-            jsonHandler<NumberOrderListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberOrderListResponse> =
+            jsonHandler<NumberOrderListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberOrderListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NumberOrderListPage> {
+        ): HttpResponseFor<NumberOrderListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -193,13 +192,6 @@ class NumberOrderServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        NumberOrderListPage.builder()
-                            .service(NumberOrderServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreatePara
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteResponse
-import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListPageAsync
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -76,21 +76,21 @@ interface VoiceServiceAsync {
         retrieve(id, VoiceRetrieveParams.none(), requestOptions)
 
     /** Fetch all previous requests for cdr usage reports. */
-    fun list(): CompletableFuture<VoiceListPageAsync> = list(VoiceListParams.none())
+    fun list(): CompletableFuture<VoiceListResponse> = list(VoiceListParams.none())
 
     /** @see list */
     fun list(
         params: VoiceListParams = VoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VoiceListPageAsync>
+    ): CompletableFuture<VoiceListResponse>
 
     /** @see list */
     fun list(
         params: VoiceListParams = VoiceListParams.none()
-    ): CompletableFuture<VoiceListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<VoiceListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<VoiceListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<VoiceListResponse> =
         list(VoiceListParams.none(), requestOptions)
 
     /** Deletes a specific V2 legacy usage CDR report request by ID */
@@ -197,25 +197,25 @@ interface VoiceServiceAsync {
          * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/voice`, but is
          * otherwise the same as [VoiceServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<VoiceListResponse>> =
             list(VoiceListParams.none())
 
         /** @see list */
         fun list(
             params: VoiceListParams = VoiceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<VoiceListResponse>>
 
         /** @see list */
         fun list(
             params: VoiceListParams = VoiceListParams.none()
-        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<VoiceListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<VoiceListResponse>> =
             list(VoiceListParams.none(), requestOptions)
 
         /**

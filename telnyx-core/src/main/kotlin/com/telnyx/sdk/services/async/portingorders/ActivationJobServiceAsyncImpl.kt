@@ -16,9 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListPageAsync
-import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListPageResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListParams
+import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveParams
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobUpdateParams
@@ -56,7 +55,7 @@ class ActivationJobServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: ActivationJobListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ActivationJobListPageAsync> =
+    ): CompletableFuture<ActivationJobListResponse> =
         // get /porting_orders/{id}/activation_jobs
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -150,13 +149,13 @@ class ActivationJobServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<ActivationJobListPageResponse> =
-            jsonHandler<ActivationJobListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ActivationJobListResponse> =
+            jsonHandler<ActivationJobListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ActivationJobListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ActivationJobListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ActivationJobListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -178,14 +177,6 @@ class ActivationJobServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ActivationJobListPageAsync.builder()
-                                    .service(ActivationJobServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

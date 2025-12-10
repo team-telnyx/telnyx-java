@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateResponse
-import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListPageAsync
-import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListPageResponse
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListParams
+import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListResponse
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -56,7 +55,7 @@ class CsvDownloadServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: CsvDownloadListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CsvDownloadListPageAsync> =
+    ): CompletableFuture<CsvDownloadListResponse> =
         // get /phone_numbers/csv_downloads
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -137,13 +136,13 @@ class CsvDownloadServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<CsvDownloadListPageResponse> =
-            jsonHandler<CsvDownloadListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CsvDownloadListResponse> =
+            jsonHandler<CsvDownloadListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CsvDownloadListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CsvDownloadListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CsvDownloadListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -162,14 +161,6 @@ class CsvDownloadServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                CsvDownloadListPageAsync.builder()
-                                    .service(CsvDownloadServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

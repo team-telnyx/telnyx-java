@@ -44,8 +44,8 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -65,8 +65,8 @@ Configure the client using system properties or environment variables:
 import com.telnyx.sdk.client.TelnyxClient;
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 ```
 
@@ -88,8 +88,8 @@ import com.telnyx.sdk.client.TelnyxClient;
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 
 TelnyxClient client = TelnyxOkHttpClient.builder()
-    // Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
-    // Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
+    // Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+    // Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
@@ -97,13 +97,11 @@ TelnyxClient client = TelnyxOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter         | System property       | Environment variable   | Required | Default value                 |
-| -------------- | --------------------- | ---------------------- | -------- | ----------------------------- |
-| `apiKey`       | `telnyx.apiKey`       | `TELNYX_API_KEY`       | false    | -                             |
-| `publicKey`    | `telnyx.publicKey`    | `TELNYX_PUBLIC_KEY`    | false    | -                             |
-| `clientId`     | `telnyx.clientId`     | `TELNYX_CLIENT_ID`     | false    | -                             |
-| `clientSecret` | `telnyx.clientSecret` | `TELNYX_CLIENT_SECRET` | false    | -                             |
-| `baseUrl`      | `telnyx.baseUrl`      | `TELNYX_BASE_URL`      | true     | `"https://api.telnyx.com/v2"` |
+| Setter      | System property    | Environment variable | Required | Default value                 |
+| ----------- | ------------------ | -------------------- | -------- | ----------------------------- |
+| `apiKey`    | `telnyx.apiKey`    | `TELNYX_API_KEY`     | true     | -                             |
+| `publicKey` | `telnyx.publicKey` | `TELNYX_PUBLIC_KEY`  | false    | -                             |
+| `baseUrl`   | `telnyx.baseUrl`   | `TELNYX_BASE_URL`    | true     | `"https://api.telnyx.com/v2"` |
 
 System properties take precedence over environment variables.
 
@@ -151,8 +149,8 @@ import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -173,8 +171,8 @@ import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
 TelnyxClientAsync client = TelnyxOkHttpClientAsync.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -355,106 +353,6 @@ The SDK throws custom unchecked exception types:
 - [`TelnyxInvalidDataException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
 - [`TelnyxException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
-
-## Pagination
-
-The SDK defines methods that return a paginated lists of results. It provides convenient ways to access the results either one page at a time or item-by-item across all pages.
-
-### Auto-pagination
-
-To iterate through all results across all pages, use the `autoPager()` method, which automatically fetches more pages as needed.
-
-When using the synchronous client, the method returns an [`Iterable`](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html)
-
-```java
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPage;
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse;
-
-AccessIpAddressListPage page = client.accessIpAddress().list();
-
-// Process as an Iterable
-for (AccessIpAddressResponse accessIpAddress : page.autoPager()) {
-    System.out.println(accessIpAddress);
-}
-
-// Process as a Stream
-page.autoPager()
-    .stream()
-    .limit(50)
-    .forEach(accessIpAddress -> System.out.println(accessIpAddress));
-```
-
-When using the asynchronous client, the method returns an [`AsyncStreamResponse`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/http/AsyncStreamResponse.kt):
-
-```java
-import com.telnyx.sdk.core.http.AsyncStreamResponse;
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPageAsync;
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
-CompletableFuture<AccessIpAddressListPageAsync> pageFuture = client.async().accessIpAddress().list();
-
-pageFuture.thenRun(page -> page.autoPager().subscribe(accessIpAddress -> {
-    System.out.println(accessIpAddress);
-}));
-
-// If you need to handle errors or completion of the stream
-pageFuture.thenRun(page -> page.autoPager().subscribe(new AsyncStreamResponse.Handler<>() {
-    @Override
-    public void onNext(AccessIpAddressResponse accessIpAddress) {
-        System.out.println(accessIpAddress);
-    }
-
-    @Override
-    public void onComplete(Optional<Throwable> error) {
-        if (error.isPresent()) {
-            System.out.println("Something went wrong!");
-            throw new RuntimeException(error.get());
-        } else {
-            System.out.println("No more!");
-        }
-    }
-}));
-
-// Or use futures
-pageFuture.thenRun(page -> page.autoPager()
-    .subscribe(accessIpAddress -> {
-        System.out.println(accessIpAddress);
-    })
-    .onCompleteFuture()
-    .whenComplete((unused, error) -> {
-        if (error != null) {
-            System.out.println("Something went wrong!");
-            throw new RuntimeException(error);
-        } else {
-            System.out.println("No more!");
-        }
-    }));
-```
-
-### Manual pagination
-
-To access individual page items and manually request the next page, use the `items()`,
-`hasNextPage()`, and `nextPage()` methods:
-
-```java
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPage;
-import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse;
-
-AccessIpAddressListPage page = client.accessIpAddress().list();
-while (true) {
-    for (AccessIpAddressResponse accessIpAddress : page.items()) {
-        System.out.println(accessIpAddress);
-    }
-
-    if (!page.hasNextPage()) {
-        break;
-    }
-
-    page = page.nextPage();
-}
-```
 
 ## Logging
 

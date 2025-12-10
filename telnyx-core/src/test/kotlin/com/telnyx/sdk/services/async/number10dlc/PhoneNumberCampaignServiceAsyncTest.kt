@@ -4,8 +4,9 @@ package com.telnyx.sdk.services.async.number10dlc
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignCreate
+import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListParams
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignUpdateParams
+import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -64,7 +65,7 @@ internal class PhoneNumberCampaignServiceAsyncTest {
         val phoneNumberCampaignFuture =
             phoneNumberCampaignServiceAsync.update(
                 PhoneNumberCampaignUpdateParams.builder()
-                    .campaignPhoneNumber("phoneNumber")
+                    .pathPhoneNumber("phoneNumber")
                     .phoneNumberCampaignCreate(
                         PhoneNumberCampaignCreate.builder()
                             .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
@@ -88,10 +89,25 @@ internal class PhoneNumberCampaignServiceAsyncTest {
                 .build()
         val phoneNumberCampaignServiceAsync = client.number10dlc().phoneNumberCampaigns()
 
-        val pageFuture = phoneNumberCampaignServiceAsync.list()
+        val phoneNumberCampaignsFuture =
+            phoneNumberCampaignServiceAsync.list(
+                PhoneNumberCampaignListParams.builder()
+                    .filter(
+                        PhoneNumberCampaignListParams.Filter.builder()
+                            .tcrBrandId("BRANDID")
+                            .tcrCampaignId("CAMPID3")
+                            .telnyxBrandId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
+                            .telnyxCampaignId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
+                            .build()
+                    )
+                    .page(0L)
+                    .recordsPerPage(0L)
+                    .sort(PhoneNumberCampaignListParams.Sort.ASSIGNMENT_STATUS)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val phoneNumberCampaigns = phoneNumberCampaignsFuture.get()
+        phoneNumberCampaigns.validate()
     }
 
     @Disabled("Prism tests are disabled")

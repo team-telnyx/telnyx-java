@@ -18,7 +18,6 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.assistants.tests.runs.TestRunResponse
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.PaginatedTestRunList
-import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunListPage
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunListParams
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunTriggerParams
 import java.util.function.Consumer
@@ -35,7 +34,7 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RunService =
         RunServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun list(params: RunListParams, requestOptions: RequestOptions): RunListPage =
+    override fun list(params: RunListParams, requestOptions: RequestOptions): PaginatedTestRunList =
         // get /ai/assistants/tests/test-suites/{suite_name}/runs
         withRawResponse().list(params, requestOptions).parse()
 
@@ -65,7 +64,7 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
         override fun list(
             params: RunListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunListPage> {
+        ): HttpResponseFor<PaginatedTestRunList> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("suiteName", params.suiteName().getOrNull())
@@ -92,13 +91,6 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RunListPage.builder()
-                            .service(RunServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -17,11 +17,7 @@ internal class MessagingErrorTest {
                 .code("code")
                 .title("title")
                 .detail("detail")
-                .meta(
-                    MessagingError.Meta.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
+                .meta(JsonValue.from(mapOf<String, Any>()))
                 .source(
                     MessagingError.Source.builder()
                         .parameter("parameter")
@@ -33,12 +29,7 @@ internal class MessagingErrorTest {
         assertThat(messagingError.code()).isEqualTo("code")
         assertThat(messagingError.title()).isEqualTo("title")
         assertThat(messagingError.detail()).contains("detail")
-        assertThat(messagingError.meta())
-            .contains(
-                MessagingError.Meta.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .build()
-            )
+        assertThat(messagingError._meta()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(messagingError.source())
             .contains(
                 MessagingError.Source.builder().parameter("parameter").pointer("pointer").build()
@@ -53,11 +44,7 @@ internal class MessagingErrorTest {
                 .code("code")
                 .title("title")
                 .detail("detail")
-                .meta(
-                    MessagingError.Meta.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
+                .meta(JsonValue.from(mapOf<String, Any>()))
                 .source(
                     MessagingError.Source.builder()
                         .parameter("parameter")

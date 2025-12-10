@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
 import com.telnyx.sdk.models.globalips.GlobalIpCreateResponse
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteParams
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteResponse
-import com.telnyx.sdk.models.globalips.GlobalIpListPageAsync
 import com.telnyx.sdk.models.globalips.GlobalIpListParams
+import com.telnyx.sdk.models.globalips.GlobalIpListResponse
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveParams
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -84,21 +84,21 @@ interface GlobalIpServiceAsync {
         retrieve(id, GlobalIpRetrieveParams.none(), requestOptions)
 
     /** List all Global IPs. */
-    fun list(): CompletableFuture<GlobalIpListPageAsync> = list(GlobalIpListParams.none())
+    fun list(): CompletableFuture<GlobalIpListResponse> = list(GlobalIpListParams.none())
 
     /** @see list */
     fun list(
         params: GlobalIpListParams = GlobalIpListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<GlobalIpListPageAsync>
+    ): CompletableFuture<GlobalIpListResponse>
 
     /** @see list */
     fun list(
         params: GlobalIpListParams = GlobalIpListParams.none()
-    ): CompletableFuture<GlobalIpListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<GlobalIpListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<GlobalIpListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<GlobalIpListResponse> =
         list(GlobalIpListParams.none(), requestOptions)
 
     /** Delete a Global IP. */
@@ -220,25 +220,25 @@ interface GlobalIpServiceAsync {
          * Returns a raw HTTP response for `get /global_ips`, but is otherwise the same as
          * [GlobalIpServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<GlobalIpListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<GlobalIpListResponse>> =
             list(GlobalIpListParams.none())
 
         /** @see list */
         fun list(
             params: GlobalIpListParams = GlobalIpListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<GlobalIpListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<GlobalIpListResponse>>
 
         /** @see list */
         fun list(
             params: GlobalIpListParams = GlobalIpListParams.none()
-        ): CompletableFuture<HttpResponseFor<GlobalIpListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<GlobalIpListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<GlobalIpListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<GlobalIpListResponse>> =
             list(GlobalIpListParams.none(), requestOptions)
 
         /**

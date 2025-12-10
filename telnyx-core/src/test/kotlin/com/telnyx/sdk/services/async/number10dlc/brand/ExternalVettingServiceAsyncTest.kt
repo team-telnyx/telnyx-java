@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async.number10dlc.brand
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingImportsParams
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingImportParams
 import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingOrderParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -31,7 +31,7 @@ internal class ExternalVettingServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun imports() {
+    fun import_() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -40,8 +40,8 @@ internal class ExternalVettingServiceAsyncTest {
         val externalVettingServiceAsync = client.number10dlc().brand().externalVetting()
 
         val responseFuture =
-            externalVettingServiceAsync.imports(
-                ExternalVettingImportsParams.builder()
+            externalVettingServiceAsync.import_(
+                ExternalVettingImportParams.builder()
                     .brandId("brandId")
                     .evpId("evpId")
                     .vettingId("vettingId")

@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateResponse
-import com.telnyx.sdk.models.numberreservations.NumberReservationListPage
-import com.telnyx.sdk.models.numberreservations.NumberReservationListPageResponse
 import com.telnyx.sdk.models.numberreservations.NumberReservationListParams
+import com.telnyx.sdk.models.numberreservations.NumberReservationListResponse
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveResponse
 import com.telnyx.sdk.services.blocking.numberreservations.ActionService
@@ -61,7 +60,7 @@ class NumberReservationServiceImpl internal constructor(private val clientOption
     override fun list(
         params: NumberReservationListParams,
         requestOptions: RequestOptions,
-    ): NumberReservationListPage =
+    ): NumberReservationListResponse =
         // get /number_reservations
         withRawResponse().list(params, requestOptions).parse()
 
@@ -142,13 +141,13 @@ class NumberReservationServiceImpl internal constructor(private val clientOption
             }
         }
 
-        private val listHandler: Handler<NumberReservationListPageResponse> =
-            jsonHandler<NumberReservationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberReservationListResponse> =
+            jsonHandler<NumberReservationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberReservationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NumberReservationListPage> {
+        ): HttpResponseFor<NumberReservationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -165,13 +164,6 @@ class NumberReservationServiceImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        NumberReservationListPage.builder()
-                            .service(NumberReservationServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

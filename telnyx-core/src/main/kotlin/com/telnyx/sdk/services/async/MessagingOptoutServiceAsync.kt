@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListPageAsync
 import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListParams
+import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,22 +25,22 @@ interface MessagingOptoutServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingOptoutServiceAsync
 
     /** Retrieve a list of opt-out blocks. */
-    fun list(): CompletableFuture<MessagingOptoutListPageAsync> =
+    fun list(): CompletableFuture<MessagingOptoutListResponse> =
         list(MessagingOptoutListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingOptoutListParams = MessagingOptoutListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingOptoutListPageAsync>
+    ): CompletableFuture<MessagingOptoutListResponse>
 
     /** @see list */
     fun list(
         params: MessagingOptoutListParams = MessagingOptoutListParams.none()
-    ): CompletableFuture<MessagingOptoutListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<MessagingOptoutListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingOptoutListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingOptoutListResponse> =
         list(MessagingOptoutListParams.none(), requestOptions)
 
     /**
@@ -62,25 +62,25 @@ interface MessagingOptoutServiceAsync {
          * Returns a raw HTTP response for `get /messaging_optouts`, but is otherwise the same as
          * [MessagingOptoutServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MessagingOptoutListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<MessagingOptoutListResponse>> =
             list(MessagingOptoutListParams.none())
 
         /** @see list */
         fun list(
             params: MessagingOptoutListParams = MessagingOptoutListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingOptoutListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<MessagingOptoutListResponse>>
 
         /** @see list */
         fun list(
             params: MessagingOptoutListParams = MessagingOptoutListParams.none()
-        ): CompletableFuture<HttpResponseFor<MessagingOptoutListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MessagingOptoutListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MessagingOptoutListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MessagingOptoutListResponse>> =
             list(MessagingOptoutListParams.none(), requestOptions)
     }
 }

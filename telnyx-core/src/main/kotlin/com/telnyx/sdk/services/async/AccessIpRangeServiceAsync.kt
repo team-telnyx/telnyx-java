@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.accessipranges.AccessIpRange
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeCreateParams
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeDeleteParams
-import com.telnyx.sdk.models.accessipranges.AccessIpRangeListPageAsync
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeListParams
+import com.telnyx.sdk.models.accessipranges.AccessIpRangeListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -38,21 +38,21 @@ interface AccessIpRangeServiceAsync {
     ): CompletableFuture<AccessIpRange>
 
     /** List all Access IP Ranges */
-    fun list(): CompletableFuture<AccessIpRangeListPageAsync> = list(AccessIpRangeListParams.none())
+    fun list(): CompletableFuture<AccessIpRangeListResponse> = list(AccessIpRangeListParams.none())
 
     /** @see list */
     fun list(
         params: AccessIpRangeListParams = AccessIpRangeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AccessIpRangeListPageAsync>
+    ): CompletableFuture<AccessIpRangeListResponse>
 
     /** @see list */
     fun list(
         params: AccessIpRangeListParams = AccessIpRangeListParams.none()
-    ): CompletableFuture<AccessIpRangeListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<AccessIpRangeListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AccessIpRangeListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccessIpRangeListResponse> =
         list(AccessIpRangeListParams.none(), requestOptions)
 
     /** Delete access IP ranges */
@@ -123,25 +123,25 @@ interface AccessIpRangeServiceAsync {
          * Returns a raw HTTP response for `get /access_ip_ranges`, but is otherwise the same as
          * [AccessIpRangeServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AccessIpRangeListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<AccessIpRangeListResponse>> =
             list(AccessIpRangeListParams.none())
 
         /** @see list */
         fun list(
             params: AccessIpRangeListParams = AccessIpRangeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccessIpRangeListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<AccessIpRangeListResponse>>
 
         /** @see list */
         fun list(
             params: AccessIpRangeListParams = AccessIpRangeListParams.none()
-        ): CompletableFuture<HttpResponseFor<AccessIpRangeListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AccessIpRangeListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AccessIpRangeListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AccessIpRangeListResponse>> =
             list(AccessIpRangeListParams.none(), requestOptions)
 
         /**

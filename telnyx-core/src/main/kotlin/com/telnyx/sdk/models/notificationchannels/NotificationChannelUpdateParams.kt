@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a notification channel. */
 class NotificationChannelUpdateParams
 private constructor(
-    private val notificationChannelId: String?,
+    private val pathId: String?,
     private val notificationChannel: NotificationChannel,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun notificationChannelId(): Optional<String> = Optional.ofNullable(notificationChannelId)
+    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
 
     /** A Notification Channel */
     fun notificationChannel(): NotificationChannel = notificationChannel
@@ -53,7 +53,7 @@ private constructor(
     /** A builder for [NotificationChannelUpdateParams]. */
     class Builder internal constructor() {
 
-        private var notificationChannelId: String? = null
+        private var pathId: String? = null
         private var notificationChannel: NotificationChannel? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -61,23 +61,17 @@ private constructor(
         @JvmSynthetic
         internal fun from(notificationChannelUpdateParams: NotificationChannelUpdateParams) =
             apply {
-                notificationChannelId = notificationChannelUpdateParams.notificationChannelId
+                pathId = notificationChannelUpdateParams.pathId
                 notificationChannel = notificationChannelUpdateParams.notificationChannel
                 additionalHeaders = notificationChannelUpdateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     notificationChannelUpdateParams.additionalQueryParams.toBuilder()
             }
 
-        fun notificationChannelId(notificationChannelId: String?) = apply {
-            this.notificationChannelId = notificationChannelId
-        }
+        fun pathId(pathId: String?) = apply { this.pathId = pathId }
 
-        /**
-         * Alias for calling [Builder.notificationChannelId] with
-         * `notificationChannelId.orElse(null)`.
-         */
-        fun notificationChannelId(notificationChannelId: Optional<String>) =
-            notificationChannelId(notificationChannelId.getOrNull())
+        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
+        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
 
         /** A Notification Channel */
         fun notificationChannel(notificationChannel: NotificationChannel) = apply {
@@ -196,7 +190,7 @@ private constructor(
          */
         fun build(): NotificationChannelUpdateParams =
             NotificationChannelUpdateParams(
-                notificationChannelId,
+                pathId,
                 checkRequired("notificationChannel", notificationChannel),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -207,7 +201,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> notificationChannelId ?: ""
+            0 -> pathId ?: ""
             else -> ""
         }
 
@@ -221,20 +215,15 @@ private constructor(
         }
 
         return other is NotificationChannelUpdateParams &&
-            notificationChannelId == other.notificationChannelId &&
+            pathId == other.pathId &&
             notificationChannel == other.notificationChannel &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            notificationChannelId,
-            notificationChannel,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(pathId, notificationChannel, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "NotificationChannelUpdateParams{notificationChannelId=$notificationChannelId, notificationChannel=$notificationChannel, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NotificationChannelUpdateParams{pathId=$pathId, notificationChannel=$notificationChannel, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

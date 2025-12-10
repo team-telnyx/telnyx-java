@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateResponse
-import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListPageAsync
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListParams
+import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListResponse
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -77,22 +77,22 @@ interface NumberBlockOrderServiceAsync {
         retrieve(numberBlockOrderId, NumberBlockOrderRetrieveParams.none(), requestOptions)
 
     /** Get a paginated list of number block orders. */
-    fun list(): CompletableFuture<NumberBlockOrderListPageAsync> =
+    fun list(): CompletableFuture<NumberBlockOrderListResponse> =
         list(NumberBlockOrderListParams.none())
 
     /** @see list */
     fun list(
         params: NumberBlockOrderListParams = NumberBlockOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberBlockOrderListPageAsync>
+    ): CompletableFuture<NumberBlockOrderListResponse>
 
     /** @see list */
     fun list(
         params: NumberBlockOrderListParams = NumberBlockOrderListParams.none()
-    ): CompletableFuture<NumberBlockOrderListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<NumberBlockOrderListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NumberBlockOrderListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NumberBlockOrderListResponse> =
         list(NumberBlockOrderListParams.none(), requestOptions)
 
     /**
@@ -175,25 +175,25 @@ interface NumberBlockOrderServiceAsync {
          * Returns a raw HTTP response for `get /number_block_orders`, but is otherwise the same as
          * [NumberBlockOrderServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NumberBlockOrderListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<NumberBlockOrderListResponse>> =
             list(NumberBlockOrderListParams.none())
 
         /** @see list */
         fun list(
             params: NumberBlockOrderListParams = NumberBlockOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListResponse>>
 
         /** @see list */
         fun list(
             params: NumberBlockOrderListParams = NumberBlockOrderListParams.none()
-        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListResponse>> =
             list(NumberBlockOrderListParams.none(), requestOptions)
     }
 }

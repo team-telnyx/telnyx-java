@@ -72,11 +72,34 @@ internal class CampaignServiceAsyncTest {
                 .build()
         val campaignServiceAsync = client.number10dlc().campaign()
 
-        val pageFuture =
-            campaignServiceAsync.list(CampaignListParams.builder().brandId("brandId").build())
+        val campaignsFuture =
+            campaignServiceAsync.list(
+                CampaignListParams.builder()
+                    .brandId("brandId")
+                    .page(0L)
+                    .recordsPerPage(0L)
+                    .sort(CampaignListParams.Sort.ASSIGNED_PHONE_NUMBERS_COUNT)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val campaigns = campaignsFuture.get()
+        campaigns.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val campaignServiceAsync = client.number10dlc().campaign()
+
+        val campaignFuture = campaignServiceAsync.delete("campaignId")
+
+        val campaign = campaignFuture.get()
+        campaign.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -90,22 +113,6 @@ internal class CampaignServiceAsyncTest {
         val campaignServiceAsync = client.number10dlc().campaign()
 
         val responseFuture = campaignServiceAsync.acceptSharing("C26F1KLZN")
-
-        val response = responseFuture.get()
-        response.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun deactivate() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val campaignServiceAsync = client.number10dlc().campaign()
-
-        val responseFuture = campaignServiceAsync.deactivate("campaignId")
 
         val response = responseFuture.get()
         response.validate()

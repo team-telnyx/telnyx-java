@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteResponse
-import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListPageAsync
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListParams
+import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveConfigParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveResponse
@@ -105,21 +105,21 @@ interface WireguardPeerServiceAsync {
     ): CompletableFuture<WireguardPeerUpdateResponse>
 
     /** List all WireGuard peers. */
-    fun list(): CompletableFuture<WireguardPeerListPageAsync> = list(WireguardPeerListParams.none())
+    fun list(): CompletableFuture<WireguardPeerListResponse> = list(WireguardPeerListParams.none())
 
     /** @see list */
     fun list(
         params: WireguardPeerListParams = WireguardPeerListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WireguardPeerListPageAsync>
+    ): CompletableFuture<WireguardPeerListResponse>
 
     /** @see list */
     fun list(
         params: WireguardPeerListParams = WireguardPeerListParams.none()
-    ): CompletableFuture<WireguardPeerListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<WireguardPeerListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<WireguardPeerListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<WireguardPeerListResponse> =
         list(WireguardPeerListParams.none(), requestOptions)
 
     /** Delete the WireGuard peer. */
@@ -295,25 +295,25 @@ interface WireguardPeerServiceAsync {
          * Returns a raw HTTP response for `get /wireguard_peers`, but is otherwise the same as
          * [WireguardPeerServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<WireguardPeerListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<WireguardPeerListResponse>> =
             list(WireguardPeerListParams.none())
 
         /** @see list */
         fun list(
             params: WireguardPeerListParams = WireguardPeerListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireguardPeerListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<WireguardPeerListResponse>>
 
         /** @see list */
         fun list(
             params: WireguardPeerListParams = WireguardPeerListParams.none()
-        ): CompletableFuture<HttpResponseFor<WireguardPeerListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireguardPeerListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<WireguardPeerListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireguardPeerListResponse>> =
             list(WireguardPeerListParams.none(), requestOptions)
 
         /**

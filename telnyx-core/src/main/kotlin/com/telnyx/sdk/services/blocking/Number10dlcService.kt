@@ -11,6 +11,8 @@ import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumResponse
 import com.telnyx.sdk.services.blocking.number10dlc.BrandService
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignBuilderService
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignService
+import com.telnyx.sdk.services.blocking.number10dlc.PartnerCampaignService
+import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberAssignmentByProfileService
 import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberCampaignService
 import java.util.function.Consumer
 
@@ -33,6 +35,12 @@ interface Number10dlcService {
     fun campaign(): CampaignService
 
     fun campaignBuilder(): CampaignBuilderService
+
+    fun partnerCampaign(): PartnerCampaignService
+
+    fun partnerCampaigns(): PartnerCampaignService
+
+    fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService
 
     fun phoneNumberCampaigns(): PhoneNumberCampaignService
 
@@ -90,6 +98,12 @@ interface Number10dlcService {
         fun campaign(): CampaignService.WithRawResponse
 
         fun campaignBuilder(): CampaignBuilderService.WithRawResponse
+
+        fun partnerCampaign(): PartnerCampaignService.WithRawResponse
+
+        fun partnerCampaigns(): PartnerCampaignService.WithRawResponse
+
+        fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService.WithRawResponse
 
         fun phoneNumberCampaigns(): PhoneNumberCampaignService.WithRawResponse
 

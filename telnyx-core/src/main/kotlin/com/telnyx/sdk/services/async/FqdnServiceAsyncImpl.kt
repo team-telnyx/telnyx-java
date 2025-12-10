@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.fqdns.FqdnCreateParams
 import com.telnyx.sdk.models.fqdns.FqdnCreateResponse
 import com.telnyx.sdk.models.fqdns.FqdnDeleteParams
 import com.telnyx.sdk.models.fqdns.FqdnDeleteResponse
-import com.telnyx.sdk.models.fqdns.FqdnListPageAsync
-import com.telnyx.sdk.models.fqdns.FqdnListPageResponse
 import com.telnyx.sdk.models.fqdns.FqdnListParams
+import com.telnyx.sdk.models.fqdns.FqdnListResponse
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveParams
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveResponse
 import com.telnyx.sdk.models.fqdns.FqdnUpdateParams
@@ -67,7 +66,7 @@ class FqdnServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: FqdnListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<FqdnListPageAsync> =
+    ): CompletableFuture<FqdnListResponse> =
         // get /fqdns
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -189,13 +188,13 @@ class FqdnServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val listHandler: Handler<FqdnListPageResponse> =
-            jsonHandler<FqdnListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FqdnListResponse> =
+            jsonHandler<FqdnListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FqdnListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FqdnListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<FqdnListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -214,14 +213,6 @@ class FqdnServiceAsyncImpl internal constructor(private val clientOptions: Clien
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                FqdnListPageAsync.builder()
-                                    .service(FqdnServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

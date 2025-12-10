@@ -10,12 +10,17 @@ internal class VerifiedNumberListParamsTest {
 
     @Test
     fun create() {
-        VerifiedNumberListParams.builder().pageNumber(0L).pageSize(0L).build()
+        VerifiedNumberListParams.builder()
+            .page(VerifiedNumberListParams.Page.builder().number(0L).size(0L).build())
+            .build()
     }
 
     @Test
     fun queryParams() {
-        val params = VerifiedNumberListParams.builder().pageNumber(0L).pageSize(0L).build()
+        val params =
+            VerifiedNumberListParams.builder()
+                .page(VerifiedNumberListParams.Page.builder().number(0L).size(0L).build())
+                .build()
 
         val queryParams = params._queryParams()
 

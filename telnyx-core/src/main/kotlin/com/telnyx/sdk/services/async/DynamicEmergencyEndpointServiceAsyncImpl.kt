@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointC
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointCreateResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteResponse
-import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListPageAsync
-import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListPageResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListParams
+import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -64,7 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: DynamicEmergencyEndpointListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DynamicEmergencyEndpointListPageAsync> =
+    ): CompletableFuture<DynamicEmergencyEndpointListResponse> =
         // get /dynamic_emergency_endpoints
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -152,13 +151,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<DynamicEmergencyEndpointListPageResponse> =
-            jsonHandler<DynamicEmergencyEndpointListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DynamicEmergencyEndpointListResponse> =
+            jsonHandler<DynamicEmergencyEndpointListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DynamicEmergencyEndpointListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -177,16 +176,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                DynamicEmergencyEndpointListPageAsync.builder()
-                                    .service(
-                                        DynamicEmergencyEndpointServiceAsyncImpl(clientOptions)
-                                    )
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -20,15 +20,12 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteResponse
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPageAsync
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPageResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPageAsync
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPageResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPageAsync
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPageResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
@@ -83,7 +80,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
     override fun list(
         params: MessagingProfileListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingProfileListPageAsync> =
+    ): CompletableFuture<MessagingProfileListResponse> =
         // get /messaging_profiles
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -97,14 +94,14 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
     override fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
+    ): CompletableFuture<MessagingProfileListPhoneNumbersResponse> =
         // get /messaging_profiles/{id}/phone_numbers
         withRawResponse().listPhoneNumbers(params, requestOptions).thenApply { it.parse() }
 
     override fun listShortCodes(
         params: MessagingProfileListShortCodesParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =
+    ): CompletableFuture<MessagingProfileListShortCodesResponse> =
         // get /messaging_profiles/{id}/short_codes
         withRawResponse().listShortCodes(params, requestOptions).thenApply { it.parse() }
 
@@ -167,7 +164,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -200,7 +197,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         ): CompletableFuture<HttpResponseFor<MessagingProfileUpdateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -225,13 +222,13 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                 }
         }
 
-        private val listHandler: Handler<MessagingProfileListPageResponse> =
-            jsonHandler<MessagingProfileListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingProfileListResponse> =
+            jsonHandler<MessagingProfileListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingProfileListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -251,14 +248,6 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                                     it.validate()
                                 }
                             }
-                            .let {
-                                MessagingProfileListPageAsync.builder()
-                                    .service(MessagingProfileServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
                     }
                 }
         }
@@ -272,7 +261,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         ): CompletableFuture<HttpResponseFor<MessagingProfileDeleteResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
@@ -297,16 +286,16 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                 }
         }
 
-        private val listPhoneNumbersHandler: Handler<MessagingProfileListPhoneNumbersPageResponse> =
-            jsonHandler<MessagingProfileListPhoneNumbersPageResponse>(clientOptions.jsonMapper)
+        private val listPhoneNumbersHandler: Handler<MessagingProfileListPhoneNumbersResponse> =
+            jsonHandler<MessagingProfileListPhoneNumbersResponse>(clientOptions.jsonMapper)
 
         override fun listPhoneNumbers(
             params: MessagingProfileListPhoneNumbersParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListPhoneNumbersResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -326,28 +315,20 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                                     it.validate()
                                 }
                             }
-                            .let {
-                                MessagingProfileListPhoneNumbersPageAsync.builder()
-                                    .service(MessagingProfileServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
                     }
                 }
         }
 
-        private val listShortCodesHandler: Handler<MessagingProfileListShortCodesPageResponse> =
-            jsonHandler<MessagingProfileListShortCodesPageResponse>(clientOptions.jsonMapper)
+        private val listShortCodesHandler: Handler<MessagingProfileListShortCodesResponse> =
+            jsonHandler<MessagingProfileListShortCodesResponse>(clientOptions.jsonMapper)
 
         override fun listShortCodes(
             params: MessagingProfileListShortCodesParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListShortCodesResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -366,14 +347,6 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                MessagingProfileListShortCodesPageAsync.builder()
-                                    .service(MessagingProfileServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

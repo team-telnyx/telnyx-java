@@ -19,9 +19,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPageAsync
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPageResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupUpdateParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightTemplateGroupDetail
@@ -78,7 +77,7 @@ class InsightGroupServiceAsyncImpl internal constructor(private val clientOption
     override fun retrieveInsightGroups(
         params: InsightGroupRetrieveInsightGroupsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InsightGroupRetrieveInsightGroupsPageAsync> =
+    ): CompletableFuture<InsightGroupRetrieveInsightGroupsResponse> =
         // get /ai/conversations/insight-groups
         withRawResponse().retrieveInsightGroups(params, requestOptions).thenApply { it.parse() }
 
@@ -227,13 +226,13 @@ class InsightGroupServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val retrieveInsightGroupsHandler:
-            Handler<InsightGroupRetrieveInsightGroupsPageResponse> =
-            jsonHandler<InsightGroupRetrieveInsightGroupsPageResponse>(clientOptions.jsonMapper)
+            Handler<InsightGroupRetrieveInsightGroupsResponse> =
+            jsonHandler<InsightGroupRetrieveInsightGroupsResponse>(clientOptions.jsonMapper)
 
         override fun retrieveInsightGroups(
             params: InsightGroupRetrieveInsightGroupsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -252,14 +251,6 @@ class InsightGroupServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                InsightGroupRetrieveInsightGroupsPageAsync.builder()
-                                    .service(InsightGroupServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

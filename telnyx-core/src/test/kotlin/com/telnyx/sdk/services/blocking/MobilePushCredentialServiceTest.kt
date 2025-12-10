@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialCreateParams
+import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,8 +26,8 @@ internal class MobilePushCredentialServiceTest {
         val pushCredentialResponse =
             mobilePushCredentialService.create(
                 MobilePushCredentialCreateParams.builder()
-                    .createMobilePushCredentialRequest(
-                        MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios
+                    .body(
+                        MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest
                             .builder()
                             .alias("LucyIosCredential")
                             .certificate(
@@ -34,6 +35,11 @@ internal class MobilePushCredentialServiceTest {
                             )
                             .privateKey(
                                 "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----"
+                            )
+                            .type(
+                                MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest
+                                    .Type
+                                    .IOS
                             )
                             .build()
                     )
@@ -69,9 +75,20 @@ internal class MobilePushCredentialServiceTest {
                 .build()
         val mobilePushCredentialService = client.mobilePushCredentials()
 
-        val page = mobilePushCredentialService.list()
+        val mobilePushCredentials =
+            mobilePushCredentialService.list(
+                MobilePushCredentialListParams.builder()
+                    .filter(
+                        MobilePushCredentialListParams.Filter.builder()
+                            .alias("LucyCredential")
+                            .type(MobilePushCredentialListParams.Filter.Type.IOS)
+                            .build()
+                    )
+                    .page(MobilePushCredentialListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        mobilePushCredentials.validate()
     }
 
     @Disabled("Prism tests are disabled")

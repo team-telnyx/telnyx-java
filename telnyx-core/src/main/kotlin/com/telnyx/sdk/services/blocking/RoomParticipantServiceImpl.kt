@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.roomparticipants.RoomParticipantListPage
-import com.telnyx.sdk.models.roomparticipants.RoomParticipantListPageResponse
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantListParams
+import com.telnyx.sdk.models.roomparticipants.RoomParticipantListResponse
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveParams
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveResponse
 import java.util.function.Consumer
@@ -45,7 +44,7 @@ class RoomParticipantServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: RoomParticipantListParams,
         requestOptions: RequestOptions,
-    ): RoomParticipantListPage =
+    ): RoomParticipantListResponse =
         // get /room_participants
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class RoomParticipantServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<RoomParticipantListPageResponse> =
-            jsonHandler<RoomParticipantListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomParticipantListResponse> =
+            jsonHandler<RoomParticipantListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomParticipantListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RoomParticipantListPage> {
+        ): HttpResponseFor<RoomParticipantListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class RoomParticipantServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RoomParticipantListPage.builder()
-                            .service(RoomParticipantServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

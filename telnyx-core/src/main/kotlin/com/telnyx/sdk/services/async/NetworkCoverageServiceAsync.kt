@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListPageAsync
 import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListParams
+import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,22 +25,22 @@ interface NetworkCoverageServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NetworkCoverageServiceAsync
 
     /** List all locations and the interfaces that region supports */
-    fun list(): CompletableFuture<NetworkCoverageListPageAsync> =
+    fun list(): CompletableFuture<NetworkCoverageListResponse> =
         list(NetworkCoverageListParams.none())
 
     /** @see list */
     fun list(
         params: NetworkCoverageListParams = NetworkCoverageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NetworkCoverageListPageAsync>
+    ): CompletableFuture<NetworkCoverageListResponse>
 
     /** @see list */
     fun list(
         params: NetworkCoverageListParams = NetworkCoverageListParams.none()
-    ): CompletableFuture<NetworkCoverageListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<NetworkCoverageListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NetworkCoverageListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NetworkCoverageListResponse> =
         list(NetworkCoverageListParams.none(), requestOptions)
 
     /**
@@ -62,25 +62,25 @@ interface NetworkCoverageServiceAsync {
          * Returns a raw HTTP response for `get /network_coverage`, but is otherwise the same as
          * [NetworkCoverageServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NetworkCoverageListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<NetworkCoverageListResponse>> =
             list(NetworkCoverageListParams.none())
 
         /** @see list */
         fun list(
             params: NetworkCoverageListParams = NetworkCoverageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NetworkCoverageListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<NetworkCoverageListResponse>>
 
         /** @see list */
         fun list(
             params: NetworkCoverageListParams = NetworkCoverageListParams.none()
-        ): CompletableFuture<HttpResponseFor<NetworkCoverageListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NetworkCoverageListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NetworkCoverageListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NetworkCoverageListResponse>> =
             list(NetworkCoverageListParams.none(), requestOptions)
     }
 }

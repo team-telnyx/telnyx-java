@@ -11,9 +11,11 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.documents.DocServiceDocument
+import com.telnyx.sdk.models.documents.DocumentListParams
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
 import com.telnyx.sdk.models.documents.DocumentUploadJsonParams
 import com.telnyx.sdk.models.documents.DocumentUploadParams
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -53,7 +55,7 @@ internal class DocumentServiceTest {
         val document =
             documentService.update(
                 DocumentUpdateParams.builder()
-                    .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .docServiceDocument(
                         DocServiceDocument.builder()
                             .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -92,9 +94,37 @@ internal class DocumentServiceTest {
                 .build()
         val documentService = client.documents()
 
-        val page = documentService.list()
+        val documents =
+            documentService.list(
+                DocumentListParams.builder()
+                    .filter(
+                        DocumentListParams.Filter.builder()
+                            .createdAt(
+                                DocumentListParams.Filter.CreatedAt.builder()
+                                    .gt(OffsetDateTime.parse("2021-01-01T00:00:00Z"))
+                                    .lt(OffsetDateTime.parse("2021-04-09T22:25:27.521Z"))
+                                    .build()
+                            )
+                            .customerReference(
+                                DocumentListParams.Filter.CustomerReference.builder()
+                                    .eq("MY REF 001")
+                                    .addIn("REF001")
+                                    .addIn("REF002")
+                                    .build()
+                            )
+                            .filename(
+                                DocumentListParams.Filter.Filename.builder()
+                                    .contains("invoice")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .page(DocumentListParams.Page.builder().number(1L).size(1L).build())
+                    .addSort(DocumentListParams.Sort.FILENAME)
+                    .build()
+            )
 
-        page.response().validate()
+        documents.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -155,8 +185,8 @@ internal class DocumentServiceTest {
         val response =
             documentService.upload(
                 DocumentUploadParams.builder()
-                    .document(
-                        DocumentUploadParams.Document.DocServiceDocumentUploadUrl.builder()
+                    .body(
+                        DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
                             .url(
                                 "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                             )
@@ -183,8 +213,8 @@ internal class DocumentServiceTest {
         val response =
             documentService.uploadJson(
                 DocumentUploadJsonParams.builder()
-                    .document(
-                        DocumentUploadJsonParams.Document.DocServiceDocumentUploadUrl.builder()
+                    .body(
+                        DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
                             .url(
                                 "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                             )

@@ -526,16 +526,13 @@ private constructor(
 
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     class Sort
-    private constructor(
-        private val value: SortValue?,
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val value: Value_?, private val additionalProperties: QueryParams) {
 
         /**
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order
          */
-        fun value(): Optional<SortValue> = Optional.ofNullable(value)
+        fun value(): Optional<Value_> = Optional.ofNullable(value)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -551,7 +548,7 @@ private constructor(
         /** A builder for [Sort]. */
         class Builder internal constructor() {
 
-            private var value: SortValue? = null
+            private var value: Value_? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -564,10 +561,10 @@ private constructor(
              * Specifies the sort order for results. If not given, results are sorted by created_at
              * in descending order
              */
-            fun value(value: SortValue?) = apply { this.value = value }
+            fun value(value: Value_?) = apply { this.value = value }
 
             /** Alias for calling [Builder.value] with `value.orElse(null)`. */
-            fun value(value: Optional<SortValue>) = value(value.getOrNull())
+            fun value(value: Optional<Value_>) = value(value.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -630,8 +627,7 @@ private constructor(
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order
          */
-        class SortValue @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
+        class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -649,19 +645,19 @@ private constructor(
 
                 @JvmField val CREATED_AT = of("created_at")
 
-                @JvmStatic fun of(value: String) = SortValue(JsonField.of(value))
+                @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
             }
 
-            /** An enum containing [SortValue]'s known values. */
+            /** An enum containing [Value_]'s known values. */
             enum class Known {
                 CREATED_AT_DESC,
                 CREATED_AT,
             }
 
             /**
-             * An enum containing [SortValue]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [SortValue] can contain an unknown value in a couple of cases:
+             * An instance of [Value_] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -671,8 +667,7 @@ private constructor(
                 CREATED_AT_DESC,
                 CREATED_AT,
                 /**
-                 * An enum member indicating that [SortValue] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Value_] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -704,7 +699,7 @@ private constructor(
                 when (this) {
                     CREATED_AT_DESC -> Known.CREATED_AT_DESC
                     CREATED_AT -> Known.CREATED_AT
-                    else -> throw TelnyxInvalidDataException("Unknown SortValue: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
                 }
 
             /**
@@ -723,7 +718,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): SortValue = apply {
+            fun validate(): Value_ = apply {
                 if (validated) {
                     return@apply
                 }
@@ -753,7 +748,7 @@ private constructor(
                     return true
                 }
 
-                return other is SortValue && value == other.value
+                return other is Value_ && value == other.value
             }
 
             override fun hashCode() = value.hashCode()

@@ -20,15 +20,12 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteResponse
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPage
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPageResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPage
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPageResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPage
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPageResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
@@ -80,7 +77,7 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: MessagingProfileListParams,
         requestOptions: RequestOptions,
-    ): MessagingProfileListPage =
+    ): MessagingProfileListResponse =
         // get /messaging_profiles
         withRawResponse().list(params, requestOptions).parse()
 
@@ -94,14 +91,14 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
     override fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams,
         requestOptions: RequestOptions,
-    ): MessagingProfileListPhoneNumbersPage =
+    ): MessagingProfileListPhoneNumbersResponse =
         // get /messaging_profiles/{id}/phone_numbers
         withRawResponse().listPhoneNumbers(params, requestOptions).parse()
 
     override fun listShortCodes(
         params: MessagingProfileListShortCodesParams,
         requestOptions: RequestOptions,
-    ): MessagingProfileListShortCodesPage =
+    ): MessagingProfileListShortCodesResponse =
         // get /messaging_profiles/{id}/short_codes
         withRawResponse().listShortCodes(params, requestOptions).parse()
 
@@ -161,7 +158,7 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
         ): HttpResponseFor<MessagingProfileRetrieveResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -191,7 +188,7 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
         ): HttpResponseFor<MessagingProfileUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -213,13 +210,13 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<MessagingProfileListPageResponse> =
-            jsonHandler<MessagingProfileListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingProfileListResponse> =
+            jsonHandler<MessagingProfileListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingProfileListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingProfileListPage> {
+        ): HttpResponseFor<MessagingProfileListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -237,13 +234,6 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
                             it.validate()
                         }
                     }
-                    .let {
-                        MessagingProfileListPage.builder()
-                            .service(MessagingProfileServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
-                    }
             }
         }
 
@@ -256,7 +246,7 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
         ): HttpResponseFor<MessagingProfileDeleteResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
@@ -278,16 +268,16 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listPhoneNumbersHandler: Handler<MessagingProfileListPhoneNumbersPageResponse> =
-            jsonHandler<MessagingProfileListPhoneNumbersPageResponse>(clientOptions.jsonMapper)
+        private val listPhoneNumbersHandler: Handler<MessagingProfileListPhoneNumbersResponse> =
+            jsonHandler<MessagingProfileListPhoneNumbersResponse>(clientOptions.jsonMapper)
 
         override fun listPhoneNumbers(
             params: MessagingProfileListPhoneNumbersParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingProfileListPhoneNumbersPage> {
+        ): HttpResponseFor<MessagingProfileListPhoneNumbersResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -305,26 +295,19 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
                             it.validate()
                         }
                     }
-                    .let {
-                        MessagingProfileListPhoneNumbersPage.builder()
-                            .service(MessagingProfileServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
-                    }
             }
         }
 
-        private val listShortCodesHandler: Handler<MessagingProfileListShortCodesPageResponse> =
-            jsonHandler<MessagingProfileListShortCodesPageResponse>(clientOptions.jsonMapper)
+        private val listShortCodesHandler: Handler<MessagingProfileListShortCodesResponse> =
+            jsonHandler<MessagingProfileListShortCodesResponse>(clientOptions.jsonMapper)
 
         override fun listShortCodes(
             params: MessagingProfileListShortCodesParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingProfileListShortCodesPage> {
+        ): HttpResponseFor<MessagingProfileListShortCodesResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("messagingProfileId", params.messagingProfileId().getOrNull())
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -341,13 +324,6 @@ class MessagingProfileServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        MessagingProfileListShortCodesPage.builder()
-                            .service(MessagingProfileServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.notificationevents.NotificationEventListPageAsync
-import com.telnyx.sdk.models.notificationevents.NotificationEventListPageResponse
 import com.telnyx.sdk.models.notificationevents.NotificationEventListParams
+import com.telnyx.sdk.models.notificationevents.NotificationEventListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -37,7 +36,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationEve
     override fun list(
         params: NotificationEventListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NotificationEventListPageAsync> =
+    ): CompletableFuture<NotificationEventListResponse> =
         // get /notification_events
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -54,13 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationEve
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<NotificationEventListPageResponse> =
-            jsonHandler<NotificationEventListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationEventListResponse> =
+            jsonHandler<NotificationEventListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationEventListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NotificationEventListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<NotificationEventListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -79,14 +78,6 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationEve
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                NotificationEventListPageAsync.builder()
-                                    .service(NotificationEventServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

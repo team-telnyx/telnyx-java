@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPage
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
@@ -111,13 +111,13 @@ interface RequestService {
     ): VerificationRequestEgress
 
     /** Get a list of previously-submitted tollfree verification requests */
-    fun list(params: RequestListParams): RequestListPage = list(params, RequestOptions.none())
+    fun list(params: RequestListParams): RequestListResponse = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RequestListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RequestListPage
+    ): RequestListResponse
 
     /**
      * Delete a verification request
@@ -273,7 +273,7 @@ interface RequestService {
          * otherwise the same as [RequestService.list].
          */
         @MustBeClosed
-        fun list(params: RequestListParams): HttpResponseFor<RequestListPage> =
+        fun list(params: RequestListParams): HttpResponseFor<RequestListResponse> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -281,7 +281,7 @@ interface RequestService {
         fun list(
             params: RequestListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RequestListPage>
+        ): HttpResponseFor<RequestListResponse>
 
         /**
          * Returns a raw HTTP response for `delete /messaging_tollfree/verification/requests/{id}`,

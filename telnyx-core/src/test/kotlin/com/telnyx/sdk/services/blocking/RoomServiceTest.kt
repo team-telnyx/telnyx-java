@@ -5,8 +5,10 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.rooms.RoomCreateParams
+import com.telnyx.sdk.models.rooms.RoomListParams
 import com.telnyx.sdk.models.rooms.RoomRetrieveParams
 import com.telnyx.sdk.models.rooms.RoomUpdateParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -96,9 +98,34 @@ internal class RoomServiceTest {
                 .build()
         val roomService = client.rooms()
 
-        val page = roomService.list()
+        val rooms =
+            roomService.list(
+                RoomListParams.builder()
+                    .filter(
+                        RoomListParams.Filter.builder()
+                            .dateCreatedAt(
+                                RoomListParams.Filter.DateCreatedAt.builder()
+                                    .eq(LocalDate.parse("2021-04-25"))
+                                    .gte(LocalDate.parse("2021-04-25"))
+                                    .lte(LocalDate.parse("2021-04-25"))
+                                    .build()
+                            )
+                            .dateUpdatedAt(
+                                RoomListParams.Filter.DateUpdatedAt.builder()
+                                    .eq(LocalDate.parse("2021-04-25"))
+                                    .gte(LocalDate.parse("2021-04-25"))
+                                    .lte(LocalDate.parse("2021-04-25"))
+                                    .build()
+                            )
+                            .uniqueName("my_video_room")
+                            .build()
+                    )
+                    .includeSessions(true)
+                    .page(RoomListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        rooms.validate()
     }
 
     @Disabled("Prism tests are disabled")

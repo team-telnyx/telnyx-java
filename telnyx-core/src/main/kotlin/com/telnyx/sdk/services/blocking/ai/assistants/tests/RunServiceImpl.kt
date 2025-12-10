@@ -16,7 +16,6 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.ai.assistants.tests.runs.RunListPage
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunListParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunTriggerParams
@@ -43,7 +42,7 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
         // get /ai/assistants/tests/{test_id}/runs/{run_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: RunListParams, requestOptions: RequestOptions): RunListPage =
+    override fun list(params: RunListParams, requestOptions: RequestOptions): PaginatedTestRunList =
         // get /ai/assistants/tests/{test_id}/runs
         withRawResponse().list(params, requestOptions).parse()
 
@@ -110,7 +109,7 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
         override fun list(
             params: RunListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RunListPage> {
+        ): HttpResponseFor<PaginatedTestRunList> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("testId", params.testId().getOrNull())
@@ -130,13 +129,6 @@ class RunServiceImpl internal constructor(private val clientOptions: ClientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RunListPage.builder()
-                            .service(RunServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

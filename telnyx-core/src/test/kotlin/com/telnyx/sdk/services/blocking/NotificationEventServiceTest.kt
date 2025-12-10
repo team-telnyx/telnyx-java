@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.notificationevents.NotificationEventListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,8 +22,13 @@ internal class NotificationEventServiceTest {
                 .build()
         val notificationEventService = client.notificationEvents()
 
-        val page = notificationEventService.list()
+        val notificationEvents =
+            notificationEventService.list(
+                NotificationEventListParams.builder()
+                    .page(NotificationEventListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        notificationEvents.validate()
     }
 }

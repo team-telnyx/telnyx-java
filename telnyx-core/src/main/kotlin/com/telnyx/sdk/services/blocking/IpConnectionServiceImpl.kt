@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.ipconnections.IpConnectionCreateParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionCreateResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteResponse
-import com.telnyx.sdk.models.ipconnections.IpConnectionListPage
-import com.telnyx.sdk.models.ipconnections.IpConnectionListPageResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionListParams
+import com.telnyx.sdk.models.ipconnections.IpConnectionListResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateParams
@@ -66,7 +65,7 @@ class IpConnectionServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: IpConnectionListParams,
         requestOptions: RequestOptions,
-    ): IpConnectionListPage =
+    ): IpConnectionListResponse =
         // get /ip_connections
         withRawResponse().list(params, requestOptions).parse()
 
@@ -179,13 +178,13 @@ class IpConnectionServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<IpConnectionListPageResponse> =
-            jsonHandler<IpConnectionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IpConnectionListResponse> =
+            jsonHandler<IpConnectionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IpConnectionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<IpConnectionListPage> {
+        ): HttpResponseFor<IpConnectionListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -202,13 +201,6 @@ class IpConnectionServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        IpConnectionListPage.builder()
-                            .service(IpConnectionServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -12,8 +12,8 @@ import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
-import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
+import com.telnyx.sdk.models.ai.assistants.WebhookTool
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
@@ -94,81 +94,94 @@ internal class VersionServiceTest {
                                     .supportsUnauthenticatedWebCalls(true)
                                     .build()
                             )
-                            .addWebhookTool(
-                                InferenceEmbeddingWebhookToolParams.builder()
-                                    .description("description")
-                                    .name("name")
-                                    .url("https://example.com/api/v1/function")
-                                    .bodyParameters(
-                                        InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
-                                            .properties(
-                                                InferenceEmbeddingWebhookToolParams.BodyParameters
-                                                    .Properties
-                                                    .builder()
-                                                    .putAdditionalProperty(
-                                                        "age",
-                                                        JsonValue.from("bar"),
-                                                    )
-                                                    .putAdditionalProperty(
-                                                        "location",
-                                                        JsonValue.from("bar"),
-                                                    )
-                                                    .build()
-                                            )
-                                            .addRequired("age")
-                                            .addRequired("location")
-                                            .type(
-                                                InferenceEmbeddingWebhookToolParams.BodyParameters
-                                                    .Type
-                                                    .OBJECT
-                                            )
-                                            .build()
-                                    )
-                                    .addHeader(
-                                        InferenceEmbeddingWebhookToolParams.Header.builder()
+                            .addTool(
+                                WebhookTool.builder()
+                                    .type(WebhookTool.Type.WEBHOOK)
+                                    .webhook(
+                                        InferenceEmbeddingWebhookToolParams.builder()
+                                            .description("description")
                                             .name("name")
-                                            .value("value")
-                                            .build()
-                                    )
-                                    .method(InferenceEmbeddingWebhookToolParams.Method.GET)
-                                    .pathParameters(
-                                        InferenceEmbeddingWebhookToolParams.PathParameters.builder()
-                                            .properties(
-                                                InferenceEmbeddingWebhookToolParams.PathParameters
-                                                    .Properties
+                                            .url("https://example.com/api/v1/function")
+                                            .bodyParameters(
+                                                InferenceEmbeddingWebhookToolParams.BodyParameters
                                                     .builder()
-                                                    .putAdditionalProperty(
-                                                        "id",
-                                                        JsonValue.from("bar"),
+                                                    .properties(
+                                                        InferenceEmbeddingWebhookToolParams
+                                                            .BodyParameters
+                                                            .Properties
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "age",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .putAdditionalProperty(
+                                                                "location",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .addRequired("age")
+                                                    .addRequired("location")
+                                                    .type(
+                                                        InferenceEmbeddingWebhookToolParams
+                                                            .BodyParameters
+                                                            .Type
+                                                            .OBJECT
                                                     )
                                                     .build()
                                             )
-                                            .addRequired("id")
-                                            .type(
-                                                InferenceEmbeddingWebhookToolParams.PathParameters
-                                                    .Type
-                                                    .OBJECT
+                                            .addHeader(
+                                                InferenceEmbeddingWebhookToolParams.Header.builder()
+                                                    .name("name")
+                                                    .value("value")
+                                                    .build()
                                             )
-                                            .build()
-                                    )
-                                    .queryParameters(
-                                        InferenceEmbeddingWebhookToolParams.QueryParameters
-                                            .builder()
-                                            .properties(
-                                                InferenceEmbeddingWebhookToolParams.QueryParameters
-                                                    .Properties
+                                            .method(InferenceEmbeddingWebhookToolParams.Method.GET)
+                                            .pathParameters(
+                                                InferenceEmbeddingWebhookToolParams.PathParameters
                                                     .builder()
-                                                    .putAdditionalProperty(
-                                                        "page",
-                                                        JsonValue.from("bar"),
+                                                    .properties(
+                                                        InferenceEmbeddingWebhookToolParams
+                                                            .PathParameters
+                                                            .Properties
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "id",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .addRequired("id")
+                                                    .type(
+                                                        InferenceEmbeddingWebhookToolParams
+                                                            .PathParameters
+                                                            .Type
+                                                            .OBJECT
                                                     )
                                                     .build()
                                             )
-                                            .addRequired("page")
-                                            .type(
+                                            .queryParameters(
                                                 InferenceEmbeddingWebhookToolParams.QueryParameters
-                                                    .Type
-                                                    .OBJECT
+                                                    .builder()
+                                                    .properties(
+                                                        InferenceEmbeddingWebhookToolParams
+                                                            .QueryParameters
+                                                            .Properties
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "page",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .addRequired("page")
+                                                    .type(
+                                                        InferenceEmbeddingWebhookToolParams
+                                                            .QueryParameters
+                                                            .Type
+                                                            .OBJECT
+                                                    )
+                                                    .build()
                                             )
                                             .build()
                                     )
@@ -180,7 +193,7 @@ internal class VersionServiceTest {
                                     .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                                     .region("region")
                                     .settings(
-                                        TranscriptionSettingsConfig.builder()
+                                        TranscriptionSettings.Settings.builder()
                                             .eotThreshold(0.0)
                                             .eotTimeoutMs(0L)
                                             .numerals(true)
@@ -193,10 +206,17 @@ internal class VersionServiceTest {
                                 VoiceSettings.builder()
                                     .voice("voice")
                                     .apiKeyRef("api_key_ref")
-                                    .predefinedMediaBackgroundAudio(
-                                        VoiceSettings.BackgroundAudio.PredefinedMedia
-                                            .PredefinedMediaValue
-                                            .SILENCE
+                                    .backgroundAudio(
+                                        VoiceSettings.BackgroundAudio.UnionMember0.builder()
+                                            .type(
+                                                VoiceSettings.BackgroundAudio.UnionMember0.Type
+                                                    .PREDEFINED_MEDIA
+                                            )
+                                            .value(
+                                                VoiceSettings.BackgroundAudio.UnionMember0.Value_
+                                                    .SILENCE
+                                            )
+                                            .build()
                                     )
                                     .voiceSpeed(0.0)
                                     .build()

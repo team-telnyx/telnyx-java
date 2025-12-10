@@ -15,22 +15,31 @@ internal class MobileVoiceConnectionCreateResponseTest {
         val mobileVoiceConnectionCreateResponse =
             MobileVoiceConnectionCreateResponse.builder()
                 .data(
-                    MobileVoiceConnection.builder()
+                    MobileVoiceConnectionCreateResponse.Data.builder()
                         .id("id")
                         .active(true)
                         .connectionName("connection_name")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .inbound(MobileVoiceConnection.Inbound.builder().channelLimit(0L).build())
+                        .inbound(
+                            MobileVoiceConnectionCreateResponse.Data.Inbound.builder()
+                                .channelLimit(0L)
+                                .build()
+                        )
                         .outbound(
-                            MobileVoiceConnection.Outbound.builder()
+                            MobileVoiceConnectionCreateResponse.Data.Outbound.builder()
                                 .channelLimit(0L)
                                 .outboundVoiceProfileId("outbound_voice_profile_id")
                                 .build()
                         )
-                        .recordType(MobileVoiceConnection.RecordType.MOBILE_VOICE_CONNECTION)
+                        .recordType(
+                            MobileVoiceConnectionCreateResponse.Data.RecordType
+                                .MOBILE_VOICE_CONNECTION
+                        )
                         .addTag("string")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .webhookApiVersion(MobileVoiceConnection.WebhookApiVersion.V1)
+                        .webhookApiVersion(
+                            MobileVoiceConnectionCreateResponse.Data.WebhookApiVersion._1
+                        )
                         .webhookEventFailoverUrl("webhook_event_failover_url")
                         .webhookEventUrl("webhook_event_url")
                         .webhookTimeoutSecs(0L)
@@ -40,22 +49,30 @@ internal class MobileVoiceConnectionCreateResponseTest {
 
         assertThat(mobileVoiceConnectionCreateResponse.data())
             .contains(
-                MobileVoiceConnection.builder()
+                MobileVoiceConnectionCreateResponse.Data.builder()
                     .id("id")
                     .active(true)
                     .connectionName("connection_name")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .inbound(MobileVoiceConnection.Inbound.builder().channelLimit(0L).build())
+                    .inbound(
+                        MobileVoiceConnectionCreateResponse.Data.Inbound.builder()
+                            .channelLimit(0L)
+                            .build()
+                    )
                     .outbound(
-                        MobileVoiceConnection.Outbound.builder()
+                        MobileVoiceConnectionCreateResponse.Data.Outbound.builder()
                             .channelLimit(0L)
                             .outboundVoiceProfileId("outbound_voice_profile_id")
                             .build()
                     )
-                    .recordType(MobileVoiceConnection.RecordType.MOBILE_VOICE_CONNECTION)
+                    .recordType(
+                        MobileVoiceConnectionCreateResponse.Data.RecordType.MOBILE_VOICE_CONNECTION
+                    )
                     .addTag("string")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .webhookApiVersion(MobileVoiceConnection.WebhookApiVersion.V1)
+                    .webhookApiVersion(
+                        MobileVoiceConnectionCreateResponse.Data.WebhookApiVersion._1
+                    )
                     .webhookEventFailoverUrl("webhook_event_failover_url")
                     .webhookEventUrl("webhook_event_url")
                     .webhookTimeoutSecs(0L)
@@ -69,22 +86,31 @@ internal class MobileVoiceConnectionCreateResponseTest {
         val mobileVoiceConnectionCreateResponse =
             MobileVoiceConnectionCreateResponse.builder()
                 .data(
-                    MobileVoiceConnection.builder()
+                    MobileVoiceConnectionCreateResponse.Data.builder()
                         .id("id")
                         .active(true)
                         .connectionName("connection_name")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .inbound(MobileVoiceConnection.Inbound.builder().channelLimit(0L).build())
+                        .inbound(
+                            MobileVoiceConnectionCreateResponse.Data.Inbound.builder()
+                                .channelLimit(0L)
+                                .build()
+                        )
                         .outbound(
-                            MobileVoiceConnection.Outbound.builder()
+                            MobileVoiceConnectionCreateResponse.Data.Outbound.builder()
                                 .channelLimit(0L)
                                 .outboundVoiceProfileId("outbound_voice_profile_id")
                                 .build()
                         )
-                        .recordType(MobileVoiceConnection.RecordType.MOBILE_VOICE_CONNECTION)
+                        .recordType(
+                            MobileVoiceConnectionCreateResponse.Data.RecordType
+                                .MOBILE_VOICE_CONNECTION
+                        )
                         .addTag("string")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .webhookApiVersion(MobileVoiceConnection.WebhookApiVersion.V1)
+                        .webhookApiVersion(
+                            MobileVoiceConnectionCreateResponse.Data.WebhookApiVersion._1
+                        )
                         .webhookEventFailoverUrl("webhook_event_failover_url")
                         .webhookEventUrl("webhook_event_url")
                         .webhookTimeoutSecs(0L)

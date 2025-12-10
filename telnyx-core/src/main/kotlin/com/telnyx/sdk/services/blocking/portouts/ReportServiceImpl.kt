@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.portouts.reports.ReportCreateParams
 import com.telnyx.sdk.models.portouts.reports.ReportCreateResponse
-import com.telnyx.sdk.models.portouts.reports.ReportListPage
-import com.telnyx.sdk.models.portouts.reports.ReportListPageResponse
 import com.telnyx.sdk.models.portouts.reports.ReportListParams
+import com.telnyx.sdk.models.portouts.reports.ReportListResponse
 import com.telnyx.sdk.models.portouts.reports.ReportRetrieveParams
 import com.telnyx.sdk.models.portouts.reports.ReportRetrieveResponse
 import java.util.function.Consumer
@@ -52,7 +51,10 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /portouts/reports/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: ReportListParams, requestOptions: RequestOptions): ReportListPage =
+    override fun list(
+        params: ReportListParams,
+        requestOptions: RequestOptions,
+    ): ReportListResponse =
         // get /portouts/reports
         withRawResponse().list(params, requestOptions).parse()
 
@@ -127,13 +129,13 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<ReportListPageResponse> =
-            jsonHandler<ReportListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ReportListResponse> =
+            jsonHandler<ReportListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ReportListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReportListPage> {
+        ): HttpResponseFor<ReportListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -150,13 +152,6 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ReportListPage.builder()
-                            .service(ReportServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

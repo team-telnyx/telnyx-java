@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.phonenumbers.voice.VoiceListPage
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceListParams
+import com.telnyx.sdk.models.phonenumbers.voice.VoiceListResponse
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceRetrieveResponse
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateParams
@@ -80,20 +80,20 @@ interface VoiceService {
     ): VoiceUpdateResponse
 
     /** List phone numbers with voice settings */
-    fun list(): VoiceListPage = list(VoiceListParams.none())
+    fun list(): VoiceListResponse = list(VoiceListParams.none())
 
     /** @see list */
     fun list(
         params: VoiceListParams = VoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceListPage
+    ): VoiceListResponse
 
     /** @see list */
-    fun list(params: VoiceListParams = VoiceListParams.none()): VoiceListPage =
+    fun list(params: VoiceListParams = VoiceListParams.none()): VoiceListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): VoiceListPage =
+    fun list(requestOptions: RequestOptions): VoiceListResponse =
         list(VoiceListParams.none(), requestOptions)
 
     /** A view of [VoiceService] that provides access to raw HTTP responses for each method. */
@@ -183,23 +183,24 @@ interface VoiceService {
          * Returns a raw HTTP response for `get /phone_numbers/voice`, but is otherwise the same as
          * [VoiceService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<VoiceListPage> = list(VoiceListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<VoiceListResponse> = list(VoiceListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VoiceListParams = VoiceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceListPage>
+        ): HttpResponseFor<VoiceListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: VoiceListParams = VoiceListParams.none()): HttpResponseFor<VoiceListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: VoiceListParams = VoiceListParams.none()
+        ): HttpResponseFor<VoiceListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<VoiceListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<VoiceListResponse> =
             list(VoiceListParams.none(), requestOptions)
     }
 }

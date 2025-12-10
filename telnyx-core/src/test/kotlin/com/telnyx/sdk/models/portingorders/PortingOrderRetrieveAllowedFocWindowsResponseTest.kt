@@ -26,8 +26,8 @@ internal class PortingOrderRetrieveAllowedFocWindowsResponseTest {
                 .meta(
                     PaginationMeta.builder()
                         .pageNumber(2L)
-                        .totalPages(3L)
                         .pageSize(25L)
+                        .totalPages(3L)
                         .totalResults(55L)
                         .build()
                 )
@@ -45,8 +45,8 @@ internal class PortingOrderRetrieveAllowedFocWindowsResponseTest {
             .contains(
                 PaginationMeta.builder()
                     .pageNumber(2L)
-                    .totalPages(3L)
                     .pageSize(25L)
+                    .totalPages(3L)
                     .totalResults(55L)
                     .build()
             )
@@ -67,8 +67,8 @@ internal class PortingOrderRetrieveAllowedFocWindowsResponseTest {
                 .meta(
                     PaginationMeta.builder()
                         .pageNumber(2L)
-                        .totalPages(3L)
                         .pageSize(25L)
+                        .totalPages(3L)
                         .totalResults(55L)
                         .build()
                 )

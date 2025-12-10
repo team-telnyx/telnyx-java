@@ -16,24 +16,23 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPage
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
-import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrService
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.UsecaseService
@@ -78,9 +77,16 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions,
-    ): CampaignListPage =
+    ): CampaignListResponse =
         // get /10dlc/campaign
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun delete(
+        params: CampaignDeleteParams,
+        requestOptions: RequestOptions,
+    ): CampaignDeleteResponse =
+        // delete /10dlc/campaign/{campaignId}
+        withRawResponse().delete(params, requestOptions).parse()
 
     override fun acceptSharing(
         params: CampaignAcceptSharingParams,
@@ -88,13 +94,6 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
     ): CampaignAcceptSharingResponse =
         // post /10dlc/campaign/acceptSharing/{campaignId}
         withRawResponse().acceptSharing(params, requestOptions).parse()
-
-    override fun deactivate(
-        params: CampaignDeactivateParams,
-        requestOptions: RequestOptions,
-    ): CampaignDeactivateResponse =
-        // delete /10dlc/campaign/{campaignId}
-        withRawResponse().deactivate(params, requestOptions).parse()
 
     override fun getMnoMetadata(
         params: CampaignGetMnoMetadataParams,
@@ -210,13 +209,13 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<CampaignListPageResponse> =
-            jsonHandler<CampaignListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CampaignListResponse> =
+            jsonHandler<CampaignListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignListPage> {
+        ): HttpResponseFor<CampaignListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -234,12 +233,36 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
                             it.validate()
                         }
                     }
-                    .let {
-                        CampaignListPage.builder()
-                            .service(CampaignServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
+            }
+        }
+
+        private val deleteHandler: Handler<CampaignDeleteResponse> =
+            jsonHandler<CampaignDeleteResponse>(clientOptions.jsonMapper)
+
+        override fun delete(
+            params: CampaignDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CampaignDeleteResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("campaignId", params.campaignId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { deleteHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
@@ -267,37 +290,6 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             return errorHandler.handle(response).parseable {
                 response
                     .use { acceptSharingHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val deactivateHandler: Handler<CampaignDeactivateResponse> =
-            jsonHandler<CampaignDeactivateResponse>(clientOptions.jsonMapper)
-
-        override fun deactivate(
-            params: CampaignDeactivateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignDeactivateResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("campaignId", params.campaignId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "campaign", params._pathParam(0))
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { deactivateHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

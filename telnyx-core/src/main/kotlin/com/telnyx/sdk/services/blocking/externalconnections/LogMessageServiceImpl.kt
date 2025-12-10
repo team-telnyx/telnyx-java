@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissResponse
-import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListPage
-import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListPageResponse
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListParams
+import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListResponse
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveResponse
 import java.util.function.Consumer
@@ -48,7 +47,7 @@ class LogMessageServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: LogMessageListParams,
         requestOptions: RequestOptions,
-    ): LogMessageListPage =
+    ): LogMessageListResponse =
         // get /external_connections/log_messages
         withRawResponse().list(params, requestOptions).parse()
 
@@ -102,13 +101,13 @@ class LogMessageServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<LogMessageListPageResponse> =
-            jsonHandler<LogMessageListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LogMessageListResponse> =
+            jsonHandler<LogMessageListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: LogMessageListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LogMessageListPage> {
+        ): HttpResponseFor<LogMessageListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -125,13 +124,6 @@ class LogMessageServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        LogMessageListPage.builder()
-                            .service(LogMessageServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

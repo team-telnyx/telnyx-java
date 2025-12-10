@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListPage
-import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListPageResponse
 import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListParams
+import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListResponse
 import java.util.function.Consumer
 
 class VirtualCrossConnectsCoverageServiceImpl
@@ -40,7 +39,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: VirtualCrossConnectsCoverageListParams,
         requestOptions: RequestOptions,
-    ): VirtualCrossConnectsCoverageListPage =
+    ): VirtualCrossConnectsCoverageListResponse =
         // get /virtual_cross_connects_coverage
         withRawResponse().list(params, requestOptions).parse()
 
@@ -57,13 +56,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<VirtualCrossConnectsCoverageListPageResponse> =
-            jsonHandler<VirtualCrossConnectsCoverageListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VirtualCrossConnectsCoverageListResponse> =
+            jsonHandler<VirtualCrossConnectsCoverageListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VirtualCrossConnectsCoverageListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VirtualCrossConnectsCoverageListPage> {
+        ): HttpResponseFor<VirtualCrossConnectsCoverageListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -80,13 +79,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        VirtualCrossConnectsCoverageListPage.builder()
-                            .service(VirtualCrossConnectsCoverageServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

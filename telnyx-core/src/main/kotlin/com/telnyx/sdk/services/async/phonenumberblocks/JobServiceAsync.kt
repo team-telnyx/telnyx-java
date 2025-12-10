@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobDeletePhoneNumberBlockParams
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobDeletePhoneNumberBlockResponse
-import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListPageAsync
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListParams
+import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListResponse
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobRetrieveParams
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -64,20 +64,20 @@ interface JobServiceAsync {
         retrieve(id, JobRetrieveParams.none(), requestOptions)
 
     /** Lists the phone number blocks jobs */
-    fun list(): CompletableFuture<JobListPageAsync> = list(JobListParams.none())
+    fun list(): CompletableFuture<JobListResponse> = list(JobListParams.none())
 
     /** @see list */
     fun list(
         params: JobListParams = JobListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<JobListPageAsync>
+    ): CompletableFuture<JobListResponse>
 
     /** @see list */
-    fun list(params: JobListParams = JobListParams.none()): CompletableFuture<JobListPageAsync> =
+    fun list(params: JobListParams = JobListParams.none()): CompletableFuture<JobListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<JobListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<JobListResponse> =
         list(JobListParams.none(), requestOptions)
 
     /**
@@ -152,25 +152,23 @@ interface JobServiceAsync {
          * Returns a raw HTTP response for `get /phone_number_blocks/jobs`, but is otherwise the
          * same as [JobServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<JobListPageAsync>> =
-            list(JobListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<JobListResponse>> = list(JobListParams.none())
 
         /** @see list */
         fun list(
             params: JobListParams = JobListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<JobListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<JobListResponse>>
 
         /** @see list */
         fun list(
             params: JobListParams = JobListParams.none()
-        ): CompletableFuture<HttpResponseFor<JobListPageAsync>> =
-            list(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<JobListResponse>> = list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<JobListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<JobListResponse>> =
             list(JobListParams.none(), requestOptions)
 
         /**

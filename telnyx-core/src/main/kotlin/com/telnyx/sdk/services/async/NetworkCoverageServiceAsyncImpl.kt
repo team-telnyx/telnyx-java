@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListPageAsync
-import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListPageResponse
 import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListParams
+import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -37,7 +36,7 @@ internal constructor(private val clientOptions: ClientOptions) : NetworkCoverage
     override fun list(
         params: NetworkCoverageListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NetworkCoverageListPageAsync> =
+    ): CompletableFuture<NetworkCoverageListResponse> =
         // get /network_coverage
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -54,13 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : NetworkCoverage
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<NetworkCoverageListPageResponse> =
-            jsonHandler<NetworkCoverageListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NetworkCoverageListResponse> =
+            jsonHandler<NetworkCoverageListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NetworkCoverageListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NetworkCoverageListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<NetworkCoverageListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -79,14 +78,6 @@ internal constructor(private val clientOptions: ClientOptions) : NetworkCoverage
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                NetworkCoverageListPageAsync.builder()
-                                    .service(NetworkCoverageServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

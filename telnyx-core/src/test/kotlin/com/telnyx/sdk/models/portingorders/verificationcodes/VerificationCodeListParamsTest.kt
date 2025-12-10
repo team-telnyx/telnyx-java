@@ -16,7 +16,7 @@ internal class VerificationCodeListParamsTest {
             .page(VerificationCodeListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 VerificationCodeListParams.Sort.builder()
-                    .value(VerificationCodeListParams.Sort.SortValue.CREATED_AT)
+                    .value(VerificationCodeListParams.Sort.Value_.CREATED_AT)
                     .build()
             )
             .build()
@@ -41,7 +41,7 @@ internal class VerificationCodeListParamsTest {
                 .page(VerificationCodeListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     VerificationCodeListParams.Sort.builder()
-                        .value(VerificationCodeListParams.Sort.SortValue.CREATED_AT)
+                        .value(VerificationCodeListParams.Sort.Value_.CREATED_AT)
                         .build()
                 )
                 .build()

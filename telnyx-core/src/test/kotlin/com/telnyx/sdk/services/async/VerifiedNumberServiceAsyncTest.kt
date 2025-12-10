@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateParams
+import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -61,10 +62,15 @@ internal class VerifiedNumberServiceAsyncTest {
                 .build()
         val verifiedNumberServiceAsync = client.verifiedNumbers()
 
-        val pageFuture = verifiedNumberServiceAsync.list()
+        val verifiedNumbersFuture =
+            verifiedNumberServiceAsync.list(
+                VerifiedNumberListParams.builder()
+                    .page(VerifiedNumberListParams.Page.builder().number(0L).size(0L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val verifiedNumbers = verifiedNumbersFuture.get()
+        verifiedNumbers.validate()
     }
 
     @Disabled("Prism tests are disabled")

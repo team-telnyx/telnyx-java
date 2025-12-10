@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockCre
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockCreateResponse
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockDeleteParams
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockDeleteResponse
-import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListPage
-import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListPageResponse
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListParams
+import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -48,7 +47,7 @@ class PhoneNumberBlockServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: PhoneNumberBlockListParams,
         requestOptions: RequestOptions,
-    ): PhoneNumberBlockListPage =
+    ): PhoneNumberBlockListResponse =
         // get /porting_orders/{porting_order_id}/phone_number_blocks
         withRawResponse().list(params, requestOptions).parse()
 
@@ -103,13 +102,13 @@ class PhoneNumberBlockServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<PhoneNumberBlockListPageResponse> =
-            jsonHandler<PhoneNumberBlockListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhoneNumberBlockListResponse> =
+            jsonHandler<PhoneNumberBlockListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhoneNumberBlockListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhoneNumberBlockListPage> {
+        ): HttpResponseFor<PhoneNumberBlockListResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portingOrderId", params.portingOrderId().getOrNull())
@@ -129,13 +128,6 @@ class PhoneNumberBlockServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        PhoneNumberBlockListPage.builder()
-                            .service(PhoneNumberBlockServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

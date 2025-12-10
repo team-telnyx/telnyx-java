@@ -11,10 +11,10 @@ import com.telnyx.sdk.models.networks.NetworkCreateParams
 import com.telnyx.sdk.models.networks.NetworkCreateResponse
 import com.telnyx.sdk.models.networks.NetworkDeleteParams
 import com.telnyx.sdk.models.networks.NetworkDeleteResponse
-import com.telnyx.sdk.models.networks.NetworkListInterfacesPage
 import com.telnyx.sdk.models.networks.NetworkListInterfacesParams
-import com.telnyx.sdk.models.networks.NetworkListPage
+import com.telnyx.sdk.models.networks.NetworkListInterfacesResponse
 import com.telnyx.sdk.models.networks.NetworkListParams
+import com.telnyx.sdk.models.networks.NetworkListResponse
 import com.telnyx.sdk.models.networks.NetworkRetrieveParams
 import com.telnyx.sdk.models.networks.NetworkRetrieveResponse
 import com.telnyx.sdk.models.networks.NetworkUpdateParams
@@ -90,16 +90,15 @@ interface NetworkService {
         retrieve(id, NetworkRetrieveParams.none(), requestOptions)
 
     /** Update a Network. */
-    fun update(networkId: String, params: NetworkUpdateParams): NetworkUpdateResponse =
-        update(networkId, params, RequestOptions.none())
+    fun update(pathId: String, params: NetworkUpdateParams): NetworkUpdateResponse =
+        update(pathId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        networkId: String,
+        pathId: String,
         params: NetworkUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NetworkUpdateResponse =
-        update(params.toBuilder().networkId(networkId).build(), requestOptions)
+    ): NetworkUpdateResponse = update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
     /** @see update */
     fun update(params: NetworkUpdateParams): NetworkUpdateResponse =
@@ -112,20 +111,20 @@ interface NetworkService {
     ): NetworkUpdateResponse
 
     /** List all Networks. */
-    fun list(): NetworkListPage = list(NetworkListParams.none())
+    fun list(): NetworkListResponse = list(NetworkListParams.none())
 
     /** @see list */
     fun list(
         params: NetworkListParams = NetworkListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NetworkListPage
+    ): NetworkListResponse
 
     /** @see list */
-    fun list(params: NetworkListParams = NetworkListParams.none()): NetworkListPage =
+    fun list(params: NetworkListParams = NetworkListParams.none()): NetworkListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NetworkListPage =
+    fun list(requestOptions: RequestOptions): NetworkListResponse =
         list(NetworkListParams.none(), requestOptions)
 
     /** Delete a Network. */
@@ -159,7 +158,7 @@ interface NetworkService {
         delete(id, NetworkDeleteParams.none(), requestOptions)
 
     /** List all Interfaces for a Network. */
-    fun listInterfaces(id: String): NetworkListInterfacesPage =
+    fun listInterfaces(id: String): NetworkListInterfacesResponse =
         listInterfaces(id, NetworkListInterfacesParams.none())
 
     /** @see listInterfaces */
@@ -167,26 +166,27 @@ interface NetworkService {
         id: String,
         params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NetworkListInterfacesPage = listInterfaces(params.toBuilder().id(id).build(), requestOptions)
+    ): NetworkListInterfacesResponse =
+        listInterfaces(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listInterfaces */
     fun listInterfaces(
         id: String,
         params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
-    ): NetworkListInterfacesPage = listInterfaces(id, params, RequestOptions.none())
+    ): NetworkListInterfacesResponse = listInterfaces(id, params, RequestOptions.none())
 
     /** @see listInterfaces */
     fun listInterfaces(
         params: NetworkListInterfacesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NetworkListInterfacesPage
+    ): NetworkListInterfacesResponse
 
     /** @see listInterfaces */
-    fun listInterfaces(params: NetworkListInterfacesParams): NetworkListInterfacesPage =
+    fun listInterfaces(params: NetworkListInterfacesParams): NetworkListInterfacesResponse =
         listInterfaces(params, RequestOptions.none())
 
     /** @see listInterfaces */
-    fun listInterfaces(id: String, requestOptions: RequestOptions): NetworkListInterfacesPage =
+    fun listInterfaces(id: String, requestOptions: RequestOptions): NetworkListInterfacesResponse =
         listInterfaces(id, NetworkListInterfacesParams.none(), requestOptions)
 
     /** A view of [NetworkService] that provides access to raw HTTP responses for each method. */
@@ -282,18 +282,18 @@ interface NetworkService {
          */
         @MustBeClosed
         fun update(
-            networkId: String,
+            pathId: String,
             params: NetworkUpdateParams,
-        ): HttpResponseFor<NetworkUpdateResponse> = update(networkId, params, RequestOptions.none())
+        ): HttpResponseFor<NetworkUpdateResponse> = update(pathId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            networkId: String,
+            pathId: String,
             params: NetworkUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<NetworkUpdateResponse> =
-            update(params.toBuilder().networkId(networkId).build(), requestOptions)
+            update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -311,24 +311,25 @@ interface NetworkService {
          * Returns a raw HTTP response for `get /networks`, but is otherwise the same as
          * [NetworkService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<NetworkListPage> = list(NetworkListParams.none())
+        @MustBeClosed
+        fun list(): HttpResponseFor<NetworkListResponse> = list(NetworkListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NetworkListParams = NetworkListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NetworkListPage>
+        ): HttpResponseFor<NetworkListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NetworkListParams = NetworkListParams.none()
-        ): HttpResponseFor<NetworkListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NetworkListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NetworkListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NetworkListResponse> =
             list(NetworkListParams.none(), requestOptions)
 
         /**
@@ -380,7 +381,7 @@ interface NetworkService {
          * the same as [NetworkService.listInterfaces].
          */
         @MustBeClosed
-        fun listInterfaces(id: String): HttpResponseFor<NetworkListInterfacesPage> =
+        fun listInterfaces(id: String): HttpResponseFor<NetworkListInterfacesResponse> =
             listInterfaces(id, NetworkListInterfacesParams.none())
 
         /** @see listInterfaces */
@@ -389,7 +390,7 @@ interface NetworkService {
             id: String,
             params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NetworkListInterfacesPage> =
+        ): HttpResponseFor<NetworkListInterfacesResponse> =
             listInterfaces(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listInterfaces */
@@ -397,7 +398,7 @@ interface NetworkService {
         fun listInterfaces(
             id: String,
             params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
-        ): HttpResponseFor<NetworkListInterfacesPage> =
+        ): HttpResponseFor<NetworkListInterfacesResponse> =
             listInterfaces(id, params, RequestOptions.none())
 
         /** @see listInterfaces */
@@ -405,13 +406,13 @@ interface NetworkService {
         fun listInterfaces(
             params: NetworkListInterfacesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NetworkListInterfacesPage>
+        ): HttpResponseFor<NetworkListInterfacesResponse>
 
         /** @see listInterfaces */
         @MustBeClosed
         fun listInterfaces(
             params: NetworkListInterfacesParams
-        ): HttpResponseFor<NetworkListInterfacesPage> =
+        ): HttpResponseFor<NetworkListInterfacesResponse> =
             listInterfaces(params, RequestOptions.none())
 
         /** @see listInterfaces */
@@ -419,7 +420,7 @@ interface NetworkService {
         fun listInterfaces(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NetworkListInterfacesPage> =
+        ): HttpResponseFor<NetworkListInterfacesResponse> =
             listInterfaces(id, NetworkListInterfacesParams.none(), requestOptions)
     }
 }

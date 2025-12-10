@@ -246,19 +246,21 @@ private constructor(
                     it.status().ifPresent {
                         it.accept(
                             object : Filter.Status.Visitor<Unit> {
-                                override fun visitPortingOrderSingle(
-                                    portingOrderSingle: Filter.Status.PortingOrderSingleStatus
+                                override fun visitUnionMember0(
+                                    unionMember0: Filter.Status.UnionMember0
                                 ) {
-                                    put("filter[status]", portingOrderSingle.toString())
+                                    put("filter[status]", unionMember0.toString())
                                 }
 
-                                override fun visitPortingOrderStatusLists(
-                                    portingOrderStatusLists:
-                                        List<Filter.Status.PortingOrderStatusList>
+                                override fun visitUnnamedSchemaWithArrayParent2s(
+                                    unnamedSchemaWithArrayParent2s:
+                                        List<Filter.Status.UnnamedSchemaWithArrayParent2>
                                 ) {
                                     put(
                                         "filter[status]",
-                                        portingOrderStatusLists.joinToString(",") { it.toString() },
+                                        unnamedSchemaWithArrayParent2s.joinToString(",") {
+                                            it.toString()
+                                        },
                                     )
                                 }
                             }
@@ -442,19 +444,17 @@ private constructor(
             /** Alias for calling [Builder.status] with `status.orElse(null)`. */
             fun status(status: Optional<Status>) = status(status.getOrNull())
 
-            /**
-             * Alias for calling [status] with `Status.ofPortingOrderSingle(portingOrderSingle)`.
-             */
-            fun status(portingOrderSingle: Status.PortingOrderSingleStatus) =
-                status(Status.ofPortingOrderSingle(portingOrderSingle))
+            /** Alias for calling [status] with `Status.ofUnionMember0(unionMember0)`. */
+            fun status(unionMember0: Status.UnionMember0) =
+                status(Status.ofUnionMember0(unionMember0))
 
             /**
              * Alias for calling [status] with
-             * `Status.ofPortingOrderStatusLists(portingOrderStatusLists)`.
+             * `Status.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)`.
              */
-            fun statusOfPortingOrderStatusLists(
-                portingOrderStatusLists: List<Status.PortingOrderStatusList>
-            ) = status(Status.ofPortingOrderStatusLists(portingOrderStatusLists))
+            fun statusOfUnnamedSchemaWithArrayParent2s(
+                unnamedSchemaWithArrayParent2s: List<Status.UnnamedSchemaWithArrayParent2>
+            ) = status(Status.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s))
 
             /**
              * Filter results by support key(s). Originally: filter[support_key][eq],
@@ -881,36 +881,33 @@ private constructor(
         /** Filter porting orders by status(es). Originally: filter[status], filter[status][in][] */
         class Status
         private constructor(
-            private val portingOrderSingle: PortingOrderSingleStatus? = null,
-            private val portingOrderStatusLists: List<PortingOrderStatusList>? = null,
+            private val unionMember0: UnionMember0? = null,
+            private val unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>? = null,
         ) {
 
             /** Filter by single status */
-            fun portingOrderSingle(): Optional<PortingOrderSingleStatus> =
-                Optional.ofNullable(portingOrderSingle)
+            fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
 
             /** Filter by multiple statuses (in operation) */
-            fun portingOrderStatusLists(): Optional<List<PortingOrderStatusList>> =
-                Optional.ofNullable(portingOrderStatusLists)
+            fun unnamedSchemaWithArrayParent2s(): Optional<List<UnnamedSchemaWithArrayParent2>> =
+                Optional.ofNullable(unnamedSchemaWithArrayParent2s)
 
-            fun isPortingOrderSingle(): Boolean = portingOrderSingle != null
+            fun isUnionMember0(): Boolean = unionMember0 != null
 
-            fun isPortingOrderStatusLists(): Boolean = portingOrderStatusLists != null
+            fun isUnnamedSchemaWithArrayParent2s(): Boolean = unnamedSchemaWithArrayParent2s != null
 
             /** Filter by single status */
-            fun asPortingOrderSingle(): PortingOrderSingleStatus =
-                portingOrderSingle.getOrThrow("portingOrderSingle")
+            fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
 
             /** Filter by multiple statuses (in operation) */
-            fun asPortingOrderStatusLists(): List<PortingOrderStatusList> =
-                portingOrderStatusLists.getOrThrow("portingOrderStatusLists")
+            fun asUnnamedSchemaWithArrayParent2s(): List<UnnamedSchemaWithArrayParent2> =
+                unnamedSchemaWithArrayParent2s.getOrThrow("unnamedSchemaWithArrayParent2s")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    portingOrderSingle != null ->
-                        visitor.visitPortingOrderSingle(portingOrderSingle)
-                    portingOrderStatusLists != null ->
-                        visitor.visitPortingOrderStatusLists(portingOrderStatusLists)
+                    unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
+                    unnamedSchemaWithArrayParent2s != null ->
+                        visitor.visitUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -920,17 +917,18 @@ private constructor(
                 }
 
                 return other is Status &&
-                    portingOrderSingle == other.portingOrderSingle &&
-                    portingOrderStatusLists == other.portingOrderStatusLists
+                    unionMember0 == other.unionMember0 &&
+                    unnamedSchemaWithArrayParent2s == other.unnamedSchemaWithArrayParent2s
             }
 
-            override fun hashCode(): Int = Objects.hash(portingOrderSingle, portingOrderStatusLists)
+            override fun hashCode(): Int =
+                Objects.hash(unionMember0, unnamedSchemaWithArrayParent2s)
 
             override fun toString(): String =
                 when {
-                    portingOrderSingle != null -> "Status{portingOrderSingle=$portingOrderSingle}"
-                    portingOrderStatusLists != null ->
-                        "Status{portingOrderStatusLists=$portingOrderStatusLists}"
+                    unionMember0 != null -> "Status{unionMember0=$unionMember0}"
+                    unnamedSchemaWithArrayParent2s != null ->
+                        "Status{unnamedSchemaWithArrayParent2s=$unnamedSchemaWithArrayParent2s}"
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -938,14 +936,17 @@ private constructor(
 
                 /** Filter by single status */
                 @JvmStatic
-                fun ofPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus) =
-                    Status(portingOrderSingle = portingOrderSingle)
+                fun ofUnionMember0(unionMember0: UnionMember0) = Status(unionMember0 = unionMember0)
 
                 /** Filter by multiple statuses (in operation) */
                 @JvmStatic
-                fun ofPortingOrderStatusLists(
-                    portingOrderStatusLists: List<PortingOrderStatusList>
-                ) = Status(portingOrderStatusLists = portingOrderStatusLists.toImmutable())
+                fun ofUnnamedSchemaWithArrayParent2s(
+                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                ) =
+                    Status(
+                        unnamedSchemaWithArrayParent2s =
+                            unnamedSchemaWithArrayParent2s.toImmutable()
+                    )
             }
 
             /**
@@ -954,16 +955,16 @@ private constructor(
             interface Visitor<out T> {
 
                 /** Filter by single status */
-                fun visitPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus): T
+                fun visitUnionMember0(unionMember0: UnionMember0): T
 
                 /** Filter by multiple statuses (in operation) */
-                fun visitPortingOrderStatusLists(
-                    portingOrderStatusLists: List<PortingOrderStatusList>
+                fun visitUnnamedSchemaWithArrayParent2s(
+                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
                 ): T
             }
 
             /** Filter by single status */
-            class PortingOrderSingleStatus
+            class UnionMember0
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
 
@@ -995,10 +996,10 @@ private constructor(
 
                     @JvmField val CANCELLED = of("cancelled")
 
-                    @JvmStatic fun of(value: String) = PortingOrderSingleStatus(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = UnionMember0(JsonField.of(value))
                 }
 
-                /** An enum containing [PortingOrderSingleStatus]'s known values. */
+                /** An enum containing [UnionMember0]'s known values. */
                 enum class Known {
                     DRAFT,
                     IN_PROCESS,
@@ -1011,10 +1012,180 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [PortingOrderSingleStatus]'s known values, as well as an
+                 * An enum containing [UnionMember0]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [UnionMember0] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    DRAFT,
+                    IN_PROCESS,
+                    SUBMITTED,
+                    EXCEPTION,
+                    FOC_DATE_CONFIRMED,
+                    CANCEL_PENDING,
+                    PORTED,
+                    CANCELLED,
+                    /**
+                     * An enum member indicating that [UnionMember0] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        DRAFT -> Value.DRAFT
+                        IN_PROCESS -> Value.IN_PROCESS
+                        SUBMITTED -> Value.SUBMITTED
+                        EXCEPTION -> Value.EXCEPTION
+                        FOC_DATE_CONFIRMED -> Value.FOC_DATE_CONFIRMED
+                        CANCEL_PENDING -> Value.CANCEL_PENDING
+                        PORTED -> Value.PORTED
+                        CANCELLED -> Value.CANCELLED
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        DRAFT -> Known.DRAFT
+                        IN_PROCESS -> Known.IN_PROCESS
+                        SUBMITTED -> Known.SUBMITTED
+                        EXCEPTION -> Known.EXCEPTION
+                        FOC_DATE_CONFIRMED -> Known.FOC_DATE_CONFIRMED
+                        CANCEL_PENDING -> Known.CANCEL_PENDING
+                        PORTED -> Known.PORTED
+                        CANCELLED -> Known.CANCELLED
+                        else -> throw TelnyxInvalidDataException("Unknown UnionMember0: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): UnionMember0 = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is UnionMember0 && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            class UnnamedSchemaWithArrayParent2
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val DRAFT = of("draft")
+
+                    @JvmField val IN_PROCESS = of("in-process")
+
+                    @JvmField val SUBMITTED = of("submitted")
+
+                    @JvmField val EXCEPTION = of("exception")
+
+                    @JvmField val FOC_DATE_CONFIRMED = of("foc-date-confirmed")
+
+                    @JvmField val CANCEL_PENDING = of("cancel-pending")
+
+                    @JvmField val PORTED = of("ported")
+
+                    @JvmField val CANCELLED = of("cancelled")
+
+                    @JvmStatic
+                    fun of(value: String) = UnnamedSchemaWithArrayParent2(JsonField.of(value))
+                }
+
+                /** An enum containing [UnnamedSchemaWithArrayParent2]'s known values. */
+                enum class Known {
+                    DRAFT,
+                    IN_PROCESS,
+                    SUBMITTED,
+                    EXCEPTION,
+                    FOC_DATE_CONFIRMED,
+                    CANCEL_PENDING,
+                    PORTED,
+                    CANCELLED,
+                }
+
+                /**
+                 * An enum containing [UnnamedSchemaWithArrayParent2]'s known values, as well as an
                  * [_UNKNOWN] member.
                  *
-                 * An instance of [PortingOrderSingleStatus] can contain an unknown value in a
+                 * An instance of [UnnamedSchemaWithArrayParent2] can contain an unknown value in a
                  * couple of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
@@ -1031,8 +1202,8 @@ private constructor(
                     PORTED,
                     CANCELLED,
                     /**
-                     * An enum member indicating that [PortingOrderSingleStatus] was instantiated
-                     * with an unknown value.
+                     * An enum member indicating that [UnnamedSchemaWithArrayParent2] was
+                     * instantiated with an unknown value.
                      */
                     _UNKNOWN,
                 }
@@ -1078,7 +1249,7 @@ private constructor(
                         CANCELLED -> Known.CANCELLED
                         else ->
                             throw TelnyxInvalidDataException(
-                                "Unknown PortingOrderSingleStatus: $value"
+                                "Unknown UnnamedSchemaWithArrayParent2: $value"
                             )
                     }
 
@@ -1098,7 +1269,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): PortingOrderSingleStatus = apply {
+                fun validate(): UnnamedSchemaWithArrayParent2 = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1128,180 +1299,7 @@ private constructor(
                         return true
                     }
 
-                    return other is PortingOrderSingleStatus && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            class PortingOrderStatusList
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val DRAFT = of("draft")
-
-                    @JvmField val IN_PROCESS = of("in-process")
-
-                    @JvmField val SUBMITTED = of("submitted")
-
-                    @JvmField val EXCEPTION = of("exception")
-
-                    @JvmField val FOC_DATE_CONFIRMED = of("foc-date-confirmed")
-
-                    @JvmField val CANCEL_PENDING = of("cancel-pending")
-
-                    @JvmField val PORTED = of("ported")
-
-                    @JvmField val CANCELLED = of("cancelled")
-
-                    @JvmStatic fun of(value: String) = PortingOrderStatusList(JsonField.of(value))
-                }
-
-                /** An enum containing [PortingOrderStatusList]'s known values. */
-                enum class Known {
-                    DRAFT,
-                    IN_PROCESS,
-                    SUBMITTED,
-                    EXCEPTION,
-                    FOC_DATE_CONFIRMED,
-                    CANCEL_PENDING,
-                    PORTED,
-                    CANCELLED,
-                }
-
-                /**
-                 * An enum containing [PortingOrderStatusList]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [PortingOrderStatusList] can contain an unknown value in a couple
-                 * of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    DRAFT,
-                    IN_PROCESS,
-                    SUBMITTED,
-                    EXCEPTION,
-                    FOC_DATE_CONFIRMED,
-                    CANCEL_PENDING,
-                    PORTED,
-                    CANCELLED,
-                    /**
-                     * An enum member indicating that [PortingOrderStatusList] was instantiated with
-                     * an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        DRAFT -> Value.DRAFT
-                        IN_PROCESS -> Value.IN_PROCESS
-                        SUBMITTED -> Value.SUBMITTED
-                        EXCEPTION -> Value.EXCEPTION
-                        FOC_DATE_CONFIRMED -> Value.FOC_DATE_CONFIRMED
-                        CANCEL_PENDING -> Value.CANCEL_PENDING
-                        PORTED -> Value.PORTED
-                        CANCELLED -> Value.CANCELLED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        DRAFT -> Known.DRAFT
-                        IN_PROCESS -> Known.IN_PROCESS
-                        SUBMITTED -> Known.SUBMITTED
-                        EXCEPTION -> Known.EXCEPTION
-                        FOC_DATE_CONFIRMED -> Known.FOC_DATE_CONFIRMED
-                        CANCEL_PENDING -> Known.CANCEL_PENDING
-                        PORTED -> Known.PORTED
-                        CANCELLED -> Known.CANCELLED
-                        else ->
-                            throw TelnyxInvalidDataException(
-                                "Unknown PortingOrderStatusList: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): PortingOrderStatusList = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is PortingOrderStatusList && value == other.value
+                    return other is UnnamedSchemaWithArrayParent2 && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1560,16 +1558,13 @@ private constructor(
 
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     class Sort
-    private constructor(
-        private val value: SortValue?,
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val value: Value_?, private val additionalProperties: QueryParams) {
 
         /**
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order
          */
-        fun value(): Optional<SortValue> = Optional.ofNullable(value)
+        fun value(): Optional<Value_> = Optional.ofNullable(value)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -1585,7 +1580,7 @@ private constructor(
         /** A builder for [Sort]. */
         class Builder internal constructor() {
 
-            private var value: SortValue? = null
+            private var value: Value_? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -1598,10 +1593,10 @@ private constructor(
              * Specifies the sort order for results. If not given, results are sorted by created_at
              * in descending order
              */
-            fun value(value: SortValue?) = apply { this.value = value }
+            fun value(value: Value_?) = apply { this.value = value }
 
             /** Alias for calling [Builder.value] with `value.orElse(null)`. */
-            fun value(value: Optional<SortValue>) = value(value.getOrNull())
+            fun value(value: Optional<Value_>) = value(value.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -1664,8 +1659,7 @@ private constructor(
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order
          */
-        class SortValue @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
+        class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1683,19 +1677,19 @@ private constructor(
 
                 @JvmField val CREATED_AT = of("created_at")
 
-                @JvmStatic fun of(value: String) = SortValue(JsonField.of(value))
+                @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
             }
 
-            /** An enum containing [SortValue]'s known values. */
+            /** An enum containing [Value_]'s known values. */
             enum class Known {
                 CREATED_AT_DESC,
                 CREATED_AT,
             }
 
             /**
-             * An enum containing [SortValue]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [SortValue] can contain an unknown value in a couple of cases:
+             * An instance of [Value_] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -1705,8 +1699,7 @@ private constructor(
                 CREATED_AT_DESC,
                 CREATED_AT,
                 /**
-                 * An enum member indicating that [SortValue] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Value_] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -1738,7 +1731,7 @@ private constructor(
                 when (this) {
                     CREATED_AT_DESC -> Known.CREATED_AT_DESC
                     CREATED_AT -> Known.CREATED_AT
-                    else -> throw TelnyxInvalidDataException("Unknown SortValue: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
                 }
 
             /**
@@ -1757,7 +1750,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): SortValue = apply {
+            fun validate(): Value_ = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1787,7 +1780,7 @@ private constructor(
                     return true
                 }
 
-                return other is SortValue && value == other.value
+                return other is Value_ && value == other.value
             }
 
             override fun hashCode() = value.hashCode()

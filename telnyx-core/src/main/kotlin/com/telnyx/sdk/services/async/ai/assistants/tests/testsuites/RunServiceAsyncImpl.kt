@@ -18,7 +18,6 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.assistants.tests.runs.TestRunResponse
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.PaginatedTestRunList
-import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunListPageAsync
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunListParams
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunTriggerParams
 import java.util.concurrent.CompletableFuture
@@ -40,7 +39,7 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: RunListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RunListPageAsync> =
+    ): CompletableFuture<PaginatedTestRunList> =
         // get /ai/assistants/tests/test-suites/{suite_name}/runs
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -70,7 +69,7 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
         override fun list(
             params: RunListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RunListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PaginatedTestRunList>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("suiteName", params.suiteName().getOrNull())
@@ -99,14 +98,6 @@ class RunServiceAsyncImpl internal constructor(private val clientOptions: Client
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                RunListPageAsync.builder()
-                                    .service(RunServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }
