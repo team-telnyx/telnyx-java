@@ -30,7 +30,10 @@ import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandVerifySmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.async.number10dlc.brand.ExternalVettingServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.brand.ExternalVettingServiceAsyncImpl
@@ -118,6 +121,20 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     ): CompletableFuture<TelnyxBrand> =
         // put /10dlc/brand/{brandId}/revet
         withRawResponse().revet(params, requestOptions).thenApply { it.parse() }
+
+    override fun triggerSmsOtp(
+        params: BrandTriggerSmsOtpParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandTriggerSmsOtpResponse> =
+        // post /10dlc/brand/{brandId}/smsOtp
+        withRawResponse().triggerSmsOtp(params, requestOptions).thenApply { it.parse() }
+
+    override fun verifySmsOtp(
+        params: BrandVerifySmsOtpParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // put /10dlc/brand/{brandId}/smsOtp
+        withRawResponse().verifySmsOtp(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BrandServiceAsync.WithRawResponse {
@@ -425,6 +442,67 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                     it.validate()
                                 }
                             }
+                    }
+                }
+        }
+
+        private val triggerSmsOtpHandler: Handler<BrandTriggerSmsOtpResponse> =
+            jsonHandler<BrandTriggerSmsOtpResponse>(clientOptions.jsonMapper)
+
+        override fun triggerSmsOtp(
+            params: BrandTriggerSmsOtpParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandTriggerSmsOtpResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "smsOtp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { triggerSmsOtpHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val verifySmsOtpHandler: Handler<Void?> = emptyHandler()
+
+        override fun verifySmsOtp(
+            params: BrandVerifySmsOtpParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "smsOtp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { verifySmsOtpHandler.handle(it) }
                     }
                 }
         }

@@ -14,7 +14,6 @@ internal class JobErrorTest {
         val jobError =
             JobError.builder()
                 .code("10007")
-                .title("Unexpected error")
                 .detail("An unexpected error occured.")
                 .meta(
                     JobError.Meta.builder()
@@ -22,10 +21,10 @@ internal class JobErrorTest {
                         .build()
                 )
                 .source(JobError.Source.builder().parameter("parameter").pointer("/base").build())
+                .title("Unexpected error")
                 .build()
 
-        assertThat(jobError.code()).isEqualTo("10007")
-        assertThat(jobError.title()).isEqualTo("Unexpected error")
+        assertThat(jobError.code()).contains("10007")
         assertThat(jobError.detail()).contains("An unexpected error occured.")
         assertThat(jobError.meta())
             .contains(
@@ -35,6 +34,7 @@ internal class JobErrorTest {
             )
         assertThat(jobError.source())
             .contains(JobError.Source.builder().parameter("parameter").pointer("/base").build())
+        assertThat(jobError.title()).contains("Unexpected error")
     }
 
     @Test
@@ -43,7 +43,6 @@ internal class JobErrorTest {
         val jobError =
             JobError.builder()
                 .code("10007")
-                .title("Unexpected error")
                 .detail("An unexpected error occured.")
                 .meta(
                     JobError.Meta.builder()
@@ -51,6 +50,7 @@ internal class JobErrorTest {
                         .build()
                 )
                 .source(JobError.Source.builder().parameter("parameter").pointer("/base").build())
+                .title("Unexpected error")
                 .build()
 
         val roundtrippedJobError =

@@ -18,7 +18,10 @@ import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandVerifySmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.async.number10dlc.brand.ExternalVettingServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -329,6 +332,86 @@ interface BrandServiceAsync {
     /** @see revet */
     fun revet(brandId: String, requestOptions: RequestOptions): CompletableFuture<TelnyxBrand> =
         revet(brandId, BrandRevetParams.none(), requestOptions)
+
+    /**
+     * Trigger or re-trigger an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     *
+     * **Important Notes:**
+     * * Only allowed for Sole Proprietor (`SOLE_PROPRIETOR`) brands
+     * * Triggers generation of a one-time password sent to the `mobilePhone` number in the brand's
+     *   profile
+     * * Campaigns cannot be created until OTP verification is complete
+     * * US/CA numbers only for real OTPs; mock brands can use non-US/CA numbers for testing
+     * * Returns a `referenceId` that can be used to check OTP status via the GET
+     *   `/10dlc/brand/smsOtp/{referenceId}` endpoint
+     *
+     * **Use Cases:**
+     * * Initial OTP trigger after Sole Proprietor brand creation
+     * * Re-triggering OTP if the user didn't receive or needs a new code
+     */
+    fun triggerSmsOtp(
+        brandId: String,
+        params: BrandTriggerSmsOtpParams,
+    ): CompletableFuture<BrandTriggerSmsOtpResponse> =
+        triggerSmsOtp(brandId, params, RequestOptions.none())
+
+    /** @see triggerSmsOtp */
+    fun triggerSmsOtp(
+        brandId: String,
+        params: BrandTriggerSmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandTriggerSmsOtpResponse> =
+        triggerSmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+    /** @see triggerSmsOtp */
+    fun triggerSmsOtp(
+        params: BrandTriggerSmsOtpParams
+    ): CompletableFuture<BrandTriggerSmsOtpResponse> = triggerSmsOtp(params, RequestOptions.none())
+
+    /** @see triggerSmsOtp */
+    fun triggerSmsOtp(
+        params: BrandTriggerSmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandTriggerSmsOtpResponse>
+
+    /**
+     * Verify the SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     *
+     * **Verification Flow:**
+     * 1. User receives OTP via SMS after triggering
+     * 2. User submits the OTP pin through this endpoint
+     * 3. Upon successful verification:
+     *     - A `BRAND_OTP_VERIFIED` webhook event is sent to the CSP
+     *     - The brand's `identityStatus` changes to `VERIFIED`
+     *     - Campaigns can now be created for this brand
+     *
+     * **Error Handling:**
+     *
+     * Provides proper error responses for:
+     * * Invalid OTP pins
+     * * Expired OTPs
+     * * OTP verification failures
+     */
+    fun verifySmsOtp(brandId: String, params: BrandVerifySmsOtpParams): CompletableFuture<Void?> =
+        verifySmsOtp(brandId, params, RequestOptions.none())
+
+    /** @see verifySmsOtp */
+    fun verifySmsOtp(
+        brandId: String,
+        params: BrandVerifySmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        verifySmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+    /** @see verifySmsOtp */
+    fun verifySmsOtp(params: BrandVerifySmsOtpParams): CompletableFuture<Void?> =
+        verifySmsOtp(params, RequestOptions.none())
+
+    /** @see verifySmsOtp */
+    fun verifySmsOtp(
+        params: BrandVerifySmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
 
     /** A view of [BrandServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -658,5 +741,62 @@ interface BrandServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
             revet(brandId, BrandRevetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/smsOtp`, but is otherwise
+         * the same as [BrandServiceAsync.triggerSmsOtp].
+         */
+        fun triggerSmsOtp(
+            brandId: String,
+            params: BrandTriggerSmsOtpParams,
+        ): CompletableFuture<HttpResponseFor<BrandTriggerSmsOtpResponse>> =
+            triggerSmsOtp(brandId, params, RequestOptions.none())
+
+        /** @see triggerSmsOtp */
+        fun triggerSmsOtp(
+            brandId: String,
+            params: BrandTriggerSmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandTriggerSmsOtpResponse>> =
+            triggerSmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+        /** @see triggerSmsOtp */
+        fun triggerSmsOtp(
+            params: BrandTriggerSmsOtpParams
+        ): CompletableFuture<HttpResponseFor<BrandTriggerSmsOtpResponse>> =
+            triggerSmsOtp(params, RequestOptions.none())
+
+        /** @see triggerSmsOtp */
+        fun triggerSmsOtp(
+            params: BrandTriggerSmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandTriggerSmsOtpResponse>>
+
+        /**
+         * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/smsOtp`, but is otherwise the
+         * same as [BrandServiceAsync.verifySmsOtp].
+         */
+        fun verifySmsOtp(
+            brandId: String,
+            params: BrandVerifySmsOtpParams,
+        ): CompletableFuture<HttpResponse> = verifySmsOtp(brandId, params, RequestOptions.none())
+
+        /** @see verifySmsOtp */
+        fun verifySmsOtp(
+            brandId: String,
+            params: BrandVerifySmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            verifySmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+        /** @see verifySmsOtp */
+        fun verifySmsOtp(params: BrandVerifySmsOtpParams): CompletableFuture<HttpResponse> =
+            verifySmsOtp(params, RequestOptions.none())
+
+        /** @see verifySmsOtp */
+        fun verifySmsOtp(
+            params: BrandVerifySmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
     }
 }

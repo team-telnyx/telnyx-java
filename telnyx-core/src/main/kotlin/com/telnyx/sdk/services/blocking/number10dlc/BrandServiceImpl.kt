@@ -30,7 +30,10 @@ import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandVerifySmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingServiceImpl
@@ -101,6 +104,18 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun revet(params: BrandRevetParams, requestOptions: RequestOptions): TelnyxBrand =
         // put /10dlc/brand/{brandId}/revet
         withRawResponse().revet(params, requestOptions).parse()
+
+    override fun triggerSmsOtp(
+        params: BrandTriggerSmsOtpParams,
+        requestOptions: RequestOptions,
+    ): BrandTriggerSmsOtpResponse =
+        // post /10dlc/brand/{brandId}/smsOtp
+        withRawResponse().triggerSmsOtp(params, requestOptions).parse()
+
+    override fun verifySmsOtp(params: BrandVerifySmsOtpParams, requestOptions: RequestOptions) {
+        // put /10dlc/brand/{brandId}/smsOtp
+        withRawResponse().verifySmsOtp(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BrandService.WithRawResponse {
@@ -380,6 +395,61 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                             it.validate()
                         }
                     }
+            }
+        }
+
+        private val triggerSmsOtpHandler: Handler<BrandTriggerSmsOtpResponse> =
+            jsonHandler<BrandTriggerSmsOtpResponse>(clientOptions.jsonMapper)
+
+        override fun triggerSmsOtp(
+            params: BrandTriggerSmsOtpParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BrandTriggerSmsOtpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "smsOtp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { triggerSmsOtpHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val verifySmsOtpHandler: Handler<Void?> = emptyHandler()
+
+        override fun verifySmsOtp(
+            params: BrandVerifySmsOtpParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "smsOtp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { verifySmsOtpHandler.handle(it) }
             }
         }
     }

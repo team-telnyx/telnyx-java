@@ -19,6 +19,7 @@ import kotlin.jvm.optionals.getOrNull
 class PhoneNumberListParams
 private constructor(
     private val filter: Filter?,
+    private val handleMessagingProfileError: HandleMessagingProfileError?,
     private val page: Page?,
     private val sort: Sort?,
     private val additionalHeaders: Headers,
@@ -32,6 +33,16 @@ private constructor(
      * filter[emergency_address_id], filter[customer_reference], filter[number_type], filter[source]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
+
+    /**
+     * Although it is an infrequent occurrence, due to the highly distributed nature of the Telnyx
+     * platform, it is possible that there will be an issue when loading in Messaging Profile
+     * information. As such, when this parameter is set to `true` and an error in fetching this
+     * information occurs, messaging profile related fields will be omitted in the response and an
+     * error message will be included instead of returning a 503 error.
+     */
+    fun handleMessagingProfileError(): Optional<HandleMessagingProfileError> =
+        Optional.ofNullable(handleMessagingProfileError)
 
     /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
     fun page(): Optional<Page> = Optional.ofNullable(page)
@@ -62,6 +73,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var filter: Filter? = null
+        private var handleMessagingProfileError: HandleMessagingProfileError? = null
         private var page: Page? = null
         private var sort: Sort? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -70,6 +82,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(phoneNumberListParams: PhoneNumberListParams) = apply {
             filter = phoneNumberListParams.filter
+            handleMessagingProfileError = phoneNumberListParams.handleMessagingProfileError
             page = phoneNumberListParams.page
             sort = phoneNumberListParams.sort
             additionalHeaders = phoneNumberListParams.additionalHeaders.toBuilder()
@@ -87,6 +100,26 @@ private constructor(
 
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
+
+        /**
+         * Although it is an infrequent occurrence, due to the highly distributed nature of the
+         * Telnyx platform, it is possible that there will be an issue when loading in Messaging
+         * Profile information. As such, when this parameter is set to `true` and an error in
+         * fetching this information occurs, messaging profile related fields will be omitted in the
+         * response and an error message will be included instead of returning a 503 error.
+         */
+        fun handleMessagingProfileError(handleMessagingProfileError: HandleMessagingProfileError?) =
+            apply {
+                this.handleMessagingProfileError = handleMessagingProfileError
+            }
+
+        /**
+         * Alias for calling [Builder.handleMessagingProfileError] with
+         * `handleMessagingProfileError.orElse(null)`.
+         */
+        fun handleMessagingProfileError(
+            handleMessagingProfileError: Optional<HandleMessagingProfileError>
+        ) = handleMessagingProfileError(handleMessagingProfileError.getOrNull())
 
         /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
         fun page(page: Page?) = apply { this.page = page }
@@ -209,6 +242,7 @@ private constructor(
         fun build(): PhoneNumberListParams =
             PhoneNumberListParams(
                 filter,
+                handleMessagingProfileError,
                 page,
                 sort,
                 additionalHeaders.build(),
@@ -277,6 +311,9 @@ private constructor(
                             put("filter[$key]", value)
                         }
                     }
+                }
+                handleMessagingProfileError?.let {
+                    put("handle_messaging_profile_error", it.toString())
                 }
                 page?.let {
                     it.number().ifPresent { put("page[number]", it.toString()) }
@@ -1756,6 +1793,146 @@ private constructor(
             "Filter{billingGroupId=$billingGroupId, connectionId=$connectionId, countryIsoAlpha2=$countryIsoAlpha2, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, numberType=$numberType, phoneNumber=$phoneNumber, source=$source, status=$status, tag=$tag, voiceConnectionName=$voiceConnectionName, voiceUsagePaymentMethod=$voiceUsagePaymentMethod, withoutTags=$withoutTags, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Although it is an infrequent occurrence, due to the highly distributed nature of the Telnyx
+     * platform, it is possible that there will be an issue when loading in Messaging Profile
+     * information. As such, when this parameter is set to `true` and an error in fetching this
+     * information occurs, messaging profile related fields will be omitted in the response and an
+     * error message will be included instead of returning a 503 error.
+     */
+    class HandleMessagingProfileError
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TRUE = of("true")
+
+            @JvmField val FALSE = of("false")
+
+            @JvmStatic fun of(value: String) = HandleMessagingProfileError(JsonField.of(value))
+        }
+
+        /** An enum containing [HandleMessagingProfileError]'s known values. */
+        enum class Known {
+            TRUE,
+            FALSE,
+        }
+
+        /**
+         * An enum containing [HandleMessagingProfileError]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [HandleMessagingProfileError] can contain an unknown value in a couple of
+         * cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TRUE,
+            FALSE,
+            /**
+             * An enum member indicating that [HandleMessagingProfileError] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TRUE -> Value.TRUE
+                FALSE -> Value.FALSE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TRUE -> Known.TRUE
+                FALSE -> Known.FALSE
+                else ->
+                    throw TelnyxInvalidDataException("Unknown HandleMessagingProfileError: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): HandleMessagingProfileError = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is HandleMessagingProfileError && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
     class Page
     private constructor(
@@ -2045,6 +2222,7 @@ private constructor(
 
         return other is PhoneNumberListParams &&
             filter == other.filter &&
+            handleMessagingProfileError == other.handleMessagingProfileError &&
             page == other.page &&
             sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
@@ -2052,8 +2230,15 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(filter, page, sort, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            filter,
+            handleMessagingProfileError,
+            page,
+            sort,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "PhoneNumberListParams{filter=$filter, page=$page, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PhoneNumberListParams{filter=$filter, handleMessagingProfileError=$handleMessagingProfileError, page=$page, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
